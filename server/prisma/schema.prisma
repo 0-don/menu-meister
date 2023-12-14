@@ -15,8 +15,82 @@ generator nestgraphql {
   graphqlScalars_Bytes_specifier = "graphql-upload-minimal"
 }
 
+model Token {
+  id String @id @default(cuid())
+
+  token     String   @unique
+  expiresIn DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  /// @HideField({ output: false, input: true })
+  createdBy String
+  /// @HideField({ output: false, input: true })
+  updatedBy String
+
+  createdByUser User @relation("CreatedToken", fields: [createdBy], references: [id])
+  updatedByUser User @relation("UpdatedToken", fields: [updatedBy], references: [id])
+}
+
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id       String @id @default(cuid())
+  /// @HideField({ output: true, input: true })
+  password String
+  username String @unique
+  email    String @unique
+
+  lastOnline DateTime @default(now())
+  status     Boolean  @default(true)
+
+  description String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  /// @HideField({ output: false, input: true })
+  createdBy String?
+  /// @HideField({ output: false, input: true })
+  updatedBy String?
+
+  createdByUser User? @relation("CreatedUser", fields: [createdBy], references: [id])
+  updatedByUser User? @relation("UpdatedUser", fields: [updatedBy], references: [id])
+
+  createdToken     Token[]    @relation("CreatedToken")
+  updatedToken     Token[]    @relation("UpdatedToken")
+  createdUser      User[]     @relation("CreatedUser")
+  updatedUser      User[]     @relation("UpdatedUser")
+  createdUserRoles UserRole[] @relation("CreatedUserRole")
+  updatedUserRoles UserRole[] @relation("UpdatedUserRole")
+
+  UserRole UserRole[]
+}
+
+model UserRole {
+  id     String       @id @default(cuid())
+  userId String
+  name   UserRoleName
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  /// @HideField({ output: false, input: true })
+  createdBy String
+  /// @HideField({ output: false, input: true })
+  updatedBy String
+
+  createdByUser User @relation("CreatedUserRole", fields: [createdBy], references: [id])
+  updatedByUser User @relation("UpdatedUserRole", fields: [updatedBy], references: [id])
+
+  User User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, name], name: "user_role_userId_name_unique")
+}
+
+enum UserRoleName {
+  ADMIN
+  MOD
+  VENDOR
+  USER
+  GUEST
 }
