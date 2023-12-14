@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator nestgraphql {
+  provider                       = "node node_modules/prisma-nestjs-graphql"
+  output                         = "../src/app_modules/@generated"
+  // noAtomicOperations             = true
+  graphqlScalars_Bytes_name      = "GraphQLUpload"
+  graphqlScalars_Bytes_specifier = "graphql-upload-minimal"
+}
