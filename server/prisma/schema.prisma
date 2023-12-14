@@ -90,7 +90,6 @@ model UserRole {
 enum UserRoleName {
   ADMIN
   MOD
-  VENDOR
   USER
   GUEST
 }
