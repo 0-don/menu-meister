@@ -1,4 +1,13 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {}
+const { loadEnvConfig } = require("@next/env");
+const withNextIntl = require("next-intl/plugin")();
 
-module.exports = nextConfig
+loadEnvConfig(process.cwd());
+
+/** @type {import('next').NextConfig} */
+const config = {
+  poweredByHeader: false,
+};
+
+module.exports = withNextIntl({
+  ...config,
+});
