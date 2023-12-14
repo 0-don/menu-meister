@@ -15,7 +15,7 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.meal-manager-web.rule=Host(`meal-manager.coding.global`)'
-      - 'traefik.http.routers.meal-manager-web.entrypoints=https'
+      - 'traefik.http.routers.meal-manager-web.entrypoints=websecure'
       - 'traefik.http.routers.meal-manager-web.tls.certresolver=letsencrypt'
       - 'traefik.http.services.meal-manager-web.loadbalancer.server.port=3000'
   meal-manager-server:
@@ -37,7 +37,7 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.meal-manager-server.rule=Host(`meal-manager.coding.global`) && PathPrefix(`/graphql`)'
-      - 'traefik.http.routers.meal-manager-server.entrypoints=https'
+      - 'traefik.http.routers.meal-manager-server.entrypoints=websecure'
       - 'traefik.http.routers.meal-manager-server.tls.certresolver=letsencrypt'
       - 'traefik.http.services.meal-manager-server.loadbalancer.server.port=4000'
   meal-manager-db:
