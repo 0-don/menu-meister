@@ -1,0 +1,34 @@
+name: Docker Prod
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [MAIN]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create env file (ROOT)
+        run: |
+          touch .env
+          echo MYSQL_USER=${{ secrets.MYSQL_USER }} >> .env
+          echo MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} >> .env
+          echo MYSQL_HOST=${{ secrets.MYSQL_HOST }} >> .env
+          echo MYSQL_DB=${{ secrets.MYSQL_DB }} >> .env
+          echo SECRET=${{ secrets.SECRET }} >> .env
+          echo CORS_ORIGIN=${{ secrets.CORS_ORIGIN }} >> .env
+          echo PORT=${{ secrets.PORT }} >> .env
+          echo NEXT_PUBLIC_GRAPHQL_ENDPOINT=${{ secrets.NEXT_PUBLIC_GRAPHQL_ENDPOINT }} >> .env
+
+      - name: Reset DB
+        run: docker stop terra-track-db || true && docker rm terra-track-db || true
+
+      - name: Docker run
+        run: docker compose up -d --force-recreate --build

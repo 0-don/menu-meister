@@ -24,8 +24,7 @@ services:
       target: prod
     restart: always
     environment:
-      - DATABASE_URL=${DATABASE_URL}
-      - CORS_ORIGIN=${CORS_ORIGIN}
+      - DATABASE_URL=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}/${MYSQL_DB}
       - SECRET=${SECRET}
     depends_on:
       - meal-manager-db

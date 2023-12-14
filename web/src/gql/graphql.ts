@@ -18,6 +18,29 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type BoolFilter = {
+  equals?: InputMaybe<Scalars['Boolean']['input']>;
+  not?: InputMaybe<NestedBoolFilter>;
+};
+
+export type DateTimeFilter = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
+  in?: InputMaybe<Array<Scalars['DateTime']['input']>>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
+  not?: InputMaybe<NestedDateTimeFilter>;
+  notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
+};
+
+export type EnumUserRoleNameFilter = {
+  equals?: InputMaybe<UserRoleName>;
+  in?: InputMaybe<Array<UserRoleName>>;
+  not?: InputMaybe<NestedEnumUserRoleNameFilter>;
+  notIn?: InputMaybe<Array<UserRoleName>>;
+};
+
 export type LoginUserInput = {
   password: Scalars['String']['input'];
   username: Scalars['String']['input'];
@@ -29,6 +52,7 @@ export type Mutation = {
   loginUser?: Maybe<User>;
   logout?: Maybe<Scalars['Boolean']['output']>;
   registerUser?: Maybe<User>;
+  updateUserUser: Scalars['Boolean']['output'];
 };
 
 
@@ -47,14 +71,77 @@ export type MutationRegisterUserArgs = {
   data: RegisterUserInput;
 };
 
+export type NestedBoolFilter = {
+  equals?: InputMaybe<Scalars['Boolean']['input']>;
+  not?: InputMaybe<NestedBoolFilter>;
+};
+
+export type NestedDateTimeFilter = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
+  in?: InputMaybe<Array<Scalars['DateTime']['input']>>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
+  not?: InputMaybe<NestedDateTimeFilter>;
+  notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
+};
+
+export type NestedEnumUserRoleNameFilter = {
+  equals?: InputMaybe<UserRoleName>;
+  in?: InputMaybe<Array<UserRoleName>>;
+  not?: InputMaybe<NestedEnumUserRoleNameFilter>;
+  notIn?: InputMaybe<Array<UserRoleName>>;
+};
+
+export type NestedStringFilter = {
+  contains?: InputMaybe<Scalars['String']['input']>;
+  endsWith?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  gt?: InputMaybe<Scalars['String']['input']>;
+  gte?: InputMaybe<Scalars['String']['input']>;
+  in?: InputMaybe<Array<Scalars['String']['input']>>;
+  lt?: InputMaybe<Scalars['String']['input']>;
+  lte?: InputMaybe<Scalars['String']['input']>;
+  not?: InputMaybe<NestedStringFilter>;
+  notIn?: InputMaybe<Array<Scalars['String']['input']>>;
+  startsWith?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Query = {
+  getAllUsersUser?: Maybe<Array<User>>;
   me?: Maybe<User>;
+};
+
+
+export type QueryGetAllUsersUserArgs = {
+  orderBy?: InputMaybe<UserOrderByWithRelationInput>;
+  where?: InputMaybe<UserWhereInput>;
 };
 
 export type RegisterUserInput = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
   username: Scalars['String']['input'];
+};
+
+export enum SortOrder {
+  Asc = 'asc',
+  Desc = 'desc'
+}
+
+export type StringFilter = {
+  contains?: InputMaybe<Scalars['String']['input']>;
+  endsWith?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  gt?: InputMaybe<Scalars['String']['input']>;
+  gte?: InputMaybe<Scalars['String']['input']>;
+  in?: InputMaybe<Array<Scalars['String']['input']>>;
+  lt?: InputMaybe<Scalars['String']['input']>;
+  lte?: InputMaybe<Scalars['String']['input']>;
+  not?: InputMaybe<NestedStringFilter>;
+  notIn?: InputMaybe<Array<Scalars['String']['input']>>;
+  startsWith?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Token = {
@@ -67,6 +154,29 @@ export type Token = {
   updatedAt: Scalars['DateTime']['output'];
   updatedBy: Scalars['String']['output'];
   updatedByUser: User;
+};
+
+export type TokenListRelationFilter = {
+  every?: InputMaybe<TokenWhereInput>;
+  none?: InputMaybe<TokenWhereInput>;
+  some?: InputMaybe<TokenWhereInput>;
+};
+
+export type TokenOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type TokenWhereInput = {
+  AND?: InputMaybe<Array<TokenWhereInput>>;
+  NOT?: InputMaybe<Array<TokenWhereInput>>;
+  OR?: InputMaybe<Array<TokenWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdByUser?: InputMaybe<UserRelationFilter>;
+  expiresIn?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  token?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedByUser?: InputMaybe<UserRelationFilter>;
 };
 
 export type User = {
@@ -101,6 +211,45 @@ export type UserCount = {
   updatedUserRoles: Scalars['Int']['output'];
 };
 
+export type UserListRelationFilter = {
+  every?: InputMaybe<UserWhereInput>;
+  none?: InputMaybe<UserWhereInput>;
+  some?: InputMaybe<UserWhereInput>;
+};
+
+export type UserNullableRelationFilter = {
+  is?: InputMaybe<UserWhereInput>;
+  isNot?: InputMaybe<UserWhereInput>;
+};
+
+export type UserOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type UserOrderByWithRelationInput = {
+  UserRole?: InputMaybe<UserRoleOrderByRelationAggregateInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  createdByUser?: InputMaybe<UserOrderByWithRelationInput>;
+  createdToken?: InputMaybe<TokenOrderByRelationAggregateInput>;
+  createdUser?: InputMaybe<UserOrderByRelationAggregateInput>;
+  createdUserRoles?: InputMaybe<UserRoleOrderByRelationAggregateInput>;
+  email?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  lastOnline?: InputMaybe<SortOrder>;
+  status?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+  updatedByUser?: InputMaybe<UserOrderByWithRelationInput>;
+  updatedToken?: InputMaybe<TokenOrderByRelationAggregateInput>;
+  updatedUser?: InputMaybe<UserOrderByRelationAggregateInput>;
+  updatedUserRoles?: InputMaybe<UserRoleOrderByRelationAggregateInput>;
+  username?: InputMaybe<SortOrder>;
+};
+
+export type UserRelationFilter = {
+  is?: InputMaybe<UserWhereInput>;
+  isNot?: InputMaybe<UserWhereInput>;
+};
+
 export type UserRole = {
   User: User;
   createdAt: Scalars['DateTime']['output'];
@@ -114,6 +263,12 @@ export type UserRole = {
   userId: Scalars['String']['output'];
 };
 
+export type UserRoleListRelationFilter = {
+  every?: InputMaybe<UserRoleWhereInput>;
+  none?: InputMaybe<UserRoleWhereInput>;
+  some?: InputMaybe<UserRoleWhereInput>;
+};
+
 export enum UserRoleName {
   Admin = 'ADMIN',
   Guest = 'GUEST',
@@ -121,10 +276,58 @@ export enum UserRoleName {
   User = 'USER'
 }
 
+export type UserRoleOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type UserRoleWhereInput = {
+  AND?: InputMaybe<Array<UserRoleWhereInput>>;
+  NOT?: InputMaybe<Array<UserRoleWhereInput>>;
+  OR?: InputMaybe<Array<UserRoleWhereInput>>;
+  User?: InputMaybe<UserRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdByUser?: InputMaybe<UserRelationFilter>;
+  id?: InputMaybe<StringFilter>;
+  name?: InputMaybe<EnumUserRoleNameFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedByUser?: InputMaybe<UserRelationFilter>;
+  userId?: InputMaybe<StringFilter>;
+};
+
+export type UserWhereInput = {
+  AND?: InputMaybe<Array<UserWhereInput>>;
+  NOT?: InputMaybe<Array<UserWhereInput>>;
+  OR?: InputMaybe<Array<UserWhereInput>>;
+  UserRole?: InputMaybe<UserRoleListRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdByUser?: InputMaybe<UserNullableRelationFilter>;
+  createdToken?: InputMaybe<TokenListRelationFilter>;
+  createdUser?: InputMaybe<UserListRelationFilter>;
+  createdUserRoles?: InputMaybe<UserRoleListRelationFilter>;
+  email?: InputMaybe<StringFilter>;
+  id?: InputMaybe<StringFilter>;
+  lastOnline?: InputMaybe<DateTimeFilter>;
+  status?: InputMaybe<BoolFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedByUser?: InputMaybe<UserNullableRelationFilter>;
+  updatedToken?: InputMaybe<TokenListRelationFilter>;
+  updatedUser?: InputMaybe<UserListRelationFilter>;
+  updatedUserRoles?: InputMaybe<UserRoleListRelationFilter>;
+  username?: InputMaybe<StringFilter>;
+};
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MeQuery = { me?: { id: string, username: string, lastOnline: any, createdAt: any, updatedAt: any, UserRole?: Array<{ id: string, name: UserRoleName }> | null } | null };
 
+export type GetAllUsersUserQueryVariables = Exact<{
+  where?: InputMaybe<UserWhereInput>;
+}>;
+
+
+export type GetAllUsersUserQuery = { getAllUsersUser?: Array<{ id: string }> | null };
+
 
 export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"lastOnline"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"UserRole"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
+export const GetAllUsersUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllUsersUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserWhereInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllUsersUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<GetAllUsersUserQuery, GetAllUsersUserQueryVariables>;
