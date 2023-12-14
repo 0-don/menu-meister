@@ -1,4 +1,4 @@
-import QueryProvider from "@/components/QueryProvider";
+import Providers from "@/components/Providers";
 import { Alerts } from "@/components/utils/Alerts";
 import { localePath } from "@/utils/constants";
 import {
@@ -6,20 +6,12 @@ import {
   onErrorTranslation,
 } from "@/utils/helpers/translationHelper";
 import { NextIntlClientProvider } from "next-intl";
-import { Chakra_Petch } from "next/font/google";
 import { ReactElement } from "react";
 
 type LocaleLayoutProps = {
   children: ReactElement;
   params: { locale: string };
 };
-
-export const font = Chakra_Petch({
-  weight: ["300", "400", "500", "700"],
-  style: ["normal"],
-  display: "swap",
-  subsets: ["latin"],
-});
 
 export default async function LocaleLayout({
   children,
@@ -30,7 +22,7 @@ export default async function LocaleLayout({
       <head>
         <title>Meal Manager</title>
       </head>
-      <body style={font.style}>
+      <body>
         <NextIntlClientProvider
           locale={params.locale}
           messages={(await localePath(params.locale)).Auth}
@@ -39,7 +31,7 @@ export default async function LocaleLayout({
         >
           <Alerts />
         </NextIntlClientProvider>
-        <QueryProvider>{children}</QueryProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
