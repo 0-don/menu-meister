@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  meal-manager-web:
+    container_name: meal-manager-web
+    build:
+      context: web/
+      dockerfile: Dockerfile
+      target: prod
+    restart: always
+    networks:
+      - proxy
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.meal-manager-web.rule=Host(`meal-manager.coding.global`)'
+      - 'traefik.http.routers.meal-manager-web.entrypoints=https'
+      - 'traefik.http.routers.meal-manager-web.tls.certresolver=letsencrypt'
+      - 'traefik.http.services.meal-manager-web.loadbalancer.server.port=3000'
+  meal-manager-server:
+    container_name: meal-manager-server
+    build:
+      context: server/
+      dockerfile: Dockerfile
+      target: prod
+    restart: always
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - CORS_ORIGIN=${CORS_ORIGIN}
+      - SECRET=${SECRET}
+    depends_on:
+      - meal-manager-db
+    networks:
+      - proxy
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.meal-manager-server.rule=Host(`meal-manager.coding.global`) && PathPrefix(`/graphql`)'
+      - 'traefik.http.routers.meal-manager-server.entrypoints=https'
+      - 'traefik.http.routers.meal-manager-server.tls.certresolver=letsencrypt'
+      - 'traefik.http.services.meal-manager-server.loadbalancer.server.port=4000' 
+  meal-manager-db:
+    container_name: meal-manager-db
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+    networks:
+      - proxy
