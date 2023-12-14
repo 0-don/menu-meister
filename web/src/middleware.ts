@@ -1,6 +1,7 @@
 import createIntlMiddleware from "next-intl/middleware";
 import { NextRequest } from "next/server";
-import { LOCALES } from "./navigation";
+
+export const LOCALES = ["en", "de"] as const;
 
 export default async function middleware(request: NextRequest) {
   const defaultLocale = (request.headers.get("x-default-locale") ||
