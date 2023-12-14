@@ -1,0 +1,20 @@
+{
+  "Auth": {
+    "REGISTER_HEADER": "Register",
+    "LOGIN_HEADER": "Login",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "LOGIN_BUTTON": "Log In",
+    "REGISTER_BUTTON": "Register",
+    "OR": "OR",
+    "NEW_ACCOUNT_BUTTON": "Create a new account",
+    "FORGOT_PASSWORD": "Forgot password?",
+    "WRONG_CAPTCHA": "Captcha is incorrect",
+    "ACCOUNT_LOGGED_IN": "Account Logged in",
+    "ACCOUNT_NOT_FOUND": "Account not found",
+    "ACCOUNT_CREATED": "Account created",
+    "SOMETHING_WENT_WRONG": "Something went wrong",
+    "USER_EXISTS": "User already exists",
+    "USER_WITH_SPACE": "No spaces allowed"
+  }
+}

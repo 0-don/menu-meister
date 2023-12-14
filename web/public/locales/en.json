@@ -1,0 +1,20 @@
+{
+  "Auth": {
+    "REGISTER_HEADER": "Registrieren",
+    "LOGIN_HEADER": "Anmeldung",
+    "USERNAME": "Nutzername",
+    "PASSWORD": "Passwort",
+    "LOGIN_BUTTON": "Anmeldung",
+    "REGISTER_BUTTON": "Registrieren",
+    "OR": "ODER",
+    "NEW_ACCOUNT_BUTTON": "Ein neues Konto erstellen",
+    "FORGOT_PASSWORD": "Passwort vergessen?",
+    "WRONG_CAPTCHA": "Captcha ist falsch",
+    "ACCOUNT_LOGGED_IN": "Konto angemeldet",
+    "ACCOUNT_NOT_FOUND": "Konto nicht gefunden",
+    "ACCOUNT_CREATED": "Account erstellt",
+    "SOMETHING_WENT_WRONG": "Etwas ist schief gelaufen",
+    "USER_EXISTS": "Benutzer existiert bereits",
+    "USER_WITH_SPACE": "Keine Leerzeichen im Benutzernamen erlaubt"
+  }
+}
