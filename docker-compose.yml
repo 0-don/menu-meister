@@ -49,3 +49,9 @@ services:
       MYSQL_DATABASE: ${MYSQL_DB}
     networks:
       - proxy
+
+      
+networks:
+  proxy:
+    external: false
+    name: proxy
