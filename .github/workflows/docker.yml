@@ -27,8 +27,8 @@ jobs:
           echo PORT=${{ secrets.PORT }} >> .env
           echo NEXT_PUBLIC_GRAPHQL_ENDPOINT=${{ secrets.NEXT_PUBLIC_GRAPHQL_ENDPOINT }} >> .env
 
-      - name: Reset DB
-        run: docker stop terra-track-db || true && docker rm terra-track-db || true
+      # - name: Reset DB
+      #   run: docker stop meal-manager-db || true && docker rm meal-manager-db || true
 
       - name: Docker run
         run: docker compose up -d --force-recreate --build
