@@ -22,7 +22,6 @@
     "react": "^18",
     "next-intl": "3.3.2",
     "react-spring": "^9.7.3",
-    "react-use-measure": "^2.1.1",
     "react-dom": "^18",
     "next": "14.0.4",
     "valtio": "^1.12.1"
@@ -31,6 +30,7 @@
     "@graphql-codegen/cli": "^5.0.0",
     "@graphql-codegen/client-preset": "^4.1.0",
     "@graphql-typed-document-node/core": "^3.2.0",
+    "@parcel/watcher": "^2.3.0",
     "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
