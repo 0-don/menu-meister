@@ -34,7 +34,6 @@ COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/tsconfig.json ./tsconfig.json
 
-
 EXPOSE 4000
 
 CMD yarn start
