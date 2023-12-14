@@ -16,12 +16,12 @@ export function ThemeSwitcher() {
 
   return (
     <Switch
-      defaultSelected
       size="lg"
       color="secondary"
+      defaultSelected={theme === "dark"}
       onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
       thumbIcon={({ isSelected, className }) =>
-        isSelected ? (
+        !isSelected ? (
           <RiSunFill className={className} />
         ) : (
           <IoIosMoon className={className} />
