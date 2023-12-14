@@ -1,6 +1,5 @@
 import { GraphQLContext, JwtUser } from "@/app_modules/@types/types";
 import { Args, Context, Mutation, Query, Resolver } from "@nestjs/graphql";
-
 import { COOKIE_NAME, COOKIE_SERIALIZE_OPTIONS } from "src/constants";
 import { User } from "../../app_modules/@generated/user/user.model";
 import { CurrentUser } from "../../app_modules/decorators/currentUser.decorator";
