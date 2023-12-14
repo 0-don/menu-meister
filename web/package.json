@@ -15,7 +15,6 @@
     "gen": "npx graphql-code-generator"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.17",
     "@nextui-org/react": "^2.2.9",
     "@react-icons/all-files": "^4.1.0",
     "@tanstack/react-query": "^5.13.4",

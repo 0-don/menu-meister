@@ -5,6 +5,7 @@ import { Button } from "@nextui-org/react";
 export default function Home() {
   return (
     <main className="flex min-h-screen items-center justify-center space-x-5">
+      <Button>Test</Button>
       <Link href="/login">
         <Button>Login</Button>
       </Link>
