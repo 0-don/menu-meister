@@ -3,7 +3,7 @@ name: Docker Prod
 on:
   workflow_dispatch:
   push:
-    branches: [MAIN]
+    branches: [main]
 
 jobs:
   build:
