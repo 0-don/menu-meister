@@ -14,3 +14,9 @@ generator nestgraphql {
   graphqlScalars_Bytes_name      = "GraphQLUpload"
   graphqlScalars_Bytes_specifier = "graphql-upload-minimal"
 }
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+}

@@ -11,7 +11,8 @@
     "format": "prettier -w \"src/**/*.ts\"",
     "typecheck": "tsc --noEmit --incremental false",
     "fix": "npm run typecheck && npm run lint && npm run format",
-    "prisma": "npx prisma migrate dev --name init & npx prisma generate"
+    "prisma": "npx prisma migrate dev --name init & npx prisma generate",
+    "postinstall": "npx prisma generate"
   },
   "dependencies": {
     "@nestjs/common": "^10.2.10",
@@ -31,8 +32,7 @@
     "nestjs-request-context": "^3.0.0",
     "psl": "^1.9.0",
     "graphql-yoga": "^5.0.2",
-    "rxjs": "^7.8.1",
-    "@fastify/secure-session": "^7.1.0"
+    "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.3.1",
