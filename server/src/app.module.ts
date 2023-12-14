@@ -3,6 +3,7 @@ import { Module } from "@nestjs/common";
 import { GraphQLModule } from "@nestjs/graphql";
 import { JwtModule } from "@nestjs/jwt";
 import { RequestContextModule } from "nestjs-request-context";
+import { AuthModule } from "./auth/auth.module";
 import { graphqlModuleFactory } from "./graphql";
 
 @Module({
@@ -10,6 +11,7 @@ import { graphqlModuleFactory } from "./graphql";
     GraphQLModule.forRoot<YogaDriverConfig<"fastify">>(graphqlModuleFactory()),
     JwtModule.register({ secret: process.env.SECRET }),
     RequestContextModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
