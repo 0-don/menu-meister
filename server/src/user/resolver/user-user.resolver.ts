@@ -33,7 +33,7 @@ export class UserUserResolver {
     orderBy: UserOrderByWithRelationInput,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value.select;
+    const select = new PrismaSelect(info).value;
     return await this.prisma.user.findMany({
       where,
       orderBy,

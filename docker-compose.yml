@@ -7,6 +7,8 @@ services:
       context: web/
       dockerfile: Dockerfile
       target: prod
+      args:
+        - NEXT_PUBLIC_GRAPHQL_ENDPOINT=${NEXT_PUBLIC_GRAPHQL_ENDPOINT}
     restart: always
     networks:
       - proxy
@@ -26,6 +28,8 @@ services:
     environment:
       - DATABASE_URL=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}/${MYSQL_DB}
       - SECRET=${SECRET}
+      - PORT=${PORT}
+      - CORS_ORIGIN=${CORS_ORIGIN}
     depends_on:
       - meal-manager-db
     networks:
@@ -35,7 +39,7 @@ services:
       - 'traefik.http.routers.meal-manager-server.rule=Host(`meal-manager.coding.global`) && PathPrefix(`/graphql`)'
       - 'traefik.http.routers.meal-manager-server.entrypoints=https'
       - 'traefik.http.routers.meal-manager-server.tls.certresolver=letsencrypt'
-      - 'traefik.http.services.meal-manager-server.loadbalancer.server.port=4000' 
+      - 'traefik.http.services.meal-manager-server.loadbalancer.server.port=4000'
   meal-manager-db:
     container_name: meal-manager-db
     image: mysql:latest
