@@ -34,7 +34,7 @@
     "graphql-yoga": "^5.0.2",
     "nestjs-request-context": "^3.0.0",
     "psl": "^1.9.0",
-    "reflect-metadata": "^0.2.0",
+    "reflect-metadata": "^0.2.1",
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
