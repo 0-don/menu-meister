@@ -1,4 +1,3 @@
-
 import { ThemeSwitch } from "@/components/utils/ThemeSwitch";
 import { Link } from "@/navigation";
 import { Button } from "@nextui-org/button";
