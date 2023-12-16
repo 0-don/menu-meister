@@ -3,6 +3,8 @@
 import { usePathname, useRouter } from "@/navigation";
 import { Button } from "@nextui-org/button";
 import { SwitchProps } from "@nextui-org/switch";
+import de from "@public/images/flags/de.svg";
+import en from "@public/images/flags/en.svg";
 import Image from "next/image";
 import React from "react";
 
@@ -25,10 +27,11 @@ export const LanguageSwitch: React.FC<LanguageSwitchProps> = ({ locale }) => {
         router.replace(pathname, { locale: locale === "en" ? "de" : "en" })
       }
     >
-      <Image
-        src={require(`@public/images/flags/${locale}.svg`)}
-        alt={`${locale}`}
-      />
+      {/* {locale === "en" ? (
+        <Image src={en} alt={`${locale}`} />
+      ) : (
+        <Image src={de} alt={`${locale}`} />
+      )} */}
     </Button>
   );
 };
