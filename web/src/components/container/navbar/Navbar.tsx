@@ -66,7 +66,6 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
           <ThemeSwitch />
           <Profile />
         </NavbarItem>
-        {/* <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem> */}
       </NavbarContent>
 
       <NavbarContent className="basis-1 pl-4 sm:hidden" justify="end">
@@ -78,17 +77,6 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
         <Profile />
         <NavbarMenuToggle />
       </NavbarContent>
-
-      {/* <NavbarMenu>
-        {searchInput}
-        <div className="mx-4 mt-2 flex flex-col gap-2">
-          <NavbarMenuItem key={`/`}>
-            <Link color={"foreground"} href="#" size="lg">
-              Home
-            </Link>
-          </NavbarMenuItem>
-        </div>
-      </NavbarMenu> */}
     </NextUINavbar>
   );
 };

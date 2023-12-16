@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@nextui-org/button";
 import {
   Dropdown,
@@ -8,6 +9,7 @@ import {
 } from "@nextui-org/dropdown";
 import { User } from "@nextui-org/user";
 import { FaPlus } from "@react-icons/all-files/fa/FaPlus";
+import { FaUser } from "@react-icons/all-files/fa/FaUser";
 
 export const Profile = () => {
   return (
@@ -19,13 +21,13 @@ export const Profile = () => {
         content: "p-0 border-small border-divider bg-background",
       }}
     >
-      <DropdownTrigger>
-        <Button variant="ghost" disableRipple>
-          Open Menu
+      <DropdownTrigger className="!w-1">
+        <Button isIconOnly variant="flat">
+          <FaUser />
         </Button>
       </DropdownTrigger>
       <DropdownMenu
-        aria-label="Custom item styles"
+        aria-label="Profile"
         disabledKeys={["profile"]}
         className="p-3"
         itemClasses={{
