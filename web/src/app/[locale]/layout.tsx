@@ -19,12 +19,7 @@ export default async function LocaleLayout({
   params,
 }: LocaleLayoutProps) {
   return (
-    <html
-      lang={params.locale}
-      className="dark"
-      style={{ colorScheme: "dark" }}
-      data-theme="dark"
-    >
+    <html lang={params.locale} suppressHydrationWarning>
       <head>
         <title>Meal Manager</title>
       </head>
