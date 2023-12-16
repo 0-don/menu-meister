@@ -5,8 +5,8 @@ export const LOCALES = ["de", "en"] as const;
 export default createMiddleware({
   locales: LOCALES,
   defaultLocale: "de",
-  localePrefix: "as-needed",
-  localeDetection: false,
+  localePrefix: "always",
+  localeDetection: true,
 });
 
 export const config = {

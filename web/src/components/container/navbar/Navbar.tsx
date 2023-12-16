@@ -23,7 +23,7 @@ export const Navbar = () => {
           </NextLink>
         </NavbarBrand>
         <ul className="ml-2 hidden justify-start gap-4 lg:flex">
-          <NavbarItem key={"/"}>
+          <NavbarItem>
             <NextLink
               className={clsx(
                 linkStyles({ color: "foreground" }),
@@ -35,7 +35,7 @@ export const Navbar = () => {
               Home
             </NextLink>
           </NavbarItem>
-          <NavbarItem key={"/"}>
+          <NavbarItem>
             <NextLink
               className={clsx(
                 linkStyles({ color: "foreground" }),
