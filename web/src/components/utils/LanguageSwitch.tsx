@@ -1,6 +1,6 @@
 "use client";
 
-import { Link, usePathname, useRouter } from "@/navigation";
+import { usePathname, useRouter } from "@/navigation";
 import { SwitchProps, useSwitch } from "@nextui-org/switch";
 import de from "@public/images/flags/de.svg";
 import en from "@public/images/flags/en.svg";
@@ -33,13 +33,6 @@ export const LanguageSwitch: React.FC<LanguageSwitchProps> = ({
 
   return (
     <>
-      <Link href={pathname} locale="de">
-        de
-      </Link>
-      <Link href={pathname} locale="en">
-        en
-      </Link>
-
       <Component {...getBaseProps()}>
         <VisuallyHidden>
           <input {...getInputProps()} />

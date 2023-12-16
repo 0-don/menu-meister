@@ -14,6 +14,7 @@ import { IoSearch } from "@react-icons/all-files/io5/IoSearch";
 import clsx from "clsx";
 
 import React from "react";
+import { Profile } from "./Profile";
 
 interface NavbarProps {
   locale?: string;
@@ -63,6 +64,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
         <NavbarItem className="hidden gap-2 sm:flex">
           <LanguageSwitch locale={locale} />
           <ThemeSwitch />
+          <Profile />
         </NavbarItem>
         {/* <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem> */}
       </NavbarContent>
@@ -73,6 +75,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
         </Link>
         <LanguageSwitch locale={locale} />
         <ThemeSwitch />
+        <Profile />
         <NavbarMenuToggle />
       </NavbarContent>
 
