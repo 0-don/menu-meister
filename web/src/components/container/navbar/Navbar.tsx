@@ -48,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
                 "data-[active=true]:font-medium data-[active=true]:text-primary",
               )}
               color="foreground"
-              href={"/"}
+              href={"/about"}
             >
               About
             </NextLink>
