@@ -18,7 +18,6 @@ export default async function LocaleLayout({
   children,
   params,
 }: LocaleLayoutProps) {
-  console.log(params)
   return (
     <html lang={params.locale}>
       <head>
