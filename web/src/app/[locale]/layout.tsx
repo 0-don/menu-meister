@@ -19,7 +19,7 @@ export default async function LocaleLayout({
   params,
 }: LocaleLayoutProps) {
   return (
-    <html lang={params.locale} suppressHydrationWarning>
+    <html suppressHydrationWarning>
       <head>
         <title>Meal Manager</title>
       </head>
