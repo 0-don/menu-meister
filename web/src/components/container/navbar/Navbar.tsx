@@ -13,7 +13,13 @@ import { link as linkStyles } from "@nextui-org/theme";
 import { IoSearch } from "@react-icons/all-files/io5/IoSearch";
 import clsx from "clsx";
 
-export const Navbar = () => {
+import React from "react";
+
+interface NavbarProps {
+  locale?: string;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -55,7 +61,7 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden gap-2 sm:flex">
-          <LanguageSwitch />
+          <LanguageSwitch locale={locale} />
           <ThemeSwitch />
         </NavbarItem>
         {/* <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem> */}
@@ -65,7 +71,7 @@ export const Navbar = () => {
         <Link isExternal href={"/"} aria-label="Github">
           <IoSearch className="text-default-500" />
         </Link>
-        <LanguageSwitch />
+        <LanguageSwitch locale={locale} />
         <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>
