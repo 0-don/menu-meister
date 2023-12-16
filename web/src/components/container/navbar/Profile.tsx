@@ -1,9 +1,20 @@
 "use client";
+import { Button } from "@nextui-org/button";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownSection,
+  DropdownTrigger,
+} from "@nextui-org/dropdown";
+import { User } from "@nextui-org/user";
+import { FaPlus } from "@react-icons/all-files/fa/FaPlus";
+import { FaUser } from "@react-icons/all-files/fa/FaUser";
 
 export const Profile = () => {
   return (
     <>
-      {/* <Dropdown
+      <Dropdown
         showArrow
         radius="sm"
         classNames={{
@@ -92,7 +103,7 @@ export const Profile = () => {
             <DropdownItem key="logout">Log Out</DropdownItem>
           </DropdownSection>
         </DropdownMenu>
-      </Dropdown> */}
+      </Dropdown>
     </>
   );
 };

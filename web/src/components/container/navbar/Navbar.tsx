@@ -56,7 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
           </NavbarItem>
         </ul>
       </NavbarContent>
-{/* 
+
       <NavbarContent
         className="hidden basis-1/5 sm:flex sm:basis-full"
         justify="end"
@@ -66,9 +66,9 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
           <ThemeSwitch />
           <Profile />
         </NavbarItem>
-      </NavbarContent> */}
+      </NavbarContent>
 
-      {/* <NavbarContent className="basis-1 pl-4 sm:hidden" justify="end">
+      <NavbarContent className="basis-1 pl-4 sm:hidden" justify="end">
         <Link isExternal href={"/"} aria-label="Github">
           <IoSearch className="text-default-500" />
         </Link>
@@ -76,7 +76,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
         <ThemeSwitch />
         <Profile />
         <NavbarMenuToggle />
-      </NavbarContent> */}
+      </NavbarContent>
     </NextUINavbar>
   );
 };
