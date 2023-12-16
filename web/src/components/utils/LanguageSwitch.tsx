@@ -1,15 +1,22 @@
 "use client";
 
-import { useSwitch } from "@nextui-org/switch";
+import { SwitchProps, useSwitch } from "@nextui-org/switch";
 import de from "@public/images/flags/de.svg";
 import en from "@public/images/flags/en.svg";
 import { VisuallyHidden } from "@react-aria/visually-hidden";
+import clsx from "clsx";
 import Image from "next/image";
 import React from "react";
 
-interface LanguageSwitchProps {}
+interface LanguageSwitchProps {
+  className?: string;
+  classNames?: SwitchProps["classNames"];
+}
 
-export const LanguageSwitch: React.FC<LanguageSwitchProps> = ({}) => {
+export const LanguageSwitch: React.FC<LanguageSwitchProps> = ({
+  className,
+  classNames,
+}) => {
   const {
     Component,
     slots,
@@ -17,7 +24,7 @@ export const LanguageSwitch: React.FC<LanguageSwitchProps> = ({}) => {
     getBaseProps,
     getInputProps,
     getWrapperProps,
-  } = useSwitch();
+  } = useSwitch({});
 
   return (
     <Component {...getBaseProps()}>
@@ -27,21 +34,15 @@ export const LanguageSwitch: React.FC<LanguageSwitchProps> = ({}) => {
       <div
         {...getWrapperProps()}
         className={slots.wrapper({
-          class: [
-            "h-8 w-8",
-            "flex items-center justify-center p-1",
-            "rounded-lg bg-default-100 hover:bg-default-200",
-          ],
-          color: isSelected ? "default" : "default",
+          color: "default",
+          className: clsx(
+            "h-10 w-10 cursor-pointer rounded-lg bg-opacity-30 p-2 hover:opacity-80 group-data-[selected=true]:bg-opacity-20",
+            className,
+            classNames?.base,
+          ),
         })}
       >
-        <div className="p-0.5">
-          {isSelected ? (
-            <Image src={de} alt="de" />
-          ) : (
-            <Image src={en} alt="en" />
-          )}
-        </div>
+        {isSelected ? <Image src={de} alt="de" /> : <Image src={en} alt="en" />}
       </div>
     </Component>
   );
