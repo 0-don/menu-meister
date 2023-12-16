@@ -1,6 +1,6 @@
+import { LanguageSwitch } from "@/components/utils/LanguageSwitch";
 import { ThemeSwitch } from "@/components/utils/ThemeSwitch";
 import { Link as NextLink } from "@/navigation";
-import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
@@ -8,8 +8,6 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
   NavbarMenuToggle,
   Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
@@ -26,7 +24,7 @@ export const Navbar = () => {
         input: "text-sm",
       }}
       endContent={
-        <Kbd className="hidden lg:inline-block" keys={["command"]}>
+        <Kbd className="hidden lg:inline-block" keys={["shift"]}>
           K
         </Kbd>
       }
@@ -60,6 +58,18 @@ export const Navbar = () => {
               Home
             </NextLink>
           </NavbarItem>
+          <NavbarItem key={"/"}>
+            <NextLink
+              className={clsx(
+                linkStyles({ color: "foreground" }),
+                "data-[active=true]:font-medium data-[active=true]:text-primary",
+              )}
+              color="foreground"
+              href={"/"}
+            >
+              About
+            </NextLink>
+          </NavbarItem>
         </ul>
       </NavbarContent>
 
@@ -68,41 +78,22 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden gap-2 sm:flex">
-          <Link isExternal href="/" aria-label="Twitter">
-            <IoSearch className="text-default-500" />
-          </Link>
-          <Link isExternal href="/" aria-label="Discord">
-            <IoSearch className="text-default-500" />
-          </Link>
-          <Link isExternal href="/" aria-label="Github">
-            <IoSearch className="text-default-500" />
-          </Link>
+          <LanguageSwitch />
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
-        <NavbarItem className="hidden md:flex">
-          <Button
-            isExternal
-            as={Link}
-            className="bg-default-100 text-sm font-normal text-default-600"
-            href={"/"}
-            startContent={<IoSearch className="text-danger" />}
-            variant="flat"
-          >
-            Sponsor
-          </Button>
-        </NavbarItem>
       </NavbarContent>
 
       <NavbarContent className="basis-1 pl-4 sm:hidden" justify="end">
         <Link isExternal href={"/"} aria-label="Github">
           <IoSearch className="text-default-500" />
         </Link>
+        <LanguageSwitch />
         <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>
 
-      <NavbarMenu>
+      {/* <NavbarMenu>
         {searchInput}
         <div className="mx-4 mt-2 flex flex-col gap-2">
           <NavbarMenuItem key={`/`}>
@@ -111,7 +102,7 @@ export const Navbar = () => {
             </Link>
           </NavbarMenuItem>
         </div>
-      </NavbarMenu>
+      </NavbarMenu> */}
     </NextUINavbar>
   );
 };
