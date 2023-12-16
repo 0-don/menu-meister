@@ -1,4 +1,5 @@
 import Providers from "@/components/Providers";
+import { Navbar } from "@/components/container/navbar/Navbar";
 import { Alerts } from "@/components/utils/Alerts";
 import { localePath } from "@/utils/constants";
 import {
@@ -31,7 +32,10 @@ export default async function LocaleLayout({
         >
           <Alerts />
         </NextIntlClientProvider>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Navbar />
+          <main>{children}</main>
+        </Providers>
       </body>
     </html>
   );
