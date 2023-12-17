@@ -6,13 +6,13 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
+  NavbarMenu,
+  NavbarMenuItem,
   NavbarMenuToggle,
   Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
 import { link as linkStyles } from "@nextui-org/theme";
-import { IoSearch } from "@react-icons/all-files/io5/IoSearch";
 import clsx from "clsx";
-
 import React from "react";
 import { Profile } from "./Profile";
 
@@ -69,14 +69,21 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
       </NavbarContent>
 
       <NavbarContent className="basis-1 pl-4 sm:hidden" justify="end">
-        <Link isExternal href={"/"} aria-label="Github">
-          <IoSearch className="text-default-500" />
-        </Link>
         <LanguageSwitch locale={locale} />
         <ThemeSwitch />
         <Profile />
         <NavbarMenuToggle />
       </NavbarContent>
+
+      <NavbarMenu>
+        <div className="mx-4 mt-2 flex flex-col gap-2">
+          <NavbarMenuItem key={`/`}>
+            <Link color={"foreground"} href="#" size="lg">
+              Home
+            </Link>
+          </NavbarMenuItem>
+        </div>
+      </NavbarMenu>
     </NextUINavbar>
   );
 };

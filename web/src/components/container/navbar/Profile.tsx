@@ -7,9 +7,10 @@ import {
   DropdownSection,
   DropdownTrigger,
 } from "@nextui-org/dropdown";
-import { User } from "@nextui-org/user";
-import { FaPlus } from "@react-icons/all-files/fa/FaPlus";
+import { BiLogIn } from "@react-icons/all-files/bi/BiLogIn";
+import { BiLogOutCircle } from "@react-icons/all-files/bi/BiLogOutCircle";
 import { FaUser } from "@react-icons/all-files/fa/FaUser";
+import { SiWebauthn } from "@react-icons/all-files/si/SiWebauthn";
 
 export const Profile = () => {
   return (
@@ -45,8 +46,8 @@ export const Profile = () => {
             ],
           }}
         >
-          <DropdownSection aria-label="Profile & Actions" showDivider>
-            <DropdownItem
+          <DropdownSection aria-label="Profile & Actions">
+            {/* <DropdownItem
               isReadOnly
               key="profile"
               className="h-14 gap-2 opacity-100"
@@ -63,44 +64,25 @@ export const Profile = () => {
                   src: "https://avatars.githubusercontent.com/u/30373425?v=4",
                 }}
               />
-            </DropdownItem>
-            <DropdownItem key="dashboard">Dashboard</DropdownItem>
-            <DropdownItem key="settings">Settings</DropdownItem>
+            </DropdownItem> */}
             <DropdownItem
-              key="new_project"
-              endContent={<FaPlus className="text-large" />}
+              key="login"
+              endContent={<BiLogIn className="text-large" />}
             >
-              New Project
-            </DropdownItem>
-          </DropdownSection>
-
-          <DropdownSection aria-label="Preferences" showDivider>
-            <DropdownItem key="quick_search" shortcut="⌘K">
-              Quick search
+              Login
             </DropdownItem>
             <DropdownItem
-              isReadOnly
-              key="theme"
-              className="cursor-default"
-              endContent={
-                <select
-                  className="z-10 w-16 rounded-md border-small border-default-300 bg-transparent py-0.5 text-tiny text-default-500 outline-none group-data-[hover=true]:border-default-500 dark:border-default-200"
-                  id="theme"
-                  name="theme"
-                >
-                  <option>System</option>
-                  <option>Dark</option>
-                  <option>Light</option>
-                </select>
-              }
+              key="register"
+              endContent={<SiWebauthn className="text-large" />}
             >
-              Theme
+              Register
             </DropdownItem>
-          </DropdownSection>
-
-          <DropdownSection aria-label="Help & Feedback">
-            <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-            <DropdownItem key="logout">Log Out</DropdownItem>
+            <DropdownItem
+              key="logout"
+              endContent={<BiLogOutCircle className="text-large" />}
+            >
+              Log Out
+            </DropdownItem>
           </DropdownSection>
         </DropdownMenu>
       </Dropdown>
