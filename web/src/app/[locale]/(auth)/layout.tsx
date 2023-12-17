@@ -17,7 +17,7 @@ export default async function AuthLayout({
 }: AuthLayoutProps) {
   return (
     <main className="flex h-[90vh]">
-      <div className="m-auto max-w-[500px] p-5 md:w-2/5">
+      <div className="m-auto max-w-[500px] md:w-2/5">
         <Card fullWidth>
           <NextIntlClientProvider
             locale={params.locale}

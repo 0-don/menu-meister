@@ -7,18 +7,11 @@ import { FaRegEye } from "@react-icons/all-files/fa/FaRegEye";
 import { FaRegEyeSlash } from "@react-icons/all-files/fa/FaRegEyeSlash";
 import { UseMutateAsyncFunction } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { FormEvent, HTMLInputTypeAttribute } from "react";
-import { proxy } from "valtio";
+import { FormEvent, HTMLInputTypeAttribute, useEffect } from "react";
+import { proxy, useSnapshot } from "valtio";
 import { GeneralStore } from "./GeneralStore";
 
 export type AuthStore = typeof AuthStore;
-
-export const DisplayPassword = () =>
-  AuthStore.displayPassword ? (
-    <FaRegEyeSlash onClick={AuthStore.toggleDisplayPassword} />
-  ) : (
-    <FaRegEye onClick={AuthStore.toggleDisplayPassword} />
-  );
 
 export const AuthStore = proxy({
   email: process.env.NODE_ENV === "development" ? "admin" : "",
@@ -103,3 +96,25 @@ export const AuthStore = proxy({
     }
   },
 });
+
+export const DisplayPassword = () => {
+  const authStore = useSnapshot(AuthStore);
+
+  useEffect(() => {
+    AuthStore.passwordInputType = authStore.displayPassword
+      ? "text"
+      : "password";
+  }, [authStore.displayPassword]);
+
+  return authStore.displayPassword ? (
+    <FaRegEyeSlash
+      className="cursor-pointer"
+      onClick={AuthStore.toggleDisplayPassword}
+    />
+  ) : (
+    <FaRegEye
+      className="cursor-pointer"
+      onClick={AuthStore.toggleDisplayPassword}
+    />
+  );
+};
