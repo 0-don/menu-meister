@@ -30,7 +30,7 @@ jobs:
           echo PORT=${{ secrets.PORT }} >> .env
 
           echo NEXT_PUBLIC_GRAPHQL_ENDPOINT=${{ secrets.NEXT_PUBLIC_GRAPHQL_ENDPOINT }} >> .env
-          echo BRAND_NAME=${{ secrets.BRAND_NAME }} >> .env
+          echo NEXT_PUBLIC_BRAND_NAME=${{ secrets.NEXT_PUBLIC_BRAND_NAME }} >> .env
 
       # - name: Reset DB
       #   run: docker stop meal-manager-db || true && docker rm meal-manager-db || true

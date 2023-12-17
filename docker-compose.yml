@@ -9,7 +9,7 @@ services:
       target: prod
       args:
         - NEXT_PUBLIC_GRAPHQL_ENDPOINT=${NEXT_PUBLIC_GRAPHQL_ENDPOINT}
-        - BRAND_NAME=${BRAND_NAME}
+        - NEXT_PUBLIC_BRAND_NAME=${NEXT_PUBLIC_BRAND_NAME}
     restart: always
     networks:
       - proxy
