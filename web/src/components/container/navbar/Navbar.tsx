@@ -10,8 +10,8 @@ import {
   NavbarMenuToggle,
   Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
+import { GiHotMeal } from "@react-icons/all-files/gi/GiHotMeal";
 import { GiMeal } from "@react-icons/all-files/gi/GiMeal";
-import {GiHotMeal} from "@react-icons/all-files/gi/GiHotMeal";
 import React from "react";
 import { Profile } from "./Profile";
 
@@ -32,8 +32,8 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
       <Profile />
     </>
   );
-  GiMeal
-  GiHotMeal
+  GiMeal;
+  GiHotMeal;
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent
@@ -42,8 +42,8 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
         content="center"
       >
         <NavbarBrand as="li" className="max-w-fit space-x-1">
-          <GiHotMeal className="text-2xl" />
-          <Link color="foreground" className="text-xl font-bold" href="/">
+          <GiHotMeal className="text-2xl text-warning-500" />
+          <Link color="warning" className="text-xl font-bold" href="/">
             Meal Manager
           </Link>
         </NavbarBrand>

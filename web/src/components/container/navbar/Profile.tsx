@@ -25,7 +25,7 @@ export const Profile = () => {
       >
         <DropdownTrigger className="!w-1">
           <Button isIconOnly variant="flat">
-            <FaUser />
+            <FaUser className="text-lg" />
           </Button>
         </DropdownTrigger>
         <DropdownMenu
