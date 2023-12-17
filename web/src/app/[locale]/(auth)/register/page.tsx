@@ -17,12 +17,11 @@ export default function RegisterPage({}: RegisterPageProps) {
   const t = useTranslations<"Auth">();
   const router = useRouter();
   const authStore = useSnapshot(AuthStore);
-
   const { mutateAsync: registerUserAsync } = useGqlMutation(REGISTER_USER);
 
   return (
     <form
-      className="flex flex-col space-y-5 p-5 md:p-10"
+      className="flex !w-full flex-col space-y-5 p-5 md:p-10"
       onSubmit={(e) => authStore.register(e, registerUserAsync, t, router)}
     >
       <h1 className="text-3xl font-bold">{t("REGISTER_HEADER")}</h1>
