@@ -34,7 +34,7 @@ export default async function LocaleLayout({
         </NextIntlClientProvider>
         <Providers>
           <Navbar locale={params.locale} />
-          <main>{children}</main>
+          {children}
         </Providers>
       </body>
     </html>

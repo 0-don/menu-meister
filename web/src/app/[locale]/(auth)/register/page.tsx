@@ -3,5 +3,6 @@
 interface RegisterPageProps {}
 
 export default function RegisterPage({}: RegisterPageProps) {
+  
   return <></>;
 }

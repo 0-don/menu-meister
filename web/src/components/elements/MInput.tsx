@@ -3,19 +3,25 @@ import { IconType } from "@react-icons/all-files";
 import React from "react";
 
 interface MInputProps {
+  label?: string;
+  placeholder?: string;
   value?: string;
-  onChange: (value: string) => void;
-  Icon: IconType;
+  onChange?: (value: string) => void;
+  Icon?: IconType;
+  isClearable?: boolean;
 }
 
-export const MInput: React.FC<MInputProps> = ({ Icon, value, onChange }) => {
+export const MInput: React.FC<MInputProps> = (prop) => {
+  const uppercaseLabel =
+    prop.label && prop.label.charAt(0).toUpperCase() + prop.label.slice(1);
+
   return (
     <InputNext
-      label="Search"
-      isClearable
+      label={uppercaseLabel}
+      isClearable={prop.isClearable}
       radius="lg"
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
+      value={prop.value}
+      onChange={(e) => prop.onChange && prop.onChange(e.target.value)}
       classNames={{
         label: "text-black/50 dark:text-white/90",
         input: [
@@ -37,9 +43,11 @@ export const MInput: React.FC<MInputProps> = ({ Icon, value, onChange }) => {
           "!cursor-text",
         ],
       }}
-      placeholder="Type to search..."
+      placeholder={prop.placeholder}
       startContent={
-        <Icon className="pointer-events-none mb-0.5 flex-shrink-0 text-black/50 text-slate-400 dark:text-white/90" />
+        prop.Icon && (
+          <prop.Icon className="pointer-events-none mb-0.5 flex-shrink-0 text-black/50 text-slate-400 dark:text-white/90" />
+        )
       }
     />
   );
