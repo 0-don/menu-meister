@@ -3,6 +3,7 @@ import {
   getMessageFallbackTranslation,
   onErrorTranslation,
 } from "@/utils/helpers/translationHelper";
+import { Card } from "@nextui-org/card";
 import { NextIntlClientProvider } from "next-intl";
 
 interface AuthLayoutProps {
@@ -17,7 +18,7 @@ export default async function AuthLayout({
   return (
     <main className="flex h-[90vh]">
       <div className="m-auto p-5">
-        <section className="bg-container max-w-[500px] rounded-lg p-5 shadow-xl md:p-10">
+        <Card className="max-w-[500px]">
           <NextIntlClientProvider
             locale={params.locale}
             messages={(await localePath(params.locale)).Auth}
@@ -26,7 +27,7 @@ export default async function AuthLayout({
           >
             {children}
           </NextIntlClientProvider>
-        </section>
+        </Card>
       </div>
     </main>
   );

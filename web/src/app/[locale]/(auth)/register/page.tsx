@@ -22,7 +22,7 @@ export default function RegisterPage({}: RegisterPageProps) {
 
   return (
     <form
-      className="flex md:w-96 flex-col space-y-5"
+      className="flex flex-col space-y-5 p-5 md:w-96 md:p-10"
       onSubmit={(e) => authStore.register(e, registerUserAsync, t, router)}
     >
       <h1 className="text-3xl font-bold">{t("REGISTER_HEADER")}</h1>
