@@ -14,7 +14,7 @@ export default function RegisterPage({}: RegisterPageProps) {
 
   return (
     <form className="flex flex-col space-y-5">
-      <h1 className="text-3xl font-bold">Login</h1>
+      <h1 className="text-3xl font-bold">Register</h1>
       <MInput
         label="Email"
         placeholder="please enter your email"
@@ -29,7 +29,7 @@ export default function RegisterPage({}: RegisterPageProps) {
         onChange={setPassword}
         Icon={CgPassword}
       />
-      <Button color="warning">Log In</Button>
+      <Button color="warning">Register</Button>
     </form>
   );
 }
