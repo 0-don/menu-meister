@@ -1,6 +1,6 @@
 import { Input as InputNext } from "@nextui-org/input";
 import { IconType } from "@react-icons/all-files";
-import React from "react";
+import React, { HTMLInputTypeAttribute } from "react";
 
 interface MInputProps {
   label?: string;
@@ -8,7 +8,10 @@ interface MInputProps {
   value?: string;
   onChange?: (value: string) => void;
   Icon?: IconType;
+  type?: HTMLInputTypeAttribute;
   isClearable?: boolean;
+  required?: boolean;
+  endContent?: React.ReactNode;
 }
 
 export const MInput: React.FC<MInputProps> = (prop) => {
@@ -43,12 +46,15 @@ export const MInput: React.FC<MInputProps> = (prop) => {
           "!cursor-text",
         ],
       }}
+      type={prop.type}
       placeholder={prop.placeholder}
       startContent={
         prop.Icon && (
           <prop.Icon className="pointer-events-none mb-0.5 flex-shrink-0 text-black/50 text-slate-400 dark:text-white/90" />
         )
       }
+      required={prop.required}
+      endContent={prop.endContent}
     />
   );
 };
