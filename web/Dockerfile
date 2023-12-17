@@ -17,7 +17,9 @@ COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 
 ARG NEXT_PUBLIC_GRAPHQL_ENDPOINT
+ARG BRAND_NAME
 ENV NEXT_PUBLIC_GRAPHQL_ENDPOINT=$NEXT_PUBLIC_GRAPHQL_ENDPOINT
+ENV BRAND_NAME=$BRAND_NAME
 
 RUN yarn build 
 #############################################

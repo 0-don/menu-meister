@@ -28,7 +28,9 @@ jobs:
           echo SECRET=${{ secrets.SECRET }} >> .env
           echo CORS_ORIGIN=${{ secrets.CORS_ORIGIN }} >> .env
           echo PORT=${{ secrets.PORT }} >> .env
+
           echo NEXT_PUBLIC_GRAPHQL_ENDPOINT=${{ secrets.NEXT_PUBLIC_GRAPHQL_ENDPOINT }} >> .env
+          echo BRAND_NAME=${{ secrets.BRAND_NAME }} >> .env
 
       # - name: Reset DB
       #   run: docker stop meal-manager-db || true && docker rm meal-manager-db || true
