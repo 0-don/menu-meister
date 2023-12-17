@@ -24,6 +24,7 @@ export const MInput: React.FC<MInputProps> = (prop) => {
       isClearable={prop.isClearable}
       radius="lg"
       value={prop.value}
+      fullWidth
       onChange={(e) => prop.onChange && prop.onChange(e.target.value)}
       classNames={{
         label: "text-black/50 dark:text-white/90",

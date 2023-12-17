@@ -144,12 +144,48 @@ export type StringFilter = {
   startsWith?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Token = {
+  createdAt: Scalars['DateTime']['output'];
+  createdBy: Scalars['String']['output'];
+  createdByUser: User;
+  expiresIn: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  token: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  updatedBy: Scalars['String']['output'];
+  updatedByUser: User;
+};
+
+export type TokenListRelationFilter = {
+  every?: InputMaybe<TokenWhereInput>;
+  none?: InputMaybe<TokenWhereInput>;
+  some?: InputMaybe<TokenWhereInput>;
+};
+
+export type TokenOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type TokenWhereInput = {
+  AND?: InputMaybe<Array<TokenWhereInput>>;
+  NOT?: InputMaybe<Array<TokenWhereInput>>;
+  OR?: InputMaybe<Array<TokenWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdByUser?: InputMaybe<UserRelationFilter>;
+  expiresIn?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  token?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedByUser?: InputMaybe<UserRelationFilter>;
+};
+
 export type User = {
   UserRole?: Maybe<Array<UserRole>>;
   _count: UserCount;
   createdAt: Scalars['DateTime']['output'];
   createdBy?: Maybe<Scalars['String']['output']>;
   createdByUser?: Maybe<User>;
+  createdToken?: Maybe<Array<Token>>;
   createdUser?: Maybe<Array<User>>;
   createdUserRoles?: Maybe<Array<UserRole>>;
   email: Scalars['String']['output'];
@@ -159,6 +195,7 @@ export type User = {
   updatedAt: Scalars['DateTime']['output'];
   updatedBy?: Maybe<Scalars['String']['output']>;
   updatedByUser?: Maybe<User>;
+  updatedToken?: Maybe<Array<Token>>;
   updatedUser?: Maybe<Array<User>>;
   updatedUserRoles?: Maybe<Array<UserRole>>;
   username: Scalars['String']['output'];
@@ -193,6 +230,7 @@ export type UserOrderByWithRelationInput = {
   UserRole?: InputMaybe<UserRoleOrderByRelationAggregateInput>;
   createdAt?: InputMaybe<SortOrder>;
   createdByUser?: InputMaybe<UserOrderByWithRelationInput>;
+  createdToken?: InputMaybe<TokenOrderByRelationAggregateInput>;
   createdUser?: InputMaybe<UserOrderByRelationAggregateInput>;
   createdUserRoles?: InputMaybe<UserRoleOrderByRelationAggregateInput>;
   email?: InputMaybe<SortOrder>;
@@ -201,6 +239,7 @@ export type UserOrderByWithRelationInput = {
   status?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   updatedByUser?: InputMaybe<UserOrderByWithRelationInput>;
+  updatedToken?: InputMaybe<TokenOrderByRelationAggregateInput>;
   updatedUser?: InputMaybe<UserOrderByRelationAggregateInput>;
   updatedUserRoles?: InputMaybe<UserRoleOrderByRelationAggregateInput>;
   username?: InputMaybe<SortOrder>;
@@ -262,6 +301,7 @@ export type UserWhereInput = {
   UserRole?: InputMaybe<UserRoleListRelationFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdByUser?: InputMaybe<UserNullableRelationFilter>;
+  createdToken?: InputMaybe<TokenListRelationFilter>;
   createdUser?: InputMaybe<UserListRelationFilter>;
   createdUserRoles?: InputMaybe<UserRoleListRelationFilter>;
   email?: InputMaybe<StringFilter>;
@@ -270,6 +310,7 @@ export type UserWhereInput = {
   status?: InputMaybe<BoolFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   updatedByUser?: InputMaybe<UserNullableRelationFilter>;
+  updatedToken?: InputMaybe<TokenListRelationFilter>;
   updatedUser?: InputMaybe<UserListRelationFilter>;
   updatedUserRoles?: InputMaybe<UserRoleListRelationFilter>;
   username?: InputMaybe<StringFilter>;
