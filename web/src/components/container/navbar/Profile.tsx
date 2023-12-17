@@ -67,18 +67,21 @@ export const Profile = () => {
             </DropdownItem> */}
             <DropdownItem
               key="login"
+              href="/login"
               endContent={<BiLogIn className="text-large" />}
             >
               Login
             </DropdownItem>
             <DropdownItem
               key="register"
+              href="/register"
               endContent={<SiWebauthn className="text-large" />}
             >
               Register
             </DropdownItem>
             <DropdownItem
               key="logout"
+              href="/logout"
               endContent={<BiLogOutCircle className="text-large" />}
             >
               Log Out
