@@ -30,6 +30,12 @@ export const AuthStore = proxy({
     e.preventDefault();
     const { addAlert } = GeneralStore;
 
+    if (AuthStore.password !== AuthStore.confirmPassword)
+      return addAlert({
+        msg: t("PASSWORDS_DO_NOT_MATCH") as string,
+        type: "failure",
+      });
+
     try {
       const { registerUser } = await mutateAsync({
         data: {
@@ -62,7 +68,6 @@ export const AuthStore = proxy({
     router: ReturnType<typeof useRouter>,
   ) => {
     e.preventDefault();
-
     const { addAlert } = GeneralStore;
 
     try {

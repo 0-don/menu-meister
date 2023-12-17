@@ -9,6 +9,7 @@
     "PASSWORD": "Password",
     "CONFIRM_PASSWORD_PLACEHOLDER": "Please confirm your password",
     "CONFIRM_PASSWORD": "Confirm Password",
+    "PASSWORDS_DO_NOT_MATCH": "Passwords do not match",
     "LOGIN_BUTTON": "Log In",
     "REGISTER_BUTTON": "Register",
     "NEW_ACCOUNT_BUTTON": "Create a new account",

@@ -10,6 +10,7 @@
     "PASSWORD_PLACEHOLDER": "Bitte geben Sie Ihr Passwort ein",
     "CONFIRM_PASSWORD": "Passwort bestätigen",
     "CONFIRM_PASSWORD_PLACEHOLDER": "Bitte bestätigen Sie Ihr Passwort",
+    "PASSWORDS_DO_NOT_MATCH": "Passwörter stimmen nicht überein",
     "LOGIN_BUTTON": "Anmeldung",
     "REGISTER_BUTTON": "Registrieren",
     "NEW_ACCOUNT_BUTTON": "Ein neues Konto erstellen",
