@@ -25,7 +25,7 @@ export default function Home() {
         <h5 className="max-w-2xl text-center text-6xl font-bold">
           Empowering Your Kitchen with Smart Technology
         </h5>
-        <p className="my-10 max-w-2xl text-center text-lg text-gray-300">
+        <p className="my-10 max-w-2xl text-center text-lg dark:text-gray-300 text-gray-700">
           Transform your culinary journey with{" "}
           {process.env.NEXT_PUBLIC_BRAND_NAME}, where technology meets
           nutrition.
