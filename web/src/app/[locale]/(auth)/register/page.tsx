@@ -54,7 +54,9 @@ export default function RegisterPage({}: RegisterPageProps) {
         endContent={<DisplayPassword />}
         required
       />
-      <Button color="warning">{t("REGISTER_BUTTON")}</Button>
+      <Button color="primary" type="submit">
+        {t("REGISTER_BUTTON")}
+      </Button>
     </form>
   );
 }

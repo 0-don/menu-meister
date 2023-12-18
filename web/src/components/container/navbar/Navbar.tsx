@@ -33,16 +33,16 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
   );
 
   return (
-    <NextUINavbar maxWidth="xl" position="sticky"  isBordered>
+    <NextUINavbar maxWidth="xl" position="sticky" isBordered>
       <NavbarContent
         className="basis-1/5 sm:basis-full"
         justify="start"
         content="center"
       >
         <NavbarBrand as="li" className="max-w-fit space-x-1">
-          <Link color="warning" className="text-xl font-bold" href="/">
-            <GiHotMeal className="text-2xl text-warning-500" />
-            <span>Meal Manager</span>
+          <Link color="primary" className="text-xl font-bold" href="/">
+            <GiHotMeal className="text-2xl text-primary" />
+            <span>{process.env.NEXT_PUBLIC_BRAND_NAME}</span>
           </Link>
         </NavbarBrand>
 

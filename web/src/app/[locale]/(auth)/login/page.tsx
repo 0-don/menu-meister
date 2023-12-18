@@ -44,7 +44,7 @@ export default function LoginPage({}: LoginPageProps) {
         endContent={<DisplayPassword />}
         required
       />
-      <Button color="warning">{t("LOGIN_BUTTON")}</Button>
+      <Button type="submit" color="primary">{t("LOGIN_BUTTON")}</Button>
     </form>
   );
 }
