@@ -1,6 +1,6 @@
 "use client";
 
-import { MInput } from "@/components/elements/MInput";
+import { EInput } from "@/components/elements/eInput";
 import { LOGIN_USER } from "@/documents/mutation/auth";
 import { useGqlMutation } from "@/fetcher";
 import { useRouter } from "@/navigation";
@@ -25,7 +25,7 @@ export default function LoginPage({}: LoginPageProps) {
       onSubmit={(e) => authStore.login(e, loginUserAsync, t, router)}
     >
       <h1 className="text-3xl font-bold">{t("LOGIN_HEADER")}</h1>
-      <MInput
+      <EInput
         label={t("EMAIL")}
         placeholder={t("EMAIL_PLACEHOLDER")}
         value={authStore.email}
@@ -34,7 +34,7 @@ export default function LoginPage({}: LoginPageProps) {
         Icon={BiLogIn}
         required
       />
-      <MInput
+      <EInput
         label={t("PASSWORD")}
         placeholder={t("PASSWORD_PLACEHOLDER")}
         value={authStore.password}
@@ -44,7 +44,9 @@ export default function LoginPage({}: LoginPageProps) {
         endContent={<DisplayPassword />}
         required
       />
-      <Button type="submit" color="primary">{t("LOGIN_BUTTON")}</Button>
+      <Button type="submit" color="primary">
+        {t("LOGIN_BUTTON")}
+      </Button>
     </form>
   );
 }

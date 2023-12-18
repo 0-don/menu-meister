@@ -1,6 +1,6 @@
 "use client";
 
-import { MInput } from "@/components/elements/MInput";
+import { EInput } from "@/components/elements/eInput";
 import { REGISTER_USER } from "@/documents/mutation/auth";
 import { useGqlMutation } from "@/fetcher";
 import { useRouter } from "@/navigation";
@@ -25,7 +25,7 @@ export default function RegisterPage({}: RegisterPageProps) {
       onSubmit={(e) => authStore.register(e, registerUserAsync, t, router)}
     >
       <h1 className="text-3xl font-bold">{t("REGISTER_HEADER")}</h1>
-      <MInput
+      <EInput
         label={t("EMAIL")}
         placeholder={t("EMAIL_PLACEHOLDER")}
         value={authStore.email}
@@ -34,7 +34,7 @@ export default function RegisterPage({}: RegisterPageProps) {
         Icon={BiLogIn}
         required
       />
-      <MInput
+      <EInput
         label={t("PASSWORD")}
         placeholder={t("PASSWORD_PLACEHOLDER")}
         value={authStore.password}
@@ -44,7 +44,7 @@ export default function RegisterPage({}: RegisterPageProps) {
         endContent={<DisplayPassword />}
         required
       />
-      <MInput
+      <EInput
         label={t("CONFIRM_PASSWORD")}
         placeholder={t("CONFIRM_PASSWORD_PLACEHOLDER")}
         value={authStore.confirmPassword}
