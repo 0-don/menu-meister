@@ -11,10 +11,6 @@ concurrency:
 jobs:
   build:
     runs-on: self-hosted
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
-
     steps:
       - uses: actions/checkout@v4
 
