@@ -19,7 +19,7 @@ export default async function LocaleLayout({
   params,
 }: LocaleLayoutProps) {
   return (
-    <html lang={params.locale} suppressHydrationWarning className="h-full">
+    <html lang={params.locale} suppressHydrationWarning >
       <head>
         <title>{process.env.NEXT_PUBLIC_BRAND_NAME}</title>
       </head>

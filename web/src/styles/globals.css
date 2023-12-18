@@ -5,7 +5,7 @@
 div[data-overlay-container="true"] {
   display: contents;
 }
-
+/* 
 html,
 body {
   color: #000;
@@ -16,4 +16,4 @@ body {
 [data-theme="dark"] body {
   color: #fff;
   background: #000;
-}
+} */
