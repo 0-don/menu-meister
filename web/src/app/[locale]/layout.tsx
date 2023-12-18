@@ -23,9 +23,9 @@ export default async function LocaleLayout({
       <head>
         <title>{process.env.NEXT_PUBLIC_BRAND_NAME}</title>
       </head>
-      <body className="relative h-full">
+      <body className="h-full">
         <span
-          className="absolute left-1/2 top-0 h-[1000px] w-[1000px] -translate-x-1/2 -translate-y-[500px] rounded-full opacity-[0.15] blur-[75px] filter dark:opacity-[0.2]"
+          className="absolute left-1/2 top-0 h-[1000px] w-96 -translate-x-1/2 -translate-y-[500px] rounded-full opacity-[0.15] blur-[75px] filter dark:opacity-[0.2] md:w-[1000px] lg:w-[1500px]"
           style={{
             mixBlendMode: "normal",
             willChange: "filter",
