@@ -19,14 +19,26 @@ export default function Home() {
           }}
         />
         <LogoSwitch />
-        <div className="space-x-5">
+        <h1 className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-3xl font-bold leading-relaxed text-transparent dark:from-secondary dark:to-primary">
+          {process.env.NEXT_PUBLIC_BRAND_NAME}
+        </h1>
+        <h5 className="max-w-2xl text-center text-6xl font-bold">
+          Empowering Your Kitchen with Smart Technology
+        </h5>
+        <p className="my-10 max-w-2xl text-center text-lg text-gray-300">
+          Transform your culinary journey with{" "}
+          {process.env.NEXT_PUBLIC_BRAND_NAME}, where technology meets
+          nutrition.
+        </p>
+
+        <div className="mt-5 flex w-full items-center justify-center space-x-10">
           <Link href="/login">
-            <Button size="lg" color="primary">
+            <Button size="lg" color="primary" radius="sm">
               {t("LOGIN_BUTTON")}
             </Button>
           </Link>
           <Link href="/register">
-            <Button size="lg" color="default">
+            <Button size="lg" color="default" radius="sm" variant="bordered">
               {t("REGISTER_BUTTON")}
             </Button>
           </Link>
