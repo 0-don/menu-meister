@@ -1,3 +1,4 @@
+import { ELink } from "@/components/elements/eLink";
 import { LanguageSwitch } from "@/components/utils/LanguageSwitch";
 import { ThemeSwitch } from "@/components/utils/ThemeSwitch";
 import { Link } from "@nextui-org/link";
@@ -24,6 +25,7 @@ const LINKS = [
 ];
 
 export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
+  
   const Items = (
     <>
       <LanguageSwitch locale={locale} />
@@ -38,29 +40,40 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
       position="sticky"
       classNames={{
         base: "drop-shadow-2xl",
+        item: [
+          "flex",
+          "relative",
+          "h-full",
+          "items-center",
+          "data-[active=true]:after:content-['']",
+          "data-[active=true]:after:absolute",
+          "data-[active=true]:after:bottom-0",
+          "data-[active=true]:after:left-0",
+          "data-[active=true]:after:right-0",
+          "data-[active=true]:after:h-[2px]",
+          "data-[active=true]:after:rounded-[2px]",
+          "data-[active=true]:after:bg-primary",
+        ],
       }}
     >
-      <NavbarContent
-        className="basis-1/5 sm:basis-full"
-        justify="start"
-        content="center"
-      >
-        <NavbarBrand as="li" className="max-w-fit space-x-1">
-          <Link color="primary" className="text-xl font-bold" href="/">
-            <GiHotMeal className="text-2xl text-primary" />
-            <span>{process.env.NEXT_PUBLIC_BRAND_NAME}</span>
-          </Link>
-        </NavbarBrand>
-
-        <ul className="ml-2 hidden justify-start gap-4 sm:flex">
-          {LINKS.map(({ link, name }) => (
-            <NavbarItem key={link}>
-              <Link color="foreground" href={link} size="lg">
-                {name}
-              </Link>
-            </NavbarItem>
-          ))}
-        </ul>
+      <NavbarBrand as="li" className="max-w-fit space-x-1">
+        <Link
+          color="foreground"
+          className="flex items-center text-2xl font-bold"
+          href="/"
+        >
+          <GiHotMeal className="text-4xl text-primary" />
+          <span>{process.env.NEXT_PUBLIC_BRAND_NAME}</span>
+        </Link>
+      </NavbarBrand>
+      <NavbarContent className="hidden gap-4 sm:flex">
+        {LINKS.map(({ link, name }) => (
+          <NavbarItem key={link} isActive>
+            <ELink href={link} size="lg">
+              {name}
+            </ELink>
+          </NavbarItem>
+        ))}
       </NavbarContent>
 
       <NavbarContent
@@ -76,15 +89,13 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
       </NavbarContent>
 
       <NavbarMenu>
-        <div className="mx-4 mt-2 flex flex-col gap-2">
-          {LINKS.map(({ link, name }) => (
-            <NavbarMenuItem key={link}>
-              <Link color={"foreground"} href={link} size="lg">
-                {name}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </div>
+        {LINKS.map(({ link, name }) => (
+          <NavbarMenuItem key={link} isActive>
+            <ELink href={link} size="lg">
+              {name}
+            </ELink>
+          </NavbarMenuItem>
+        ))}
       </NavbarMenu>
     </NextUINavbar>
   );

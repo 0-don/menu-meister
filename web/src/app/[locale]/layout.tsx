@@ -17,7 +17,9 @@ type LocaleLayoutProps = {
 export default async function LocaleLayout({
   children,
   params,
+  ...rest
 }: LocaleLayoutProps) {
+  console.log(rest);
   return (
     <html lang={params.locale} suppressHydrationWarning className="h-full">
       <head>

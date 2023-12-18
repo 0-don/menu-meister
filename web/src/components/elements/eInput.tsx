@@ -2,7 +2,7 @@ import { Input as InputNext } from "@nextui-org/input";
 import { IconType } from "@react-icons/all-files";
 import React, { HTMLInputTypeAttribute } from "react";
 
-interface MInputProps {
+interface EInputProps {
   label?: string;
   placeholder?: string;
   value?: string;
@@ -14,7 +14,7 @@ interface MInputProps {
   endContent?: React.ReactNode;
 }
 
-export const MInput: React.FC<MInputProps> = (prop) => {
+export const EInput: React.FC<EInputProps> = (prop) => {
   const uppercaseLabel =
     prop.label && prop.label.charAt(0).toUpperCase() + prop.label.slice(1);
 
