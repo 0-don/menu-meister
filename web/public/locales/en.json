@@ -25,6 +25,8 @@
   "Main": {
     "DESCRIPTION": "Your ultimate companion for managing daily meals efficiently.",
     "LOGIN_BUTTON": "Login",
-    "REGISTER_BUTTON": "Register"
+    "REGISTER_BUTTON": "Register",
+    "HEADER": "Empowering Your Kitchen with Smart Technology",
+    "SUBHEADER": "Transform your culinary journey with {brand}, where technology meets nutrition."
   }
 }

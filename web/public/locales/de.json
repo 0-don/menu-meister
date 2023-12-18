@@ -26,6 +26,8 @@
   "Main": {
     "DESCRIPTION": "Ihr ultimativer Begleiter für die effiziente Verwaltung der täglichen Mahlzeiten",
     "LOGIN_BUTTON": "Anmeldung",
-    "REGISTER_BUTTON": "Registrieren"
+    "REGISTER_BUTTON": "Registrieren",
+    "HEADER": "Intelligente Technologie für Ihre Küche",
+    "SUBHEADER": "Verwandeln Sie Ihre kulinarische Reise mit {brand}, wo Technologie auf Ernährung trifft."
   }
 }
