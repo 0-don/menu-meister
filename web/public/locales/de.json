@@ -25,7 +25,7 @@
   },
   "Main": {
     "DESCRIPTION": "Ihr ultimativer Begleiter für die effiziente Verwaltung der täglichen Mahlzeiten",
-    "LOGIN_BUTTON": "Login",
-    "REGISTER_BUTTON": "Register"
+    "LOGIN_BUTTON": "Anmeldung",
+    "REGISTER_BUTTON": "Registrieren"
   }
 }

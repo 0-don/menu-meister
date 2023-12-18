@@ -3,7 +3,7 @@ import { Button } from "@nextui-org/button";
 import { useTranslations } from "next-intl";
 
 export default function Home() {
-  const t = useTranslations<"Main">();
+  const t = useTranslations();
   return (
     <main className="flex min-h-full items-center justify-center space-x-5">
       <div className="space-y-2">
@@ -13,17 +13,17 @@ export default function Home() {
         </h1>
         {/* Description Text */}
         <p className="text-lg text-gray-400 dark:text-gray-300">
-          {t("DESCRIPTION")}
+          {t("Main.DESCRIPTION")}
         </p>
         <div className="space-x-5">
           <Link href="/login">
             <Button size="lg" color="warning">
-              {t("LOGIN_BUTTON")}
+              {t("Main.LOGIN_BUTTON")}
             </Button>
           </Link>
           <Link href="/register">
             <Button size="lg" color="default">
-              {t("REGISTER_BUTTON")}
+              {t("Main.REGISTER_BUTTON")}
             </Button>
           </Link>
         </div>
