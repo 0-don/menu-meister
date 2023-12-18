@@ -11,12 +11,14 @@ import {
   NavbarMenuToggle,
   Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
-import { GiHotMeal } from "@react-icons/all-files/gi/GiHotMeal";
-import React from "react";
+import logo_mini from "@public/images/logo_mini.svg";
+import Image from "next/image";
+import React, { ReactElement } from "react";
 import { Profile } from "./Profile";
 
 interface NavbarProps {
   locale?: string;
+  children?: ReactElement;
 }
 
 const LINKS = [
@@ -24,8 +26,8 @@ const LINKS = [
   { link: "/about", name: "About" },
 ];
 
-export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
-  
+export const Navbar: React.FC<NavbarProps> = ({ locale, children }) => {
+  console.log(JSON.stringify(children));
   const Items = (
     <>
       <LanguageSwitch locale={locale} />
@@ -56,19 +58,19 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
         ],
       }}
     >
-      <NavbarBrand as="li" className="max-w-fit space-x-1">
+      <NavbarBrand as="li" className="max-w-fit">
         <Link
           color="foreground"
-          className="flex items-center text-2xl font-bold"
+          className="flex items-center text-2xl font-bold space-x-0.5"
           href="/"
         >
-          <GiHotMeal className="text-4xl text-primary" />
+          <Image src={logo_mini} alt="logo" width={40} height={40} />
           <span>{process.env.NEXT_PUBLIC_BRAND_NAME}</span>
         </Link>
       </NavbarBrand>
       <NavbarContent className="hidden gap-4 sm:flex">
         {LINKS.map(({ link, name }) => (
-          <NavbarItem key={link} isActive>
+          <NavbarItem key={link}>
             <ELink href={link} size="lg">
               {name}
             </ELink>

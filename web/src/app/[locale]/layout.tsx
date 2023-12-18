@@ -17,13 +17,11 @@ type LocaleLayoutProps = {
 export default async function LocaleLayout({
   children,
   params,
-  ...rest
 }: LocaleLayoutProps) {
-  console.log(rest);
   return (
     <html lang={params.locale} suppressHydrationWarning className="h-full">
       <head>
-        <title>Meal Manager</title>
+        <title>{process.env.NEXT_PUBLIC_BRAND_NAME}</title>
       </head>
       <body className="h-full">
         <NextIntlClientProvider
