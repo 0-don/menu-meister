@@ -14,7 +14,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   return (
     <NextUIProvider navigate={router.push}>
-      <NextThemesProvider enableSystem disableTransitionOnChange>
+      <NextThemesProvider enableSystem>
         <QueryClientProvider client={queryClient}>
           {children}
         </QueryClientProvider>

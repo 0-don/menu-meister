@@ -5,9 +5,9 @@ import { useTranslations } from "next-intl";
 export default function Home() {
   const t = useTranslations("Main");
   return (
-    <main className="flex h-[90vh] items-center justify-center space-x-5">
+    <main className="container mx-auto max-w-7xl flex-grow px-6 pt-16">
       <div className="space-y-2">
-        <h1 className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-5xl font-bold leading-relaxed text-transparent dark:from-primary dark:to-primary">
+        <h1 className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-5xl font-bold leading-relaxed text-transparent dark:from-secondary dark:to-primary">
           {process.env.NEXT_PUBLIC_BRAND_NAME}
         </h1>
 
@@ -19,7 +19,7 @@ export default function Home() {
             </Button>
           </Link>
           <Link href="/register">
-            <Button size="lg" color="secondary">
+            <Button size="lg" color="default">
               {t("REGISTER_BUTTON")}
             </Button>
           </Link>
