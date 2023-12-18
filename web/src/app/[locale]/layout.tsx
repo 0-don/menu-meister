@@ -19,11 +19,11 @@ export default async function LocaleLayout({
   params,
 }: LocaleLayoutProps) {
   return (
-    <html lang={params.locale} suppressHydrationWarning>
+    <html lang={params.locale} suppressHydrationWarning className="h-full">
       <head>
         <title>Meal Manager</title>
       </head>
-      <body>
+      <body className="h-full">
         <NextIntlClientProvider
           locale={params.locale}
           messages={(await localePath(params.locale)).Auth}
