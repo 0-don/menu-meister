@@ -33,7 +33,13 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
   );
 
   return (
-    <NextUINavbar maxWidth="xl" position="sticky" isBordered>
+    <NextUINavbar
+      maxWidth="xl"
+      position="sticky"
+      classNames={{
+        base: "drop-shadow-2xl",
+      }}
+    >
       <NavbarContent
         className="basis-1/5 sm:basis-full"
         justify="start"
