@@ -1,5 +1,8 @@
+import { Button } from "@nextui-org/button";
+import logo from "@public/images/logo.svg";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   // 4rem
@@ -24,9 +27,20 @@ export default function Home() {
             background:
               "conic-gradient(from 180deg at 50% 50%, #2a8af6 0deg, #a853ba 180deg, #e92a67 1turn)",
           }}
-        >
-          <Image src="/images/logo.svg" height={50} width={50} alt="logo" />
-        </span>
+        />
+        <Image src={logo} height={200} width={200} alt="logo" />
+        <div className="space-x-5">
+          <Link href="/login">
+            <Button size="lg" color="primary">
+              {t("LOGIN_BUTTON")}
+            </Button>
+          </Link>
+          <Link href="/register">
+            <Button  size="lg" color="default">
+              {t("REGISTER_BUTTON")}
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {/* 
