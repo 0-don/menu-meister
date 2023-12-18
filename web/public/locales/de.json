@@ -22,5 +22,10 @@
     "SOMETHING_WENT_WRONG": "Etwas ist schief gelaufen",
     "USER_EXISTS": "Benutzer existiert bereits",
     "USER_WITH_SPACE": "Keine Leerzeichen im Benutzernamen erlaubt"
+  },
+  "Main": {
+    "DESCRIPTION": "Ihr ultimativer Begleiter für die effiziente Verwaltung der täglichen Mahlzeiten",
+    "LOGIN_BUTTON": "Login",
+    "REGISTER_BUTTON": "Register"
   }
 }

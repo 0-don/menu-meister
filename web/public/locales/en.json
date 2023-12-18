@@ -21,5 +21,10 @@
     "SOMETHING_WENT_WRONG": "Something went wrong",
     "USER_EXISTS": "User already exists",
     "USER_WITH_SPACE": "No spaces allowed"
+  },
+  "Main": {
+    "DESCRIPTION": "Your ultimate companion for managing daily meals efficiently.",
+    "LOGIN_BUTTON": "Login",
+    "REGISTER_BUTTON": "Register"
   }
 }
