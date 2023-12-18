@@ -23,7 +23,17 @@ export default async function LocaleLayout({
       <head>
         <title>{process.env.NEXT_PUBLIC_BRAND_NAME}</title>
       </head>
-      <body className="h-full">
+      <body className="relative h-full">
+        <span
+          className="absolute left-1/2 top-0 h-[1000px] w-[1000px] -translate-x-1/2 -translate-y-[500px] rounded-full opacity-[0.15] blur-[75px] filter dark:opacity-[0.2]"
+          style={{
+            mixBlendMode: "normal",
+            willChange: "filter",
+            background:
+              "conic-gradient(from 180deg at 50% 50%, #2a8af6 0deg, #a853ba 180deg, #e92a67 1turn)",
+          }}
+        />
+
         <NextIntlClientProvider
           locale={params.locale}
           messages={(await localePath(params.locale)).Auth}
