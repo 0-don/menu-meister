@@ -5,10 +5,10 @@ import { Link } from "@nextui-org/link";
 import { useTranslations } from "next-intl";
 
 export default function Home() {
-  const t = useTranslations("Main");
+  const t = useTranslations<"Main">();
   return (
     <>
-      <div className="relative z-0 flex min-h-[calc(100svh-4rem)] w-auto transform-none flex-col items-center justify-between gap-8 pb-16 pt-[48px] font-sans opacity-100 md:pb-24 md:pt-16 lg:pb-32 lg:pt-20">
+      <div className="relative flex min-h-[calc(100svh-4rem)] flex-col items-center pt-12">
         <span
           className="absolute top-[-500px] h-[1000px] w-[1000px] rounded-full opacity-[0.15] blur-[75px] filter dark:opacity-[0.2]"
           style={{
