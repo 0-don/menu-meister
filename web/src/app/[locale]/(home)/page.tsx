@@ -1,24 +1,14 @@
+"use client";
+import { LogoSwitch } from "@/components/pages/home/LogoSwitch";
 import { Button } from "@nextui-org/button";
-import logo from "@public/images/logo.svg";
+import { Link } from "@nextui-org/link";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
-import Link from "next/link";
 
 export default function Home() {
-  // 4rem
   const t = useTranslations("Main");
   return (
     <>
-      {/* <div
-        class="relative z-0 flex min-h-[calc(100svh-4rem)] w-auto flex-col items-center justify-between gap-8 pb-16 pt-[48px] font-sans md:pb-24 md:pt-16 lg:pb-32 lg:pt-20"
-        style="opacity: 1; transform: none;"
-      >
-        <span
-          class="gradients_glow__pK1bc gradients_glowConic__xvTFv absolute top-[-500px] opacity-[0.15] dark:opacity-20"
-          style="width:1000px;height:1000px;border-radius:100%"
-        ></span>
-      </div> */}
-      <div className="relative z-0 flex min-h-[calc(100svh-var(--nextra-navbar-height))] w-auto transform-none flex-col items-center justify-between gap-8 pb-16 pt-[48px] font-sans opacity-100 md:pb-24 md:pt-16 lg:pb-32 lg:pt-20">
+      <div className="relative z-0 flex min-h-[calc(100svh-4rem)] w-auto transform-none flex-col items-center justify-between gap-8 pb-16 pt-[48px] font-sans opacity-100 md:pb-24 md:pt-16 lg:pb-32 lg:pt-20">
         <span
           className="absolute top-[-500px] h-[1000px] w-[1000px] rounded-full opacity-[0.15] blur-[75px] filter dark:opacity-[0.2]"
           style={{
@@ -28,7 +18,7 @@ export default function Home() {
               "conic-gradient(from 180deg at 50% 50%, #2a8af6 0deg, #a853ba 180deg, #e92a67 1turn)",
           }}
         />
-        <Image src={logo} height={200} width={200} alt="logo" />
+        <LogoSwitch />
         <div className="space-x-5">
           <Link href="/login">
             <Button size="lg" color="primary">
@@ -36,7 +26,7 @@ export default function Home() {
             </Button>
           </Link>
           <Link href="/register">
-            <Button  size="lg" color="default">
+            <Button size="lg" color="default">
               {t("REGISTER_BUTTON")}
             </Button>
           </Link>

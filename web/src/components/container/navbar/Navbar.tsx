@@ -1,3 +1,4 @@
+"use client";
 import { ELink } from "@/components/elements/eLink";
 import { LanguageSwitch } from "@/components/utils/LanguageSwitch";
 import { ThemeSwitch } from "@/components/utils/ThemeSwitch";
@@ -13,12 +14,11 @@ import {
 } from "@nextui-org/navbar";
 import logo_mini from "@public/images/logo_mini.svg";
 import Image from "next/image";
-import React, { ReactElement } from "react";
+import React from "react";
 import { Profile } from "./Profile";
 
 interface NavbarProps {
   locale?: string;
-  children?: ReactElement;
 }
 
 const LINKS = [
@@ -26,8 +26,7 @@ const LINKS = [
   { link: "/about", name: "About" },
 ];
 
-export const Navbar: React.FC<NavbarProps> = ({ locale, children }) => {
-  console.log(JSON.stringify(children));
+export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
   const Items = (
     <>
       <LanguageSwitch locale={locale} />
@@ -61,7 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, children }) => {
       <NavbarBrand as="li" className="max-w-fit">
         <Link
           color="foreground"
-          className="flex items-center text-2xl font-bold space-x-0.5"
+          className="flex items-center space-x-0.5 text-2xl font-bold"
           href="/"
         >
           <Image src={logo_mini} alt="logo" width={40} height={40} />
@@ -92,7 +91,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale, children }) => {
 
       <NavbarMenu>
         {LINKS.map(({ link, name }) => (
-          <NavbarMenuItem key={link} isActive>
+          <NavbarMenuItem key={link}>
             <ELink href={link} size="lg">
               {name}
             </ELink>
