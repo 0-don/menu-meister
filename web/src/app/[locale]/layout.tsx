@@ -25,7 +25,7 @@ export default async function LocaleLayout({
       </head>
       <body className="h-full">
         <span
-          className="absolute left-1/2 top-0 h-[1000px] w-96 -translate-x-1/2 -translate-y-[500px] rounded-full opacity-[0.15] blur-[75px] filter dark:opacity-[0.2] md:w-[1000px] lg:w-[1500px]"
+          className="absolute left-1/2 top-0 h-[1000px] w-96 -translate-x-1/2 -translate-y-[500px] rounded-full opacity-[0.15] blur-[75px] filter dark:opacity-[0.2] md:w-[768px] lg:w-[1024px] xl:w-[1280px] 2xl:w-[1536px]"
           style={{
             mixBlendMode: "normal",
             willChange: "filter",
