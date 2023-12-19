@@ -28,8 +28,8 @@ jobs:
           echo NEXT_PUBLIC_GRAPHQL_ENDPOINT=${{ secrets.NEXT_PUBLIC_GRAPHQL_ENDPOINT }} >> .env
           echo NEXT_PUBLIC_BRAND_NAME=${{ secrets.NEXT_PUBLIC_BRAND_NAME }} >> .env
 
-      # - name: Reset DB
-      #   run: docker stop meal-manager-db || true && docker rm meal-manager-db || true
+      - name: Reset DB
+        run: docker stop meal-manager-db || true && docker rm meal-manager-db || true
 
       - name: Docker run
         run: docker compose up -d --force-recreate --build
