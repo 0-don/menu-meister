@@ -10,13 +10,11 @@ type ELinkProps = {
 
 export const ELink: React.FC<ELinkProps> = ({
   href,
-
   children,
   ...rest
 }) => {
   const currentPath = usePathname();
-  const linkPathname = new URL(href, location.href).pathname;
-  const isActive = linkPathname === currentPath;
+  const isActive = href === currentPath;
 
   return (
     <NextLink href={href} {...rest} color={isActive ? "primary" : "foreground"}>
