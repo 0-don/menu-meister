@@ -1,3 +1,4 @@
+import { UserExistsValidator } from "@/auth/validators/user-exist.validator";
 import { UserSpaceValidator } from "@/auth/validators/user-space.validators";
 import { Field, InputType } from "@nestjs/graphql";
 import {
@@ -14,6 +15,7 @@ export class RegisterUserInput {
   @MinLength(3)
   @MaxLength(100)
   @Validate(UserSpaceValidator)
+  @Validate(UserExistsValidator)
   @Field(() => String)
   @IsEmail()
   email: string;
