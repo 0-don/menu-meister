@@ -37,8 +37,6 @@ export default async function HomeLayout({
     ({ name }) => name === UserRoleName.Admin || name === UserRoleName.Mod,
   );
 
-  console.log(data)
-
   if (data?.me) {
     layout = user;
     messages = (await localePath(params.locale)).User;
