@@ -8,16 +8,17 @@ type ELinkProps = {
   children?: React.ReactNode;
 } & LinkProps;
 
-export const ELink: React.FC<ELinkProps> = ({
-  href,
-  children,
-  ...rest
-}) => {
+export const ELink: React.FC<ELinkProps> = ({ href, children, ...rest }) => {
   const currentPath = usePathname();
   const isActive = href === currentPath;
 
   return (
-    <NextLink className={isActive ? "font-bold" : ""} href={href} {...rest} color={isActive ? "primary" : "foreground"} >
+    <NextLink
+      className={isActive ? "font-bold" : ""}
+      href={href}
+      color={isActive ? "primary" : "foreground"}
+      {...rest}
+    >
       {children}
     </NextLink>
   );
