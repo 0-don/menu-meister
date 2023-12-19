@@ -28,6 +28,8 @@ export const LanguageSwitch: React.FC<LanguageSwitchProps> = ({ locale }) => {
       <Image
         src={require(`@public/images/flags/${locale}.svg`)}
         alt={`${locale}`}
+        width={30}
+        height={30}
       />
     </Button>
   );

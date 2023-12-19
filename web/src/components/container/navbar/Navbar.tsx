@@ -66,14 +66,14 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
           className="flex items-center space-x-0.5 text-2xl font-bold"
           href="/"
         >
-          <Image src={logo_mini} alt="logo" width={40} height={40} />
+          <Image src={logo_mini} alt="logo" />
           <span>{process.env.NEXT_PUBLIC_BRAND_NAME}</span>
         </Link>
       </NavbarBrand>
       <NavbarContent className="hidden gap-4 sm:flex">
         {LINKS.map(({ link, name }) => (
           <NavbarItem key={link} isActive={pathname === link}>
-            <ELink href={link} size="lg" >
+            <ELink href={link} size="lg">
               {name}
             </ELink>
           </NavbarItem>
