@@ -1,4 +1,7 @@
+import { ME } from "@/documents/query/auth";
+import { redirect } from "@/navigation";
 import { localePath } from "@/utils/constants";
+import { customFetcherServer, ssrHeaders } from "@/utils/helpers/serverHelpers";
 import {
   getMessageFallbackTranslation,
   onErrorTranslation,
@@ -15,6 +18,8 @@ export default async function AuthLayout({
   children,
   params,
 }: AuthLayoutProps) {
+  const { me } = await customFetcherServer(ME, undefined, ssrHeaders());
+  if (me) redirect("/");
   return (
     <main className="flex min-h-[calc(100svh-4rem)]">
       <div className="m-auto max-w-[500px] md:w-2/5">

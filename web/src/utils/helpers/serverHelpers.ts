@@ -54,7 +54,7 @@ export const customFetcherServer = async <
   withHeaders: T = false as T,
 ): Promise<T extends false ? TData : { data: TData; headers: Headers }> => {
   const res = await fetch(
-    isDocker()
+    (await isDocker())
       ? BACKEND_INTERNAL_URL
       : process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
     {
@@ -83,7 +83,7 @@ export const customFetcherServer = async <
   return withHeaders ? { data: json.data, headers: res.headers } : json.data;
 };
 
-export function isDocker() {
+export async function isDocker() {
   let isDockerCached: boolean | undefined;
 
   function hasDockerEnv() {
