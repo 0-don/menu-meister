@@ -15,3 +15,62 @@ html.dark {
   color: #fff;
   background: #000;
 }
+
+@keyframes gradientAnimation {
+  0%,
+  100% {
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      #3182ce 0deg,
+      #e53e3e 360deg
+    );
+  }
+
+  10%,
+  90% {
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      #3182ce 10deg,
+      #e53e3e 350deg
+    );
+  }
+
+  20%,
+  80% {
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      #3182ce 20deg,
+      #e53e3e 340deg
+    );
+  }
+
+  30%,
+  70% {
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      #3182ce 30deg,
+      #e53e3e 330deg
+    );
+  }
+
+  40%,
+  60% {
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      #3182ce 40deg,
+      #e53e3e 320deg
+    );
+  }
+
+  50% {
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      #3182ce 50deg,
+      #e53e3e 310deg
+    );
+  }
+}
+
+#animation {
+  animation: gradientAnimation 20s linear infinite;
+}
