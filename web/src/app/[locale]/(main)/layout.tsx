@@ -14,6 +14,10 @@ export default async function HomeLayout({
   children,
   params,
 }: HomeLayoutProps) {
+
+
+  
+
   return (
     <>
       <NextIntlClientProvider
