@@ -1,4 +1,5 @@
 "use client";
+
 import { ELink } from "@/components/elements/eLink";
 import { LanguageSwitch } from "@/components/utils/LanguageSwitch";
 import { ThemeSwitch } from "@/components/utils/ThemeSwitch";
@@ -14,6 +15,7 @@ import {
 } from "@nextui-org/navbar";
 import logo_mini from "@public/images/logo_mini.svg";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { Profile } from "./Profile";
 
@@ -27,6 +29,7 @@ const LINKS = [
 ];
 
 export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
+  const pathname = usePathname();
   const Items = (
     <>
       <LanguageSwitch locale={locale} />
@@ -69,8 +72,8 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
       </NavbarBrand>
       <NavbarContent className="hidden gap-4 sm:flex">
         {LINKS.map(({ link, name }) => (
-          <NavbarItem key={link}>
-            <ELink href={link} size="lg">
+          <NavbarItem key={link} isActive={pathname === link}>
+            <ELink href={link} size="lg" >
               {name}
             </ELink>
           </NavbarItem>
@@ -91,7 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
 
       <NavbarMenu>
         {LINKS.map(({ link, name }) => (
-          <NavbarMenuItem key={link}>
+          <NavbarMenuItem key={link} isActive={pathname === link}>
             <ELink href={link} size="lg">
               {name}
             </ELink>
