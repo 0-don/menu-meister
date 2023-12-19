@@ -1,6 +1,11 @@
 "use client";
 
-import { LoginUserMutation, RegisterUserMutation } from "@/gql/graphql";
+import {
+  LoginUserMutation,
+  LoginUserMutationVariables,
+  RegisterUserMutation,
+  RegisterUserMutationVariables,
+} from "@/gql/graphql";
 import { useRouter } from "@/navigation";
 import { catchErrorAlerts } from "@/utils/helpers/clientHelpers";
 import { FaRegEye } from "@react-icons/all-files/fa/FaRegEye";
@@ -23,7 +28,11 @@ export const AuthStore = proxy({
     (AuthStore.displayPassword = !AuthStore.displayPassword),
   register: async (
     e: FormEvent,
-    mutateAsync: UseMutateAsyncFunction<RegisterUserMutation, any, any>,
+    mutateAsync: UseMutateAsyncFunction<
+      RegisterUserMutation,
+      any,
+      RegisterUserMutationVariables
+    >,
     t: ReturnType<typeof useTranslations<"Auth">>,
     router: ReturnType<typeof useRouter>,
   ) => {
@@ -39,7 +48,7 @@ export const AuthStore = proxy({
     try {
       const { registerUser } = await mutateAsync({
         data: {
-          username: AuthStore.email,
+          email: AuthStore.email,
           password: AuthStore.password,
         },
       });
@@ -63,7 +72,11 @@ export const AuthStore = proxy({
   },
   login: async (
     e: FormEvent,
-    mutateAsync: UseMutateAsyncFunction<LoginUserMutation, any, any>,
+    mutateAsync: UseMutateAsyncFunction<
+      LoginUserMutation,
+      any,
+      LoginUserMutationVariables
+    >,
     t: ReturnType<typeof useTranslations<"Auth">>,
     router: ReturnType<typeof useRouter>,
   ) => {
@@ -73,7 +86,7 @@ export const AuthStore = proxy({
     try {
       const { loginUser } = await mutateAsync({
         data: {
-          username: AuthStore.email,
+          email: AuthStore.email,
           password: AuthStore.password,
         },
       });

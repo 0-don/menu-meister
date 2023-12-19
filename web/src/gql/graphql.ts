@@ -42,8 +42,8 @@ export type EnumUserRoleNameFilter = {
 };
 
 export type LoginUserInput = {
+  email: Scalars['String']['input'];
   password: Scalars['String']['input'];
-  username: Scalars['String']['input'];
 };
 
 export type Mutation = {
@@ -122,7 +122,6 @@ export type QueryGetAllUsersUserArgs = {
 export type RegisterUserInput = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
-  username: Scalars['String']['input'];
 };
 
 export enum SortOrder {
