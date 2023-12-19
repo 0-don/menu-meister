@@ -1,11 +1,14 @@
 "use client";
+
 import { LogoSwitch } from "@/components/pages/home/LogoSwitch";
 import { Button } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
-export default function Home() {
-  const t = useTranslations<"Main">();
+interface HomePageProps {}
+
+export default function HomePage({}: HomePageProps) {
+  const t = useTranslations<"Home">();
   return (
     <>
       <div className="relative flex min-h-[calc(100svh-4rem)] flex-col items-center px-6 pt-12">

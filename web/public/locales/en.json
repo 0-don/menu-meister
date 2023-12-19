@@ -23,7 +23,7 @@
     "USER_EXISTS": "User already exists",
     "USER_WITH_SPACE": "No spaces allowed"
   },
-  "Main": {
+  "Home": {
     "DESCRIPTION": "Your ultimate companion for managing daily meals efficiently.",
     "LOGIN_BUTTON": "Login",
     "REGISTER_BUTTON": "Register",

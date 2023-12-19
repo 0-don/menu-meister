@@ -24,7 +24,7 @@
     "USER_EXISTS": "Benutzer existiert bereits",
     "USER_WITH_SPACE": "Keine Leerzeichen im Benutzernamen erlaubt"
   },
-  "Main": {
+  "Home": {
     "DESCRIPTION": "Ihr ultimativer Begleiter für die effiziente Verwaltung der täglichen Mahlzeiten",
     "LOGIN_BUTTON": "Anmeldung",
     "REGISTER_BUTTON": "Registrieren",
