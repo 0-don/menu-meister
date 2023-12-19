@@ -18,7 +18,7 @@ generator nestgraphql {
 model Token {
   id String @id @default(cuid())
 
-  token     String   @unique
+  token     String   @unique @db.VarChar(255)
   expiresIn DateTime
 
   createdAt DateTime @default(now())

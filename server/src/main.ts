@@ -22,6 +22,8 @@ async function bootstrap() {
     credentials: true,
   });
 
+  await app.register(require("@fastify/cookie"));
+
   // class-validator
   app.useGlobalPipes(new ValidationPipe({ forbidUnknownValues: false }));
 
