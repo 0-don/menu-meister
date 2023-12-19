@@ -66,8 +66,8 @@ export default function RegisterPage({}: RegisterPageProps) {
         </p>
       </div>
       <div className="flex justify-center">
-        <ELink href="/register" color="primary" size="sm">
-          {t("REGISTER_BUTTON")}
+        <ELink href="/login" color="primary" size="sm">
+          {t("LOGIN_BUTTON")}
         </ELink>
       </div>
     </form>
