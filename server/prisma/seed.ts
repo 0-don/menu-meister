@@ -11,15 +11,6 @@ const seed = async () => {
   });
 };
 
-seed()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
-
 const createUser = async ({
   roles,
   email,
@@ -57,3 +48,12 @@ const createUser = async ({
     });
   }
 };
+
+seed()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
