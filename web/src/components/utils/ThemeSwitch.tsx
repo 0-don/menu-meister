@@ -26,7 +26,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
       isIconOnly
       onClick={handleChange}
     >
-      {isSelected ? (
+      {!isSelected ? (
         <RiSunFill className="text-xl" />
       ) : (
         <IoIosMoon className="text-xl" />

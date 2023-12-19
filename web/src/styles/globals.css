@@ -5,15 +5,13 @@
 div[data-overlay-container="true"] {
   display: contents;
 }
-/* 
-html,
-body {
+
+html {
   color: #000;
-  background: #F9F9F9;
+  background: #f9f9f9;
 }
 
-[data-theme="dark"],
-[data-theme="dark"] body {
+html.dark {
   color: #fff;
   background: #000;
-} */
+}
