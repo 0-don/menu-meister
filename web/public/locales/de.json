@@ -30,5 +30,11 @@
     "REGISTER_BUTTON": "Registrieren",
     "HEADER": "Intelligente Technologie für Ihre Küche",
     "SUBHEADER": "Verwandeln Sie Ihre kulinarische Reise mit {brand}, wo Technologie auf Ernährung trifft."
+  }, 
+  "Dashboard": {
+
+  },
+  "User": {
+
   }
 }
