@@ -6,7 +6,6 @@ import { JwtService } from "@nestjs/jwt";
 import { Prisma } from "@prisma/client";
 import argon2 from "argon2";
 import dayjs from "dayjs";
-
 import { UserCreateInput } from "@/app_modules/@generated/user/user-create.input";
 import { PrismaService } from "../app_modules/prisma/prisma.service";
 import { getToken } from "../app_modules/utils/helpers";
