@@ -22,12 +22,12 @@ export default function Home() {
 
         <div className="mt-5 flex w-full items-center justify-center space-x-10">
           <Link href="/login">
-            <Button size="lg" color="primary" radius="sm">
+            <Button size="lg" color="primary" radius="sm" variant="shadow">
               {t("LOGIN_BUTTON")}
             </Button>
           </Link>
           <Link href="/register">
-            <Button size="lg" color="default" radius="sm" variant="bordered">
+            <Button size="lg" radius="sm" variant="bordered">
               {t("REGISTER_BUTTON")}
             </Button>
           </Link>
