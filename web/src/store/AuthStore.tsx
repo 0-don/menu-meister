@@ -101,6 +101,7 @@ export const AuthStore = proxy({
         addAlert({
           msg: t("ACCOUNT_LOGGED_IN") as string,
           type: "success",
+          duration: 300000000,
         });
         router.push("/");
       } else {

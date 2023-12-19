@@ -20,7 +20,7 @@ export default function Home() {
           {t("SUBHEADER", { brand: process.env.NEXT_PUBLIC_BRAND_NAME })}
         </p>
 
-        <div className="mt-5 flex w-full items-center justify-center space-x-10">
+        <div className="mt-4 flex w-full items-center justify-center space-x-10">
           <Link href="/login">
             <Button size="lg" color="primary" radius="sm" variant="shadow">
               {t("LOGIN_BUTTON")}

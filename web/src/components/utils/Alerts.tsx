@@ -94,7 +94,7 @@ export const Alerts: React.FC<AlertsProps> = ({
             style={style}
           >
             <div
-              className={`mt-2 flex h-auto justify-between overflow-hidden p-3 pb-4 opacity-90 ${
+              className={`mt-2 flex h-auto justify-between overflow-hidden p-3 pb-4 dark:opacity-60 ${
                 colors(item.type).background
               }`}
               ref={(ref: HTMLDivElement) => ref && refMap.set(item, ref)}
