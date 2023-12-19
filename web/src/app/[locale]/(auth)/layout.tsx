@@ -16,7 +16,7 @@ export default async function AuthLayout({
   params,
 }: AuthLayoutProps) {
   return (
-    <main className="flex h-[90vh]">
+    <main className="flex min-h-[calc(100svh-4rem)]">
       <div className="m-auto max-w-[500px] md:w-2/5">
         <Card fullWidth>
           <NextIntlClientProvider
