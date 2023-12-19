@@ -16,7 +16,7 @@ export default function Home() {
         <h5 className="max-w-2xl text-center text-3xl font-bold md:text-6xl">
           {t("HEADER")}
         </h5>
-        <p className="my-10 max-w-2xl text-center text-lg text-gray-200 dark:!text-gray-100 md:text-xl">
+        <p className="my-10 max-w-2xl text-center text-lg text-gray-700 dark:text-gray-400 md:text-xl">
           {t("SUBHEADER", { brand: process.env.NEXT_PUBLIC_BRAND_NAME })}
         </p>
 
