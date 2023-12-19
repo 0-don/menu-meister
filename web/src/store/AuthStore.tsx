@@ -14,7 +14,7 @@ import { GeneralStore } from "./GeneralStore";
 export type AuthStore = typeof AuthStore;
 
 export const AuthStore = proxy({
-  email: process.env.NODE_ENV === "development" ? "admin" : "",
+  email: process.env.NODE_ENV === "development" ? "admin@admin.de" : "",
   password: process.env.NODE_ENV === "development" ? "!admin" : "",
   passwordInputType: "password" as HTMLInputTypeAttribute,
   confirmPassword: "",
@@ -55,7 +55,7 @@ export const AuthStore = proxy({
           msg: t("ACCOUNT_CREATED") as string,
           type: "success",
         });
-        router.push("/");
+        router.push("/dashboard");
       }
     } catch (err) {
       catchErrorAlerts(err, t);

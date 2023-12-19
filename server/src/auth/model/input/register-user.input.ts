@@ -12,13 +12,6 @@ import {
 export class RegisterUserInput {
   @IsNotEmpty()
   @MinLength(3)
-  @MaxLength(20)
-  @Validate(UserSpaceValidator)
-  @Field(() => String)
-  username: string;
-
-  @IsNotEmpty()
-  @MinLength(3)
   @MaxLength(100)
   @Validate(UserSpaceValidator)
   @Field(() => String)

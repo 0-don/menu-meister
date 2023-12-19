@@ -7,6 +7,7 @@ import { Prisma } from "@prisma/client";
 import argon2 from "argon2";
 import dayjs from "dayjs";
 
+import { UserCreateInput } from "@/app_modules/@generated/user/user-create.input";
 import { PrismaService } from "../app_modules/prisma/prisma.service";
 import { getToken } from "../app_modules/utils/helpers";
 import {
@@ -26,7 +27,7 @@ export class AuthService {
 
   async login(data: LoginUserInput) {
     const user = await this.prisma.user.findFirst({
-      where: { username: { equals: data.username } },
+      where: { email: { equals: data.email } },
       include: { UserRole: true },
     });
 
@@ -45,9 +46,25 @@ export class AuthService {
     }
   }
 
-  async registerUser({ ...data }: RegisterUserInput) {
+  async registerUser(data: RegisterUserInput) {
     data.password = await argon2.hash(data.password);
-    const user = await this.prisma.user.create({ data });
+    let user: UserCreateInput;
+    try {
+      user = await this.prisma.user.create({
+        data: {
+          ...data,
+          username: data.email.substring(0, data.email.indexOf("@")),
+        },
+      });
+    } catch (error) {
+      user = await this.prisma.user.create({
+        data: {
+          ...data,
+          username: data.email,
+        },
+      });
+    }
+
     await this.prisma.userRole.create({
       data: {
         userId: user.id,
