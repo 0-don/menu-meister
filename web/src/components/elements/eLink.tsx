@@ -17,7 +17,7 @@ export const ELink: React.FC<ELinkProps> = ({
   const isActive = href === currentPath;
 
   return (
-    <NextLink href={href} {...rest} color={isActive ? "primary" : "foreground"}>
+    <NextLink className={isActive ? "font-bold" : ""} href={href} {...rest} color={isActive ? "primary" : "foreground"} >
       {children}
     </NextLink>
   );
