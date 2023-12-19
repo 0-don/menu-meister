@@ -8,7 +8,6 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { print } from "graphql";
-import { notFound } from "next/navigation";
 import { getKey } from "./utils/helpers/clientHelpers";
 
 export const useGqlQuery = <
@@ -89,19 +88,16 @@ export const customFetcher = <TData, TVariables, T extends boolean = false>(
       }),
     });
 
-    const { data, errors } = await res.json();
-    const { headers } = res;
-
-    if (errors) {
+    const json = await res.json();
+    if (json.errors) {
       const errorText = JSON.stringify(
-        errors?.map((e: { message: string | string[] }) => e?.message)?.flat(),
+        json.errors
+          .map((e: { message: string | string[] }) => e.message)
+          .flat(),
       );
-
-      if (errorText.includes("Too Many Requests")) {
-        notFound();
-      }
       throw new Error(errorText);
     }
-    return withHeaders ? { data, headers } : data;
+
+    return withHeaders ? { data: json.data, headers: res.headers } : json.data;
   };
 };
