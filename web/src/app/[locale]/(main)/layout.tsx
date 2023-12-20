@@ -1,6 +1,6 @@
 import { ME } from "@/documents/query/auth";
 import { MeQuery, UserRoleName } from "@/gql/graphql";
-import { localePath } from "@/utils/constants";
+import { TOKEN, localePath } from "@/utils/constants";
 import { getKey } from "@/utils/helpers/clientHelpers";
 import { prefetchQuery } from "@/utils/helpers/serverHelpers";
 import {
@@ -8,6 +8,7 @@ import {
   onErrorTranslation,
 } from "@/utils/helpers/translationHelper";
 import { HydrationBoundary } from "@tanstack/react-query";
+import { getCookies } from "next-client-cookies/server";
 import { NextIntlClientProvider } from "next-intl";
 
 interface HomeLayoutProps {
@@ -28,6 +29,7 @@ export default async function HomeLayout({
   const { queryClient, state } = await prefetchQuery([{ document: ME }]);
 
   const data = queryClient.getQueryData<MeQuery>(getKey(ME));
+  const cookies = getCookies();
 
   let layout = home;
   let messages: Messages["User" | "Dashboard" | "Home"] = (
@@ -37,6 +39,9 @@ export default async function HomeLayout({
     ({ name }) => name === UserRoleName.Admin || name === UserRoleName.Mod,
   );
 
+  // if (!data?.me) cookies.remove(TOKEN);
+
+  // cookies.set("test", "test");
   if (data?.me) {
     layout = user;
     messages = (await localePath(params.locale)).User;
@@ -47,15 +52,17 @@ export default async function HomeLayout({
   }
 
   return (
-    <>
-      <NextIntlClientProvider
-        locale={params.locale}
-        messages={messages}
-        onError={onErrorTranslation}
-        getMessageFallback={getMessageFallbackTranslation}
-      >
-        <HydrationBoundary state={state}>{layout}</HydrationBoundary>
-      </NextIntlClientProvider>
-    </>
+    <NextIntlClientProvider
+      locale={params.locale}
+      messages={messages}
+      onError={onErrorTranslation}
+      getMessageFallback={getMessageFallbackTranslation}
+    >
+      <HydrationBoundary state={state}>
+        <div className="relative flex min-h-[calc(100svh-4rem)] flex-col items-center px-6">
+          {layout}
+        </div>
+      </HydrationBoundary>
+    </NextIntlClientProvider>
   );
 }

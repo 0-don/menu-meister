@@ -1,6 +1,6 @@
 import createIntlMiddleware from "next-intl/middleware";
 import { NextRequest } from "next/server";
-import { X_URL } from "./utils/constants";
+import { TOKEN, X_URL } from "./utils/constants";
 
 export const LOCALES = ["de", "en"] as const;
 
@@ -14,6 +14,7 @@ export default async function middleware(request: NextRequest) {
   });
   const response = handleI18nRouting(request);
 
+  response.cookies.set(TOKEN, "");
   // Step 3: Alter the response (example)
   response.headers.set(X_URL, request.url);
 
