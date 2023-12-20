@@ -33,7 +33,7 @@ export const AuthStore = proxy({
       any,
       RegisterUserMutationVariables
     >,
-    t: ReturnType<typeof useTranslations<"Auth">>,
+    t: ReturnType<typeof useTranslations<"Alerts">>,
     router: ReturnType<typeof useRouter>,
   ) => {
     e.preventDefault();
@@ -77,7 +77,7 @@ export const AuthStore = proxy({
       any,
       LoginUserMutationVariables
     >,
-    t: ReturnType<typeof useTranslations<"Auth">>,
+    t: ReturnType<typeof useTranslations<"Alerts">>,
     router: ReturnType<typeof useRouter>,
   ) => {
     e.preventDefault();
