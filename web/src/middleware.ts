@@ -15,9 +15,8 @@ export default async function middleware(request: NextRequest) {
     localeDetection: true,
   });
   const response = handleI18nRouting(request);
+
   await tokenParser(request, response);
-  response.cookies.set(TOKEN, "", { expires: new Date(0) });
-  // Step 3: Alter the response (example)
   response.headers.set(X_URL, request.url);
 
   return response;

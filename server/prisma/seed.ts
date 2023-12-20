@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { PrismaClient, UserRoleName } from "@prisma/client";
 import argon2 from "argon2";
+import { error } from "console";
 const prisma = new PrismaClient();
 
 const seed = async () => {
@@ -51,7 +52,7 @@ const createUser = async ({
 
 seed()
   .catch((e) => {
-    console.error(e);
+    error(e);
     process.exit(1);
   })
   .finally(async () => {
