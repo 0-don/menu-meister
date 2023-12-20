@@ -7,7 +7,6 @@ import { HydrationBoundary } from "@tanstack/react-query";
 
 interface HomeLayoutProps {
   children: React.ReactNode;
-  params: { locale: string };
   home: React.ReactNode;
   dashboard: React.ReactNode;
   user: React.ReactNode;
@@ -17,7 +16,6 @@ export const dynamic = "force-dynamic";
 
 export default async function HomeLayout({
   children,
-  params,
   home,
   dashboard,
   user,
