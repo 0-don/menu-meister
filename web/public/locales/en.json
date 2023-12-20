@@ -32,5 +32,12 @@
   },
   "Dashboard": {},
   "User": {},
-  "Navbar": {}
+  "Navbar": {
+    "LOGIN": "Login",
+    "REGISTER": "Register",
+    "LOGOUT": "Logout",
+    "HOME": "Home",
+    "DASHBOARD": "Dashboard",
+    "PROFILE": "Profile"
+  }
 }
