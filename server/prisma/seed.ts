@@ -5,6 +5,10 @@ import { error } from "console";
 const prisma = new PrismaClient();
 
 const seed = async () => {
+  const userCount = await prisma.user.count();
+
+  if (userCount > 0) return;
+
   await createUser({
     email: "admin@admin.de",
     password: "!admin",

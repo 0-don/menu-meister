@@ -6,7 +6,7 @@
     "build": "nest build",
     "dev": "nest start --watch",
     "dev:prod": "cross-env NODE_ENV=production nest start --watch",
-    "start": "cross-env NODE_ENV=production npx prisma migrate deploy && cross-env NODE_ENV=production node dist/src/main.js",
+    "start": "npx prisma migrate deploy && npx prisma db seed && cross-env NODE_ENV=production node dist/src/main.js",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "format": "prettier -w \"src/**/*.ts\"",
     "typecheck": "tsc --noEmit --incremental false",
