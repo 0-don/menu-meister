@@ -1,9 +1,9 @@
 "use client";
 
-import { Table } from "@nextui-org/table";
+import { MainTable } from "@/components/Table";
 
 interface UserPageProps {}
 
 export default function UserPage({}: UserPageProps) {
-  return <Table />;
+  return <MainTable />;
 }

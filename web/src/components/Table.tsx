@@ -84,7 +84,7 @@ const users = [
   },
 ];
 
-export default function DashboardPage({}: DashboardPageProps) {
+export function MainTable({}: DashboardPageProps) {
   const renderCell = React.useCallback(
     (user: any, columnKey: string | number) => {
       const cellValue = user[columnKey];

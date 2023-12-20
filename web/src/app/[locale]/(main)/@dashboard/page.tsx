@@ -1,9 +1,9 @@
 "use client";
 
-import { Table } from "@nextui-org/table";
+import { MainTable } from "@/components/Table";
 
 interface DashboardPageProps {}
 
 export default function DashboardPage({}: DashboardPageProps) {
-  return <Table />;
+  return <MainTable />;
 }
