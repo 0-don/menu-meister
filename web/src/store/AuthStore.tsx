@@ -64,7 +64,7 @@ export const AuthStore = proxy({
           msg: t("ACCOUNT_CREATED") as string,
           type: "success",
         });
-        router.push("/dashboard");
+        router.push("/");
       }
     } catch (err) {
       catchErrorAlerts(err, t);
