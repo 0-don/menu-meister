@@ -6,7 +6,6 @@ import {
   getMessageFallbackTranslation,
   onErrorTranslation,
 } from "@/utils/helpers/translationHelper";
-import { CookiesProvider } from 'next-client-cookies/server';
 import { NextIntlClientProvider } from "next-intl";
 import { ReactElement } from "react";
 
@@ -40,10 +39,8 @@ export default async function LocaleLayout({
           <Alerts />
         </NextIntlClientProvider>
         <Providers>
-          <CookiesProvider>
-            <Navbar locale={params.locale} />
-            {children}
-          </CookiesProvider>
+          <Navbar locale={params.locale} />
+          {children}
         </Providers>
       </body>
     </html>

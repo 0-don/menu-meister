@@ -8,7 +8,6 @@ import {
   onErrorTranslation,
 } from "@/utils/helpers/translationHelper";
 import { HydrationBoundary } from "@tanstack/react-query";
-import { getCookies } from "next-client-cookies/server";
 import { NextIntlClientProvider } from "next-intl";
 
 interface HomeLayoutProps {
@@ -27,9 +26,7 @@ export default async function HomeLayout({
   user,
 }: HomeLayoutProps) {
   const { queryClient, state } = await prefetchQuery([{ document: ME }]);
-
   const data = queryClient.getQueryData<MeQuery>(getKey(ME));
-  const cookies = getCookies();
 
   let layout = home;
   let messages: Messages["User" | "Dashboard" | "Home"] = (
@@ -39,9 +36,6 @@ export default async function HomeLayout({
     ({ name }) => name === UserRoleName.Admin || name === UserRoleName.Mod,
   );
 
-  // if (!data?.me) cookies.remove(TOKEN);
-
-  // cookies.set("test", "test");
   if (data?.me) {
     layout = user;
     messages = (await localePath(params.locale)).User;
