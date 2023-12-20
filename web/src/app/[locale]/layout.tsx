@@ -39,7 +39,14 @@ export default async function LocaleLayout({
           <Alerts />
         </NextIntlClientProvider>
         <Providers>
-          <Navbar locale={params.locale} />
+          <NextIntlClientProvider
+            locale={params.locale}
+            messages={(await localePath(params.locale)).Navbar}
+            onError={onErrorTranslation}
+            getMessageFallback={getMessageFallbackTranslation}
+          >
+            <Navbar locale={params.locale} />
+          </NextIntlClientProvider>
           {children}
         </Providers>
       </body>

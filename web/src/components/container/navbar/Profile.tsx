@@ -1,4 +1,5 @@
 "use client";
+import { useMeHook } from "@/components/hooks/useMeHook";
 import { Button } from "@nextui-org/button";
 import {
   Dropdown,
@@ -7,12 +8,17 @@ import {
   DropdownSection,
   DropdownTrigger,
 } from "@nextui-org/dropdown";
+import { User } from "@nextui-org/user";
 import { BiLogIn } from "@react-icons/all-files/bi/BiLogIn";
 import { BiLogOutCircle } from "@react-icons/all-files/bi/BiLogOutCircle";
 import { FaUser } from "@react-icons/all-files/fa/FaUser";
 import { SiWebauthn } from "@react-icons/all-files/si/SiWebauthn";
+import { useTranslations } from "next-intl";
 
 export const Profile = () => {
+  const t = useTranslations("Navbar");
+  const { me } = useMeHook();
+  console.log(me);
   return (
     <>
       <Dropdown
@@ -47,7 +53,7 @@ export const Profile = () => {
           }}
         >
           <DropdownSection aria-label="Profile & Actions">
-            {/* <DropdownItem
+            <DropdownItem
               isReadOnly
               key="profile"
               className="h-14 gap-2 opacity-100"
@@ -64,21 +70,27 @@ export const Profile = () => {
                   src: "https://avatars.githubusercontent.com/u/30373425?v=4",
                 }}
               />
-            </DropdownItem> */}
-            <DropdownItem
-              key="login"
-              href="/login"
-              endContent={<BiLogIn className="text-large" />}
-            >
-              Login
             </DropdownItem>
-            <DropdownItem
-              key="register"
-              href="/register"
-              endContent={<SiWebauthn className="text-large" />}
-            >
-              Register
-            </DropdownItem>
+            <>
+              {me && (
+                <>
+                  <DropdownItem
+                    key="login"
+                    href="/login"
+                    endContent={<BiLogIn className="text-large" />}
+                  >
+                    Login
+                  </DropdownItem>
+                  <DropdownItem
+                    key="register"
+                    href="/register"
+                    endContent={<SiWebauthn className="text-large" />}
+                  >
+                    Register
+                  </DropdownItem>
+                </>
+              )}
+            </>
             <DropdownItem
               key="logout"
               href="/logout"

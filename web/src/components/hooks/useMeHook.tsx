@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 export const useMeHook = () => {
   const { data: { me } = {}, refetch } = useQuery<MeQuery>({
     queryKey: getKey(ME),
-    enabled: true,
+    enabled: false,
     queryFn: customFetcher(ME),
   });
 
