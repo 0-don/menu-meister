@@ -1,6 +1,7 @@
 "use client";
 
 import { ELink } from "@/components/elements/eLink";
+import { useMeHook } from "@/components/hooks/useMeHook";
 import { LanguageSwitch } from "@/components/utils/LanguageSwitch";
 import { ThemeSwitch } from "@/components/utils/ThemeSwitch";
 import { Link } from "@nextui-org/link";
@@ -25,6 +26,7 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
+  const { me } = useMeHook();
   const t = useTranslations<"Navbar">();
   const pathname = usePathname();
 
@@ -38,8 +40,8 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
 
   const LINKS = [
     { link: "/", name: t("HOME") },
-    { link: "/about", name: t("ABOUT") },
-  ];
+    { link: "/about", name: t("ABOUT"), display: !!me },
+  ].filter((link) => !link.display);
 
   return (
     <NextUINavbar
