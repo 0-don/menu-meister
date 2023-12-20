@@ -7,7 +7,7 @@ import {
   RegisterUserMutationVariables,
 } from "@/gql/graphql";
 import { useRouter } from "@/navigation";
-import { catchErrorAlerts } from "@/utils/helpers/clientHelpers";
+import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { FaRegEye } from "@react-icons/all-files/fa/FaRegEye";
 import { FaRegEyeSlash } from "@react-icons/all-files/fa/FaRegEyeSlash";
 import { UseMutateAsyncFunction } from "@tanstack/react-query";
