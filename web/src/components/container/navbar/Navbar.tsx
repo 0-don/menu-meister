@@ -14,6 +14,7 @@ import {
   Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
 import logo_mini from "@public/images/logo_mini.svg";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -23,13 +24,10 @@ interface NavbarProps {
   locale?: string;
 }
 
-const LINKS = [
-  { link: "/", name: "Home" },
-  { link: "/about", name: "About" },
-];
-
 export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
+  const t = useTranslations<"Navbar">();
   const pathname = usePathname();
+
   const Items = (
     <>
       <LanguageSwitch locale={locale} />
@@ -37,6 +35,11 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
       <Profile />
     </>
   );
+
+  const LINKS = [
+    { link: "/", name: t("HOME") },
+    { link: "/about", name: t("ABOUT") },
+  ];
 
   return (
     <NextUINavbar

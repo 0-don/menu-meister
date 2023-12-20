@@ -38,6 +38,7 @@
     "LOGOUT": "Logout",
     "HOME": "Home",
     "DASHBOARD": "Dashboard",
-    "PROFILE": "Profile"
+    "PROFILE": "Profile",
+    "ABOUT": "About"
   }
 }
