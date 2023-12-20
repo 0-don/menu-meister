@@ -1,7 +1,8 @@
 import { ME } from "@/documents/query/auth";
 import { redirect } from "@/navigation";
 import { localePath } from "@/utils/constants";
-import { customFetcherServer, ssrHeaders } from "@/utils/helpers/serverHelpers";
+import { ssrHeaders } from "@/utils/helpers/serverComponentsUtil";
+import { customFetcherServer } from "@/utils/helpers/serverUtils";
 import {
   getMessageFallbackTranslation,
   onErrorTranslation,

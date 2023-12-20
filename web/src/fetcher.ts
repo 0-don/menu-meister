@@ -8,7 +8,7 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { print } from "graphql";
-import { getKey } from "./utils/helpers/clientHelpers";
+import { getKey } from "./utils/helpers/clientUtils";
 
 export const useGqlQuery = <
   TData = any,

@@ -1,8 +1,8 @@
 import { ME } from "@/documents/query/auth";
 import { MeQuery, UserRoleName } from "@/gql/graphql";
-import { TOKEN, localePath } from "@/utils/constants";
-import { getKey } from "@/utils/helpers/clientHelpers";
-import { prefetchQuery } from "@/utils/helpers/serverHelpers";
+import { localePath } from "@/utils/constants";
+import { getKey } from "@/utils/helpers/clientUtils";
+import { prefetchQuery } from "@/utils/helpers/serverComponentsUtil";
 import {
   getMessageFallbackTranslation,
   onErrorTranslation,
