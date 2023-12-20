@@ -15,6 +15,11 @@ const config = {
     };
     return config;
   },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
 };
 
 module.exports = withNextIntl({
