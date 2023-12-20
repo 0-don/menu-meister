@@ -19,16 +19,18 @@ export const Profile = () => {
   const { me } = useMeHook();
 
   const Items = [
-    <DropdownItem key="profile" isReadOnly className="h-14 gap-2 opacity-100">
-      <User
-        name={me?.username}
-        description={me?.email}
-        classNames={{
-          name: "text-default-600",
-          description: "text-default-500",
-        }}
-      />
-    </DropdownItem>,
+    me && (
+      <DropdownItem key="profile" isReadOnly className="h-14 gap-2 opacity-100">
+        <User
+          name={me?.username}
+          description={me?.email}
+          classNames={{
+            name: "text-default-600",
+            description: "text-default-500",
+          }}
+        />
+      </DropdownItem>
+    ),
     me && (
       <DropdownItem
         key="logout"
