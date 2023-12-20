@@ -89,7 +89,7 @@ export default function DashboardPage({}: DashboardPageProps) {
   );
 
   return (
-    <Table aria-label="Example table with custom cells" className="mt-15">
+    <Table aria-label="Example table with custom cells" className="mt-10">
       <TableHeader columns={columns}>
         {(column) => (
           <TableColumn
