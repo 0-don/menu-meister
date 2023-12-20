@@ -1,7 +1,7 @@
 import { ME } from "@/documents/query/auth";
 import { redirect } from "@/navigation";
 import { localePath } from "@/utils/constants";
-import { ssrHeaders } from "@/utils/helpers/serverComponentsUtil";
+import { ssrHeaders, ssrUrl } from "@/utils/helpers/serverComponentsUtil";
 import { customFetcherServer } from "@/utils/helpers/serverUtils";
 import {
   getMessageFallbackTranslation,
@@ -20,7 +20,10 @@ export default async function AuthLayout({
   params,
 }: AuthLayoutProps) {
   const { me } = await customFetcherServer(ME, undefined, ssrHeaders());
-  if (me) redirect("/");
+  const url = ssrUrl();
+
+  if (me && url.pathname !== "/logout") redirect("/");
+
   return (
     <main className="flex min-h-[calc(100svh-4rem)]">
       <div className="m-auto max-w-[500px] md:w-2/5">
