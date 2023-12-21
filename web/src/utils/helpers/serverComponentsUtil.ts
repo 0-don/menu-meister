@@ -1,4 +1,3 @@
-"use server";
 import { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import { dehydrate } from "@tanstack/react-query";
 import { cookies, headers } from "next/headers";

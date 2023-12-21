@@ -9,10 +9,7 @@ type LocaleLayoutProps = {
   params: { locale: string };
 };
 
-export default async function LocaleLayout({
-  children,
-  params,
-}: LocaleLayoutProps) {
+export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
   return (
     <html lang={params.locale} suppressHydrationWarning className="h-full">
       <head>
