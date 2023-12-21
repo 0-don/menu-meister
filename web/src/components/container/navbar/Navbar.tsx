@@ -1,12 +1,7 @@
 import { LanguageSwitch } from "@/components/utils/LanguageSwitch";
 import { ThemeSwitch } from "@/components/utils/ThemeSwitch";
 import { ME } from "@/documents/query/auth";
-import { getMenu } from "@/utils/helpers/clientUtils";
-import {
-  prefetchQuery,
-  ssrGetRoles,
-  ssrUrl,
-} from "@/utils/helpers/serverComponentsUtil";
+import { prefetchQuery, ssrUrl } from "@/utils/helpers/serverComponentsUtil";
 import { Link } from "@nextui-org/link";
 import {
   NavbarBrand,
@@ -27,7 +22,6 @@ interface NavbarProps {}
 export const Navbar: React.FC<NavbarProps> = async ({}) => {
   const { state } = await prefetchQuery([{ document: ME }]);
   const locale = useLocale();
-  const roles = ssrGetRoles();
   const pathname = ssrUrl().pathname;
 
   const Items = (
@@ -37,8 +31,6 @@ export const Navbar: React.FC<NavbarProps> = async ({}) => {
       <Profile />
     </>
   );
-
-  const LINKS = getMenu(roles);
 
   return (
     <HydrationBoundary state={state}>
@@ -74,7 +66,7 @@ export const Navbar: React.FC<NavbarProps> = async ({}) => {
           </Link>
         </NavbarBrand>
 
-        <MainMenu LINKS={LINKS} pathname={pathname} />
+        <MainMenu pathname={pathname} />
 
         <NavbarContent
           className="hidden basis-1/5 sm:flex sm:basis-full"

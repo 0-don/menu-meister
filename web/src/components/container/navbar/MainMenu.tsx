@@ -14,17 +14,16 @@ import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 
 interface MainMenuProps {
-  LINKS: MenuType[];
   pathname: string;
 }
 
-export const MainMenu: React.FC<MainMenuProps> = ({ LINKS, pathname }) => {
+export const MainMenu: React.FC<MainMenuProps> = ({ pathname }) => {
   const t = useTranslations<"Navbar">();
   const { me } = useMeHook();
   const roles = me?.UserRole?.map((role) => role.name) || [];
   const p = usePathname();
   const [path, setPath] = useState<string>(pathname || p);
-  const [links, setLinks] = useState<MenuType[]>(LINKS);
+  const [links, setLinks] = useState<MenuType[]>(getMenu(roles));
 
   useEffect(() => void setPath(pathname || p), [pathname, p]);
   useEffect(() => void setLinks(getMenu(roles)), [me]);
