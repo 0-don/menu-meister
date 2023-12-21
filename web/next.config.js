@@ -15,11 +15,11 @@ const config = {
     };
     return config;
   },
-  logging: {
-    fetches: {
-      fullUrl: process.env.NODE_ENV === "production",
-    },
-  },
+  // logging: {
+  //   fetches: {
+  //     fullUrl: process.env.NODE_ENV === "production",
+  //   },
+  // },
 };
 
 module.exports = withNextIntl({
