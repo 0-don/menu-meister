@@ -16,7 +16,7 @@ generator nestgraphql {
 }
 
 model Token {
-  id String @id @default(cuid())
+  id Int @id @default(autoincrement())
 
   token     String   @unique @db.VarChar(255)
   expiresIn DateTime
@@ -25,16 +25,16 @@ model Token {
   updatedAt DateTime @updatedAt
 
   /// @HideField({ output: false, input: true })
-  createdBy String
+  createdBy Int
   /// @HideField({ output: false, input: true })
-  updatedBy String
+  updatedBy Int
 
   createdByUser User @relation("CreatedToken", fields: [createdBy], references: [id])
   updatedByUser User @relation("UpdatedToken", fields: [updatedBy], references: [id])
 }
 
 model User {
-  id       String @id @default(cuid())
+  id       Int    @id @default(autoincrement())
   /// @HideField({ output: true, input: true })
   password String
   username String @unique
@@ -47,9 +47,9 @@ model User {
   updatedAt DateTime @updatedAt
 
   /// @HideField({ output: false, input: true })
-  createdBy String?
+  createdBy Int?
   /// @HideField({ output: false, input: true })
-  updatedBy String?
+  updatedBy Int?
 
   createdByUser User? @relation("CreatedUser", fields: [createdBy], references: [id])
   updatedByUser User? @relation("UpdatedUser", fields: [updatedBy], references: [id])
@@ -61,21 +61,32 @@ model User {
   createdUserRoles UserRole[] @relation("CreatedUserRole")
   updatedUserRoles UserRole[] @relation("UpdatedUserRole")
 
+  createdIngredients     Ingredient[]     @relation("CreatedIngredient")
+  updatedIngredients     Ingredient[]     @relation("UpdatedIngredient")
+  createdNutritions      Nutrition[]      @relation("CreatedNutrition")
+  updatedNutritions      Nutrition[]      @relation("UpdatedNutrition")
+  createdMeals           Meal[]           @relation("CreatedMeal")
+  updatedMeals           Meal[]           @relation("UpdatedMeal")
+  createdMealSchedulers  MealScheduler[]  @relation("CreatedMealScheduler")
+  updatedMealSchedulers  MealScheduler[]  @relation("UpdatedMealScheduler")
+  createdMealIngredients MealIngredient[] @relation("CreatedMealIngredient")
+  updatedMealIngredients MealIngredient[] @relation("UpdatedMealIngredient")
+
   UserRole UserRole[]
 }
 
 model UserRole {
-  id     String       @id @default(cuid())
-  userId String
+  id     Int          @id @default(autoincrement())
+  userId Int
   name   UserRoleName
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   /// @HideField({ output: false, input: true })
-  createdBy String
+  createdBy Int
   /// @HideField({ output: false, input: true })
-  updatedBy String
+  updatedBy Int
 
   createdByUser User @relation("CreatedUserRole", fields: [createdBy], references: [id])
   updatedByUser User @relation("UpdatedUserRole", fields: [updatedBy], references: [id])
@@ -83,6 +94,101 @@ model UserRole {
   User User @relation(fields: [userId], references: [id])
 
   @@unique([userId, name], name: "user_role_userId_name_unique")
+}
+
+model Ingredient {
+  id              Int              @id @default(autoincrement())
+  name            String           @db.VarChar(255)
+  allergens       String?          @db.VarChar(255)
+  nutritions      Nutrition[]
+  mealIngredients MealIngredient[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy Int
+  /// @HideField({ output: false, input: true })
+  updatedBy Int
+
+  createdByUser User @relation("CreatedIngredient", fields: [createdBy], references: [id])
+  updatedByUser User @relation("UpdatedIngredient", fields: [updatedBy], references: [id])
+}
+
+model Nutrition {
+  ingredientId  Int
+  calories      Decimal    @db.Decimal(10, 2)
+  protein       Decimal    @db.Decimal(10, 2)
+  carbohydrates Decimal    @db.Decimal(10, 2)
+  fats          Decimal    @db.Decimal(10, 2)
+  fiber         Decimal    @db.Decimal(10, 2)
+  ingredient    Ingredient @relation(fields: [ingredientId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy Int
+  /// @HideField({ output: false, input: true })
+  updatedBy Int
+
+  createdByUser User @relation("CreatedNutrition", fields: [createdBy], references: [id])
+  updatedByUser User @relation("UpdatedNutrition", fields: [updatedBy], references: [id])
+
+  @@unique([ingredientId])
+}
+
+model Meal {
+  id              Int              @id @default(autoincrement())
+  name            String           @db.VarChar(255)
+  description     String?          @db.Text
+  mealSchedulers  MealScheduler[]
+  mealIngredients MealIngredient[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy Int
+  /// @HideField({ output: false, input: true })
+  updatedBy Int
+
+  createdByUser User @relation("CreatedMeal", fields: [createdBy], references: [id])
+  updatedByUser User @relation("UpdatedMeal", fields: [updatedBy], references: [id])
+}
+
+model MealScheduler {
+  id          Int      @id @default(autoincrement())
+  mealId      Int
+  servingDate DateTime @db.DateTime
+  meal        Meal     @relation(fields: [mealId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy Int
+  /// @HideField({ output: false, input: true })
+  updatedBy Int
+
+  createdByUser User @relation("CreatedMealScheduler", fields: [createdBy], references: [id])
+  updatedByUser User @relation("UpdatedMealScheduler", fields: [updatedBy], references: [id])
+}
+
+model MealIngredient {
+  mealId       Int
+  ingredientId Int
+  weightGrams  Decimal    @db.Decimal(10, 2)
+  meal         Meal       @relation(fields: [mealId], references: [id])
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy Int
+  /// @HideField({ output: false, input: true })
+  updatedBy Int
+
+  createdByUser User @relation("CreatedMealIngredient", fields: [createdBy], references: [id])
+  updatedByUser User @relation("UpdatedMealIngredient", fields: [updatedBy], references: [id])
+
+  @@id([mealId, ingredientId])
 }
 
 enum UserRoleName {

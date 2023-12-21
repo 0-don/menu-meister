@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker";
 import { PrismaClient, UserRoleName } from "@prisma/client";
 import argon2 from "argon2";
 import { error } from "console";
+
 const prisma = new PrismaClient();
 
 const seed = async () => {
@@ -9,7 +10,7 @@ const seed = async () => {
 
   if (userCount > 0) return;
 
-  await createUser({
+  const user = await createUser({
     email: "admin@admin.de",
     password: "!admin",
     roles: ["USER", "ADMIN"],
@@ -52,6 +53,8 @@ const createUser = async ({
       },
     });
   }
+
+  return user;
 };
 
 seed()

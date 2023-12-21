@@ -12,24 +12,14 @@ export class UserService {
     const { UserRole, ...userData } = data;
 
     const password = await argon2.hash(userData.password || "");
-
-    const create = {
-      ...userData,
-      password,
-    };
-
-    const update = userData.password
-      ? {
-          ...userData,
-          password,
-        }
-      : userData;
+    const create = { ...userData, password };
+    const update = userData.password ? { ...userData, password } : userData;
 
     if (!update.password) delete update.password;
     if (update.username) delete update.username;
 
     const user = await this.prisma.user.upsert({
-      where: { id: data.id || "" },
+      where: { id: data.id },
       create: create as any,
       update: update as any,
     });
@@ -49,8 +39,8 @@ export class UserService {
         data: {
           name: userRole.name,
           userId: data.id,
-          createdBy: me?.sub || "",
-          updatedBy: me?.sub || "",
+          createdBy: me.sub,
+          updatedBy: me.sub,
         },
       });
     }
