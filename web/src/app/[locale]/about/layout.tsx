@@ -2,14 +2,11 @@ import { ME } from "@/documents/query/auth";
 import { prefetchQuery } from "@/utils/helpers/serverComponentsUtil";
 import { HydrationBoundary } from "@tanstack/react-query";
 
-interface HomeLayoutProps {
+interface AboutLayoutProps {
   children: React.ReactNode;
-  home: React.ReactNode;
-  dashboard: React.ReactNode;
-  user: React.ReactNode;
 }
 
-export default async function HomeLayout({ children }: HomeLayoutProps) {
+export default async function AboutLayout({ children }: AboutLayoutProps) {
   const { queryClient, state } = await prefetchQuery([{ document: ME }]);
 
   return (
