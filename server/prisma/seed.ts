@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker";
 import { PrismaClient, UserRoleName } from "@prisma/client";
 import argon2 from "argon2";
 import { error } from "console";
+import dayjs from "dayjs";
 
 const prisma = new PrismaClient();
 
@@ -21,14 +22,17 @@ const seed = async () => {
     password: "!admin",
     roles: ["USER", "ADMIN"],
   });
+
+  await seedIngredientsAndNutritions();
+  await seedMeals();
 };
 
-export const seedIngredientsAndNutritions = async () => {
+const seedIngredientsAndNutritions = async () => {
   const user = await prisma.user.findFirst({
     where: { email: "admin@admin.de" },
   });
 
-  for (let i = 0; i < 100; i++) {
+  for (const _ of Array(500).keys()) {
     const ingredientName = faker.commerce.product();
 
     // Create ingredient individually
@@ -57,6 +61,62 @@ export const seedIngredientsAndNutritions = async () => {
         fiber: faker.number.float({ min: 0, max: 100 }),
         createdBy: user.id,
         updatedBy: user.id,
+      },
+    });
+  }
+};
+
+const seedMeals = async () => {
+  const user = await prisma.user.findFirst({
+    where: { email: "admin@admin.de" },
+  });
+
+  for (const _ of Array(100).keys()) {
+    const meal = await prisma.meal.create({
+      data: {
+        name: faker.commerce.productName(),
+        description: faker.commerce.productDescription(),
+        createdBy: user.id,
+        updatedBy: user.id,
+      },
+    });
+
+    await seedMealSchedulers(meal.id, user.id);
+    await seedMealIngredients(meal.id, user.id);
+  }
+};
+
+const seedMealSchedulers = async (mealId, userId) => {
+  for (const _ of Array(50).keys()) {
+    await prisma.mealScheduler.create({
+      data: {
+        mealId: mealId,
+        servingDate: faker.date.between({
+          from: dayjs().subtract(1, "month").toDate(),
+          to: dayjs().add(1, "month").toDate(),
+        }),
+        createdBy: userId,
+        updatedBy: userId,
+      },
+    });
+  }
+};
+
+const seedMealIngredients = async (mealId: number, userId: number) => {
+  const ingredients = await prisma.ingredient.findMany();
+  const selectedIngredients = faker.helpers.uniqueArray(
+    ingredients,
+    randomInt(2, 5),
+  );
+
+  for (const ingredient of selectedIngredients) {
+    await prisma.mealIngredient.create({
+      data: {
+        mealId: mealId,
+        ingredientId: ingredient.id,
+        weightGrams: faker.number.float({ min: 1, max: 500 }),
+        createdBy: userId,
+        updatedBy: userId,
       },
     });
   }
