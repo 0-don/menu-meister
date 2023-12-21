@@ -1,7 +1,7 @@
 import { TypedDocumentNode } from "@graphql-typed-document-node/core";
-import { BACKEND_INTERNAL_URL } from "../constants";
 import fs from "fs";
 import { print } from "graphql";
+import { BACKEND_INTERNAL_URL } from "../constants";
 
 export const customFetcherServer = async <
   TData,
@@ -43,9 +43,7 @@ export const customFetcherServer = async <
   return withHeaders ? { data: json.data, headers: res.headers } : json.data;
 };
 
-export async function isDocker() {
-  let isDockerCached: boolean | undefined;
-
+export function isDocker() {
   function hasDockerEnv() {
     try {
       fs.statSync("/.dockerenv");
@@ -63,9 +61,5 @@ export async function isDocker() {
     }
   }
 
-  if (isDockerCached === undefined) {
-    isDockerCached = hasDockerEnv() || hasDockerCGroup();
-  }
-
-  return isDockerCached;
+  return hasDockerEnv() || hasDockerCGroup();
 }

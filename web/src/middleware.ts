@@ -1,5 +1,6 @@
 import createIntlMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
+import psl from "psl";
 import { ME } from "./documents/query/auth";
 import { TOKEN, X_URL } from "./utils/constants";
 import { customFetcherServer } from "./utils/helpers/serverUtils";
@@ -35,7 +36,17 @@ const tokenParser = async (request: NextRequest, response: NextResponse) => {
     referer,
   });
   if (!me) {
-    response.cookies.set(TOKEN, "", { expires: new Date(0) });
+    response.cookies.set(TOKEN, "", {
+      expires: new Date(0),
+      secure: true,
+      domain:
+        process.env.NODE_ENV === "production"
+          ? `.${psl.parse(new URL(referer).hostname).domain}`
+          : undefined,
+      sameSite: process.env.NODE_ENV === "production" ? "lax" : "none",
+      path: "/",
+      httpOnly: true,
+    });
   }
 };
 
