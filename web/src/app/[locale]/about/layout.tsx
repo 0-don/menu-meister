@@ -1,22 +1,14 @@
 import { ME } from "@/documents/query/auth";
-import getQueryClient from "@/utils/getQueryClient";
-import { getKey } from "@/utils/helpers/clientUtils";
-import { getMe, ssrHeaders } from "@/utils/helpers/serverComponentsUtil";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import { prefetchQuery } from "@/utils/helpers/serverComponentsUtil";
+import { HydrationBoundary } from "@tanstack/react-query";
 
 interface AboutLayoutProps {
   children: React.ReactNode;
 }
 
 export default async function AboutLayout({ children }: AboutLayoutProps) {
-  // const { queryClient, state } = await prefetchQuery([{ document: ME }]);
-  const authorization = ssrHeaders();
-  const queryClient = getQueryClient();
-  queryClient.setQueryData(
-    getKey(ME),
-    await getMe(ME, undefined, authorization),
-  );
-  const state = dehydrate(queryClient);
+  const { state } = await prefetchQuery([{ document: ME }]);
+
   return (
     <HydrationBoundary state={state}>
       <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] max-w-7xl flex-col items-center px-6">
