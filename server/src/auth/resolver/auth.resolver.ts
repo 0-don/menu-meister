@@ -19,6 +19,7 @@ export class AuthResolver {
   @Query(() => User, { nullable: true })
   @Roles("GUEST")
   async me(@CurrentUser() me?: JwtUser) {
+    console.log(new Date().toISOString());
     if (!me) return null;
 
     try {
