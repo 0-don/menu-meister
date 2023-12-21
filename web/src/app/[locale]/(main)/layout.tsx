@@ -36,8 +36,6 @@ export default async function HomeLayout({
     tree = "Dashboard";
   }
 
-  // console.log(data);
-
   return (
     <NextIntlProvider tree={tree}>
       <HydrationBoundary state={state}>

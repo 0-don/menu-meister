@@ -27,7 +27,7 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
   const { me } = useMeHook();
-  console.log(me);
+
   const t = useTranslations<"Navbar">();
   const pathname = usePathname();
 
