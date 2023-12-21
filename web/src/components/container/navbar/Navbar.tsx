@@ -1,6 +1,6 @@
 import { LanguageSwitch } from "@/components/utils/LanguageSwitch";
 import { ThemeSwitch } from "@/components/utils/ThemeSwitch";
-import { UserRoleName } from "@/gql/graphql";
+import { getMenu } from "@/utils/helpers/clientUtils";
 import { ssrGetRoles, ssrUrl } from "@/utils/helpers/serverComponentsUtil";
 import { Link } from "@nextui-org/link";
 import {
@@ -32,15 +32,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
     </>
   );
 
-  const LINKS = [
-    { link: "/", name: t("HOME") },
-    {
-      link: "/about",
-      name: t("ABOUT"),
-      display:
-        roles.includes(UserRoleName.Admin) || roles.includes(UserRoleName.Mod),
-    },
-  ].filter((link) => !link.display);
+  const LINKS = getMenu(roles);
 
   return (
     <NextUINavbar

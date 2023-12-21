@@ -1,3 +1,4 @@
+import { UserRoleName } from "@/gql/graphql";
 import { GeneralStore } from "@/store/GeneralStore";
 import { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import { DirectiveDefinitionNode } from "graphql";
@@ -9,6 +10,17 @@ export const uid = () =>
 export const getKey = <TData = any, TVariables = unknown>(
   document: TypedDocumentNode<TData, TVariables>,
 ) => [(document?.definitions?.[0] as DirectiveDefinitionNode)?.name?.value];
+
+export const getMenu = (roles: UserRoleName[]) =>
+  [
+    { link: "/", name: "HOME" },
+    {
+      link: "/about",
+      name: "ABOUT",
+      display:
+        roles.includes(UserRoleName.Admin) || roles.includes(UserRoleName.Mod),
+    },
+  ].filter((link) => !link.display);
 
 export const catchErrorAlerts = (
   err: unknown,

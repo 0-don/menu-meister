@@ -1,9 +1,9 @@
 "use client";
 import { ELink } from "@/components/elements/eLink";
 import { useMeHook } from "@/components/hooks/useMeHook";
-import { UserRoleName } from "@/gql/graphql";
 import { usePathname } from "@/navigation";
 import { MenuType } from "@/types";
+import { getMenu } from "@/utils/helpers/clientUtils";
 import {
   NavbarContent,
   NavbarItem,
@@ -26,23 +26,10 @@ export const MainMenu: React.FC<MainMenuProps> = ({ LINKS, pathname }) => {
   const [path, setPath] = useState<string>(pathname || p);
   const [links, setLinks] = useState<MenuType[]>(LINKS);
 
+  console.log(me);
+
   useEffect(() => void setPath(pathname || p), [pathname, p]);
-  useEffect(
-    () =>
-      void setLinks(
-        [
-          { link: "/", name: t("HOME") },
-          {
-            link: "/about",
-            name: t("ABOUT"),
-            display:
-              roles.includes(UserRoleName.Admin) ||
-              roles.includes(UserRoleName.Mod),
-          },
-        ].filter((link) => !link.display),
-      ),
-    [me],
-  );
+  useEffect(() => void setLinks(getMenu(roles)), [me]);
 
   return (
     <>
