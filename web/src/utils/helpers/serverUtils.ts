@@ -1,9 +1,10 @@
+"use server";
 import { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import fs from "fs";
 import { print } from "graphql";
 import { BACKEND_INTERNAL_URL } from "../constants";
 
-export const customFetcherServer = async <
+export const customFetcherServer = <
   TData,
   TVariables,
   T extends boolean = false,
@@ -12,38 +13,43 @@ export const customFetcherServer = async <
   variables?: TVariables,
   options?: RequestInit["headers"],
   withHeaders: T = false as T,
-): Promise<T extends false ? TData : { data: TData; headers: Headers }> => {
-  const res = await fetch(
-    isDocker()
-      ? BACKEND_INTERNAL_URL
-      : process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
-    {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        "cache-control": "no-cache",
-        ...options,
+): (() => T extends false
+  ? Promise<TData>
+  : Promise<{ data: TData; headers: Headers }>) => {
+  return async () => {
+    const res = await fetch(
+      await isDocker()
+        ? BACKEND_INTERNAL_URL
+        : process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          ...options,
+        },
+        body: JSON.stringify({
+          query: print(document),
+          variables,
+        }),
       },
-      cache: "no-store",
-      body: JSON.stringify({
-        query: print(document),
-        variables,
-      }),
-    },
-  );
-
-  const json = await res.json();
-  if (json.errors) {
-    const errorText = JSON.stringify(
-      json.errors.map((e: { message: string | string[] }) => e.message).flat(),
     );
-    throw new Error(errorText);
-  }
-  return withHeaders ? { data: json.data, headers: res.headers } : json.data;
+
+    const json = await res.json();
+    if (json.errors) {
+      const errorText = JSON.stringify(
+        json.errors
+          .map((e: { message: string | string[] }) => e.message)
+          .flat(),
+      );
+      throw new Error(errorText);
+    }
+    return withHeaders ? { data: json.data, headers: res.headers } : json.data;
+  };
 };
 
-export function isDocker() {
+export async function isDocker() {
+  "use server";
   function hasDockerEnv() {
     try {
       fs.statSync("/.dockerenv");

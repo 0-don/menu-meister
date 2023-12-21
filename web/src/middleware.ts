@@ -17,7 +17,7 @@ export default async function middleware(request: NextRequest) {
   });
   const response = handleI18nRouting(request);
 
-  await tokenParser(request, response);
+  // await tokenParser(request, response);
   response.headers.set(X_URL, request.url);
 
   return response;
@@ -34,7 +34,7 @@ const tokenParser = async (request: NextRequest, response: NextResponse) => {
   const { me } = await customFetcherServer(ME, undefined, {
     authorization,
     referer,
-  });
+  })();
   if (!me)
     response.cookies.set(TOKEN, "", {
       expires: new Date(0),

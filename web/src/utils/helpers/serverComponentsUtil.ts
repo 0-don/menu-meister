@@ -35,9 +35,10 @@ export const prefetchQuery = async (
   const authorization = ssrHeaders();
 
   const promises = documents.map(({ document, variables }) =>
-    customFetcherServer(document, variables, authorization)
-      .then((res) => queryClient.setQueryData(getKey(document), res))
-      .catch((_) => {}),
+    queryClient.prefetchQuery({
+      queryKey: getKey(document),
+      queryFn: customFetcherServer(document, variables, authorization),
+    }),
   );
 
   await Promise.all(promises);
