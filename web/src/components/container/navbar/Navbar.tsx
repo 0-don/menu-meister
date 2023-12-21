@@ -1,4 +1,3 @@
-import { ELink } from "@/components/elements/eLink";
 import { LanguageSwitch } from "@/components/utils/LanguageSwitch";
 import { ThemeSwitch } from "@/components/utils/ThemeSwitch";
 import { UserRoleName } from "@/gql/graphql";
@@ -7,9 +6,6 @@ import { Link } from "@nextui-org/link";
 import {
   NavbarBrand,
   NavbarContent,
-  NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
   NavbarMenuToggle,
   Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
@@ -17,6 +13,7 @@ import logo_mini from "@public/images/logo_mini.svg";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
+import { MainMenu } from "./MainMenu";
 import { Profile } from "./Profile";
 
 interface NavbarProps {}
@@ -77,15 +74,8 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
           <span>{process.env.NEXT_PUBLIC_BRAND_NAME}</span>
         </Link>
       </NavbarBrand>
-      <NavbarContent className="hidden gap-4 sm:flex">
-        {LINKS.map(({ link, name }) => (
-          <NavbarItem key={link} isActive={pathname === link}>
-            <ELink href={link} size="lg">
-              {name}
-            </ELink>
-          </NavbarItem>
-        ))}
-      </NavbarContent>
+
+      <MainMenu LINKS={LINKS} pathname={pathname} />
 
       <NavbarContent
         className="hidden basis-1/5 sm:flex sm:basis-full"
@@ -98,16 +88,6 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
         {Items}
         <NavbarMenuToggle />
       </NavbarContent>
-
-      <NavbarMenu>
-        {LINKS.map(({ link, name }) => (
-          <NavbarMenuItem key={link} isActive={pathname === link}>
-            <ELink href={link} size="lg">
-              {name}
-            </ELink>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
     </NextUINavbar>
   );
 };
