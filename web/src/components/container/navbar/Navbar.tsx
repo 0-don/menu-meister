@@ -14,16 +14,15 @@ import {
   Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
 import logo_mini from "@public/images/logo_mini.svg";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
 import { Profile } from "./Profile";
 
-interface NavbarProps {
-  locale?: string;
-}
+interface NavbarProps {}
 
-export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
+export const Navbar: React.FC<NavbarProps> = ({}) => {
+  const locale = useLocale();
   const roles = ssrGetRoles();
   const t = useTranslations("Navbar");
   const pathname = ssrUrl().pathname;

@@ -28,7 +28,7 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
           </NextIntlProvider>
 
           <NextIntlProvider tree="Navbar">
-            <Navbar locale={params.locale} />
+            <Navbar />
           </NextIntlProvider>
           {children}
         </Providers>
