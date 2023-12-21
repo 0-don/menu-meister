@@ -26,8 +26,6 @@ export const MainMenu: React.FC<MainMenuProps> = ({ LINKS, pathname }) => {
   const [path, setPath] = useState<string>(pathname || p);
   const [links, setLinks] = useState<MenuType[]>(LINKS);
 
-  console.log(me);
-
   useEffect(() => void setPath(pathname || p), [pathname, p]);
   useEffect(() => void setLinks(getMenu(roles)), [me]);
 
@@ -37,7 +35,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({ LINKS, pathname }) => {
         {links.map(({ link, name }) => (
           <NavbarItem key={link} isActive={path === link}>
             <ELink href={link} size="lg">
-              {name}
+              {t(name as keyof Messages["Navbar"])}
             </ELink>
           </NavbarItem>
         ))}
@@ -46,7 +44,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({ LINKS, pathname }) => {
         {links.map(({ link, name }) => (
           <NavbarMenuItem key={link} isActive={path === link}>
             <ELink href={link} size="lg">
-              {name}
+              {t(name as keyof Messages["Navbar"])}
             </ELink>
           </NavbarMenuItem>
         ))}
