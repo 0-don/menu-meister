@@ -16,17 +16,17 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
         <title>{process.env.NEXT_PUBLIC_BRAND_NAME}</title>
       </head>
       <body className="h-full">
-        <span
-          id="animation"
-          className={`absolute left-1/2 top-0 h-[1000px] w-96 -translate-x-1/2 -translate-y-[500px] rounded-full opacity-[0.15] blur-[75px] filter md:w-2/5 
-            lg:w-2/5 xl:w-3/5 2xl:w-3/5 dark:opacity-[0.2]`}
-        />
-
-        <NextIntlProvider tree="Alerts">
-          <Alerts />
-        </NextIntlProvider>
-
         <Providers>
+          <span
+            id="animation"
+            className={`absolute left-1/2 top-0 h-[1000px] w-96 -translate-x-1/2 -translate-y-[500px] rounded-full opacity-[0.15] blur-[75px] filter md:w-2/5 
+            lg:w-2/5 xl:w-3/5 2xl:w-3/5 dark:opacity-[0.2]`}
+          />
+
+          <NextIntlProvider tree="Alerts">
+            <Alerts />
+          </NextIntlProvider>
+
           <NextIntlProvider tree="Navbar">
             <Navbar locale={params.locale} />
           </NextIntlProvider>

@@ -1,8 +1,7 @@
 import { TypedDocumentNode } from "@graphql-typed-document-node/core";
-import { dehydrate } from "@tanstack/react-query";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { cookies, headers } from "next/headers";
 import { TOKEN, X_URL } from "../constants";
-import getQueryClient from "../getQueryClient";
 import { getKey } from "./clientUtils";
 import { customFetcherServer } from "./serverUtils";
 
@@ -27,7 +26,8 @@ export const prefetchQuery = async (
     variables?: any;
   }[],
 ) => {
-  const queryClient = getQueryClient();
+  const queryClient = new QueryClient();
+  // const queryClient = getQueryClient();
   const authorization = ssrHeaders();
 
   const promises = documents.map(({ document, variables }) =>
