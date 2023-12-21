@@ -18,8 +18,6 @@ export const Profile = () => {
   const t = useTranslations<"Navbar">();
   const { me } = useMeHook();
 
-  console.log(me);
-
   const Items = [
     me && (
       <DropdownItem key="profile" isReadOnly className="h-14 gap-2 opacity-100">
