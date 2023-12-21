@@ -1,6 +1,21 @@
-import { ssrUrl } from "@/utils/helpers/serverComponentsUtil";
-import { NavbarContent, Navbar as NextUINavbar } from "@nextui-org/navbar";
+import { ELink } from "@/components/elements/eLink";
+import { LanguageSwitch } from "@/components/utils/LanguageSwitch";
+import { ThemeSwitch } from "@/components/utils/ThemeSwitch";
+import { UserRoleName } from "@/gql/graphql";
+import { ssrGetRoles, ssrUrl } from "@/utils/helpers/serverComponentsUtil";
+import { Link } from "@nextui-org/link";
+import {
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
+  Navbar as NextUINavbar,
+} from "@nextui-org/navbar";
+import logo_mini from "@public/images/logo_mini.svg";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import React from "react";
 import { Profile } from "./Profile";
 
@@ -9,22 +24,26 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
-  // const { me } = useMeHook();
-
+  const roles = ssrGetRoles();
   const t = useTranslations("Navbar");
   const pathname = ssrUrl().pathname;
 
   const Items = (
     <>
-      {/* <LanguageSwitch locale={locale} /> */}
-      {/* <ThemeSwitch /> */}
+      <LanguageSwitch locale={locale} />
+      <ThemeSwitch />
       <Profile />
     </>
   );
 
   const LINKS = [
     { link: "/", name: t("HOME") },
-    { link: "/about", name: t("ABOUT"), display: true },
+    {
+      link: "/about",
+      name: t("ABOUT"),
+      display:
+        roles.includes(UserRoleName.Admin) || roles.includes(UserRoleName.Mod),
+    },
   ].filter((link) => !link.display);
 
   return (
@@ -49,7 +68,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
         ],
       }}
     >
-      {/* <NavbarBrand as="li" className="max-w-fit">
+      <NavbarBrand as="li" className="max-w-fit">
         <Link
           color="foreground"
           className="flex items-center space-x-0.5 text-2xl font-bold"
@@ -67,21 +86,21 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
             </ELink>
           </NavbarItem>
         ))}
-      </NavbarContent> */}
+      </NavbarContent>
 
       <NavbarContent
         className="hidden basis-1/5 sm:flex sm:basis-full"
         justify="end"
       >
-        <Profile />
+        {Items}
       </NavbarContent>
 
-      {/* <NavbarContent className="basis-1 pl-4 sm:hidden" justify="end">
+      <NavbarContent className="basis-1 pl-4 sm:hidden" justify="end">
         {Items}
         <NavbarMenuToggle />
-      </NavbarContent> */}
+      </NavbarContent>
 
-      {/* <NavbarMenu>
+      <NavbarMenu>
         {LINKS.map(({ link, name }) => (
           <NavbarMenuItem key={link} isActive={pathname === link}>
             <ELink href={link} size="lg">
@@ -89,7 +108,7 @@ export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
             </ELink>
           </NavbarMenuItem>
         ))}
-      </NavbarMenu> */}
+      </NavbarMenu>
     </NextUINavbar>
   );
 };

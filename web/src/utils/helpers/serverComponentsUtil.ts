@@ -1,12 +1,16 @@
+import { UserRoleName } from "@/gql/graphql";
 import { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { cookies, headers } from "next/headers";
-import { TOKEN, X_URL } from "../constants";
+import { ROLES, TOKEN, X_URL } from "../constants";
 import { getKey } from "./clientUtils";
 import { customFetcherServer } from "./serverUtils";
 
 export const ssrUrl = (): URL =>
   new URL(headers().get(X_URL) || process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT);
+
+export const ssrGetRoles = (): UserRoleName[] =>
+  (headers().get(ROLES)?.split(",") || []) as UserRoleName[];
 
 export const ssrHeaders = (): HeadersInit => {
   const referer =

@@ -17,13 +17,13 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <NextUIProvider navigate={router.push}>
-        <NextThemesProvider attribute="class" enableSystem>
+    <NextUIProvider navigate={router.push}>
+      <NextThemesProvider attribute="class" enableSystem>
+        <QueryClientProvider client={queryClient}>
           {children}
-        </NextThemesProvider>
-      </NextUIProvider>
-      <ReactQueryDevtools initialIsOpen={true} />
-    </QueryClientProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </NextThemesProvider>
+    </NextUIProvider>
   );
 }

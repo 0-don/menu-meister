@@ -2,7 +2,7 @@ import createIntlMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import psl from "psl";
 import { ME } from "./documents/query/auth";
-import { TOKEN, X_URL } from "./utils/constants";
+import { ROLES, TOKEN, X_URL } from "./utils/constants";
 import { customFetcherServer } from "./utils/helpers/serverUtils";
 
 export const LOCALES = ["de", "en"] as const;
@@ -35,7 +35,7 @@ const tokenParser = async (request: NextRequest, response: NextResponse) => {
     authorization,
     referer,
   });
-  if (!me) {
+  if (!me)
     response.cookies.set(TOKEN, "", {
       expires: new Date(0),
       secure: true,
@@ -47,7 +47,8 @@ const tokenParser = async (request: NextRequest, response: NextResponse) => {
       path: "/",
       httpOnly: true,
     });
-  }
+  const roles = me?.UserRole?.map(({ name }) => name).join(",");
+  if (roles) response.headers.set(ROLES, roles);
 };
 
 export const config = {
