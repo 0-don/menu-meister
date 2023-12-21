@@ -5,6 +5,12 @@ import { error } from "console";
 
 const prisma = new PrismaClient();
 
+const randomInt = (min = 0, max = 10) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+
+const coinFlip = (probability = 0.5) =>
+  Math.random() <= probability ? true : false;
+
 const seed = async () => {
   const userCount = await prisma.user.count();
 
@@ -15,6 +21,45 @@ const seed = async () => {
     password: "!admin",
     roles: ["USER", "ADMIN"],
   });
+};
+
+export const seedIngredientsAndNutritions = async () => {
+  const user = await prisma.user.findFirst({
+    where: { email: "admin@admin.de" },
+  });
+
+  for (let i = 0; i < 100; i++) {
+    const ingredientName = faker.commerce.product();
+
+    // Create ingredient individually
+    const ingredient = await prisma.ingredient.create({
+      data: {
+        name: ingredientName,
+        allergens: faker.helpers.arrayElement([
+          "nuts",
+          "dairy",
+          "gluten",
+          null,
+        ]),
+        createdBy: user.id,
+        updatedBy: user.id,
+      },
+    });
+
+    // Create corresponding nutrition data
+    await prisma.nutrition.create({
+      data: {
+        ingredientId: ingredient.id,
+        calories: faker.number.float({ min: 0, max: 500 }),
+        protein: faker.number.float({ min: 0, max: 100 }),
+        carbohydrates: faker.number.float({ min: 0, max: 100 }),
+        fats: faker.number.float({ min: 0, max: 100 }),
+        fiber: faker.number.float({ min: 0, max: 100 }),
+        createdBy: user.id,
+        updatedBy: user.id,
+      },
+    });
+  }
 };
 
 const createUser = async ({
