@@ -31,7 +31,6 @@ export const prefetchQuery = async (
     variables?: any;
   }[],
 ) => {
-  // const queryClient = new QueryClient();
   const queryClient = getQueryClient();
   const authorization = ssrHeaders();
 

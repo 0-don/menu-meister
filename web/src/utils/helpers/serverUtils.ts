@@ -18,15 +18,18 @@ export const customFetcherServer = <
   : Promise<{ data: TData; headers: Headers }>) => {
   return async () => {
     const res = await fetch(
-      await isDocker()
+      (await isDocker())
         ? BACKEND_INTERNAL_URL
         : process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
       {
         method: "POST",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
           ...options,
+        },
+        next: {
+          revalidate: 1,
+          tags: [(options as any)?.["authorization"] || ""],
         },
         body: JSON.stringify({
           query: print(document),
