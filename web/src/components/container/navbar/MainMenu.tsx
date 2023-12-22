@@ -3,8 +3,8 @@
 import { MyLink } from "@/components/elements/MyLink";
 import { useMeHook } from "@/components/hooks/useMeHook";
 import { usePathname } from "@/navigation";
-import { MenuType } from "@/types";
 import { getMenu } from "@/utils/helpers/clientUtils";
+import { MenuType } from "@/utils/types";
 import {
   NavbarContent,
   NavbarItem,

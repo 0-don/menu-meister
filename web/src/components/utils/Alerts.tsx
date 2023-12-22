@@ -1,7 +1,7 @@
 "use client";
 
 import { GeneralStore } from "@/store/GeneralStore";
-import { AlertType } from "@/types/store";
+import { AlertType } from "@/utils/types/store";
 import { VscChromeClose } from "@react-icons/all-files/vsc/VscChromeClose";
 import { animated, useTransition } from "@react-spring/web";
 import { useTranslations } from "next-intl";

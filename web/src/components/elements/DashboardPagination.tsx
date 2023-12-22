@@ -1,6 +1,6 @@
 import { PaginationItemType, usePagination } from "@nextui-org/pagination";
-import React from "react";
 import { FaChevronRight } from "@react-icons/all-files/fa/FaChevronRight";
+import React from "react";
 
 interface DashboardPaginationProps {}
 
@@ -24,7 +24,7 @@ export const DashboardPagination: React.FC<DashboardPaginationProps> = ({}) => {
                   className="h-full w-full rounded-full bg-default-200"
                   onClick={onNext}
                 >
-                  <FaChevronRight className="rotate-180" />
+                  <FaChevronRight />
                 </button>
               </li>
             );
@@ -37,7 +37,7 @@ export const DashboardPagination: React.FC<DashboardPaginationProps> = ({}) => {
                   className="h-full w-full rounded-full bg-default-200"
                   onClick={onPrevious}
                 >
-                  <FaChevronRight />
+                  <FaChevronRight className="rotate-180" />
                 </button>
               </li>
             );
@@ -54,7 +54,9 @@ export const DashboardPagination: React.FC<DashboardPaginationProps> = ({}) => {
           return (
             <li key={page} aria-label={`page ${page}`} className="h-4 w-4">
               <button
-                className={`h-full w-full rounded-full bg-default-300 ${activePage === page && "bg-secondary"}`}
+                className={`h-full w-full rounded-full bg-default-300 ${
+                  activePage === page && "bg-secondary"
+                }`}
                 onClick={() => setPage(page)}
               />
             </li>

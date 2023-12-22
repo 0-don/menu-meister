@@ -1,6 +1,6 @@
 "use client";
-import { Alert, AlertType } from "@/types/store";
 import { uid } from "@/utils/helpers/clientUtils";
+import { Alert, AlertType } from "@/utils/types/store";
 import { QueryClient } from "@tanstack/react-query";
 import { proxy } from "valtio";
 

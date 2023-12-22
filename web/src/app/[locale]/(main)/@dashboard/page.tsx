@@ -1,6 +1,7 @@
 "use client";
 
 import { MainTable } from "@/components/MainTable";
+import { DashboardPagination } from "@/components/elements/DashboardPagination";
 import { GET_ALL_MEAL_SCHEDULES_ADMIN } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
 
@@ -13,5 +14,10 @@ export default function DashboardPage({}: DashboardPageProps) {
   );
 
   console.log(getAllMealSchedulesAdmin);
-  return <MainTable />;
+  return (
+    <>
+      <DashboardPagination />
+      <MainTable />
+    </>
+  );
 }
