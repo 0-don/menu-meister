@@ -1,5 +1,4 @@
 import { GraphQLContext, JwtUser } from "@/app_modules/@types/types";
-import { Logger } from "@nestjs/common";
 import { Args, Context, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { COOKIE_NAME, COOKIE_SERIALIZE_OPTIONS } from "src/constants";
 import { User } from "../../app_modules/@generated/user/user.model";
@@ -20,7 +19,6 @@ export class AuthResolver {
   @Query(() => User, { nullable: true })
   @Roles("GUEST")
   async me(@CurrentUser() me?: JwtUser) {
-    Logger.log(1);
     if (!me) return null;
 
     try {
