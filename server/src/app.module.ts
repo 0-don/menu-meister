@@ -8,7 +8,11 @@ import { RolesGuard } from "./app_modules/guards/roles.guard";
 import { ModulesModule } from "./app_modules/modules.module";
 import { AuthModule } from "./auth/auth.module";
 import { graphqlModuleFactory } from "./graphql";
+import { IngredientModule } from "./ingredient/ingredient.module";
+import { MealIngredientModule } from "./meal-ingredient/meal-ingredient.module";
+import { MealScheduleModule } from "./meal-schedule/meal-schedule.module";
 import { MealModule } from "./meal/meal.module";
+import { NutritionModule } from "./nutrition/nutrition.module";
 import { UserModule } from "./user/user.module";
 
 @Module({
@@ -19,7 +23,11 @@ import { UserModule } from "./user/user.module";
     AuthModule,
     UserModule,
     ModulesModule,
+    IngredientModule,
+    NutritionModule,
     MealModule,
+    MealIngredientModule,
+    MealScheduleModule,
   ],
   controllers: [],
   providers: [

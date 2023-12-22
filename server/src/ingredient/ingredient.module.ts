@@ -6,4 +6,4 @@ import { IngredientAdminResolver } from "./resolver/ingredient-admin.resolver";
   providers: [IngredientAdminResolver, IngredientService],
   exports: [],
 })
-export class IngredientIModule {}
+export class IngredientModule {}
