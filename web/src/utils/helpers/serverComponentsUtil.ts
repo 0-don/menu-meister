@@ -1,6 +1,6 @@
 import { UserRoleName } from "@/gql/graphql";
 import { TypedDocumentNode } from "@graphql-typed-document-node/core";
-import { dehydrate } from "@tanstack/react-query";
+import { DehydratedState, QueryClient, dehydrate } from "@tanstack/react-query";
 import { cookies, headers } from "next/headers";
 import { ROLES, TOKEN, X_URL } from "../constants";
 import getQueryClient from "../getQueryClient";
@@ -25,19 +25,19 @@ export const ssrHeaders = (): HeadersInit => {
   return { authorization, referer };
 };
 
-export const prefetchQuery = async (
+export const prefetchQuery = async <TData = any, TVariables = any>(
   documents: {
-    document: TypedDocumentNode<any, any>;
-    variables?: any;
+    document: TypedDocumentNode<TData, TVariables>;
+    variables?: TVariables;
   }[],
-) => {
+): Promise<{ state: DehydratedState; queryClient: QueryClient }> => {
   const queryClient = getQueryClient();
   const authorization = ssrHeaders();
 
   const promises = documents.map(({ document, variables }) =>
     queryClient.prefetchQuery({
       queryKey: getKey(document),
-      queryFn: customFetcherServer(document, variables, authorization),
+      queryFn: () => customFetcherServer(document, variables, authorization),
     }),
   );
 
