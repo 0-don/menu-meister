@@ -1,4 +1,3 @@
-"use server";
 import { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import fs from "fs";
 import { print } from "graphql";
