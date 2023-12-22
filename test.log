@@ -1,0 +1,63 @@
+[
+  {
+    columnNumber: 5888,
+    lineNumber: 118,
+    fileName: '/home/don/MEGA/Projects/meal-manager/server/node_modules/@prisma/client/runtime/library.js',
+    functionName: 'ti',
+    source: '    at ti (/home/don/MEGA/Projects/meal-manager/server/node_modules/@prisma/client/runtime/library.js:118:5888)'
+  },
+  {
+    columnNumber: 6473,
+    lineNumber: 125,
+    fileName: '/home/don/MEGA/Projects/meal-manager/server/node_modules/@prisma/client/runtime/library.js',
+    functionName: 'si.handleRequestError',
+    source: '    at si.handleRequestError (/home/don/MEGA/Projects/meal-manager/server/node_modules/@prisma/client/runtime/library.js:125:6473)'
+  },
+  {
+    columnNumber: 6151,
+    lineNumber: 125,
+    fileName: '/home/don/MEGA/Projects/meal-manager/server/node_modules/@prisma/client/runtime/library.js',
+    functionName: 'si.handleAndLogRequestError',
+    source: '    at si.handleAndLogRequestError (/home/don/MEGA/Projects/meal-manager/server/node_modules/@prisma/client/runtime/library.js:125:6151)'
+  },
+  {
+    columnNumber: 5859,
+    lineNumber: 125,
+    fileName: '/home/don/MEGA/Projects/meal-manager/server/node_modules/@prisma/client/runtime/library.js',
+    functionName: 'si.request',
+    source: '    at si.request (/home/don/MEGA/Projects/meal-manager/server/node_modules/@prisma/client/runtime/library.js:125:5859)'
+  },
+  {
+    columnNumber: 10025,
+    lineNumber: 130,
+    fileName: '/home/don/MEGA/Projects/meal-manager/server/node_modules/@prisma/client/runtime/library.js',
+    functionName: 'l',
+    source: '    at l (/home/don/MEGA/Projects/meal-manager/server/node_modules/@prisma/client/runtime/library.js:130:10025)'
+  },
+  {
+    columnNumber: 14,
+    lineNumber: 34,
+    fileName: '/home/don/MEGA/Projects/meal-manager/server/src/meal-schedule/resolver/meal-schedule-admin.resolver.ts',
+    functionName: 'MealScheduleAdminResolver.getAllMealSchedulesAdmin',
+    source: '    at MealScheduleAdminResolver.getAllMealSchedulesAdmin (/home/don/MEGA/Projects/meal-manager/server/src/meal-schedule/resolver/meal-schedule-admin.resolver.ts:34:14)'
+  },
+  {
+    columnNumber: 28,
+    lineNumber: 74,
+    fileName: '/home/don/MEGA/Projects/meal-manager/server/node_modules/@nestjs/core/helpers/external-context-creator.js',
+    functionName: 'target',
+    source: '    at target (/home/don/MEGA/Projects/meal-manager/server/node_modules/@nestjs/core/helpers/external-context-creator.js:74:28)'
+  },
+  {
+    columnNumber: 24,
+    lineNumber: 9,
+    fileName: '/home/don/MEGA/Projects/meal-manager/server/node_modules/@nestjs/core/helpers/external-proxy.js',
+    functionName: 'Object.getAllMealSchedulesAdmin',
+    source: '    at Object.getAllMealSchedulesAdmin (/home/don/MEGA/Projects/meal-manager/server/node_modules/@nestjs/core/helpers/external-proxy.js:9:24)'
+  },
+  {
+    columnNumber: 35,
+    lineNumber: 18,
+    fileName: '/home/don/MEGA/Projects/meal-manager/server/node_modules/@graphql-tools/executor/cjs/execution/promiseForObject.js',
+    source: '    at /home/don/MEGA/Projects/meal-manager/server/node_modules/@graphql-tools/executor/cjs/execution/promiseForObject.js:18:35'
+  }

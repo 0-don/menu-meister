@@ -32,6 +32,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dayjs": "^1.11.10",
+    "error-stack-parser": "^2.1.4",
     "graphql": "^16.8.1",
     "graphql-upload-minimal": "^1.5.5",
     "graphql-yoga": "^5.1.0",
@@ -39,12 +40,14 @@
     "prisma-graphql-type-decimal": "^3.0.0",
     "psl": "^1.9.0",
     "reflect-metadata": "^0.2.1",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "stack-trace": "0.0.10"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.3.1",
     "@nestjs/cli": "^10.2.1",
     "@types/node": "^20.10.5",
+    "@types/stack-trace": "^0.0.33",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
     "cross-env": "^7.0.3",

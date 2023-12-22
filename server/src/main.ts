@@ -8,6 +8,7 @@ import {
 import { useContainer } from "class-validator";
 import "dotenv/config";
 import { AppModule } from "./app.module";
+import { MyLogger } from "./app_modules/logging/MyLogger";
 import { CORS_DOMAINS, PORT } from "./constants";
 
 async function bootstrap() {
@@ -16,7 +17,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     fastify,
-    // { logger: new MyLogger() },
+    { logger: new MyLogger() },
   );
   await app.register(cors as any, {
     origin: process.env.NODE_ENV === "production" ? CORS_DOMAINS : false,

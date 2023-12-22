@@ -15,7 +15,6 @@ import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import { GraphQLResolveInfo } from "graphql";
 import { MealScheduleService } from "../meal-schedule.service";
-
 @Resolver(() => MealSchedule)
 export class MealScheduleAdminResolver {
   constructor(
