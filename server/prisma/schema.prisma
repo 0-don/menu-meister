@@ -67,8 +67,8 @@ model User {
   updatedNutritions      Nutrition[]      @relation("UpdatedNutrition")
   createdMeals           Meal[]           @relation("CreatedMeal")
   updatedMeals           Meal[]           @relation("UpdatedMeal")
-  createdMealSchedulers  MealScheduler[]  @relation("CreatedMealScheduler")
-  updatedMealSchedulers  MealScheduler[]  @relation("UpdatedMealScheduler")
+  createdMealSchedulers  MealSchedule[]  @relation("CreatedMealSchedule")
+  updatedMealSchedulers  MealSchedule[]  @relation("UpdatedMealSchedule")
   createdMealIngredients MealIngredient[] @relation("CreatedMealIngredient")
   updatedMealIngredients MealIngredient[] @relation("UpdatedMealIngredient")
 
@@ -142,7 +142,7 @@ model Meal {
   name            String           @db.VarChar(255)
   description     String?          @db.Text
   image           Bytes?           @db.MediumBlob
-  mealSchedulers  MealScheduler[]
+  mealSchedulers  MealSchedule[]
   mealIngredients MealIngredient[]
 
   createdAt DateTime @default(now())
@@ -156,7 +156,7 @@ model Meal {
   updatedByUser User @relation("UpdatedMeal", fields: [updatedBy], references: [id])
 }
 
-model MealScheduler {
+model MealSchedule {
   id          Int      @id @default(autoincrement())
   mealId      Int
   servingDate DateTime
@@ -169,8 +169,9 @@ model MealScheduler {
   /// @HideField({ output: false, input: true })
   updatedBy Int
 
-  createdByUser User @relation("CreatedMealScheduler", fields: [createdBy], references: [id])
-  updatedByUser User @relation("UpdatedMealScheduler", fields: [updatedBy], references: [id])
+  createdByUser User @relation("CreatedMealSchedule", fields: [createdBy], references: [id])
+  updatedByUser User @relation("UpdatedMealSchedule", fields: [updatedBy], references: [id])
+	@@map("MealSchedule")
 }
 
 model MealIngredient {

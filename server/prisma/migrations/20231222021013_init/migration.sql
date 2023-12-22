@@ -89,7 +89,7 @@ CREATE TABLE `Meal` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `MealScheduler` (
+CREATE TABLE `MealSchedule` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `mealId` INTEGER NOT NULL,
     `servingDate` DATETIME(3) NOT NULL,
@@ -157,13 +157,13 @@ ALTER TABLE `Meal` ADD CONSTRAINT `Meal_createdBy_fkey` FOREIGN KEY (`createdBy`
 ALTER TABLE `Meal` ADD CONSTRAINT `Meal_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `MealScheduler` ADD CONSTRAINT `MealScheduler_mealId_fkey` FOREIGN KEY (`mealId`) REFERENCES `Meal`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `MealSchedule` ADD CONSTRAINT `MealSchedule_mealId_fkey` FOREIGN KEY (`mealId`) REFERENCES `Meal`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `MealScheduler` ADD CONSTRAINT `MealScheduler_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `MealSchedule` ADD CONSTRAINT `MealSchedule_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `MealScheduler` ADD CONSTRAINT `MealScheduler_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `MealSchedule` ADD CONSTRAINT `MealSchedule_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `MealIngredient` ADD CONSTRAINT `MealIngredient_mealId_fkey` FOREIGN KEY (`mealId`) REFERENCES `Meal`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

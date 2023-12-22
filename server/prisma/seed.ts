@@ -126,7 +126,7 @@ const seedMeals = async () => {
 
 const seedMealSchedulers = async (mealId, userId) => {
   for (const _ of Array(50).keys()) {
-    await prisma.mealScheduler.create({
+    await prisma.mealSchedule.create({
       data: {
         mealId: mealId,
         servingDate: faker.date.between({
