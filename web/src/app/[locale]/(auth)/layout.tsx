@@ -7,13 +7,9 @@ import { Card } from "@nextui-org/card";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
-  params: { locale: string };
 }
 
-export default async function AuthLayout({
-  children,
-  params,
-}: AuthLayoutProps) {
+export default async function AuthLayout({ children }: AuthLayoutProps) {
   const { me } = await customFetcherServer(ME, undefined, ssrHeaders());
   const url = ssrUrl();
 
