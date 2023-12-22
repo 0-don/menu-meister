@@ -10,6 +10,7 @@ import { UpsertOneUserArgs } from "@/app_modules/@generated/user/upsert-one-user
 import { User } from "@/app_modules/@generated/user/user.model";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
+import { Logger } from "@nestjs/common";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import { GraphQLResolveInfo } from "graphql";
@@ -29,7 +30,12 @@ export class UserAdminResolver {
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.user.findMany({ ...args, ...select });
+    try {
+      return await this.prisma.user.findMany({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
   @Query(() => User, { nullable: true })
@@ -39,76 +45,116 @@ export class UserAdminResolver {
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.user.findUnique({ ...args, ...select });
+    try {
+      return await this.prisma.user.findUnique({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, { nullable: true })
   @Roles("ADMIN")
   async createUserAdmin(
     @Args() args: CreateOneUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.user.create({ ...args, ...select });
+    try {
+      return await this.prisma.user.create({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
-  @Mutation(() => [User])
+  @Mutation(() => [User], { nullable: true })
   @Roles("ADMIN")
   async createManyUsersAdmin(
     @Args() args: CreateManyUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.user.createMany({ ...args, ...select });
+    try {
+      return await this.prisma.user.createMany({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, { nullable: true })
   @Roles("ADMIN")
   async deleteUserAdmin(
     @Args() args: DeleteOneUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.user.delete({ ...args, ...select });
+    try {
+      return await this.prisma.user.delete({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
-  @Mutation(() => Int)
+  @Mutation(() => Int, { nullable: true })
   @Roles("ADMIN")
   async deleteManyUsersAdmin(
     @Args() args: DeleteManyUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return (await this.prisma.user.deleteMany({ ...args, ...select })).count;
+    try {
+      return (await this.prisma.user.deleteMany({ ...args, ...select })).count;
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, { nullable: true })
   @Roles("ADMIN")
   async updateUserAdmin(
     @Args() args: UpdateOneUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.user.update({ ...args, ...select });
+    try {
+      return await this.prisma.user.update({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
-  @Mutation(() => [User])
+  @Mutation(() => [User], { nullable: true })
   @Roles("ADMIN")
   async updateManyUsersAdmin(
     @Args() args: UpdateManyUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.user.updateMany({ ...args, ...select });
+    try {
+      return await this.prisma.user.updateMany({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, { nullable: true })
   @Roles("ADMIN")
   async upsertUserAdmin(
     @Args() args: UpsertOneUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.user.upsert({ ...args, ...select });
+    try {
+      return await this.prisma.user.upsert({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 }
