@@ -29,7 +29,6 @@ export class MealScheduleAdminResolver {
     @Args() args: FindManyMealScheduleArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    console.log(args);
     const select = new PrismaSelect(info).value;
 
     try {
@@ -50,7 +49,7 @@ export class MealScheduleAdminResolver {
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.mealSchedule.findUnique({ ...args, ...select });
+    return await this.prisma.mealSchedule.findFirst({ ...args, ...select });
   }
 
   @Mutation(() => MealSchedule)

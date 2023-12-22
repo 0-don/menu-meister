@@ -39,7 +39,7 @@ export class IngredientAdminResolver {
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.ingredient.findUnique({ ...args, ...select });
+    return await this.prisma.ingredient.findFirst({ ...args, ...select });
   }
 
   @Mutation(() => Ingredient)

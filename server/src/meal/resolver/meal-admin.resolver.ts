@@ -39,7 +39,7 @@ export class MealAdminResolver {
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.user.findUnique({ ...args, ...select });
+    return await this.prisma.user.findFirst({ ...args, ...select });
   }
 
   @Mutation(() => Meal)
