@@ -35,7 +35,7 @@ export const Navbar: React.FC<NavbarProps> = async ({}) => {
   return (
     <HydrationBoundary state={state}>
       <NextUINavbar
-        maxWidth="xl"
+        maxWidth="full"
         position="sticky"
         classNames={{
           base: "drop-shadow-2xl",

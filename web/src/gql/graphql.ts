@@ -1602,52 +1602,52 @@ export type MealWhereUniqueInput = {
 
 export type Mutation = {
   changePasswordUser?: Maybe<Scalars['Boolean']['output']>;
-  createIngredientAdmin: Ingredient;
-  createManyIngredientsAdmin: Array<Ingredient>;
-  createManyMealIngredientsAdmin: Array<MealIngredient>;
-  createManyMealSchedulesAdmin: Array<MealSchedule>;
-  createManyMealsAdmin: Array<Meal>;
-  createManyNutritionsAdmin: Array<Nutrition>;
-  createManyUsersAdmin: Array<User>;
-  createMealAdmin: Meal;
-  createMealIngredientAdmin: MealIngredient;
-  createMealScheduleAdmin: MealSchedule;
-  createNutritionAdmin: Nutrition;
-  createUserAdmin: User;
+  createIngredientAdmin?: Maybe<Ingredient>;
+  createManyIngredientsAdmin?: Maybe<Array<Ingredient>>;
+  createManyMealIngredientsAdmin?: Maybe<Array<MealIngredient>>;
+  createManyMealSchedulesAdmin?: Maybe<Array<MealSchedule>>;
+  createManyMealsAdmin?: Maybe<Array<Meal>>;
+  createManyNutritionsAdmin?: Maybe<Array<Nutrition>>;
+  createManyUsersAdmin?: Maybe<Array<User>>;
+  createMealAdmin?: Maybe<Meal>;
+  createMealIngredientAdmin?: Maybe<MealIngredient>;
+  createMealScheduleAdmin?: Maybe<MealSchedule>;
+  createNutritionAdmin?: Maybe<Nutrition>;
+  createUserAdmin?: Maybe<User>;
   deleteAccountTokensUser: Scalars['Boolean']['output'];
-  deleteIngredientAdmin: Ingredient;
-  deleteManyIngredientsAdmin: Scalars['Int']['output'];
-  deleteManyMealIngredientsAdmin: Scalars['Int']['output'];
-  deleteManyMealSchedulesAdmin: Scalars['Int']['output'];
-  deleteManyMealsAdmin: Scalars['Int']['output'];
-  deleteManyNutritionsAdmin: Scalars['Int']['output'];
-  deleteManyUsersAdmin: Scalars['Int']['output'];
-  deleteMealAdmin: Meal;
-  deleteMealIngredientAdmin: MealIngredient;
-  deleteMealScheduleAdmin: MealSchedule;
-  deleteNutritionAdmin: Nutrition;
-  deleteUserAdmin: User;
+  deleteIngredientAdmin?: Maybe<Ingredient>;
+  deleteManyIngredientsAdmin?: Maybe<Scalars['Int']['output']>;
+  deleteManyMealIngredientsAdmin?: Maybe<Scalars['Int']['output']>;
+  deleteManyMealSchedulesAdmin?: Maybe<Scalars['Int']['output']>;
+  deleteManyMealsAdmin?: Maybe<Scalars['Int']['output']>;
+  deleteManyNutritionsAdmin?: Maybe<Scalars['Int']['output']>;
+  deleteManyUsersAdmin?: Maybe<Scalars['Int']['output']>;
+  deleteMealAdmin?: Maybe<Meal>;
+  deleteMealIngredientAdmin?: Maybe<MealIngredient>;
+  deleteMealScheduleAdmin?: Maybe<MealSchedule>;
+  deleteNutritionAdmin?: Maybe<Nutrition>;
+  deleteUserAdmin?: Maybe<User>;
   loginUser?: Maybe<User>;
   logout?: Maybe<Scalars['Boolean']['output']>;
   registerUser?: Maybe<User>;
-  updateIngredientAdmin: Ingredient;
-  updateManyIngredientsAdmin: Array<Ingredient>;
-  updateManyMealIngredientsAdmin: Array<MealIngredient>;
-  updateManyMealSchedulesAdmin: Array<MealSchedule>;
-  updateManyMealsAdmin: Array<Meal>;
-  updateManyNutritionsAdmin: Array<Nutrition>;
-  updateManyUsersAdmin: Array<User>;
-  updateMealAdmin: Meal;
-  updateMealIngredientAdmin: MealIngredient;
-  updateMealScheduleAdmin: MealSchedule;
-  updateNutritionAdmin: Nutrition;
-  updateUserAdmin: User;
-  upsertIngredientAdmin: Ingredient;
-  upsertMealAdmin: Meal;
-  upsertMealIngredientAdmin: MealIngredient;
-  upsertMealScheduleAdmin: MealSchedule;
-  upsertNutritionAdmin: Nutrition;
-  upsertUserAdmin: User;
+  updateIngredientAdmin?: Maybe<Ingredient>;
+  updateManyIngredientsAdmin?: Maybe<Array<Ingredient>>;
+  updateManyMealIngredientsAdmin?: Maybe<Array<MealIngredient>>;
+  updateManyMealSchedulesAdmin?: Maybe<Array<MealSchedule>>;
+  updateManyMealsAdmin?: Maybe<Array<Meal>>;
+  updateManyNutritionsAdmin?: Maybe<Array<Nutrition>>;
+  updateManyUsersAdmin?: Maybe<Array<User>>;
+  updateMealAdmin?: Maybe<Meal>;
+  updateMealIngredientAdmin?: Maybe<MealIngredient>;
+  updateMealScheduleAdmin?: Maybe<MealSchedule>;
+  updateNutritionAdmin?: Maybe<Nutrition>;
+  updateUserAdmin?: Maybe<User>;
+  upsertIngredientAdmin?: Maybe<Ingredient>;
+  upsertMealAdmin?: Maybe<Meal>;
+  upsertMealIngredientAdmin?: Maybe<MealIngredient>;
+  upsertMealScheduleAdmin?: Maybe<MealSchedule>;
+  upsertNutritionAdmin?: Maybe<Nutrition>;
+  upsertUserAdmin?: Maybe<User>;
 };
 
 
@@ -2384,7 +2384,7 @@ export type NutritionWhereUniqueInput = {
 export type Query = {
   getAllIngredientsAdmin?: Maybe<Array<Ingredient>>;
   getAllMealIngredientsAdmin?: Maybe<Array<MealIngredient>>;
-  getAllMealSchedulesAdmin: Array<MealSchedule>;
+  getAllMealSchedulesAdmin?: Maybe<Array<MealSchedule>>;
   getAllMealsAdmin?: Maybe<Array<Meal>>;
   getAllNutritionsAdmin?: Maybe<Array<Nutrition>>;
   getAllUsersAdmin?: Maybe<Array<User>>;
@@ -5069,7 +5069,7 @@ export type GetAllMealSchedulesAdminQueryVariables = Exact<{
 }>;
 
 
-export type GetAllMealSchedulesAdminQuery = { getAllMealSchedulesAdmin: Array<{ id: string, mealId: number, servingDate: any, createdAt: any, updatedAt: any, meal: { name: string, description?: string | null, id: string, createdAt: any, image?: string | null } }> };
+export type GetAllMealSchedulesAdminQuery = { getAllMealSchedulesAdmin?: Array<{ id: string, mealId: number, servingDate: any, createdAt: any, updatedAt: any, meal: { name: string, description?: string | null, id: string, createdAt: any, image?: string | null } }> | null };
 
 
 export const RegisterUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RegisterUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RegisterUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"registerUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastOnline"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"UserRole"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<RegisterUserMutation, RegisterUserMutationVariables>;

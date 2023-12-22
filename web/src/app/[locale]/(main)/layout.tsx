@@ -39,7 +39,7 @@ export default async function HomeLayout({
   return (
     <NextIntlProvider tree={tree}>
       <HydrationBoundary state={state}>
-        <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] max-w-7xl flex-col items-center px-6">
+        <div className="relative flex min-h-[calc(100svh-4rem)] flex-col items-center px-6">
           {layout}
         </div>
       </HydrationBoundary>

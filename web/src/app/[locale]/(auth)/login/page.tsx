@@ -1,7 +1,7 @@
 "use client";
 
-import { EInput } from "@/components/elements/eInput";
-import { ELink } from "@/components/elements/eLink";
+import { MyInput } from "@/components/elements/MyInput";
+import { MyLink } from "@/components/elements/MyLink";
 import { LOGIN_USER } from "@/documents/mutation/auth";
 import { useGqlMutation } from "@/fetcher";
 import { useRouter } from "@/navigation";
@@ -27,7 +27,7 @@ export default function LoginPage({}: LoginPageProps) {
       onSubmit={(e) => authStore.login(e, loginUserAsync, t, router)}
     >
       <h1 className="text-3xl font-bold">{t("LOGIN_HEADER")}</h1>
-      <EInput
+      <MyInput
         label={t("EMAIL")}
         placeholder={t("EMAIL_PLACEHOLDER")}
         value={authStore.email}
@@ -36,7 +36,7 @@ export default function LoginPage({}: LoginPageProps) {
         Icon={BiLogIn}
         required
       />
-      <EInput
+      <MyInput
         label={t("PASSWORD")}
         placeholder={t("PASSWORD_PLACEHOLDER")}
         value={authStore.password}
@@ -56,9 +56,9 @@ export default function LoginPage({}: LoginPageProps) {
         </p>
       </div>
       <div className="flex justify-center">
-        <ELink href="/register" color="primary" size="sm">
+        <MyLink href="/register" color="primary" size="sm">
           {t("REGISTER_BUTTON")}
-        </ELink>
+        </MyLink>
       </div>
     </form>
   );

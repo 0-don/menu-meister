@@ -1,5 +1,6 @@
 "use client";
-import { ELink } from "@/components/elements/eLink";
+
+import { MyLink } from "@/components/elements/MyLink";
 import { useMeHook } from "@/components/hooks/useMeHook";
 import { usePathname } from "@/navigation";
 import { MenuType } from "@/types";
@@ -33,18 +34,18 @@ export const MainMenu: React.FC<MainMenuProps> = ({ pathname }) => {
       <NavbarContent className="hidden gap-4 sm:flex">
         {links.map(({ link, name }) => (
           <NavbarItem key={link} isActive={path === link}>
-            <ELink href={link} size="lg">
+            <MyLink href={link} size="lg">
               {t(name as keyof Messages["Navbar"])}
-            </ELink>
+            </MyLink>
           </NavbarItem>
         ))}
       </NavbarContent>
       <NavbarMenu>
         {links.map(({ link, name }) => (
           <NavbarMenuItem key={link} isActive={path === link}>
-            <ELink href={link} size="lg">
+            <MyLink href={link} size="lg">
               {t(name as keyof Messages["Navbar"])}
-            </ELink>
+            </MyLink>
           </NavbarMenuItem>
         ))}
       </NavbarMenu>

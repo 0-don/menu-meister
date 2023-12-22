@@ -23,6 +23,7 @@
     "@nextui-org/input": "2.1.16",
     "@nextui-org/link": "2.0.26",
     "@nextui-org/navbar": "2.0.27",
+    "@nextui-org/pagination": "^2.0.26",
     "@nextui-org/switch": "2.0.25",
     "@nextui-org/system": "2.0.15",
     "@nextui-org/table": "^2.0.28",
