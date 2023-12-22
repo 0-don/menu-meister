@@ -9,6 +9,7 @@ interface DashboardPageProps {}
 export default function DashboardPage({}: DashboardPageProps) {
   const { data: { getAllMealSchedulesAdmin } = {} } = useGqlQuery(
     GET_ALL_MEAL_SCHEDULES_ADMIN,
+    {where: {}}
   );
 
   console.log(getAllMealSchedulesAdmin)
