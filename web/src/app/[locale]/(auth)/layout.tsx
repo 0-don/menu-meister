@@ -14,7 +14,7 @@ export default async function AuthLayout({
   children,
   params,
 }: AuthLayoutProps) {
-  const { me } = await customFetcherServer(ME, undefined, ssrHeaders())();
+  const { me } = await customFetcherServer(ME, undefined, ssrHeaders());
   const url = ssrUrl();
 
   if (me && url.pathname !== "/logout") redirect("/");
