@@ -1,6 +1,6 @@
 "use client";
 
-import { MainTable } from "@/components/Table";
+import { MainTable } from "@/components/MainTable";
 
 interface UserPageProps {}
 
