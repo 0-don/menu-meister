@@ -16,20 +16,15 @@ async function fastifyGraphqlUploadMinimal(
   fastify: FastifyInstance,
   opts: UploadOptions,
 ): Promise<void> {
-  fastify.addContentTypeParser(
-    "multipart",
-    (request: any, payload: any, done: any) => {
-      console.log("request", request);
-      processRequest(payload, request.raw, opts)
-        .then((body) => {
-          request.body = body;
-          done(null);
-        })
-        .catch((err) => {
-          done(err);
-        });
-    },
-  );
+  fastify.addContentTypeParser("multipart", (request, payload, done) => {
+    console.log("request", request);
+    processRequest(payload, (request as any).raw, opts)
+      .then((body) => {
+        request.body = body;
+        done(null);
+      })
+      .catch((err) => done(err));
+  });
 }
 
 async function bootstrap() {
