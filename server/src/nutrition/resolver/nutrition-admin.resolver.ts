@@ -10,6 +10,7 @@ import { UpdateOneNutritionArgs } from "@/app_modules/@generated/nutrition/updat
 import { UpsertOneNutritionArgs } from "@/app_modules/@generated/nutrition/upsert-one-nutrition.args";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
+import { Logger } from "@nestjs/common";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import { GraphQLResolveInfo } from "graphql";
@@ -29,7 +30,12 @@ export class NutritionAdminResolver {
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.nutrition.findMany({ ...args, ...select });
+    try {
+      return await this.prisma.nutrition.findMany({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
   @Query(() => Nutrition, { nullable: true })
@@ -39,77 +45,117 @@ export class NutritionAdminResolver {
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.nutrition.findFirst({ ...args, ...select });
+    try {
+      return await this.prisma.nutrition.findFirst({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
-  @Mutation(() => Nutrition)
+  @Mutation(() => Nutrition, { nullable: true })
   @Roles("ADMIN")
   async createNutritionAdmin(
     @Args() args: CreateOneNutritionArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.nutrition.create({ ...args, ...select });
+    try {
+      return await this.prisma.nutrition.create({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
-  @Mutation(() => [Nutrition])
+  @Mutation(() => [Nutrition], { nullable: true })
   @Roles("ADMIN")
   async createManyNutritionsAdmin(
     @Args() args: CreateManyNutritionArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.nutrition.createMany({ ...args, ...select });
+    try {
+      return await this.prisma.nutrition.createMany({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
-  @Mutation(() => Nutrition)
+  @Mutation(() => Nutrition, { nullable: true })
   @Roles("ADMIN")
   async deleteNutritionAdmin(
     @Args() args: DeleteOneNutritionArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.nutrition.delete({ ...args, ...select });
+    try {
+      return await this.prisma.nutrition.delete({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
-  @Mutation(() => Int)
+  @Mutation(() => Int, { nullable: true })
   @Roles("ADMIN")
   async deleteManyNutritionsAdmin(
     @Args() args: DeleteManyNutritionArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return (await this.prisma.nutrition.deleteMany({ ...args, ...select }))
-      .count;
+    try {
+      return (await this.prisma.nutrition.deleteMany({ ...args, ...select }))
+        .count;
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
-  @Mutation(() => Nutrition)
+  @Mutation(() => Nutrition, { nullable: true })
   @Roles("ADMIN")
   async updateNutritionAdmin(
     @Args() args: UpdateOneNutritionArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.nutrition.update({ ...args, ...select });
+    try {
+      return await this.prisma.nutrition.update({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
-  @Mutation(() => [Nutrition])
+  @Mutation(() => [Nutrition], { nullable: true })
   @Roles("ADMIN")
   async updateManyNutritionsAdmin(
     @Args() args: UpdateManyNutritionArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.nutrition.updateMany({ ...args, ...select });
+    try {
+      return await this.prisma.nutrition.updateMany({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 
-  @Mutation(() => Nutrition)
+  @Mutation(() => Nutrition, { nullable: true })
   @Roles("ADMIN")
   async upsertNutritionAdmin(
     @Args() args: UpsertOneNutritionArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
-    return await this.prisma.nutrition.upsert({ ...args, ...select });
+    try {
+      return await this.prisma.nutrition.upsert({ ...args, ...select });
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
   }
 }
