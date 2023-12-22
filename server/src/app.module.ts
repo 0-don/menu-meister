@@ -8,6 +8,7 @@ import { RolesGuard } from "./app_modules/guards/roles.guard";
 import { ModulesModule } from "./app_modules/modules.module";
 import { AuthModule } from "./auth/auth.module";
 import { graphqlModuleFactory } from "./graphql";
+import { MealModule } from "./meal/meal.module";
 import { UserModule } from "./user/user.module";
 
 @Module({
@@ -18,6 +19,7 @@ import { UserModule } from "./user/user.module";
     AuthModule,
     UserModule,
     ModulesModule,
+    MealModule,
   ],
   controllers: [],
   providers: [
