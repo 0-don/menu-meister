@@ -3,8 +3,12 @@ import { PrismaClient, UserRoleName } from "@prisma/client";
 import argon2 from "argon2";
 import { error } from "console";
 import dayjs from "dayjs";
+import { mkdirSync, writeFileSync } from "fs";
+import { dirname, join, resolve } from "path";
 
 const prisma = new PrismaClient();
+
+const EMAIL = "admin@admin.de";
 
 const randomInt = (min = 0, max = 10) =>
   Math.floor(Math.random() * (max - min + 1) + min);
@@ -12,13 +16,14 @@ const randomInt = (min = 0, max = 10) =>
 const coinFlip = (probability = 0.5) =>
   Math.random() <= probability ? true : false;
 
+const getImageFile = (name: string) => join(resolve(), "images", name);
+
 const seed = async () => {
   const userCount = await prisma.user.count();
-
   if (userCount > 0) return;
 
-  const user = await createUser({
-    email: "admin@admin.de",
+  await createUser({
+    email: EMAIL,
     password: "!admin",
     roles: ["USER", "ADMIN"],
   });
@@ -27,13 +32,37 @@ const seed = async () => {
   await seedMeals();
 };
 
+async function downloadImage(url: string) {
+  const name = new URL(url).searchParams.get("lock");
+  const category = new URL(url).pathname.split("/").at(-1);
+  const fileName = `${category}-${name}.jpg`;
+  const filePath = join(resolve(), "images", name);
+
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
+  }
+
+  const image = Buffer.from(await response.arrayBuffer());
+  mkdirSync(dirname(getImageFile(fileName)), { recursive: true });
+  writeFileSync(getImageFile(fileName), image);
+  return { fileName, filePath, image };
+}
+
 const seedIngredientsAndNutritions = async () => {
   const user = await prisma.user.findFirst({
-    where: { email: "admin@admin.de" },
+    where: { email: EMAIL },
   });
 
   for (const _ of Array(500).keys()) {
     const ingredientName = faker.commerce.product();
+
+    const imgUrl = faker.image.urlLoremFlickr({
+      category: "ingredients",
+      width: 320,
+      height: 240,
+    });
+    const { image } = await downloadImage(imgUrl);
 
     // Create ingredient individually
     const ingredient = await prisma.ingredient.create({
@@ -45,6 +74,7 @@ const seedIngredientsAndNutritions = async () => {
           "gluten",
           null,
         ]),
+        image,
         createdBy: user.id,
         updatedBy: user.id,
       },
@@ -68,14 +98,22 @@ const seedIngredientsAndNutritions = async () => {
 
 const seedMeals = async () => {
   const user = await prisma.user.findFirst({
-    where: { email: "admin@admin.de" },
+    where: { email: EMAIL },
   });
 
   for (const _ of Array(100).keys()) {
+    const imgUrl = faker.image.urlLoremFlickr({
+      category: "meal",
+      width: 320,
+      height: 240,
+    });
+    const { image } = await downloadImage(imgUrl);
+
     const meal = await prisma.meal.create({
       data: {
         name: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
+        image,
         createdBy: user.id,
         updatedBy: user.id,
       },

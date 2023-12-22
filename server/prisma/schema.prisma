@@ -100,6 +100,7 @@ model Ingredient {
   id              Int              @id @default(autoincrement())
   name            String           @db.VarChar(255)
   allergens       String?          @db.VarChar(255)
+  image           Bytes?           @db.MediumBlob
   nutritions      Nutrition[]
   mealIngredients MealIngredient[]
 
@@ -140,6 +141,7 @@ model Meal {
   id              Int              @id @default(autoincrement())
   name            String           @db.VarChar(255)
   description     String?          @db.Text
+  image           Bytes?           @db.MediumBlob
   mealSchedulers  MealScheduler[]
   mealIngredients MealIngredient[]
 
@@ -157,7 +159,7 @@ model Meal {
 model MealScheduler {
   id          Int      @id @default(autoincrement())
   mealId      Int
-  servingDate DateTime @db.DateTime
+  servingDate DateTime
   meal        Meal     @relation(fields: [mealId], references: [id])
 
   createdAt DateTime @default(now())
