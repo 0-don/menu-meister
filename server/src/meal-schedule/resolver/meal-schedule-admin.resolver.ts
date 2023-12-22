@@ -7,6 +7,6 @@ import { MealScheduleService } from "../meal-schedule.service";
 export class MealScheduleAdminResolver {
   constructor(
     private prisma: PrismaService,
-    private mealService: MealScheduleService,
+    private mealScheduleService: MealScheduleService,
   ) {}
 }
