@@ -5,8 +5,6 @@ import psl from "psl";
 
 export const PORT = process.env?.PORT || 4000;
 
-export const BODY_LIMIT = 15000;
-
 export const TOKEN_EXPIRES_IN = 60 * 60 * 24 * 30; // 30 days
 
 export const COOKIE_NAME = "token" as const;
