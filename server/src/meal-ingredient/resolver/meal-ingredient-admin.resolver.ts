@@ -7,6 +7,6 @@ import { MealIngredientService } from "../meal-ingredient.service";
 export class MealIngredientAdminResolver {
   constructor(
     private prisma: PrismaService,
-    private mealService: MealIngredientService,
+    private mealIngredientService: MealIngredientService,
   ) {}
 }
