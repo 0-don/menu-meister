@@ -10,6 +10,7 @@ import { UpdateOneMealScheduleArgs } from "@/app_modules/@generated/meal-schedul
 import { UpsertOneMealScheduleArgs } from "@/app_modules/@generated/meal-schedule/upsert-one-meal-schedule.args";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
+import { Logger } from "@nestjs/common";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import { GraphQLResolveInfo } from "graphql";
@@ -22,19 +23,24 @@ export class MealScheduleAdminResolver {
     private mealScheduleService: MealScheduleService,
   ) {}
 
-  @Query(() => [MealSchedule], { nullable: true })
+  @Query(() => [MealSchedule])
   @Roles("ADMIN")
   async getAllMealSchedulesAdmin(
     @Args() args: FindManyMealScheduleArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
+    console.log(args);
     const select = new PrismaSelect(info).value;
-    const meals = await this.prisma.mealSchedule.findMany({
-      ...args,
-      ...select,
-    });
 
-    return meals;
+    try {
+      return await this.prisma.mealSchedule.findMany({
+        ...args,
+        ...select,
+      });
+    } catch (e) {
+      Logger.error(e);
+      return [];
+    }
   }
 
   @Query(() => MealSchedule, { nullable: true })

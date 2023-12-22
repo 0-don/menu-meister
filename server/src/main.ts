@@ -10,6 +10,7 @@ import "dotenv/config";
 import { UploadOptions, processRequest } from "graphql-upload-minimal";
 import { AppModule } from "./app.module";
 import { FastifyInstance } from "./app_modules/@types/types";
+import { MyLogger } from "./app_modules/logging/MyLogger";
 import { CORS_DOMAINS, PORT } from "./constants";
 
 async function fastifyGraphqlUploadMinimal(
@@ -17,7 +18,7 @@ async function fastifyGraphqlUploadMinimal(
   opts: UploadOptions,
 ): Promise<void> {
   fastify.addContentTypeParser("multipart", (request, payload, done) => {
-    console.log("request", request);
+    console.log("request");
     processRequest(payload, (request as any).raw, opts)
       .then((body) => {
         request.body = body;
@@ -33,6 +34,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     fastify,
+    // { logger: new MyLogger() },
   );
   await app.register(cors as any, {
     origin: process.env.NODE_ENV === "production" ? CORS_DOMAINS : false,

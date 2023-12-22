@@ -4,10 +4,10 @@ import { DeleteManyIngredientArgs } from "@/app_modules/@generated/ingredient/de
 import { DeleteOneIngredientArgs } from "@/app_modules/@generated/ingredient/delete-one-ingredient.args";
 import { FindFirstIngredientArgs } from "@/app_modules/@generated/ingredient/find-first-ingredient.args";
 import { FindManyIngredientArgs } from "@/app_modules/@generated/ingredient/find-many-ingredient.args";
+import { Ingredient } from "@/app_modules/@generated/ingredient/ingredient.model";
 import { UpdateManyIngredientArgs } from "@/app_modules/@generated/ingredient/update-many-ingredient.args";
 import { UpdateOneIngredientArgs } from "@/app_modules/@generated/ingredient/update-one-ingredient.args";
 import { UpsertOneIngredientArgs } from "@/app_modules/@generated/ingredient/upsert-one-ingredient.args";
-import { MealScheduler as Ingredient } from "@/app_modules/@generated/meal-scheduler/meal-scheduler.model";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";

@@ -1,10 +1,10 @@
-import { MealScheduler as Nutrition } from "@/app_modules/@generated/meal-scheduler/meal-scheduler.model";
 import { CreateManyNutritionArgs } from "@/app_modules/@generated/nutrition/create-many-nutrition.args";
 import { CreateOneNutritionArgs } from "@/app_modules/@generated/nutrition/create-one-nutrition.args";
 import { DeleteManyNutritionArgs } from "@/app_modules/@generated/nutrition/delete-many-nutrition.args";
 import { DeleteOneNutritionArgs } from "@/app_modules/@generated/nutrition/delete-one-nutrition.args";
 import { FindFirstNutritionArgs } from "@/app_modules/@generated/nutrition/find-first-nutrition.args";
 import { FindManyNutritionArgs } from "@/app_modules/@generated/nutrition/find-many-nutrition.args";
+import { Nutrition } from "@/app_modules/@generated/nutrition/nutrition.model";
 import { UpdateManyNutritionArgs } from "@/app_modules/@generated/nutrition/update-many-nutrition.args";
 import { UpdateOneNutritionArgs } from "@/app_modules/@generated/nutrition/update-one-nutrition.args";
 import { UpsertOneNutritionArgs } from "@/app_modules/@generated/nutrition/upsert-one-nutrition.args";
