@@ -1,4 +1,5 @@
 import { YogaDriver, YogaDriverConfig } from "@graphql-yoga/nestjs";
+import { Logger } from "@nestjs/common";
 import { GraphQLError } from "graphql";
 import { maskError } from "graphql-yoga";
 import { GraphQLContext } from "./app_modules/@types/types";
@@ -10,7 +11,6 @@ export function graphqlModuleFactory(): YogaDriverConfig<"fastify"> {
   return {
     driver: YogaDriver<"fastify">,
     autoSchemaFile: true,
-    subscriptions: true,
     cors: {
       origin: process.env.NODE_ENV === "production" ? CORS_DOMAINS : "*",
       credentials: true,
@@ -21,7 +21,15 @@ export function graphqlModuleFactory(): YogaDriverConfig<"fastify"> {
         message,
         isDev,
       ): Error | GraphQLError => {
-        console.log("error", error);
+        import("flat").then(({ flatten }) =>
+          Logger.warn(
+            JSON.stringify({
+              ...flatten(error.originalError),
+              ...flatten(error),
+            }),
+          ),
+        );
+
         if (error?.extensions?.code === "DOWNSTREAM_SERVICE_ERROR") {
           return error;
         }

@@ -33,6 +33,7 @@
     "class-validator": "^0.14.0",
     "dayjs": "^1.11.10",
     "error-stack-parser": "^2.1.4",
+    "flat": "^6.0.1",
     "graphql": "^16.8.1",
     "graphql-upload-minimal": "^1.5.5",
     "graphql-yoga": "^5.1.0",
