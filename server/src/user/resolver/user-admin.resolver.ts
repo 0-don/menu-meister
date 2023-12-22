@@ -1,71 +1,71 @@
-import { CreateManyIngredientArgs } from "@/app_modules/@generated/ingredient/create-many-ingredient.args";
-import { CreateOneIngredientArgs } from "@/app_modules/@generated/ingredient/create-one-ingredient.args";
-import { DeleteManyIngredientArgs } from "@/app_modules/@generated/ingredient/delete-many-ingredient.args";
-import { DeleteOneIngredientArgs } from "@/app_modules/@generated/ingredient/delete-one-ingredient.args";
-import { FindFirstIngredientArgs } from "@/app_modules/@generated/ingredient/find-first-ingredient.args";
-import { FindManyIngredientArgs } from "@/app_modules/@generated/ingredient/find-many-ingredient.args";
-import { UpdateManyIngredientArgs } from "@/app_modules/@generated/ingredient/update-many-ingredient.args";
-import { UpdateOneIngredientArgs } from "@/app_modules/@generated/ingredient/update-one-ingredient.args";
-import { UpsertOneIngredientArgs } from "@/app_modules/@generated/ingredient/upsert-one-ingredient.args";
-import { Meal } from "@/app_modules/@generated/meal/meal.model";
+import { CreateManyUserArgs } from "@/app_modules/@generated/user/create-many-user.args";
+import { CreateOneUserArgs } from "@/app_modules/@generated/user/create-one-user.args";
+import { DeleteManyUserArgs } from "@/app_modules/@generated/user/delete-many-user.args";
+import { DeleteOneUserArgs } from "@/app_modules/@generated/user/delete-one-user.args";
+import { FindFirstUserArgs } from "@/app_modules/@generated/user/find-first-user.args";
+import { FindManyUserArgs } from "@/app_modules/@generated/user/find-many-user.args";
+import { UpdateManyUserArgs } from "@/app_modules/@generated/user/update-many-user.args";
+import { UpdateOneUserArgs } from "@/app_modules/@generated/user/update-one-user.args";
+import { UpsertOneUserArgs } from "@/app_modules/@generated/user/upsert-one-user.args";
+import { User } from "@/app_modules/@generated/user/user.model";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import { GraphQLResolveInfo } from "graphql";
-import { MealService } from "../meal.service";
+import { UserService } from "../user.service";
 
-@Resolver(() => Meal)
-export class MealAdminResolver {
+@Resolver(() => User)
+export class UserAdminResolver {
   constructor(
     private prisma: PrismaService,
-    private mealService: MealService,
+    private userService: UserService,
   ) {}
 
-  @Query(() => [Meal], { nullable: true })
+  @Query(() => [User], { nullable: true })
   @Roles("ADMIN")
-  async getAllMealsAdmin(
-    @Args() args: FindManyIngredientArgs,
+  async getAllUsersAdmin(
+    @Args() args: FindManyUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
     return await this.prisma.user.findMany({ ...args, ...select });
   }
 
-  @Query(() => Meal, { nullable: true })
+  @Query(() => User, { nullable: true })
   @Roles("ADMIN")
-  async getMealAdmin(
-    @Args() args: FindFirstIngredientArgs,
+  async getUserAdmin(
+    @Args() args: FindFirstUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
     return await this.prisma.user.findUnique({ ...args, ...select });
   }
 
-  @Mutation(() => Meal)
+  @Mutation(() => User)
   @Roles("ADMIN")
-  async createMealAdmin(
-    @Args() args: CreateOneIngredientArgs,
+  async createUserAdmin(
+    @Args() args: CreateOneUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
     return await this.prisma.user.create({ ...args, ...select });
   }
 
-  @Mutation(() => [Meal])
+  @Mutation(() => [User])
   @Roles("ADMIN")
-  async createManyMealsAdmin(
-    @Args() args: CreateManyIngredientArgs,
+  async createManyUsersAdmin(
+    @Args() args: CreateManyUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
     return await this.prisma.user.createMany({ ...args, ...select });
   }
 
-  @Mutation(() => Meal)
+  @Mutation(() => User)
   @Roles("ADMIN")
-  async deleteMealAdmin(
-    @Args() args: DeleteOneIngredientArgs,
+  async deleteUserAdmin(
+    @Args() args: DeleteOneUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -74,38 +74,38 @@ export class MealAdminResolver {
 
   @Mutation(() => Int)
   @Roles("ADMIN")
-  async deleteManyMealsAdmin(
-    @Args() args: DeleteManyIngredientArgs,
+  async deleteManyUsersAdmin(
+    @Args() args: DeleteManyUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
     return (await this.prisma.user.deleteMany({ ...args, ...select })).count;
   }
 
-  @Mutation(() => Meal)
+  @Mutation(() => User)
   @Roles("ADMIN")
-  async updateMealAdmin(
-    @Args() args: UpdateOneIngredientArgs,
+  async updateUserAdmin(
+    @Args() args: UpdateOneUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
     return await this.prisma.user.update({ ...args, ...select });
   }
 
-  @Mutation(() => [Meal])
+  @Mutation(() => [User])
   @Roles("ADMIN")
-  async updateManyMealsAdmin(
-    @Args() args: UpdateManyIngredientArgs,
+  async updateManyUsersAdmin(
+    @Args() args: UpdateManyUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
     return await this.prisma.user.updateMany({ ...args, ...select });
   }
 
-  @Mutation(() => Meal)
+  @Mutation(() => User)
   @Roles("ADMIN")
-  async upsertMealAdmin(
-    @Args() args: UpsertOneIngredientArgs,
+  async upsertUserAdmin(
+    @Args() args: UpsertOneUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
