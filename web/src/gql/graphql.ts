@@ -18,8 +18,6 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
   /** An arbitrary-precision Decimal type */
   Decimal: { input: any; output: any; }
-  /** The `Upload` scalar type represents a file upload. */
-  Upload: { input: any; output: any; }
 };
 
 export type BoolFieldUpdateOperationsInput = {
@@ -29,13 +27,6 @@ export type BoolFieldUpdateOperationsInput = {
 export type BoolFilter = {
   equals?: InputMaybe<Scalars['Boolean']['input']>;
   not?: InputMaybe<NestedBoolFilter>;
-};
-
-export type BytesNullableFilter = {
-  equals?: InputMaybe<Scalars['Upload']['input']>;
-  in?: InputMaybe<Array<Scalars['Upload']['input']>>;
-  not?: InputMaybe<NestedBytesNullableFilter>;
-  notIn?: InputMaybe<Array<Scalars['Upload']['input']>>;
 };
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -90,7 +81,7 @@ export type Ingredient = {
   createdBy: Scalars['Int']['output'];
   createdByUser: User;
   id: Scalars['ID']['output'];
-  image?: Maybe<Scalars['Upload']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
   mealIngredients?: Maybe<Array<MealIngredient>>;
   name: Scalars['String']['output'];
   nutritions?: Maybe<Array<Nutrition>>;
@@ -108,7 +99,7 @@ export type IngredientCreateInput = {
   allergens?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   createdByUser: UserCreateNestedOneWithoutCreatedIngredientsInput;
-  image?: InputMaybe<Scalars['Upload']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   mealIngredients?: InputMaybe<MealIngredientCreateNestedManyWithoutIngredientInput>;
   name: Scalars['String']['input'];
   nutritions?: InputMaybe<NutritionCreateNestedManyWithoutIngredientInput>;
@@ -120,7 +111,7 @@ export type IngredientCreateManyCreatedByUserInput = {
   allergens?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
-  image?: InputMaybe<Scalars['Upload']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -134,7 +125,7 @@ export type IngredientCreateManyInput = {
   allergens?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
-  image?: InputMaybe<Scalars['Upload']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -143,7 +134,7 @@ export type IngredientCreateManyUpdatedByUserInput = {
   allergens?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
-  image?: InputMaybe<Scalars['Upload']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -202,7 +193,7 @@ export type IngredientCreateOrConnectWithoutUpdatedByUserInput = {
 export type IngredientCreateWithoutCreatedByUserInput = {
   allergens?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
-  image?: InputMaybe<Scalars['Upload']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   mealIngredients?: InputMaybe<MealIngredientCreateNestedManyWithoutIngredientInput>;
   name: Scalars['String']['input'];
   nutritions?: InputMaybe<NutritionCreateNestedManyWithoutIngredientInput>;
@@ -214,7 +205,7 @@ export type IngredientCreateWithoutMealIngredientsInput = {
   allergens?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   createdByUser: UserCreateNestedOneWithoutCreatedIngredientsInput;
-  image?: InputMaybe<Scalars['Upload']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   nutritions?: InputMaybe<NutritionCreateNestedManyWithoutIngredientInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -225,7 +216,7 @@ export type IngredientCreateWithoutNutritionsInput = {
   allergens?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   createdByUser: UserCreateNestedOneWithoutCreatedIngredientsInput;
-  image?: InputMaybe<Scalars['Upload']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   mealIngredients?: InputMaybe<MealIngredientCreateNestedManyWithoutIngredientInput>;
   name: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -236,7 +227,7 @@ export type IngredientCreateWithoutUpdatedByUserInput = {
   allergens?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   createdByUser: UserCreateNestedOneWithoutCreatedIngredientsInput;
-  image?: InputMaybe<Scalars['Upload']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   mealIngredients?: InputMaybe<MealIngredientCreateNestedManyWithoutIngredientInput>;
   name: Scalars['String']['input'];
   nutritions?: InputMaybe<NutritionCreateNestedManyWithoutIngredientInput>;
@@ -289,7 +280,7 @@ export type IngredientScalarWhereInput = {
   allergens?: InputMaybe<StringNullableFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   id?: InputMaybe<IntFilter>;
-  image?: InputMaybe<BytesNullableFilter>;
+  image?: InputMaybe<StringNullableFilter>;
   name?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
@@ -298,7 +289,7 @@ export type IngredientUpdateInput = {
   allergens?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   createdByUser?: InputMaybe<UserUpdateOneRequiredWithoutCreatedIngredientsNestedInput>;
-  image?: InputMaybe<NullableBytesFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   mealIngredients?: InputMaybe<MealIngredientUpdateManyWithoutIngredientNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   nutritions?: InputMaybe<NutritionUpdateManyWithoutIngredientNestedInput>;
@@ -309,7 +300,7 @@ export type IngredientUpdateInput = {
 export type IngredientUpdateManyMutationInput = {
   allergens?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  image?: InputMaybe<NullableBytesFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -391,7 +382,7 @@ export type IngredientUpdateWithWhereUniqueWithoutUpdatedByUserInput = {
 export type IngredientUpdateWithoutCreatedByUserInput = {
   allergens?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  image?: InputMaybe<NullableBytesFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   mealIngredients?: InputMaybe<MealIngredientUpdateManyWithoutIngredientNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   nutritions?: InputMaybe<NutritionUpdateManyWithoutIngredientNestedInput>;
@@ -403,7 +394,7 @@ export type IngredientUpdateWithoutMealIngredientsInput = {
   allergens?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   createdByUser?: InputMaybe<UserUpdateOneRequiredWithoutCreatedIngredientsNestedInput>;
-  image?: InputMaybe<NullableBytesFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   nutritions?: InputMaybe<NutritionUpdateManyWithoutIngredientNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -414,7 +405,7 @@ export type IngredientUpdateWithoutNutritionsInput = {
   allergens?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   createdByUser?: InputMaybe<UserUpdateOneRequiredWithoutCreatedIngredientsNestedInput>;
-  image?: InputMaybe<NullableBytesFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   mealIngredients?: InputMaybe<MealIngredientUpdateManyWithoutIngredientNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -425,7 +416,7 @@ export type IngredientUpdateWithoutUpdatedByUserInput = {
   allergens?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   createdByUser?: InputMaybe<UserUpdateOneRequiredWithoutCreatedIngredientsNestedInput>;
-  image?: InputMaybe<NullableBytesFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   mealIngredients?: InputMaybe<MealIngredientUpdateManyWithoutIngredientNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   nutritions?: InputMaybe<NutritionUpdateManyWithoutIngredientNestedInput>;
@@ -464,7 +455,7 @@ export type IngredientWhereInput = {
   createdAt?: InputMaybe<DateTimeFilter>;
   createdByUser?: InputMaybe<UserRelationFilter>;
   id?: InputMaybe<IntFilter>;
-  image?: InputMaybe<BytesNullableFilter>;
+  image?: InputMaybe<StringNullableFilter>;
   mealIngredients?: InputMaybe<MealIngredientListRelationFilter>;
   name?: InputMaybe<StringFilter>;
   nutritions?: InputMaybe<NutritionListRelationFilter>;
@@ -480,7 +471,7 @@ export type IngredientWhereUniqueInput = {
   createdAt?: InputMaybe<DateTimeFilter>;
   createdByUser?: InputMaybe<UserRelationFilter>;
   id?: InputMaybe<Scalars['Int']['input']>;
-  image?: InputMaybe<BytesNullableFilter>;
+  image?: InputMaybe<StringNullableFilter>;
   mealIngredients?: InputMaybe<MealIngredientListRelationFilter>;
   name?: InputMaybe<StringFilter>;
   nutritions?: InputMaybe<NutritionListRelationFilter>;
@@ -511,7 +502,7 @@ export type Meal = {
   createdByUser: User;
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
-  image?: Maybe<Scalars['Upload']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
   mealIngredients?: Maybe<Array<MealIngredient>>;
   mealSchedulers?: Maybe<Array<MealSchedule>>;
   name: Scalars['String']['output'];
@@ -529,7 +520,7 @@ export type MealCreateManyCreatedByUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
-  image?: InputMaybe<Scalars['Upload']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -543,7 +534,7 @@ export type MealCreateManyUpdatedByUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
-  image?: InputMaybe<Scalars['Upload']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -602,7 +593,7 @@ export type MealCreateOrConnectWithoutUpdatedByUserInput = {
 export type MealCreateWithoutCreatedByUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
-  image?: InputMaybe<Scalars['Upload']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   mealIngredients?: InputMaybe<MealIngredientCreateNestedManyWithoutMealInput>;
   mealSchedulers?: InputMaybe<MealScheduleCreateNestedManyWithoutMealInput>;
   name: Scalars['String']['input'];
@@ -614,7 +605,7 @@ export type MealCreateWithoutMealIngredientsInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   createdByUser: UserCreateNestedOneWithoutCreatedMealsInput;
   description?: InputMaybe<Scalars['String']['input']>;
-  image?: InputMaybe<Scalars['Upload']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   mealSchedulers?: InputMaybe<MealScheduleCreateNestedManyWithoutMealInput>;
   name: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -625,7 +616,7 @@ export type MealCreateWithoutMealSchedulersInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   createdByUser: UserCreateNestedOneWithoutCreatedMealsInput;
   description?: InputMaybe<Scalars['String']['input']>;
-  image?: InputMaybe<Scalars['Upload']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   mealIngredients?: InputMaybe<MealIngredientCreateNestedManyWithoutMealInput>;
   name: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -636,7 +627,7 @@ export type MealCreateWithoutUpdatedByUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   createdByUser: UserCreateNestedOneWithoutCreatedMealsInput;
   description?: InputMaybe<Scalars['String']['input']>;
-  image?: InputMaybe<Scalars['Upload']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   mealIngredients?: InputMaybe<MealIngredientCreateNestedManyWithoutMealInput>;
   mealSchedulers?: InputMaybe<MealScheduleCreateNestedManyWithoutMealInput>;
   name: Scalars['String']['input'];
@@ -1095,7 +1086,7 @@ export type MealScalarWhereInput = {
   createdAt?: InputMaybe<DateTimeFilter>;
   description?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<IntFilter>;
-  image?: InputMaybe<BytesNullableFilter>;
+  image?: InputMaybe<StringNullableFilter>;
   name?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
@@ -1113,6 +1104,15 @@ export type MealSchedule = {
   updatedByUser: User;
 };
 
+export type MealScheduleCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  createdByUser: UserCreateNestedOneWithoutCreatedMealSchedulersInput;
+  meal: MealCreateNestedOneWithoutMealSchedulersInput;
+  servingDate: Scalars['DateTime']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedByUser: UserCreateNestedOneWithoutUpdatedMealSchedulersInput;
+};
+
 export type MealScheduleCreateManyCreatedByUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
@@ -1124,6 +1124,14 @@ export type MealScheduleCreateManyCreatedByUserInput = {
 export type MealScheduleCreateManyCreatedByUserInputEnvelope = {
   data: Array<MealScheduleCreateManyCreatedByUserInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type MealScheduleCreateManyInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['Int']['input']>;
+  mealId: Scalars['Int']['input'];
+  servingDate: Scalars['DateTime']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type MealScheduleCreateManyMealInput = {
@@ -1221,6 +1229,27 @@ export type MealScheduleOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>;
 };
 
+export type MealScheduleOrderByWithRelationInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  createdByUser?: InputMaybe<UserOrderByWithRelationInput>;
+  id?: InputMaybe<SortOrder>;
+  meal?: InputMaybe<MealOrderByWithRelationInput>;
+  mealId?: InputMaybe<SortOrder>;
+  servingDate?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+  updatedByUser?: InputMaybe<UserOrderByWithRelationInput>;
+};
+
+export enum MealScheduleScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  CreatedBy = 'createdBy',
+  Id = 'id',
+  MealId = 'mealId',
+  ServingDate = 'servingDate',
+  UpdatedAt = 'updatedAt',
+  UpdatedBy = 'updatedBy'
+}
+
 export type MealScheduleScalarWhereInput = {
   AND?: InputMaybe<Array<MealScheduleScalarWhereInput>>;
   NOT?: InputMaybe<Array<MealScheduleScalarWhereInput>>;
@@ -1230,6 +1259,15 @@ export type MealScheduleScalarWhereInput = {
   mealId?: InputMaybe<IntFilter>;
   servingDate?: InputMaybe<DateTimeFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type MealScheduleUpdateInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  createdByUser?: InputMaybe<UserUpdateOneRequiredWithoutCreatedMealSchedulersNestedInput>;
+  meal?: InputMaybe<MealUpdateOneRequiredWithoutMealSchedulersNestedInput>;
+  servingDate?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  updatedByUser?: InputMaybe<UserUpdateOneRequiredWithoutUpdatedMealSchedulersNestedInput>;
 };
 
 export type MealScheduleUpdateManyMutationInput = {
@@ -1380,23 +1418,10 @@ export type MealScheduleWhereUniqueInput = {
   updatedByUser?: InputMaybe<UserRelationFilter>;
 };
 
-export type MealScheduler = {
-  createdAt: Scalars['DateTime']['output'];
-  createdBy: Scalars['Int']['output'];
-  createdByUser: User;
-  id: Scalars['ID']['output'];
-  meal: Meal;
-  mealId: Scalars['Int']['output'];
-  servingDate: Scalars['DateTime']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-  updatedBy: Scalars['Int']['output'];
-  updatedByUser: User;
-};
-
 export type MealUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  image?: InputMaybe<NullableBytesFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -1478,7 +1503,7 @@ export type MealUpdateWithWhereUniqueWithoutUpdatedByUserInput = {
 export type MealUpdateWithoutCreatedByUserInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  image?: InputMaybe<NullableBytesFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   mealIngredients?: InputMaybe<MealIngredientUpdateManyWithoutMealNestedInput>;
   mealSchedulers?: InputMaybe<MealScheduleUpdateManyWithoutMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -1490,7 +1515,7 @@ export type MealUpdateWithoutMealIngredientsInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   createdByUser?: InputMaybe<UserUpdateOneRequiredWithoutCreatedMealsNestedInput>;
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  image?: InputMaybe<NullableBytesFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   mealSchedulers?: InputMaybe<MealScheduleUpdateManyWithoutMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -1501,7 +1526,7 @@ export type MealUpdateWithoutMealSchedulersInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   createdByUser?: InputMaybe<UserUpdateOneRequiredWithoutCreatedMealsNestedInput>;
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  image?: InputMaybe<NullableBytesFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   mealIngredients?: InputMaybe<MealIngredientUpdateManyWithoutMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -1512,7 +1537,7 @@ export type MealUpdateWithoutUpdatedByUserInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   createdByUser?: InputMaybe<UserUpdateOneRequiredWithoutCreatedMealsNestedInput>;
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  image?: InputMaybe<NullableBytesFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   mealIngredients?: InputMaybe<MealIngredientUpdateManyWithoutMealNestedInput>;
   mealSchedulers?: InputMaybe<MealScheduleUpdateManyWithoutMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -1551,7 +1576,7 @@ export type MealWhereInput = {
   createdByUser?: InputMaybe<UserRelationFilter>;
   description?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<IntFilter>;
-  image?: InputMaybe<BytesNullableFilter>;
+  image?: InputMaybe<StringNullableFilter>;
   mealIngredients?: InputMaybe<MealIngredientListRelationFilter>;
   mealSchedulers?: InputMaybe<MealScheduleListRelationFilter>;
   name?: InputMaybe<StringFilter>;
@@ -1567,7 +1592,7 @@ export type MealWhereUniqueInput = {
   createdByUser?: InputMaybe<UserRelationFilter>;
   description?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<Scalars['Int']['input']>;
-  image?: InputMaybe<BytesNullableFilter>;
+  image?: InputMaybe<StringNullableFilter>;
   mealIngredients?: InputMaybe<MealIngredientListRelationFilter>;
   mealSchedulers?: InputMaybe<MealScheduleListRelationFilter>;
   name?: InputMaybe<StringFilter>;
@@ -1577,44 +1602,51 @@ export type MealWhereUniqueInput = {
 
 export type Mutation = {
   changePasswordUser?: Maybe<Scalars['Boolean']['output']>;
-  createIngredientAdmin: MealScheduler;
-  createManyIngredientsAdmin: Array<MealScheduler>;
+  createIngredientAdmin: Ingredient;
+  createManyIngredientsAdmin: Array<Ingredient>;
   createManyMealIngredientsAdmin: Array<MealIngredient>;
+  createManyMealSchedulesAdmin: Array<MealSchedule>;
   createManyMealsAdmin: Array<Meal>;
-  createManyNutritionsAdmin: Array<MealScheduler>;
+  createManyNutritionsAdmin: Array<Nutrition>;
   createManyUsersAdmin: Array<User>;
   createMealAdmin: Meal;
   createMealIngredientAdmin: MealIngredient;
-  createNutritionAdmin: MealScheduler;
+  createMealScheduleAdmin: MealSchedule;
+  createNutritionAdmin: Nutrition;
   createUserAdmin: User;
   deleteAccountTokensUser: Scalars['Boolean']['output'];
-  deleteIngredientAdmin: MealScheduler;
+  deleteIngredientAdmin: Ingredient;
   deleteManyIngredientsAdmin: Scalars['Int']['output'];
   deleteManyMealIngredientsAdmin: Scalars['Int']['output'];
+  deleteManyMealSchedulesAdmin: Scalars['Int']['output'];
   deleteManyMealsAdmin: Scalars['Int']['output'];
   deleteManyNutritionsAdmin: Scalars['Int']['output'];
   deleteManyUsersAdmin: Scalars['Int']['output'];
   deleteMealAdmin: Meal;
   deleteMealIngredientAdmin: MealIngredient;
-  deleteNutritionAdmin: MealScheduler;
+  deleteMealScheduleAdmin: MealSchedule;
+  deleteNutritionAdmin: Nutrition;
   deleteUserAdmin: User;
   loginUser?: Maybe<User>;
   logout?: Maybe<Scalars['Boolean']['output']>;
   registerUser?: Maybe<User>;
-  updateIngredientAdmin: MealScheduler;
-  updateManyIngredientsAdmin: Array<MealScheduler>;
+  updateIngredientAdmin: Ingredient;
+  updateManyIngredientsAdmin: Array<Ingredient>;
   updateManyMealIngredientsAdmin: Array<MealIngredient>;
+  updateManyMealSchedulesAdmin: Array<MealSchedule>;
   updateManyMealsAdmin: Array<Meal>;
-  updateManyNutritionsAdmin: Array<MealScheduler>;
+  updateManyNutritionsAdmin: Array<Nutrition>;
   updateManyUsersAdmin: Array<User>;
   updateMealAdmin: Meal;
   updateMealIngredientAdmin: MealIngredient;
-  updateNutritionAdmin: MealScheduler;
+  updateMealScheduleAdmin: MealSchedule;
+  updateNutritionAdmin: Nutrition;
   updateUserAdmin: User;
-  upsertIngredientAdmin: MealScheduler;
+  upsertIngredientAdmin: Ingredient;
   upsertMealAdmin: Meal;
   upsertMealIngredientAdmin: MealIngredient;
-  upsertNutritionAdmin: MealScheduler;
+  upsertMealScheduleAdmin: MealSchedule;
+  upsertNutritionAdmin: Nutrition;
   upsertUserAdmin: User;
 };
 
@@ -1638,6 +1670,12 @@ export type MutationCreateManyIngredientsAdminArgs = {
 
 export type MutationCreateManyMealIngredientsAdminArgs = {
   data: Array<MealIngredientCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type MutationCreateManyMealSchedulesAdminArgs = {
+  data: Array<MealScheduleCreateManyInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -1670,6 +1708,11 @@ export type MutationCreateMealIngredientAdminArgs = {
 };
 
 
+export type MutationCreateMealScheduleAdminArgs = {
+  data: MealScheduleCreateInput;
+};
+
+
 export type MutationCreateNutritionAdminArgs = {
   data: NutritionCreateInput;
 };
@@ -1695,6 +1738,11 @@ export type MutationDeleteManyMealIngredientsAdminArgs = {
 };
 
 
+export type MutationDeleteManyMealSchedulesAdminArgs = {
+  where?: InputMaybe<MealScheduleWhereInput>;
+};
+
+
 export type MutationDeleteManyMealsAdminArgs = {
   where?: InputMaybe<IngredientWhereInput>;
 };
@@ -1717,6 +1765,11 @@ export type MutationDeleteMealAdminArgs = {
 
 export type MutationDeleteMealIngredientAdminArgs = {
   where: MealIngredientWhereUniqueInput;
+};
+
+
+export type MutationDeleteMealScheduleAdminArgs = {
+  where: MealScheduleWhereUniqueInput;
 };
 
 
@@ -1758,6 +1811,12 @@ export type MutationUpdateManyMealIngredientsAdminArgs = {
 };
 
 
+export type MutationUpdateManyMealSchedulesAdminArgs = {
+  data: MealScheduleUpdateManyMutationInput;
+  where?: InputMaybe<MealScheduleWhereInput>;
+};
+
+
 export type MutationUpdateManyMealsAdminArgs = {
   data: IngredientUpdateManyMutationInput;
   where?: InputMaybe<IngredientWhereInput>;
@@ -1785,6 +1844,12 @@ export type MutationUpdateMealAdminArgs = {
 export type MutationUpdateMealIngredientAdminArgs = {
   data: MealIngredientUpdateInput;
   where: MealIngredientWhereUniqueInput;
+};
+
+
+export type MutationUpdateMealScheduleAdminArgs = {
+  data: MealScheduleUpdateInput;
+  where: MealScheduleWhereUniqueInput;
 };
 
 
@@ -1821,6 +1886,13 @@ export type MutationUpsertMealIngredientAdminArgs = {
 };
 
 
+export type MutationUpsertMealScheduleAdminArgs = {
+  create: MealScheduleCreateInput;
+  update: MealScheduleUpdateInput;
+  where: MealScheduleWhereUniqueInput;
+};
+
+
 export type MutationUpsertNutritionAdminArgs = {
   create: NutritionCreateInput;
   update: NutritionUpdateInput;
@@ -1837,13 +1909,6 @@ export type MutationUpsertUserAdminArgs = {
 export type NestedBoolFilter = {
   equals?: InputMaybe<Scalars['Boolean']['input']>;
   not?: InputMaybe<NestedBoolFilter>;
-};
-
-export type NestedBytesNullableFilter = {
-  equals?: InputMaybe<Scalars['Upload']['input']>;
-  in?: InputMaybe<Array<Scalars['Upload']['input']>>;
-  not?: InputMaybe<NestedBytesNullableFilter>;
-  notIn?: InputMaybe<Array<Scalars['Upload']['input']>>;
 };
 
 export type NestedDateTimeFilter = {
@@ -1912,10 +1977,6 @@ export type NestedStringNullableFilter = {
   not?: InputMaybe<NestedStringNullableFilter>;
   notIn?: InputMaybe<Array<Scalars['String']['input']>>;
   startsWith?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type NullableBytesFieldUpdateOperationsInput = {
-  set?: InputMaybe<Scalars['Upload']['input']>;
 };
 
 export type NullableStringFieldUpdateOperationsInput = {
@@ -2321,15 +2382,17 @@ export type NutritionWhereUniqueInput = {
 };
 
 export type Query = {
-  getAllIngredientsAdmin?: Maybe<Array<MealScheduler>>;
+  getAllIngredientsAdmin?: Maybe<Array<Ingredient>>;
   getAllMealIngredientsAdmin?: Maybe<Array<MealIngredient>>;
+  getAllMealSchedulesAdmin: Array<MealSchedule>;
   getAllMealsAdmin?: Maybe<Array<Meal>>;
-  getAllNutritionsAdmin?: Maybe<Array<MealScheduler>>;
+  getAllNutritionsAdmin?: Maybe<Array<Nutrition>>;
   getAllUsersAdmin?: Maybe<Array<User>>;
-  getIngredientAdmin?: Maybe<MealScheduler>;
+  getIngredientAdmin?: Maybe<Ingredient>;
   getMealAdmin?: Maybe<Meal>;
   getMealIngredientAdmin?: Maybe<MealIngredient>;
-  getNutritionAdmin?: Maybe<MealScheduler>;
+  getMealScheduleAdmin?: Maybe<MealSchedule>;
+  getNutritionAdmin?: Maybe<Nutrition>;
   getUserAdmin?: Maybe<User>;
   me?: Maybe<User>;
 };
@@ -2352,6 +2415,16 @@ export type QueryGetAllMealIngredientsAdminArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<MealIngredientWhereInput>;
+};
+
+
+export type QueryGetAllMealSchedulesAdminArgs = {
+  cursor?: InputMaybe<MealScheduleWhereUniqueInput>;
+  distinct?: InputMaybe<Array<MealScheduleScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<MealScheduleOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<MealScheduleWhereInput>;
 };
 
 
@@ -2412,6 +2485,16 @@ export type QueryGetMealIngredientAdminArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<MealIngredientWhereInput>;
+};
+
+
+export type QueryGetMealScheduleAdminArgs = {
+  cursor?: InputMaybe<MealScheduleWhereUniqueInput>;
+  distinct?: InputMaybe<Array<MealScheduleScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<MealScheduleOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<MealScheduleWhereInput>;
 };
 
 
@@ -2705,6 +2788,7 @@ export type User = {
   createdUserRoles?: Maybe<Array<UserRole>>;
   email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  image?: Maybe<Scalars['String']['output']>;
   lastOnline: Scalars['DateTime']['output'];
   status: Scalars['Boolean']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -2754,6 +2838,7 @@ export type UserCreateInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -2773,6 +2858,7 @@ export type UserCreateManyCreatedByUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   email: Scalars['String']['input'];
   id?: InputMaybe<Scalars['Int']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -2788,6 +2874,7 @@ export type UserCreateManyInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   email: Scalars['String']['input'];
   id?: InputMaybe<Scalars['Int']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -2798,6 +2885,7 @@ export type UserCreateManyUpdatedByUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   email: Scalars['String']['input'];
   id?: InputMaybe<Scalars['Int']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3032,6 +3120,7 @@ export type UserCreateWithoutCreatedByUserInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3059,6 +3148,7 @@ export type UserCreateWithoutCreatedIngredientsInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3086,6 +3176,7 @@ export type UserCreateWithoutCreatedMealIngredientsInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3113,6 +3204,7 @@ export type UserCreateWithoutCreatedMealSchedulersInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3140,6 +3232,7 @@ export type UserCreateWithoutCreatedMealsInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3167,6 +3260,7 @@ export type UserCreateWithoutCreatedNutritionsInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3194,6 +3288,7 @@ export type UserCreateWithoutCreatedTokenInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3221,6 +3316,7 @@ export type UserCreateWithoutCreatedUserInput = {
   createdToken?: InputMaybe<TokenCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3248,6 +3344,7 @@ export type UserCreateWithoutCreatedUserRolesInput = {
   createdToken?: InputMaybe<TokenCreateNestedManyWithoutCreatedByUserInput>;
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3276,6 +3373,7 @@ export type UserCreateWithoutUpdatedByUserInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3303,6 +3401,7 @@ export type UserCreateWithoutUpdatedIngredientsInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3330,6 +3429,7 @@ export type UserCreateWithoutUpdatedMealIngredientsInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3357,6 +3457,7 @@ export type UserCreateWithoutUpdatedMealSchedulersInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3384,6 +3485,7 @@ export type UserCreateWithoutUpdatedMealsInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3411,6 +3513,7 @@ export type UserCreateWithoutUpdatedNutritionsInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3438,6 +3541,7 @@ export type UserCreateWithoutUpdatedTokenInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3465,6 +3569,7 @@ export type UserCreateWithoutUpdatedUserInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3492,6 +3597,7 @@ export type UserCreateWithoutUpdatedUserRolesInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3518,6 +3624,7 @@ export type UserCreateWithoutUserRoleInput = {
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -3562,6 +3669,7 @@ export type UserOrderByWithRelationInput = {
   createdUserRoles?: InputMaybe<UserRoleOrderByRelationAggregateInput>;
   email?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
+  image?: InputMaybe<SortOrderInput>;
   lastOnline?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -3880,6 +3988,7 @@ export enum UserScalarFieldEnum {
   CreatedBy = 'createdBy',
   Email = 'email',
   Id = 'id',
+  Image = 'image',
   LastOnline = 'lastOnline',
   Password = 'password',
   Status = 'status',
@@ -3895,6 +4004,7 @@ export type UserScalarWhereInput = {
   createdAt?: InputMaybe<DateTimeFilter>;
   email?: InputMaybe<StringFilter>;
   id?: InputMaybe<IntFilter>;
+  image?: InputMaybe<StringNullableFilter>;
   lastOnline?: InputMaybe<DateTimeFilter>;
   status?: InputMaybe<BoolFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -3914,6 +4024,7 @@ export type UserUpdateInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -3932,6 +4043,7 @@ export type UserUpdateInput = {
 export type UserUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4223,6 +4335,7 @@ export type UserUpdateWithoutCreatedByUserInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4250,6 +4363,7 @@ export type UserUpdateWithoutCreatedIngredientsInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4277,6 +4391,7 @@ export type UserUpdateWithoutCreatedMealIngredientsInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4304,6 +4419,7 @@ export type UserUpdateWithoutCreatedMealSchedulersInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4331,6 +4447,7 @@ export type UserUpdateWithoutCreatedMealsInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4358,6 +4475,7 @@ export type UserUpdateWithoutCreatedNutritionsInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4385,6 +4503,7 @@ export type UserUpdateWithoutCreatedTokenInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4412,6 +4531,7 @@ export type UserUpdateWithoutCreatedUserInput = {
   createdToken?: InputMaybe<TokenUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4439,6 +4559,7 @@ export type UserUpdateWithoutCreatedUserRolesInput = {
   createdToken?: InputMaybe<TokenUpdateManyWithoutCreatedByUserNestedInput>;
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4467,6 +4588,7 @@ export type UserUpdateWithoutUpdatedByUserInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4494,6 +4616,7 @@ export type UserUpdateWithoutUpdatedIngredientsInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4521,6 +4644,7 @@ export type UserUpdateWithoutUpdatedMealIngredientsInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4548,6 +4672,7 @@ export type UserUpdateWithoutUpdatedMealSchedulersInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4575,6 +4700,7 @@ export type UserUpdateWithoutUpdatedMealsInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4602,6 +4728,7 @@ export type UserUpdateWithoutUpdatedNutritionsInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4629,6 +4756,7 @@ export type UserUpdateWithoutUpdatedTokenInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4656,6 +4784,7 @@ export type UserUpdateWithoutUpdatedUserInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4683,6 +4812,7 @@ export type UserUpdateWithoutUpdatedUserRolesInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4709,6 +4839,7 @@ export type UserUpdateWithoutUserRoleInput = {
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -4855,6 +4986,7 @@ export type UserWhereInput = {
   createdUserRoles?: InputMaybe<UserRoleListRelationFilter>;
   email?: InputMaybe<StringFilter>;
   id?: InputMaybe<IntFilter>;
+  image?: InputMaybe<StringNullableFilter>;
   lastOnline?: InputMaybe<DateTimeFilter>;
   status?: InputMaybe<BoolFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -4887,6 +5019,7 @@ export type UserWhereUniqueInput = {
   createdUserRoles?: InputMaybe<UserRoleListRelationFilter>;
   email?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
+  image?: InputMaybe<StringNullableFilter>;
   lastOnline?: InputMaybe<DateTimeFilter>;
   status?: InputMaybe<BoolFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -4926,8 +5059,21 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeQuery = { me?: { id: string, username: string, email: string, lastOnline: any, status: boolean, createdAt: any, updatedAt: any, UserRole?: Array<{ id: string, name: UserRoleName }> | null } | null };
 
+export type GetAllMealSchedulesAdminQueryVariables = Exact<{
+  where?: InputMaybe<MealScheduleWhereInput>;
+  orderBy?: InputMaybe<Array<MealScheduleOrderByWithRelationInput> | MealScheduleOrderByWithRelationInput>;
+  cursor?: InputMaybe<MealScheduleWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  distinct?: InputMaybe<Array<MealScheduleScalarFieldEnum> | MealScheduleScalarFieldEnum>;
+}>;
+
+
+export type GetAllMealSchedulesAdminQuery = { getAllMealSchedulesAdmin: Array<{ id: string, mealId: number, servingDate: any, createdAt: any, updatedAt: any, meal: { name: string, description?: string | null, id: string, createdAt: any, image?: string | null } }> };
+
 
 export const RegisterUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RegisterUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RegisterUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"registerUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastOnline"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"UserRole"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<RegisterUserMutation, RegisterUserMutationVariables>;
 export const LoginUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"LoginUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"LoginUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loginUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastOnline"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"UserRole"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<LoginUserMutation, LoginUserMutationVariables>;
 export const LogoutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Logout"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"logout"}}]}}]} as unknown as DocumentNode<LogoutMutation, LogoutMutationVariables>;
 export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastOnline"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"UserRole"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
+export const GetAllMealSchedulesAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllMealSchedulesAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MealScheduleWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MealScheduleOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MealScheduleWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MealScheduleScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllMealSchedulesAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"mealId"}},{"kind":"Field","name":{"kind":"Name","value":"servingDate"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"meal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}}]}}]}}]} as unknown as DocumentNode<GetAllMealSchedulesAdminQuery, GetAllMealSchedulesAdminQueryVariables>;

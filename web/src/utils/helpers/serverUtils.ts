@@ -28,7 +28,7 @@ export const customFetcherServer = <
           ...options,
         },
         next: {
-          revalidate: 1,
+          revalidate: 5,
           tags: [(options as any)?.["authorization"] || ""],
         },
         body: JSON.stringify({

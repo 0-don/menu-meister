@@ -1,18 +1,33 @@
 import { graphql } from "@/gql";
 
-export const ME = graphql(/* GraphQL */ `
-  query Me {
-    me {
+export const GET_ALL_MEAL_SCHEDULES_ADMIN = graphql(/* GraphQL */ `
+  query GetAllMealSchedulesAdmin(
+    $where: MealScheduleWhereInput
+    $orderBy: [MealScheduleOrderByWithRelationInput!]
+    $cursor: MealScheduleWhereUniqueInput
+    $take: Int
+    $skip: Int
+    $distinct: [MealScheduleScalarFieldEnum!]
+  ) {
+    getAllMealSchedulesAdmin(
+      where: $where
+      orderBy: $orderBy
+      cursor: $cursor
+      take: $take
+      skip: $skip
+      distinct: $distinct
+    ) {
       id
-      username
-      email
-      lastOnline
-      status
+      mealId
+      servingDate
       createdAt
       updatedAt
-      UserRole {
-        id
+      meal {
         name
+        description
+        id
+        createdAt
+        image
       }
     }
   }
