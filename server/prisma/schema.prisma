@@ -34,11 +34,13 @@ model Token {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+
+  image    String? @db.Text
   /// @HideField({ output: true, input: true })
   password String
-  username String @unique
-  email    String @unique
+  username String  @unique
+  email    String  @unique
 
   lastOnline DateTime @default(now())
   status     Boolean  @default(true)
@@ -67,8 +69,8 @@ model User {
   updatedNutritions      Nutrition[]      @relation("UpdatedNutrition")
   createdMeals           Meal[]           @relation("CreatedMeal")
   updatedMeals           Meal[]           @relation("UpdatedMeal")
-  createdMealSchedulers  MealSchedule[]  @relation("CreatedMealSchedule")
-  updatedMealSchedulers  MealSchedule[]  @relation("UpdatedMealSchedule")
+  createdMealSchedulers  MealSchedule[]   @relation("CreatedMealSchedule")
+  updatedMealSchedulers  MealSchedule[]   @relation("UpdatedMealSchedule")
   createdMealIngredients MealIngredient[] @relation("CreatedMealIngredient")
   updatedMealIngredients MealIngredient[] @relation("UpdatedMealIngredient")
 
@@ -100,7 +102,7 @@ model Ingredient {
   id              Int              @id @default(autoincrement())
   name            String           @db.VarChar(255)
   allergens       String?          @db.VarChar(255)
-  image           Bytes?           @db.MediumBlob
+  image           String?          @db.Text
   nutritions      Nutrition[]
   mealIngredients MealIngredient[]
 
@@ -141,7 +143,7 @@ model Meal {
   id              Int              @id @default(autoincrement())
   name            String           @db.VarChar(255)
   description     String?          @db.Text
-  image           Bytes?           @db.MediumBlob
+  image           String?          @db.Text
   mealSchedulers  MealSchedule[]
   mealIngredients MealIngredient[]
 
@@ -171,7 +173,8 @@ model MealSchedule {
 
   createdByUser User @relation("CreatedMealSchedule", fields: [createdBy], references: [id])
   updatedByUser User @relation("UpdatedMealSchedule", fields: [updatedBy], references: [id])
-	@@map("MealSchedule")
+
+  @@map("MealSchedule")
 }
 
 model MealIngredient {

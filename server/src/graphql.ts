@@ -21,6 +21,7 @@ export function graphqlModuleFactory(): YogaDriverConfig<"fastify"> {
         message,
         isDev,
       ): Error | GraphQLError => {
+        console.log("error", error);
         if (error?.extensions?.code === "DOWNSTREAM_SERVICE_ERROR") {
           return error;
         }

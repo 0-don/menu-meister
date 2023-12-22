@@ -43,7 +43,7 @@ async function downloadImage(url: string) {
     throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
   }
 
-  const image = Buffer.from(await response.arrayBuffer());
+  const image = Buffer.from(await response.arrayBuffer()).toString("base64");
   mkdirSync(dirname(getImageFile(fileName)), { recursive: true });
   writeFileSync(getImageFile(fileName), image);
   return { fileName, filePath, image };

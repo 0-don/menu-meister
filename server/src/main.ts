@@ -7,8 +7,30 @@ import {
 } from "@nestjs/platform-fastify";
 import { useContainer } from "class-validator";
 import "dotenv/config";
+import { UploadOptions, processRequest } from "graphql-upload-minimal";
 import { AppModule } from "./app.module";
+import { FastifyInstance } from "./app_modules/@types/types";
 import { CORS_DOMAINS, PORT } from "./constants";
+
+async function fastifyGraphqlUploadMinimal(
+  fastify: FastifyInstance,
+  opts: UploadOptions,
+): Promise<void> {
+  fastify.addContentTypeParser(
+    "multipart",
+    (request: any, payload: any, done: any) => {
+      console.log("request", request);
+      processRequest(payload, request.raw, opts)
+        .then((body) => {
+          request.body = body;
+          done(null);
+        })
+        .catch((err) => {
+          done(err);
+        });
+    },
+  );
+}
 
 async function bootstrap() {
   const fastify = new FastifyAdapter({});
@@ -24,6 +46,10 @@ async function bootstrap() {
 
   await app.register(require("@fastify/cookie"));
 
+  await app.register(fastifyGraphqlUploadMinimal, {
+    maxFileSize: 10000000,
+    maxFiles: 1000,
+  });
   // class-validator
   app.useGlobalPipes(new ValidationPipe({ forbidUnknownValues: false }));
 
