@@ -13,6 +13,7 @@ export class MyLogger extends ConsoleLogger {
             `${frame.fileName}:${frame.lineNumber}:${frame.columnNumber}`,
         )
         .filter((line) => !line.includes("node_modules"))
+        .filter((line) => !line.includes("MyLogger"))
         .join("\n");
 
       const error = JSON.stringify(message);
