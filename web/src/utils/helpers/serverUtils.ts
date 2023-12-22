@@ -3,8 +3,6 @@ import fs from "fs";
 import { print } from "graphql";
 import { BACKEND_INTERNAL_URL } from "../constants";
 
-export const IS_DOCKER = isDocker();
-
 export const customFetcherServer = async <
   TData,
   TVariables,
@@ -17,7 +15,9 @@ export const customFetcherServer = async <
 ): Promise<T extends false ? TData : { data: TData; headers: Headers }> => {
   const token = (options as any)?.authorization;
   const res = await fetch(
-    IS_DOCKER ? BACKEND_INTERNAL_URL : process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
+    (await isDocker())
+      ? BACKEND_INTERNAL_URL
+      : process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
     {
       method: "POST",
       headers: {
@@ -45,7 +45,7 @@ export const customFetcherServer = async <
   return withHeaders ? { data: json.data, headers: res.headers } : json.data;
 };
 
-export function isDocker() {
+export async function isDocker() {
   function hasDockerEnv() {
     try {
       fs.statSync("/.dockerenv");
