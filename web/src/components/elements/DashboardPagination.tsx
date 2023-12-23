@@ -1,12 +1,6 @@
 "use client";
 import DashboardStore from "@/store/DashboardStore";
-import {
-  Pagination,
-  PaginationItemRenderProps,
-  PaginationItemType,
-} from "@nextui-org/pagination";
-import { cn } from "@nextui-org/system";
-import { FaChevronLeft } from "@react-icons/all-files/fa/FaChevronLeft";
+import { Pagination } from "@nextui-org/pagination";
 import React from "react";
 import { useSnapshot } from "valtio";
 
@@ -15,92 +9,102 @@ interface DashboardPaginationProps {}
 export const DashboardPagination: React.FC<DashboardPaginationProps> = ({}) => {
   const dashboardStore = useSnapshot(DashboardStore);
 
-  const renderItem = ({
-    ref,
-    key,
-    value,
-    isActive,
-    isBefore,
-    activePage,
-    isNext,
-    onNext,
-    onPrevious,
-    setPage,
-    dotsJump,
-    className,
-  }: PaginationItemRenderProps) => {
-    if (value === PaginationItemType.NEXT) {
-      return (
-        <button
-          key={key}
-          className={cn(className, "h-8 w-8 min-w-8 bg-default-200/50")}
-          onClick={onNext}
-        >
-          <FaChevronLeft className="rotate-180" />
-        </button>
-      );
-    }
-
-    if (value === PaginationItemType.PREV) {
-      return (
-        <button
-          key={key}
-          className={cn(className, "h-8 w-8 min-w-8 bg-default-200/50")}
-          onClick={onPrevious}
-        >
-          <FaChevronLeft />
-        </button>
-      );
-    }
-
-    if (value === PaginationItemType.DOTS) {
-      console.log(value, isBefore);
-      return (
-        <button
-          key={key}
-          className={className}
-          onClick={() =>
-            isBefore
-              ? setPage(activePage - dotsJump)
-              : setPage(activePage + dotsJump)
-          }
-        >
-          ...
-        </button>
-      );
-    }
-
-    // cursor is the default item
-    return (
-      <button
-        key={key}
-        ref={ref as any}
-        className={cn(
-          className,
-          isActive &&
-            "bg-gradient-to-br from-indigo-500 to-pink-500 font-bold text-white",
-        )}
-        onClick={() => setPage(value!)}
-      >
-        {value}
-      </button>
-    );
-  };
-
   return (
     <Pagination
-      // showControls
+      isCompact
+      showControls
       total={dashboardStore.weeksThatYear}
-      initialPage={dashboardStore.calendar.week}
-      // dotsJump={0}
-      // siblings={0}
-      // boundaries={5}
-      className="gap-2"
-      radius="full"
-      renderItem={renderItem}
-      variant="light"
+      page={dashboardStore.calendar.week}
+      onChange={(e) => (DashboardStore.calendar.week = e)}
     />
   );
+
+  // const renderItem = ({
+  //   ref,
+  //   key,
+  //   value,
+  //   isActive,
+  //   isBefore,
+  //   activePage,
+  //   isNext,
+  //   onNext,
+  //   onPrevious,
+  //   setPage,
+  //   dotsJump,
+  //   className,
+  // }: PaginationItemRenderProps) => {
+  //   if (value === PaginationItemType.NEXT) {
+  //     return (
+  //       <button
+  //         key={key}
+  //         className={cn(className, "h-8 w-8 min-w-8 bg-default-200/50")}
+  //         onClick={onNext}
+  //       >
+  //         <FaChevronLeft className="rotate-180" />
+  //       </button>
+  //     );
+  //   }
+
+  //   if (value === PaginationItemType.PREV) {
+  //     return (
+  //       <button
+  //         key={key}
+  //         className={cn(className, "h-8 w-8 min-w-8 bg-default-200/50")}
+  //         onClick={onPrevious}
+  //       >
+  //         <FaChevronLeft />
+  //       </button>
+  //     );
+  //   }
+
+  //   if (value === PaginationItemType.DOTS) {
+  //     console.log(value, isBefore);
+  //     return (
+  //       <button
+  //         key={key}
+  //         className={className}
+  //         onClick={() =>
+  //           isBefore
+  //             ? setPage(activePage - dotsJump)
+  //             : setPage(activePage + dotsJump)
+  //         }
+  //       >
+  //         ...
+  //       </button>
+  //     );
+  //   }
+
+  //   // cursor is the default item
+  //   return (
+  //     <button
+  //       key={key}
+  //       ref={ref as any}
+  //       className={cn(
+  //         className,
+  //         isActive &&
+  //           "bg-gradient-to-br from-indigo-500 to-pink-500 font-bold text-white",
+  //       )}
+  //       onClick={() => setPage(value!)}
+  //     >
+  //       {value}
+  //     </button>
+  //   );
+  // };
+
+  // return (
+  //   <Pagination
+  //     // showControls
+  //     total={dashboardStore.weeksThatYear}
+  //     initialPage={dashboardStore.calendar.week}
+  //     // dotsJump={0}
+  //     // siblings={0}
+  //     // boundaries={5}
+  //     className="gap-2"
+  //     radius="full"
+  //     renderItem={renderItem}
+  //     variant="light"
+  //   />
+  // );
 
   // return (
   //   <ul className="mt-10 flex items-center">

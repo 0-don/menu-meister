@@ -32,7 +32,9 @@
     "HEADER": "Empowering Your Kitchen with Smart Technology",
     "SUBHEADER": "Transform your culinary journey with {brand}, where technology meets nutrition."
   },
-  "Dashboard": {},
+  "Dashboard": {
+    "FROM_TO": " W{week} from {from} until {to}"
+  },
   "User": {},
   "Navbar": {
     "LOGIN": "Login",

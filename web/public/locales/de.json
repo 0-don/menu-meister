@@ -32,7 +32,9 @@
     "HEADER": "Intelligente Technologie für Ihre Küche",
     "SUBHEADER": "Verwandeln Sie Ihre kulinarische Reise mit {brand}, wo Technologie auf Ernährung trifft."
   },
-  "Dashboard": {},
+  "Dashboard": {
+    "FROM_TO": " KW{week} vom {from} bis zum {to}"
+  },
   "User": {},
   "Navbar": {
     "LOGIN": "Anmeldung",
