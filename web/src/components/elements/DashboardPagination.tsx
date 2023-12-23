@@ -14,14 +14,19 @@ interface DashboardPaginationProps {}
 
 export const DashboardPagination: React.FC<DashboardPaginationProps> = ({}) => {
   const dashboardStore = useSnapshot(DashboardStore);
+
   const renderItem = ({
     ref,
     key,
     value,
     isActive,
+    isBefore,
+    activePage,
+    isNext,
     onNext,
     onPrevious,
     setPage,
+    dotsJump,
     className,
   }: PaginationItemRenderProps) => {
     if (value === PaginationItemType.NEXT) {
@@ -49,8 +54,17 @@ export const DashboardPagination: React.FC<DashboardPaginationProps> = ({}) => {
     }
 
     if (value === PaginationItemType.DOTS) {
+      console.log(value, isBefore);
       return (
-        <button key={key} className={className}>
+        <button
+          key={key}
+          className={className}
+          onClick={() =>
+            isBefore
+              ? setPage(activePage - dotsJump)
+              : setPage(activePage + dotsJump)
+          }
+        >
           ...
         </button>
       );
@@ -73,24 +87,20 @@ export const DashboardPagination: React.FC<DashboardPaginationProps> = ({}) => {
     );
   };
 
-  console.log(dashboardStore.weeksThatYear)
-
   return (
     <Pagination
-      disableCursorAnimation
-      showControls
+      // showControls
       total={dashboardStore.weeksThatYear}
-      dotsJump={0}
-      siblings={1}
       initialPage={dashboardStore.calendar.week}
+      // dotsJump={0}
+      // siblings={0}
+      // boundaries={5}
       className="gap-2"
       radius="full"
       renderItem={renderItem}
       variant="light"
     />
   );
-
-  // console.log(range);
 
   // return (
   //   <ul className="mt-10 flex items-center">
@@ -122,7 +132,7 @@ export const DashboardPagination: React.FC<DashboardPaginationProps> = ({}) => {
   //       }
 
   //       if (page === PaginationItemType.DOTS) {
-  //         console.log(page);
+
   //         return <li key={page} />;
   //       }
 

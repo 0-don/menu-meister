@@ -10,7 +10,6 @@ export default function DashboardPage({}: DashboardPageProps) {
   //   { where: {} },
   // );
 
-  // console.log(getAllMealSchedulesAdmin);
   return (
     <>
       {/* <Test /> */}
