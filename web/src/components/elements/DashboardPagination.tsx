@@ -12,11 +12,15 @@ export const DashboardPagination: React.FC<DashboardPaginationProps> = ({}) => {
   const { activePage, range, setPage, onNext, onPrevious } = usePagination({
     total: 52,
     showControls: true,
-    siblings: 0,
-    boundaries: 1,
+    siblings: 1,
+    boundaries: 0,
+    dotsJump: 0,
+    isCompact: true,
     loop: true,
     showShadow: true,
   });
+
+  console.log(range);
 
   return (
     <ul className="mt-10 flex items-center">
@@ -48,11 +52,8 @@ export const DashboardPagination: React.FC<DashboardPaginationProps> = ({}) => {
         }
 
         if (page === PaginationItemType.DOTS) {
-          return (
-            <li key={page} className="h-4 w-4">
-              ...
-            </li>
-          );
+          console.log(page);
+          return <li key={page} />;
         }
 
         return (
