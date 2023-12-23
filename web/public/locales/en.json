@@ -33,7 +33,7 @@
     "SUBHEADER": "Transform your culinary journey with {brand}, where technology meets nutrition."
   },
   "Dashboard": {
-    "FROM_TO": " W{week} from {from} until {to}"
+    "FROM_TO": "<weektag>Week{week}</weektag> from <fromtag>{from}</fromtag> to <totag>{to}</totag>"
   },
   "User": {},
   "Navbar": {

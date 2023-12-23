@@ -21,11 +21,33 @@ const DashboardStore = proxy({
   },
   weeksThatYear: 0,
   daysThatWeek: [] as string[],
+  decrementWeek: () => {
+    if (DashboardStore.calendar.week > 1) {
+      DashboardStore.calendar.week -= 1;
+    } else {
+      // Move to the last week of the previous year
+      const previousYear = DashboardStore.calendar.year - 1;
+      DashboardStore.calendar.year = previousYear;
+      DashboardStore.calendar.week = dayjs()
+        .year(previousYear)
+        .isoWeeksInYear();
+    }
+  },
+  incrementWeek: () => {
+    if (DashboardStore.calendar.week < DashboardStore.weeksThatYear) {
+      DashboardStore.calendar.week += 1;
+    } else {
+      // Move to the first week of the next year
+      const nextYear = DashboardStore.calendar.year + 1;
+      DashboardStore.calendar.year = nextYear;
+      DashboardStore.calendar.week = 1;
+    }
+  },
 });
 
 watch((get) => {
   const { year, week } = get(DashboardStore.calendar);
-  const startOfWeek = dayjs().week(week).startOf("week");
+  const startOfWeek = dayjs().year(year).week(week).startOf("week");
   DashboardStore.daysThatWeek = Array.from({ length: 7 }, (_, i) =>
     startOfWeek.add(i, "day").toISOString(),
   );

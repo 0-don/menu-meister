@@ -33,7 +33,7 @@
     "SUBHEADER": "Verwandeln Sie Ihre kulinarische Reise mit {brand}, wo Technologie auf Ernährung trifft."
   },
   "Dashboard": {
-    "FROM_TO": " KW{week} vom {from} bis zum {to}"
+    "FROM_TO": "<weektag>KW{week}</weektag> vom <fromtag>{from}</fromtag> bis zum <totag>{to}</totag>"
   },
   "User": {},
   "Navbar": {
