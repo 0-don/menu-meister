@@ -1,4 +1,5 @@
-"use client   ";
+"use client";
+import DashboardStore from "@/store/DashboardStore";
 import {
   Pagination,
   PaginationItemRenderProps,
@@ -7,10 +8,12 @@ import {
 import { cn } from "@nextui-org/system";
 import { FaChevronLeft } from "@react-icons/all-files/fa/FaChevronLeft";
 import React from "react";
+import { useSnapshot } from "valtio";
 
 interface DashboardPaginationProps {}
 
 export const DashboardPagination: React.FC<DashboardPaginationProps> = ({}) => {
+  const dashboardStore = useSnapshot(DashboardStore);
   const renderItem = ({
     ref,
     key,
@@ -70,12 +73,16 @@ export const DashboardPagination: React.FC<DashboardPaginationProps> = ({}) => {
     );
   };
 
+  console.log(dashboardStore.weeksThatYear)
+
   return (
     <Pagination
       disableCursorAnimation
       showControls
-      total={50}
-      initialPage={1}
+      total={dashboardStore.weeksThatYear}
+      dotsJump={0}
+      siblings={1}
+      initialPage={dashboardStore.calendar.week}
       className="gap-2"
       radius="full"
       renderItem={renderItem}

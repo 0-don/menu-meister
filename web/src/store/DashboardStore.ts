@@ -1,32 +1,43 @@
 "use client";
 import dayjs from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek";
+import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear";
 import weekOfYear from "dayjs/plugin/weekOfYear";
-import { proxy } from "valtio";
-import { subscribeKey } from "valtio/utils";
+import { proxy, subscribe } from "valtio";
 
 dayjs.extend(weekOfYear);
 dayjs.extend(isoWeek);
+dayjs.extend(isoWeeksInYear);
 
 dayjs.Ls["en"].weekStart = 1;
 
 const DashboardStore = proxy({
-  calendarWeek: 0,
+  calendar: {
+    year: 0,
+    week: 0,
+  },
   weekDayDates: [] as dayjs.Dayjs[],
+  weeksThatYear: 1,
 });
 
-// Callback function to update weekDayDates when calendarWeek changes
-subscribeKey(DashboardStore, "calendarWeek", (weekNumber) => {
-  console.log("weekNumber", weekNumber);
-  // Find the start of the week (Monday) based on the new week number
-  const startOfWeek = dayjs().week(weekNumber).startOf("week");
-
-  // Generate the dates for the entire week
-  DashboardStore.weekDayDates = Array.from({ length: 7 }, (_, i) =>
-    startOfWeek.add(i, "day"),
+subscribe(DashboardStore.calendar, () => {
+  console.log("calendar changed");
+  const { year, week } = DashboardStore.calendar;
+  const weekDayDates = Array.from({ length: 7 }, (_, i) =>
+    dayjs()
+      .year(year)
+      .week(week)
+      .day(i + 1),
   );
+  const weeksThatYear = dayjs().year(year).isoWeeksInYear();
+  console.log(weeksThatYear);
+  DashboardStore.weekDayDates = weekDayDates;
+  DashboardStore.weeksThatYear = weeksThatYear;
 });
 
-DashboardStore.calendarWeek = dayjs().week();
+DashboardStore.calendar = {
+  year: dayjs().year(),
+  week: dayjs().week(),
+};
 
 export default DashboardStore;
