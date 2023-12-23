@@ -16,7 +16,6 @@ export const DashboardPagination: React.FC<DashboardPaginationProps> = ({}) => {
     boundaries: 1,
     loop: true,
     showShadow: true,
-    
   });
 
   return (

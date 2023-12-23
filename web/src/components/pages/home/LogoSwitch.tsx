@@ -15,7 +15,7 @@ export const LogoSwitch: React.FC<LogoSwitchProps> = ({}) => {
 
   return (
     <>
-      {isSelected? (
+      {isSelected ? (
         <Image src={logo_dark} height={150} width={150} alt="logo" />
       ) : (
         <Image src={logo_white} height={150} width={150} alt="logo" />

@@ -27,6 +27,6 @@ subscribeKey(DashboardStore, "calendarWeek", (weekNumber) => {
   );
 });
 
-DashboardStore.calendarWeek = dayjs().week()
+DashboardStore.calendarWeek = dayjs().week();
 
 export default DashboardStore;
