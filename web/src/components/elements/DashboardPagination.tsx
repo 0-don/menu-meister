@@ -13,14 +13,14 @@ export const DashboardPagination: React.FC = () => {
 
   return (
     <>
-      <div className="mb-2 mt-10 flex">
+      <div className="mb-2 mt-10 flex gap-1">
         {t?.rich("FROM_TO", {
           week: calendar.week,
           from: dayjs(daysThatWeek.at(0))?.format("DD.MM.YYYY"),
           to: dayjs(daysThatWeek.at(-1))?.format("DD.MM.YYYY"),
-          weektag: (chunks) => <span className="font-bold"> {chunks} </span>,
-          fromtag: (chunks) => <span className="font-bold"> {chunks} </span>,
-          totag: (chunks) => <span className="font-bold"> {chunks} </span>,
+          weektag: (chunks) => <p className="font-bold">{chunks}</p>,
+          fromtag: (chunks) => <p className="font-bold">{chunks}</p>,
+          totag: (chunks) => <p className="font-bold">{chunks}</p>,
         })}
       </div>
       <div className="flex items-center">
