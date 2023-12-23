@@ -1,87 +1,87 @@
 "use client   ";
-import { PaginationItemType, usePagination } from "@nextui-org/pagination";
+import {
+  Pagination,
+  PaginationItemRenderProps,
+  PaginationItemType,
+} from "@nextui-org/pagination";
 import { cn } from "@nextui-org/system";
-import { FaChevronRight } from "@react-icons/all-files/fa/FaChevronRight";
+import { FaChevronLeft } from "@react-icons/all-files/fa/FaChevronLeft";
 import React from "react";
 
 interface DashboardPaginationProps {}
 
 export const DashboardPagination: React.FC<DashboardPaginationProps> = ({}) => {
-  // const dashboardStore = useSnapshot(DashboardStore);
-  const { activePage, range, setPage, onNext, onPrevious } = usePagination({
-    total: 60,
-    showControls: true,
-    siblings: 10,
-    boundaries: 10,
-  });
+  const renderItem = ({
+    ref,
+    key,
+    value,
+    isActive,
+    onNext,
+    onPrevious,
+    setPage,
+    className,
+  }: PaginationItemRenderProps) => {
+    if (value === PaginationItemType.NEXT) {
+      return (
+        <button
+          key={key}
+          className={cn(className, "h-8 w-8 min-w-8 bg-default-200/50")}
+          onClick={onNext}
+        >
+          <FaChevronLeft className="rotate-180" />
+        </button>
+      );
+    }
+
+    if (value === PaginationItemType.PREV) {
+      return (
+        <button
+          key={key}
+          className={cn(className, "h-8 w-8 min-w-8 bg-default-200/50")}
+          onClick={onPrevious}
+        >
+          <FaChevronLeft />
+        </button>
+      );
+    }
+
+    if (value === PaginationItemType.DOTS) {
+      return (
+        <button key={key} className={className}>
+          ...
+        </button>
+      );
+    }
+
+    // cursor is the default item
+    return (
+      <button
+        key={key}
+        ref={ref as any}
+        className={cn(
+          className,
+          isActive &&
+            "bg-gradient-to-br from-indigo-500 to-pink-500 font-bold text-white",
+        )}
+        onClick={() => setPage(value!)}
+      >
+        {value}
+      </button>
+    );
+  };
 
   return (
-    <div className="flex flex-col gap-2">
-      <p>Active page: {activePage}</p>
-      <ul className="flex items-center gap-2">
-        {range.map((page) => {
-          if (page === PaginationItemType.NEXT) {
-            return (
-              <li key={page} aria-label="next page" className="h-4 w-4">
-                <button
-                  className="h-full w-full rounded-full bg-default-200"
-                  onClick={onNext}
-                >
-                  <FaChevronRight />
-                </button>
-              </li>
-            );
-          }
-
-          if (page === PaginationItemType.PREV) {
-            return (
-              <li key={page} aria-label="previous page" className="h-4 w-4">
-                <button
-                  className="h-full w-full rounded-full bg-default-200"
-                  onClick={onPrevious}
-                >
-                  {" "}
-                  <FaChevronRight className="rotate-180" />
-                </button>
-              </li>
-            );
-          }
-
-          if (page === PaginationItemType.DOTS) {
-            return (
-              <li key={page} className="h-4 w-4">
-                ...
-              </li>
-            );
-          }
-
-          return (
-            <li key={page} aria-label={`page ${page}`} className="">
-              <button
-                className={cn(
-                  "flex min-h-8 min-w-8 items-center justify-center rounded-full bg-default-400 px-1.5 text-sm text-default-50 dark:text-white",
-                  activePage === page && "bg-primary",
-                )}
-                onClick={() => setPage(page)}
-              >
-                {page}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+    <Pagination
+      disableCursorAnimation
+      showControls
+      total={50}
+      initialPage={1}
+      className="gap-2"
+      radius="full"
+      renderItem={renderItem}
+      variant="light"
+    />
   );
-  // const { activePage, range, setPage, onNext, onPrevious } = usePagination({
-  //   total: 52,
-  //   showControls: true,
-  //   siblings: 1,
-  //   boundaries: 0,
-  //   dotsJump: 0,
-  //   isCompact: true,
-  //   loop: true,
-  //   showShadow: true,
-  // });
 
   // console.log(range);
 
