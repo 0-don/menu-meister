@@ -21,12 +21,11 @@ const DashboardStore = proxy({
   },
   weeksThatYear: 0,
   daysThatWeek: [] as string[],
-  setCalendar: (date: string) =>
-    (DashboardStore.calendar = {
-      year: dayjs(date).year(),
-      week: dayjs(date).week(),
-    }),
-  decrementWeek: () => {
+  setCalendar(date: string) {
+    DashboardStore.calendar.year = dayjs(date).year();
+    DashboardStore.calendar.week = dayjs(date).week();
+  },
+  decrementWeek() {
     if (DashboardStore.calendar.week > 1) {
       DashboardStore.calendar.week -= 1;
     } else {
@@ -38,7 +37,7 @@ const DashboardStore = proxy({
         .isoWeeksInYear();
     }
   },
-  incrementWeek: () => {
+  incrementWeek() {
     if (DashboardStore.calendar.week < DashboardStore.weeksThatYear) {
       DashboardStore.calendar.week += 1;
     } else {
