@@ -21,6 +21,11 @@ const DashboardStore = proxy({
   },
   weeksThatYear: 0,
   daysThatWeek: [] as string[],
+  setCalendar: (date: string) =>
+    (DashboardStore.calendar = {
+      year: dayjs(date).year(),
+      week: dayjs(date).week(),
+    }),
   decrementWeek: () => {
     if (DashboardStore.calendar.week > 1) {
       DashboardStore.calendar.week -= 1;
