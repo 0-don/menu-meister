@@ -127,8 +127,8 @@ const seedMealSchedulers = async (mealId, userId) => {
   for (const _ of Array(50).keys()) {
     // Generate a base date
     let servingDate = faker.date.between({
-      from: dayjs().subtract(12, "month").toDate(),
-      to: dayjs().add(12, "month").toDate(),
+      from: dayjs().subtract(24, "month").toDate(),
+      to: dayjs().add(24, "month").toDate(),
     });
 
     // Adjust the day of the week
