@@ -130,8 +130,8 @@ const seedMealSchedulers = async (mealId, userId) => {
       data: {
         mealId: mealId,
         servingDate: faker.date.between({
-          from: dayjs().subtract(1, "month").toDate(),
-          to: dayjs().add(1, "month").toDate(),
+          from: dayjs().subtract(12, "month").toDate(),
+          to: dayjs().add(12, "month").toDate(),
         }),
         createdBy: userId,
         updatedBy: userId,

@@ -19,8 +19,10 @@ import { GeneralStore } from "./GeneralStore";
 export type AuthStore = typeof AuthStore;
 
 export const AuthStore = proxy({
-  email: process.env.NODE_ENV === "development" ? "admin@admin.de" : "",
-  password: process.env.NODE_ENV === "development" ? "!admin" : "",
+  // email: process.env.NODE_ENV === "development" ? "admin@admin.de" : "",
+  // password: process.env.NODE_ENV === "development" ? "!admin" : "",
+  email: "admin@admin.de",
+  password: "!admin",
   passwordInputType: "password" as HTMLInputTypeAttribute,
   confirmPassword: "",
   displayPassword: false,

@@ -2,7 +2,7 @@
 
 import { GET_ALL_MEAL_SCHEDULES_ADMIN } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
-import { GetAllMealSchedulesAdminQuery } from "@/gql/graphql";
+import { GetAllMealSchedulesAdminQuery, SortOrder } from "@/gql/graphql";
 import DashboardStore from "@/store/DashboardStore";
 import {
   Table,
@@ -21,19 +21,21 @@ interface DashboardPageProps {}
 export function MainTable({}: DashboardPageProps) {
   const t = useTranslations<"Dashboard">();
   const dashboardStore = useSnapshot(DashboardStore);
+
   const { data } = useGqlQuery(GET_ALL_MEAL_SCHEDULES_ADMIN, {
     where: {
       servingDate: {
-        gte: dayjs(dashboardStore.daysThatWeek.at(0)).toISOString(),
-        lte: dayjs(dashboardStore.daysThatWeek.at(-1)).toISOString(),
+        gt: dayjs(dashboardStore.daysThatWeek.at(0)).toISOString(),
+        lt: dayjs(dashboardStore.daysThatWeek.at(-1)).toISOString(),
       },
     },
+    orderBy: { servingDate: SortOrder.Asc },
   });
+
 
   const groupedMealSchedules = (data?.getAllMealSchedulesAdmin ?? []).reduce(
     (acc, schedule) => {
       const weekday = dayjs(schedule.servingDate, "DD.MM.YYYY").format("dddd");
-      console.log(weekday);
       acc[weekday] = acc[weekday] || [];
       acc[weekday]?.push(schedule);
       return acc;
@@ -52,8 +54,6 @@ export function MainTable({}: DashboardPageProps) {
       >;
     },
   );
-
-  console.log(groupedMealSchedules);
 
   return (
     <Table aria-label="Example static collection table">

@@ -52,8 +52,9 @@ const DashboardStore = proxy({
 watch((get) => {
   const { year, week } = get(DashboardStore.calendar);
   const startOfWeek = dayjs().year(year).week(week).startOf("week");
+  console.log(startOfWeek.toISOString());
   DashboardStore.daysThatWeek = Array.from({ length: 7 }, (_, i) =>
-    startOfWeek.add(i, "day").toISOString(),
+    startOfWeek.add(i, "day").format("YYYY-MM-DD"),
   );
   DashboardStore.weeksThatYear = dayjs().year(year).isoWeeksInYear();
 });
