@@ -2,8 +2,9 @@
 
 import { GET_ALL_MEAL_SCHEDULES_ADMIN } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
-import { GetAllMealSchedulesAdminQuery, SortOrder } from "@/gql/graphql";
+import { SortOrder } from "@/gql/graphql";
 import DashboardStore from "@/store/DashboardStore";
+import { WEEK_GROUP } from "@/utils/constants";
 import {
   Table,
   TableBody,
@@ -39,19 +40,7 @@ export function MainTable({}: DashboardPageProps) {
       acc[weekday]?.push(schedule);
       return acc;
     },
-    {
-      Monday: [],
-      Tuesday: [],
-      Wednesday: [],
-      Thursday: [],
-      Friday: [],
-      Saturday: [],
-      Sunday: [],
-    } as {
-      [key: string]: NonNullable<
-        GetAllMealSchedulesAdminQuery["getAllMealSchedulesAdmin"]
-      >;
-    },
+    { ...WEEK_GROUP },
   );
 
   return (
@@ -67,15 +56,17 @@ export function MainTable({}: DashboardPageProps) {
       </TableHeader>
       <TableBody>
         <TableRow>
-          {Object.entries(groupedMealSchedules).map(([weekday, schedules]) => (
-            <TableCell key={weekday}>
-              {schedules.map((schedule) => (
-                <p className="inline" key={schedule.id}>
-                  {schedule.meal?.name}
-                </p>
-              ))}
-            </TableCell>
-          ))}
+          {Object.entries(groupedMealSchedules).map(
+            ([weekday, schedules], i) => (
+              <TableCell key={weekday + i}>
+                {schedules.map((schedule, i) => (
+                  <p className="inline" key={schedule.id + i}>
+                    {schedule.meal?.name}
+                  </p>
+                ))}
+              </TableCell>
+            ),
+          )}
         </TableRow>
       </TableBody>
     </Table>
