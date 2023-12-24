@@ -2,7 +2,6 @@
 
 import { GET_ALL_MEAL_SCHEDULES_ADMIN } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
-import { SortOrder } from "@/gql/graphql";
 import DashboardStore from "@/store/DashboardStore";
 import { WEEK_GROUP } from "@/utils/constants";
 import {
@@ -30,7 +29,6 @@ export function MainTable({}: DashboardPageProps) {
         lte: dayjs(dashboardStore.daysThatWeek.at(-1)).toISOString(),
       },
     },
-    orderBy: { servingDate: SortOrder.Asc },
   });
 
   const groupedMealSchedules = (data?.getAllMealSchedulesAdmin ?? []).reduce(
@@ -40,7 +38,7 @@ export function MainTable({}: DashboardPageProps) {
       acc[weekday]?.push(schedule);
       return acc;
     },
-    { ...WEEK_GROUP },
+    structuredClone(WEEK_GROUP),
   );
 
   return (
@@ -59,7 +57,7 @@ export function MainTable({}: DashboardPageProps) {
           {Object.entries(groupedMealSchedules).map(
             ([weekday, schedules], i) => (
               <TableCell key={weekday + i}>
-                {schedules.map((schedule, i) => (
+                {(schedules as any[]).map((schedule, i) => (
                   <p className="inline" key={schedule.id + i}>
                     {schedule.meal?.name}
                   </p>
