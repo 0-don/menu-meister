@@ -36,7 +36,6 @@ async function downloadImage(url: string) {
   const name = new URL(url).searchParams.get("lock");
   const category = new URL(url).pathname.split("/").at(-1);
   const fileName = `${category}-${name}.jpg`;
-  const filePath = join(resolve(), "images", name);
 
   const response = await fetch(url);
   if (!response.ok) {
@@ -46,7 +45,7 @@ async function downloadImage(url: string) {
   const image = Buffer.from(await response.arrayBuffer()).toString("base64");
   mkdirSync(dirname(getImageFile(fileName)), { recursive: true });
   writeFileSync(getImageFile(fileName), image);
-  return { fileName, filePath, image };
+  return image;
 }
 
 const seedIngredientsAndNutritions = async () => {
@@ -62,7 +61,7 @@ const seedIngredientsAndNutritions = async () => {
       width: 320,
       height: 240,
     });
-    const { image } = await downloadImage(imgUrl);
+    const image = await downloadImage(imgUrl);
 
     // Create ingredient individually
     const ingredient = await prisma.ingredient.create({
@@ -107,7 +106,7 @@ const seedMeals = async () => {
       width: 320,
       height: 240,
     });
-    const { image } = await downloadImage(imgUrl);
+    const image = await downloadImage(imgUrl);
 
     const meal = await prisma.meal.create({
       data: {
@@ -126,13 +125,21 @@ const seedMeals = async () => {
 
 const seedMealSchedulers = async (mealId, userId) => {
   for (const _ of Array(50).keys()) {
+    // Generate a base date
+    let servingDate = faker.date.between({
+      from: dayjs().subtract(12, "month").toDate(),
+      to: dayjs().add(12, "month").toDate(),
+    });
+
+    // Adjust the day of the week
+    // This example evenly distributes across 7 days of the week
+    const dayAdjustment = _ % 7;
+    servingDate = dayjs(servingDate).add(dayAdjustment, "day").toDate();
+
     await prisma.mealSchedule.create({
       data: {
         mealId: mealId,
-        servingDate: faker.date.between({
-          from: dayjs().subtract(12, "month").toDate(),
-          to: dayjs().add(12, "month").toDate(),
-        }),
+        servingDate: servingDate,
         createdBy: userId,
         updatedBy: userId,
       },
