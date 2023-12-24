@@ -14,7 +14,7 @@ export const DashboardPagination: React.FC = () => {
 
   return (
     <>
-      <div className="relative mb-2 mt-10 flex gap-1">
+      <div className="relative mb-2 mt-5 flex">
         <label
           htmlFor="datePicker"
           className="flex cursor-pointer gap-1"
