@@ -17,13 +17,13 @@ dayjs.Ls["en"].weekStart = 1;
 const DashboardStore = proxy({
   calendar: {
     year: dayjs().year(),
-    week: dayjs().week(),
+    week: dayjs().isoWeek(),
   },
   weeksThatYear: 0,
   daysThatWeek: [] as string[],
   setCalendar(date: string) {
     DashboardStore.calendar.year = dayjs(date).year();
-    DashboardStore.calendar.week = dayjs(date).week();
+    DashboardStore.calendar.week = dayjs(date).isoWeek();
   },
   decrementWeek() {
     if (DashboardStore.calendar.week > 1) {
@@ -51,8 +51,8 @@ const DashboardStore = proxy({
 
 watch((get) => {
   const { year, week } = get(DashboardStore.calendar);
-  const startOfWeek = dayjs().year(year).week(week).startOf("week");
-  console.log(startOfWeek.toISOString());
+  const startOfWeek = dayjs().year(year).isoWeek(week).startOf("week");
+
   DashboardStore.daysThatWeek = Array.from({ length: 7 }, (_, i) =>
     startOfWeek.add(i, "day").format("YYYY-MM-DD"),
   );

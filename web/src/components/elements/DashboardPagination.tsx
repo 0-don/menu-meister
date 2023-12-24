@@ -11,11 +11,7 @@ export const DashboardPagination: React.FC = () => {
   const dateRef = useRef<HTMLInputElement>(null);
   const t = useTranslations<"Dashboard">();
   const { calendar, weeksThatYear, daysThatWeek } = useSnapshot(DashboardStore);
-  console.log(
-    JSON.parse(JSON.stringify(DashboardStore.daysThatWeek)),
-    dayjs(daysThatWeek.at(0)).toISOString(),
-    dayjs(daysThatWeek.at(0)).format("DD.MM.YYYY"),
-  );
+
   return (
     <>
       <div className="relative mb-2 mt-5 flex hover:!text-gray-300">

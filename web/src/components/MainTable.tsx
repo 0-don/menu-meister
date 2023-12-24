@@ -25,13 +25,12 @@ export function MainTable({}: DashboardPageProps) {
   const { data } = useGqlQuery(GET_ALL_MEAL_SCHEDULES_ADMIN, {
     where: {
       servingDate: {
-        gt: dayjs(dashboardStore.daysThatWeek.at(0)).toISOString(),
-        lt: dayjs(dashboardStore.daysThatWeek.at(-1)).toISOString(),
+        gte: dayjs(dashboardStore.daysThatWeek.at(0)).toISOString(),
+        lte: dayjs(dashboardStore.daysThatWeek.at(-1)).toISOString(),
       },
     },
     orderBy: { servingDate: SortOrder.Asc },
   });
-
 
   const groupedMealSchedules = (data?.getAllMealSchedulesAdmin ?? []).reduce(
     (acc, schedule) => {
