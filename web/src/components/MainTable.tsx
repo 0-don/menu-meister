@@ -25,8 +25,8 @@ export function MainTable({}: DashboardPageProps) {
   const { data } = useGqlQuery(GET_ALL_MEAL_SCHEDULES_ADMIN, {
     where: {
       servingDate: {
-        gte: dayjs(dashboardStore.daysThatWeek.at(0)).toISOString(),
-        lte: dayjs(dashboardStore.daysThatWeek.at(-1)).toISOString(),
+        gte: dayjs.utc(dashboardStore.daysThatWeek.at(0)).toISOString(),
+        lte: dayjs.utc(dashboardStore.daysThatWeek.at(-1)).toISOString(),
       },
     },
   });

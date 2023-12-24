@@ -4,10 +4,12 @@ import dayjs from "dayjs";
 import isLeapYear from "dayjs/plugin/isLeapYear";
 import isoWeek from "dayjs/plugin/isoWeek";
 import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear";
+import utc from "dayjs/plugin/utc";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import { proxy } from "valtio";
 import { watch } from "valtio/utils";
 
+dayjs.extend(utc);
 dayjs.extend(weekOfYear);
 dayjs.extend(isoWeek);
 dayjs.extend(isoWeeksInYear);
