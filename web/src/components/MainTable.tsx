@@ -14,6 +14,7 @@ import {
 } from "@nextui-org/table";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { useSnapshot } from "valtio";
 
 interface DashboardPageProps {}
@@ -38,11 +39,11 @@ export function MainTable({}: DashboardPageProps) {
       acc[weekday]?.push(schedule);
       return acc;
     },
-    structuredClone(WEEK_GROUP),
+    structuredClone(WEEK_GROUP) as typeof WEEK_GROUP,
   );
 
   return (
-    <Table aria-label="Example static collection table">
+    <Table className="mt-5">
       <TableHeader>
         <TableColumn>{t("MONDAY")}</TableColumn>
         <TableColumn>{t("TUESDAY")}</TableColumn>
@@ -54,17 +55,23 @@ export function MainTable({}: DashboardPageProps) {
       </TableHeader>
       <TableBody>
         <TableRow>
-          {Object.entries(groupedMealSchedules).map(
-            ([weekday, schedules], i) => (
-              <TableCell key={weekday + i}>
-                {(schedules as any[]).map((schedule, i) => (
-                  <p className="inline" key={schedule.id + i}>
-                    {schedule.meal?.name}
-                  </p>
-                ))}
-              </TableCell>
-            ),
-          )}
+          {Object.entries(groupedMealSchedules).map(([weekday, schedules]) => (
+            <TableCell key={weekday} className="align-top">
+              {schedules.map((schedule) => (
+                <span key={schedule.id}>
+                  {schedule.meal.image && (
+                    <Image
+                      src={`data:image/jpeg;base64,${schedule.meal.image}`}
+                      width={200}
+                      height={200}
+                      alt={schedule.meal.name}
+                    />
+                  )}
+                  <p>{schedule.meal?.name}</p>
+                </span>
+              ))}
+            </TableCell>
+          ))}
         </TableRow>
       </TableBody>
     </Table>
