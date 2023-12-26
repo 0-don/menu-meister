@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { PrismaClient, UserRoleName } from "@prisma/client";
+import { Prisma, PrismaClient, UserRoleName } from "@prisma/client";
 import argon2 from "argon2";
 import { error } from "console";
 import dayjs from "dayjs";
@@ -9,6 +9,7 @@ import { dirname, join, resolve } from "path";
 const prisma = new PrismaClient();
 
 const EMAIL = "admin@admin.de";
+const MIN_MEALS_PER_DAY = 3;
 
 const randomInt = (min = 0, max = 10) =>
   Math.floor(Math.random() * (max - min + 1) + min);
@@ -30,6 +31,7 @@ const seed = async () => {
 
   await seedIngredientsAndNutritions();
   await seedMeals();
+  await seedMealSchedulers();
 };
 
 async function downloadImage(url: string) {
@@ -118,20 +120,42 @@ const seedMeals = async () => {
       },
     });
 
-    await seedMealSchedulers(meal.id, user.id);
     await seedMealIngredients(meal.id, user.id);
   }
 };
 
-const seedMealSchedulers = async (mealId: number, userId: number) => {
-  const startDate = dayjs().subtract(24, 'month');
-  const endDate = dayjs().add(24, 'month');
-  const totalWeeks = endDate.diff(startDate, 'week');
+const seedMealSchedulers = async () => {
+  const user = await prisma.user.findFirst({
+    where: { email: EMAIL },
+  });
+  const meals = await prisma.meal.findMany();
 
-  for (let week = 0; week < totalWeeks; week++) {
-    for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-      // Calculate the date for this day of the week
-      const servingDate = startDate.add(week, 'week').add(dayOfWeek, 'day').toDate();
+  const MEAL_SCHEDULER_COUNT = 5000;
+
+  // Calculate days in past and future
+  const daysInPast = Math.floor(MEAL_SCHEDULER_COUNT / 2 / MIN_MEALS_PER_DAY);
+  const daysInFuture = Math.ceil(MEAL_SCHEDULER_COUNT / 2 / MIN_MEALS_PER_DAY);
+
+  // Schedule meals for past
+  await scheduleMeals(meals, daysInPast, user.id, true);
+
+  // Schedule meals for future
+  await scheduleMeals(meals, daysInFuture, user.id, false);
+};
+
+async function scheduleMeals(
+  meals: Prisma.MealUncheckedCreateInput[],
+  days: number,
+  userId: number,
+  isPast: boolean,
+) {
+  for (let day = 0; day < days; day++) {
+    for (let i = 0; i < MIN_MEALS_PER_DAY; i++) {
+      const randomMealIndex = Math.floor(Math.random() * meals.length);
+      const mealId = meals[randomMealIndex].id;
+      const servingDate = isPast
+        ? dayjs().subtract(day, "day").toDate()
+        : dayjs().add(day, "day").toDate();
 
       await prisma.mealSchedule.create({
         data: {
@@ -143,7 +167,7 @@ const seedMealSchedulers = async (mealId: number, userId: number) => {
       });
     }
   }
-};
+}
 
 const seedMealIngredients = async (mealId: number, userId: number) => {
   const ingredients = await prisma.ingredient.findMany();
