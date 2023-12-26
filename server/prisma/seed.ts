@@ -123,27 +123,25 @@ const seedMeals = async () => {
   }
 };
 
-const seedMealSchedulers = async (mealId, userId) => {
-  for (const _ of Array(50).keys()) {
-    // Generate a base date
-    let servingDate = faker.date.between({
-      from: dayjs().subtract(24, "month").toDate(),
-      to: dayjs().add(24, "month").toDate(),
-    });
+const seedMealSchedulers = async (mealId: number, userId: number) => {
+  const startDate = dayjs().subtract(24, 'month');
+  const endDate = dayjs().add(24, 'month');
+  const totalWeeks = endDate.diff(startDate, 'week');
 
-    // Adjust the day of the week
-    // This example evenly distributes across 7 days of the week
-    const dayAdjustment = _ % 7;
-    servingDate = dayjs(servingDate).add(dayAdjustment, "day").toDate();
+  for (let week = 0; week < totalWeeks; week++) {
+    for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
+      // Calculate the date for this day of the week
+      const servingDate = startDate.add(week, 'week').add(dayOfWeek, 'day').toDate();
 
-    await prisma.mealSchedule.create({
-      data: {
-        mealId: mealId,
-        servingDate: servingDate,
-        createdBy: userId,
-        updatedBy: userId,
-      },
-    });
+      await prisma.mealSchedule.create({
+        data: {
+          mealId: mealId,
+          servingDate: servingDate,
+          createdBy: userId,
+          updatedBy: userId,
+        },
+      });
+    }
   }
 };
 
