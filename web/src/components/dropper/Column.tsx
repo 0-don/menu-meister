@@ -9,6 +9,7 @@ import { Component, ReactElement } from "react";
 import { grid } from "@/utils/constants";
 import { Quote } from "@/utils/types";
 import QuoteList from "./QuoteList";
+import Title from "./Title";
 
 const Container = styled.div`
   margin: ${grid}px;
@@ -54,7 +55,12 @@ export default class Column extends Component<Props> {
         {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
           <Container ref={provided.innerRef} {...provided.draggableProps}>
             <Header isDragging={snapshot.isDragging}>
-  
+              <Title
+                {...provided.dragHandleProps}
+                aria-label={`${title} quote list`}
+              >
+                {title}
+              </Title>
             </Header>
             <QuoteList
               listId={title}
