@@ -2,6 +2,7 @@
 
 import { GET_ALL_MEAL_SCHEDULES_ADMIN } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
+import { SortOrder } from "@/gql/graphql";
 import DashboardStore from "@/store/DashboardStore";
 import { WEEK_GROUP } from "@/utils/constants";
 import {
@@ -23,14 +24,24 @@ export function MainTable({}: DashboardPageProps) {
   const t = useTranslations<"Dashboard">();
   const dashboardStore = useSnapshot(DashboardStore);
 
+  console.log(dayjs.utc(dashboardStore.daysThatWeek.at(-1)).toISOString());
+
   const { data } = useGqlQuery(GET_ALL_MEAL_SCHEDULES_ADMIN, {
     where: {
       servingDate: {
         gte: dayjs.utc(dashboardStore.daysThatWeek.at(0)).toISOString(),
-        lte: dayjs.utc(dashboardStore.daysThatWeek.at(-1)).toISOString(),
+        lte: dayjs
+          .utc(dashboardStore.daysThatWeek.at(-1))
+          .add(1, "d")
+          .toISOString(),
       },
     },
+    orderBy: {
+      servingDate: SortOrder.Asc,
+    },
   });
+
+  console.log(data);
 
   const groupedMealSchedules = (data?.getAllMealSchedulesAdmin ?? []).reduce(
     (acc, schedule) => {
@@ -43,7 +54,7 @@ export function MainTable({}: DashboardPageProps) {
   );
 
   return (
-    <Table className="mt-5">
+    <Table className="mt-5" aria-label="Table">
       <TableHeader>
         <TableColumn>{t("MONDAY")}</TableColumn>
         <TableColumn>{t("TUESDAY")}</TableColumn>
@@ -61,6 +72,7 @@ export function MainTable({}: DashboardPageProps) {
                 <span key={schedule.id}>
                   {schedule.meal.image && (
                     <Image
+                      aria-label={schedule.meal.name}
                       src={`data:image/jpeg;base64,${schedule.meal.image}`}
                       width={200}
                       height={200}
