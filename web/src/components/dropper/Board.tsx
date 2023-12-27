@@ -3,7 +3,7 @@ import { QuoteMap } from "@/utils/types";
 import type { DropResult, DroppableProvided } from "@hello-pangea/dnd";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { FunctionComponent, useState } from "react";
-import Column from "./Column";
+import { Column } from "./Column";
 
 interface BoardProps {
   initial: QuoteMap;
@@ -13,36 +13,18 @@ export const Board: FunctionComponent<BoardProps> = ({ initial }) => {
   const [columns, setColumns] = useState<QuoteMap>(initial);
   const [ordered, setOrdered] = useState<string[]>(Object.keys(initial));
 
-  const handleColumnReorder = (
-    sourceIndex: number,
-    destinationIndex: number,
-  ) => {
-    setOrdered(reorder(ordered, sourceIndex, destinationIndex));
-  };
-
-  const handleItemReorder = (source: any, destination: any) => {
-    const data = reorderQuoteMap({
-      quoteMap: columns,
-      source,
-      destination,
-    });
-    setColumns(data.quoteMap);
-  };
-
-  const onDragEnd = (result: DropResult): void => {
-    const { source, destination, combine, type } = result;
-
+  const onDragEnd = ({ source, destination, type }: DropResult): void => {
     if (!destination) return;
 
-    if (combine) {
-      // Handle combine logic here
-      return;
-    }
-
     if (type === "COLUMN") {
-      handleColumnReorder(source.index, destination.index);
+      setOrdered(reorder(ordered, source.index, destination.index));
     } else {
-      handleItemReorder(source, destination);
+      const data = reorderQuoteMap({
+        quoteMap: columns,
+        source,
+        destination,
+      });
+      setColumns(data.quoteMap);
     }
   };
 

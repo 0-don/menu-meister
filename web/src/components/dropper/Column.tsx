@@ -8,7 +8,7 @@ interface Props {
   index: number;
 }
 
-const Column: React.FC<Props> = ({ title, quotes, index }) => {
+export const Column: React.FC<Props> = ({ title, quotes, index }) => {
   return (
     <Draggable draggableId={title} index={index}>
       {(provided, snapshot) => (
@@ -75,5 +75,3 @@ const Column: React.FC<Props> = ({ title, quotes, index }) => {
     </Draggable>
   );
 };
-
-export default Column;

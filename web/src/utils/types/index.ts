@@ -25,7 +25,7 @@ export interface Author {
 export interface Quote {
   id: Id;
   content: string;
-  author: Author;
+  author?: Author;
 }
 
 export interface QuoteMap {
