@@ -6,6 +6,17 @@ export type MenuType = {
   display?: boolean;
 };
 
+export interface ReorderQuoteMapArgs {
+  quoteMap: QuoteMap;
+  source: DraggableLocation;
+  destination: DraggableLocation;
+}
+
+export interface ReorderQuoteMapResult {
+  quoteMap: QuoteMap;
+}
+
+
 export type Id = string;
 
 export interface AuthorColors {

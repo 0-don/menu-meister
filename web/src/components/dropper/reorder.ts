@@ -1,7 +1,10 @@
-import { Quote, QuoteMap } from "@/utils/types";
-import type { DraggableLocation } from "@hello-pangea/dnd";
+import {
+  Quote,
+  QuoteMap,
+  ReorderQuoteMapArgs,
+  ReorderQuoteMapResult,
+} from "@/utils/types";
 
-// a little function to help us with reordering the result
 export function reorder<TItem>(
   list: TItem[],
   startIndex: number,
@@ -14,16 +17,6 @@ export function reorder<TItem>(
   return result;
 }
 
-interface ReorderQuoteMapArgs {
-  quoteMap: QuoteMap;
-  source: DraggableLocation;
-  destination: DraggableLocation;
-}
-
-export interface ReorderQuoteMapResult {
-  quoteMap: QuoteMap;
-}
-
 export const reorderQuoteMap = ({
   quoteMap,
   source,
@@ -33,7 +26,6 @@ export const reorderQuoteMap = ({
   const next: Quote[] = [...quoteMap[destination.droppableId]];
   const target: Quote = current[source.index];
 
-  // moving to same list
   if (source.droppableId === destination.droppableId) {
     const reordered: Quote[] = reorder(
       current,
@@ -49,11 +41,7 @@ export const reorderQuoteMap = ({
     };
   }
 
-  // moving to different list
-
-  // remove from original
   current.splice(source.index, 1);
-  // insert into next
   next.splice(destination.index, 0, target);
 
   const result: QuoteMap = {
