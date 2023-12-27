@@ -1,40 +1,11 @@
-import { borderRadius, colors } from "@atlaskit/theme";
-import styled from "@emotion/styled";
+import { Quote } from "@/utils/types";
 import type {
   DraggableProvided,
   DraggableStateSnapshot,
 } from "@hello-pangea/dnd";
 import { Draggable } from "@hello-pangea/dnd";
-import { Component, ReactElement } from "react";
-import { grid } from "@/utils/constants";
-import { Quote } from "@/utils/types";
+import React from "react";
 import QuoteList from "./QuoteList";
-import Title from "./Title";
-
-const Container = styled.div`
-  margin: ${grid}px;
-  display: flex;
-  flex-direction: column;
-`;
-
-interface HeaderProps {
-  isDragging: boolean;
-}
-
-const Header = styled.div<HeaderProps>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-top-left-radius: ${borderRadius}px;
-  border-top-right-radius: ${borderRadius}px;
-  background-color: ${({ isDragging }) =>
-    isDragging ? colors.G50 : colors.N30};
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: ${colors.G50};
-  }
-`;
 
 interface Props {
   title: string;
@@ -45,37 +16,46 @@ interface Props {
   useClone?: boolean;
 }
 
-export default class Column extends Component<Props> {
-  render(): ReactElement {
-    const title: string = this.props.title;
-    const quotes: Quote[] = this.props.quotes;
-    const index: number = this.props.index;
-    return (
-      <Draggable draggableId={title} index={index}>
-        {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-          <Container ref={provided.innerRef} {...provided.draggableProps}>
-            <Header isDragging={snapshot.isDragging}>
-              <Title
-                {...provided.dragHandleProps}
-                aria-label={`${title} quote list`}
-              >
-                {title}
-              </Title>
-            </Header>
-            <QuoteList
-              listId={title}
-              listType="QUOTE"
-              style={{
-                backgroundColor: snapshot.isDragging ? colors.G50 : undefined,
-              }}
-              quotes={quotes}
-              internalScroll={this.props.isScrollable}
-              isCombineEnabled={Boolean(this.props.isCombineEnabled)}
-              useClone={Boolean(this.props.useClone)}
-            />
-          </Container>
-        )}
-      </Draggable>
-    );
-  }
-}
+const Column: React.FC<Props> = ({
+  title,
+  quotes,
+  index,
+  isScrollable = false,
+  isCombineEnabled = false,
+  useClone = false,
+}) => {
+  return (
+    <Draggable draggableId={title} index={index}>
+      {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          className="m-2 flex flex-col"
+        >
+          <div
+            {...provided.dragHandleProps}
+            className={`flex items-center justify-center rounded-t-lg ${
+              snapshot.isDragging ? "bg-green-200" : "bg-gray-300"
+            } transition duration-200 ease-in-out hover:bg-green-200`}
+            aria-label={`${title} quote list`}
+          >
+            {title}
+          </div>
+          <QuoteList
+            listId={title}
+            listType="QUOTE"
+            style={{
+              backgroundColor: snapshot.isDragging ? "bg-green-200" : undefined,
+            }}
+            quotes={quotes}
+            internalScroll={isScrollable}
+            isCombineEnabled={isCombineEnabled}
+            useClone={useClone}
+          />
+        </div>
+      )}
+    </Draggable>
+  );
+};
+
+export default Column;

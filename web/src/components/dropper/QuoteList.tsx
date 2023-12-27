@@ -11,7 +11,7 @@ import type {
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import React, { CSSProperties, ReactElement } from "react";
 import QuoteItem from "./QuoteItem";
-import Title from "./Title";
+
 
 export const getBackgroundColor = (
   isDraggingOver: boolean,
@@ -121,7 +121,7 @@ interface InnerListProps {
 
 function InnerList(props: InnerListProps) {
   const { quotes, dropProvided } = props;
-  const title = props.title ? <Title>{props.title}</Title> : null;
+  const title = props.title ? <div>{props.title}</div> : null;
 
   return (
     <Container>

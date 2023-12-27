@@ -1,6 +1,6 @@
-import { grid } from "@/utils/constants";
+import { borderRadius, grid } from "@/utils/constants";
 import { AuthorColors, Quote } from "@/utils/types";
-import { borderRadius, colors } from "@atlaskit/theme";
+import { colors } from "@atlaskit/theme";
 import styled from "@emotion/styled";
 import type { DraggableProvided } from "@hello-pangea/dnd";
 import React, { CSSProperties } from "react";
@@ -14,25 +14,6 @@ interface Props {
   style?: CSSProperties;
   index?: number;
 }
-
-const getBackgroundColor = (
-  isDragging: boolean,
-  isGroupedOver: boolean,
-  authorColors: AuthorColors,
-) => {
-  if (isDragging) {
-    return authorColors.soft;
-  }
-
-  if (isGroupedOver) {
-    return colors.N30;
-  }
-
-  return colors.N0;
-};
-
-const getBorderColor = (isDragging: boolean, authorColors: AuthorColors) =>
-  isDragging ? authorColors.hard : "transparent";
 
 const imageSize = 40;
 
@@ -56,20 +37,9 @@ const CloneBadge = styled.div`
   align-items: center;
 `;
 
-interface ContainerProps {
-  colors: AuthorColors;
-  isDragging: boolean;
-  isGroupedOver: boolean;
-}
-
-const Container = styled.a<ContainerProps>`
+const Container = styled.a`
   border-radius: ${borderRadius}px;
   border: 2px solid transparent;
-  border-color: ${(props) => getBorderColor(props.isDragging, props.colors)};
-  background-color: ${(props) =>
-    getBackgroundColor(props.isDragging, props.isGroupedOver, props.colors)};
-  box-shadow: ${({ isDragging }) =>
-    isDragging ? `2px 2px 1px ${colors.N70}` : "none"};
   box-sizing: border-box;
   padding: ${grid}px;
   min-height: ${imageSize}px;
@@ -87,7 +57,7 @@ const Container = styled.a<ContainerProps>`
 
   &:focus {
     outline: none;
-    border-color: ${(props) => props.colors.hard};
+
     box-shadow: none;
   }
 
@@ -169,13 +139,6 @@ function getStyle(provided: DraggableProvided, style?: CSSProperties | null) {
   };
 }
 
-// Previously this extended React.Component
-// That was a good thing, because using React.PureComponent can hide
-// issues with the selectors. However, moving it over does can considerable
-// performance improvements when reordering big lists (400ms => 200ms)
-// Need to be super sure we are not relying on PureComponent here for
-// things we should be doing in the selector as we do not know if consumers
-// will be using PureComponent
 function QuoteItem(props: Props) {
   const { quote, isDragging, isGroupedOver, provided, style, isClone, index } =
     props;
@@ -183,9 +146,6 @@ function QuoteItem(props: Props) {
   return (
     <Container
       href={quote.author.url}
-      isDragging={isDragging}
-      isGroupedOver={Boolean(isGroupedOver)}
-      colors={quote.author.colors}
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}

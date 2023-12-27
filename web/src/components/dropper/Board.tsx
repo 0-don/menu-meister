@@ -1,6 +1,6 @@
+import { Quote, QuoteMap } from "@/utils/types";
 import { colors } from "@atlaskit/theme";
 import { Global, css } from "@emotion/react";
-import styled from "@emotion/styled";
 import type {
   DraggableLocation,
   DropResult,
@@ -8,29 +8,8 @@ import type {
 } from "@hello-pangea/dnd";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import React, { Component, ReactElement } from "react";
-
-import { Quote, QuoteMap } from "@/utils/types";
-
 import Column from "./Column";
 import reorder, { reorderQuoteMap } from "./reorder";
-
-interface ParentContainerProps {
-  height: string;
-}
-
-const ParentContainer = styled.div<ParentContainerProps>`
-  height: ${({ height }) => height};
-  overflow-x: hidden;
-  overflow-y: auto;
-`;
-
-const Container = styled.div`
-  background-color: ${colors.B100};
-  min-height: 100vh;
-  /* like display:flex but will allow bleeding over the window width */
-  min-width: 100vw;
-  display: inline-flex;
-`;
 
 interface Props {
   initial: QuoteMap;
@@ -141,7 +120,11 @@ export default class Board extends Component<Props, State> {
         isCombineEnabled={isCombineEnabled}
       >
         {(provided: DroppableProvided) => (
-          <Container ref={provided.innerRef} {...provided.droppableProps}>
+          <div
+            ref={provided.innerRef}
+            className="flex"
+            {...provided.droppableProps}
+          >
             {ordered.map((key: string, index: number) => (
               <Column
                 key={key}
@@ -154,7 +137,7 @@ export default class Board extends Component<Props, State> {
               />
             ))}
             {provided.placeholder}
-          </Container>
+          </div>
         )}
       </Droppable>
     );
@@ -166,7 +149,7 @@ export default class Board extends Component<Props, State> {
           autoScrollerOptions={this.props.autoScrollerOptions}
         >
           {containerHeight ? (
-            <ParentContainer height={containerHeight}>{board}</ParentContainer>
+            <div style={{ height: containerHeight }}>{board}</div>
           ) : (
             board
           )}
