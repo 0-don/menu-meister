@@ -5,7 +5,7 @@ import type {
 } from "@hello-pangea/dnd";
 import { Draggable } from "@hello-pangea/dnd";
 import React from "react";
-import QuoteList from "./QuoteList";
+import { QuoteList } from "./QuoteList";
 
 interface Props {
   title: string;

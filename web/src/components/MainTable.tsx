@@ -1,11 +1,10 @@
 "use client";
 
+import { authorQuoteMap } from "@/data";
 import { GET_ALL_MEAL_SCHEDULES_ADMIN } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
 import DashboardStore from "@/store/DashboardStore";
 import { WEEK_GROUP } from "@/utils/constants";
-
-import { authorQuoteMap } from "@/data";
 import {
   Table,
   TableBody,

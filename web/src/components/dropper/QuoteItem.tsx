@@ -2,8 +2,7 @@ import { borderRadius, grid } from "@/utils/constants";
 import { Quote } from "@/utils/types";
 
 import { DraggableProvided } from "@hello-pangea/dnd";
-import { colors } from "@nextui-org/theme";
-import React, { CSSProperties } from "react";
+import React from "react";
 
 interface Props {
   quote: Quote;
@@ -11,25 +10,13 @@ interface Props {
   provided: DraggableProvided;
   isClone?: boolean;
   isGroupedOver?: boolean;
-  style?: CSSProperties;
   index?: number;
 }
 
 const imageSize = 40;
 
-function getStyle(provided: DraggableProvided, style?: CSSProperties | null) {
-  if (!style) {
-    return provided.draggableProps.style;
-  }
-
-  return {
-    ...provided.draggableProps.style,
-    ...style,
-  };
-}
-
 function QuoteItem(props: Props) {
-  const { quote, isDragging, provided, style, isClone, index } = props;
+  const { quote, isDragging, provided, isClone, index } = props;
 
   return (
     <a
@@ -37,7 +24,6 @@ function QuoteItem(props: Props) {
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
-      style={getStyle(provided, style)}
       data-is-dragging={isDragging}
       data-testid={quote.id}
       data-index={index}
