@@ -56,11 +56,6 @@ const Column: React.FC<Props> = ({ title, quotes, index }) => {
                               {quote.content}
                             </div>
                             <div className="mt-[20px] flex items-center">
-                              <small
-                                className={`text-[${quote.author.colors.hard}] m-0 flex-grow-0 bg-[${quote.author.colors.soft}] p-[10px] font-normal`}
-                              >
-                                {quote.author.name}
-                              </small>
                               <small className="m-0 flex-shrink flex-grow overflow-ellipsis text-right font-normal">
                                 id:{quote.id}
                               </small>

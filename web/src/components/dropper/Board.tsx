@@ -1,9 +1,9 @@
+import { reorder, reorderQuoteMap } from "@/utils/helpers/clientUtils";
 import { QuoteMap } from "@/utils/types";
 import type { DropResult, DroppableProvided } from "@hello-pangea/dnd";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { FunctionComponent, useState } from "react";
 import Column from "./Column";
-import { reorder, reorderQuoteMap } from "./reorder";
 
 interface BoardProps {
   initial: QuoteMap;

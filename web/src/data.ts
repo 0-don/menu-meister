@@ -1,4 +1,3 @@
-import { colors } from "@atlaskit/theme";
 import seedrandom from "seedrandom";
 import { Author, Quote, QuoteMap } from "./utils/types";
 
@@ -6,41 +5,24 @@ const jake: Author = {
   id: "1",
   name: "Jake",
   url: "http://adventuretime.wikia.com/wiki/Jake",
-  colors: {
-    soft: colors.Y50,
-    hard: colors.N400A,
-  },
 };
 
 const BMO: Author = {
   id: "2",
   name: "BMO",
   url: "http://adventuretime.wikia.com/wiki/BMO",
-
-  colors: {
-    soft: colors.G50,
-    hard: colors.N400A,
-  },
 };
 
 const finn: Author = {
   id: "3",
   name: "Finn",
   url: "http://adventuretime.wikia.com/wiki/Finn",
-  colors: {
-    soft: colors.B50,
-    hard: colors.N400A,
-  },
 };
 
 const princess: Author = {
   id: "4",
   name: "Princess bubblegum",
   url: "http://adventuretime.wikia.com/wiki/Princess_Bubblegum",
-  colors: {
-    soft: colors.P50,
-    hard: colors.N400A,
-  },
 };
 
 export const authors: Author[] = [jake, BMO, finn, princess];

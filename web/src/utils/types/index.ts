@@ -1,4 +1,4 @@
-import type { DraggableId, DraggableLocation } from "@hello-pangea/dnd";
+import type { DraggableLocation, Id } from "@hello-pangea/dnd";
 
 export type MenuType = {
   link: string;
@@ -16,20 +16,10 @@ export interface ReorderQuoteMapResult {
   quoteMap: QuoteMap;
 }
 
-
-export type Id = string;
-
-export interface AuthorColors {
-  soft: string;
-  hard: string;
-}
-
 export interface Author {
   id: Id;
   name: string;
-
   url: string;
-  colors: AuthorColors;
 }
 
 export interface Quote {
@@ -38,16 +28,6 @@ export interface Quote {
   author: Author;
 }
 
-export interface Dragging {
-  id: DraggableId;
-  location: DraggableLocation;
-}
-
 export interface QuoteMap {
   [key: string]: Quote[];
-}
-
-export interface Task {
-  id: Id;
-  content: string;
 }
