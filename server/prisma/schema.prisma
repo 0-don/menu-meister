@@ -161,6 +161,7 @@ model Meal {
 model MealSchedule {
   id          Int      @id @default(autoincrement())
   mealId      Int
+  testid      Int?
   servingDate DateTime
   meal        Meal     @relation(fields: [mealId], references: [id])
 

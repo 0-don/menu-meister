@@ -24,7 +24,6 @@ export const Column: React.FC<Props> = ({ title, quotes, index }) => {
                 className={`flex items-center justify-center rounded-t-lg ${
                   snapshot.isDragging ? "bg-green-200" : "bg-gray-300"
                 } transition duration-200 ease-in-out hover:bg-green-200`}
-                aria-label={`${title} quote list`}
               >
                 {title}
               </div>
