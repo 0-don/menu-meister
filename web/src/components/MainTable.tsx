@@ -2,9 +2,9 @@
 
 import { GET_ALL_MEAL_SCHEDULES_ADMIN } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
-import { SortOrder } from "@/gql/graphql";
 import DashboardStore from "@/store/DashboardStore";
 import { WEEK_GROUP } from "@/utils/constants";
+
 import {
   Table,
   TableBody,
@@ -15,8 +15,11 @@ import {
 } from "@nextui-org/table";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 import { useSnapshot } from "valtio";
+
+import { authorQuoteMap } from "@/data";
+import Board from "./dropper/Board";
+import { TableItem } from "./elements/TableItem";
 
 interface DashboardPageProps {}
 
@@ -34,7 +37,6 @@ export function MainTable({}: DashboardPageProps) {
           .toISOString(),
       },
     },
-    orderBy: { servingDate: SortOrder.Asc },
   });
 
   const groupedMealSchedules = (data?.getAllMealSchedulesAdmin ?? []).reduce(
@@ -48,39 +50,32 @@ export function MainTable({}: DashboardPageProps) {
   );
 
   return (
-    <Table className="mt-5" aria-label="Table">
-      <TableHeader>
-        <TableColumn>{t("MONDAY")}</TableColumn>
-        <TableColumn>{t("TUESDAY")}</TableColumn>
-        <TableColumn>{t("WEDNESDAY")}</TableColumn>
-        <TableColumn>{t("THURSDAY")}</TableColumn>
-        <TableColumn>{t("FRIDAY")}</TableColumn>
-        <TableColumn>{t("SATURDAY")}</TableColumn>
-        <TableColumn>{t("SUNDAY")}</TableColumn>
-      </TableHeader>
-      <TableBody>
-        <TableRow>
-          {Object.entries(groupedMealSchedules).map(([weekday, schedules]) => (
-            <TableCell key={weekday} className="align-top">
-              {schedules.map((schedule) => (
-                <span key={schedule.id}>
-                  {schedule.meal.image && (
-                    <Image
-                      aria-label={schedule.meal.name}
-                      className="w-auto h-auto"
-                      src={`data:image/jpeg;base64,${schedule.meal.image}`}
-                      width={200}
-                      height={200}
-                      alt={schedule.meal.name}
-                    />
-                  )}
-                  <p>{schedule.meal?.name}</p>
-                </span>
-              ))}
-            </TableCell>
-          ))}
-        </TableRow>
-      </TableBody>
-    </Table>
+    <>
+      <Board initial={authorQuoteMap} />
+      <Table className="mt-5" aria-label="Table">
+        <TableHeader>
+          <TableColumn>{t("MONDAY")}</TableColumn>
+          <TableColumn>{t("TUESDAY")}</TableColumn>
+          <TableColumn>{t("WEDNESDAY")}</TableColumn>
+          <TableColumn>{t("THURSDAY")}</TableColumn>
+          <TableColumn>{t("FRIDAY")}</TableColumn>
+          <TableColumn>{t("SATURDAY")}</TableColumn>
+          <TableColumn>{t("SUNDAY")}</TableColumn>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            {Object.entries(groupedMealSchedules).map(
+              ([weekday, schedules]) => (
+                <TableCell key={weekday} className="align-top">
+                  {schedules.map((schedule) => (
+                    <TableItem key={schedule.id} schedule={schedule} />
+                  ))}
+                </TableCell>
+              ),
+            )}
+          </TableRow>
+        </TableBody>
+      </Table>
+    </>
   );
 }

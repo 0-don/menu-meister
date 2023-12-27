@@ -21,3 +21,7 @@ export const WEEK_GROUP = {
     GetAllMealSchedulesAdminQuery["getAllMealSchedulesAdmin"]
   >;
 };
+
+
+export const grid = 8;
+export const borderRadius = 2;

@@ -15,6 +15,10 @@
     "gen": "npx graphql-code-generator"
   },
   "dependencies": {
+    "@atlaskit/theme": "^12.6.2",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@hello-pangea/dnd": "^16.5.0",
     "@nextui-org/button": "2.0.26",
     "@nextui-org/card": "^2.0.24",
     "@nextui-org/chip": "^2.0.25",
@@ -42,6 +46,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-spring": "^9.7.3",
+    "seedrandom": "^3.0.5",
     "valtio": "^1.12.1"
   },
   "devDependencies": {
@@ -53,6 +58,7 @@
     "@types/node": "^20.10.5",
     "@types/react": "18.2.45",
     "@types/react-dom": "18.2.18",
+    "@types/seedrandom": "^3.0.8",
     "autoprefixer": "^10.4.16",
     "concurrently": "^8.2.2",
     "eslint": "8.56.0",
