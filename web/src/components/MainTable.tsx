@@ -24,8 +24,6 @@ export function MainTable({}: DashboardPageProps) {
   const t = useTranslations<"Dashboard">();
   const dashboardStore = useSnapshot(DashboardStore);
 
-  console.log(dayjs.utc(dashboardStore.daysThatWeek.at(-1)).toISOString());
-
   const { data } = useGqlQuery(GET_ALL_MEAL_SCHEDULES_ADMIN, {
     where: {
       servingDate: {
@@ -36,12 +34,8 @@ export function MainTable({}: DashboardPageProps) {
           .toISOString(),
       },
     },
-    orderBy: {
-      servingDate: SortOrder.Asc,
-    },
+    orderBy: { servingDate: SortOrder.Asc },
   });
-
-  console.log(data);
 
   const groupedMealSchedules = (data?.getAllMealSchedulesAdmin ?? []).reduce(
     (acc, schedule) => {
@@ -73,6 +67,7 @@ export function MainTable({}: DashboardPageProps) {
                   {schedule.meal.image && (
                     <Image
                       aria-label={schedule.meal.name}
+                      className="w-auto h-auto"
                       src={`data:image/jpeg;base64,${schedule.meal.image}`}
                       width={200}
                       height={200}
