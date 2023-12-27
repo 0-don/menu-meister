@@ -11,19 +11,9 @@ interface Props {
   title: string;
   quotes: Quote[];
   index: number;
-  isScrollable?: boolean;
-  isCombineEnabled?: boolean;
-  useClone?: boolean;
 }
 
-const Column: React.FC<Props> = ({
-  title,
-  quotes,
-  index,
-  isScrollable = false,
-  isCombineEnabled = false,
-  useClone = false,
-}) => {
+const Column: React.FC<Props> = ({ title, quotes, index }) => {
   return (
     <Draggable draggableId={title} index={index}>
       {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
@@ -41,17 +31,7 @@ const Column: React.FC<Props> = ({
           >
             {title}
           </div>
-          <QuoteList
-            listId={title}
-            listType="QUOTE"
-            style={{
-              backgroundColor: snapshot.isDragging ? "bg-green-200" : undefined,
-            }}
-            quotes={quotes}
-            internalScroll={isScrollable}
-            isCombineEnabled={isCombineEnabled}
-            useClone={useClone}
-          />
+          <QuoteList listId={title} quotes={quotes} />
         </div>
       )}
     </Draggable>

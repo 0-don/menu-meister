@@ -3,7 +3,7 @@ import type { DropResult, DroppableProvided } from "@hello-pangea/dnd";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { FunctionComponent, useState } from "react";
 import Column from "./Column";
-import reorder, { reorderQuoteMap } from "./reorder";
+import { reorder, reorderQuoteMap } from "./reorder";
 
 interface BoardProps {
   initial: QuoteMap;

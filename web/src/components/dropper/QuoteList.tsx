@@ -1,85 +1,56 @@
+import { grid } from "@/utils/constants";
 import { Quote } from "@/utils/types";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
-import { CSSProperties } from "react";
-import QuoteItem from "./QuoteItem";
+import React from "react";
 
 interface QuoteListProps {
   listId?: string;
-  listType?: string;
   quotes: Quote[];
-  title?: string;
-  internalScroll?: boolean;
-  scrollContainerStyle?: CSSProperties;
-  isDropDisabled?: boolean;
-  isCombineEnabled?: boolean;
-  style?: CSSProperties;
-  ignoreContainerClipping?: boolean;
-  useClone?: boolean;
 }
 
 export const QuoteList: React.FC<QuoteListProps> = ({
-  ignoreContainerClipping,
-  internalScroll,
-  scrollContainerStyle,
-  isDropDisabled,
-  isCombineEnabled,
   listId = "LIST",
-  listType,
-  style,
   quotes,
-  title,
-  useClone,
 }) => {
   return (
-    <Droppable
-      droppableId={listId}
-      type={listType}
-      ignoreContainerClipping={ignoreContainerClipping}
-      isDropDisabled={isDropDisabled}
-      isCombineEnabled={isCombineEnabled}
-      renderClone={
-        useClone
-          ? (provided, snapshot, descriptor) => (
-              <QuoteItem
-                quote={quotes[descriptor.source.index]}
-                provided={provided}
-                isDragging={snapshot.isDragging}
-                isClone
-              />
-            )
-          : undefined
-      }
-    >
+    <Droppable droppableId={listId}>
       {(dropProvided, dropSnapshot) => (
         <div
-          style={style}
-          className={`flex flex-col ${
-            isDropDisabled ? "opacity-50" : ""
-          } w-64 select-none border-2 p-2 transition-all duration-200 ease-in-out ${
+          className={`flex w-64 select-none flex-col border-2 p-2 transition-all duration-200 ease-in-out ${
             dropSnapshot.isDraggingOver ? "bg-blue-200" : ""
           }`}
           {...dropProvided.droppableProps}
         >
-          {title && <div>{title}</div>}
-          <div
-            ref={dropProvided.innerRef}
-            style={internalScroll ? scrollContainerStyle : undefined}
-            className={`min-h-[250px] pb-2 ${
-              internalScroll
-                ? "max-h-[250px] overflow-y-auto overflow-x-hidden"
-                : ""
-            }`}
-          >
+          <div ref={dropProvided.innerRef} className={`min-h-[250px] pb-2`}>
             {quotes.map((quote, index) => (
               <Draggable key={quote.id} draggableId={quote.id} index={index}>
-                {(dragProvided, dragSnapshot) => (
-                  <QuoteItem
-                    key={quote.id}
-                    quote={quote}
-                    isDragging={dragSnapshot.isDragging}
-                    isGroupedOver={Boolean(dragSnapshot.combineTargetFor)}
-                    provided={dragProvided}
-                  />
+                {(dragProvided) => (
+                  <div
+                    ref={dragProvided.innerRef}
+                    {...dragProvided.draggableProps}
+                    {...dragProvided.dragHandleProps}
+                    className="user-select-none focus:box-shadow-none box-border flex border-2 border-transparent focus:outline-none"
+                  >
+                    <div className="flex flex-grow basis-full flex-col">
+                      <div className="before:content-[open-quote] after:content-[close-quote]">
+                        {quote.content}
+                      </div>
+                      <div className="mt-[${grid}px] flex items-center">
+                        <small
+                          className={`text-[${
+                            quote.author.colors.hard
+                          }] m-0 flex-grow-0 bg-[${
+                            quote.author.colors.soft
+                          }] font-normal p-[${grid / 2}px]`}
+                        >
+                          {quote.author.name}
+                        </small>
+                        <small className="m-0 flex-shrink flex-grow overflow-ellipsis text-right font-normal">
+                          id:{quote.id}
+                        </small>
+                      </div>
+                    </div>
+                  </div>
                 )}
               </Draggable>
             ))}
