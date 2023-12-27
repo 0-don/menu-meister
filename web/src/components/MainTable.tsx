@@ -5,6 +5,7 @@ import { useGqlQuery } from "@/fetcher";
 import DashboardStore from "@/store/DashboardStore";
 import { WEEK_GROUP } from "@/utils/constants";
 
+import { authorQuoteMap } from "@/data";
 import {
   Table,
   TableBody,
@@ -16,9 +17,7 @@ import {
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import { useSnapshot } from "valtio";
-
-import { authorQuoteMap } from "@/data";
-import Board from "./dropper/Board";
+import { Board } from "./dropper/Board";
 import { TableItem } from "./elements/TableItem";
 
 interface DashboardPageProps {}

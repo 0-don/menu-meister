@@ -1,6 +1,5 @@
 import { grid } from "@/utils/constants";
 import { Quote } from "@/utils/types";
-import { colors } from "@atlaskit/theme";
 import styled from "@emotion/styled";
 import type {
   DraggableProvided,
@@ -12,20 +11,6 @@ import { Draggable, Droppable } from "@hello-pangea/dnd";
 import React, { CSSProperties, ReactElement } from "react";
 import QuoteItem from "./QuoteItem";
 
-
-export const getBackgroundColor = (
-  isDraggingOver: boolean,
-  isDraggingFrom: boolean,
-): string => {
-  if (isDraggingOver) {
-    return colors.R50;
-  }
-  if (isDraggingFrom) {
-    return colors.T50;
-  }
-  return colors.N30;
-};
-
 interface WrapperProps {
   isDraggingOver: boolean;
   isDraggingFrom: boolean;
@@ -33,8 +18,6 @@ interface WrapperProps {
 }
 
 const Wrapper = styled.div<WrapperProps>`
-  background-color: ${(props) =>
-    getBackgroundColor(props.isDraggingOver, props.isDraggingFrom)};
   display: flex;
   flex-direction: column;
   opacity: ${({ isDropDisabled }) => (isDropDisabled ? 0.5 : "inherit")};
@@ -79,7 +62,7 @@ interface Props {
   isDropDisabled?: boolean;
   isCombineEnabled?: boolean;
   style?: CSSProperties;
-  // may not be provided - and might be null
+
   ignoreContainerClipping?: boolean;
   useClone?: boolean;
 }

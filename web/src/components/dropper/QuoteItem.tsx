@@ -1,8 +1,8 @@
 import { borderRadius, grid } from "@/utils/constants";
-import { AuthorColors, Quote } from "@/utils/types";
-import { colors } from "@atlaskit/theme";
-import styled from "@emotion/styled";
-import type { DraggableProvided } from "@hello-pangea/dnd";
+import { Quote } from "@/utils/types";
+
+import { DraggableProvided } from "@hello-pangea/dnd";
+import { colors } from "@nextui-org/theme";
 import React, { CSSProperties } from "react";
 
 interface Props {
@@ -17,117 +17,6 @@ interface Props {
 
 const imageSize = 40;
 
-const CloneBadge = styled.div`
-  background: ${colors.G100};
-  bottom: ${grid / 2}px;
-  border: 2px solid ${colors.G200};
-  border-radius: 50%;
-  box-sizing: border-box;
-  font-size: 10px;
-  position: absolute;
-  right: -${imageSize / 3}px;
-  top: -${imageSize / 3}px;
-  transform: rotate(40deg);
-
-  height: ${imageSize}px;
-  width: ${imageSize}px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Container = styled.a`
-  border-radius: ${borderRadius}px;
-  border: 2px solid transparent;
-  box-sizing: border-box;
-  padding: ${grid}px;
-  min-height: ${imageSize}px;
-  margin-bottom: ${grid}px;
-  user-select: none;
-
-  /* anchor overrides */
-  color: ${colors.N900};
-
-  &:hover,
-  &:active {
-    color: ${colors.N900};
-    text-decoration: none;
-  }
-
-  &:focus {
-    outline: none;
-
-    box-shadow: none;
-  }
-
-  /* flexbox */
-  display: flex;
-`;
-
-const Avatar = styled.img`
-  width: ${imageSize}px;
-  height: ${imageSize}px;
-  border-radius: 50%;
-  margin-right: ${grid}px;
-  flex-shrink: 0;
-  flex-grow: 0;
-`;
-
-const Content = styled.div`
-  /* flex child */
-  flex-grow: 1;
-
-  /*
-    Needed to wrap text in ie11
-    https://stackoverflow.com/questions/35111090/why-ie11-doesnt-wrap-the-text-in-flexbox
-  */
-  flex-basis: 100%;
-
-  /* flex parent */
-  display: flex;
-  flex-direction: column;
-`;
-
-const BlockQuote = styled.div`
-  &::before {
-    content: open-quote;
-  }
-
-  &::after {
-    content: close-quote;
-  }
-`;
-
-const Footer = styled.div`
-  display: flex;
-  margin-top: ${grid}px;
-  align-items: center;
-`;
-
-interface AuthorProps {
-  colors: AuthorColors;
-}
-
-const Author = styled.small<AuthorProps>`
-  color: ${(props) => props.colors.hard};
-  flex-grow: 0;
-  margin: 0;
-  background-color: ${(props) => props.colors.soft};
-  border-radius: ${borderRadius}px;
-  font-weight: normal;
-  padding: ${grid / 2}px;
-`;
-
-const QuoteId = styled.small`
-  flex-grow: 1;
-  flex-shrink: 1;
-  margin: 0;
-  font-weight: normal;
-  text-overflow: ellipsis;
-  text-align: right;
-`;
-
 function getStyle(provided: DraggableProvided, style?: CSSProperties | null) {
   if (!style) {
     return provided.draggableProps.style;
@@ -140,11 +29,10 @@ function getStyle(provided: DraggableProvided, style?: CSSProperties | null) {
 }
 
 function QuoteItem(props: Props) {
-  const { quote, isDragging, isGroupedOver, provided, style, isClone, index } =
-    props;
+  const { quote, isDragging, provided, style, isClone, index } = props;
 
   return (
-    <Container
+    <a
       href={quote.author.url}
       ref={provided.innerRef}
       {...provided.draggableProps}
@@ -154,18 +42,34 @@ function QuoteItem(props: Props) {
       data-testid={quote.id}
       data-index={index}
       aria-label={`${quote.author.name} quote ${quote.content}`}
+      className={`rounded-[${borderRadius}px] box-border border-2 border-transparent p-[${grid}px] min-h-[${imageSize}px] mb-[${grid}px] user-select-none focus:box-shadow-none flex focus:outline-none`}
     >
-      {/* <Avatar src={quote.author.avatarUrl} alt={quote.author.name} /> */}
-      {isClone ? <CloneBadge>Clone</CloneBadge> : null}
-      <Content>
-        <BlockQuote>{quote.content}</BlockQuote>
-        <Footer>
-          <Author colors={quote.author.colors}>{quote.author.name}</Author>
-          <QuoteId>id:{quote.id}</QuoteId>
-        </Footer>
-      </Content>
-    </Container>
+      {isClone && (
+        <div className="bg-[${colors.G100}] bottom-[${grid / 2}px] border-[${colors.G200}] text-10px right-[-${imageSize / 3}px] top-[-${imageSize / 3}px] rotate-40 h-[${imageSize}px] w-[${imageSize}px] absolute box-border flex transform items-center justify-center rounded-full border-2">
+          Clone
+        </div>
+      )}
+      <div className="flex flex-grow basis-full flex-col">
+        <div className="before:content-[open-quote] after:content-[close-quote]">
+          {quote.content}
+        </div>
+        <div className="mt-[${grid}px] flex items-center">
+          <small
+            className={`text-[${
+              quote.author.colors.hard
+            }] m-0 flex-grow-0 bg-[${
+              quote.author.colors.soft
+            }] rounded-[${borderRadius}px] font-normal p-[${grid / 2}px]`}
+          >
+            {quote.author.name}
+          </small>
+          <small className="m-0 flex-shrink flex-grow overflow-ellipsis text-right font-normal">
+            id:{quote.id}
+          </small>
+        </div>
+      </div>
+    </a>
   );
 }
 
-export default React.memo<Props>(QuoteItem);
+export default React.memo(QuoteItem);
