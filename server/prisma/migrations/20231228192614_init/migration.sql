@@ -103,7 +103,7 @@ CREATE TABLE `MealSchedule` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `ScheduledMeal` (
+CREATE TABLE `ScheduleMeal` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `mealScheduleId` INTEGER NOT NULL,
     `mealGroupId` INTEGER NULL,
@@ -113,7 +113,7 @@ CREATE TABLE `ScheduledMeal` (
     `createdBy` INTEGER NOT NULL,
     `updatedBy` INTEGER NOT NULL,
 
-    UNIQUE INDEX `ScheduledMeal_mealScheduleId_mealGroupId_mealId_key`(`mealScheduleId`, `mealGroupId`, `mealId`),
+    UNIQUE INDEX `ScheduleMeal_mealScheduleId_mealGroupId_mealId_key`(`mealScheduleId`, `mealGroupId`, `mealId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -201,19 +201,19 @@ ALTER TABLE `MealSchedule` ADD CONSTRAINT `MealSchedule_createdBy_fkey` FOREIGN 
 ALTER TABLE `MealSchedule` ADD CONSTRAINT `MealSchedule_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `ScheduledMeal` ADD CONSTRAINT `ScheduledMeal_mealScheduleId_fkey` FOREIGN KEY (`mealScheduleId`) REFERENCES `MealSchedule`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `ScheduleMeal` ADD CONSTRAINT `ScheduleMeal_mealScheduleId_fkey` FOREIGN KEY (`mealScheduleId`) REFERENCES `MealSchedule`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `ScheduledMeal` ADD CONSTRAINT `ScheduledMeal_mealGroupId_fkey` FOREIGN KEY (`mealGroupId`) REFERENCES `MealGroup`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `ScheduleMeal` ADD CONSTRAINT `ScheduleMeal_mealGroupId_fkey` FOREIGN KEY (`mealGroupId`) REFERENCES `MealGroup`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `ScheduledMeal` ADD CONSTRAINT `ScheduledMeal_mealId_fkey` FOREIGN KEY (`mealId`) REFERENCES `Meal`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `ScheduleMeal` ADD CONSTRAINT `ScheduleMeal_mealId_fkey` FOREIGN KEY (`mealId`) REFERENCES `Meal`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `ScheduledMeal` ADD CONSTRAINT `ScheduledMeal_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `ScheduleMeal` ADD CONSTRAINT `ScheduleMeal_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `ScheduledMeal` ADD CONSTRAINT `ScheduledMeal_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `ScheduleMeal` ADD CONSTRAINT `ScheduleMeal_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `MealGroup` ADD CONSTRAINT `MealGroup_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

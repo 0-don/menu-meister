@@ -157,42 +157,44 @@ async function scheduleMeals(
     const servingDate = isPast
       ? dayjs().subtract(day, "day").toDate()
       : dayjs().add(day, "day").toDate();
-    const mealSchedule = await prisma.mealSchedule.create({
-      data: {
-        servingDate: servingDate,
-        createdBy: userId,
-        updatedBy: userId,
-      },
-    });
-    for (let i = 0; i < MIN_MEALS_PER_DAY; i++) {
-      if (coinFlip()) {
-        const randomMealIndex = Math.floor(Math.random() * meals.length);
-        const mealId = meals[randomMealIndex].id;
+    try {
+      const mealSchedule = await prisma.mealSchedule.create({
+        data: {
+          servingDate: servingDate,
+          createdBy: userId,
+          updatedBy: userId,
+        },
+      });
+      for (let i = 0; i < MIN_MEALS_PER_DAY; i++) {
+        if (coinFlip()) {
+          const randomMealIndex = Math.floor(Math.random() * meals.length);
+          const mealId = meals[randomMealIndex].id;
 
-        await prisma.scheduledMeal.create({
-          data: {
-            mealId,
-            mealScheduleId: mealSchedule.id,
-            createdBy: userId,
-            updatedBy: userId,
-          },
-        });
-      } else {
-        const randomMealGroupIndex = Math.floor(
-          Math.random() * mealGroups.length,
-        );
-        const mealGroupId = mealGroups[randomMealGroupIndex].id;
+          await prisma.scheduleMeal.create({
+            data: {
+              mealId,
+              mealScheduleId: mealSchedule.id,
+              createdBy: userId,
+              updatedBy: userId,
+            },
+          });
+        } else {
+          const randomMealGroupIndex = Math.floor(
+            Math.random() * mealGroups.length,
+          );
+          const mealGroupId = mealGroups[randomMealGroupIndex].id;
 
-        await prisma.scheduledMeal.create({
-          data: {
-            mealGroupId,
-            mealScheduleId: mealSchedule.id,
-            createdBy: userId,
-            updatedBy: userId,
-          },
-        });
+          await prisma.scheduleMeal.create({
+            data: {
+              mealGroupId,
+              mealScheduleId: mealSchedule.id,
+              createdBy: userId,
+              updatedBy: userId,
+            },
+          });
+        }
       }
-    }
+    } catch (error) {}
   }
 }
 

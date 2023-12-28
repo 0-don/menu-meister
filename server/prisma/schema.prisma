@@ -75,8 +75,8 @@ model User {
   updatedMealIngredients MealIngredient[] @relation("UpdatedMealIngredient")
   createdMealGroups      MealGroup[]      @relation("CreatedMealGroup")
   updatedMealGroups      MealGroup[]      @relation("UpdatedMealGroup")
-  createdScheduledMeals  ScheduledMeal[]  @relation("CreatedScheduledMeal")
-  updatedScheduledMeals  ScheduledMeal[]  @relation("UpdatedScheduledMeal")
+  createdScheduledMeals  ScheduleMeal[]  @relation("CreatedScheduledMeal")
+  updatedScheduledMeals  ScheduleMeal[]  @relation("UpdatedScheduledMeal")
 
   UserRole UserRole[]
 }
@@ -151,7 +151,7 @@ model Meal {
 
   mealIngredients MealIngredient[] // Relation to MealIngredient
   mealGroups      MealGroup[]      @relation("MealsInGroup") // Many-to-many relation to MealGroup
-  scheduledMeals  ScheduledMeal[] // Relation to ScheduledMeal
+  scheduledMeals  ScheduleMeal[] // Relation to ScheduledMeal
 
   // Audit Fields
   createdAt DateTime @default(now())
@@ -171,7 +171,7 @@ model MealSchedule {
   servingDate DateTime @unique @db.Date
 
   // Relations
-  scheduledMeals ScheduledMeal[] // Relation to ScheduledMeal
+  scheduledMeals ScheduleMeal[] // Relation to ScheduledMeal
 
   // Audit Fields
   createdAt DateTime @default(now())
@@ -185,7 +185,7 @@ model MealSchedule {
   @@map("MealSchedule")
 }
 
-model ScheduledMeal {
+model ScheduleMeal {
   id             Int  @id @default(autoincrement())
   mealScheduleId Int
   mealGroupId    Int? // Optional link to MealGroup
@@ -206,7 +206,7 @@ model ScheduledMeal {
   updatedByUser User @relation("UpdatedScheduledMeal", fields: [updatedBy], references: [id])
 
   @@unique([mealScheduleId, mealGroupId, mealId])
-  @@map("ScheduledMeal")
+  @@map("ScheduleMeal")
 }
 
 model MealGroup {
@@ -215,7 +215,7 @@ model MealGroup {
   description String? @db.Text
 
   // Relations
-  scheduledMeals ScheduledMeal[] // Relation to ScheduledMeal
+  scheduledMeals ScheduleMeal[] // Relation to ScheduledMeal
   meals          Meal[]          @relation("MealsInGroup") // Relation to Meal
 
   // Audit Fields

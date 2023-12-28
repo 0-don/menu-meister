@@ -1,13 +1,13 @@
-import { CreateManyIngredientArgs } from "@/app_modules/@generated/ingredient/create-many-ingredient.args";
-import { CreateOneIngredientArgs } from "@/app_modules/@generated/ingredient/create-one-ingredient.args";
-import { DeleteManyIngredientArgs } from "@/app_modules/@generated/ingredient/delete-many-ingredient.args";
-import { DeleteOneIngredientArgs } from "@/app_modules/@generated/ingredient/delete-one-ingredient.args";
-import { FindFirstIngredientArgs } from "@/app_modules/@generated/ingredient/find-first-ingredient.args";
-import { FindManyIngredientArgs } from "@/app_modules/@generated/ingredient/find-many-ingredient.args";
-import { UpdateManyIngredientArgs } from "@/app_modules/@generated/ingredient/update-many-ingredient.args";
-import { UpdateOneIngredientArgs } from "@/app_modules/@generated/ingredient/update-one-ingredient.args";
-import { UpsertOneIngredientArgs } from "@/app_modules/@generated/ingredient/upsert-one-ingredient.args";
+import { CreateManyMealArgs } from "@/app_modules/@generated/meal/create-many-meal.args";
+import { CreateOneMealArgs } from "@/app_modules/@generated/meal/create-one-meal.args";
+import { DeleteManyMealArgs } from "@/app_modules/@generated/meal/delete-many-meal.args";
+import { DeleteOneMealArgs } from "@/app_modules/@generated/meal/delete-one-meal.args";
+import { FindFirstMealArgs } from "@/app_modules/@generated/meal/find-first-meal.args";
+import { FindManyMealArgs } from "@/app_modules/@generated/meal/find-many-meal.args";
 import { Meal } from "@/app_modules/@generated/meal/meal.model";
+import { UpdateManyMealArgs } from "@/app_modules/@generated/meal/update-many-meal.args";
+import { UpdateOneMealArgs } from "@/app_modules/@generated/meal/update-one-meal.args";
+import { UpsertOneMealArgs } from "@/app_modules/@generated/meal/upsert-one-meal.args";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
@@ -15,7 +15,6 @@ import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import { GraphQLResolveInfo } from "graphql";
 import { MealService } from "../meal.service";
-
 @Resolver(() => Meal)
 export class MealAdminResolver {
   constructor(
@@ -26,7 +25,7 @@ export class MealAdminResolver {
   @Query(() => [Meal], { nullable: true })
   @Roles("ADMIN")
   async getAllMealsAdmin(
-    @Args() args: FindManyIngredientArgs,
+    @Args() args: FindManyMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -41,7 +40,7 @@ export class MealAdminResolver {
   @Query(() => Meal, { nullable: true })
   @Roles("ADMIN")
   async getMealAdmin(
-    @Args() args: FindFirstIngredientArgs,
+    @Args() args: FindFirstMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -56,7 +55,7 @@ export class MealAdminResolver {
   @Mutation(() => Meal, { nullable: true })
   @Roles("ADMIN")
   async createMealAdmin(
-    @Args() args: CreateOneIngredientArgs,
+    @Args() args: CreateOneMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -71,7 +70,7 @@ export class MealAdminResolver {
   @Mutation(() => [Meal], { nullable: true })
   @Roles("ADMIN")
   async createManyMealsAdmin(
-    @Args() args: CreateManyIngredientArgs,
+    @Args() args: CreateManyMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -86,7 +85,7 @@ export class MealAdminResolver {
   @Mutation(() => Meal, { nullable: true })
   @Roles("ADMIN")
   async deleteMealAdmin(
-    @Args() args: DeleteOneIngredientArgs,
+    @Args() args: DeleteOneMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -101,7 +100,7 @@ export class MealAdminResolver {
   @Mutation(() => Int, { nullable: true })
   @Roles("ADMIN")
   async deleteManyMealsAdmin(
-    @Args() args: DeleteManyIngredientArgs,
+    @Args() args: DeleteManyMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -116,7 +115,7 @@ export class MealAdminResolver {
   @Mutation(() => Meal, { nullable: true })
   @Roles("ADMIN")
   async updateMealAdmin(
-    @Args() args: UpdateOneIngredientArgs,
+    @Args() args: UpdateOneMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -131,7 +130,7 @@ export class MealAdminResolver {
   @Mutation(() => [Meal], { nullable: true })
   @Roles("ADMIN")
   async updateManyMealsAdmin(
-    @Args() args: UpdateManyIngredientArgs,
+    @Args() args: UpdateManyMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -146,7 +145,7 @@ export class MealAdminResolver {
   @Mutation(() => Meal, { nullable: true })
   @Roles("ADMIN")
   async upsertMealAdmin(
-    @Args() args: UpsertOneIngredientArgs,
+    @Args() args: UpsertOneMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
