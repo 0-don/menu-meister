@@ -1,6 +1,4 @@
 import { GetAllMealSchedulesAdminQuery } from "@/gql/graphql";
-
-import Image from "next/image";
 import React from "react";
 
 interface TableItemProps {
@@ -12,7 +10,7 @@ interface TableItemProps {
 export const TableItem: React.FC<TableItemProps> = ({ schedule }) => {
   return (
     <span>
-      {schedule.meal.image && (
+      {/* {schedule.meal.image && (
         <Image
           aria-label={schedule.meal.name}
           className="h-auto w-auto"
@@ -22,7 +20,7 @@ export const TableItem: React.FC<TableItemProps> = ({ schedule }) => {
           alt={schedule.meal.name}
         />
       )}
-      <p>{schedule.meal?.name}</p>
+      <p>{schedule.meal?.name}</p> */}
     </span>
   );
 };

@@ -26,7 +26,7 @@ export class ScheduleMealAdminResolver {
   @Query(() => [ScheduleMeal], { nullable: true })
   @Roles("ADMIN")
   async getAllScheduleMealsAdmin(
-    @Args() args: FindManyScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
+    @Args() args: FindManyScheduleMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -44,7 +44,7 @@ export class ScheduleMealAdminResolver {
   @Query(() => ScheduleMeal, { nullable: true })
   @Roles("ADMIN")
   async getScheduleMealAdmin(
-    @Args() args: FindFirstScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
+    @Args() args: FindFirstScheduleMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -59,7 +59,7 @@ export class ScheduleMealAdminResolver {
   @Mutation(() => ScheduleMeal, { nullable: true })
   @Roles("ADMIN")
   async createScheduleMealAdmin(
-    @Args() args: CreateOneScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
+    @Args() args: CreateOneScheduleMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -74,7 +74,7 @@ export class ScheduleMealAdminResolver {
   @Mutation(() => [ScheduleMeal], { nullable: true })
   @Roles("ADMIN")
   async createManyScheduleMealsAdmin(
-    @Args() args: CreateManyScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
+    @Args() args: CreateManyScheduleMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -89,7 +89,7 @@ export class ScheduleMealAdminResolver {
   @Mutation(() => ScheduleMeal, { nullable: true })
   @Roles("ADMIN")
   async deleteScheduleMealAdmin(
-    @Args() args: DeleteOneScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
+    @Args() args: DeleteOneScheduleMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -104,7 +104,7 @@ export class ScheduleMealAdminResolver {
   @Mutation(() => Int, { nullable: true })
   @Roles("ADMIN")
   async deleteManyScheduleMealsAdmin(
-    @Args() args: DeleteManyScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
+    @Args() args: DeleteManyScheduleMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -120,7 +120,7 @@ export class ScheduleMealAdminResolver {
   @Mutation(() => ScheduleMeal, { nullable: true })
   @Roles("ADMIN")
   async updateScheduleMealAdmin(
-    @Args() args: UpdateOneScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
+    @Args() args: UpdateOneScheduleMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -135,7 +135,7 @@ export class ScheduleMealAdminResolver {
   @Mutation(() => [ScheduleMeal], { nullable: true })
   @Roles("ADMIN")
   async updateManyScheduleMealsAdmin(
-    @Args() args: UpdateManyScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
+    @Args() args: UpdateManyScheduleMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -150,7 +150,7 @@ export class ScheduleMealAdminResolver {
   @Mutation(() => ScheduleMeal, { nullable: true })
   @Roles("ADMIN")
   async upsertScheduleMealAdmin(
-    @Args() args: UpsertOneScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
+    @Args() args: UpsertOneScheduleMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;

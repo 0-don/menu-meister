@@ -28,14 +28,11 @@ export function MainTable({}: DashboardPageProps) {
     where: {
       servingDate: {
         gte: dayjs.utc(dashboardStore.daysThatWeek.at(0)).toISOString(),
-        lte: dayjs
-          .utc(dashboardStore.daysThatWeek.at(-1))
-          .add(1, "d")
-          .toISOString(),
+        lte: dayjs.utc(dashboardStore.daysThatWeek.at(-1)).toISOString(),
       },
     },
   });
-
+  console.log(data);
   const groupedMealSchedules = (data?.getAllMealSchedulesAdmin ?? []).reduce(
     (acc, schedule) => {
       const weekday = dayjs(schedule.servingDate, "DD.MM.YYYY").format("dddd");

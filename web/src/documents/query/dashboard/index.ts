@@ -18,16 +18,32 @@ export const GET_ALL_MEAL_SCHEDULES_ADMIN = graphql(/* GraphQL */ `
       distinct: $distinct
     ) {
       id
-      mealId
       servingDate
       createdAt
       updatedAt
-      meal {
-        name
-        description
+      scheduledMeals {
         id
+        mealGroupId
+        mealId
         createdAt
-        image
+        updatedAt
+        meal {
+          id
+          name
+          description
+          image
+        }
+        mealGroup {
+          id
+          name
+          description
+          meals {
+            id
+            name
+            description
+            image
+          }
+        }
       }
     }
   }
