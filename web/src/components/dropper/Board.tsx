@@ -1,5 +1,5 @@
 import { authorQuoteMap } from "@/data";
-import { GetAllMealSchedulesAdminQuery } from "@/gql/graphql";
+import { GetAllMealSchedulesAdminQuery, Meal } from "@/gql/graphql";
 import {
   Quote,
   QuoteMap,
@@ -12,7 +12,7 @@ import {
   DropResult,
   Droppable,
 } from "@hello-pangea/dnd";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 
 function reorder<TItem>(
   list: TItem[],
@@ -69,8 +69,13 @@ interface BoardProps {
 }
 
 export const Board: FunctionComponent<BoardProps> = ({ items }) => {
+  const [mealSchedule, setMealSchedule] = useState(items);
   const [columns, setColumns] = useState<QuoteMap>(authorQuoteMap);
   const [ordered, setOrdered] = useState<string[]>(Object.keys(authorQuoteMap));
+
+  useEffect(() => {
+    setMealSchedule(items);
+  }, [items]);
 
   const onDragEnd = ({ source, destination, type }: DropResult) => {
     if (!destination) return;
@@ -87,64 +92,55 @@ export const Board: FunctionComponent<BoardProps> = ({ items }) => {
     }
   };
 
+  const renderMeals = (meals: Meal[], droppableId: string) => (
+    <Droppable droppableId={droppableId} type="MEAL" key={droppableId}>
+      {(provided) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+          className="m-2 border p-2"
+        >
+          {meals.map((meal, index) => (
+            <Draggable key={meal.id} draggableId={meal.id} index={index}>
+              {(provided) => (
+                <div
+                  ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  className="m-1 border p-1"
+                >
+                  {meal.name}
+                </div>
+              )}
+            </Draggable>
+          ))}
+          {provided.placeholder}
+        </div>
+      )}
+    </Droppable>
+  );
+
+  console.log(mealSchedule);
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="board" type="COLUMN" direction="horizontal">
-        {(provided) => (
-          <div ref={provided.innerRef} {...provided.droppableProps}>
-            {ordered.map((key, index) => (
-              <Draggable draggableId={key} index={index} key={key}>
-                {(provided, snapshot) => (
-                  <div ref={provided.innerRef} {...provided.draggableProps}>
-                    <div
-                      {...provided.dragHandleProps}
-                      className={`dark:text-black ${
-                        snapshot.isDragging ? "bg-green-600" : "bg-gray-600"
-                      } transition duration-200 ease-in-out hover:bg-green-400`}
-                    >
-                      {key}
-                    </div>
-                    <Droppable droppableId={key}>
-                      {(dropProvided, dropSnapshot) => (
-                        <div
-                          ref={dropProvided.innerRef}
-                          {...dropProvided.droppableProps}
-                          className={`flex w-64 select-none flex-col border-2 p-2 transition-all duration-200 ease-in-out ${
-                            dropSnapshot.isDraggingOver ? "bg-blue-200" : ""
-                          }`}
-                        >
-                          <div className="min-h-[250px] pb-2">
-                            {columns[key].map((quote, quoteIndex) => (
-                              <Draggable
-                                key={quote.id}
-                                draggableId={quote.id}
-                                index={quoteIndex}
-                              >
-                                {(dragProvided) => (
-                                  <div
-                                    ref={dragProvided.innerRef}
-                                    {...dragProvided.draggableProps}
-                                    {...dragProvided.dragHandleProps}
-                                  >
-                                    {quote.content}
-                                    {quote.id}
-                                  </div>
-                                )}
-                              </Draggable>
-                            ))}
-                            {dropProvided.placeholder}
-                          </div>
-                        </div>
-                      )}
-                    </Droppable>
-                  </div>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
+      <div className="flex">
+        {mealSchedule?.map((daySchedule) => (
+          <div key={daySchedule.id} className="m-2 border-2 p-2">
+            <h3>{daySchedule.servingDate}</h3>
+            {daySchedule.scheduledMeals?.map((scheduledMeal) =>
+              scheduledMeal.mealGroup
+                ? renderMeals(
+                    scheduledMeal.mealGroup.meals as Meal[],
+                    `group-${scheduledMeal.mealGroup.id}`,
+                  )
+                : renderMeals(
+                    [scheduledMeal.meal as Meal],
+                    `meal-${scheduledMeal.id}`,
+                  ),
+            )}
           </div>
-        )}
-      </Droppable>
+        ))}
+      </div>
     </DragDropContext>
   );
 };

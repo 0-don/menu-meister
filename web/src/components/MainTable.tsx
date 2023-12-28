@@ -34,7 +34,7 @@ export function MainTable({}: DashboardPageProps) {
     },
     orderBy: { servingDate: SortOrder.Asc },
   });
-  console.log(data);
+
   const groupedMealSchedules = (data?.getAllMealSchedulesAdmin ?? []).reduce(
     (acc, schedule) => {
       const weekday = dayjs(schedule.servingDate, "DD.MM.YYYY").format("dddd");

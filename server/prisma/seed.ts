@@ -203,11 +203,11 @@ const seedMealGroups = async () => {
     where: { email: EMAIL },
   });
 
-  const mealSchedules = await prisma.mealSchedule.findMany();
+  const meals = await prisma.meal.findMany(); // Fetching meals instead of meal schedules
 
   for (const _ of Array(100).keys()) {
     const name = faker.commerce.department();
-    const mealSchedule = faker.helpers.arrayElements(mealSchedules, {
+    const selectedMeals = faker.helpers.arrayElements(meals, {
       min: 1,
       max: 4,
     });
@@ -215,7 +215,7 @@ const seedMealGroups = async () => {
     await prisma.mealGroup.create({
       data: {
         name,
-        meals: { connect: mealSchedule.map((meal) => ({ id: meal.id })) },
+        meals: { connect: selectedMeals.map((meal) => ({ id: meal.id })) },
         createdBy: user.id,
         updatedBy: user.id,
       },
