@@ -1,9 +1,12 @@
 import { reorder, reorderQuoteMap } from "@/utils/helpers/clientUtils";
 import { QuoteMap } from "@/utils/types";
-import type { DropResult, DroppableProvided } from "@hello-pangea/dnd";
-import { DragDropContext, Droppable } from "@hello-pangea/dnd";
+import {
+  DragDropContext,
+  Draggable,
+  DropResult,
+  Droppable,
+} from "@hello-pangea/dnd";
 import { FunctionComponent, useState } from "react";
-import { Column } from "./Column";
 
 interface BoardProps {
   initial: QuoteMap;
@@ -13,7 +16,7 @@ export const Board: FunctionComponent<BoardProps> = ({ initial }) => {
   const [columns, setColumns] = useState<QuoteMap>(initial);
   const [ordered, setOrdered] = useState<string[]>(Object.keys(initial));
 
-  const onDragEnd = ({ source, destination, type }: DropResult): void => {
+  const onDragEnd = ({ source, destination, type }: DropResult) => {
     if (!destination) return;
 
     if (type === "COLUMN") {
@@ -31,19 +34,60 @@ export const Board: FunctionComponent<BoardProps> = ({ initial }) => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="board" type="COLUMN" direction="horizontal">
-        {(provided: DroppableProvided) => (
+        {(provided) => (
           <div
             ref={provided.innerRef}
             className="flex"
             {...provided.droppableProps}
           >
             {ordered.map((key, index) => (
-              <Column
-                key={key}
-                index={index}
-                title={key}
-                quotes={columns[key]}
-              />
+              <Draggable draggableId={key} index={index} key={key}>
+                {(provided, snapshot) => (
+                  <div ref={provided.innerRef} {...provided.draggableProps}>
+                    <div
+                      {...provided.dragHandleProps}
+                      className={`dark:text-black ${
+                        snapshot.isDragging ? "bg-green-600" : "bg-gray-600"
+                      } transition duration-200 ease-in-out hover:bg-green-400`}
+                    >
+                      {key}
+                    </div>
+                    <Droppable droppableId={key}>
+                      {(dropProvided, dropSnapshot) => (
+                        <div
+                          ref={dropProvided.innerRef}
+                          {...dropProvided.droppableProps}
+                          className={`flex w-64 select-none flex-col border-2 p-2 transition-all duration-200 ease-in-out ${
+                            dropSnapshot.isDraggingOver ? "bg-blue-200" : ""
+                          }`}
+                        >
+                          <div className="min-h-[250px] pb-2">
+                            {columns[key].map((quote, quoteIndex) => (
+                              <Draggable
+                                key={quote.id}
+                                draggableId={quote.id}
+                                index={quoteIndex}
+                              >
+                                {(dragProvided) => (
+                                  <div
+                                    ref={dragProvided.innerRef}
+                                    {...dragProvided.draggableProps}
+                                    {...dragProvided.dragHandleProps}
+                                  >
+                                    {quote.content}
+                                    {quote.id}
+                                  </div>
+                                )}
+                              </Draggable>
+                            ))}
+                            {dropProvided.placeholder}
+                          </div>
+                        </div>
+                      )}
+                    </Droppable>
+                  </div>
+                )}
+              </Draggable>
             ))}
             {provided.placeholder}
           </div>
