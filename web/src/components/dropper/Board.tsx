@@ -1,6 +1,11 @@
 import { authorQuoteMap } from "@/data";
-import { reorder, reorderQuoteMap } from "@/utils/helpers/clientUtils";
-import { QuoteMap } from "@/utils/types";
+import { GetAllMealSchedulesAdminQuery } from "@/gql/graphql";
+import {
+  Quote,
+  QuoteMap,
+  ReorderQuoteMapArgs,
+  ReorderQuoteMapResult,
+} from "@/utils/types";
 import {
   DragDropContext,
   Draggable,
@@ -9,9 +14,61 @@ import {
 } from "@hello-pangea/dnd";
 import { FunctionComponent, useState } from "react";
 
-interface BoardProps {}
+function reorder<TItem>(
+  list: TItem[],
+  startIndex: number,
+  endIndex: number,
+): TItem[] {
+  const result = [...list];
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
 
-export const Board: FunctionComponent<BoardProps> = ({}) => {
+  return result;
+}
+
+const reorderQuoteMap = ({
+  quoteMap,
+  source,
+  destination,
+}: ReorderQuoteMapArgs): ReorderQuoteMapResult => {
+  const current: Quote[] = [...quoteMap[source.droppableId]];
+  const next: Quote[] = [...quoteMap[destination.droppableId]];
+  const target: Quote = current[source.index];
+
+  if (source.droppableId === destination.droppableId) {
+    const reordered: Quote[] = reorder(
+      current,
+      source.index,
+      destination.index,
+    );
+    const result: QuoteMap = {
+      ...quoteMap,
+      [source.droppableId]: reordered,
+    };
+    return {
+      quoteMap: result,
+    };
+  }
+
+  current.splice(source.index, 1);
+  next.splice(destination.index, 0, target);
+
+  const result: QuoteMap = {
+    ...quoteMap,
+    [source.droppableId]: current,
+    [destination.droppableId]: next,
+  };
+
+  return {
+    quoteMap: result,
+  };
+};
+
+interface BoardProps {
+  items: GetAllMealSchedulesAdminQuery["getAllMealSchedulesAdmin"];
+}
+
+export const Board: FunctionComponent<BoardProps> = ({ items }) => {
   const [columns, setColumns] = useState<QuoteMap>(authorQuoteMap);
   const [ordered, setOrdered] = useState<string[]>(Object.keys(authorQuoteMap));
 
@@ -34,11 +91,7 @@ export const Board: FunctionComponent<BoardProps> = ({}) => {
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="board" type="COLUMN" direction="horizontal">
         {(provided) => (
-          <div
-            ref={provided.innerRef}
-            className="flex"
-            {...provided.droppableProps}
-          >
+          <div ref={provided.innerRef} {...provided.droppableProps}>
             {ordered.map((key, index) => (
               <Draggable draggableId={key} index={index} key={key}>
                 {(provided, snapshot) => (
