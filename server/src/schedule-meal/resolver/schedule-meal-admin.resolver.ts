@@ -1,13 +1,13 @@
-import { CreateManyScheduledMealArgs } from "@/app_modules/@generated/scheduled-meal/create-many-scheduled-meal.args";
-import { CreateOneScheduledMealArgs } from "@/app_modules/@generated/scheduled-meal/create-one-scheduled-meal.args";
-import { DeleteManyScheduledMealArgs } from "@/app_modules/@generated/scheduled-meal/delete-many-scheduled-meal.args";
-import { DeleteOneScheduledMealArgs } from "@/app_modules/@generated/scheduled-meal/delete-one-scheduled-meal.args";
-import { FindFirstScheduledMealArgs } from "@/app_modules/@generated/scheduled-meal/find-first-scheduled-meal.args";
-import { FindManyScheduledMealArgs } from "@/app_modules/@generated/scheduled-meal/find-many-scheduled-meal.args";
-import { ScheduledMeal } from "@/app_modules/@generated/scheduled-meal/scheduled-meal.model";
-import { UpdateManyScheduledMealArgs } from "@/app_modules/@generated/scheduled-meal/update-many-scheduled-meal.args";
-import { UpdateOneScheduledMealArgs } from "@/app_modules/@generated/scheduled-meal/update-one-scheduled-meal.args";
-import { UpsertOneScheduledMealArgs } from "@/app_modules/@generated/scheduled-meal/upsert-one-scheduled-meal.args";
+import { CreateManyScheduleMealArgs } from "@/app_modules/@generated/schedule-meal/create-many-schedule-meal.args";
+import { CreateOneScheduleMealArgs } from "@/app_modules/@generated/schedule-meal/create-one-schedule-meal.args";
+import { DeleteManyScheduleMealArgs } from "@/app_modules/@generated/schedule-meal/delete-many-schedule-meal.args";
+import { DeleteOneScheduleMealArgs } from "@/app_modules/@generated/schedule-meal/delete-one-schedule-meal.args";
+import { FindFirstScheduleMealArgs } from "@/app_modules/@generated/schedule-meal/find-first-schedule-meal.args";
+import { FindManyScheduleMealArgs } from "@/app_modules/@generated/schedule-meal/find-many-schedule-meal.args";
+import { ScheduleMeal } from "@/app_modules/@generated/schedule-meal/schedule-meal.model";
+import { UpdateManyScheduleMealArgs } from "@/app_modules/@generated/schedule-meal/update-many-schedule-meal.args";
+import { UpdateOneScheduleMealArgs } from "@/app_modules/@generated/schedule-meal/update-one-schedule-meal.args";
+import { UpsertOneScheduleMealArgs } from "@/app_modules/@generated/schedule-meal/upsert-one-schedule-meal.args";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
@@ -16,17 +16,17 @@ import { PrismaSelect } from "@paljs/plugins";
 import { GraphQLResolveInfo } from "graphql";
 import { ScheduleMealService } from "../schedule-meal.service";
 
-@Resolver(() => ScheduledMeal)
-export class ScheduledMealAdminResolver {
+@Resolver(() => ScheduleMeal)
+export class ScheduleMealAdminResolver {
   constructor(
     private prisma: PrismaService,
     private scheduleMealService: ScheduleMealService,
   ) {}
 
-  @Query(() => [ScheduledMeal], { nullable: true })
+  @Query(() => [ScheduleMeal], { nullable: true })
   @Roles("ADMIN")
-  async getAllScheduledMealsAdmin(
-    @Args() args: FindManyScheduledMealArgs,
+  async getAllScheduleMealsAdmin(
+    @Args() args: FindManyScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -41,10 +41,10 @@ export class ScheduledMealAdminResolver {
     }
   }
 
-  @Query(() => ScheduledMeal, { nullable: true })
+  @Query(() => ScheduleMeal, { nullable: true })
   @Roles("ADMIN")
-  async getScheduledMealAdmin(
-    @Args() args: FindFirstScheduledMealArgs,
+  async getScheduleMealAdmin(
+    @Args() args: FindFirstScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -56,10 +56,10 @@ export class ScheduledMealAdminResolver {
     }
   }
 
-  @Mutation(() => ScheduledMeal, { nullable: true })
+  @Mutation(() => ScheduleMeal, { nullable: true })
   @Roles("ADMIN")
-  async createScheduledMealAdmin(
-    @Args() args: CreateOneScheduledMealArgs,
+  async createScheduleMealAdmin(
+    @Args() args: CreateOneScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -71,10 +71,10 @@ export class ScheduledMealAdminResolver {
     }
   }
 
-  @Mutation(() => [ScheduledMeal], { nullable: true })
+  @Mutation(() => [ScheduleMeal], { nullable: true })
   @Roles("ADMIN")
-  async createManyScheduledMealsAdmin(
-    @Args() args: CreateManyScheduledMealArgs,
+  async createManyScheduleMealsAdmin(
+    @Args() args: CreateManyScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -86,10 +86,10 @@ export class ScheduledMealAdminResolver {
     }
   }
 
-  @Mutation(() => ScheduledMeal, { nullable: true })
+  @Mutation(() => ScheduleMeal, { nullable: true })
   @Roles("ADMIN")
-  async deleteScheduledMealAdmin(
-    @Args() args: DeleteOneScheduledMealArgs,
+  async deleteScheduleMealAdmin(
+    @Args() args: DeleteOneScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -103,8 +103,8 @@ export class ScheduledMealAdminResolver {
 
   @Mutation(() => Int, { nullable: true })
   @Roles("ADMIN")
-  async deleteManyScheduledMealsAdmin(
-    @Args() args: DeleteManyScheduledMealArgs,
+  async deleteManyScheduleMealsAdmin(
+    @Args() args: DeleteManyScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -117,10 +117,10 @@ export class ScheduledMealAdminResolver {
     }
   }
 
-  @Mutation(() => ScheduledMeal, { nullable: true })
+  @Mutation(() => ScheduleMeal, { nullable: true })
   @Roles("ADMIN")
-  async updateScheduledMealAdmin(
-    @Args() args: UpdateOneScheduledMealArgs,
+  async updateScheduleMealAdmin(
+    @Args() args: UpdateOneScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -132,10 +132,10 @@ export class ScheduledMealAdminResolver {
     }
   }
 
-  @Mutation(() => [ScheduledMeal], { nullable: true })
+  @Mutation(() => [ScheduleMeal], { nullable: true })
   @Roles("ADMIN")
-  async updateManyScheduledMealsAdmin(
-    @Args() args: UpdateManyScheduledMealArgs,
+  async updateManyScheduleMealsAdmin(
+    @Args() args: UpdateManyScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
@@ -147,10 +147,10 @@ export class ScheduledMealAdminResolver {
     }
   }
 
-  @Mutation(() => ScheduledMeal, { nullable: true })
+  @Mutation(() => ScheduleMeal, { nullable: true })
   @Roles("ADMIN")
-  async upsertScheduledMealAdmin(
-    @Args() args: UpsertOneScheduledMealArgs,
+  async upsertScheduleMealAdmin(
+    @Args() args: UpsertOneScheduleMealArgs, // Adjusted to ScheduleMeal-specific args
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
