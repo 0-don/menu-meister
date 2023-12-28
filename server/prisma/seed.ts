@@ -165,8 +165,33 @@ async function scheduleMeals(
       },
     });
     for (let i = 0; i < MIN_MEALS_PER_DAY; i++) {
-      const randomMealIndex = Math.floor(Math.random() * meals.length);
-      const mealId = meals[randomMealIndex].id;
+      if (coinFlip()) {
+        const randomMealIndex = Math.floor(Math.random() * meals.length);
+        const mealId = meals[randomMealIndex].id;
+
+        await prisma.scheduledMeal.create({
+          data: {
+            mealId,
+            mealScheduleId: mealSchedule.id,
+            createdBy: userId,
+            updatedBy: userId,
+          },
+        });
+      } else {
+        const randomMealGroupIndex = Math.floor(
+          Math.random() * mealGroups.length,
+        );
+        const mealGroupId = mealGroups[randomMealGroupIndex].id;
+
+        await prisma.scheduledMeal.create({
+          data: {
+            mealGroupId,
+            mealScheduleId: mealSchedule.id,
+            createdBy: userId,
+            updatedBy: userId,
+          },
+        });
+      }
     }
   }
 }
