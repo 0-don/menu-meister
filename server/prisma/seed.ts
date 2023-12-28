@@ -30,7 +30,9 @@ const seed = async () => {
   });
 
   await seedIngredientsAndNutritions();
+
   await seedMeals();
+  await seedMealGroups();
   await seedMealSchedulers();
 };
 
@@ -129,6 +131,7 @@ const seedMealSchedulers = async () => {
     where: { email: EMAIL },
   });
   const meals = await prisma.meal.findMany();
+  const mealGroups = await prisma.mealGroup.findMany();
 
   const MEAL_SCHEDULER_COUNT = 5000;
 
@@ -137,37 +140,61 @@ const seedMealSchedulers = async () => {
   const daysInFuture = Math.ceil(MEAL_SCHEDULER_COUNT / 2 / MIN_MEALS_PER_DAY);
 
   // Schedule meals for past
-  await scheduleMeals(meals, daysInPast, user.id, true);
+  await scheduleMeals(meals, mealGroups, daysInPast, user.id, true);
 
   // Schedule meals for future
-  await scheduleMeals(meals, daysInFuture, user.id, false);
+  await scheduleMeals(meals, mealGroups, daysInFuture, user.id, false);
 };
 
 async function scheduleMeals(
   meals: Prisma.MealUncheckedCreateInput[],
+  mealGroups: Prisma.MealGroupUncheckedCreateInput[],
   days: number,
   userId: number,
   isPast: boolean,
 ) {
   for (let day = 0; day < days; day++) {
+    const servingDate = isPast
+      ? dayjs().subtract(day, "day").toDate()
+      : dayjs().add(day, "day").toDate();
+    const mealSchedule = await prisma.mealSchedule.create({
+      data: {
+        servingDate: servingDate,
+        createdBy: userId,
+        updatedBy: userId,
+      },
+    });
     for (let i = 0; i < MIN_MEALS_PER_DAY; i++) {
       const randomMealIndex = Math.floor(Math.random() * meals.length);
       const mealId = meals[randomMealIndex].id;
-      const servingDate = isPast
-        ? dayjs().subtract(day, "day").toDate()
-        : dayjs().add(day, "day").toDate();
-
-      await prisma.mealSchedule.create({
-        data: {
-          mealId: mealId,
-          servingDate: servingDate,
-          createdBy: userId,
-          updatedBy: userId,
-        },
-      });
     }
   }
 }
+
+const seedMealGroups = async () => {
+  const user = await prisma.user.findFirst({
+    where: { email: EMAIL },
+  });
+
+  const mealSchedules = await prisma.mealSchedule.findMany();
+
+  for (const _ of Array(100).keys()) {
+    const name = faker.commerce.department();
+    const mealSchedule = faker.helpers.arrayElements(mealSchedules, {
+      min: 1,
+      max: 4,
+    });
+
+    await prisma.mealGroup.create({
+      data: {
+        name,
+        meals: { connect: mealSchedule.map((meal) => ({ id: meal.id })) },
+        createdBy: user.id,
+        updatedBy: user.id,
+      },
+    });
+  }
+};
 
 const seedMealIngredients = async (mealId: number, userId: number) => {
   const ingredients = await prisma.ingredient.findMany();

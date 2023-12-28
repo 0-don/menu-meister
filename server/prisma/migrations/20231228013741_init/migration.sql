@@ -92,12 +92,40 @@ CREATE TABLE `Meal` (
 -- CreateTable
 CREATE TABLE `MealSchedule` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `mealId` INTEGER NOT NULL,
-    `servingDate` DATETIME(3) NOT NULL,
+    `servingDate` DATE NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
-    `createdBy` INTEGER NOT NULL,
-    `updatedBy` INTEGER NOT NULL,
+    `createdBy` INTEGER NULL,
+    `updatedBy` INTEGER NULL,
+
+    UNIQUE INDEX `MealSchedule_servingDate_key`(`servingDate`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `ScheduledMeal` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `mealScheduleId` INTEGER NOT NULL,
+    `mealGroupId` INTEGER NULL,
+    `mealId` INTEGER NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+    `createdBy` INTEGER NULL,
+    `updatedBy` INTEGER NULL,
+
+    UNIQUE INDEX `ScheduledMeal_mealScheduleId_mealGroupId_mealId_key`(`mealScheduleId`, `mealGroupId`, `mealId`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `MealGroup` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL,
+    `description` TEXT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+    `createdBy` INTEGER NULL,
+    `updatedBy` INTEGER NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -113,6 +141,15 @@ CREATE TABLE `MealIngredient` (
     `updatedBy` INTEGER NOT NULL,
 
     PRIMARY KEY (`mealId`, `ingredientId`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `_MealsInGroup` (
+    `A` INTEGER NOT NULL,
+    `B` INTEGER NOT NULL,
+
+    UNIQUE INDEX `_MealsInGroup_AB_unique`(`A`, `B`),
+    INDEX `_MealsInGroup_B_index`(`B`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
@@ -158,13 +195,31 @@ ALTER TABLE `Meal` ADD CONSTRAINT `Meal_createdBy_fkey` FOREIGN KEY (`createdBy`
 ALTER TABLE `Meal` ADD CONSTRAINT `Meal_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `MealSchedule` ADD CONSTRAINT `MealSchedule_mealId_fkey` FOREIGN KEY (`mealId`) REFERENCES `Meal`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `MealSchedule` ADD CONSTRAINT `MealSchedule_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `MealSchedule` ADD CONSTRAINT `MealSchedule_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `MealSchedule` ADD CONSTRAINT `MealSchedule_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `MealSchedule` ADD CONSTRAINT `MealSchedule_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `ScheduledMeal` ADD CONSTRAINT `ScheduledMeal_mealScheduleId_fkey` FOREIGN KEY (`mealScheduleId`) REFERENCES `MealSchedule`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `ScheduledMeal` ADD CONSTRAINT `ScheduledMeal_mealGroupId_fkey` FOREIGN KEY (`mealGroupId`) REFERENCES `MealGroup`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `ScheduledMeal` ADD CONSTRAINT `ScheduledMeal_mealId_fkey` FOREIGN KEY (`mealId`) REFERENCES `Meal`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `ScheduledMeal` ADD CONSTRAINT `ScheduledMeal_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `ScheduledMeal` ADD CONSTRAINT `ScheduledMeal_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `MealGroup` ADD CONSTRAINT `MealGroup_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `MealGroup` ADD CONSTRAINT `MealGroup_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `MealIngredient` ADD CONSTRAINT `MealIngredient_mealId_fkey` FOREIGN KEY (`mealId`) REFERENCES `Meal`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -177,3 +232,9 @@ ALTER TABLE `MealIngredient` ADD CONSTRAINT `MealIngredient_createdBy_fkey` FORE
 
 -- AddForeignKey
 ALTER TABLE `MealIngredient` ADD CONSTRAINT `MealIngredient_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_MealsInGroup` ADD CONSTRAINT `_MealsInGroup_A_fkey` FOREIGN KEY (`A`) REFERENCES `Meal`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_MealsInGroup` ADD CONSTRAINT `_MealsInGroup_B_fkey` FOREIGN KEY (`B`) REFERENCES `MealGroup`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

@@ -73,6 +73,10 @@ model User {
   updatedMealSchedulers  MealSchedule[]   @relation("UpdatedMealSchedule")
   createdMealIngredients MealIngredient[] @relation("CreatedMealIngredient")
   updatedMealIngredients MealIngredient[] @relation("UpdatedMealIngredient")
+  createdMealGroups      MealGroup[]      @relation("CreatedMealGroup")
+  updatedMealGroups      MealGroup[]      @relation("UpdatedMealGroup")
+  createdScheduledMeals  ScheduledMeal[]  @relation("CreatedScheduledMeal")
+  updatedScheduledMeals  ScheduledMeal[]  @relation("UpdatedScheduledMeal")
 
   UserRole UserRole[]
 }
@@ -140,42 +144,90 @@ model Nutrition {
 }
 
 model Meal {
-  id              Int              @id @default(autoincrement())
-  name            String           @db.VarChar(255)
-  description     String?          @db.Text
-  image           String?          @db.Text
-  mealSchedulers  MealSchedule[]
-  mealIngredients MealIngredient[]
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  image       String? @db.Text
 
+  mealIngredients MealIngredient[] // Relation to MealIngredient
+  mealGroups      MealGroup[]      @relation("MealsInGroup") // Many-to-many relation to MealGroup
+  scheduledMeals  ScheduledMeal[] // Relation to ScheduledMeal
+
+  // Audit Fields
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  /// @HideField({ output: false, input: true })
-  createdBy Int
-  /// @HideField({ output: false, input: true })
-  updatedBy Int
+  createdBy Int      @db.Int
+  updatedBy Int      @db.Int
 
+  // Relations for user who created/updated the meal
   createdByUser User @relation("CreatedMeal", fields: [createdBy], references: [id])
   updatedByUser User @relation("UpdatedMeal", fields: [updatedBy], references: [id])
+
+  @@map("Meal")
 }
 
 model MealSchedule {
   id          Int      @id @default(autoincrement())
-  mealId      Int
-  testid      Int?
-  servingDate DateTime
-  meal        Meal     @relation(fields: [mealId], references: [id])
+  servingDate DateTime @unique @db.Date
 
+  // Relations
+  scheduledMeals ScheduledMeal[] // Relation to ScheduledMeal
+
+  // Audit Fields
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  /// @HideField({ output: false, input: true })
-  createdBy Int
-  /// @HideField({ output: false, input: true })
-  updatedBy Int
+  createdBy Int?     @db.Int
+  updatedBy Int?     @db.Int
 
-  createdByUser User @relation("CreatedMealSchedule", fields: [createdBy], references: [id])
-  updatedByUser User @relation("UpdatedMealSchedule", fields: [updatedBy], references: [id])
+  createdByUser User? @relation("CreatedMealSchedule", fields: [createdBy], references: [id])
+  updatedByUser User? @relation("UpdatedMealSchedule", fields: [updatedBy], references: [id])
 
   @@map("MealSchedule")
+}
+
+model ScheduledMeal {
+  id             Int  @id @default(autoincrement())
+  mealScheduleId Int
+  mealGroupId    Int? // Optional link to MealGroup
+  mealId         Int? // Optional link to Meal
+
+  // Relations
+  mealSchedule MealSchedule @relation(fields: [mealScheduleId], references: [id])
+  mealGroup    MealGroup?   @relation(fields: [mealGroupId], references: [id])
+  meal         Meal?        @relation(fields: [mealId], references: [id])
+
+  // Audit Fields
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy Int      @db.Int
+  updatedBy Int      @db.Int
+
+  createdByUser User @relation("CreatedScheduledMeal", fields: [createdBy], references: [id])
+  updatedByUser User @relation("UpdatedScheduledMeal", fields: [updatedBy], references: [id])
+
+  @@unique([mealScheduleId, mealGroupId, mealId])
+  @@map("ScheduledMeal")
+}
+
+model MealGroup {
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+
+  // Relations
+  scheduledMeals ScheduledMeal[] // Relation to ScheduledMeal
+  meals          Meal[]          @relation("MealsInGroup") // Relation to Meal
+
+  // Audit Fields
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy Int      @db.Int
+  updatedBy Int      @db.Int
+
+  createdByUser User @relation("CreatedMealGroup", fields: [createdBy], references: [id])
+  updatedByUser User @relation("UpdatedMealGroup", fields: [updatedBy], references: [id])
+
+  @@map("MealGroup")
 }
 
 model MealIngredient {

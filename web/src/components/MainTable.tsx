@@ -1,6 +1,5 @@
 "use client";
 
-import { authorQuoteMap } from "@/data";
 import { GET_ALL_MEAL_SCHEDULES_ADMIN } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
 import DashboardStore from "@/store/DashboardStore";
@@ -49,7 +48,7 @@ export function MainTable({}: DashboardPageProps) {
 
   return (
     <>
-      <Board initial={authorQuoteMap} />
+      <Board />
       <Table className="mt-5" aria-label="Table">
         <TableHeader>
           <TableColumn>{t("MONDAY")}</TableColumn>

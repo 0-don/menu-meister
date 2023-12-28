@@ -1,3 +1,4 @@
+import { authorQuoteMap } from "@/data";
 import { reorder, reorderQuoteMap } from "@/utils/helpers/clientUtils";
 import { QuoteMap } from "@/utils/types";
 import {
@@ -8,13 +9,11 @@ import {
 } from "@hello-pangea/dnd";
 import { FunctionComponent, useState } from "react";
 
-interface BoardProps {
-  initial: QuoteMap;
-}
+interface BoardProps {}
 
-export const Board: FunctionComponent<BoardProps> = ({ initial }) => {
-  const [columns, setColumns] = useState<QuoteMap>(initial);
-  const [ordered, setOrdered] = useState<string[]>(Object.keys(initial));
+export const Board: FunctionComponent<BoardProps> = ({}) => {
+  const [columns, setColumns] = useState<QuoteMap>(authorQuoteMap);
+  const [ordered, setOrdered] = useState<string[]>(Object.keys(authorQuoteMap));
 
   const onDragEnd = ({ source, destination, type }: DropResult) => {
     if (!destination) return;
