@@ -40,27 +40,18 @@ function DroppableContainer({
   items: UniqueIdentifier[];
 }) {
   const {
-    active,
     attributes,
     isDragging,
     listeners,
-    over,
     setNodeRef,
     transition,
     transform,
   } = useSortable({
     id,
-    data: {
-      type: "container",
-      children: items,
-    },
+    data: { type: "container", children: items },
     animateLayoutChanges: (args) =>
       defaultAnimateLayoutChanges({ ...args, wasDragging: true }),
   });
-  const isOverContainer = over
-    ? (id === over.id && active?.data.current?.type !== "container") ||
-      items.includes(over.id)
-    : false;
 
   return (
     <Container
@@ -70,12 +61,10 @@ function DroppableContainer({
         transform: CSS.Translate.toString(transform),
         opacity: isDragging ? 0.5 : undefined,
       }}
-      hover={isOverContainer}
       handleProps={{
         ...attributes,
         ...listeners,
       }}
-      columns={1}
       {...props}
     >
       {children}
@@ -99,7 +88,6 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const lastOverId = useRef<UniqueIdentifier | null>(null);
   const recentlyMovedToNewContainer = useRef(false);
-  const isSortingContainer = activeId ? containers.includes(activeId) : false;
 
   const collisionDetectionStrategy: CollisionDetection = useCallback(
     (args) => {
@@ -340,9 +328,7 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
             <DroppableContainer
               key={containerId}
               id={containerId}
-              label={`Column ${containerId}`}
               items={items[containerId]}
-              onRemove={() => handleRemove(containerId)}
             >
               <SortableContext
                 items={items[containerId]}
@@ -351,10 +337,8 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
                 {(items as any)[containerId].map((value: any, index: any) => {
                   return (
                     <SortableItem
-                      disabled={isSortingContainer}
                       key={value}
                       id={value}
-                      style={() => ({})}
                       index={index}
                       handle={false}
                       wrapperStyle={() => ({})}
@@ -367,15 +351,6 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
               </SortableContext>
             </DroppableContainer>
           ))}
-
-          <DroppableContainer
-            id={"placeholder"}
-            items={[]}
-            onClick={handleAddColumn}
-            placeholder
-          >
-            + Add column
-          </DroppableContainer>
         </SortableContext>
       </div>
       {createPortal(
@@ -422,14 +397,7 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
 
   function renderContainerDragOverlay(containerId: UniqueIdentifier) {
     return (
-      <Container
-        label={`Column ${containerId}`}
-        style={{
-          height: "100%",
-        }}
-        shadow
-        unstyled={false}
-      >
+      <Container style={{ height: "100%" }}>
         {items[containerId].map((item, index) => (
           <Item
             key={item}
@@ -485,20 +453,17 @@ interface SortableItemProps {
   id: UniqueIdentifier;
   index: number;
   handle: boolean;
-  disabled?: boolean;
-  style(args: any): React.CSSProperties;
+
   getIndex(id: UniqueIdentifier): number;
   renderItem(): React.ReactElement;
   wrapperStyle({ index }: { index: number }): React.CSSProperties;
 }
 
 function SortableItem({
-  disabled,
   id,
   index,
   handle,
   renderItem,
-  style,
   containerId,
   getIndex,
   wrapperStyle,
@@ -517,7 +482,7 @@ function SortableItem({
 
   return (
     <Item
-      ref={disabled ? undefined : setNodeRef}
+      ref={setNodeRef}
       value={id}
       dragging={isDragging}
       sorting={isSorting}
@@ -525,14 +490,16 @@ function SortableItem({
       handleProps={handle ? { ref: setActivatorNodeRef } : undefined}
       index={index}
       wrapperStyle={wrapperStyle({ index })}
-      style={style({
-        index,
-        value: id,
-        isDragging,
-        isSorting,
-        overIndex: over ? getIndex(over.id) : overIndex,
-        containerId,
-      })}
+      style={
+        {
+          index,
+          value: id,
+          isDragging,
+          isSorting,
+          overIndex: over ? getIndex(over.id) : overIndex,
+          containerId,
+        } as React.CSSProperties
+      }
       color={"red"}
       transition={transition}
       transform={transform}
