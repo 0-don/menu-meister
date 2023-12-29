@@ -1,8 +1,5 @@
 /* eslint-disable react/display-name */
-import classNames from "classnames";
 import React, { forwardRef } from "react";
-import styles from "./Container.module.css";
-import { Handle } from "./Handle";
 
 export interface ContainerProps {
   children: React.ReactNode;
@@ -11,15 +8,17 @@ export interface ContainerProps {
 }
 
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
-  ({ children, handleProps, style, ...props }: ContainerProps, ref) => {
+  ({ children, handleProps, style }: ContainerProps, ref) => {
     return (
       <div
-        {...props}
         ref={ref}
         style={style}
-        className={classNames(styles.Container)}
+        className={`max-content duration-350 m-2.5 box-border flex min-h-[200px] min-w-[350px] appearance-none flex-col overflow-hidden rounded-md border border-[rgba(0,0,0,0.05)] bg-[rgba(246,246,246,1)] text-base outline-none transition-colors ${
+          handleProps?.className || ""
+        }`}
+        {...handleProps}
       >
-        <Handle {...handleProps} />
+        <div>asdas</div>
         {children}
       </div>
     );

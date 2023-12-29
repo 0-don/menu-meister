@@ -24,7 +24,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal, unstable_batchedUpdates } from "react-dom";
 import { Container, ContainerProps } from "./Container";
 import { Item } from "./Item";
@@ -39,25 +39,18 @@ function DroppableContainer({
   id: UniqueIdentifier;
   items: UniqueIdentifier[];
 }) {
-  const {
-    attributes,
-    isDragging,
-    listeners,
-    setNodeRef,
-    transition,
-    transform,
-  } = useSortable({
-    id,
-    data: { type: "container", children: items },
-    animateLayoutChanges: (args) =>
-      defaultAnimateLayoutChanges({ ...args, wasDragging: true }),
-  });
+  const { attributes, isDragging, listeners, setNodeRef, transform } =
+    useSortable({
+      id,
+      data: { type: "container", children: items },
+      animateLayoutChanges: (args) =>
+        defaultAnimateLayoutChanges({ ...args, wasDragging: true }),
+    });
 
   return (
     <Container
       ref={setNodeRef}
       style={{
-        transition,
         transform: CSS.Translate.toString(transform),
         opacity: isDragging ? 0.5 : undefined,
       }}
@@ -334,18 +327,9 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
                 items={items[containerId]}
                 strategy={verticalListSortingStrategy}
               >
-                {(items as any)[containerId].map((value: any, index: any) => {
-                  return (
-                    <SortableItem
-                      key={value}
-                      id={value}
-                      index={index}
-                      handle={false}
-                      containerId={containerId}
-                      getIndex={getIndex}
-                    />
-                  );
-                })}
+                {items[containerId].map((value: any, index: any) => (
+                  <SortableItem key={value} id={value} />
+                ))}
               </SortableContext>
             </DroppableContainer>
           ))}
@@ -359,77 +343,22 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
             }),
           }}
         >
-          {activeId
-            ? containers.includes(activeId)
-              ? renderContainerDragOverlay(activeId)
-              : renderSortableItemDragOverlay(activeId)
-            : null}
+          {activeId ? (
+            containers.includes(activeId) ? (
+              <Container style={{ height: "100%" }}>
+                {items[activeId].map((item, index) => (
+                  <Item key={item} value={item} />
+                ))}
+              </Container>
+            ) : (
+              <Item value={activeId} />
+            )
+          ) : null}
         </DragOverlay>,
         document.body,
       )}
     </DndContext>
   );
-
-  function renderSortableItemDragOverlay(id: UniqueIdentifier) {
-    return (
-      <Item
-        value={id}
-        style={
-          {
-            containerId: findContainer(id) as UniqueIdentifier,
-            overIndex: -1,
-            index: getIndex(id),
-            value: id,
-            isSorting: true,
-            isDragging: true,
-            isDragOverlay: true,
-          } as React.CSSProperties
-        }
-      />
-    );
-  }
-
-  function renderContainerDragOverlay(containerId: UniqueIdentifier) {
-    return (
-      <Container style={{ height: "100%" }}>
-        {items[containerId].map((item, index) => (
-          <Item
-            key={item}
-            value={item}
-            style={
-              {
-                containerId,
-                overIndex: -1,
-                index: getIndex(item),
-                value: item,
-                isDragging: false,
-                isSorting: false,
-                isDragOverlay: false,
-              } as React.CSSProperties
-            }
-          />
-        ))}
-      </Container>
-    );
-  }
-
-  function handleRemove(containerID: UniqueIdentifier) {
-    setContainers((containers) =>
-      containers.filter((id) => id !== containerID),
-    );
-  }
-
-  function handleAddColumn() {
-    const newContainerId = getNextContainerId();
-
-    unstable_batchedUpdates(() => {
-      setContainers((containers) => [...containers, newContainerId]);
-      setItems((items) => ({
-        ...items,
-        [newContainerId]: [],
-      }));
-    });
-  }
 
   function getNextContainerId() {
     const containerIds = Object.keys(items);
@@ -439,56 +368,15 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
   }
 }
 
-interface SortableItemProps {
-  containerId: UniqueIdentifier;
-  id: UniqueIdentifier;
-  index: number;
-  handle: boolean;
-  getIndex(id: UniqueIdentifier): number;
-}
-
-function SortableItem({
-  id,
-  index,
-  handle,
-
-  containerId,
-  getIndex,
-}: SortableItemProps) {
-  const {
-    setNodeRef,
-    setActivatorNodeRef,
-    listeners,
-    isDragging,
-    isSorting,
-    over,
-    overIndex,
-    transform,
-    transition,
-  } = useSortable({ id });
+function SortableItem({ id }: { id: UniqueIdentifier }) {
+  const { setNodeRef, listeners, isDragging, transform } = useSortable({ id });
 
   return (
     <Item
       ref={setNodeRef}
       value={id}
       dragging={isDragging}
-      sorting={isSorting}
-
-      handleProps={handle ? { ref: setActivatorNodeRef } : undefined}
-      index={index}
-      style={
-        {
-          index,
-          value: id,
-          isDragging,
-          isSorting,
-          overIndex: over ? getIndex(over.id) : overIndex,
-          containerId,
-        } as React.CSSProperties
-      }
-      transition={transition}
       transform={transform}
-      fadeIn={isDragging}
       listeners={listeners}
     />
   );
