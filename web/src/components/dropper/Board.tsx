@@ -1,4 +1,9 @@
-import { GetAllMealSchedulesAdminQuery } from "@/gql/graphql";
+import {
+  GetAllMealSchedulesAdminQuery,
+  Meal,
+  MealSchedule,
+  ScheduleMeal,
+} from "@/gql/graphql";
 import {
   DragDropContext,
   Draggable,
@@ -6,18 +11,6 @@ import {
   Droppable,
 } from "@hello-pangea/dnd";
 import { FunctionComponent, useEffect, useState } from "react";
-
-function reorder<TItem>(
-  list: TItem[],
-  startIndex: number,
-  endIndex: number,
-): TItem[] {
-  const result = [...list];
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-}
 
 interface BoardProps {
   items: GetAllMealSchedulesAdminQuery["getAllMealSchedulesAdmin"];
@@ -32,11 +25,108 @@ export const Board: FunctionComponent<BoardProps> = ({ items }) => {
     if (!destination) return;
   };
 
+  const renderMealGroup = (
+    scheduledMeal: ScheduleMeal,
+    daySchedule: MealSchedule,
+    index: number,
+  ) => (
+    <Draggable
+      key={`group-${scheduledMeal.mealGroup?.id}-${daySchedule.servingDate}`}
+      draggableId={`group-${scheduledMeal.mealGroup?.id}-${daySchedule.servingDate}`}
+      index={index}
+    >
+      {(provided) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          className="my-2 border-4 p-2"
+        >
+          <p>Group: {scheduledMeal.mealGroup?.id}</p>
+          {renderDroppableMeals(scheduledMeal, daySchedule)}
+          {(provided as any).placeholder}
+        </div>
+      )}
+    </Draggable>
+  );
+
+  const renderIndividualMeal = (
+    scheduledMeal: ScheduleMeal,
+    daySchedule: MealSchedule,
+    index: number,
+  ) => (
+    <Draggable
+      key={`meal-${scheduledMeal.id}-${daySchedule.servingDate}`}
+      draggableId={`meal-${scheduledMeal.id}-${daySchedule.servingDate}`}
+      index={index}
+    >
+      {(provided) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          className="p-1"
+        >
+          <p>{scheduledMeal.meal?.name}</p>
+        </div>
+      )}
+    </Draggable>
+  );
+
+  const renderDroppableMeals = (
+    scheduledMeal: ScheduleMeal,
+    daySchedule: MealSchedule,
+  ) => (
+    <Droppable
+      droppableId={`group-${scheduledMeal.mealGroup?.id}-${daySchedule.servingDate}`}
+      type="MEAL"
+    >
+      {(provided) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+          className="p-1"
+        >
+          {scheduledMeal.mealGroup?.meals?.map((meal, mealIndex) =>
+            renderDraggableMeal(meal, daySchedule, mealIndex),
+          )}
+          {provided.placeholder}
+        </div>
+      )}
+    </Droppable>
+  );
+
+  const renderDraggableMeal = (
+    meal: Meal,
+    daySchedule: MealSchedule,
+    mealIndex: number,
+  ) => (
+    <Draggable
+      key={`meal-${meal.id}-${daySchedule.servingDate}`}
+      draggableId={`meal-${meal.id}-${daySchedule.servingDate}`}
+      index={mealIndex}
+    >
+      {(provided) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <p>{meal.name}</p>
+        </div>
+      )}
+    </Draggable>
+  );
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="flex">
         {mealSchedule?.map((daySchedule) => (
-          <Droppable key={daySchedule.id} droppableId={`day-${daySchedule.id}`}>
+          <Droppable
+            key={daySchedule.id}
+            droppableId={`day-${daySchedule.id}`}
+            type="DAY_SCHEDULE"
+          >
             {(provided) => (
               <div
                 ref={provided.innerRef}
@@ -45,60 +135,17 @@ export const Board: FunctionComponent<BoardProps> = ({ items }) => {
               >
                 <h3>{daySchedule.servingDate}</h3>
                 {daySchedule.scheduledMeals?.map((scheduledMeal, index) =>
-                  scheduledMeal.mealGroup ? (
-                    <Draggable
-                      key={`group-${scheduledMeal.mealGroup.id}`}
-                      draggableId={`group-${scheduledMeal.mealGroup.id}`}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          className="my-2 border-4 p-2"
-                        >
-                          {scheduledMeal.mealGroup?.meals?.map(
-                            (meal, mealIndex) => (
-                              <Draggable
-                                key={meal.id}
-                                draggableId={`meal-${meal.id}`}
-                                index={mealIndex}
-                              >
-                                {(provided) => (
-                                  <div
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    className="p-1"
-                                  >
-                                    <p>{meal.name}</p>
-                                  </div>
-                                )}
-                              </Draggable>
-                            ),
-                          )}
-                        </div>
-                      )}
-                    </Draggable>
-                  ) : (
-                    <Draggable
-                      key={scheduledMeal.id}
-                      draggableId={`meal-${scheduledMeal.id}`}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          className="p-1"
-                        >
-                          <p>{scheduledMeal.meal?.name}</p>
-                        </div>
-                      )}
-                    </Draggable>
-                  ),
+                  scheduledMeal.mealGroup
+                    ? renderMealGroup(
+                        scheduledMeal as ScheduleMeal,
+                        daySchedule as MealSchedule,
+                        index,
+                      )
+                    : renderIndividualMeal(
+                        scheduledMeal as ScheduleMeal,
+                        daySchedule as MealSchedule,
+                        index,
+                      ),
                 )}
                 {provided.placeholder}
               </div>
