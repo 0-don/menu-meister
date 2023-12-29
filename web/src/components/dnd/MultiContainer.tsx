@@ -33,10 +33,9 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal, unstable_batchedUpdates } from "react-dom";
-import { coordinateGetter as multipleContainersCoordinateGetter } from "./multipleContainersKeyboardCoordinates";
-
 import { Container, ContainerProps } from "./Container";
 import { Item } from "./Item";
+import { coordinateGetter as multipleContainersCoordinateGetter } from "./multipleContainersKeyboardCoordinates";
 
 const defaultInitializer = (index: number) => index;
 
