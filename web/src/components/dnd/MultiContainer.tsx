@@ -19,7 +19,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Container, ContainerProps } from "./Container";
 import { Item } from "./Item";
@@ -95,28 +95,9 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
       let overId = getFirstCollision(intersections, "id");
 
       if (overId != null) {
-        if (overId in items) {
-          const containerItems = items[overId];
-
-          if (containerItems.length > 0) {
-            overId = closestCenter({
-              ...args,
-              droppableContainers: args.droppableContainers.filter(
-                (container) =>
-                  container.id !== overId &&
-                  containerItems.includes(container.id),
-              ),
-            })[0]?.id;
-          }
-        }
-
         lastOverId.current = overId;
 
         return [{ id: overId }];
-      }
-
-      if (recentlyMovedToNewContainer.current) {
-        lastOverId.current = activeId;
       }
 
       return lastOverId.current ? [{ id: lastOverId.current }] : [];
@@ -131,12 +112,6 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
 
     return Object.keys(items).find((key) => items[key].includes(id));
   };
-
-  useEffect(() => {
-    requestAnimationFrame(() => {
-      recentlyMovedToNewContainer.current = false;
-    });
-  }, [items]);
 
   return (
     <DndContext

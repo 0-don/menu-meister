@@ -50,13 +50,11 @@ export function MainTable({}: DashboardPageProps) {
     <>
       {/* <Board items={data?.getAllMealSchedulesAdmin} /> */}
 
-      <MultipleContainers />
+      {/* <MultipleContainers /> */}
       <div
         style={{
           maxWidth: 600,
-          padding: 10,
           margin: "0 auto",
-          marginTop: "10%",
         }}
       >
         <SortableTree />
