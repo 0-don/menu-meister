@@ -1,7 +1,6 @@
 /* eslint-disable react/display-name */
 import classNames from "classnames";
 import React, { CSSProperties, forwardRef } from "react";
-
 import styles from "./Action.module.css";
 
 export interface Props extends React.HTMLAttributes<HTMLButtonElement> {

@@ -22,10 +22,6 @@ export const Item = React.memo(
         })`,
       };
 
-      const itemClassNames = `relative text-black flex-grow flex items-center p-4 bg-white rounded-lg outline-none  ${
-        dragging ? "opacity-50" : "opacity-100"
-      }`;
-
       return (
         <li
           className={`box-border flex ${dragging ? "z-50" : "z-auto"}`}
@@ -33,7 +29,13 @@ export const Item = React.memo(
           {...listeners}
           ref={ref}
         >
-          <div className={itemClassNames}>{value}</div>
+          <div
+            className={`bg-opacity relative flex flex-grow items-center rounded-lg bg-gray-500 p-4 text-black outline-none  ${
+              dragging ? "opacity-50" : "opacity-100"
+            }`}
+          >
+            {value}
+          </div>
         </li>
       );
     },

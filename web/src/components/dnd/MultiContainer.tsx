@@ -2,18 +2,13 @@ import {
   CollisionDetection,
   DndContext,
   DragOverlay,
-  KeyboardSensor,
   MeasuringStrategy,
-  MouseSensor,
-  TouchSensor,
   UniqueIdentifier,
   closestCenter,
   defaultDropAnimationSideEffects,
   getFirstCollision,
   pointerWithin,
   rectIntersection,
-  useSensor,
-  useSensors,
 } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -25,10 +20,9 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { createPortal, unstable_batchedUpdates } from "react-dom";
+import { createPortal } from "react-dom";
 import { Container, ContainerProps } from "./Container";
 import { Item } from "./Item";
-import { coordinateGetter as multipleContainersCoordinateGetter } from "./multipleContainersKeyboardCoordinates";
 
 function DroppableContainer({
   children,
@@ -129,41 +123,13 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
     },
     [activeId, items],
   );
-  const [clonedItems, setClonedItems] = useState<Items | null>(null);
-  const sensors = useSensors(
-    useSensor(MouseSensor),
-    useSensor(TouchSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: multipleContainersCoordinateGetter,
-    }),
-  );
+
   const findContainer = (id: UniqueIdentifier) => {
     if (id in items) {
       return id;
     }
 
     return Object.keys(items).find((key) => items[key].includes(id));
-  };
-
-  const getIndex = (id: UniqueIdentifier) => {
-    const container = findContainer(id);
-
-    if (!container) {
-      return -1;
-    }
-
-    const index = items[container].indexOf(id);
-
-    return index;
-  };
-
-  const onDragCancel = () => {
-    if (clonedItems) {
-      setItems(clonedItems);
-    }
-
-    setActiveId(null);
-    setClonedItems(null);
   };
 
   useEffect(() => {
@@ -174,17 +140,13 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
 
   return (
     <DndContext
-      sensors={sensors}
       collisionDetection={collisionDetectionStrategy}
       measuring={{
         droppable: {
           strategy: MeasuringStrategy.Always,
         },
       }}
-      onDragStart={({ active }) => {
-        setActiveId(active.id);
-        setClonedItems(items);
-      }}
+      onDragStart={({ active }) => setActiveId(active.id)}
       onDragOver={({ active, over }) => {
         const overId = over?.id;
 
@@ -266,23 +228,6 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
           return;
         }
 
-        if (overId === "placeholder") {
-          const newContainerId = getNextContainerId();
-
-          unstable_batchedUpdates(() => {
-            setContainers((containers) => [...containers, newContainerId]);
-            setItems((items) => ({
-              ...items,
-              [activeContainer]: items[activeContainer].filter(
-                (id) => id !== activeId,
-              ),
-              [newContainerId]: [active.id],
-            }));
-            setActiveId(null);
-          });
-          return;
-        }
-
         const overContainer = findContainer(overId);
 
         if (overContainer) {
@@ -303,7 +248,6 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
 
         setActiveId(null);
       }}
-      onDragCancel={onDragCancel}
     >
       <div
         style={{
@@ -359,13 +303,6 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
       )}
     </DndContext>
   );
-
-  function getNextContainerId() {
-    const containerIds = Object.keys(items);
-    const lastContainerId = containerIds[containerIds.length - 1];
-
-    return String.fromCharCode(lastContainerId.charCodeAt(0) + 1);
-  }
 }
 
 function SortableItem({ id }: { id: UniqueIdentifier }) {
