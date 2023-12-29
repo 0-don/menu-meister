@@ -131,7 +131,6 @@ export function SortableTree({}: Props) {
       onDragMove={handleDragMove}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
-      onDragCancel={handleDragCancel}
     >
       <SortableContext items={sortedIds} strategy={verticalListSortingStrategy}>
         {flattenedItems.map(({ id, children, collapsed, depth }) => (
@@ -211,10 +210,6 @@ export function SortableTree({}: Props) {
 
       setItems(newItems);
     }
-  }
-
-  function handleDragCancel() {
-    resetState();
   }
 
   function resetState() {
