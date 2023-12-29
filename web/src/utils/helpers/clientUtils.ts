@@ -3,12 +3,6 @@ import { GeneralStore } from "@/store/GeneralStore";
 import { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import { DirectiveDefinitionNode } from "graphql";
 import { useTranslations } from "next-intl";
-import {
-  Quote,
-  QuoteMap,
-  ReorderQuoteMapArgs,
-  ReorderQuoteMapResult,
-} from "../types";
 
 export const uid = () =>
   Math.random().toString(36).substring(2).replace(/[0-9]/g, "");
@@ -43,4 +37,3 @@ export const catchErrorAlerts = (
     });
   }
 };
-
