@@ -2,7 +2,6 @@ import {
   CollisionDetection,
   DndContext,
   DragOverlay,
-  DropAnimation,
   KeyboardSensor,
   MeasuringStrategy,
   MouseSensor,
@@ -17,7 +16,6 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import {
-  AnimateLayoutChanges,
   SortableContext,
   arrayMove,
   defaultAnimateLayoutChanges,
@@ -32,24 +30,10 @@ import { Container, ContainerProps } from "./Container";
 import { Item } from "./Item";
 import { coordinateGetter as multipleContainersCoordinateGetter } from "./multipleContainersKeyboardCoordinates";
 
-const defaultInitializer = (index: number) => index;
-
-export function createRange<T = number>(
-  length: number,
-  initializer: (index: number) => any = defaultInitializer,
-): T[] {
-  return [...new Array(length)].map((_, index) => initializer(index));
-}
-
-const animateLayoutChanges: AnimateLayoutChanges = (args) =>
-  defaultAnimateLayoutChanges({ ...args, wasDragging: true });
-
 function DroppableContainer({
   children,
-  columns = 1,
   id,
   items,
-  style,
   ...props
 }: ContainerProps & {
   id: UniqueIdentifier;
@@ -70,7 +54,8 @@ function DroppableContainer({
       type: "container",
       children: items,
     },
-    animateLayoutChanges,
+    animateLayoutChanges: (args) =>
+      defaultAnimateLayoutChanges({ ...args, wasDragging: true }),
   });
   const isOverContainer = over
     ? (id === over.id && active?.data.current?.type !== "container") ||
@@ -81,7 +66,6 @@ function DroppableContainer({
     <Container
       ref={setNodeRef}
       style={{
-        ...style,
         transition,
         transform: CSS.Translate.toString(transform),
         opacity: isDragging ? 0.5 : undefined,
@@ -91,7 +75,7 @@ function DroppableContainer({
         ...attributes,
         ...listeners,
       }}
-      columns={columns}
+      columns={1}
       {...props}
     >
       {children}
@@ -99,32 +83,16 @@ function DroppableContainer({
   );
 }
 
-const dropAnimation: DropAnimation = {
-  sideEffects: defaultDropAnimationSideEffects({
-    styles: {
-      active: {
-        opacity: "0.5",
-      },
-    },
-  }),
-};
-
 type Items = Record<UniqueIdentifier, UniqueIdentifier[]>;
 
-interface Props {
-  renderItem?: any;
-}
-
-const PLACEHOLDER_ID = "placeholder";
-const empty: UniqueIdentifier[] = [];
-
-export function MultipleContainers({ renderItem }: Props) {
+export function MultipleContainers({ renderItem }: { renderItem?: any }) {
   const [items, setItems] = useState<Items>(() => ({
-    A: createRange(3, (index: any) => `A${index + 1}`),
-    B: createRange(3, (index: any) => `B${index + 1}`),
-    C: createRange(3, (index: any) => `C${index + 1}`),
-    D: createRange(3, (index: any) => `D${index + 1}`),
+    A: ["A1", "A2", "A3"],
+    B: ["B1", "B2", "B3"],
+    C: ["C1", "C2", "C3"],
+    D: ["D1", "D2", "D3"],
   }));
+
   const [containers, setContainers] = useState(
     Object.keys(items) as UniqueIdentifier[],
   );
@@ -317,7 +285,7 @@ export function MultipleContainers({ renderItem }: Props) {
           return;
         }
 
-        if (overId === PLACEHOLDER_ID) {
+        if (overId === "placeholder") {
           const newContainerId = getNextContainerId();
 
           unstable_batchedUpdates(() => {
@@ -365,7 +333,7 @@ export function MultipleContainers({ renderItem }: Props) {
         }}
       >
         <SortableContext
-          items={[...containers, PLACEHOLDER_ID]}
+          items={[...containers, "placeholder"]}
           strategy={horizontalListSortingStrategy}
         >
           {containers.map((containerId) => (
@@ -401,8 +369,8 @@ export function MultipleContainers({ renderItem }: Props) {
           ))}
 
           <DroppableContainer
-            id={PLACEHOLDER_ID}
-            items={empty}
+            id={"placeholder"}
+            items={[]}
             onClick={handleAddColumn}
             placeholder
           >
@@ -411,7 +379,13 @@ export function MultipleContainers({ renderItem }: Props) {
         </SortableContext>
       </div>
       {createPortal(
-        <DragOverlay dropAnimation={dropAnimation}>
+        <DragOverlay
+          dropAnimation={{
+            sideEffects: defaultDropAnimationSideEffects({
+              styles: { active: { opacity: "0.5" } },
+            }),
+          }}
+        >
           {activeId
             ? containers.includes(activeId)
               ? renderContainerDragOverlay(activeId)
@@ -438,7 +412,7 @@ export function MultipleContainers({ renderItem }: Props) {
             isDragOverlay: true,
           } as React.CSSProperties
         }
-        color={getColor(id)}
+        color={"green"}
         wrapperStyle={{ index: 0 } as React.CSSProperties}
         renderItem={renderItem}
         dragOverlay
@@ -471,7 +445,7 @@ export function MultipleContainers({ renderItem }: Props) {
                 isDragOverlay: false,
               } as React.CSSProperties
             }
-            color={getColor(item)}
+            color={"blue"}
             wrapperStyle={{ index } as React.CSSProperties}
             renderItem={renderItem}
           />
@@ -504,21 +478,6 @@ export function MultipleContainers({ renderItem }: Props) {
 
     return String.fromCharCode(lastContainerId.charCodeAt(0) + 1);
   }
-}
-
-function getColor(id: UniqueIdentifier) {
-  switch (String(id)[0]) {
-    case "A":
-      return "#7193f1";
-    case "B":
-      return "#ffda6c";
-    case "C":
-      return "#00bcd4";
-    case "D":
-      return "#ef769f";
-  }
-
-  return undefined;
 }
 
 interface SortableItemProps {
@@ -554,11 +513,7 @@ function SortableItem({
     overIndex,
     transform,
     transition,
-  } = useSortable({
-    id,
-  });
-  const mounted = useMountStatus();
-  const mountedWhileDragging = isDragging && !mounted;
+  } = useSortable({ id });
 
   return (
     <Item
@@ -578,24 +533,12 @@ function SortableItem({
         overIndex: over ? getIndex(over.id) : overIndex,
         containerId,
       })}
-      color={getColor(id)}
+      color={"red"}
       transition={transition}
       transform={transform}
-      fadeIn={mountedWhileDragging}
+      fadeIn={isDragging}
       listeners={listeners}
       renderItem={renderItem}
     />
   );
-}
-
-function useMountStatus() {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setIsMounted(true), 500);
-
-    return () => clearTimeout(timeout);
-  }, []);
-
-  return isMounted;
 }
