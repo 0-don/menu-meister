@@ -5,7 +5,6 @@ import {
   DropAnimation,
   KeyboardSensor,
   MeasuringStrategy,
-  Modifiers,
   MouseSensor,
   TouchSensor,
   UniqueIdentifier,
@@ -14,14 +13,12 @@ import {
   getFirstCollision,
   pointerWithin,
   rectIntersection,
-  useDroppable,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
 import {
   AnimateLayoutChanges,
   SortableContext,
-  SortingStrategy,
   arrayMove,
   defaultAnimateLayoutChanges,
   horizontalListSortingStrategy,
@@ -50,16 +47,13 @@ const animateLayoutChanges: AnimateLayoutChanges = (args) =>
 function DroppableContainer({
   children,
   columns = 1,
-  disabled,
   id,
   items,
   style,
   ...props
 }: ContainerProps & {
-  disabled?: boolean;
   id: UniqueIdentifier;
   items: UniqueIdentifier[];
-  style?: React.CSSProperties;
 }) {
   const {
     active,
@@ -85,7 +79,7 @@ function DroppableContainer({
 
   return (
     <Container
-      ref={disabled ? undefined : setNodeRef}
+      ref={setNodeRef}
       style={{
         ...style,
         transition,
@@ -119,27 +113,12 @@ type Items = Record<UniqueIdentifier, UniqueIdentifier[]>;
 
 interface Props {
   renderItem?: any;
-  strategy?: SortingStrategy;
-  modifiers?: Modifiers;
-  minimal?: boolean;
-  trashable?: boolean;
-  scrollable?: boolean;
-  vertical?: boolean;
 }
 
-export const TRASH_ID = "void";
 const PLACEHOLDER_ID = "placeholder";
 const empty: UniqueIdentifier[] = [];
 
-export function MultipleContainers({
-  minimal = false,
-  modifiers,
-  renderItem,
-  strategy = verticalListSortingStrategy,
-  trashable = false,
-  vertical = false,
-  scrollable,
-}: Props) {
+export function MultipleContainers({ renderItem }: Props) {
   const [items, setItems] = useState<Items>(() => ({
     A: createRange(3, (index: any) => `A${index + 1}`),
     B: createRange(3, (index: any) => `B${index + 1}`),
@@ -154,14 +133,6 @@ export function MultipleContainers({
   const recentlyMovedToNewContainer = useRef(false);
   const isSortingContainer = activeId ? containers.includes(activeId) : false;
 
-  /**
-   * Custom collision detection strategy optimized for multiple containers
-   *
-   * - First, find any droppable containers intersecting with the pointer.
-   * - If there are none, find intersecting containers with the active draggable.
-   * - If there are no intersecting containers, return the last matched intersection
-   *
-   */
   const collisionDetectionStrategy: CollisionDetection = useCallback(
     (args) => {
       if (activeId && activeId in items) {
@@ -173,28 +144,18 @@ export function MultipleContainers({
         });
       }
 
-      // Start by finding any intersecting droppable
       const pointerIntersections = pointerWithin(args);
       const intersections =
         pointerIntersections.length > 0
-          ? // If there are droppables intersecting with the pointer, return those
-            pointerIntersections
+          ? pointerIntersections
           : rectIntersection(args);
       let overId = getFirstCollision(intersections, "id");
 
       if (overId != null) {
-        if (overId === TRASH_ID) {
-          // If the intersecting droppable is the trash, return early
-          // Remove this if you're not using trashable functionality in your app
-          return intersections;
-        }
-
         if (overId in items) {
           const containerItems = items[overId];
 
-          // If a container is matched and it contains items (columns 'A', 'B', 'C')
           if (containerItems.length > 0) {
-            // Return the closest droppable within that container
             overId = closestCenter({
               ...args,
               droppableContainers: args.droppableContainers.filter(
@@ -211,15 +172,10 @@ export function MultipleContainers({
         return [{ id: overId }];
       }
 
-      // When a draggable item moves to a new container, the layout may shift
-      // and the `overId` may become `null`. We manually set the cached `lastOverId`
-      // to the id of the draggable item that was moved to the new container, otherwise
-      // the previous `overId` will be returned which can cause items to incorrectly shift positions
       if (recentlyMovedToNewContainer.current) {
         lastOverId.current = activeId;
       }
 
-      // If no droppable is matched, return the last match
       return lastOverId.current ? [{ id: lastOverId.current }] : [];
     },
     [activeId, items],
@@ -254,8 +210,6 @@ export function MultipleContainers({
 
   const onDragCancel = () => {
     if (clonedItems) {
-      // Reset items to their original state in case items have been
-      // Dragged across containers
       setItems(clonedItems);
     }
 
@@ -285,7 +239,7 @@ export function MultipleContainers({
       onDragOver={({ active, over }) => {
         const overId = over?.id;
 
-        if (overId == null || overId === TRASH_ID || active.id in items) {
+        if (overId == null || active.id in items) {
           return;
         }
 
@@ -363,17 +317,6 @@ export function MultipleContainers({
           return;
         }
 
-        if (overId === TRASH_ID) {
-          setItems((items) => ({
-            ...items,
-            [activeContainer]: items[activeContainer].filter(
-              (id) => id !== activeId,
-            ),
-          }));
-          setActiveId(null);
-          return;
-        }
-
         if (overId === PLACEHOLDER_ID) {
           const newContainerId = getNextContainerId();
 
@@ -412,36 +355,32 @@ export function MultipleContainers({
         setActiveId(null);
       }}
       onDragCancel={onDragCancel}
-      modifiers={modifiers}
     >
       <div
         style={{
           display: "inline-grid",
           boxSizing: "border-box",
           padding: 20,
-          gridAutoFlow: vertical ? "row" : "column",
+          gridAutoFlow: "column",
         }}
       >
         <SortableContext
           items={[...containers, PLACEHOLDER_ID]}
-          strategy={
-            vertical
-              ? verticalListSortingStrategy
-              : horizontalListSortingStrategy
-          }
+          strategy={horizontalListSortingStrategy}
         >
           {containers.map((containerId) => (
             <DroppableContainer
               key={containerId}
               id={containerId}
-              label={minimal ? undefined : `Column ${containerId}`}
+              label={`Column ${containerId}`}
               items={items[containerId]}
-              scrollable={scrollable}
-              unstyled={minimal}
               onRemove={() => handleRemove(containerId)}
             >
-              <SortableContext items={items[containerId]} strategy={strategy}>
-                {items[containerId].map((value, index) => {
+              <SortableContext
+                items={items[containerId]}
+                strategy={verticalListSortingStrategy}
+              >
+                {(items as any)[containerId].map((value: any, index: any) => {
                   return (
                     <SortableItem
                       disabled={isSortingContainer}
@@ -460,17 +399,15 @@ export function MultipleContainers({
               </SortableContext>
             </DroppableContainer>
           ))}
-          {minimal ? undefined : (
-            <DroppableContainer
-              id={PLACEHOLDER_ID}
-              disabled={isSortingContainer}
-              items={empty}
-              onClick={handleAddColumn}
-              placeholder
-            >
-              + Add column
-            </DroppableContainer>
-          )}
+
+          <DroppableContainer
+            id={PLACEHOLDER_ID}
+            items={empty}
+            onClick={handleAddColumn}
+            placeholder
+          >
+            + Add column
+          </DroppableContainer>
         </SortableContext>
       </div>
       {createPortal(
@@ -483,9 +420,6 @@ export function MultipleContainers({
         </DragOverlay>,
         document.body,
       )}
-      {trashable && activeId && !containers.includes(activeId) ? (
-        <Trash id={TRASH_ID} />
-      ) : null}
     </DndContext>
   );
 
@@ -585,34 +519,6 @@ function getColor(id: UniqueIdentifier) {
   }
 
   return undefined;
-}
-
-function Trash({ id }: { id: UniqueIdentifier }) {
-  const { setNodeRef, isOver } = useDroppable({
-    id,
-  });
-
-  return (
-    <div
-      ref={setNodeRef}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "fixed",
-        left: "50%",
-        marginLeft: -150,
-        bottom: 20,
-        width: 300,
-        height: 60,
-        borderRadius: 5,
-        border: "1px solid",
-        borderColor: isOver ? "red" : "#DDD",
-      }}
-    >
-      Drop here to delete
-    </div>
-  );
 }
 
 interface SortableItemProps {
