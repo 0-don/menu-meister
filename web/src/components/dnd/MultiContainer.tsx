@@ -341,8 +341,6 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
                       id={value}
                       index={index}
                       handle={false}
-                      wrapperStyle={() => ({})}
-                      renderItem={renderItem}
                       containerId={containerId}
                       getIndex={getIndex}
                     />
@@ -387,10 +385,6 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
             isDragOverlay: true,
           } as React.CSSProperties
         }
-        color={"green"}
-        wrapperStyle={{ index: 0 } as React.CSSProperties}
-        renderItem={renderItem}
-        dragOverlay
       />
     );
   }
@@ -413,9 +407,6 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
                 isDragOverlay: false,
               } as React.CSSProperties
             }
-            color={"blue"}
-            wrapperStyle={{ index } as React.CSSProperties}
-            renderItem={renderItem}
           />
         ))}
       </Container>
@@ -453,20 +444,16 @@ interface SortableItemProps {
   id: UniqueIdentifier;
   index: number;
   handle: boolean;
-
   getIndex(id: UniqueIdentifier): number;
-  renderItem(): React.ReactElement;
-  wrapperStyle({ index }: { index: number }): React.CSSProperties;
 }
 
 function SortableItem({
   id,
   index,
   handle,
-  renderItem,
+
   containerId,
   getIndex,
-  wrapperStyle,
 }: SortableItemProps) {
   const {
     setNodeRef,
@@ -486,10 +473,9 @@ function SortableItem({
       value={id}
       dragging={isDragging}
       sorting={isSorting}
-      handle={handle}
+
       handleProps={handle ? { ref: setActivatorNodeRef } : undefined}
       index={index}
-      wrapperStyle={wrapperStyle({ index })}
       style={
         {
           index,
@@ -500,12 +486,10 @@ function SortableItem({
           containerId,
         } as React.CSSProperties
       }
-      color={"red"}
       transition={transition}
       transform={transform}
       fadeIn={isDragging}
       listeners={listeners}
-      renderItem={renderItem}
     />
   );
 }
