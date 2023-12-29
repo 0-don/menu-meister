@@ -1,10 +1,8 @@
 import {
-  CancelDrop,
   CollisionDetection,
   DndContext,
   DragOverlay,
   DropAnimation,
-  KeyboardCoordinateGetter,
   KeyboardSensor,
   MeasuringStrategy,
   Modifiers,
@@ -120,24 +118,6 @@ const dropAnimation: DropAnimation = {
 type Items = Record<UniqueIdentifier, UniqueIdentifier[]>;
 
 interface Props {
-  adjustScale?: boolean;
-  cancelDrop?: CancelDrop;
-  columns?: number;
-  containerStyle?: React.CSSProperties;
-  coordinateGetter?: KeyboardCoordinateGetter;
-  getItemStyles?(args: {
-    value: UniqueIdentifier;
-    index: number;
-    overIndex: number;
-    isDragging: boolean;
-    containerId: UniqueIdentifier;
-    isSorting: boolean;
-    isDragOverlay: boolean;
-  }): React.CSSProperties;
-  wrapperStyle?(args: { index: number }): React.CSSProperties;
-  itemCount?: number;
-  items?: Items;
-  handle?: boolean;
   renderItem?: any;
   strategy?: SortingStrategy;
   modifiers?: Modifiers;
@@ -152,16 +132,6 @@ const PLACEHOLDER_ID = "placeholder";
 const empty: UniqueIdentifier[] = [];
 
 export function MultipleContainers({
-  adjustScale = false,
-  itemCount = 3,
-  cancelDrop,
-  columns,
-  handle = false,
-  items: initialItems,
-  containerStyle,
-  coordinateGetter = multipleContainersCoordinateGetter,
-  getItemStyles = () => ({}),
-  wrapperStyle = () => ({}),
   minimal = false,
   modifiers,
   renderItem,
@@ -170,15 +140,12 @@ export function MultipleContainers({
   vertical = false,
   scrollable,
 }: Props) {
-  const [items, setItems] = useState<Items>(
-    () =>
-      initialItems ?? {
-        A: createRange(itemCount, (index: any) => `A${index + 1}`),
-        B: createRange(itemCount, (index: any) => `B${index + 1}`),
-        C: createRange(itemCount, (index: any) => `C${index + 1}`),
-        D: createRange(itemCount, (index: any) => `D${index + 1}`),
-      },
-  );
+  const [items, setItems] = useState<Items>(() => ({
+    A: createRange(3, (index: any) => `A${index + 1}`),
+    B: createRange(3, (index: any) => `B${index + 1}`),
+    C: createRange(3, (index: any) => `C${index + 1}`),
+    D: createRange(3, (index: any) => `D${index + 1}`),
+  }));
   const [containers, setContainers] = useState(
     Object.keys(items) as UniqueIdentifier[],
   );
@@ -262,7 +229,7 @@ export function MultipleContainers({
     useSensor(MouseSensor),
     useSensor(TouchSensor),
     useSensor(KeyboardSensor, {
-      coordinateGetter,
+      coordinateGetter: multipleContainersCoordinateGetter,
     }),
   );
   const findContainer = (id: UniqueIdentifier) => {
@@ -444,7 +411,6 @@ export function MultipleContainers({
 
         setActiveId(null);
       }}
-      cancelDrop={cancelDrop}
       onDragCancel={onDragCancel}
       modifiers={modifiers}
     >
@@ -469,10 +435,8 @@ export function MultipleContainers({
               key={containerId}
               id={containerId}
               label={minimal ? undefined : `Column ${containerId}`}
-              columns={columns}
               items={items[containerId]}
               scrollable={scrollable}
-              style={containerStyle}
               unstyled={minimal}
               onRemove={() => handleRemove(containerId)}
             >
@@ -483,10 +447,10 @@ export function MultipleContainers({
                       disabled={isSortingContainer}
                       key={value}
                       id={value}
+                      style={() => ({})}
                       index={index}
-                      handle={handle}
-                      style={getItemStyles}
-                      wrapperStyle={wrapperStyle}
+                      handle={false}
+                      wrapperStyle={() => ({})}
                       renderItem={renderItem}
                       containerId={containerId}
                       getIndex={getIndex}
@@ -510,7 +474,7 @@ export function MultipleContainers({
         </SortableContext>
       </div>
       {createPortal(
-        <DragOverlay adjustScale={adjustScale} dropAnimation={dropAnimation}>
+        <DragOverlay dropAnimation={dropAnimation}>
           {activeId
             ? containers.includes(activeId)
               ? renderContainerDragOverlay(activeId)
@@ -529,18 +493,19 @@ export function MultipleContainers({
     return (
       <Item
         value={id}
-        handle={handle}
-        style={getItemStyles({
-          containerId: findContainer(id) as UniqueIdentifier,
-          overIndex: -1,
-          index: getIndex(id),
-          value: id,
-          isSorting: true,
-          isDragging: true,
-          isDragOverlay: true,
-        })}
+        style={
+          {
+            containerId: findContainer(id) as UniqueIdentifier,
+            overIndex: -1,
+            index: getIndex(id),
+            value: id,
+            isSorting: true,
+            isDragging: true,
+            isDragOverlay: true,
+          } as React.CSSProperties
+        }
         color={getColor(id)}
-        wrapperStyle={wrapperStyle({ index: 0 })}
+        wrapperStyle={{ index: 0 } as React.CSSProperties}
         renderItem={renderItem}
         dragOverlay
       />
@@ -551,7 +516,6 @@ export function MultipleContainers({
     return (
       <Container
         label={`Column ${containerId}`}
-        columns={columns}
         style={{
           height: "100%",
         }}
@@ -562,18 +526,19 @@ export function MultipleContainers({
           <Item
             key={item}
             value={item}
-            handle={handle}
-            style={getItemStyles({
-              containerId,
-              overIndex: -1,
-              index: getIndex(item),
-              value: item,
-              isDragging: false,
-              isSorting: false,
-              isDragOverlay: false,
-            })}
+            style={
+              {
+                containerId,
+                overIndex: -1,
+                index: getIndex(item),
+                value: item,
+                isDragging: false,
+                isSorting: false,
+                isDragOverlay: false,
+              } as React.CSSProperties
+            }
             color={getColor(item)}
-            wrapperStyle={wrapperStyle({ index })}
+            wrapperStyle={{ index } as React.CSSProperties}
             renderItem={renderItem}
           />
         ))}
