@@ -182,7 +182,6 @@ export const SortableTree: React.FC<{
         setItems(buildTree(sortedItems));
       }}
     >
-      {item?.map((item) => <></>)}
       <div
         style={{
           maxWidth: 600,
