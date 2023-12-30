@@ -17,6 +17,7 @@ import { useMemo, useState } from "react";
 export interface TreeItem {
   id: UniqueIdentifier;
   children: TreeItem[];
+  collapsed?: boolean;
 }
 
 interface FlattenedItem extends TreeItem {
@@ -128,7 +129,33 @@ export function SortableTree() {
   );
   const [overId, setOverId] = useState<UniqueIdentifier | undefined>(undefined);
   const [offsetLeft, setOffsetLeft] = useState(0);
-  const flattenedItems = useMemo(() => flatten(items), [items]);
+  const flattenedItems = useMemo(() => {
+    const flattenedTree: FlattenedItem[] = flatten(items);
+    const collapsedItems = flattenedTree.reduce<string[]>(
+      (acc, { children, collapsed, id }) =>
+        collapsed && children.length ? [...acc, id.toString()] : acc,
+      [],
+    );
+
+    const idsToRemove = activeId
+      ? [activeId.toString(), ...collapsedItems]
+      : collapsedItems;
+    const excludeParentIds = [...idsToRemove];
+
+    return flattenedTree.filter((item) => {
+      if (
+        item.parentId &&
+        excludeParentIds.includes(item.parentId.toString())
+      ) {
+        if (item.children.length) {
+          excludeParentIds.push(item.id.toString());
+        }
+        return false;
+      }
+
+      return true;
+    });
+  }, [activeId, items]);
 
   const projected = getProjection(flattenedItems, offsetLeft, activeId, overId);
   const sortedIds = flattenedItems.map(({ id }) => id);
