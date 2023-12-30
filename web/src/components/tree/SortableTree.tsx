@@ -133,22 +133,11 @@ export function SortableTree() {
   const flattenedItems = useMemo(() => {
     const flattenedTree: FlattenedItem[] = flatten(items);
     const excludeParentIds = new Set<string>(
-      flattenedTree.reduce<string[]>(
-        (acc, { children, collapsed, id }) => {
-          if (collapsed && children.length) acc.push(id.toString());
-          return acc;
-        },
-        activeId ? [activeId.toString()] : [],
-      ),
+      activeId ? [activeId.toString()] : [],
     );
-
-    return flattenedTree.filter(({ parentId, children, id }) => {
-      if (parentId && excludeParentIds.has(parentId.toString())) {
-        if (children.length) excludeParentIds.add(id.toString());
-        return false;
-      }
-      return true;
-    });
+    return flattenedTree.filter(
+      ({ parentId }) => !parentId || !excludeParentIds.has(parentId.toString()),
+    );
   }, [activeId, items]);
 
   const projected = getProjection(flattenedItems, offsetLeft, activeId, overId);
@@ -166,33 +155,22 @@ export function SortableTree() {
       onDragOver={({ over }) => setOverId(over?.id)}
       onDragEnd={({ over, active }) => {
         setActiveId(undefined);
+        if (!projected || !over) return;
 
-        if (projected && over) {
-          const { depth, parentId } = projected;
-          const clonedItems: FlattenedItem[] = structuredClone(flatten(items));
-          const overIndex = clonedItems.findIndex(({ id }) => id === over.id);
-          const activeIndex = clonedItems.findIndex(
-            ({ id }) => id === active.id,
-          );
-          const activeTreeItem = clonedItems[activeIndex];
-          clonedItems[activeIndex] = { ...activeTreeItem, depth, parentId };
+        const clonedItems: FlattenedItem[] = structuredClone(flatten(items));
+        const overIndex = clonedItems.findIndex(({ id }) => id === over.id);
+        const activeIndex = clonedItems.findIndex(({ id }) => id === active.id);
 
-          // Extract IDs for arrayMove
-          const clonedItemIds = clonedItems.map((item) => item.id);
-          const sortedItemIds = arrayMove(
-            clonedItemIds,
-            activeIndex,
-            overIndex,
-          );
+        clonedItems[activeIndex] = {
+          ...clonedItems[activeIndex],
+          ...projected,
+        };
 
-          // Map back to FlattenedItems
-          const sortedItems = sortedItemIds
-            .map((id) => clonedItems.find((item) => item.id === id))
-            .filter((item) => item) as FlattenedItem[];
+        const sortedItems = arrayMove(clonedItems, activeIndex, overIndex)
+          .map((item) => clonedItems.find(({ id }) => id === item.id))
+          .filter(Boolean) as FlattenedItem[];
 
-          const newItems = buildTree(sortedItems);
-          setItems(newItems);
-        }
+        setItems(buildTree(sortedItems));
       }}
     >
       <SortableContext items={sortedIds} strategy={verticalListSortingStrategy}>
