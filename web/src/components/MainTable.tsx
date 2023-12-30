@@ -16,6 +16,7 @@ import {
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import { useSnapshot } from "valtio";
+import { MultipleContainers } from "./dnd/MultiContainer";
 import { TableItem } from "./elements/TableItem";
 import { SortableTree } from "./tree/SortableTree";
 

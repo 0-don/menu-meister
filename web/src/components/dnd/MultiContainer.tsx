@@ -327,17 +327,16 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
           }),
         }}
       >
-        {activeId ? (
-          containers.includes(activeId) ? (
+        {activeId &&
+          (containers.includes(activeId) ? (
             <Container style={{ height: "100%" }}>
-              {items[activeId].map((item, index) => (
+              {items[activeId].map((item) => (
                 <Item key={item} value={item} />
               ))}
             </Container>
           ) : (
             <Item value={activeId} />
-          )
-        ) : null}
+          ))}
       </DragOverlay>
     </DndContext>
   );

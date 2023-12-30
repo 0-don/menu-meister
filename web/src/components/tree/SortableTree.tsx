@@ -34,40 +34,22 @@ export function getProjection(
   if (!activeId || !overId) return null;
   const overItemIndex = items.findIndex(({ id }) => id === overId);
   const activeItemIndex = items.findIndex(({ id }) => id === activeId);
+
   const activeItem = items[activeItemIndex];
-  const newItems = arrayMove(items, activeItemIndex, overItemIndex);
-  const previousItem = newItems[overItemIndex - 1];
-  const nextItem = newItems[overItemIndex + 1];
-  const dragDepth = Math.round(dragOffset / 50);
-  let projectedDepth = activeItem.depth + dragDepth;
-
-  const hasChildren = activeItem.children.length > 0;
-
-  if (hasChildren) {
-    projectedDepth = Math.min(projectedDepth, 0);
-  } else {
-    projectedDepth = Math.min(projectedDepth, 1);
-  }
-
-  const maxDepth = Math.min(
-    previousItem ? previousItem.depth + 1 : 0,
-    hasChildren ? 0 : 1,
+  const projectedDepth = Math.max(
+    activeItem.depth + Math.round(dragOffset / 50),
+    0,
   );
-  const minDepth = Math.min(nextItem ? nextItem.depth : 0, hasChildren ? 0 : 1);
-  let depth = Math.min(Math.max(projectedDepth, minDepth), maxDepth);
+
+  const depth =
+    activeItem.children.length > 0 ? 0 : Math.min(projectedDepth, 1);
 
   let parentId = null;
-  if (depth !== 0 && previousItem) {
-    parentId =
-      depth <= previousItem.depth ? previousItem.parentId : previousItem.id;
+  if (depth !== 0 && overItemIndex > 0) {
+    parentId = items[overItemIndex - 1].id;
   }
 
-  return {
-    depth,
-    maxDepth,
-    minDepth,
-    parentId,
-  };
+  return { depth, parentId };
 }
 
 const flatten = (
