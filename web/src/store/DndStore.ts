@@ -19,6 +19,9 @@ export interface FlatScheduleItem extends ScheduleItem {
 const DndStore = proxy({
   schedules: [] as Schedule[],
   flatSchedules: [] as FlatScheduleItem[],
+  
+  getAllFlatten: () =>
+    DndStore.schedules.map((schedule) => DndStore.flatten(schedule)).flat(),
   flatten: (
     schedule: Schedule,
     parentId: UniqueIdentifier | null = null,
