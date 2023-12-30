@@ -15,16 +15,13 @@ import { SortableTreeItem } from "./SortableTreeItem";
 import type { FlattenedItem, TreeItems } from "./types";
 import {
   buildTree,
-  flattenTree,
+  flatten,
   getProjection,
   removeChildrenOf,
 } from "./utilities";
 
 const initialItems: TreeItems = [
-  {
-    id: "Home",
-    children: [],
-  },
+  { id: "Home", children: [] },
   {
     id: "Collections",
     children: [
@@ -34,10 +31,7 @@ const initialItems: TreeItems = [
       { id: "Winter", children: [] },
     ],
   },
-  {
-    id: "About Us",
-    children: [],
-  },
+  { id: "About Us", children: [] },
   {
     id: "My Account",
     children: [
@@ -53,7 +47,7 @@ export function SortableTree() {
   const [overId, setOverId] = useState<UniqueIdentifier | null>(null);
   const [offsetLeft, setOffsetLeft] = useState(0);
   const flattenedItems = useMemo(() => {
-    const flattenedTree: FlattenedItem[] = flattenTree(items);
+    const flattenedTree: FlattenedItem[] = flatten(items);
     const collapsedItems = flattenedTree.reduce<string[]>(
       (acc, { children, collapsed, id }) =>
         collapsed && children.length ? [...acc, id.toString()] : acc,
@@ -92,9 +86,7 @@ export function SortableTree() {
 
         if (projected && over) {
           const { depth, parentId } = projected;
-          const clonedItems: FlattenedItem[] = JSON.parse(
-            JSON.stringify(flattenTree(items)),
-          );
+          const clonedItems: FlattenedItem[] = structuredClone(flatten(items));
           const overIndex = clonedItems.findIndex(({ id }) => id === over.id);
           const activeIndex = clonedItems.findIndex(
             ({ id }) => id === active.id,
