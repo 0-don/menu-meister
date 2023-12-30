@@ -68,22 +68,13 @@ export const flatten = (
     [],
   );
 
-export function buildTree(flattenedItems: FlattenedItem[]): TreeItem[] {
-  const rootItems: TreeItem[] = [];
-
-  flattenedItems.forEach((item) => {
-    if (item.depth === 0) {
-      rootItems.push({ ...item, children: [] });
-    } else {
-      const parent = rootItems.find(
-        (rootItem) => rootItem.id === item.parentId,
-      );
-      parent?.children.push({ ...item, children: [] });
-    }
-  });
-
-  return rootItems;
-}
+export const buildTree = (flattItems: FlattenedItem[]): TreeItem[] =>
+  flattItems
+    .filter((item) => item.depth === 0)
+    .map((rootItem) => ({
+      ...rootItem,
+      children: flattItems.filter((child) => child.parentId === rootItem.id),
+    }));
 
 export function removeChildrenOf(
   items: FlattenedItem[],
@@ -135,19 +126,7 @@ export function SortableTree() {
   );
   const [overId, setOverId] = useState<UniqueIdentifier | undefined>(undefined);
   const [offsetLeft, setOffsetLeft] = useState(0);
-  const flattenedItems = useMemo(() => {
-    const flattenedTree: FlattenedItem[] = flatten(items);
-    const collapsedItems = flattenedTree.reduce<string[]>(
-      (acc, { children, collapsed, id }) =>
-        collapsed && children.length ? [...acc, id.toString()] : acc,
-      [],
-    );
-
-    return removeChildrenOf(
-      flattenedTree,
-      activeId ? [activeId.toString(), ...collapsedItems] : collapsedItems,
-    );
-  }, [activeId, items]);
+  const flattenedItems = useMemo(() => flatten(items), [items]);
 
   const projected = getProjection(flattenedItems, offsetLeft, activeId, overId);
   const sortedIds = flattenedItems.map(({ id }) => id);
