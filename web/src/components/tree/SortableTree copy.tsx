@@ -33,42 +33,19 @@ function getProjection(
   overId?: UniqueIdentifier,
 ) {
   if (!activeId || !overId) return null;
-  const overItemIndex = items.findIndex(({ id }) => id === overId);
-  const activeItemIndex = items.findIndex(({ id }) => id === activeId);
-  const activeItem = items[activeItemIndex];
-  const newItems = arrayMove(items, activeItemIndex, overItemIndex);
-  const previousItem = newItems[overItemIndex - 1];
-  const nextItem = newItems[overItemIndex + 1];
-  const dragDepth = Math.round(dragOffset / 50);
-  let projectedDepth = activeItem.depth + dragDepth;
 
-  const hasChildren = activeItem.children.length > 0;
-
-  if (hasChildren) {
-    projectedDepth = Math.min(projectedDepth, 0);
-  } else {
-    projectedDepth = Math.min(projectedDepth, 1);
-  }
-
-  const maxDepth = Math.min(
-    previousItem ? previousItem.depth + 1 : 0,
-    hasChildren ? 0 : 1,
-  );
-  const minDepth = Math.min(nextItem ? nextItem.depth : 0, hasChildren ? 0 : 1);
-  let depth = Math.min(Math.max(projectedDepth, minDepth), maxDepth);
+  const activeItem = items.find((item) => item.id === activeId);
+  const maxDepth = activeItem && activeItem.children.length > 0 ? 0 : 1;
+  const depth = Math.min(dragOffset > 0 ? 1 : 0, maxDepth);
 
   let parentId = null;
-  if (depth !== 0 && previousItem) {
-    parentId =
-      depth <= previousItem.depth ? previousItem.parentId : previousItem.id;
+  if (depth === 1) {
+    const overItemIndex = items.findIndex(({ id }) => id === overId);
+    const previousItem = items[overItemIndex - 1];
+    parentId = previousItem ? previousItem.id : null;
   }
 
-  return {
-    depth,
-    maxDepth,
-    minDepth,
-    parentId,
-  };
+  return { depth, parentId };
 }
 
 const flatten = (
@@ -104,16 +81,12 @@ const SortableTreeItem: React.FC<{
   return (
     <li
       ref={setDroppableNodeRef}
-      style={{
-        listStyleType: "none",
-        paddingInlineStart: `${props.indentationWidth * props.depth}px`,
-      }}
+      className="list-none"
+      style={{ paddingLeft: `${props.indentationWidth * props.depth}px` }}
     >
       <div
         ref={setDraggableNodeRef}
-        style={{
-          transform: CSS.Translate.toString(transform),
-        }}
+        style={{ transform: CSS.Translate.toString(transform) }}
         {...listeners}
       >
         {props.id}
@@ -130,31 +103,20 @@ export function SortableTree() {
   const [overId, setOverId] = useState<UniqueIdentifier | undefined>(undefined);
   const [offsetLeft, setOffsetLeft] = useState(0);
   const flattenedItems = useMemo(() => {
-    const flattenedTree: FlattenedItem[] = flatten(items);
-    const collapsedItems = flattenedTree.reduce<string[]>(
-      (acc, { children, collapsed, id }) =>
-        collapsed && children.length ? [...acc, id.toString()] : acc,
-      [],
-    );
+    const flattenedTree = flatten(items);
 
-    const idsToRemove = activeId
-      ? [activeId.toString(), ...collapsedItems]
-      : collapsedItems;
-    const excludeParentIds = [...idsToRemove];
-
-    return flattenedTree.filter((item) => {
-      if (
-        item.parentId &&
-        excludeParentIds.includes(item.parentId.toString())
-      ) {
-        if (item.children.length) {
-          excludeParentIds.push(item.id.toString());
-        }
-        return false;
+    const isItemRemoved = ({ id, children, ...item }: FlattenedItem) => {
+      if (id === activeId || (item.collapsed && children.length > 0))
+        return true;
+      if (item.parentId && excludeParentIds.has(item.parentId)) {
+        if (children.length > 0) excludeParentIds.add(id);
+        return true;
       }
+      return false;
+    };
 
-      return true;
-    });
+    const excludeParentIds = new Set(activeId ? [activeId] : []);
+    return flattenedTree.filter((item) => !isItemRemoved(item));
   }, [activeId, items]);
 
   const projected = getProjection(flattenedItems, offsetLeft, activeId, overId);
