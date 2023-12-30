@@ -30,7 +30,6 @@ export interface SortableTreeItemProps {
   id: UniqueIdentifier;
   depth: number;
   indentationWidth: number;
-  value: string;
 }
 
 export function getProjection(
@@ -77,6 +76,7 @@ export function getProjection(
     parentId,
   };
 }
+
 export function flatten(
   items: TreeItem[],
   parentId: UniqueIdentifier | null = null,
@@ -126,21 +126,16 @@ export function removeChildrenOf(
   });
 }
 
-export const SortableTreeItem: React.FC<SortableTreeItemProps> = ({
-  id,
-  depth,
-  indentationWidth,
-  value,
-}) => {
+export const SortableTreeItem: React.FC<SortableTreeItemProps> = (props) => {
   const { listeners, setDraggableNodeRef, setDroppableNodeRef, transform } =
-    useSortable({ id });
+    useSortable({ id: props.id });
 
   return (
     <li
       ref={setDroppableNodeRef}
       style={{
         listStyleType: "none",
-        paddingInlineStart: `${indentationWidth * depth}px`,
+        paddingInlineStart: `${props.indentationWidth * props.depth}px`,
       }}
     >
       <div
@@ -150,14 +145,14 @@ export const SortableTreeItem: React.FC<SortableTreeItemProps> = ({
         }}
         {...listeners}
       >
-        {value}
+        {props.id}
       </div>
     </li>
   );
 };
 
 export function SortableTree() {
-  const [items, setItems] = useState(() => initialItems);
+  const [items, setItems] = useState(initialItems);
   const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>(
     undefined,
   );
@@ -226,7 +221,6 @@ export function SortableTree() {
           <SortableTreeItem
             key={id}
             id={id}
-            value={String(id)}
             depth={id === activeId && projected ? projected.depth : depth}
             indentationWidth={50}
           />
@@ -237,7 +231,6 @@ export function SortableTree() {
             <SortableTreeItem
               id={activeId}
               depth={activeItem.depth}
-              value={activeId.toString()}
               indentationWidth={50}
             />
           )}
