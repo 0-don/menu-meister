@@ -16,7 +16,6 @@ import type { FlattenedItem, TreeItems } from "./types";
 import {
   buildTree,
   flattenTree,
-  getChildCount,
   getProjection,
   removeChildrenOf,
 } from "./utilities";
@@ -54,18 +53,16 @@ export function SortableTree() {
   const [overId, setOverId] = useState<UniqueIdentifier | null>(null);
   const [offsetLeft, setOffsetLeft] = useState(0);
   const flattenedItems = useMemo(() => {
-    const flattenedTree = flattenTree(items);
+    const flattenedTree: FlattenedItem[] = flattenTree(items);
     const collapsedItems = flattenedTree.reduce<string[]>(
       (acc, { children, collapsed, id }) =>
-        // @ts-ignore
-        collapsed && children.length ? [...acc, id] : acc,
+        collapsed && children.length ? [...acc, id.toString()] : acc,
       [],
     );
 
     return removeChildrenOf(
       flattenedTree,
-      // @ts-ignore
-      activeId ? [activeId, ...collapsedItems] : collapsedItems,
+      activeId ? [activeId.toString(), ...collapsedItems] : collapsedItems,
     );
   }, [activeId, items]);
   const projected =
@@ -103,26 +100,34 @@ export function SortableTree() {
             ({ id }) => id === active.id,
           );
           const activeTreeItem = clonedItems[activeIndex];
-
           clonedItems[activeIndex] = { ...activeTreeItem, depth, parentId };
 
-          const sortedItems = arrayMove(clonedItems, activeIndex, overIndex);
-          const newItems = buildTree(sortedItems);
+          // Extract IDs for arrayMove
+          const clonedItemIds = clonedItems.map((item) => item.id);
+          const sortedItemIds = arrayMove(
+            clonedItemIds,
+            activeIndex,
+            overIndex,
+          );
 
+          // Map back to FlattenedItems
+          const sortedItems = sortedItemIds
+            .map((id) => clonedItems.find((item) => item.id === id))
+            .filter((item) => item) as FlattenedItem[];
+
+          const newItems = buildTree(sortedItems);
           setItems(newItems);
         }
       }}
     >
       <SortableContext items={sortedIds} strategy={verticalListSortingStrategy}>
-        {flattenedItems.map(({ id, children, collapsed, depth }) => (
+        {flattenedItems.map(({ id, depth }) => (
           <SortableTreeItem
             key={id}
             id={id}
             value={String(id)}
             depth={id === activeId && projected ? projected.depth : depth}
             indentationWidth={50}
-            indicator={false}
-            collapsed={Boolean(collapsed && children.length)}
           />
         ))}
         {createPortal(
@@ -131,8 +136,6 @@ export function SortableTree() {
               <SortableTreeItem
                 id={activeId}
                 depth={activeItem.depth}
-                clone
-                childCount={getChildCount(items, activeId) + 1}
                 value={activeId.toString()}
                 indentationWidth={50}
               />
