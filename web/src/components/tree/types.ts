@@ -1,5 +1,5 @@
-import type {MutableRefObject} from 'react';
-import type {UniqueIdentifier} from '@dnd-kit/core';
+import type { UniqueIdentifier } from "@dnd-kit/core";
+import type { MutableRefObject } from "react";
 
 export interface TreeItem {
   id: UniqueIdentifier;

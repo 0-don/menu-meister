@@ -1,7 +1,36 @@
+/* eslint-disable react/display-name */
 import type { UniqueIdentifier } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { TreeItem, TreeItemProps } from "./TreeItem";
+import { HTMLAttributes, forwardRef } from "react";
+
+export interface TreeItemProps
+  extends Omit<HTMLAttributes<HTMLLIElement>, "id"> {
+  depth: number;
+  handleProps?: any;
+  indentationWidth: number;
+  value: string;
+  wrapperRef?(node: HTMLLIElement): void;
+}
+
+export const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(
+  ({ depth, handleProps, indentationWidth, style, value, wrapperRef }, ref) => {
+    return (
+      <li
+        ref={wrapperRef}
+        style={{
+          listStyleType: "none",
+          paddingInlineStart: `${indentationWidth * depth}px`,
+          ...style,
+        }}
+      >
+        <div ref={ref} {...handleProps}>
+          {value}
+        </div>
+      </li>
+    );
+  },
+);
 
 interface Props extends TreeItemProps {
   id: UniqueIdentifier;
