@@ -51,7 +51,7 @@ export function MainTable({}: DashboardPageProps) {
 
       {/* <MultipleContainers /> */}
 
-      <SortableTree item={data?.getAllMealSchedulesAdmin} />
+      <SortableTree items={data?.getAllMealSchedulesAdmin} />
 
       <Table className="mt-5" aria-label="Table">
         <TableHeader>

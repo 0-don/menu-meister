@@ -130,9 +130,9 @@ export type GetAllMealSchedulesAdminQuery = {
 };
 
 export const SortableTree: React.FC<{
-  item: GetAllMealSchedulesAdminQuery["getAllMealSchedulesAdmin"];
-}> = ({ item }) => {
-  const [items, setItems] = useState(initialItems);
+  items: GetAllMealSchedulesAdminQuery["getAllMealSchedulesAdmin"];
+}> = ({ items }) => {
+  const [schedules, setSchedules] = useState(initialItems);
   const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>(
     undefined,
   );
@@ -140,14 +140,14 @@ export const SortableTree: React.FC<{
   const [offsetLeft, setOffsetLeft] = useState(0);
 
   const flattenedItems = useMemo(() => {
-    const flattenedTree: FlattenedItem[] = flatten(items);
+    const flattenedTree: FlattenedItem[] = flatten(schedules);
     const excludeParentIds = new Set<string>(
       activeId ? [activeId.toString()] : [],
     );
     return flattenedTree.filter(
       ({ parentId }) => !parentId || !excludeParentIds.has(parentId.toString()),
     );
-  }, [activeId, items]);
+  }, [activeId, schedules]);
 
   const projected = getProjection(flattenedItems, offsetLeft, activeId, overId);
   const sortedIds = flattenedItems.map(({ id }) => id);
@@ -166,7 +166,9 @@ export const SortableTree: React.FC<{
         setActiveId(undefined);
         if (!projected || !over) return;
 
-        const clonedItems: FlattenedItem[] = structuredClone(flatten(items));
+        const clonedItems: FlattenedItem[] = structuredClone(
+          flatten(schedules),
+        );
         const overIndex = clonedItems.findIndex(({ id }) => id === over.id);
         const activeIndex = clonedItems.findIndex(({ id }) => id === active.id);
 
@@ -179,7 +181,7 @@ export const SortableTree: React.FC<{
           .map((item) => clonedItems.find(({ id }) => id === item.id))
           .filter(Boolean) as FlattenedItem[];
 
-        setItems(buildTree(sortedItems));
+        setSchedules(buildTree(sortedItems));
       }}
     >
       <div
