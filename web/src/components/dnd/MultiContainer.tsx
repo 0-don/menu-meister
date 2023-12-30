@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+import type { DraggableSyntheticListeners } from "@dnd-kit/core";
 import {
   CollisionDetection,
   DndContext,
@@ -18,10 +20,74 @@ import {
   useSortable,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import type { Transform } from "@dnd-kit/utilities";
 import { CSS } from "@dnd-kit/utilities";
-import { useCallback, useRef, useState } from "react";
-import { Container, ContainerProps } from "./Container";
-import { Item } from "./Item";
+import React, { forwardRef, memo, useCallback, useRef, useState } from "react";
+
+export interface ContainerProps {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  handleProps?: React.HTMLAttributes<any>;
+}
+
+export const Container = forwardRef<HTMLDivElement, ContainerProps>(
+  ({ children, handleProps, style }: ContainerProps, ref) => {
+    return (
+      <div
+        ref={ref}
+        style={style}
+        className={`max-content duration-350 m-2.5 box-border flex min-h-[200px] min-w-[350px] appearance-none flex-col overflow-hidden rounded-md border 
+        border-[rgba(0,0,0,0.05)] bg-black text-base outline-none transition-colors ${
+          handleProps?.className || ""
+        }`}
+        {...handleProps}
+      >
+        <div>asdas</div>
+        {children}
+      </div>
+    );
+  },
+);
+
+export interface ItemProps {
+  dragging?: boolean;
+  listeners?: DraggableSyntheticListeners;
+  transition?: string | null;
+  transform?: Transform | null;
+  value: React.ReactNode;
+}
+
+export const Item = memo(
+  forwardRef<HTMLLIElement, ItemProps>(
+    ({ dragging, listeners, transition, transform, value }, ref) => {
+      const wrapperStyles = {
+        transition: [transition].filter(Boolean).join(", "),
+        transform: `translate3d(${transform ? `${transform.x}px` : "0"}, ${
+          transform ? `${transform.y}px` : "0"
+        }, 0) scaleX(${transform?.scaleX ?? 1}) scaleY(${
+          transform?.scaleY ?? 1
+        })`,
+      };
+
+      return (
+        <li
+          className={`box-border flex ${dragging ? "z-50" : "z-auto"}`}
+          style={wrapperStyles}
+          {...listeners}
+          ref={ref}
+        >
+          <div
+            className={`bg-opacity relative flex flex-grow items-center rounded-lg bg-gray-500 p-4 text-black outline-none  ${
+              dragging ? "opacity-50" : "opacity-100"
+            }`}
+          >
+            {value}
+          </div>
+        </li>
+      );
+    },
+  ),
+);
 
 function DroppableContainer({
   children,
