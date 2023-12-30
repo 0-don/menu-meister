@@ -16,43 +16,27 @@ export function getProjection(
   const previousItem = newItems[overItemIndex - 1];
   const nextItem = newItems[overItemIndex + 1];
   const dragDepth = Math.round(dragOffset / indentationWidth);
-  const projectedDepth = activeItem.depth + dragDepth;
-  const maxDepth = getMaxDepth({
-    previousItem,
-  });
-  const minDepth = getMinDepth({ nextItem });
-  let depth = projectedDepth;
+  let projectedDepth = activeItem.depth + dragDepth;
 
-  if (projectedDepth >= maxDepth) {
-    depth = maxDepth;
-  } else if (projectedDepth < minDepth) {
-    depth = minDepth;
+  // Enforce level one depth limitation
+  projectedDepth = Math.min(projectedDepth, 1);
+
+  const maxDepth = Math.min(previousItem ? previousItem.depth + 1 : 0, 1);
+  const minDepth = Math.min(nextItem ? nextItem.depth : 0, 1);
+  let depth = Math.min(Math.max(projectedDepth, minDepth), maxDepth);
+
+  let parentId = null;
+  if (depth !== 0 && previousItem) {
+    parentId =
+      depth <= previousItem.depth ? previousItem.parentId : previousItem.id;
   }
 
-  return { depth, maxDepth, minDepth, parentId: getParentId() };
-
-  function getParentId() {
-    if (depth === 0 || !previousItem) return null;
-    if (depth === previousItem.depth) return previousItem.parentId;
-    if (depth > previousItem.depth) return previousItem.id;
-
-    const newParent = newItems
-      .slice(0, overItemIndex)
-      .reverse()
-      .find((item) => item.depth === depth)?.parentId;
-
-    return newParent ?? null;
-  }
-}
-
-function getMaxDepth({ previousItem }: { previousItem: FlattenedItem }) {
-  if (previousItem) return previousItem.depth + 1;
-  return 0;
-}
-
-function getMinDepth({ nextItem }: { nextItem: FlattenedItem }) {
-  if (nextItem) return nextItem.depth;
-  return 0;
+  return {
+    depth,
+    maxDepth,
+    minDepth,
+    parentId,
+  };
 }
 
 export function flatten(
