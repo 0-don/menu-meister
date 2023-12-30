@@ -6,7 +6,7 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export interface TreeItem {
   id: UniqueIdentifier;
@@ -55,15 +55,15 @@ function getProjection(
 }
 
 const flatten = (
-  items: TreeItem[],
+  items: ScheduleItem[],
   parentId: UniqueIdentifier | null = null,
   depth = 0,
-): FlattenedItem[] =>
-  items.reduce<FlattenedItem[]>(
+): FlattenedItemV2[] =>
+  items.reduce<FlattenedItemV2[]>(
     (acc, item, index) => [
       ...acc,
       { ...item, parentId, depth, index },
-      ...flatten(item.children, item.id, depth + 1),
+      // ...flatten(item.children, item.id, depth + 1),
     ],
     [],
   );
@@ -144,6 +144,8 @@ export const SortableTree: React.FC<{
   const [overId, setOverId] = useState<UniqueIdentifier | undefined>(undefined);
   const [offsetLeft, setOffsetLeft] = useState(0);
 
+  useEffect(() => void setSchedules(items), [items]);
+
   const flattenedItems: FlattenedItemV2[] = useMemo(() => {
     // const flattenedTree: FlattenedItem[] = flatten(schedules);
     const excludeParentIds = new Set<string>(
@@ -172,7 +174,7 @@ export const SortableTree: React.FC<{
         setActiveId(undefined);
         if (!projected || !over) return;
 
-        const clonedItems: FlattenedItem[] = structuredClone(flatten([]));
+        const clonedItems: FlattenedItemV2[] = structuredClone(flatten([]));
         const overIndex = clonedItems.findIndex(({ id }) => id === over.id);
         const activeIndex = clonedItems.findIndex(({ id }) => id === active.id);
 
@@ -183,37 +185,47 @@ export const SortableTree: React.FC<{
 
         const sortedItems = arrayMove(clonedItems, activeIndex, overIndex)
           .map((item) => clonedItems.find(({ id }) => id === item.id))
-          .filter(Boolean) as FlattenedItem[];
+          .filter(Boolean) as FlattenedItemV2[];
 
         // setSchedules(buildTree(sortedItems));
       }}
     >
-      <div
-        style={{
-          maxWidth: 600,
-          margin: "0 auto",
-        }}
-      >
-        <SortableContext items={sortedIds}>
-          {flattenedItems.map(({ id, depth }) => (
-            <SortableTreeItem
-              key={id}
-              id={id}
-              depth={id === activeId && projected ? projected.depth : depth}
-              indentationWidth={50}
-            />
-          ))}
+      <div className="flex">
+        {schedules?.map((schedule) => (
+          <div
+            key={schedule.id}
+            className="border-2 p-2"
+            style={{
+              maxWidth: 600,
+              margin: "0 auto",
+            }}
+          >
+            <SortableContext items={sortedIds}>
+              {(flatten(schedule.scheduledMeals!) as FlattenedItemV2[])?.map(
+                ({ id, depth, meal }) => (
+                  <SortableTreeItem
+                    key={id}
+                    id={meal?.name || id}
+                    depth={
+                      id === activeId && projected ? projected.depth : depth
+                    }
+                    indentationWidth={50}
+                  />
+                ),
+              )}
 
-          <DragOverlay>
-            {activeId && activeItem && (
-              <SortableTreeItem
-                id={activeId}
-                depth={activeItem.depth}
-                indentationWidth={50}
-              />
-            )}
-          </DragOverlay>
-        </SortableContext>
+              <DragOverlay>
+                {activeId && activeItem && (
+                  <SortableTreeItem
+                    id={activeId}
+                    depth={activeItem.depth}
+                    indentationWidth={50}
+                  />
+                )}
+              </DragOverlay>
+            </SortableContext>
+          </div>
+        ))}
       </div>
     </DndContext>
   );
