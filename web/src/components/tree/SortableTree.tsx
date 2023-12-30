@@ -1,16 +1,10 @@
-import { initialItems } from "@/utils/constants";
 import {
   DndContext,
   DragOverlay,
   UniqueIdentifier,
   closestCenter,
 } from "@dnd-kit/core";
-import {
-  SortableContext,
-  arrayMove,
-  useSortable,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { SortableContext, arrayMove, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useMemo, useState } from "react";
 
@@ -20,7 +14,18 @@ export interface TreeItem {
   collapsed?: boolean;
 }
 
+type Schedule = NonNullable<
+  GetAllMealSchedulesAdminQuery["getAllMealSchedulesAdmin"]
+>[0];
+type ScheduleItem = NonNullable<Schedule["scheduledMeals"]>[0];
+
 interface FlattenedItem extends TreeItem {
+  parentId: UniqueIdentifier | null;
+  depth: number;
+  index: number;
+}
+
+interface FlattenedItemV2 extends ScheduleItem {
   parentId: UniqueIdentifier | null;
   depth: number;
   index: number;
@@ -132,24 +137,25 @@ export type GetAllMealSchedulesAdminQuery = {
 export const SortableTree: React.FC<{
   items: GetAllMealSchedulesAdminQuery["getAllMealSchedulesAdmin"];
 }> = ({ items }) => {
-  const [schedules, setSchedules] = useState(initialItems);
+  const [schedules, setSchedules] = useState(items);
   const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>(
     undefined,
   );
   const [overId, setOverId] = useState<UniqueIdentifier | undefined>(undefined);
   const [offsetLeft, setOffsetLeft] = useState(0);
 
-  const flattenedItems = useMemo(() => {
-    const flattenedTree: FlattenedItem[] = flatten(schedules);
+  const flattenedItems: FlattenedItemV2[] = useMemo(() => {
+    // const flattenedTree: FlattenedItem[] = flatten(schedules);
     const excludeParentIds = new Set<string>(
       activeId ? [activeId.toString()] : [],
     );
-    return flattenedTree.filter(
-      ({ parentId }) => !parentId || !excludeParentIds.has(parentId.toString()),
-    );
+    // return flattenedTree.filter(
+    //   ({ parentId }) => !parentId || !excludeParentIds.has(parentId.toString()),
+    // );
+    return [];
   }, [activeId, schedules]);
 
-  const projected = getProjection(flattenedItems, offsetLeft, activeId, overId);
+  const projected = getProjection([], offsetLeft, activeId, overId);
   const sortedIds = flattenedItems.map(({ id }) => id);
   const activeItem = flattenedItems.find(({ id }) => id === activeId);
 
@@ -166,9 +172,7 @@ export const SortableTree: React.FC<{
         setActiveId(undefined);
         if (!projected || !over) return;
 
-        const clonedItems: FlattenedItem[] = structuredClone(
-          flatten(schedules),
-        );
+        const clonedItems: FlattenedItem[] = structuredClone(flatten([]));
         const overIndex = clonedItems.findIndex(({ id }) => id === over.id);
         const activeIndex = clonedItems.findIndex(({ id }) => id === active.id);
 
@@ -181,7 +185,7 @@ export const SortableTree: React.FC<{
           .map((item) => clonedItems.find(({ id }) => id === item.id))
           .filter(Boolean) as FlattenedItem[];
 
-        setSchedules(buildTree(sortedItems));
+        // setSchedules(buildTree(sortedItems));
       }}
     >
       <div
@@ -190,10 +194,7 @@ export const SortableTree: React.FC<{
           margin: "0 auto",
         }}
       >
-        <SortableContext
-          items={sortedIds}
-          strategy={verticalListSortingStrategy}
-        >
+        <SortableContext items={sortedIds}>
           {flattenedItems.map(({ id, depth }) => (
             <SortableTreeItem
               key={id}
