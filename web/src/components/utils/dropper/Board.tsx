@@ -23,8 +23,6 @@ export const Board: FunctionComponent<BoardProps> = ({ items }) => {
 
   const onDragEnd = ({ source, destination, type }: DropResult) => {
     if (!destination) return;
-
-    console.log(source, destination, type);
   };
 
   const renderMealGroup = (

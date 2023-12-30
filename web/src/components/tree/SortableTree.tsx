@@ -1,4 +1,4 @@
-/* eslint-disable react/display-name */
+import { initialItems } from "@/utils/constants";
 import {
   DndContext,
   DragOverlay,
@@ -14,40 +14,116 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { useMemo, useState } from "react";
 
-import type { FlattenedItem, TreeItems } from "./types";
-import {
-  buildTree,
-  flatten,
-  getProjection,
-  removeChildrenOf,
-} from "./utilities";
+export interface TreeItem {
+  id: UniqueIdentifier;
+  children: TreeItem[];
+  collapsed?: boolean;
+}
 
-const initialItems: TreeItems = [
-  { id: "Home", children: [] },
-  {
-    id: "Collections",
-    children: [
-      { id: "Spring", children: [] },
-      { id: "Summer", children: [] },
-      { id: "Fall", children: [] },
-      { id: "Winter", children: [] },
-    ],
-  },
-  { id: "About Us", children: [] },
-  {
-    id: "My Account",
-    children: [
-      { id: "Addresses", children: [] },
-      { id: "Order History", children: [] },
-    ],
-  },
-];
+export interface FlattenedItem extends TreeItem {
+  parentId: UniqueIdentifier | null;
+  depth: number;
+  index: number;
+}
 
 export interface SortableTreeItemProps {
   id: UniqueIdentifier;
   depth: number;
   indentationWidth: number;
   value: string;
+}
+
+export function getProjection(
+  items: FlattenedItem[],
+  dragOffset: number,
+  activeId?: UniqueIdentifier,
+  overId?: UniqueIdentifier,
+) {
+  if (!activeId || !overId) return null;
+  const overItemIndex = items.findIndex(({ id }) => id === overId);
+  const activeItemIndex = items.findIndex(({ id }) => id === activeId);
+  const activeItem = items[activeItemIndex];
+  const newItems = arrayMove(items, activeItemIndex, overItemIndex);
+  const previousItem = newItems[overItemIndex - 1];
+  const nextItem = newItems[overItemIndex + 1];
+  const dragDepth = Math.round(dragOffset / 50);
+  let projectedDepth = activeItem.depth + dragDepth;
+
+  const hasChildren = activeItem.children.length > 0;
+
+  if (hasChildren) {
+    projectedDepth = Math.min(projectedDepth, 0);
+  } else {
+    projectedDepth = Math.min(projectedDepth, 1);
+  }
+
+  const maxDepth = Math.min(
+    previousItem ? previousItem.depth + 1 : 0,
+    hasChildren ? 0 : 1,
+  );
+  const minDepth = Math.min(nextItem ? nextItem.depth : 0, hasChildren ? 0 : 1);
+  let depth = Math.min(Math.max(projectedDepth, minDepth), maxDepth);
+
+  let parentId = null;
+  if (depth !== 0 && previousItem) {
+    parentId =
+      depth <= previousItem.depth ? previousItem.parentId : previousItem.id;
+  }
+
+  return {
+    depth,
+    maxDepth,
+    minDepth,
+    parentId,
+  };
+}
+export function flatten(
+  items: TreeItem[],
+  parentId: UniqueIdentifier | null = null,
+  depth = 0,
+): FlattenedItem[] {
+  return items.reduce<FlattenedItem[]>((acc, item, index) => {
+    return [
+      ...acc,
+      { ...item, parentId, depth, index },
+      ...flatten(item.children, item.id, depth + 1),
+    ];
+  }, []);
+}
+
+export function buildTree(flattenedItems: FlattenedItem[]): TreeItem[] {
+  const root: TreeItem = { id: "root", children: [] };
+  const nodes: Record<string, TreeItem> = { [root.id]: root };
+  const items = flattenedItems.map((item) => ({ ...item, children: [] }));
+
+  for (const item of items) {
+    const { id, children } = item;
+    const parentId = item.parentId ?? root.id;
+    const parent = nodes[parentId] ?? items.find(({ id }) => id === parentId);
+
+    nodes[id] = { id, children };
+    parent.children.push(item);
+  }
+
+  return root.children;
+}
+
+export function removeChildrenOf(
+  items: FlattenedItem[],
+  ids: UniqueIdentifier[],
+) {
+  const excludeParentIds = [...ids];
+
+  return items.filter((item) => {
+    if (item.parentId && excludeParentIds.includes(item.parentId)) {
+      if (item.children.length) {
+        excludeParentIds.push(item.id);
+      }
+      return false;
+    }
+
+    return true;
+  });
 }
 
 export const SortableTreeItem: React.FC<SortableTreeItemProps> = ({
@@ -82,8 +158,10 @@ export const SortableTreeItem: React.FC<SortableTreeItemProps> = ({
 
 export function SortableTree() {
   const [items, setItems] = useState(() => initialItems);
-  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const [overId, setOverId] = useState<UniqueIdentifier | null>(null);
+  const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>(
+    undefined,
+  );
+  const [overId, setOverId] = useState<UniqueIdentifier | undefined>(undefined);
   const [offsetLeft, setOffsetLeft] = useState(0);
   const flattenedItems = useMemo(() => {
     const flattenedTree: FlattenedItem[] = flatten(items);
@@ -98,18 +176,10 @@ export function SortableTree() {
       activeId ? [activeId.toString(), ...collapsedItems] : collapsedItems,
     );
   }, [activeId, items]);
-  const projected =
-    activeId && overId
-      ? getProjection(flattenedItems, activeId, overId, offsetLeft, 50)
-      : null;
 
-  const sortedIds = useMemo(
-    () => flattenedItems.map(({ id }) => id),
-    [flattenedItems],
-  );
-  const activeItem = activeId
-    ? flattenedItems.find(({ id }) => id === activeId)
-    : null;
+  const projected = getProjection(flattenedItems, offsetLeft, activeId, overId);
+  const sortedIds = flattenedItems.map(({ id }) => id);
+  const activeItem = flattenedItems.find(({ id }) => id === activeId);
 
   return (
     <DndContext
@@ -119,9 +189,9 @@ export function SortableTree() {
         setOverId(active.id);
       }}
       onDragMove={({ delta }) => setOffsetLeft(delta.x)}
-      onDragOver={({ over }) => setOverId(over?.id ?? null)}
+      onDragOver={({ over }) => setOverId(over?.id)}
       onDragEnd={({ over, active }) => {
-        setActiveId(null);
+        setActiveId(undefined);
 
         if (projected && over) {
           const { depth, parentId } = projected;
@@ -163,14 +233,14 @@ export function SortableTree() {
         ))}
 
         <DragOverlay>
-          {activeId && activeItem ? (
+          {activeId && activeItem && (
             <SortableTreeItem
               id={activeId}
               depth={activeItem.depth}
               value={activeId.toString()}
               indentationWidth={50}
             />
-          ) : null}
+          )}
         </DragOverlay>
       </SortableContext>
     </DndContext>
