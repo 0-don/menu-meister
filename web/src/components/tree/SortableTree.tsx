@@ -129,30 +129,24 @@ export function SortableTree() {
   );
   const [overId, setOverId] = useState<UniqueIdentifier | undefined>(undefined);
   const [offsetLeft, setOffsetLeft] = useState(0);
+
   const flattenedItems = useMemo(() => {
     const flattenedTree: FlattenedItem[] = flatten(items);
-    const collapsedItems = flattenedTree.reduce<string[]>(
-      (acc, { children, collapsed, id }) =>
-        collapsed && children.length ? [...acc, id.toString()] : acc,
-      [],
+    const excludeParentIds = new Set<string>(
+      flattenedTree.reduce<string[]>(
+        (acc, { children, collapsed, id }) => {
+          if (collapsed && children.length) acc.push(id.toString());
+          return acc;
+        },
+        activeId ? [activeId.toString()] : [],
+      ),
     );
 
-    const idsToRemove = activeId
-      ? [activeId.toString(), ...collapsedItems]
-      : collapsedItems;
-    const excludeParentIds = [...idsToRemove];
-
-    return flattenedTree.filter((item) => {
-      if (
-        item.parentId &&
-        excludeParentIds.includes(item.parentId.toString())
-      ) {
-        if (item.children.length) {
-          excludeParentIds.push(item.id.toString());
-        }
+    return flattenedTree.filter(({ parentId, children, id }) => {
+      if (parentId && excludeParentIds.has(parentId.toString())) {
+        if (children.length) excludeParentIds.add(id.toString());
         return false;
       }
-
       return true;
     });
   }, [activeId, items]);
