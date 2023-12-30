@@ -12,8 +12,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { HTMLAttributes, forwardRef, useMemo, useState } from "react";
-import { createPortal } from "react-dom";
+import { useMemo, useState } from "react";
 
 import type { FlattenedItem, TreeItems } from "./types";
 import {
@@ -44,29 +43,21 @@ const initialItems: TreeItems = [
   },
 ];
 
-export interface SortableTreeItemProps
-  extends Omit<HTMLAttributes<HTMLLIElement>, "id"> {
-  depth: number;
+export interface SortableTreeItemProps {
   id: UniqueIdentifier;
-  handleProps?: any;
+  depth: number;
   indentationWidth: number;
   value: string;
-  wrapperRef?(node: HTMLLIElement): void;
 }
 
-export const SortableTreeItem = forwardRef<
-  HTMLDivElement,
-  SortableTreeItemProps
->(({ id, depth, indentationWidth, value, style, ...props }, ref) => {
-  const {
-    attributes,
-    listeners,
-    setDraggableNodeRef,
-    setDroppableNodeRef,
-    transform,
-    // @ts-ignore
-    transition,
-  } = useSortable({ id });
+export const SortableTreeItem: React.FC<SortableTreeItemProps> = ({
+  id,
+  depth,
+  indentationWidth,
+  value,
+}) => {
+  const { listeners, setDraggableNodeRef, setDroppableNodeRef, transform } =
+    useSortable({ id });
 
   return (
     <li
@@ -74,23 +65,21 @@ export const SortableTreeItem = forwardRef<
       style={{
         listStyleType: "none",
         paddingInlineStart: `${indentationWidth * depth}px`,
-        ...style,
       }}
     >
       <div
         ref={setDraggableNodeRef}
         style={{
           transform: CSS.Translate.toString(transform),
-          transition,
         }}
-        {...attributes}
         {...listeners}
       >
         {value}
       </div>
     </li>
   );
-});
+};
+
 export function SortableTree() {
   const [items, setItems] = useState(() => initialItems);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
@@ -172,19 +161,17 @@ export function SortableTree() {
             indentationWidth={50}
           />
         ))}
-        {createPortal(
-          <DragOverlay>
-            {activeId && activeItem ? (
-              <SortableTreeItem
-                id={activeId}
-                depth={activeItem.depth}
-                value={activeId.toString()}
-                indentationWidth={50}
-              />
-            ) : null}
-          </DragOverlay>,
-          document.body,
-        )}
+
+        <DragOverlay>
+          {activeId && activeItem ? (
+            <SortableTreeItem
+              id={activeId}
+              depth={activeItem.depth}
+              value={activeId.toString()}
+              indentationWidth={50}
+            />
+          ) : null}
+        </DragOverlay>
       </SortableContext>
     </DndContext>
   );

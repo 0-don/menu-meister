@@ -20,7 +20,6 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useCallback, useRef, useState } from "react";
-import { createPortal } from "react-dom";
 import { Container, ContainerProps } from "./Container";
 import { Item } from "./Item";
 
@@ -254,28 +253,26 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
           ))}
         </SortableContext>
       </div>
-      {createPortal(
-        <DragOverlay
-          dropAnimation={{
-            sideEffects: defaultDropAnimationSideEffects({
-              styles: { active: { opacity: "0.5" } },
-            }),
-          }}
-        >
-          {activeId ? (
-            containers.includes(activeId) ? (
-              <Container style={{ height: "100%" }}>
-                {items[activeId].map((item, index) => (
-                  <Item key={item} value={item} />
-                ))}
-              </Container>
-            ) : (
-              <Item value={activeId} />
-            )
-          ) : null}
-        </DragOverlay>,
-        document.body,
-      )}
+
+      <DragOverlay
+        dropAnimation={{
+          sideEffects: defaultDropAnimationSideEffects({
+            styles: { active: { opacity: "0.5" } },
+          }),
+        }}
+      >
+        {activeId ? (
+          containers.includes(activeId) ? (
+            <Container style={{ height: "100%" }}>
+              {items[activeId].map((item, index) => (
+                <Item key={item} value={item} />
+              ))}
+            </Container>
+          ) : (
+            <Item value={activeId} />
+          )
+        ) : null}
+      </DragOverlay>
     </DndContext>
   );
 }
