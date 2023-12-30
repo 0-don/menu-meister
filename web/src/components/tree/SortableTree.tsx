@@ -96,7 +96,42 @@ const SortableTreeItem: React.FC<{
   );
 };
 
-export function SortableTree() {
+export type GetAllMealSchedulesAdminQuery = {
+  getAllMealSchedulesAdmin?: Array<{
+    id: string;
+    servingDate: any;
+    createdAt: any;
+    updatedAt: any;
+    scheduledMeals?: Array<{
+      id: string;
+      mealGroupId?: number | null;
+      mealId?: number | null;
+      createdAt: any;
+      updatedAt: any;
+      meal?: {
+        id: string;
+        name: string;
+        description?: string | null;
+        image?: string | null;
+      } | null;
+      mealGroup?: {
+        id: string;
+        name: string;
+        description?: string | null;
+        meals?: Array<{
+          id: string;
+          name: string;
+          description?: string | null;
+          image?: string | null;
+        }> | null;
+      } | null;
+    }> | null;
+  }> | null;
+};
+
+export const SortableTree: React.FC<{
+  item: GetAllMealSchedulesAdminQuery["getAllMealSchedulesAdmin"];
+}> = ({ item }) => {
   const [items, setItems] = useState(initialItems);
   const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>(
     undefined,
@@ -147,26 +182,37 @@ export function SortableTree() {
         setItems(buildTree(sortedItems));
       }}
     >
-      <SortableContext items={sortedIds} strategy={verticalListSortingStrategy}>
-        {flattenedItems.map(({ id, depth }) => (
-          <SortableTreeItem
-            key={id}
-            id={id}
-            depth={id === activeId && projected ? projected.depth : depth}
-            indentationWidth={50}
-          />
-        ))}
-
-        <DragOverlay>
-          {activeId && activeItem && (
+      {item?.map((item) => <></>)}
+      <div
+        style={{
+          maxWidth: 600,
+          margin: "0 auto",
+        }}
+      >
+        <SortableContext
+          items={sortedIds}
+          strategy={verticalListSortingStrategy}
+        >
+          {flattenedItems.map(({ id, depth }) => (
             <SortableTreeItem
-              id={activeId}
-              depth={activeItem.depth}
+              key={id}
+              id={id}
+              depth={id === activeId && projected ? projected.depth : depth}
               indentationWidth={50}
             />
-          )}
-        </DragOverlay>
-      </SortableContext>
+          ))}
+
+          <DragOverlay>
+            {activeId && activeItem && (
+              <SortableTreeItem
+                id={activeId}
+                depth={activeItem.depth}
+                indentationWidth={50}
+              />
+            )}
+          </DragOverlay>
+        </SortableContext>
+      </div>
     </DndContext>
   );
-}
+};

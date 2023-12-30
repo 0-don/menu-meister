@@ -16,7 +16,6 @@ import {
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import { useSnapshot } from "valtio";
-import { MultipleContainers } from "./dnd/MultiContainer";
 import { TableItem } from "./elements/TableItem";
 import { SortableTree } from "./tree/SortableTree";
 
@@ -51,14 +50,8 @@ export function MainTable({}: DashboardPageProps) {
       {/* <Board items={data?.getAllMealSchedulesAdmin} /> */}
 
       {/* <MultipleContainers /> */}
-      <div
-        style={{
-          maxWidth: 600,
-          margin: "0 auto",
-        }}
-      >
-        <SortableTree />
-      </div>
+
+      <SortableTree item={data?.getAllMealSchedulesAdmin} />
 
       <Table className="mt-5" aria-label="Table">
         <TableHeader>
