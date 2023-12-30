@@ -33,42 +33,29 @@ function getProjection(
   overId?: UniqueIdentifier,
 ) {
   if (!activeId || !overId) return null;
+
+  const activeItem = items.find((item) => item.id === activeId);
   const overItemIndex = items.findIndex(({ id }) => id === overId);
-  const activeItemIndex = items.findIndex(({ id }) => id === activeId);
-  const activeItem = items[activeItemIndex];
-  const newItems = arrayMove(items, activeItemIndex, overItemIndex);
-  const previousItem = newItems[overItemIndex - 1];
-  const nextItem = newItems[overItemIndex + 1];
-  const dragDepth = Math.round(dragOffset / 50);
-  let projectedDepth = activeItem.depth + dragDepth;
 
-  const hasChildren = activeItem.children.length > 0;
-
-  if (hasChildren) {
-    projectedDepth = Math.min(projectedDepth, 0);
-  } else {
-    projectedDepth = Math.min(projectedDepth, 1);
-  }
-
-  const maxDepth = Math.min(
-    previousItem ? previousItem.depth + 1 : 0,
-    hasChildren ? 0 : 1,
-  );
-  const minDepth = Math.min(nextItem ? nextItem.depth : 0, hasChildren ? 0 : 1);
-  let depth = Math.min(Math.max(projectedDepth, minDepth), maxDepth);
-
+  // Items with children can't be nested, so their depth is always 0
+  const maxDepth = activeItem && activeItem.children.length > 0 ? 0 : 1;
+  const projectedDepth = dragOffset > 0 ? 1 : 0;
   let parentId = null;
-  if (depth !== 0 && previousItem) {
-    parentId =
-      depth <= previousItem.depth ? previousItem.parentId : previousItem.id;
+
+  // If the item has children or is being moved to the top level, keep it at depth 0
+  if ((activeItem?.children || []).length > 0 || projectedDepth === 0) {
+    parentId = null;
+  } else {
+    // Find the nearest previous item with depth 0 to set as parent
+    for (let i = overItemIndex - 1; i >= 0; i--) {
+      if (items[i].depth === 0) {
+        parentId = items[i].id;
+        break;
+      }
+    }
   }
 
-  return {
-    depth,
-    maxDepth,
-    minDepth,
-    parentId,
-  };
+  return { depth: Math.min(projectedDepth, maxDepth), parentId };
 }
 
 const flatten = (
@@ -104,16 +91,12 @@ const SortableTreeItem: React.FC<{
   return (
     <li
       ref={setDroppableNodeRef}
-      style={{
-        listStyleType: "none",
-        paddingInlineStart: `${props.indentationWidth * props.depth}px`,
-      }}
+      className="list-none"
+      style={{ paddingLeft: `${props.indentationWidth * props.depth}px` }}
     >
       <div
         ref={setDraggableNodeRef}
-        style={{
-          transform: CSS.Translate.toString(transform),
-        }}
+        style={{ transform: CSS.Translate.toString(transform) }}
         {...listeners}
       >
         {props.id}
