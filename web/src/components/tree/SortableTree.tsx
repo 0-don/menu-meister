@@ -17,22 +17,21 @@ import { useMemo, useState } from "react";
 export interface TreeItem {
   id: UniqueIdentifier;
   children: TreeItem[];
-  collapsed?: boolean;
 }
 
-export interface FlattenedItem extends TreeItem {
+interface FlattenedItem extends TreeItem {
   parentId: UniqueIdentifier | null;
   depth: number;
   index: number;
 }
 
-export interface SortableTreeItemProps {
+interface SortableTreeItemProps {
   id: UniqueIdentifier;
   depth: number;
   indentationWidth: number;
 }
 
-export function getProjection(
+function getProjection(
   items: FlattenedItem[],
   dragOffset: number,
   activeId?: UniqueIdentifier,
@@ -54,7 +53,7 @@ export function getProjection(
   return { depth, parentId };
 }
 
-export const flatten = (
+const flatten = (
   items: TreeItem[],
   parentId: UniqueIdentifier | null = null,
   depth = 0,
@@ -68,7 +67,7 @@ export const flatten = (
     [],
   );
 
-export const buildTree = (flattItems: FlattenedItem[]): TreeItem[] =>
+const buildTree = (flattItems: FlattenedItem[]): TreeItem[] =>
   flattItems
     .filter((item) => item.depth === 0)
     .map((rootItem) => ({
@@ -76,7 +75,7 @@ export const buildTree = (flattItems: FlattenedItem[]): TreeItem[] =>
       children: flattItems.filter((child) => child.parentId === rootItem.id),
     }));
 
-export const SortableTreeItem: React.FC<SortableTreeItemProps> = (props) => {
+const SortableTreeItem: React.FC<SortableTreeItemProps> = (props) => {
   const { listeners, setDraggableNodeRef, setDroppableNodeRef, transform } =
     useSortable({ id: props.id });
 
@@ -125,33 +124,20 @@ export function SortableTree() {
       onDragOver={({ over }) => setOverId(over?.id)}
       onDragEnd={({ over, active }) => {
         setActiveId(undefined);
+        if (!projected || !over) return;
 
-        if (projected && over) {
-          const { depth, parentId } = projected;
-          const clonedItems: FlattenedItem[] = structuredClone(flatten(items));
-          const overIndex = clonedItems.findIndex(({ id }) => id === over.id);
-          const activeIndex = clonedItems.findIndex(
-            ({ id }) => id === active.id,
-          );
-          const activeTreeItem = clonedItems[activeIndex];
-          clonedItems[activeIndex] = { ...activeTreeItem, depth, parentId };
+        const activeIndex = flattenedItems.findIndex(
+          ({ id }) => id === active.id,
+        );
+        const updatedItems = structuredClone(flattenedItems);
+        updatedItems[activeIndex] = {
+          ...updatedItems[activeIndex],
+          ...projected,
+        };
 
-          // Extract IDs for arrayMove
-          const clonedItemIds = clonedItems.map((item) => item.id);
-          const sortedItemIds = arrayMove(
-            clonedItemIds,
-            activeIndex,
-            overIndex,
-          );
-
-          // Map back to FlattenedItems
-          const sortedItems = sortedItemIds
-            .map((id) => clonedItems.find((item) => item.id === id))
-            .filter((item) => item) as FlattenedItem[];
-
-          const newItems = buildTree(sortedItems);
-          setItems(newItems);
-        }
+        const overIndex = updatedItems.findIndex(({ id }) => id === over.id);
+        const newOrder = arrayMove(updatedItems, activeIndex, overIndex);
+        setItems(buildTree(newOrder));
       }}
     >
       <SortableContext items={sortedIds} strategy={verticalListSortingStrategy}>
