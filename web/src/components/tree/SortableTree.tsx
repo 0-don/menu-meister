@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import {
   DndContext,
   DragOverlay,
@@ -7,11 +8,13 @@ import {
 import {
   SortableContext,
   arrayMove,
+  useSortable,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useMemo, useState } from "react";
+import { CSS } from "@dnd-kit/utilities";
+import { HTMLAttributes, forwardRef, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
-import { SortableTreeItem } from "./SortableTreeItem";
+
 import type { FlattenedItem, TreeItems } from "./types";
 import {
   buildTree,
@@ -41,6 +44,53 @@ const initialItems: TreeItems = [
   },
 ];
 
+export interface SortableTreeItemProps
+  extends Omit<HTMLAttributes<HTMLLIElement>, "id"> {
+  depth: number;
+  id: UniqueIdentifier;
+  handleProps?: any;
+  indentationWidth: number;
+  value: string;
+  wrapperRef?(node: HTMLLIElement): void;
+}
+
+export const SortableTreeItem = forwardRef<
+  HTMLDivElement,
+  SortableTreeItemProps
+>(({ id, depth, indentationWidth, value, style, ...props }, ref) => {
+  const {
+    attributes,
+    listeners,
+    setDraggableNodeRef,
+    setDroppableNodeRef,
+    transform,
+    // @ts-ignore
+    transition,
+  } = useSortable({ id });
+
+  return (
+    <li
+      ref={setDroppableNodeRef}
+      style={{
+        listStyleType: "none",
+        paddingInlineStart: `${indentationWidth * depth}px`,
+        ...style,
+      }}
+    >
+      <div
+        ref={setDraggableNodeRef}
+        style={{
+          transform: CSS.Translate.toString(transform),
+          transition,
+        }}
+        {...attributes}
+        {...listeners}
+      >
+        {value}
+      </div>
+    </li>
+  );
+});
 export function SortableTree() {
   const [items, setItems] = useState(() => initialItems);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
