@@ -25,12 +25,6 @@ interface FlattenedItem extends TreeItem {
   index: number;
 }
 
-interface SortableTreeItemProps {
-  id: UniqueIdentifier;
-  depth: number;
-  indentationWidth: number;
-}
-
 export function getProjection(
   items: FlattenedItem[],
   dragOffset: number,
@@ -98,7 +92,11 @@ const buildTree = (flattItems: FlattenedItem[]): TreeItem[] =>
       children: flattItems.filter((child) => child.parentId === rootItem.id),
     }));
 
-const SortableTreeItem: React.FC<SortableTreeItemProps> = (props) => {
+const SortableTreeItem: React.FC<{
+  id: UniqueIdentifier;
+  depth: number;
+  indentationWidth: number;
+}> = (props) => {
   const { listeners, setDraggableNodeRef, setDroppableNodeRef, transform } =
     useSortable({ id: props.id });
 
