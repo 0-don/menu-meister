@@ -36,26 +36,17 @@ function getProjection(
 
   const activeItem = items.find((item) => item.id === activeId);
   const overItemIndex = items.findIndex(({ id }) => id === overId);
+  const hasChildren = (activeItem?.children || []).length > 0;
+  const depth = hasChildren ? 0 : dragOffset > 0 ? 1 : 0;
+  const parentId =
+    depth === 1
+      ? items
+          .slice(0, overItemIndex)
+          .reverse()
+          .find((item) => item.depth === 0)!.id
+      : 0;
 
-  // Items with children can't be nested, so their depth is always 0
-  const maxDepth = activeItem && activeItem.children.length > 0 ? 0 : 1;
-  const projectedDepth = dragOffset > 0 ? 1 : 0;
-  let parentId = null;
-
-  // If the item has children or is being moved to the top level, keep it at depth 0
-  if ((activeItem?.children || []).length > 0 || projectedDepth === 0) {
-    parentId = null;
-  } else {
-    // Find the nearest previous item with depth 0 to set as parent
-    for (let i = overItemIndex - 1; i >= 0; i--) {
-      if (items[i].depth === 0) {
-        parentId = items[i].id;
-        break;
-      }
-    }
-  }
-
-  return { depth: Math.min(projectedDepth, maxDepth), parentId };
+  return { depth, parentId };
 }
 
 const flatten = (
