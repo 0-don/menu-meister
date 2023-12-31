@@ -49,7 +49,7 @@ const SortableTreeItem: React.FC<{
 
   const item = DndStore.getScheduleItem(props.id);
 
-
+  console.log("item", item);
 
   return (
     <li

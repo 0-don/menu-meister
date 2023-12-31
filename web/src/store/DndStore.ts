@@ -65,17 +65,26 @@ const DndStore = proxy({
     );
   },
   getScheduleItem: (flatId: UniqueIdentifier) => {
-    const item = DndStore.flatSchedules.find((item) => item.flatId === flatId);
-    const [type, id, date] = item?.flatId?.toString().split("-") || [];
-    const schedule = DndStore.schedules
-      .find((schedule) => schedule.servingDate === date)
-      ?.scheduledMeals?.map((item) => item?.mealGroup?.meals || [item.meal])
-      .flat();
-    if (Array.isArray(schedule)) {
-      return schedule.find((item) => item?.id === id);
-    } else {
-      return schedule;
+    const [id, date, mealId, groupIndex] = flatId.toString().split("#");
+    const schedule = DndStore.schedules.find((s) => s.servingDate === date);
+    const scheduleItem = schedule?.scheduledMeals?.find(
+      (item) => item.id == id,
+    );
+
+    if (!scheduleItem) return { group: null, meal: null };
+
+    let meal = null;
+    let group = null;
+
+    if (scheduleItem.mealGroup) {
+      group = scheduleItem.mealGroup;
+      meal = group.meals?.find((m) => m.id == mealId);
+      if (meal) group = null;
+    } else if (scheduleItem.meal) {
+      meal = scheduleItem.meal;
     }
+
+    return { group, meal };
   },
   buildTree: (flattItems: FlatScheduleItem[]): Schedule[] => {
     flattItems
@@ -90,22 +99,21 @@ const DndStore = proxy({
   flatten: (
     schedule: Schedule,
     parentId: UniqueIdentifier | null = null,
-    depth = 0,
   ): FlatScheduleItem[] => {
     const result = (schedule.scheduledMeals || []).flatMap(
       (item, groupIndex) => {
-        const { meal, mealGroup } = item;
+        const { meal, mealGroup, id } = item;
 
         if (mealGroup) {
-          const groupFlatId = `mealGroup-${mealGroup.id}-${schedule.servingDate}-${groupIndex}`;
+          const groupFlatId = `${id}#${schedule.servingDate}`;
           const children =
             mealGroup.meals?.map((meal, mealIndex) => ({
               ...item,
-              flatId: `meal-${meal.id}-${schedule.servingDate}-${groupIndex}-${mealIndex}`,
+              flatId: `${id}#${schedule.servingDate}#${meal.id}#${mealIndex}`,
               parentId: groupFlatId,
               date: schedule.servingDate,
               index: mealIndex,
-              depth: depth + 1,
+              depth: 1,
             })) || [];
 
           return [
@@ -115,7 +123,7 @@ const DndStore = proxy({
               date: schedule.servingDate,
               parentId,
               index: groupIndex,
-              depth,
+              depth: 0,
             },
             ...children,
           ];
@@ -125,9 +133,9 @@ const DndStore = proxy({
           ...item,
           index: groupIndex,
           date: schedule.servingDate,
-          flatId: `meal-${meal?.id}-${schedule.servingDate}-${groupIndex}`,
+          flatId: `${id}#${schedule.servingDate}#${meal?.id}`,
           parentId,
-          depth,
+          depth: 0,
         };
       },
     );
