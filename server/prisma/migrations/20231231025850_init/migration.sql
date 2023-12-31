@@ -201,7 +201,7 @@ ALTER TABLE `MealSchedule` ADD CONSTRAINT `MealSchedule_createdBy_fkey` FOREIGN 
 ALTER TABLE `MealSchedule` ADD CONSTRAINT `MealSchedule_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `ScheduleMeal` ADD CONSTRAINT `ScheduleMeal_mealScheduleId_fkey` FOREIGN KEY (`mealScheduleId`) REFERENCES `MealSchedule`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `ScheduleMeal` ADD CONSTRAINT `ScheduleMeal_mealScheduleId_fkey` FOREIGN KEY (`mealScheduleId`) REFERENCES `MealSchedule`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `ScheduleMeal` ADD CONSTRAINT `ScheduleMeal_mealGroupId_fkey` FOREIGN KEY (`mealGroupId`) REFERENCES `MealGroup`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

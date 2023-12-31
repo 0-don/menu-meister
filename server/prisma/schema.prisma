@@ -183,7 +183,7 @@ model ScheduleMeal {
   mealGroupId    Int?
   mealId         Int?
 
-  mealSchedule MealSchedule @relation(fields: [mealScheduleId], references: [id])
+  mealSchedule MealSchedule @relation(fields: [mealScheduleId], references: [id], onDelete: Cascade)
   mealGroup    MealGroup?   @relation(fields: [mealGroupId], references: [id])
   meal         Meal?        @relation(fields: [mealId], references: [id])
 

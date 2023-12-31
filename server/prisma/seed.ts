@@ -3,13 +3,13 @@ import { Prisma, PrismaClient, UserRoleName } from "@prisma/client";
 import argon2 from "argon2";
 import { error } from "console";
 import dayjs from "dayjs";
-import { mkdirSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { dirname, join, resolve } from "path";
 
 const prisma = new PrismaClient();
 
 const EMAIL = "admin@admin.de";
-const MIN_MEALS_PER_DAY = 3;
+const MIN_MEALS_PER_DAY = 1;
 
 const randomInt = (min = 0, max = 10) =>
   Math.floor(Math.random() * (max - min + 1) + min);
@@ -41,15 +41,21 @@ async function downloadImage(url: string) {
   const category = new URL(url).pathname.split("/").at(-1);
   const fileName = `${category}-${name}.jpg`;
 
+  const filePath = getImageFile(fileName);
+
+  if (existsSync(filePath)) {
+    return readFileSync(filePath, "base64");
+  }
+
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
   }
 
-  const image = Buffer.from(await response.arrayBuffer()).toString("base64");
-  mkdirSync(dirname(getImageFile(fileName)), { recursive: true });
-  writeFileSync(getImageFile(fileName), image);
-  return image;
+  const imageBuffer = await response.arrayBuffer();
+  mkdirSync(dirname(filePath), { recursive: true });
+  writeFileSync(filePath, Buffer.from(imageBuffer), "base64");
+  return Buffer.from(imageBuffer).toString("base64");
 }
 
 const seedIngredientsAndNutritions = async () => {
@@ -57,7 +63,7 @@ const seedIngredientsAndNutritions = async () => {
     where: { email: EMAIL },
   });
 
-  for (const _ of Array(500).keys()) {
+  for (const _ of Array(100).keys()) {
     const ingredientName = faker.commerce.product();
 
     const imgUrl = faker.image.urlLoremFlickr({
@@ -133,7 +139,7 @@ const seedMealSchedulers = async () => {
   const meals = await prisma.meal.findMany();
   const mealGroups = await prisma.mealGroup.findMany();
 
-  const MEAL_SCHEDULER_COUNT = 5000;
+  const MEAL_SCHEDULER_COUNT = 2500;
 
   // Calculate days in past and future
   const daysInPast = Math.floor(MEAL_SCHEDULER_COUNT / 2 / MIN_MEALS_PER_DAY);
