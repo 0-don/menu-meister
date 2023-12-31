@@ -124,7 +124,7 @@ export const SortableTree: React.FC = ({}) => {
         // DndStore.schedules = DndStore.buildTree(sortedItems);
       }}
     >
-      <div className="flex gap-20">
+      <div className="flex gap-64">
         {dndStore.schedules.map((schedule) => (
           <div
             key={schedule.id}

@@ -32,7 +32,7 @@ export function MainTable({}: DashboardPageProps) {
     where: {
       servingDate: {
         gte: dayjs.utc(dashboardStore.daysThatWeek.at(0)).toISOString(),
-        lte: dayjs.utc(dashboardStore.daysThatWeek.at(-1)).toISOString(),
+        lte: dayjs.utc(dashboardStore.daysThatWeek.at(2)).toISOString(),
       },
     },
     orderBy: { servingDate: SortOrder.Asc },
