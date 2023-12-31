@@ -13,15 +13,36 @@ export interface FlatScheduleItem extends ScheduleItem {
   flatId: UniqueIdentifier;
   parentId: UniqueIdentifier | null;
   depth: number;
+  date: string;
   index: number;
 }
 
 const DndStore = proxy({
   schedules: [] as Schedule[],
   flatSchedules: [] as FlatScheduleItem[],
-  
-  getAllFlatten: () =>
-    DndStore.schedules.map((schedule) => DndStore.flatten(schedule)).flat(),
+  getAllFlatten: (activeId?: UniqueIdentifier) => {
+    const res = DndStore.schedules
+      .map((schedule) => DndStore.flatten(schedule))
+      .flat();
+    const excludeParentIds = new Set<string>(
+      activeId ? [activeId.toString()] : [],
+    );
+    return res.filter(
+      ({ parentId }) => !parentId || !excludeParentIds.has(parentId.toString()),
+    );
+  },
+  getScheduleItem: (flatId: UniqueIdentifier) =>
+    DndStore.flatSchedules.find((item) => item.flatId === flatId),
+  buildTree: (flattItems: FlatScheduleItem[]): Schedule[] => {
+    flattItems
+      .filter((item) => item.depth === 0)
+      .map((rootItem) => ({
+        ...rootItem,
+        children: flattItems.filter((child) => child.parentId === rootItem.id),
+      }));
+
+    return [];
+  },
   flatten: (
     schedule: Schedule,
     parentId: UniqueIdentifier | null = null,
@@ -36,6 +57,7 @@ const DndStore = proxy({
             ...item,
             flatId: `meal-${mealGroup.id}-${meal.name}-${schedule.servingDate}`,
             parentId,
+            date: schedule.servingDate,
             index,
             depth: 1,
           }));
@@ -43,7 +65,8 @@ const DndStore = proxy({
             {
               ...item,
               flatId: parentId,
-              parentId,
+              date: schedule.servingDate,
+              parentId: null,
               index,
               depth,
             },
@@ -55,6 +78,7 @@ const DndStore = proxy({
           {
             ...item,
             index,
+            date: schedule.servingDate,
             flatId: `meal-${meal?.id}-${meal?.name}-${schedule.servingDate}`,
             parentId,
             depth,

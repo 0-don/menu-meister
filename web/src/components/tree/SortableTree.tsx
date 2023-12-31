@@ -16,12 +16,6 @@ export interface TreeItem {
   collapsed?: boolean;
 }
 
-interface FlattenedItem extends TreeItem {
-  parentId: UniqueIdentifier | null;
-  depth: number;
-  index: number;
-}
-
 function getProjection(
   items: FlatScheduleItem[],
   dragOffset: number,
@@ -30,10 +24,9 @@ function getProjection(
 ) {
   if (!activeId || !overId) return null;
 
-  const activeItem = items.find((item) => item.id === activeId);
-  const overItemIndex = items.findIndex(({ id }) => id === overId);
-  const hasChildren = activeItem?.mealGroup;
-  const depth = hasChildren ? 0 : dragOffset > 0 ? 1 : 0;
+  const activeItem = items.find(({ flatId }) => flatId === activeId);
+  const overItemIndex = items.findIndex(({ flatId }) => flatId === overId);
+  const depth = activeItem?.mealGroup ? 0 : dragOffset > 0 ? 1 : 0;
   const parentId =
     depth === 1
       ? items
@@ -45,20 +38,12 @@ function getProjection(
   return { depth, parentId };
 }
 
-const buildTree = (flattItems: FlattenedItem[]): TreeItem[] =>
-  flattItems
-    .filter((item) => item.depth === 0)
-    .map((rootItem) => ({
-      ...rootItem,
-      children: flattItems.filter((child) => child.parentId === rootItem.id),
-    }));
-
 const SortableTreeItem: React.FC<{
   id: UniqueIdentifier;
   depth: number;
   indentationWidth: number;
 }> = (props) => {
-  const dndStore = useSnapshot(DndStore);
+  // const dndStore = useSnapshot(DndStore);
   const { listeners, setDraggableNodeRef, setDroppableNodeRef, transform } =
     useSortable({ id: props.id });
 
@@ -87,20 +72,28 @@ export const SortableTree: React.FC = ({}) => {
   const [overId, setOverId] = useState<UniqueIdentifier | undefined>(undefined);
   const [offsetLeft, setOffsetLeft] = useState(0);
 
-  const flattenedItems: FlatScheduleItem[] = useMemo(() => {
-    DndStore.flatSchedules = DndStore.getAllFlatten();
-    const excludeParentIds = new Set<string>(
-      activeId ? [activeId.toString()] : [],
-    );
-    // return flattenedTree.filter(
-    //   ({ parentId }) => !parentId || !excludeParentIds.has(parentId.toString()),
-    // );
-    return dndStore.flatSchedules;
+  useMemo(() => {
+    DndStore.flatSchedules = DndStore.getAllFlatten(activeId);
   }, [activeId, dndStore.schedules]);
 
-  const projected = getProjection([], offsetLeft, activeId, overId);
-  const sortedIds = flattenedItems.map(({ flatId }) => flatId);
-  const activeItem = flattenedItems.find(({ flatId }) => flatId === activeId);
+  const projected = getProjection(
+    dndStore.flatSchedules,
+    offsetLeft,
+    activeId,
+    overId,
+  );
+  const sortedIds = dndStore.flatSchedules.map(({ flatId }) => flatId);
+  const activeItem = dndStore.flatSchedules.find(
+    ({ flatId }) => flatId === activeId,
+  );
+
+  // console.log(flattenedItems, activeId);
+  console.log(
+    // JSON.parse(JSON.stringify(dndStore.flatSchedules)),
+    // projected,
+    activeId,
+    activeItem,
+  );
 
   return (
     <DndContext
@@ -113,6 +106,7 @@ export const SortableTree: React.FC = ({}) => {
       onDragOver={({ over }) => setOverId(over?.id)}
       onDragEnd={({ over, active }) => {
         setActiveId(undefined);
+
         // if (!projected || !over) return;
         // const clonedItems: FlattenedItemV2[] = structuredClone(flatten({} as any));
         // const overIndex = clonedItems.findIndex(({ id }) => id === over.id);
@@ -138,20 +132,24 @@ export const SortableTree: React.FC = ({}) => {
             }}
           >
             <SortableContext items={sortedIds}>
-              {DndStore.flatten(schedule)?.map(({ id, depth, flatId }) => (
-                <SortableTreeItem
-                  key={flatId}
-                  id={flatId}
-                  depth={id === activeId && projected ? projected.depth : depth}
-                  indentationWidth={50}
-                />
-              ))}
+              {dndStore.flatSchedules
+                .filter((s) => schedule.servingDate === s.date)
+                .map(({ id, depth, flatId }) => (
+                  <SortableTreeItem
+                    key={flatId}
+                    id={flatId}
+                    depth={
+                      id === activeId && projected ? projected.depth : depth
+                    }
+                    indentationWidth={50}
+                  />
+                ))}
 
               <DragOverlay>
                 {activeId && activeItem && (
                   <SortableTreeItem
                     id={activeId}
-                    depth={activeItem.depth}
+                    depth={activeItem?.depth}
                     indentationWidth={50}
                   />
                 )}
