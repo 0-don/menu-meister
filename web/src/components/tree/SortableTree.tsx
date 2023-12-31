@@ -5,7 +5,7 @@ import {
   UniqueIdentifier,
   closestCenter,
 } from "@dnd-kit/core";
-import { SortableContext, useSortable } from "@dnd-kit/sortable";
+import { SortableContext, arrayMove, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useMemo, useState } from "react";
 import { useSnapshot } from "valtio";
@@ -32,7 +32,7 @@ function getProjection(
       ? items
           .slice(0, overItemIndex)
           .reverse()
-          .find((item) => item.depth === 0)?.id || 0
+          .find((item) => item.depth === 0)?.flatId || 0
       : 0;
 
   return { depth, parentId };
@@ -43,13 +43,10 @@ const SortableTreeItem: React.FC<{
   depth: number;
   indentationWidth: number;
 }> = (props) => {
-  const dndStore = useSnapshot(DndStore);
   const { listeners, setDraggableNodeRef, setDroppableNodeRef, transform } =
     useSortable({ id: props.id });
 
   const item = DndStore.getScheduleItem(props.id);
-
-  console.log("item", item);
 
   return (
     <li
@@ -59,10 +56,11 @@ const SortableTreeItem: React.FC<{
     >
       <div
         ref={setDraggableNodeRef}
+        className="text-xs"
         style={{ transform: CSS.Translate.toString(transform) }}
         {...listeners}
       >
-        {props.id}
+        {item.group ? item.group.name : item.meal?.name}
       </div>
     </li>
   );
@@ -103,21 +101,30 @@ export const SortableTree: React.FC = ({}) => {
       onDragEnd={({ over, active }) => {
         setActiveId(undefined);
 
-        // if (!projected || !over) return;
-        // const clonedItems: FlattenedItemV2[] = structuredClone(flatten({} as any));
-        // const overIndex = clonedItems.findIndex(({ id }) => id === over.id);
-        // const activeIndex = clonedItems.findIndex(({ id }) => id === active.id);
-        // clonedItems[activeIndex] = {
-        //   ...clonedItems[activeIndex],
-        //   ...projected,
-        // };
-        // const sortedItems = arrayMove(clonedItems, activeIndex, overIndex)
-        //   .map((item) => clonedItems.find(({ id }) => id === item.id))
-        //   .filter(Boolean) as FlattenedItemV2[];
-        // setSchedules(buildTree(sortedItems));
+        if (!projected || !over) return;
+        const clonedItems: FlatScheduleItem[] = JSON.parse(
+          JSON.stringify(DndStore.getAllFlatten()),
+        );
+        const overIndex = clonedItems.findIndex(
+          ({ flatId }) => flatId === over.id,
+        );
+        const activeIndex = clonedItems.findIndex(
+          ({ flatId }) => flatId === active.id,
+        );
+        clonedItems[activeIndex] = {
+          ...clonedItems[activeIndex],
+          ...projected,
+        };
+        const sortedItems = arrayMove(clonedItems, activeIndex, overIndex)
+          .map((item) =>
+            clonedItems.find(({ flatId }) => flatId === item.flatId),
+          )
+          .filter(Boolean) as FlatScheduleItem[];
+
+        // DndStore.schedules = DndStore.buildTree(sortedItems);
       }}
     >
-      <div className="flex">
+      <div className="flex gap-20">
         {dndStore.schedules.map((schedule) => (
           <div
             key={schedule.id}
@@ -135,9 +142,11 @@ export const SortableTree: React.FC = ({}) => {
                     key={s.flatId}
                     id={s.flatId}
                     depth={
-                      s.id === activeId && projected ? projected.depth : s.depth
+                      s.flatId === activeId && projected
+                        ? projected.depth
+                        : s.depth
                     }
-                    indentationWidth={50}
+                    indentationWidth={25}
                   />
                 ))}
 
@@ -146,7 +155,7 @@ export const SortableTree: React.FC = ({}) => {
                   <SortableTreeItem
                     id={activeId}
                     depth={activeItem?.depth}
-                    indentationWidth={50}
+                    indentationWidth={25}
                   />
                 )}
               </DragOverlay>

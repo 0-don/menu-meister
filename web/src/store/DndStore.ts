@@ -1,6 +1,5 @@
 "use client";
 
-import { GetAllMealSchedulesAdminQuery } from "@/gql/graphql";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { proxy } from "valtio";
 
@@ -9,7 +8,7 @@ export type Schedule = NonNullable<
 >[0];
 export type ScheduleItem = NonNullable<Schedule["scheduledMeals"]>[0];
 
-export type GetAllMealSchedulesAdminQuer = {
+export type GetAllMealSchedulesAdminQuery = {
   getAllMealSchedulesAdmin?: Array<{
     id: string;
     servingDate: any;
@@ -86,13 +85,37 @@ const DndStore = proxy({
 
     return { group, meal };
   },
-  buildTree: (flattItems: FlatScheduleItem[]): Schedule[] => {
-    flattItems
-      .filter((item) => item.depth === 0)
-      .map((rootItem) => ({
-        ...rootItem,
-        children: flattItems.filter((child) => child.parentId === rootItem.id),
-      }));
+  buildTree: (flatItems: FlatScheduleItem[]): Schedule[] => {
+    // Creating a map to hold the items by their parent ID
+
+    // const itemMap = new Map<UniqueIdentifier, FlatScheduleItem[]>();
+
+    // // Filling the map with items, grouped by their parent ID
+    // flatItems.forEach((item) => {
+    //   const key = item.parentId || "root";
+    //   const items = itemMap.get(key) || [];
+    //   items.push(item);
+    //   itemMap.set(key, items);
+    // });
+
+    // // Function to recursively build the tree structure
+    // const buildHierarchy = (
+    //   parentId: UniqueIdentifier | null,
+    // ): ScheduleItem[] => {
+    //   return itemMap.get(parentId || "root") || [];
+    // };
+
+    // // Starting the tree building process with root items (depth === 0)
+    // const schedules: Schedule[] = flatItems
+    //   .filter((item) => item.depth === 0)
+    //   .map((rootItem) => {
+    //     const scheduledMeals = buildHierarchy(rootItem.flatId);
+    //     return {
+    //       ...rootItem,
+    //       servingDate: rootItem.date, // Add the servingDate property
+    //       scheduledMeals: scheduledMeals.length > 0 ? scheduledMeals : null,
+    //     };
+    //   });
 
     return [];
   },
