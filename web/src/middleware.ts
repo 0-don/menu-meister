@@ -53,6 +53,7 @@ const tokenParser = async (request: NextRequest, response: NextResponse) => {
       path: "/",
       httpOnly: true,
     });
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   const roles = me?.UserRole?.map(({ name }) => name).join(",");
