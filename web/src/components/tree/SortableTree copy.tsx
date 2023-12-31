@@ -31,9 +31,8 @@ function getProjection(
   const nextItem = newItems[overItemIndex + 1];
   const dragDepth = Math.round(dragOffset / 50);
   let projectedDepth = activeItem.depth + dragDepth;
-  const { id } = DndStore.parseFlatId(activeId);
 
-  const hasChildren = activeItem?.mealGroup && activeItem.mealGroup.id == id
+  const hasChildren = activeItem.children.length > 0;
 
   if (hasChildren) {
     projectedDepth = Math.min(projectedDepth, 0);
@@ -61,6 +60,7 @@ function getProjection(
     parentId,
   };
 }
+
 const SortableTreeItem: React.FC<{
   id: UniqueIdentifier;
   depth: number;

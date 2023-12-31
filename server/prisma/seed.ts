@@ -9,7 +9,7 @@ import { dirname, join, resolve } from "path";
 const prisma = new PrismaClient();
 
 const EMAIL = "admin@admin.de";
-const MIN_MEALS_PER_DAY = 1;
+const MIN_MEALS_PER_DAY = 4;
 
 const randomInt = (min = 0, max = 10) =>
   Math.floor(Math.random() * (max - min + 1) + min);

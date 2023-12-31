@@ -63,8 +63,12 @@ const DndStore = proxy({
       ({ parentId }) => !parentId || !excludeParentIds.has(parentId.toString()),
     );
   },
-  getScheduleItem: (flatId: UniqueIdentifier) => {
+  parseFlatId: (flatId: UniqueIdentifier) => {
     const [id, date, mealId, groupIndex] = flatId.toString().split("#");
+    return { id, date, mealId, groupIndex };
+  },
+  getScheduleItem: (flatId: UniqueIdentifier) => {
+    const { id, date, mealId, groupIndex } = DndStore.parseFlatId(flatId);
     const schedule = DndStore.schedules.find((s) => s.servingDate === date);
     const scheduleItem = schedule?.scheduledMeals?.find(
       (item) => item.id == id,
