@@ -43,9 +43,13 @@ const SortableTreeItem: React.FC<{
   depth: number;
   indentationWidth: number;
 }> = (props) => {
-  // const dndStore = useSnapshot(DndStore);
+  const dndStore = useSnapshot(DndStore);
   const { listeners, setDraggableNodeRef, setDroppableNodeRef, transform } =
     useSortable({ id: props.id });
+
+  const item = DndStore.getScheduleItem(props.id);
+
+
 
   return (
     <li
@@ -87,14 +91,6 @@ export const SortableTree: React.FC = ({}) => {
     ({ flatId }) => flatId === activeId,
   );
 
-  // console.log(flattenedItems, activeId);
-  console.log(
-    // JSON.parse(JSON.stringify(dndStore.flatSchedules)),
-    // projected,
-    activeId,
-    activeItem,
-  );
-
   return (
     <DndContext
       collisionDetection={closestCenter}
@@ -134,12 +130,12 @@ export const SortableTree: React.FC = ({}) => {
             <SortableContext items={sortedIds}>
               {dndStore.flatSchedules
                 .filter((s) => schedule.servingDate === s.date)
-                .map(({ id, depth, flatId }) => (
+                .map((s) => (
                   <SortableTreeItem
-                    key={flatId}
-                    id={flatId}
+                    key={s.flatId}
+                    id={s.flatId}
                     depth={
-                      id === activeId && projected ? projected.depth : depth
+                      s.id === activeId && projected ? projected.depth : s.depth
                     }
                     indentationWidth={50}
                   />

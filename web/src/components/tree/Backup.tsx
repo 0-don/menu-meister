@@ -121,8 +121,6 @@ export const BackupTree: React.FC<{
   const sortedIds = flattenedItems.map(({ id }) => id);
   const activeItem = flattenedItems.find(({ id }) => id === activeId);
 
-  console.log(flattenedItems, activeId);
-
   return (
     <DndContext
       collisionDetection={closestCenter}

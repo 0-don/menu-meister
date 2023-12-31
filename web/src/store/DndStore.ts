@@ -9,6 +9,39 @@ export type Schedule = NonNullable<
 >[0];
 export type ScheduleItem = NonNullable<Schedule["scheduledMeals"]>[0];
 
+export type GetAllMealSchedulesAdminQuer = {
+  getAllMealSchedulesAdmin?: Array<{
+    id: string;
+    servingDate: any;
+    createdAt: any;
+    updatedAt: any;
+    scheduledMeals?: Array<{
+      id: string;
+      mealGroupId?: number | null;
+      mealId?: number | null;
+      createdAt: any;
+      updatedAt: any;
+      meal?: {
+        id: string;
+        name: string;
+        description?: string | null;
+        image?: string | null;
+      } | null;
+      mealGroup?: {
+        id: string;
+        name: string;
+        description?: string | null;
+        meals?: Array<{
+          id: string;
+          name: string;
+          description?: string | null;
+          image?: string | null;
+        }> | null;
+      } | null;
+    }> | null;
+  }> | null;
+};
+
 export interface FlatScheduleItem extends ScheduleItem {
   flatId: UniqueIdentifier;
   parentId: UniqueIdentifier | null;
@@ -31,8 +64,19 @@ const DndStore = proxy({
       ({ parentId }) => !parentId || !excludeParentIds.has(parentId.toString()),
     );
   },
-  getScheduleItem: (flatId: UniqueIdentifier) =>
-    DndStore.flatSchedules.find((item) => item.flatId === flatId),
+  getScheduleItem: (flatId: UniqueIdentifier) => {
+    const item = DndStore.flatSchedules.find((item) => item.flatId === flatId);
+    const [type, id, date] = item?.flatId?.toString().split("-") || [];
+    const schedule = DndStore.schedules
+      .find((schedule) => schedule.servingDate === date)
+      ?.scheduledMeals?.map((item) => item?.mealGroup?.meals || [item.meal])
+      .flat();
+    if (Array.isArray(schedule)) {
+      return schedule.find((item) => item?.id === id);
+    } else {
+      return schedule;
+    }
+  },
   buildTree: (flattItems: FlatScheduleItem[]): Schedule[] => {
     flattItems
       .filter((item) => item.depth === 0)
@@ -48,44 +92,45 @@ const DndStore = proxy({
     parentId: UniqueIdentifier | null = null,
     depth = 0,
   ): FlatScheduleItem[] => {
-    const result = (schedule.scheduledMeals || [])
-      ?.map((item, index) => {
+    const result = (schedule.scheduledMeals || []).flatMap(
+      (item, groupIndex) => {
         const { meal, mealGroup } = item;
+
         if (mealGroup) {
-          parentId = `mealGroup-${mealGroup.id}-${mealGroup?.name}-${schedule.servingDate}`;
-          const children = mealGroup.meals?.map((meal, index) => ({
-            ...item,
-            flatId: `meal-${mealGroup.id}-${meal.name}-${schedule.servingDate}`,
-            parentId,
-            date: schedule.servingDate,
-            index,
-            depth: 1,
-          }));
+          const groupFlatId = `mealGroup-${mealGroup.id}-${schedule.servingDate}-${groupIndex}`;
+          const children =
+            mealGroup.meals?.map((meal, mealIndex) => ({
+              ...item,
+              flatId: `meal-${meal.id}-${schedule.servingDate}-${groupIndex}-${mealIndex}`,
+              parentId: groupFlatId,
+              date: schedule.servingDate,
+              index: mealIndex,
+              depth: depth + 1,
+            })) || [];
+
           return [
             {
               ...item,
-              flatId: parentId,
+              flatId: groupFlatId,
               date: schedule.servingDate,
-              parentId: null,
-              index,
+              parentId,
+              index: groupIndex,
               depth,
             },
-            ...children!,
+            ...children,
           ];
         }
 
-        return [
-          {
-            ...item,
-            index,
-            date: schedule.servingDate,
-            flatId: `meal-${meal?.id}-${meal?.name}-${schedule.servingDate}`,
-            parentId,
-            depth,
-          },
-        ];
-      })
-      .flat();
+        return {
+          ...item,
+          index: groupIndex,
+          date: schedule.servingDate,
+          flatId: `meal-${meal?.id}-${schedule.servingDate}-${groupIndex}`,
+          parentId,
+          depth,
+        };
+      },
+    );
 
     return result;
   },

@@ -13,7 +13,6 @@ export function getMessageFallbackTranslation({
   const path = [namespace, key].filter((part) => part != null).join(".");
 
   if (process.env.NODE_ENV === "development") {
-    // console.info(`${path} is not yet translated`);
   }
 
   if (error.code === IntlErrorCode.MISSING_MESSAGE) {

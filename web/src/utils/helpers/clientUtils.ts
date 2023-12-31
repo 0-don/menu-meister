@@ -28,8 +28,6 @@ export const catchErrorAlerts = (
 ) => {
   const msgs = JSON.parse((err as Error).message) as string[];
 
-  // console.clear();
-
   for (const msg of msgs) {
     GeneralStore.addAlert({
       msg: t ? t(msg as any) : msg,
