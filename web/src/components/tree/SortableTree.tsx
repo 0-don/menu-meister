@@ -5,7 +5,12 @@ import {
   UniqueIdentifier,
   closestCenter,
 } from "@dnd-kit/core";
-import { SortableContext, arrayMove, useSortable } from "@dnd-kit/sortable";
+import {
+  SortableContext,
+  arrayMove,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useMemo, useState } from "react";
 import { useSnapshot } from "valtio";
@@ -33,7 +38,7 @@ function getProjection(
   let projectedDepth = activeItem.depth + dragDepth;
   const { id } = DndStore.parseFlatId(activeId);
 
-  const hasChildren = activeItem?.mealGroup && activeItem.mealGroup.id == id
+  const hasChildren = activeItem?.mealGroup && activeItem.mealGroup.id == id;
 
   if (hasChildren) {
     projectedDepth = Math.min(projectedDepth, 0);
@@ -83,7 +88,9 @@ const SortableTreeItem: React.FC<{
         style={{ transform: CSS.Translate.toString(transform) }}
         {...listeners}
       >
-        {item.group ? item.group.name : item.meal?.name}
+        {item.group
+          ? `${item.group.name}#${item.group.id}`
+          : `${item.meal?.name}#${item.meal?.id}`}
       </div>
     </li>
   );
@@ -119,8 +126,15 @@ export const SortableTree: React.FC = ({}) => {
         setActiveId(active.id);
         setOverId(active.id);
       }}
-      onDragMove={({ delta }) => setOffsetLeft(delta.x)}
-      onDragOver={({ over }) => setOverId(over?.id)}
+      onDragMove={({ delta, over, activatorEvent, collisions }) => {
+        const event = activatorEvent as MouseEvent;
+
+        // console.log(delta, { x: event.clientX, y: event.clientY }, over);
+        setOffsetLeft(delta.x);
+      }}
+      onDragOver={({ over, delta, activatorEvent }) => {
+        setOverId(over?.id);
+      }}
       onDragEnd={({ over, active }) => {
         setActiveId(undefined);
 
@@ -148,43 +162,56 @@ export const SortableTree: React.FC = ({}) => {
       }}
     >
       <div className="flex gap-64">
-        {dndStore.schedules.map((schedule) => (
-          <div
-            key={schedule.id}
-            className="border-2 p-2"
-            style={{
-              maxWidth: 600,
-              margin: "0 auto",
-            }}
-          >
-            <SortableContext items={sortedIds}>
-              {dndStore.flatSchedules
-                .filter((s) => schedule.servingDate === s.date)
-                .map((s) => (
-                  <SortableTreeItem
-                    key={s.flatId}
-                    id={s.flatId}
-                    depth={
-                      s.flatId === activeId && projected
-                        ? projected.depth
-                        : s.depth
-                    }
-                    indentationWidth={25}
-                  />
-                ))}
+        {dndStore.schedules.map((schedule) => {
+          const ids = dndStore.flatSchedules
+            .filter((s) => schedule.servingDate === s.date)
+            .map(({ flatId }) => flatId);
 
-              <DragOverlay>
-                {activeId && activeItem && (
-                  <SortableTreeItem
-                    id={activeId}
-                    depth={activeItem?.depth}
-                    indentationWidth={25}
-                  />
-                )}
-              </DragOverlay>
-            </SortableContext>
-          </div>
-        ))}
+          console.log(ids);
+          return (
+            <div
+              key={schedule.id}
+              className="border-2 p-2"
+              style={{
+                maxWidth: 300,
+                margin: "0 auto",
+              }}
+            >
+              <div className="text-center font-bold">
+                {schedule.servingDate}
+              </div>
+              <SortableContext
+                items={ids}
+                id={schedule.servingDate}
+                strategy={verticalListSortingStrategy}
+              >
+                {dndStore.flatSchedules
+                  .filter((s) => schedule.servingDate === s.date)
+                  .map((s) => (
+                    <SortableTreeItem
+                      key={s.flatId}
+                      id={s.flatId}
+                      depth={
+                        s.flatId === activeId && projected
+                          ? projected.depth
+                          : s.depth
+                      }
+                      indentationWidth={25}
+                    />
+                  ))}
+              </SortableContext>
+            </div>
+          );
+        })}
+        <DragOverlay>
+          {activeId && activeItem && (
+            <SortableTreeItem
+              id={activeId}
+              depth={activeItem?.depth}
+              indentationWidth={25}
+            />
+          )}
+        </DragOverlay>
       </div>
     </DndContext>
   );

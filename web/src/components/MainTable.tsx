@@ -18,8 +18,8 @@ import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
+import { MultipleContainers } from "./dnd/MultiContainer";
 import { TableItem } from "./elements/TableItem";
-import { BackupTree } from "./tree/Backup";
 import { SortableTree } from "./tree/SortableTree";
 
 interface DashboardPageProps {}
@@ -61,7 +61,7 @@ export function MainTable({}: DashboardPageProps) {
     <>
       {/* <Board items={data?.getAllMealSchedulesAdmin} /> */}
 
-      {/* <MultipleContainers /> */}
+      <MultipleContainers />
 
       {/* <BackupTree /> */}
 
