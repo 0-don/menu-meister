@@ -167,7 +167,7 @@ export const SortableTree: React.FC = ({}) => {
             .filter((s) => schedule.servingDate === s.date)
             .map(({ flatId }) => flatId);
 
-          console.log(ids);
+          // console.log(ids);
           return (
             <div
               key={schedule.id}
