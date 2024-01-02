@@ -1,4 +1,4 @@
-import { TreeItem } from "@/components/tree/SortableTree";
+import { TreeItem } from "@/components/dnd/tree/SortableTree";
 import { GetAllMealSchedulesAdminQuery } from "@/gql/graphql";
 
 export const X_URL = "x-url";

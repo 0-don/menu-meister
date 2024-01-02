@@ -46,6 +46,7 @@
     "next-themes": "^0.2.1",
     "psl": "^1.9.0",
     "react": "18.2.0",
+    "react-complex-tree": "^2.3.2",
     "react-dom": "18.2.0",
     "react-spring": "^9.7.3",
     "valtio": "^1.12.1"
