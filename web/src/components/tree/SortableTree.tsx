@@ -152,6 +152,9 @@ export const SortableTree: React.FC = ({}) => {
       <div className="flex gap-64">
         {dndStore.schedules.map((schedule) => {
           console.log(dndStore.groupedFlatSchedules);
+          const ids = dndStore.flatSchedules
+            .filter((s) => schedule.servingDate === s.date)
+            .map(({ flatId }) => flatId);
           return (
             <div
               key={schedule.id}
@@ -163,7 +166,9 @@ export const SortableTree: React.FC = ({}) => {
             >
               <div>{schedule.servingDate}</div>
               <SortableContext
-                items={dndStore.groupedFlatSchedules[schedule.servingDate]}
+                items={dndStore.groupedFlatSchedules[schedule.servingDate]?.map(
+                  (i) => i.flatId,
+                )}
                 id={schedule.servingDate}
               >
                 {dndStore.flatSchedules

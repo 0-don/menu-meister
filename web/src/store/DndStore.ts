@@ -64,16 +64,18 @@ const DndStore = proxy({
       ({ parentId }) => !parentId || !excludeParentIds.has(parentId.toString()),
     );
 
-    DndStore.groupedFlatSchedules = res.reduce(
-      (acc, item) => {
-        const { date } = DndStore.parseFlatId(item.flatId);
-        const group = acc[date] || [];
-        group.push(item);
-        acc[date] = group;
-        return acc;
-      },
-      {} as { [key: string]: FlatScheduleItem[] },
-    );
+    if (!activeId) {
+      DndStore.groupedFlatSchedules = res.reduce(
+        (acc, item) => {
+          const { date } = DndStore.parseFlatId(item.flatId);
+          const group = acc[date] || [];
+          group.push(item);
+          acc[date] = group;
+          return acc;
+        },
+        {} as { [key: string]: FlatScheduleItem[] },
+      );
+    }
 
     return res;
   },
