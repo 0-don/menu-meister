@@ -19,7 +19,7 @@ import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import { TableItem } from "./elements/TableItem";
-import { MultipleTrees2 } from "./tree/Treex";
+import { SortableTree } from "./tree/SortableTree";
 
 interface DashboardPageProps {}
 
@@ -62,11 +62,11 @@ export function MainTable({}: DashboardPageProps) {
 
       {/* <MultipleContainers /> */}
 
-      <MultipleTrees2 />
+      {/* <MultipleTrees2 /> */}
 
       {/* <BackupTree /> */}
 
-      {/* <SortableTree /> */}
+      <SortableTree />
 
       <Table className="mt-5" aria-label="Table">
         <TableHeader>
