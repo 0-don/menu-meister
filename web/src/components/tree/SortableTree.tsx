@@ -33,7 +33,7 @@ function getProjection(
   let projectedDepth = activeItem.depth + dragDepth;
   const { id } = DndStore.parseFlatId(activeId);
 
-  const hasChildren = activeItem?.mealGroup && activeItem.mealGroup.id == id
+  const hasChildren = activeItem?.mealGroup && activeItem.mealGroup.id == id;
 
   if (hasChildren) {
     projectedDepth = Math.min(projectedDepth, 0);
@@ -83,7 +83,9 @@ const SortableTreeItem: React.FC<{
         style={{ transform: CSS.Translate.toString(transform) }}
         {...listeners}
       >
-        {item.group ? item.group.name : item.meal?.name}
+        {item.group
+          ? `${item.group.name}#${item.group.id}`
+          : `${item.meal?.name}#${item.meal?.id}`}
       </div>
     </li>
   );
@@ -148,43 +150,50 @@ export const SortableTree: React.FC = ({}) => {
       }}
     >
       <div className="flex gap-64">
-        {dndStore.schedules.map((schedule) => (
-          <div
-            key={schedule.id}
-            className="border-2 p-2"
-            style={{
-              maxWidth: 600,
-              margin: "0 auto",
-            }}
-          >
-            <SortableContext items={sortedIds}>
-              {dndStore.flatSchedules
-                .filter((s) => schedule.servingDate === s.date)
-                .map((s) => (
-                  <SortableTreeItem
-                    key={s.flatId}
-                    id={s.flatId}
-                    depth={
-                      s.flatId === activeId && projected
-                        ? projected.depth
-                        : s.depth
-                    }
-                    indentationWidth={25}
-                  />
-                ))}
+        {dndStore.schedules.map((schedule) => {
+          console.log(dndStore.groupedFlatSchedules);
+          return (
+            <div
+              key={schedule.id}
+              className="border-2 p-2"
+              style={{
+                maxWidth: 600,
+                margin: "0 auto",
+              }}
+            >
+              <div>{schedule.servingDate}</div>
+              <SortableContext
+                items={dndStore.groupedFlatSchedules[schedule.servingDate]}
+                id={schedule.servingDate}
+              >
+                {dndStore.flatSchedules
+                  .filter((s) => schedule.servingDate === s.date)
+                  .map((s) => (
+                    <SortableTreeItem
+                      key={s.flatId}
+                      id={s.flatId}
+                      depth={
+                        s.flatId === activeId && projected
+                          ? projected.depth
+                          : s.depth
+                      }
+                      indentationWidth={25}
+                    />
+                  ))}
 
-              <DragOverlay>
-                {activeId && activeItem && (
-                  <SortableTreeItem
-                    id={activeId}
-                    depth={activeItem?.depth}
-                    indentationWidth={25}
-                  />
-                )}
-              </DragOverlay>
-            </SortableContext>
-          </div>
-        ))}
+                <DragOverlay>
+                  {activeId && activeItem && (
+                    <SortableTreeItem
+                      id={activeId}
+                      depth={activeItem?.depth}
+                      indentationWidth={25}
+                    />
+                  )}
+                </DragOverlay>
+              </SortableContext>
+            </div>
+          );
+        })}
       </div>
     </DndContext>
   );
