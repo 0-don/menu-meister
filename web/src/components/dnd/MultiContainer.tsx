@@ -8,6 +8,7 @@ import {
 } from "@dnd-kit/core";
 import {
   SortableContext,
+  arrayMove,
   useSortable,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
@@ -30,7 +31,7 @@ function SortableItem({ id }: { id: UniqueIdentifier }) {
       {...listeners}
     >
       <div
-        className={`bg-opacity relative flex flex-grow items-center rounded-lg bg-gray-500 p-4 text-black outline-none  ${
+        className={`bg-opacity relative flex flex-grow items-center rounded-lg bg-gray-500 p-4 text-black outline-none ${
           isDragging ? "opacity-50" : "opacity-100"
         }`}
       >
@@ -122,6 +123,41 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
           });
         }
       }}
+      onDragEnd={({ active, over }) => {
+        if (active.id in items && over?.id) {
+          setContainers((containers) => {
+            const activeIndex = containers.indexOf(active.id);
+            const overIndex = containers.indexOf(over.id);
+            return arrayMove(containers, activeIndex, overIndex);
+          });
+        }
+        const activeContainer = findContainer(active.id);
+        if (!activeContainer) {
+          setActiveId(null);
+          return;
+        }
+        const overId = over?.id;
+        if (overId == null) {
+          setActiveId(null);
+          return;
+        }
+        const overContainer = findContainer(overId);
+        if (overContainer) {
+          const activeIndex = items[activeContainer].indexOf(active.id);
+          const overIndex = items[overContainer].indexOf(overId);
+          if (activeIndex !== overIndex) {
+            setItems((items) => ({
+              ...items,
+              [overContainer]: arrayMove(
+                items[overContainer],
+                activeIndex,
+                overIndex,
+              ),
+            }));
+          }
+        }
+        setActiveId(null);
+      }}
     >
       <div
         style={{
@@ -131,24 +167,21 @@ export function MultipleContainers({ renderItem }: { renderItem?: any }) {
           gridAutoFlow: "column",
         }}
       >
-        {containers.map((containerId) => {
-          console.log(items[containerId]);
-          return (
-            <div
-              key={containerId}
-              className={`max-content duration-350 m-2.5 box-border flex min-h-[200px] min-w-[350px] appearance-none flex-col overflow-hidden rounded-md border border-[rgba(0,0,0,0.05)] bg-black text-base outline-none transition-colors`}
+        {containers.map((containerId) => (
+          <div
+            key={containerId}
+            className={`max-content duration-350 m-2.5 box-border flex min-h-[200px] min-w-[350px] appearance-none flex-col overflow-hidden rounded-md border border-[rgba(0,0,0,0.05)] bg-black text-base outline-none transition-colors`}
+          >
+            <SortableContext
+              items={items[containerId]}
+              strategy={verticalListSortingStrategy}
             >
-              <SortableContext
-                items={items[containerId]}
-                strategy={verticalListSortingStrategy}
-              >
-                {items[containerId].map((value) => (
-                  <SortableItem key={value} id={value} />
-                ))}
-              </SortableContext>
-            </div>
-          )
-        })}
+              {items[containerId].map((value) => (
+                <SortableItem key={value} id={value} />
+              ))}
+            </SortableContext>
+          </div>
+        ))}
       </div>
 
       <DragOverlay

@@ -52,7 +52,7 @@ export interface FlatScheduleItem extends ScheduleItem {
 const DndStore = proxy({
   schedules: [] as Schedule[],
   flatSchedules: [] as FlatScheduleItem[],
-  groupedFlatSchedules: {} as { [key: string]: FlatScheduleItem[] },
+  groupedFlatSchedules: {} as { [key: string]: UniqueIdentifier[] },
   getAllFlatten: (activeId?: UniqueIdentifier) => {
     const schedules = DndStore.schedules
       .map((schedule) => DndStore.flatten(schedule))
@@ -69,11 +69,11 @@ const DndStore = proxy({
         (acc, item) => {
           const { date } = DndStore.parseFlatId(item.flatId);
           const group = acc[date] || [];
-          group.push(item);
+          group.push(item.flatId);
           acc[date] = group;
           return acc;
         },
-        {} as { [key: string]: FlatScheduleItem[] },
+        {} as { [key: string]: UniqueIdentifier[] },
       );
     }
 

@@ -121,8 +121,29 @@ export const SortableTree: React.FC = ({}) => {
         setActiveId(active.id);
         setOverId(active.id);
       }}
-      onDragMove={({ delta }) => setOffsetLeft(delta.x)}
-      onDragOver={({ over }) => setOverId(over?.id)}
+      onDragMove={({ delta, active }) => {
+        setOffsetLeft(delta.x);
+        const activeItem = dndStore.flatSchedules.find(
+          ({ flatId }) => flatId === active.id,
+        );
+
+        if (!activeItem) return;
+
+        const { date: activeDate } = DndStore.parseFlatId(active.id);
+        // go over each key and push the item if not exist yet
+        Object.keys(dndStore.groupedFlatSchedules).forEach((key) => {
+          const index = dndStore.groupedFlatSchedules[key].findIndex(
+            (flatId) => flatId === active.id,
+          );
+
+          if (index === -1) {
+            DndStore.groupedFlatSchedules[key].push(activeItem.flatId);
+          }
+        });
+      }}
+      onDragOver={({ over, active }) => {
+        setOverId(over?.id);
+      }}
       onDragEnd={({ over, active }) => {
         setActiveId(undefined);
 
@@ -166,9 +187,7 @@ export const SortableTree: React.FC = ({}) => {
             >
               <div>{schedule.servingDate}</div>
               <SortableContext
-                items={dndStore.groupedFlatSchedules[schedule.servingDate]?.map(
-                  (i) => i.flatId,
-                )}
+                items={dndStore.groupedFlatSchedules[schedule.servingDate]}
                 id={schedule.servingDate}
               >
                 {dndStore.flatSchedules
@@ -185,10 +204,10 @@ export const SortableTree: React.FC = ({}) => {
                       indentationWidth={25}
                     />
                   ))}
-
                 <DragOverlay>
                   {activeId && activeItem && (
                     <SortableTreeItem
+                    
                       id={activeId}
                       depth={activeItem?.depth}
                       indentationWidth={25}
