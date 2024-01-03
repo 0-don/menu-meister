@@ -130,7 +130,7 @@ export const SortableTree = () => {
         {Object.keys(itemGroups).map((group) => (
           <Droppable
             id={group}
-            items={(itemGroups as any)[group]}
+            items={itemGroups[group]}
             activeId={activeId}
             key={group}
           />
@@ -165,7 +165,7 @@ const Droppable = ({ id, items }: DroppableProps) => {
         className="droppable min-w-[110px] list-none rounded-md border border-black p-[20px_10px]"
         ref={setNodeRef}
       >
-        {items.map((item: any) => (
+        {items.map((item) => (
           <SortableItem key={item} id={item} />
         ))}
       </ul>
@@ -190,13 +190,14 @@ const SortableItem = ({ id }: { id: UniqueIdentifier }) => {
   };
 
   return (
-    <li style={style} ref={setNodeRef} {...attributes} {...listeners}>
-      <div
-        style={{ cursor: "grabbing" }}
-        className="item mb-[5px] box-border flex h-[30px] w-[110px] select-none items-center rounded-md border border-gray-300 pl-[5px]"
-      >
-        Item {id}
-      </div>
+    <li
+      style={style}
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      className="item mb-[5px] box-border flex h-[30px] w-[110px] cursor-grab select-none items-center rounded-md border border-gray-300 pl-[5px]"
+    >
+      Item {id}
     </li>
   );
 };
