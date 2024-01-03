@@ -1,8 +1,4 @@
-import TreeStore, {
-  DaySchedule,
-  FlatScheduleItem,
-  INITIAL_DATA,
-} from "@/store/TreeStore";
+import TreeStore, { DaySchedule, INITIAL_DATA } from "@/store/TreeStore";
 import {
   DndContext,
   DragOverlay,
@@ -18,7 +14,6 @@ const SortableTreeItem: React.FC<{
   id: UniqueIdentifier;
   depth: number;
   indentationWidth: number;
-  item: FlatScheduleItem;
 }> = (props) => {
   const treeStore = useSnapshot(TreeStore);
   const { listeners, setDraggableNodeRef, setDroppableNodeRef, transform } =
@@ -40,9 +35,9 @@ const SortableTreeItem: React.FC<{
         style={{ transform: CSS.Translate.toString(transform) }}
         {...listeners}
       >
-        {props.item.group
-          ? `${props.item.group.name}#${props.item.group.id}`
-          : `${props.item.meal?.name}#${props.item.meal?.id}`}
+        {item.group
+          ? `${item.group.name}#${item.group.id}`
+          : `${item.meal?.name}#${item.meal?.id}`}
       </div>
     </li>
   );
@@ -108,7 +103,6 @@ export const SortableTree: React.FC = ({}) => {
                   <SortableTreeItem
                     key={s.flatId}
                     id={s.flatId}
-                    item={s}
                     depth={
                       s.flatId === activeId && projected
                         ? projected.depth
@@ -121,7 +115,6 @@ export const SortableTree: React.FC = ({}) => {
                   {activeId && activeItem && (
                     <SortableTreeItem
                       id={activeId}
-                      item={activeItem}
                       depth={activeItem?.depth}
                       indentationWidth={25}
                     />

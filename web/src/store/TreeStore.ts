@@ -88,11 +88,8 @@ const TreeStore = proxy({
   getScheduleItem: (flatId: UniqueIdentifier) => {
     const { id, date, mealId, groupIndex } = TreeStore.parseFlatId(flatId);
 
-    console.log(id, date, mealId, groupIndex);
     const schedule = TreeStore.schedules.find((s) => s.servingDate === date);
     const scheduleItem = schedule?.schedules?.find((item) => item.id == id);
-
-    console.log(schedule, scheduleItem);
 
     if (!scheduleItem) return { group: null, meal: null };
 
