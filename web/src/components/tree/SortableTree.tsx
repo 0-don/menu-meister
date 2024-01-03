@@ -3,6 +3,7 @@
 import Store from "@/store/Store";
 import {
   DndContext,
+  DragOverEvent,
   DragOverlay,
   UniqueIdentifier,
   useDroppable,
@@ -17,31 +18,33 @@ import { useCallback } from "react";
 import { useSnapshot } from "valtio";
 
 export const SortableTree = () => {
-  const store = useSnapshot(Store);
+  const { schedules } = useSnapshot(Store);
 
+  const handleDragOver = useCallback(
+    (event: DragOverEvent) => {
+      Store.onDragOver(event);
+    },
+    [], // Dependencies array
+  );
   return (
     <DndContext
       onDragStart={({ active }) => (Store.activeId = active.id)}
       onDragCancel={() => (Store.activeId = undefined)}
-      onDragOver={useCallback(Store.onDragOver, [])}
+      onDragOver={handleDragOver}
       onDragEnd={Store.onDragEnd}
     >
       <div className="flex space-x-5">
-        {Object.keys(store.schedules).map((group) => (
+        {Object.keys(schedules).map((group) => (
           <Droppable
             id={group}
-            items={store.schedules[group]}
-            activeId={store.activeId}
+            items={schedules[group]}
+            activeId={Store.activeId}
             key={group}
           />
         ))}
       </div>
       <DragOverlay>
-        {store.activeId && (
-          <div className="mb-[5px] box-border flex h-[30px] w-[110px] cursor-grabbing select-none items-center rounded-md border border-gray-300 pl-[5px]">
-            Item {store.activeId}
-          </div>
-        )}
+        {Store.activeId && <Item id={Store.activeId} />}
       </DragOverlay>
     </DndContext>
   );
@@ -88,14 +91,26 @@ const SortableItem = ({ id }: { id: UniqueIdentifier }) => {
   };
 
   return (
-    <li
-      style={style}
-      ref={setNodeRef}
-      {...attributes}
-      {...listeners}
-      className="item mb-[5px] box-border flex h-[30px] w-[110px] cursor-grab select-none items-center rounded-md border border-gray-300 pl-[5px]"
+    <li style={style} ref={setNodeRef} {...attributes} {...listeners}>
+      <Item id={id} />
+    </li>
+  );
+};
+
+const Item = ({
+  id,
+  dragOverlay,
+}: {
+  id: UniqueIdentifier;
+  dragOverlay?: boolean;
+}) => {
+  return (
+    <div
+      className={`${
+        dragOverlay ? "cursor-grabbing" : "cursor-grab"
+      } mb-[5px] box-border flex h-[30px] w-[110px] select-none items-center rounded-md border border-gray-300 pl-[5px]`}
     >
       Item {id}
-    </li>
+    </div>
   );
 };
