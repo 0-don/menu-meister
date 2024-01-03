@@ -1,3 +1,5 @@
+"use client";
+
 import Store from "@/store/Store";
 import {
   DndContext,

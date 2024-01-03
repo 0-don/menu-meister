@@ -1,3 +1,4 @@
+"use client";
 import { DragEndEvent, DragOverEvent, UniqueIdentifier } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import { proxy } from "valtio";
@@ -35,6 +36,7 @@ const Store = proxy({
     ],
   }),
   onDragOver: ({ active, over }: DragOverEvent) => {
+    console.log(over?.id);
     const overId = over?.id;
 
     if (!overId) {
