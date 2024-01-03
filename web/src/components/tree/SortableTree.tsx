@@ -11,30 +11,8 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
-
-function getProjection(
-  items: FlatScheduleItem[],
-  dragOffset: number,
-  activeId?: UniqueIdentifier,
-  overId?: UniqueIdentifier,
-) {
-  if (!activeId || !overId) return null;
-
-  const activeItem = items.find(({ flatId }) => flatId === activeId);
-  const overItemIndex = items.findIndex(({ flatId }) => flatId === overId);
-  const depth = activeItem?.group ? 0 : dragOffset > 0 ? 1 : 0;
-  const parentId =
-    depth === 1
-      ? items
-          .slice(0, overItemIndex)
-          .reverse()
-          .find((item) => item.depth === 0)?.flatId || 0
-      : 0;
-
-  return { depth, parentId };
-}
 
 const SortableTreeItem: React.FC<{
   id: UniqueIdentifier;
@@ -42,8 +20,13 @@ const SortableTreeItem: React.FC<{
   indentationWidth: number;
   item: FlatScheduleItem;
 }> = (props) => {
+  const treeStore = useSnapshot(TreeStore);
   const { listeners, setDraggableNodeRef, setDroppableNodeRef, transform } =
     useSortable({ id: props.id });
+
+  const item = treeStore.getScheduleItem(props.id);
+
+  console.log(item);
 
   return (
     <li
@@ -69,7 +52,9 @@ export const SortableTree: React.FC = ({}) => {
   const treeStore = useSnapshot(TreeStore);
   const [items, setItems] = useState<DaySchedule[]>(INITIAL_DATA);
 
-  const flattened = items.flatMap(TreeStore.flatten);
+  useEffect(() => {
+    TreeStore.flatSchedules = treeStore.schedules.flatMap(TreeStore.flatten);
+  }, []);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>(
     undefined,
@@ -77,9 +62,15 @@ export const SortableTree: React.FC = ({}) => {
   const [overId, setOverId] = useState<UniqueIdentifier | undefined>(undefined);
   const [offsetLeft, setOffsetLeft] = useState(0);
 
-  const projected = getProjection(flattened, offsetLeft, activeId, overId);
-
-  const activeItem = flattened.find(({ flatId }) => flatId === activeId);
+  const projected = TreeStore.getProjection(
+    treeStore.flatSchedules,
+    offsetLeft,
+    activeId,
+    overId,
+  );
+  const activeItem = treeStore.flatSchedules.find(
+    ({ flatId }) => flatId === activeId,
+  );
 
   return (
     <DndContext

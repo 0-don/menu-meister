@@ -33,24 +33,24 @@ export const INITIAL_DATA: DaySchedule[] = [
         id: "schedule1",
         meal: {
           id: "meal1",
-          name: "meal1",
+          name: "pizza",
         },
       },
       {
         id: "schedule2",
         meal: {
           id: "meal2",
-          name: "meal2",
+          name: "bread",
         },
       },
       {
         id: "schedule3",
         group: {
           id: "group1",
-          name: "group1",
+          name: "breakfast",
           meals: [
-            { id: "meal3", name: "meal3" },
-            { id: "meal4", name: "meal4" },
+            { id: "meal3", name: "tea" },
+            { id: "meal4", name: "sandwich" },
           ],
         },
       },
@@ -65,7 +65,7 @@ export interface FlatScheduleItem extends Schedule {
 }
 
 const TreeStore = proxy({
-  schedules: [] as DaySchedule[],
+  schedules: INITIAL_DATA as DaySchedule[],
   flatSchedules: [] as FlatScheduleItem[],
 
   getAllFlatten: (activeId?: UniqueIdentifier) => {
@@ -87,8 +87,12 @@ const TreeStore = proxy({
   },
   getScheduleItem: (flatId: UniqueIdentifier) => {
     const { id, date, mealId, groupIndex } = TreeStore.parseFlatId(flatId);
+
+    console.log(id, date, mealId, groupIndex);
     const schedule = TreeStore.schedules.find((s) => s.servingDate === date);
     const scheduleItem = schedule?.schedules?.find((item) => item.id == id);
+
+    console.log(schedule, scheduleItem);
 
     if (!scheduleItem) return { group: null, meal: null };
 
@@ -108,16 +112,38 @@ const TreeStore = proxy({
   buildTree: (flatItems: FlatScheduleItem[]): Schedule[] => {
     return [];
   },
-  flatten: (item: DaySchedule): FlatScheduleItem[] => {
-    return item.schedules.flatMap((item, groupIndex) => {
+
+  getProjection(
+    items: FlatScheduleItem[],
+    dragOffset: number,
+    activeId?: UniqueIdentifier,
+    overId?: UniqueIdentifier,
+  ) {
+    if (!activeId || !overId) return null;
+
+    const activeItem = items.find(({ flatId }) => flatId === activeId);
+    const overItemIndex = items.findIndex(({ flatId }) => flatId === overId);
+    const depth = activeItem?.group ? 0 : dragOffset > 0 ? 1 : 0;
+    const parentId =
+      depth === 1
+        ? items
+            .slice(0, overItemIndex)
+            .reverse()
+            .find((item) => item.depth === 0)?.flatId || 0
+        : 0;
+
+    return { depth, parentId };
+  },
+  flatten: (day: DaySchedule): FlatScheduleItem[] => {
+    return day.schedules.flatMap((item, groupIndex) => {
       const { meal, group, id } = item;
 
       if (group) {
-        const groupFlatId = `${id}#${item.id}`;
+        const groupFlatId = `${id}#${day.servingDate}#${group.id}`;
         const children =
           group.meals?.map((meal, mealIndex) => ({
             ...item,
-            flatId: `${id}#${item.id}#${meal.id}#${mealIndex}`,
+            flatId: `${id}#${day.servingDate}#${meal.id}#${mealIndex}`,
             parentId: groupFlatId,
             index: mealIndex,
             depth: 1,
@@ -138,7 +164,7 @@ const TreeStore = proxy({
       return {
         ...item,
         index: groupIndex,
-        flatId: `${id}#${item.id}#${meal?.id}`,
+        flatId: `${id}#${day.servingDate}#${meal?.id}`,
         parentId: item.id,
         depth: 0,
       };
