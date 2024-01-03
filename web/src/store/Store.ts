@@ -1,6 +1,5 @@
-"use client";
 import { DragEndEvent, DragOverEvent, UniqueIdentifier } from "@dnd-kit/core";
-import { arrayMove, } from "@dnd-kit/sortable";
+import { arrayMove } from "@dnd-kit/sortable";
 import { proxy } from "valtio";
 
 interface ItemGroups {
@@ -67,36 +66,32 @@ const Store = proxy({
       return;
     }
 
-    if (active.id !== over.id) {
-      const activeContainer = active.data.current?.sortable.containerId;
-      const overContainer = over.data.current?.sortable.containerId || over.id;
-      const activeIndex = active.data.current?.sortable.index;
-      const overIndex =
-        over.id in Store.schedules
-          ? Store.schedules[overContainer].length + 1
-          : over.data.current?.sortable.index;
+    const activeContainer = active.data.current?.sortable.containerId;
+    const overContainer = over.data.current?.sortable.containerId || over.id;
+    const activeIndex = active.data.current?.sortable.index;
+    const overIndex =
+      over.id in Store.schedules
+        ? Store.schedules[overContainer].length + 1
+        : over.data.current?.sortable.index;
 
-      let newItems;
-      if (activeContainer === overContainer) {
-        newItems = {
-          ...Store.schedules,
-          [overContainer]: arrayMove(
-            Store.schedules[overContainer],
-            activeIndex,
-            overIndex,
-          ),
-        };
-      } else {
-        newItems = Store.moveBetweenContainers(
-          Store.schedules,
-          activeContainer,
+    if (activeContainer === overContainer) {
+      Store.schedules = {
+        ...Store.schedules,
+        [overContainer]: arrayMove(
+          Store.schedules[overContainer],
           activeIndex,
-          overContainer,
           overIndex,
-          active.id,
-        );
-      }
-      Store.schedules = newItems;
+        ),
+      };
+    } else {
+      Store.schedules = Store.moveBetweenContainers(
+        Store.schedules,
+        activeContainer,
+        activeIndex,
+        overContainer,
+        overIndex,
+        active.id,
+      );
     }
 
     Store.activeId = undefined;

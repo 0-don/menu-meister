@@ -11,32 +11,33 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { useCallback } from "react";
 import { useSnapshot } from "valtio";
 
 export const SortableTree = () => {
-  const { schedules } = useSnapshot(Store, { sync: true });
+  const store = useSnapshot(Store);
 
   return (
     <DndContext
       onDragStart={({ active }) => (Store.activeId = active.id)}
       onDragCancel={() => (Store.activeId = undefined)}
-      onDragOver={Store.onDragOver}
+      onDragOver={useCallback(Store.onDragOver, [])}
       onDragEnd={Store.onDragEnd}
     >
       <div className="flex space-x-5">
-        {Object.keys(schedules).map((group) => (
+        {Object.keys(store.schedules).map((group) => (
           <Droppable
             id={group}
-            items={schedules[group]}
-            activeId={Store.activeId}
+            items={store.schedules[group]}
+            activeId={store.activeId}
             key={group}
           />
         ))}
       </div>
       <DragOverlay>
-        {Store.activeId && (
+        {store.activeId && (
           <div className="mb-[5px] box-border flex h-[30px] w-[110px] cursor-grabbing select-none items-center rounded-md border border-gray-300 pl-[5px]">
-            Item {Store.activeId}
+            Item {store.activeId}
           </div>
         )}
       </DragOverlay>
