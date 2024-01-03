@@ -1,4 +1,4 @@
-import TreeStore, { DaySchedule, INITIAL_DATA } from "@/store/TreeStore";
+import TreeStore from "@/store/TreeStore";
 import {
   DndContext,
   DragOverlay,
@@ -20,8 +20,6 @@ const SortableTreeItem: React.FC<{
     useSortable({ id: props.id });
 
   const item = treeStore.getScheduleItem(props.id);
-
-  console.log(item);
 
   return (
     <li
@@ -45,7 +43,6 @@ const SortableTreeItem: React.FC<{
 
 export const SortableTree: React.FC = ({}) => {
   const treeStore = useSnapshot(TreeStore);
-  const [items, setItems] = useState<DaySchedule[]>(INITIAL_DATA);
 
   useEffect(() => {
     TreeStore.flatSchedules = treeStore.schedules.flatMap(TreeStore.flatten);
@@ -66,6 +63,7 @@ export const SortableTree: React.FC = ({}) => {
   const activeItem = treeStore.flatSchedules.find(
     ({ flatId }) => flatId === activeId,
   );
+  const allIds = treeStore.flatSchedules.map(({ flatId }) => flatId);
 
   return (
     <DndContext
@@ -79,13 +77,14 @@ export const SortableTree: React.FC = ({}) => {
       }}
       onDragOver={({ over, active }) => {
         setOverId(over?.id);
+        console.log(over?.id);
       }}
       onDragEnd={({ over, active }) => {
         setActiveId(undefined);
       }}
     >
       <div className="flex gap-64">
-        {items.map((schedule) => {
+        {treeStore.schedules.map((schedule) => {
           const flatSchedules = TreeStore.flatten(schedule);
           const ids = flatSchedules.map(({ flatId }) => flatId);
           return (
@@ -98,7 +97,7 @@ export const SortableTree: React.FC = ({}) => {
               }}
             >
               <div>{schedule.servingDate}</div>
-              <SortableContext items={ids} id={schedule.servingDate}>
+              <SortableContext items={allIds} id={schedule.servingDate}>
                 {flatSchedules.map((s) => (
                   <SortableTreeItem
                     key={s.flatId}

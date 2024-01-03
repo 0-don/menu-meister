@@ -1,5 +1,4 @@
 "use client";
-
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { proxy } from "valtio";
 
@@ -23,26 +22,13 @@ export interface Meal {
   id: UniqueIdentifier;
   name: string;
 }
-
 export const INITIAL_DATA: DaySchedule[] = [
   {
     id: "day1",
     servingDate: "MONDAY",
     schedules: [
-      {
-        id: "schedule1",
-        meal: {
-          id: "meal1",
-          name: "pizza",
-        },
-      },
-      {
-        id: "schedule2",
-        meal: {
-          id: "meal2",
-          name: "bread",
-        },
-      },
+      { id: "schedule1", meal: { id: "meal1", name: "pizza" } },
+      { id: "schedule2", meal: { id: "meal2", name: "bread" } },
       {
         id: "schedule3",
         group: {
@@ -56,7 +42,27 @@ export const INITIAL_DATA: DaySchedule[] = [
       },
     ],
   },
+  {
+    id: "day2",
+    servingDate: "TUESDAY",
+    schedules: [
+      { id: "schedule4", meal: { id: "meal5", name: "pasta" } },
+      { id: "schedule5", meal: { id: "meal6", name: "salad" } },
+      {
+        id: "schedule6",
+        group: {
+          id: "group2",
+          name: "lunch",
+          meals: [
+            { id: "meal7", name: "soup" },
+            { id: "meal8", name: "burger" },
+          ],
+        },
+      },
+    ],
+  },
 ];
+
 export interface FlatScheduleItem extends Schedule {
   flatId: UniqueIdentifier;
   parentId: UniqueIdentifier | null;

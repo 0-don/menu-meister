@@ -1,5 +1,5 @@
 import { GetAllMealSchedulesAdminQuery } from "@/gql/graphql";
-import { initialItems } from "@/utils/constants";
+
 import {
   DndContext,
   DragOverlay,
@@ -100,7 +100,7 @@ const SortableTreeItem: React.FC<{
 export const BackupTree: React.FC<{
   items?: GetAllMealSchedulesAdminQuery["getAllMealSchedulesAdmin"];
 }> = ({ items }) => {
-  const [schedules, setSchedules] = useState(initialItems);
+  const [schedules, setSchedules] = useState([]);
   const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>(
     undefined,
   );
@@ -149,7 +149,7 @@ export const BackupTree: React.FC<{
           .map((item) => clonedItems.find(({ id }) => id === item.id))
           .filter(Boolean) as FlattenedItem[];
 
-        setSchedules(buildTree(sortedItems));
+        setSchedules(buildTree(sortedItems) as any);
       }}
     >
       <div
