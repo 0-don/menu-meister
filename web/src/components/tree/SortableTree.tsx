@@ -13,6 +13,7 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { useCallback } from "react";
 import { useSnapshot } from "valtio";
 
 export const SortableTree = () => {
@@ -22,7 +23,7 @@ export const SortableTree = () => {
     <DndContext
       onDragStart={({ active }) => (Store.activeId = active.id)}
       onDragCancel={() => (Store.activeId = undefined)}
-      onDragOver={Store.onDragOver}
+      onDragOver={useCallback(Store.onDragOver, [])}
       onDragEnd={Store.onDragEnd}
     >
       <div className="flex space-x-5">
