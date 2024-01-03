@@ -16,87 +16,53 @@ export const INITIAL_DATA: ItemGroups = {
 const Store = proxy({
   activeId: undefined as UniqueIdentifier | undefined,
   schedules: INITIAL_DATA,
-  moveBetweenContainers: (
-    items: ItemGroups,
-    activeContainer: string,
-    activeIndex: number,
-    overContainer: string,
-    overIndex: number,
-    item: UniqueIdentifier,
-  ) => ({
-    ...items,
-    [activeContainer]: [
-      ...items[activeContainer].slice(0, activeIndex),
-      ...items[activeContainer].slice(activeIndex + 1),
-    ],
-    [overContainer]: [
-      ...items[overContainer].slice(0, overIndex),
-      item,
-      ...items[overContainer].slice(overIndex),
-    ],
-  }),
-  onDragOver: ({ active, over }: DragOverEvent) => {
-    console.log(over?.id);
-    const overId = over?.id;
-
-    if (!overId) {
-      return;
-    }
-
-    const activeContainer = active.data.current?.sortable.containerId;
-    const overContainer = over.data.current?.sortable.containerId || over.id;
-
-    if (activeContainer !== overContainer) {
-      const activeIndex = active.data.current?.sortable.index;
-      const overIndex =
-        over.id in Store.schedules
-          ? Store.schedules[overContainer].length + 1
-          : over.data.current?.sortable.index;
-      Store.schedules = Store.moveBetweenContainers(
-        Store.schedules,
-        activeContainer,
-        activeIndex,
-        overContainer,
-        overIndex,
-        active.id,
+  moveItem: (
+    sourceId: string,
+    sourceIndex: number,
+    destinationId: string,
+    destinationIndex: number,
+  ) => {
+    if (sourceId === destinationId) {
+      Store.schedules[sourceId] = arrayMove(
+        Store.schedules[sourceId],
+        sourceIndex,
+        destinationIndex,
       );
+    } else {
+      const item = Store.schedules[sourceId][sourceIndex];
+      Store.schedules[sourceId].splice(sourceIndex, 1);
+      Store.schedules[destinationId].splice(destinationIndex, 0, item);
     }
   },
-  onDragEnd: ({ active, over }: DragEndEvent) => {
-    if (!over) {
-      Store.activeId = undefined;
-      return;
-    }
+
+  onDragOver: ({ active, over }: DragOverEvent) => {
+    const overId = over?.id;
+    if (!overId) return;
 
     const activeContainer = active.data.current?.sortable.containerId;
-    const overContainer = over.data.current?.sortable.containerId || over.id;
+    const overContainer = over.data.current?.sortable.containerId || overId;
     const activeIndex = active.data.current?.sortable.index;
     const overIndex =
-      over.id in Store.schedules
-        ? Store.schedules[overContainer].length + 1
-        : over.data.current?.sortable.index;
+      over.data.current?.sortable.index ??
+      Store.schedules[overContainer].length;
 
-    if (activeContainer === overContainer) {
-      Store.schedules = {
-        ...Store.schedules,
-        [overContainer]: arrayMove(
-          Store.schedules[overContainer],
-          activeIndex,
-          overIndex,
-        ),
-      };
-    } else {
-      Store.schedules = Store.moveBetweenContainers(
-        Store.schedules,
-        activeContainer,
-        activeIndex,
-        overContainer,
-        overIndex,
-        active.id,
-      );
+    if (activeContainer !== overContainer || activeIndex !== overIndex) {
+      Store.moveItem(activeContainer, activeIndex, overContainer, overIndex);
     }
+  },
 
-    Store.activeId = undefined;
+  onDragEnd: ({ active, over }: DragEndEvent) => {
+    const overId = over?.id;
+    if (!overId) return;
+
+    const activeContainer = active.data.current?.sortable.containerId;
+    const overContainer = over.data.current?.sortable.containerId || overId;
+    const activeIndex = active.data.current?.sortable.index;
+    const overIndex =
+      over.data.current?.sortable.index ??
+      Store.schedules[overContainer].length;
+
+    Store.moveItem(activeContainer, activeIndex, overContainer, overIndex);
   },
 });
 
