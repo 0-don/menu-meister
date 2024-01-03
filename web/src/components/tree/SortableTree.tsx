@@ -25,26 +25,6 @@ export const SortableTree = () => {
     undefined,
   );
 
-  const moveBetweenContainers = (
-    items: ItemGroups,
-    activeContainer: string,
-    activeIndex: number,
-    overContainer: string,
-    overIndex: number,
-    item: UniqueIdentifier,
-  ) => ({
-    ...items,
-    [activeContainer]: [
-      ...items[activeContainer].slice(0, activeIndex),
-      ...items[activeContainer].slice(activeIndex + 1),
-    ],
-    [overContainer]: [
-      ...items[overContainer].slice(0, overIndex),
-      item,
-      ...items[overContainer].slice(overIndex),
-    ],
-  });
-
   return (
     <DndContext
       onDragStart={({ active }) => setActiveId(active?.id)}
@@ -66,7 +46,7 @@ export const SortableTree = () => {
             over.id in store.schedules
               ? store.schedules[overContainer].length + 1
               : over.data.current?.sortable.index;
-          Store.schedules = moveBetweenContainers(
+          Store.schedules = Store.moveBetweenContainers(
             store.schedules,
             activeContainer,
             activeIndex,
@@ -103,7 +83,7 @@ export const SortableTree = () => {
               ),
             };
           } else {
-            newItems = moveBetweenContainers(
+            newItems = Store.moveBetweenContainers(
               store.schedules,
               activeContainer,
               activeIndex,

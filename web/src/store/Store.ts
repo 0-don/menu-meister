@@ -14,6 +14,25 @@ export const INITIAL_DATA: ItemGroups = {
 
 const Store = proxy({
   schedules: INITIAL_DATA,
+  moveBetweenContainers: (
+    items: ItemGroups,
+    activeContainer: string,
+    activeIndex: number,
+    overContainer: string,
+    overIndex: number,
+    item: UniqueIdentifier,
+  ) => ({
+    ...items,
+    [activeContainer]: [
+      ...items[activeContainer].slice(0, activeIndex),
+      ...items[activeContainer].slice(activeIndex + 1),
+    ],
+    [overContainer]: [
+      ...items[overContainer].slice(0, overIndex),
+      item,
+      ...items[overContainer].slice(overIndex),
+    ],
+  }),
 });
 
 export default Store;
