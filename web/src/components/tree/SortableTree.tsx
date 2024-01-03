@@ -7,110 +7,39 @@ import {
 } from "@dnd-kit/core";
 import {
   SortableContext,
-  arrayMove,
   rectSortingStrategy,
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 export const SortableTree = () => {
   const store = useSnapshot(Store, { sync: true });
-  const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>(
-    undefined,
-  );
 
   return (
     <DndContext
-      onDragStart={({ active }) => setActiveId(active?.id)}
-      onDragCancel={() => setActiveId(undefined)}
-      onDragOver={({ active, over }) => {
-        const overId = over?.id;
-
-        if (!overId) {
-          return;
-        }
-
-        const activeContainer = active.data.current?.sortable.containerId;
-        const overContainer =
-          over.data.current?.sortable.containerId || over.id;
-
-        if (activeContainer !== overContainer) {
-          const activeIndex = active.data.current?.sortable.index;
-          const overIndex =
-            over.id in store.schedules
-              ? store.schedules[overContainer].length + 1
-              : over.data.current?.sortable.index;
-          Store.schedules = Store.moveBetweenContainers(
-            store.schedules,
-            activeContainer,
-            activeIndex,
-            overContainer,
-            overIndex,
-            active.id,
-          );
-        }
-      }}
-      onDragEnd={({ active, over }) => {
-        if (!over) {
-          setActiveId(undefined);
-          return;
-        }
-
-        if (active.id !== over.id) {
-          const activeContainer = active.data.current?.sortable.containerId;
-          const overContainer =
-            over.data.current?.sortable.containerId || over.id;
-          const activeIndex = active.data.current?.sortable.index;
-          const overIndex =
-            over.id in store.schedules
-              ? store.schedules[overContainer].length + 1
-              : over.data.current?.sortable.index;
-
-          let newItems;
-          if (activeContainer === overContainer) {
-            newItems = {
-              ...store.schedules,
-              [overContainer]: arrayMove(
-                store.schedules[overContainer],
-                activeIndex,
-                overIndex,
-              ),
-            };
-          } else {
-            newItems = Store.moveBetweenContainers(
-              store.schedules,
-              activeContainer,
-              activeIndex,
-              overContainer,
-              overIndex,
-              active.id,
-            );
-          }
-          Store.schedules = newItems;
-        }
-
-        setActiveId(undefined);
-      }}
+      onDragStart={({ active }) => (Store.activeId = active.id)}
+      onDragCancel={() => (Store.activeId = undefined)}
+      onDragOver={Store.onDragOver}
+      onDragEnd={Store.onDragEnd}
     >
       <div className="flex space-x-5">
         {Object.keys(store.schedules).map((group) => (
           <Droppable
             id={group}
             items={store.schedules[group]}
-            activeId={activeId}
+            activeId={store.activeId}
             key={group}
           />
         ))}
       </div>
       <DragOverlay>
-        {activeId && (
+        {store.activeId && (
           <div
             style={{ cursor: "grabbing" }}
             className="item mb-[5px] box-border flex h-[30px] w-[110px] select-none items-center rounded-md border border-gray-300 pl-[5px]"
           >
-            Item {activeId}
+            Item {store.activeId}
           </div>
         )}
       </DragOverlay>
