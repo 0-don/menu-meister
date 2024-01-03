@@ -15,12 +15,8 @@ import { CSS } from "@dnd-kit/utilities";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 
-interface ItemGroups {
-  [key: string]: UniqueIdentifier[];
-}
-
 export const SortableTree = () => {
-  const store = useSnapshot(Store);
+  const store = useSnapshot(Store, { sync: true });
   const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>(
     undefined,
   );
