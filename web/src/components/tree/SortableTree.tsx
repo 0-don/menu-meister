@@ -1,123 +1,46 @@
-import DndStore from "@/store/DndStore";
+import TreeStore, {
+  DaySchedule,
+  FlatScheduleItem,
+  INITIAL_DATA,
+} from "@/store/TreeStore";
 import {
   DndContext,
   DragOverlay,
   UniqueIdentifier,
   closestCenter,
 } from "@dnd-kit/core";
-import { SortableContext, arrayMove, useSortable } from "@dnd-kit/sortable";
+import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useState } from "react";
-
-export interface DaySchedule {
-  id: UniqueIdentifier;
-  servingDate: string;
-  schedules: Schedule[];
-}
-
-export interface Schedule {
-  id: UniqueIdentifier;
-  meal?: Meal;
-  group?: {
-    id: UniqueIdentifier;
-    name: string;
-    meals: Meal[];
-  };
-}
-
-interface Meal {
-  id: UniqueIdentifier;
-  name: string;
-}
+import { useSnapshot } from "valtio";
 
 function getProjection(
-  items: ReturnType<typeof flatten>,
+  items: FlatScheduleItem[],
   dragOffset: number,
   activeId?: UniqueIdentifier,
   overId?: UniqueIdentifier,
 ) {
   if (!activeId || !overId) return null;
+
+  const activeItem = items.find(({ flatId }) => flatId === activeId);
   const overItemIndex = items.findIndex(({ flatId }) => flatId === overId);
-  const activeItemIndex = items.findIndex(({ flatId }) => flatId === activeId);
-  const activeItem = items[activeItemIndex];
-  const newItems = arrayMove(items, activeItemIndex, overItemIndex);
-  const previousItem = newItems[overItemIndex - 1];
-  const nextItem = newItems[overItemIndex + 1];
-  const dragDepth = Math.round(dragOffset / 50);
-  let projectedDepth = activeItem.depth + dragDepth;
-  const { id } = DndStore.parseFlatId(activeId);
+  const depth = activeItem?.group ? 0 : dragOffset > 0 ? 1 : 0;
+  const parentId =
+    depth === 1
+      ? items
+          .slice(0, overItemIndex)
+          .reverse()
+          .find((item) => item.depth === 0)?.flatId || 0
+      : 0;
 
-  const hasChildren = activeItem?.group && activeItem.group.id == id;
-
-  if (hasChildren) {
-    projectedDepth = Math.min(projectedDepth, 0);
-  } else {
-    projectedDepth = Math.min(projectedDepth, 1);
-  }
-
-  const maxDepth = Math.min(
-    previousItem ? previousItem.depth + 1 : 0,
-    hasChildren ? 0 : 1,
-  );
-  const minDepth = Math.min(nextItem ? nextItem.depth : 0, hasChildren ? 0 : 1);
-  let depth = Math.min(Math.max(projectedDepth, minDepth), maxDepth);
-
-  let parentId = null;
-  if (depth !== 0 && previousItem) {
-    parentId =
-      depth <= previousItem.depth ? previousItem.parentId : previousItem.id;
-  }
-
-  return {
-    depth,
-    maxDepth,
-    minDepth,
-    parentId,
-  };
+  return { depth, parentId };
 }
-
-const flatten = (item: DaySchedule) => {
-  return item.schedules.flatMap((item, groupIndex) => {
-    const { meal, group, id } = item;
-
-    if (group) {
-      const groupFlatId = `${id}#${item.id}`;
-      const children =
-        group.meals?.map((meal, mealIndex) => ({
-          ...item,
-          flatId: `${id}#${item.id}#${meal.id}#${mealIndex}`,
-          parentId: groupFlatId,
-          index: mealIndex,
-          depth: 1,
-        })) || [];
-
-      return [
-        {
-          ...item,
-          flatId: groupFlatId,
-          parentId: item.id,
-          index: groupIndex,
-          depth: 0,
-        },
-        ...children,
-      ];
-    }
-
-    return {
-      ...item,
-      index: groupIndex,
-      flatId: `${id}#${item.id}#${meal?.id}`,
-      parentId: item.id,
-      depth: 0,
-    };
-  });
-};
 
 const SortableTreeItem: React.FC<{
   id: UniqueIdentifier;
   depth: number;
   indentationWidth: number;
-  item: ReturnType<typeof flatten>[number];
+  item: FlatScheduleItem;
 }> = (props) => {
   const { listeners, setDraggableNodeRef, setDroppableNodeRef, transform } =
     useSortable({ id: props.id });
@@ -143,41 +66,10 @@ const SortableTreeItem: React.FC<{
 };
 
 export const SortableTree: React.FC = ({}) => {
-  const [items, setItems] = useState<DaySchedule[]>([
-    {
-      id: "day1",
-      servingDate: "MONDAY",
-      schedules: [
-        {
-          id: "schedule1",
-          meal: {
-            id: "meal1",
-            name: "meal1",
-          },
-        },
-        {
-          id: "schedule2",
-          meal: {
-            id: "meal2",
-            name: "meal2",
-          },
-        },
-        {
-          id: "schedule3",
-          group: {
-            id: "group1",
-            name: "group1",
-            meals: [
-              { id: "meal3", name: "meal3" },
-              { id: "meal4", name: "meal4" },
-            ],
-          },
-        },
-      ],
-    },
-  ]);
+  const treeStore = useSnapshot(TreeStore);
+  const [items, setItems] = useState<DaySchedule[]>(INITIAL_DATA);
 
-  const flattened = items.flatMap(flatten);
+  const flattened = items.flatMap(TreeStore.flatten);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>(
     undefined,
@@ -186,7 +78,7 @@ export const SortableTree: React.FC = ({}) => {
   const [offsetLeft, setOffsetLeft] = useState(0);
 
   const projected = getProjection(flattened, offsetLeft, activeId, overId);
-  const sortedIds = flattened.map(({ flatId }) => flatId);
+
   const activeItem = flattened.find(({ flatId }) => flatId === activeId);
 
   return (
@@ -208,7 +100,7 @@ export const SortableTree: React.FC = ({}) => {
     >
       <div className="flex gap-64">
         {items.map((schedule) => {
-          const flatSchedules = flatten(schedule);
+          const flatSchedules = TreeStore.flatten(schedule);
           const ids = flatSchedules.map(({ flatId }) => flatId);
           return (
             <div
