@@ -1,3 +1,4 @@
+import Store from "@/store/Store";
 import {
   DndContext,
   DragOverlay,
@@ -12,17 +13,14 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useState } from "react";
+import { useSnapshot } from "valtio";
 
 interface ItemGroups {
   [key: string]: UniqueIdentifier[];
 }
 
 export const SortableTree = () => {
-  const [itemGroups, setItemGroups] = useState<ItemGroups>({
-    group1: ["1", "2", "3"],
-    group2: ["4", "5", "6"],
-    group3: ["7", "8", "9"],
-  });
+  const store = useSnapshot(Store);
   const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>(
     undefined,
   );
@@ -63,22 +61,19 @@ export const SortableTree = () => {
           over.data.current?.sortable.containerId || over.id;
 
         if (activeContainer !== overContainer) {
-          setItemGroups((itemGroups) => {
-            const activeIndex = active.data.current?.sortable.index;
-            const overIndex =
-              over.id in itemGroups
-                ? (itemGroups as any)[overContainer].length + 1
-                : over.data.current?.sortable.index;
-
-            return moveBetweenContainers(
-              itemGroups,
-              activeContainer,
-              activeIndex,
-              overContainer,
-              overIndex,
-              active.id,
-            );
-          });
+          const activeIndex = active.data.current?.sortable.index;
+          const overIndex =
+            over.id in store.schedules
+              ? store.schedules[overContainer].length + 1
+              : over.data.current?.sortable.index;
+          Store.schedules = moveBetweenContainers(
+            store.schedules,
+            activeContainer,
+            activeIndex,
+            overContainer,
+            overIndex,
+            active.id,
+          );
         }
       }}
       onDragEnd={({ active, over }) => {
@@ -93,44 +88,41 @@ export const SortableTree = () => {
             over.data.current?.sortable.containerId || over.id;
           const activeIndex = active.data.current?.sortable.index;
           const overIndex =
-            over.id in itemGroups
-              ? (itemGroups as any)[overContainer].length + 1
+            over.id in store.schedules
+              ? store.schedules[overContainer].length + 1
               : over.data.current?.sortable.index;
 
-          setItemGroups((itemGroups) => {
-            let newItems;
-            if (activeContainer === overContainer) {
-              newItems = {
-                ...itemGroups,
-                [overContainer]: arrayMove(
-                  (itemGroups as any)[overContainer],
-                  activeIndex,
-                  overIndex,
-                ),
-              };
-            } else {
-              newItems = moveBetweenContainers(
-                itemGroups,
-                activeContainer,
+          let newItems;
+          if (activeContainer === overContainer) {
+            newItems = {
+              ...store.schedules,
+              [overContainer]: arrayMove(
+                store.schedules[overContainer],
                 activeIndex,
-                overContainer,
                 overIndex,
-                active.id,
-              );
-            }
-
-            return newItems;
-          });
+              ),
+            };
+          } else {
+            newItems = moveBetweenContainers(
+              store.schedules,
+              activeContainer,
+              activeIndex,
+              overContainer,
+              overIndex,
+              active.id,
+            );
+          }
+          Store.schedules = newItems;
         }
 
         setActiveId(undefined);
       }}
     >
       <div className="flex space-x-5">
-        {Object.keys(itemGroups).map((group) => (
+        {Object.keys(store.schedules).map((group) => (
           <Droppable
             id={group}
-            items={itemGroups[group]}
+            items={store.schedules[group]}
             activeId={activeId}
             key={group}
           />
@@ -150,13 +142,14 @@ export const SortableTree = () => {
   );
 };
 
-interface DroppableProps {
+const Droppable = ({
+  id,
+  items,
+}: {
   id: string;
   items: UniqueIdentifier[];
   activeId?: UniqueIdentifier;
-}
-
-const Droppable = ({ id, items }: DroppableProps) => {
+}) => {
   const { setNodeRef } = useDroppable({ id });
 
   return (
