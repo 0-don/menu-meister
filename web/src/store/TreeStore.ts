@@ -22,6 +22,7 @@ export interface Meal {
   id: UniqueIdentifier;
   name: string;
 }
+
 export const INITIAL_DATA: DaySchedule[] = [
   {
     id: "day1",
@@ -70,14 +71,16 @@ export interface FlatScheduleItem extends Schedule {
   index: number;
 }
 
+export interface GroupedFlatScheduleItem {
+  [key: string]: FlatScheduleItem[];
+}
+
 const TreeStore = proxy({
   schedules: INITIAL_DATA as DaySchedule[],
-  flatSchedules: [] as FlatScheduleItem[],
+  flatSchedules: {} as GroupedFlatScheduleItem,
 
   getAllFlatten: (activeId?: UniqueIdentifier) => {
-    const schedules = TreeStore.schedules
-      .map((schedule) => TreeStore.flatten(schedule))
-      .flat();
+    const schedules = TreeStore.flatten(TreeStore.schedules).all;
     const excludeParentIds = new Set<string>(
       activeId ? [activeId.toString()] : [],
     );
@@ -115,7 +118,6 @@ const TreeStore = proxy({
   buildTree: (flatItems: FlatScheduleItem[]): Schedule[] => {
     return [];
   },
-
   getProjection(
     items: FlatScheduleItem[],
     dragOffset: number,
@@ -137,41 +139,65 @@ const TreeStore = proxy({
 
     return { depth, parentId };
   },
-  flatten: (day: DaySchedule): FlatScheduleItem[] => {
-    return day.schedules.flatMap((item, groupIndex) => {
-      const { meal, group, id } = item;
+  flatten: (
+    days: DaySchedule[],
+  ): { grouped: GroupedFlatScheduleItem; all: FlatScheduleItem[] } => {
+    let groupedByDay: GroupedFlatScheduleItem = {};
+    let allItems: FlatScheduleItem[] = [];
 
-      if (group) {
-        const groupFlatId = `${id}#${day.servingDate}#${group.id}`;
-        const children =
-          group.meals?.map((meal, mealIndex) => ({
-            ...item,
-            flatId: `${id}#${day.servingDate}#${meal.id}#${mealIndex}`,
-            parentId: groupFlatId,
-            index: mealIndex,
-            depth: 1,
-          })) || [];
-
-        return [
-          {
-            ...item,
+    days.forEach((day) => {
+      day.schedules.forEach((schedule, index) => {
+        if (schedule.group) {
+          // Handling a group of meals
+          const groupFlatId = `${schedule.id}#${day.servingDate}#${schedule.group.id}`;
+          const groupItem: FlatScheduleItem = {
+            ...schedule,
             flatId: groupFlatId,
-            parentId: item.id,
-            index: groupIndex,
+            parentId: null,
             depth: 0,
-          },
-          ...children,
-        ];
-      }
+            index,
+          };
 
-      return {
-        ...item,
-        index: groupIndex,
-        flatId: `${id}#${day.servingDate}#${meal?.id}`,
-        parentId: item.id,
-        depth: 0,
-      };
+          if (!groupedByDay[day.servingDate]) {
+            groupedByDay[day.servingDate] = [];
+          }
+          groupedByDay[day.servingDate].push(groupItem);
+          allItems.push(groupItem);
+
+          // Processing each meal in the group
+          schedule.group.meals.forEach((meal, mealIndex) => {
+            const mealFlatScheduleItem: FlatScheduleItem = {
+              id: meal.id,
+              meal,
+              flatId: `${schedule.id}#${day.servingDate}#${meal.id}`,
+              parentId: groupFlatId,
+              depth: 1,
+              index: mealIndex,
+            };
+            groupedByDay[day.servingDate].push(mealFlatScheduleItem);
+            allItems.push(mealFlatScheduleItem);
+          });
+        } else if (schedule.meal) {
+          // Handling a single meal
+          const singleMealFlatId = `${schedule.id}#${day.servingDate}`;
+          const singleMealItem: FlatScheduleItem = {
+            ...schedule,
+            flatId: singleMealFlatId,
+            parentId: null,
+            depth: 0,
+            index,
+          };
+
+          if (!groupedByDay[day.servingDate]) {
+            groupedByDay[day.servingDate] = [];
+          }
+          groupedByDay[day.servingDate].push(singleMealItem);
+          allItems.push(singleMealItem);
+        }
+      });
     });
+
+    return { grouped: groupedByDay, all: allItems };
   },
 });
 

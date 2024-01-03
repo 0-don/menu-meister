@@ -91,7 +91,7 @@ const SortableTreeItem: React.FC<{
   );
 };
 
-export const SortableTree: React.FC = ({}) => {
+export const SortaASdbleTree: React.FC = ({}) => {
   const dndStore = useSnapshot(DndStore);
   const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>(
     undefined,

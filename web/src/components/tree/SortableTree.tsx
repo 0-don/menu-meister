@@ -1,129 +1,205 @@
-import TreeStore from "@/store/TreeStore";
 import {
   DndContext,
   DragOverlay,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
   UniqueIdentifier,
-  closestCenter,
+  useDroppable,
+  useSensor,
+  useSensors,
 } from "@dnd-kit/core";
-import { SortableContext, useSortable } from "@dnd-kit/sortable";
+import {
+  SortableContext,
+  arrayMove,
+  rectSortingStrategy,
+  sortableKeyboardCoordinates,
+  useSortable,
+} from "@dnd-kit/sortable";
+import { useState } from "react";
 import { CSS } from "@dnd-kit/utilities";
-import { useEffect, useState } from "react";
-import { useSnapshot } from "valtio";
 
-const SortableTreeItem: React.FC<{
-  id: UniqueIdentifier;
-  depth: number;
-  indentationWidth: number;
-}> = (props) => {
-  const treeStore = useSnapshot(TreeStore);
-  const { listeners, setDraggableNodeRef, setDroppableNodeRef, transform } =
-    useSortable({ id: props.id });
-
-  const item = treeStore.getScheduleItem(props.id);
-
-  return (
-    <li
-      ref={setDroppableNodeRef}
-      className="list-none"
-      style={{ paddingLeft: `${props.indentationWidth * props.depth}px` }}
-    >
-      <div
-        ref={setDraggableNodeRef}
-        className="text-xs"
-        style={{ transform: CSS.Translate.toString(transform) }}
-        {...listeners}
-      >
-        {item.group
-          ? `${item.group.name}#${item.group.id}`
-          : `${item.meal?.name}#${item.meal?.id}`}
-      </div>
-    </li>
-  );
+const removeAtIndex = (array: any[], index: number) => {
+  return [...array.slice(0, index), ...array.slice(index + 1)];
 };
 
-export const SortableTree: React.FC = ({}) => {
-  const treeStore = useSnapshot(TreeStore);
+const insertAtIndex = (array: any[], index: number, item: any) => {
+  return [...array.slice(0, index), item, ...array.slice(index)];
+};
 
-  useEffect(() => {
-    TreeStore.flatSchedules = treeStore.schedules.flatMap(TreeStore.flatten);
-  }, []);
-
+export const SortableTree = () => {
+  const [itemGroups, setItemGroups] = useState({
+    group1: ["1", "2", "3"],
+    group2: ["4", "5", "6"],
+    group3: ["7", "8", "9"],
+  });
   const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>(
     undefined,
   );
-  const [overId, setOverId] = useState<UniqueIdentifier | undefined>(undefined);
-  const [offsetLeft, setOffsetLeft] = useState(0);
 
-  const projected = TreeStore.getProjection(
-    treeStore.flatSchedules,
-    offsetLeft,
-    activeId,
-    overId,
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
   );
-  const activeItem = treeStore.flatSchedules.find(
-    ({ flatId }) => flatId === activeId,
-  );
-  const allIds = treeStore.flatSchedules.map(({ flatId }) => flatId);
+
+  const moveBetweenContainers = (
+    items: any,
+    activeContainer: any,
+    activeIndex: number,
+    overContainer: any,
+    overIndex: number,
+    item: any,
+  ) => {
+    return {
+      ...items,
+      [activeContainer]: removeAtIndex(items[activeContainer], activeIndex),
+      [overContainer]: insertAtIndex(items[overContainer], overIndex, item),
+    };
+  };
 
   return (
     <DndContext
-      collisionDetection={closestCenter}
-      onDragStart={({ active }) => {
-        setActiveId(active.id);
-        setOverId(active.id);
+      sensors={sensors}
+      onDragStart={({ active }) => setActiveId(active?.id)}
+      onDragCancel={() => setActiveId(undefined)}
+      onDragOver={({ active, over }) => {
+        const overId = over?.id;
+
+        if (!overId) {
+          return;
+        }
+
+        const activeContainer = active.data.current?.sortable.containerId;
+        const overContainer =
+          over.data.current?.sortable.containerId || over.id;
+
+        if (activeContainer !== overContainer) {
+          setItemGroups((itemGroups) => {
+            const activeIndex = active.data.current?.sortable.index;
+            const overIndex =
+              over.id in itemGroups
+                ? (itemGroups as any)[overContainer].length + 1
+                : over.data.current?.sortable.index;
+
+            return moveBetweenContainers(
+              itemGroups,
+              activeContainer,
+              activeIndex,
+              overContainer,
+              overIndex,
+              active.id,
+            );
+          });
+        }
       }}
-      onDragMove={({ delta, active }) => {
-        setOffsetLeft(delta.x);
-      }}
-      onDragOver={({ over, active }) => {
-        setOverId(over?.id);
-        console.log(over?.id);
-      }}
-      onDragEnd={({ over, active }) => {
+      onDragEnd={({ active, over }) => {
+        if (!over) {
+          setActiveId(undefined);
+          return;
+        }
+
+        if (active.id !== over.id) {
+          const activeContainer = active.data.current?.sortable.containerId;
+          const overContainer =
+            over.data.current?.sortable.containerId || over.id;
+          const activeIndex = active.data.current?.sortable.index;
+          const overIndex =
+            over.id in itemGroups
+              ? (itemGroups as any)[overContainer].length + 1
+              : over.data.current?.sortable.index;
+
+          setItemGroups((itemGroups) => {
+            let newItems;
+            if (activeContainer === overContainer) {
+              newItems = {
+                ...itemGroups,
+                [overContainer]: arrayMove(
+                  (itemGroups as any)[overContainer],
+                  activeIndex,
+                  overIndex,
+                ),
+              };
+            } else {
+              newItems = moveBetweenContainers(
+                itemGroups,
+                activeContainer,
+                activeIndex,
+                overContainer,
+                overIndex,
+                active.id,
+              );
+            }
+
+            return newItems;
+          });
+        }
+
         setActiveId(undefined);
       }}
     >
-      <div className="flex gap-64">
-        {treeStore.schedules.map((schedule) => {
-          const flatSchedules = TreeStore.flatten(schedule);
-          const ids = flatSchedules.map(({ flatId }) => flatId);
-          return (
-            <div
-              key={schedule.id}
-              className="border-2 p-2"
-              style={{
-                maxWidth: 600,
-                margin: "0 auto",
-              }}
-            >
-              <div>{schedule.servingDate}</div>
-              <SortableContext items={allIds} id={schedule.servingDate}>
-                {flatSchedules.map((s) => (
-                  <SortableTreeItem
-                    key={s.flatId}
-                    id={s.flatId}
-                    depth={
-                      s.flatId === activeId && projected
-                        ? projected.depth
-                        : s.depth
-                    }
-                    indentationWidth={25}
-                  />
-                ))}
-                <DragOverlay>
-                  {activeId && activeItem && (
-                    <SortableTreeItem
-                      id={activeId}
-                      depth={activeItem?.depth}
-                      indentationWidth={25}
-                    />
-                  )}
-                </DragOverlay>
-              </SortableContext>
-            </div>
-          );
-        })}
+      <div className="container">
+        {Object.keys(itemGroups).map((group) => (
+          <Droppable
+            id={group}
+            items={(itemGroups as any)[group]}
+            activeId={activeId}
+            key={group}
+          />
+        ))}
       </div>
+      <DragOverlay>
+        {activeId ? <Item id={activeId} dragOverlay /> : null}
+      </DragOverlay>
     </DndContext>
+  );
+};
+const Droppable = ({ id, items }: any) => {
+  const { setNodeRef } = useDroppable({ id });
+
+  return (
+    <SortableContext id={id} items={items} strategy={rectSortingStrategy}>
+      <ul className="droppable" ref={setNodeRef}>
+        {items.map((item: any) => (
+          <SortableItem key={item} id={item} />
+        ))}
+      </ul>
+    </SortableContext>
+  );
+};
+
+const SortableItem = ({ id }: any) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <li style={style} ref={setNodeRef} {...attributes} {...listeners}>
+      <Item id={id} />
+    </li>
+  );
+};
+const Item = ({ id, dragOverlay }: any) => {
+  const style = {
+    cursor: dragOverlay ? "grabbing" : "grab",
+  };
+
+  return (
+    <div style={style} className="item">
+      Item {id}
+    </div>
   );
 };
