@@ -1,34 +1,24 @@
 import {
   DndContext,
   DragOverlay,
-  KeyboardSensor,
-  MouseSensor,
-  TouchSensor,
   UniqueIdentifier,
   useDroppable,
-  useSensor,
-  useSensors,
 } from "@dnd-kit/core";
 import {
   SortableContext,
   arrayMove,
   rectSortingStrategy,
-  sortableKeyboardCoordinates,
   useSortable,
 } from "@dnd-kit/sortable";
-import { useState } from "react";
 import { CSS } from "@dnd-kit/utilities";
+import { useState } from "react";
 
-const removeAtIndex = (array: any[], index: number) => {
-  return [...array.slice(0, index), ...array.slice(index + 1)];
-};
-
-const insertAtIndex = (array: any[], index: number, item: any) => {
-  return [...array.slice(0, index), item, ...array.slice(index)];
-};
+interface ItemGroups {
+  [key: string]: UniqueIdentifier[];
+}
 
 export const SortableTree = () => {
-  const [itemGroups, setItemGroups] = useState({
+  const [itemGroups, setItemGroups] = useState<ItemGroups>({
     group1: ["1", "2", "3"],
     group2: ["4", "5", "6"],
     group3: ["7", "8", "9"],
@@ -37,32 +27,28 @@ export const SortableTree = () => {
     undefined,
   );
 
-  const sensors = useSensors(
-    useSensor(MouseSensor),
-    useSensor(TouchSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    }),
-  );
-
   const moveBetweenContainers = (
-    items: any,
-    activeContainer: any,
+    items: ItemGroups,
+    activeContainer: string,
     activeIndex: number,
-    overContainer: any,
+    overContainer: string,
     overIndex: number,
-    item: any,
-  ) => {
-    return {
-      ...items,
-      [activeContainer]: removeAtIndex(items[activeContainer], activeIndex),
-      [overContainer]: insertAtIndex(items[overContainer], overIndex, item),
-    };
-  };
+    item: UniqueIdentifier,
+  ) => ({
+    ...items,
+    [activeContainer]: [
+      ...items[activeContainer].slice(0, activeIndex),
+      ...items[activeContainer].slice(activeIndex + 1),
+    ],
+    [overContainer]: [
+      ...items[overContainer].slice(0, overIndex),
+      item,
+      ...items[overContainer].slice(overIndex),
+    ],
+  });
 
   return (
     <DndContext
-      sensors={sensors}
       onDragStart={({ active }) => setActiveId(active?.id)}
       onDragCancel={() => setActiveId(undefined)}
       onDragOver={({ active, over }) => {
@@ -140,7 +126,7 @@ export const SortableTree = () => {
         setActiveId(undefined);
       }}
     >
-      <div className="container">
+      <div className="flex space-x-5">
         {Object.keys(itemGroups).map((group) => (
           <Droppable
             id={group}
@@ -151,17 +137,34 @@ export const SortableTree = () => {
         ))}
       </div>
       <DragOverlay>
-        {activeId ? <Item id={activeId} dragOverlay /> : null}
+        {activeId && (
+          <div
+            style={{ cursor: "grabbing" }}
+            className="item mb-[5px] box-border flex h-[30px] w-[110px] select-none items-center rounded-md border border-gray-300 pl-[5px]"
+          >
+            Item {activeId}
+          </div>
+        )}
       </DragOverlay>
     </DndContext>
   );
 };
-const Droppable = ({ id, items }: any) => {
+
+interface DroppableProps {
+  id: string;
+  items: UniqueIdentifier[];
+  activeId?: UniqueIdentifier;
+}
+
+const Droppable = ({ id, items }: DroppableProps) => {
   const { setNodeRef } = useDroppable({ id });
 
   return (
     <SortableContext id={id} items={items} strategy={rectSortingStrategy}>
-      <ul className="droppable" ref={setNodeRef}>
+      <ul
+        className="droppable min-w-[110px] list-none rounded-md border border-black p-[20px_10px]"
+        ref={setNodeRef}
+      >
         {items.map((item: any) => (
           <SortableItem key={item} id={item} />
         ))}
@@ -170,7 +173,7 @@ const Droppable = ({ id, items }: any) => {
   );
 };
 
-const SortableItem = ({ id }: any) => {
+const SortableItem = ({ id }: { id: UniqueIdentifier }) => {
   const {
     attributes,
     listeners,
@@ -188,18 +191,12 @@ const SortableItem = ({ id }: any) => {
 
   return (
     <li style={style} ref={setNodeRef} {...attributes} {...listeners}>
-      <Item id={id} />
+      <div
+        style={{ cursor: "grabbing" }}
+        className="item mb-[5px] box-border flex h-[30px] w-[110px] select-none items-center rounded-md border border-gray-300 pl-[5px]"
+      >
+        Item {id}
+      </div>
     </li>
-  );
-};
-const Item = ({ id, dragOverlay }: any) => {
-  const style = {
-    cursor: dragOverlay ? "grabbing" : "grab",
-  };
-
-  return (
-    <div style={style} className="item">
-      Item {id}
-    </div>
   );
 };
