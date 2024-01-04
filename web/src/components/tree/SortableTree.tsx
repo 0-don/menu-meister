@@ -24,7 +24,7 @@ export const SortableTree = () => {
     <DndContext
       onDragStart={({ active }) => (Store.activeId = active.id)}
       onDragCancel={() => (Store.activeId = undefined)}
-      onDragOver={useCallback(debounce(Store.onDragOver, 25), [])}
+      onDragOver={useCallback(debounce(Store.onDragOver, 0), [])}
       onDragEnd={Store.onDragEnd}
     >
       <div className="flex space-x-5">
