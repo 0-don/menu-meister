@@ -1,6 +1,7 @@
 "use client";
 
 import Store from "@/store/Store";
+import { debounce } from "@/utils/constants";
 import {
   DndContext,
   DragOverlay,
@@ -23,7 +24,7 @@ export const SortableTree = () => {
     <DndContext
       onDragStart={({ active }) => (Store.activeId = active.id)}
       onDragCancel={() => (Store.activeId = undefined)}
-      onDragOver={useCallback(Store.onDragOver, [])}
+      onDragOver={useCallback(debounce(Store.onDragOver, 50), [])}
       onDragEnd={Store.onDragEnd}
     >
       <div className="flex space-x-5">

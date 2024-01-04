@@ -23,6 +23,18 @@ export const WEEK_GROUP = {
   >;
 };
 
+export function debounce(fn: (...args: any) => any, ms: number) {
+  let timer: NodeJS.Timeout | undefined = undefined;
+  return (...args: any) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      timer = undefined;
+      // @ts-ignore
+      fn.apply(this, args);
+    }, ms);
+  };
+}
+
 const readTemplate = (template: any, data: any = { items: {} }) => {
   for (const [key, value] of Object.entries(template)) {
     // eslint-disable-next-line no-param-reassign
