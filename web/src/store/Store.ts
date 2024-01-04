@@ -36,6 +36,7 @@ const Store = proxy({
   },
 
   onDragOver: ({ active, over }: DragOverEvent) => {
+    console.log(over?.id);
     const overId = over?.id;
     if (!overId) return;
 
