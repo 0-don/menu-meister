@@ -1,5 +1,6 @@
 "use client";
 
+import DashboardStore from "@/store/DashboardStore";
 import Store from "@/store/Store";
 import { debounce } from "@/utils/constants";
 import {
@@ -14,11 +15,16 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useSnapshot } from "valtio";
 
 export const SortableTree = () => {
-  const { schedules } = useSnapshot(Store);
+  const dashboardStore = useSnapshot(DashboardStore);
+  const { schedules, regroupSchedules, groupedSchedules } = useSnapshot(Store);
+
+  useEffect(() => {
+    regroupSchedules();
+  }, [dashboardStore.daysThatWeek]);
 
   return (
     <DndContext

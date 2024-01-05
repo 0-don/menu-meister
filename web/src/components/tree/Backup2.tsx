@@ -57,9 +57,6 @@ export const ASortableTree: React.FC = ({}) => {
   //   ({ flatId }) => flatId === activeId,
   // );
 
-  // console.log(JSON.parse(JSON.stringify(TreeStore.schedules)));
-
-  // console.log(JSON.parse(JSON.stringify(treeStore.flatSchedules)));
   return (
     <DndContext
       collisionDetection={closestCenter}
@@ -125,7 +122,6 @@ export const ASortableTree: React.FC = ({}) => {
           } else {
             updatedSchedules[overDayIndex].schedules.push(activeScheduleItem);
           }
-          // console.log(updatedSchedules);
 
           // Update the TreeStore schedules with the modified copy
           TreeStore.schedules = updatedSchedules;
