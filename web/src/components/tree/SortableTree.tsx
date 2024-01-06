@@ -1,19 +1,16 @@
 import {
   DndContext,
+  DragEndEvent,
+  DragOverEvent,
   DragOverlay,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
+  UniqueIdentifier,
 } from "@dnd-kit/core";
 import {
   SortableContext,
   arrayMove,
-  sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { useState } from "react";
-import announcements from "./Announcements";
 import SortableContainer, { Container } from "./Container";
 import SortableItem, { Item } from "./SortableItem";
 
@@ -26,96 +23,69 @@ const wrapperStyle = {
 
 export default function SortableTree() {
   const [data, setData] = useState({
-    items: [],
+    items: [
+      { id: 5, parent: 3 },
+      { id: 6, parent: 3 },
+      { id: 1 },
+      { id: 2, parent: 4 },
+      { id: 3, container: true, parent: 7 },
+      { id: 7, container: true, row: true },
+      { id: 4, container: true, parent: 7 },
+      { id: 8, parent: 10 },
+      { id: 9, parent: 10 },
+      { id: 10, container: true },
+    ],
   });
-  const [activeId, setActiveId] = useState();
-
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    }),
-  );
-
+  const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>();
   return (
-    <div>
-      <div>
-        <button onClick={addItem()}>Add Item</button>
-        <button onClick={addItem(true)}>Add Column</button>
-        <button onClick={addItem(true, true)}>Add Row</button>
-      </div>
-      <DndContext
-        announcements={announcements as any}
-        sensors={sensors}
-        onDragStart={handleDragStart}
-        onDragOver={handleDragOver}
-        onDragEnd={handleDragEnd}
+    <DndContext
+      onDragStart={(event) => setActiveId(event.active.id)}
+      onDragOver={handleDragOver}
+      onDragEnd={handleDragEnd}
+    >
+      <SortableContext
+        id="root"
+        items={getItemIds()}
+        strategy={verticalListSortingStrategy}
       >
-        <SortableContext
-          id="root"
-          items={getItemIds()}
-          strategy={verticalListSortingStrategy}
-        >
-          <div style={wrapperStyle}>
-            {getItems().map((item: any) => {
-              if (item.container) {
-                return (
-                  <SortableContainer
-                    key={item.id}
-                    id={item.id}
-                    getItems={getItems}
-                    row={item.row}
-                  />
-                );
-              }
-
+        <div style={wrapperStyle}>
+          {getItems().map((item: any) => {
+            if (item.container) {
               return (
-                <SortableItem key={item.id} id={item.id}>
-                  <Item id={item.id} />
-                </SortableItem>
+                <SortableContainer
+                  key={item.id}
+                  id={item.id}
+                  getItems={getItems}
+                  row={item.row}
+                />
               );
-            })}
-          </div>
-        </SortableContext>
-        <DragOverlay>{getDragOverlay()}</DragOverlay>
-      </DndContext>
-    </div>
+            }
+
+            return (
+              <SortableItem key={item.id} id={item.id}>
+                <Item id={item.id} />
+              </SortableItem>
+            );
+          })}
+        </div>
+      </SortableContext>
+      <DragOverlay>{getDragOverlay()}</DragOverlay>
+    </DndContext>
   );
 
-  function addItem(container?: any, row?: any) {
-    return () => {
-      // @ts-ignore
-      setData((prev: any) => ({
-        items: [
-          ...prev.items,
-          {
-            id: prev.items.length + 1,
-            container,
-            row,
-          },
-        ],
-      }));
-    };
-  }
-
-  function isContainer(id: any) {
-    const item = data.items.find((item: any) => item.id === id) as any;
-
+  function isContainer(id: UniqueIdentifier | undefined) {
+    const item = data.items.find((item) => item.id === id);
     return !item ? false : item.container;
   }
 
-  function isRow(id: any) {
-    const item = data.items.find((item: any) => item.id === id) as any;
-
+  function isRow(id: UniqueIdentifier | undefined) {
+    const item = data.items.find((item) => item.id === id);
     return !item ? false : item.row;
   }
 
   function getItems(parent?: any) {
-    return data.items.filter((item: any) => {
-      if (!parent) {
-        return !item.parent;
-      }
-
+    return data.items.filter((item) => {
+      if (!parent) return !item.parent;
       return item.parent === parent;
     });
   }
@@ -124,8 +94,8 @@ export default function SortableTree() {
     return getItems(parent).map((item: any) => item.id);
   }
 
-  function findParent(id: any) {
-    const item = data.items.find((item: any) => item.id === id) as any;
+  function findParent(id: UniqueIdentifier | undefined) {
+    const item = data.items.find((item) => item.id === id);
     return !item ? false : item.parent;
   }
 
@@ -135,10 +105,10 @@ export default function SortableTree() {
     }
 
     if (isContainer(activeId)) {
-      const item = data.items.find((i: any) => i.id === activeId) as any;
+      const item = data.items.find((i) => i.id === activeId);
 
       return (
-        <Container row={item.row}>
+        <Container row={item?.row}>
           {getItems(activeId).map((item: any) => (
             <Item key={item.id} id={item.id} />
           ))}
@@ -149,15 +119,8 @@ export default function SortableTree() {
     return <Item id={activeId} />;
   }
 
-  function handleDragStart(event: any) {
-    const { active } = event;
-    const { id } = active;
-
-    setActiveId(id);
-  }
-
-  function handleDragOver(event: any) {
-    const { active, over, draggingRect } = event;
+  function handleDragOver(event: DragOverEvent) {
+    const { active, over } = event;
     const { id } = active;
     let overId: any;
     if (over) {
@@ -192,7 +155,7 @@ export default function SortableTree() {
       const isBelowLastItem =
         over &&
         overIndex === prev.items.length - 1 &&
-        draggingRect.offsetTop > over.rect.offsetTop + over.rect.height;
+        active.rect.current.translated!.top > over.rect.top + over.rect.height;
 
       const modifier = isBelowLastItem ? 1 : 0;
 
@@ -212,7 +175,7 @@ export default function SortableTree() {
     });
   }
 
-  function handleDragEnd(event: any) {
+  function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     const { id } = active;
     let overId: any;
@@ -231,6 +194,6 @@ export default function SortableTree() {
       }));
     }
 
-    setActiveId(null as any);
+    setActiveId(undefined);
   }
 }
