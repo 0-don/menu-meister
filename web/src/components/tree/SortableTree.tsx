@@ -20,11 +20,9 @@ import { useSnapshot } from "valtio";
 
 export const SortableTree = () => {
   const dashboardStore = useSnapshot(DashboardStore);
-  const { schedules, regroupSchedules, groupedSchedules } = useSnapshot(Store);
+  const { schedules, regroupSchedules } = useSnapshot(Store);
 
-  useEffect(() => {
-    regroupSchedules();
-  }, [dashboardStore.daysThatWeek]);
+  useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
 
   return (
     <DndContext
@@ -104,13 +102,15 @@ const Item = ({
   id: UniqueIdentifier;
   dragOverlay?: boolean;
 }) => {
+  const item = Store.getItem(id);
+  console.log(item);
   return (
     <div
       className={`${
         dragOverlay ? "cursor-grabbing" : "cursor-grab"
       } mb-[5px] box-border flex h-[30px] w-[110px] select-none items-center rounded-md border border-gray-300 pl-[5px]`}
     >
-      Item {id}
+      {item?.name}
     </div>
   );
 };

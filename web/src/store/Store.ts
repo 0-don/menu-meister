@@ -14,11 +14,13 @@ export interface DaySchedule {
 export interface Schedule {
   id: UniqueIdentifier;
   meal?: Meal;
-  group?: {
-    id: UniqueIdentifier;
-    name: string;
-    meals: Meal[];
-  };
+  group?: Group;
+}
+
+export interface Group {
+  id: UniqueIdentifier;
+  name: string;
+  meals: Meal[];
 }
 
 export interface Meal {
@@ -48,7 +50,7 @@ export const INITIAL_DATAS: DaySchedule[] = [
   },
   {
     id: "day2",
-    servingDate: "2024-01-02",
+    servingDate: "2024-01-04",
     schedules: [
       { id: "schedule4", meal: { id: "meal5", name: "pasta" } },
       { id: "schedule5", meal: { id: "meal6", name: "salad" } },
@@ -80,17 +82,41 @@ export const INITIAL_DATA: ItemGroups = {
 const Store = proxy({
   activeId: undefined as UniqueIdentifier | undefined,
   initialSchedules: INITIAL_DATAS,
-  groupedSchedules: {} as { [key: string]: string[] },
-  schedules: INITIAL_DATA,
+  schedules: {} as { [key: string]: string[] },
+  getItem: (uniqueId: UniqueIdentifier): Meal | Group | null => {
+    const { id, date, mealId, groupIndex } = Store.parseId(uniqueId);
+
+    const daySchedule = Store.initialSchedules.find(
+      ({ servingDate }) => !dayjs(servingDate).diff(date, "day"),
+    );
+    if (!daySchedule) return null;
+    const schedule = daySchedule.schedules.find(
+      ({ id: scheduleId }) => id === scheduleId,
+    );
+    if (!schedule) return null;
+
+    if (schedule.meal) return schedule.meal;
+
+    if (schedule.group?.id === mealId) return schedule.group;
+
+    if (schedule.group?.meals[parseInt(groupIndex)]) {
+      return schedule.group.meals[parseInt(groupIndex)];
+    }
+    return null;
+  },
+  parseId: (uniqueId: UniqueIdentifier) => {
+    const [id, date, mealId, groupIndex] = uniqueId.toString().split("#");
+    return { id, date, mealId, groupIndex };
+  },
   regroupSchedules: () => {
     const newGroupedSchedules: { [key: string]: string[] } = {};
 
-    DashboardStore.daysThatWeek.forEach((day) => {
-      newGroupedSchedules[dayjs(day).format("DD/MM/YYYY")] = [];
-    });
+    DashboardStore.daysThatWeek.forEach(
+      (day) => (newGroupedSchedules[dayjs(day).format("YYYY-MM-DD")] = []),
+    );
 
     Store.initialSchedules.forEach(({ schedules, servingDate }) => {
-      const key = dayjs(servingDate).format("DD/MM/YYYY");
+      const key = dayjs(servingDate).format("YYYY-MM-DD");
       if (!newGroupedSchedules.hasOwnProperty(key)) return;
 
       newGroupedSchedules[key] = schedules.flatMap((schedule) => {
@@ -104,7 +130,8 @@ const Store = proxy({
         return `${schedule.id}#${key}#${schedule.meal?.id}`;
       });
     });
-    Store.groupedSchedules = newGroupedSchedules;
+
+    Store.schedules = newGroupedSchedules;
   },
   moveItem: (
     sourceId: string,
