@@ -28,20 +28,6 @@ export interface Meal {
   name: string;
 }
 
-export type GroupedSchedules = {
-  [key: string]: GroupedSchedulesItem[];
-};
-
-export type GroupedScheduleIds = {
-  [key: string]: string[];
-};
-
-export type GroupedSchedulesItem =
-  | string
-  | { groupId: string; items: string[] };
-
-export type GroupItem = { groupId: string; items: string[] };
-
 export const INITIAL_DATAS: DaySchedule[] = [
   {
     id: "day1",
@@ -83,16 +69,17 @@ export const INITIAL_DATAS: DaySchedule[] = [
   },
 ];
 
-const Store = proxy({
+const xxx = proxy({
   activeId: undefined as UniqueIdentifier | undefined,
   initialSchedules: INITIAL_DATAS,
-  schedules: {} as GroupedSchedules,
-  schedulesIds: {} as GroupedScheduleIds,
+  schedules: {} as {
+    [key: string]: (string | { groupId: string; items: string[] })[];
+  },
   getItem: (uniqueId: UniqueIdentifier): Meal | Group | null => {
     if (!uniqueId) return null;
-    const { id, date, mealId, groupIndex } = Store.parseId(uniqueId);
+    const { id, date, mealId, groupIndex } = xxx.parseId(uniqueId);
 
-    const daySchedule = Store.initialSchedules.find(
+    const daySchedule = xxx.initialSchedules.find(
       ({ servingDate }) => !dayjs(servingDate).diff(date, "day"),
     );
     if (!daySchedule) return null;
@@ -115,42 +102,29 @@ const Store = proxy({
     return { id, date, mealId, groupIndex };
   },
   regroupSchedules: () => {
-    const newGroupedSchedulesIds: GroupedScheduleIds = {};
-    const newGroupedSchedules: GroupedSchedules = {};
+    const newGroupedSchedules: { [key: string]: string[] } = {};
 
-    DashboardStore.daysThatWeek.forEach((day) => {
-      const formattedDay = dayjs(day).format("YYYY-MM-DD");
-      newGroupedSchedulesIds[formattedDay] = [];
-      newGroupedSchedules[formattedDay] = [];
-    });
+    DashboardStore.daysThatWeek.forEach(
+      (day) => (newGroupedSchedules[dayjs(day).format("YYYY-MM-DD")] = []),
+    );
 
-    // Loop through each initial schedule and organize them
-    Store.initialSchedules.forEach(({ schedules, servingDate }) => {
-      const formattedDate = dayjs(servingDate).format("YYYY-MM-DD");
-      if (!newGroupedSchedulesIds.hasOwnProperty(formattedDate)) return;
+    xxx.initialSchedules.forEach(({ schedules, servingDate }) => {
+      const key = dayjs(servingDate).format("YYYY-MM-DD");
+      if (!newGroupedSchedules.hasOwnProperty(key)) return;
 
-      schedules.forEach((schedule) => {
+      newGroupedSchedules[key] = schedules.flatMap((schedule) => {
         if (schedule.group) {
-          const groupItems = schedule.group.meals.map(
-            (meal, index) =>
-              `${schedule.id}#${formattedDate}#${meal.id}#${index}`,
+          const groupIds = schedule.group.meals.map(
+            (meal, mealIndex) =>
+              `${schedule.id}#${key}#${meal.id}#${mealIndex}`,
           );
-          const groupObject = {
-            groupId: `${schedule.id}#${formattedDate}#${schedule.group.id}`,
-            items: groupItems,
-          };
-          newGroupedSchedules[formattedDate].push(groupObject);
-          newGroupedSchedulesIds[formattedDate].push(groupObject.groupId);
-        } else if (schedule.meal) {
-          const scheduleId = `${schedule.id}#${formattedDate}#${schedule.meal.id}`;
-          newGroupedSchedulesIds[formattedDate].push(scheduleId);
-          newGroupedSchedules[formattedDate].push(scheduleId);
+          return [`${schedule.id}#${key}#${schedule.group.id}`, ...groupIds];
         }
+        return `${schedule.id}#${key}#${schedule.meal?.id}`;
       });
     });
 
-    Store.schedulesIds = newGroupedSchedulesIds;
-    Store.schedules = newGroupedSchedules;
+    xxx.schedules = newGroupedSchedules;
   },
   moveItem: (
     sourceId: string,
@@ -159,15 +133,15 @@ const Store = proxy({
     destinationIndex: number,
   ) => {
     if (sourceId === destinationId) {
-      Store.schedules[sourceId] = arrayMove(
-        Store.schedules[sourceId],
+      xxx.schedules[sourceId] = arrayMove(
+        xxx.schedules[sourceId],
         sourceIndex,
         destinationIndex,
       );
     } else {
-      const item = Store.schedules[sourceId][sourceIndex];
-      Store.schedules[sourceId].splice(sourceIndex, 1);
-      Store.schedules[destinationId].splice(destinationIndex, 0, item);
+      const item = xxx.schedules[sourceId][sourceIndex];
+      xxx.schedules[sourceId].splice(sourceIndex, 1);
+      xxx.schedules[destinationId].splice(destinationIndex, 0, item);
     }
   },
 
@@ -180,10 +154,10 @@ const Store = proxy({
     const activeIndex = active.data.current?.sortable.index;
     const overIndex =
       over.data.current?.sortable.index ??
-      Store.schedules[overContainer].length;
+      xxx.schedules[overContainer].length;
 
     if (activeContainer !== overContainer || activeIndex !== overIndex) {
-      Store.moveItem(activeContainer, activeIndex, overContainer, overIndex);
+      xxx.moveItem(activeContainer, activeIndex, overContainer, overIndex);
     }
   },
 
@@ -196,10 +170,10 @@ const Store = proxy({
     const activeIndex = active.data.current?.sortable.index;
     const overIndex =
       over.data.current?.sortable.index ??
-      Store.schedules[overContainer].length;
+      xxx.schedules[overContainer].length;
 
-    Store.moveItem(activeContainer, activeIndex, overContainer, overIndex);
+    xxx.moveItem(activeContainer, activeIndex, overContainer, overIndex);
   },
 });
 
-export default Store;
+export default xxx;
