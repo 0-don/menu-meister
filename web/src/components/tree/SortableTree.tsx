@@ -89,7 +89,8 @@ const SortableItem = ({ id }: { id: UniqueIdentifier }) => {
   };
 
   const item = Store.getItem(id);
-
+  
+  const isGroup = item && 'meals' in item;
   return (
     <li style={style} ref={setNodeRef} {...attributes} {...listeners}>
       <Item id={id} item={item} />
