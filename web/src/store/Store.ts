@@ -84,6 +84,7 @@ const Store = proxy({
   initialSchedules: INITIAL_DATAS,
   schedules: {} as { [key: string]: string[] },
   getItem: (uniqueId: UniqueIdentifier): Meal | Group | null => {
+    if(!uniqueId) return null;
     const { id, date, mealId, groupIndex } = Store.parseId(uniqueId);
 
     const daySchedule = Store.initialSchedules.find(

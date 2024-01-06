@@ -1,7 +1,7 @@
 "use client";
 
 import DashboardStore from "@/store/DashboardStore";
-import Store from "@/store/Store";
+import Store, { Group, Meal } from "@/store/Store";
 import { debounce } from "@/utils/constants";
 import {
   DndContext,
@@ -88,9 +88,11 @@ const SortableItem = ({ id }: { id: UniqueIdentifier }) => {
     opacity: isDragging ? 0.5 : 1,
   };
 
+  const item = Store.getItem(id);
+
   return (
     <li style={style} ref={setNodeRef} {...attributes} {...listeners}>
-      <Item id={id} />
+      <Item id={id} item={item} />
     </li>
   );
 };
@@ -98,12 +100,13 @@ const SortableItem = ({ id }: { id: UniqueIdentifier }) => {
 const Item = ({
   id,
   dragOverlay,
+  item,
 }: {
   id: UniqueIdentifier;
   dragOverlay?: boolean;
+  item?: Meal | Group | null;
 }) => {
-  const item = Store.getItem(id);
-  console.log(item);
+  item = item ?? Store.getItem(id);
   return (
     <div
       className={`${
