@@ -14,7 +14,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import React, { ReactNode, forwardRef, useState } from "react";
+import React, { ReactNode, forwardRef, useCallback, useState } from "react";
 
 export type ItemType = {
   id: number;
@@ -64,7 +64,7 @@ export function SortableTree() {
       <button onClick={addItem(true)}>Add Column</button>
       <DndContext
         onDragStart={(event) => setActiveId(event.active.id)}
-        onDragOver={handleDragOver}
+        onDragOver={useCallback(handleDragOver, [data.items])}
         onDragEnd={handleDragEnd}
       >
         <SortableContext items={getItemIds()}>
@@ -85,7 +85,7 @@ export function SortableTree() {
 
         <DragOverlay>
           {!activeId ? null : isContainer(activeId) ? (
-            <Container>
+            <Container id={activeId}>
               {getItems(activeId).map((item) => (
                 <Item key={item.id} id={item.id} />
               ))}
@@ -117,23 +117,15 @@ export function SortableTree() {
       const isBelowLastItem =
         over &&
         overIndex === prev.items.length - 1 &&
-        active.rect.current.translated!.top > over.rect.top + over.rect.height;
+        active.rect.current.initial!.top > over.rect.top + over.rect.height;
 
       const modifier = isBelowLastItem ? 1 : 0;
-
       newIndex = overIndex >= 0 ? overIndex + modifier : prev.items.length + 1;
-
-      let nextParent;
-      if (over?.id) {
-        nextParent = overIsContainer ? over?.id : overParent;
-      }
-
+      let nextParent = overIsContainer ? over?.id : overParent;
+      
       prev.items[activeIndex].parent = nextParent as number;
-      const nextItems = arrayMove(prev.items, activeIndex, newIndex);
 
-      return {
-        items: nextItems,
-      };
+      return { items: arrayMove(prev.items, activeIndex, newIndex) };
     });
   }
 
@@ -157,12 +149,16 @@ export function SortableTree() {
 }
 
 const Container = forwardRef(
-  (props: { children: ReactNode }, ref: React.LegacyRef<HTMLDivElement>) => {
+  (
+    props: { children: ReactNode; id: UniqueIdentifier },
+    ref: React.LegacyRef<HTMLDivElement>,
+  ) => {
     return (
       <div
         ref={ref}
         className={`w-96 flex-1 rounded border border-gray-400 bg-gray-300 p-6 `}
       >
+        <p className="text-black">{props.id}</p>
         {props.children}
       </div>
     );
@@ -182,7 +178,7 @@ function SortableContainer({
 
   return (
     <SortableItem id={id}>
-      <Container ref={setNodeRef}>
+      <Container id={id} ref={setNodeRef}>
         <SortableContext
           items={getItems(id).map((item) => item.id)}
           strategy={verticalListSortingStrategy}
