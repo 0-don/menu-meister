@@ -193,14 +193,11 @@ export function SortableTree() {
 }
 
 const Container = forwardRef(
-  (
-    props: { children: ReactNode; className?: string },
-    ref: React.LegacyRef<HTMLDivElement>,
-  ) => {
+  (props: { children: ReactNode }, ref: React.LegacyRef<HTMLDivElement>) => {
     return (
       <div
         ref={ref}
-        className={`w-96 flex-1 rounded border border-gray-400 bg-gray-300 p-6 ${props.className}`}
+        className={`w-96 flex-1 rounded border border-gray-400 bg-gray-300 p-6 `}
       >
         {props.children}
       </div>
