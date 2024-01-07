@@ -20,7 +20,6 @@ export type ItemType = {
   id: number;
   parent?: number;
   container?: boolean;
-  row?: boolean;
 };
 
 export type DataType = {
@@ -50,7 +49,6 @@ export function SortableTree() {
     setData((prev) => ({
       items: [...prev.items, { id: prev.items.length + 1, container }],
     }));
-  const isRow = (id?: UniqueIdentifier) => !!findItem(id)?.row;
   const findItem = (id?: UniqueIdentifier) =>
     data.items.find((item) => item.id === id);
   const isContainer = (id?: UniqueIdentifier) => !!findItem(id)?.container;
@@ -105,16 +103,11 @@ export function SortableTree() {
   );
 
   function handleDragOver({ active, over }: DragOverEvent) {
-    let overId: UniqueIdentifier | undefined;
-    if (over) {
-      overId = over.id;
-    }
-
-    const overParent = findParent(overId);
-    const overIsContainer = isContainer(overId);
+    const overParent = findParent(over?.id);
+    const overIsContainer = isContainer(over?.id);
 
     const activeItem = findItem(active.id);
-    const overItem = findItem(overId);
+    const overItem = findItem(over?.id);
 
     if (activeItem?.container && overItem?.container) {
       return;
@@ -122,7 +115,7 @@ export function SortableTree() {
 
     setData((prev) => {
       const activeIndex = data.items.findIndex((item) => item.id === active.id);
-      const overIndex = data.items.findIndex((item) => item.id === overId);
+      const overIndex = data.items.findIndex((item) => item.id === over?.id);
 
       let newIndex = overIndex;
       const isBelowLastItem =
@@ -135,8 +128,8 @@ export function SortableTree() {
       newIndex = overIndex >= 0 ? overIndex + modifier : prev.items.length + 1;
 
       let nextParent;
-      if (overId) {
-        nextParent = overIsContainer ? overId : overParent;
+      if (over?.id) {
+        nextParent = overIsContainer ? over?.id : overParent;
       }
 
       prev.items[activeIndex].parent = nextParent as number;
