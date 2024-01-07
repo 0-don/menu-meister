@@ -68,23 +68,19 @@ export function SortableTree() {
         onDragEnd={handleDragEnd}
       >
         <SortableContext items={getItemIds()}>
-          {getItems().map((item) => {
-            if (item.container) {
-              return (
-                <SortableContainer
-                  key={item.id}
-                  id={item.id}
-                  getItems={getItems}
-                />
-              );
-            }
-
-            return (
+          {getItems().map((item) =>
+            item.container ? (
+              <SortableContainer
+                key={item.id}
+                id={item.id}
+                getItems={getItems}
+              />
+            ) : (
               <SortableItem key={item.id} id={item.id}>
                 <Item id={item.id} />
               </SortableItem>
-            );
-          })}
+            ),
+          )}
         </SortableContext>
 
         <DragOverlay>
