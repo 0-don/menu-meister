@@ -109,10 +109,29 @@ export function SortableTree() {
     const activeItem = findItem(active.id);
     const overItem = findItem(over?.id);
 
+    // Prevent a container from being dragged over another container
     if (activeItem?.container && overItem?.container) {
       return;
     }
 
+    // Allow items to be dragged into a container
+    if (overItem?.container && !activeItem?.container) {
+      // Logic to handle item being dragged over a container
+      setData((prev) => {
+        const activeIndex = prev.items.findIndex(
+          (item) => item.id === active.id,
+        );
+        const nextItems = [...prev.items];
+        nextItems[activeIndex] = {
+          ...nextItems[activeIndex],
+          parent: overItem.id, // Set the parent of the active item to the over container's ID
+        };
+        return { items: nextItems };
+      });
+      return;
+    }
+
+    // Handle normal drag and drop
     setData((prev) => {
       const activeIndex = prev.items.findIndex((item) => item.id === active.id);
       const overIndex = over
@@ -223,7 +242,7 @@ function SortableItem(props: { children: ReactNode; id: UniqueIdentifier }) {
         transform: CSS.Transform.toString(transform),
         transition,
       }}
-      className="relative flex-1"
+      className="relative my-5 flex-1"
       {...attributes}
       {...listeners}
     >
