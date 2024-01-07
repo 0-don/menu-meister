@@ -106,9 +106,8 @@ export function SortableTree() {
   );
 
   function handleDragOver({ active, over }: DragOverEvent) {
-    const overId = over?.id;
     const activeItem = findItem(active.id);
-    const overItem = findItem(overId);
+    const overItem = findItem(over?.id);
 
     if (activeItem?.container && overItem?.container) {
       return;
@@ -117,7 +116,7 @@ export function SortableTree() {
     setData((prev) => {
       const activeIndex = prev.items.findIndex((item) => item.id === active.id);
       const overIndex = over
-        ? prev.items.findIndex((item) => item.id === overId)
+        ? prev.items.findIndex((item) => item.id === over?.id)
         : prev.items.length;
       const newIndex =
         over &&
@@ -125,7 +124,7 @@ export function SortableTree() {
         active.rect.current.translated!.top > over.rect.top + over.rect.height
           ? overIndex + 1
           : overIndex;
-      const nextParent = overItem?.container ? overId : overItem?.parent;
+      const nextParent = overItem?.container ? over?.id : overItem?.parent;
 
       const nextItems = [...prev.items];
       nextItems[activeIndex] = {
