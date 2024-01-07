@@ -17,13 +17,6 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import React, { ReactNode, forwardRef, useState } from "react";
 
-const wrapperStyle = {
-  background: "#e9e9e9",
-  padding: "50px 10px",
-  borderRadius: 8,
-  margin: 50,
-};
-
 export type ItemType = {
   id: number;
   parent?: number;
@@ -54,20 +47,10 @@ export function SortableTree() {
   });
   const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>();
 
-  function addItem(container?: boolean, row?: boolean) {
-    return () => {
-      setData((prev) => ({
-        items: [
-          ...prev.items,
-          {
-            id: prev.items.length + 1,
-            container,
-            row,
-          },
-        ],
-      }));
-    };
-  }
+  const addItem = (container?: boolean) => () =>
+    setData((prev) => ({
+      items: [...prev.items, { id: prev.items.length + 1, container }],
+    }));
 
   const findItem = (id?: UniqueIdentifier) =>
     data.items.find((item) => item.id === id);
@@ -82,36 +65,32 @@ export function SortableTree() {
     <>
       <button onClick={addItem()}>Add Item</button>
       <button onClick={addItem(true)}>Add Column</button>
-      <button onClick={addItem(true, true)}>Add Row</button>
       <DndContext
         onDragStart={(event) => setActiveId(event.active.id)}
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
         <SortableContext
-          id="root"
           items={getItemIds()}
           strategy={verticalListSortingStrategy}
         >
-          <div style={wrapperStyle}>
-            {getItems().map((item: any) => {
-              if (item.container) {
-                return (
-                  <SortableContainer
-                    key={item.id}
-                    id={item.id}
-                    getItems={getItems}
-                  />
-                );
-              }
-
+          {getItems().map((item) => {
+            if (item.container) {
               return (
-                <SortableItem key={item.id} id={item.id}>
-                  <Item id={item.id} />
-                </SortableItem>
+                <SortableContainer
+                  key={item.id}
+                  id={item.id}
+                  getItems={getItems}
+                />
               );
-            })}
-          </div>
+            }
+
+            return (
+              <SortableItem key={item.id} id={item.id}>
+                <Item id={item.id} />
+              </SortableItem>
+            );
+          })}
         </SortableContext>
         <DragOverlay>{getDragOverlay()}</DragOverlay>
       </DndContext>
@@ -124,11 +103,9 @@ export function SortableTree() {
     }
 
     if (isContainer(activeId)) {
-      const item = data.items.find((i) => i.id === activeId);
-
       return (
-        <Container row={item?.row}>
-          {getItems(activeId).map((item: any) => (
+        <Container>
+          {getItems(activeId).map((item) => (
             <Item key={item.id} id={item.id} />
           ))}
         </Container>
@@ -141,7 +118,7 @@ export function SortableTree() {
   function handleDragOver(event: DragOverEvent) {
     const { active, over } = event;
     const { id } = active;
-    let overId: any;
+    let overId: UniqueIdentifier | undefined;
     if (over) {
       overId = over.id;
     }
@@ -167,8 +144,8 @@ export function SortableTree() {
     }
 
     setData((prev) => {
-      const activeIndex = data.items.findIndex((item: any) => item.id === id);
-      const overIndex = data.items.findIndex((item: any) => item.id === overId);
+      const activeIndex = data.items.findIndex((item) => item.id === id);
+      const overIndex = data.items.findIndex((item) => item.id === overId);
 
       let newIndex = overIndex;
       const isBelowLastItem =
@@ -185,7 +162,7 @@ export function SortableTree() {
         nextParent = overIsContainer ? overId : overParent;
       }
 
-      (prev.items[activeIndex] as any).parent = nextParent;
+      prev.items[activeIndex].parent = nextParent as number;
       const nextItems = arrayMove(prev.items, activeIndex, newIndex);
 
       return {
@@ -194,16 +171,14 @@ export function SortableTree() {
     });
   }
 
-  function handleDragEnd(event: DragEndEvent) {
-    const { active, over } = event;
-    const { id } = active;
-    let overId: any;
+  function handleDragEnd({ active, over }: DragEndEvent) {
+    let overId: UniqueIdentifier | undefined;
     if (over) {
       overId = over.id;
     }
 
-    const activeIndex = data.items.findIndex((item: any) => item.id === id);
-    const overIndex = data.items.findIndex((item: any) => item.id === overId);
+    const activeIndex = data.items.findIndex((item) => item.id === active.id);
+    const overIndex = data.items.findIndex((item) => item.id === overId);
 
     let newIndex = overIndex >= 0 ? overIndex : 0;
 
@@ -219,15 +194,13 @@ export function SortableTree() {
 
 const Container = forwardRef(
   (
-    props: { row?: boolean; children: ReactNode; className?: string },
+    props: { children: ReactNode; className?: string },
     ref: React.LegacyRef<HTMLDivElement>,
   ) => {
     return (
       <div
         ref={ref}
-        className={`w-96 flex-1 rounded border border-gray-400 bg-gray-300 p-6 ${
-          props.row ? "flex-row" : "flex-col"
-        } ${props.className}`}
+        className={`w-96 flex-1 rounded border border-gray-400 bg-gray-300 p-6 ${props.className}`}
       >
         {props.children}
       </div>
