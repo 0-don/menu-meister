@@ -16,7 +16,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import React, { CSSProperties, useState } from "react";
+import React, { ReactNode, useState } from "react";
 
 const wrapperStyle = {
   background: "#e9e9e9",
@@ -272,7 +272,7 @@ export function SortableContainer(props: any) {
   const { setNodeRef } = useDroppable({ id });
 
   return (
-    <SortableItem id={id} handlePosition="top">
+    <SortableItem id={id}>
       <Container
         ref={setNodeRef}
         row={row}
@@ -311,82 +311,30 @@ export function SortableContainer(props: any) {
   );
 }
 
-export function Item(props: any) {
-  const { id } = props;
-
-  const style = {
-    height: 50,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    border: "2px solid #9a9a9a",
-    margin: "10px",
-    background: "white",
-    borderRadius: 8,
-  };
-
+function Item({ id }: { id: UniqueIdentifier }) {
   return (
-    <div style={style} className="!text-black">
+    <div className="my-2 flex h-12 w-64 items-center justify-center rounded-lg border-2 border-gray-400 bg-white !text-black">
       {id}
     </div>
   );
 }
 
-export function SortableItem(props: any) {
-  const { children, handlePosition = "right", id } = props;
-
+function SortableItem(props: { children: ReactNode; id: UniqueIdentifier }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    flex: 1,
-    position: "relative",
-  };
-
-  let handleStyle = {
-    position: "absolute",
-    fontSize: 36,
-    color: "black",
-    cursor: "grab",
-  };
-
-  const rightHandleStyle = {
-    right: 25,
-    top: 0,
-    bottom: 0,
-    transform: "rotate(90deg)",
-  };
-
-  const topHandleStyle = {
-    right: 40,
-    top: 0,
-  };
-
-  if (handlePosition === "right") {
-    handleStyle = {
-      ...handleStyle,
-      ...rightHandleStyle,
-    };
-  } else if (handlePosition === "top") {
-    handleStyle = {
-      ...handleStyle,
-      ...topHandleStyle,
-    };
-  }
+    useSortable({ id: props.id });
 
   return (
     <div
       ref={setNodeRef}
-      style={style as CSSProperties}
+      style={{
+        transform: CSS.Transform.toString(transform),
+        transition,
+      }}
+      className="relative flex-1"
       {...attributes}
       {...listeners}
     >
-      {children}
-      {/* <div  style={handleStyle}>
-        ...
-      </div> */}
+      {props.children}
     </div>
   );
 }
