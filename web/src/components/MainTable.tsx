@@ -19,8 +19,7 @@ import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import { TableItem } from "./elements/TableItem";
-import { Backup3 } from "./tree/Backup3";
-import SortableTree from "./tree/SortableTree";
+import { SortableTree } from "./tree/SortableTree";
 
 interface DashboardPageProps {}
 
