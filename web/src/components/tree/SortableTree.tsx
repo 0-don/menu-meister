@@ -92,28 +92,22 @@ export function SortableTree() {
             );
           })}
         </SortableContext>
-        <DragOverlay>{getDragOverlay()}</DragOverlay>
+
+        {/* Inline DragOverlay */}
+        <DragOverlay>
+          {!activeId ? null : isContainer(activeId) ? (
+            <Container>
+              {getItems(activeId).map((item) => (
+                <Item key={item.id} id={item.id} />
+              ))}
+            </Container>
+          ) : (
+            <Item id={activeId} />
+          )}
+        </DragOverlay>
       </DndContext>
     </>
   );
-
-  function getDragOverlay() {
-    if (!activeId) {
-      return null;
-    }
-
-    if (isContainer(activeId)) {
-      return (
-        <Container>
-          {getItems(activeId).map((item) => (
-            <Item key={item.id} id={item.id} />
-          ))}
-        </Container>
-      );
-    }
-
-    return <Item id={activeId} />;
-  }
 
   function handleDragOver({ active, over }: DragOverEvent) {
     let overId: UniqueIdentifier | undefined;
