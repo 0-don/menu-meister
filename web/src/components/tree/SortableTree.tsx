@@ -20,7 +20,6 @@ export type ItemType = {
   id: number;
   parent?: number;
   container?: boolean;
-  row?: boolean;
 };
 
 export type DataType = {
@@ -54,12 +53,11 @@ export function SortableTree() {
   const findItem = (id?: UniqueIdentifier) =>
     data.items.find((item) => item.id === id);
   const isContainer = (id?: UniqueIdentifier) => !!findItem(id)?.container;
-  const isRow = (id?: UniqueIdentifier) => !!findItem(id)?.row;
   const getItems = (parent?: UniqueIdentifier) =>
     data.items.filter((item) => item.parent === parent);
   const getItemIds = (parent?: UniqueIdentifier) =>
     getItems(parent).map((item) => item.id);
-  const findParent = (id?: UniqueIdentifier) => findItem(id)?.parent;
+
   return (
     <>
       <button onClick={addItem()}>Add Item</button>
@@ -108,76 +106,51 @@ export function SortableTree() {
   );
 
   function handleDragOver({ active, over }: DragOverEvent) {
-    let overId: UniqueIdentifier | undefined;
-    if (over) {
-      overId = over.id;
-    }
+    const overId = over?.id;
+    const activeItem = findItem(active.id);
+    const overItem = findItem(overId);
 
-    const overParent = findParent(overId);
-    const overIsContainer = isContainer(overId);
-    const activeIsContainer = isContainer(activeId);
-    if (overIsContainer) {
-      const overIsRow = isRow(overId);
-      const activeIsRow = isRow(activeId);
-      // only columns to be added to rows
-      if (overIsRow) {
-        if (activeIsRow) {
-          return;
-        }
-
-        if (!activeIsContainer) {
-          return;
-        }
-      } else if (activeIsContainer) {
-        return;
-      }
+    if (activeItem?.container && overItem?.container) {
+      return;
     }
 
     setData((prev) => {
-      const activeIndex = data.items.findIndex((item) => item.id === active.id);
-      const overIndex = data.items.findIndex((item) => item.id === overId);
-
-      let newIndex = overIndex;
-      const isBelowLastItem =
+      const activeIndex = prev.items.findIndex((item) => item.id === active.id);
+      const overIndex = over
+        ? prev.items.findIndex((item) => item.id === overId)
+        : prev.items.length;
+      const newIndex =
         over &&
         overIndex === prev.items.length - 1 &&
-        active.rect.current.translated!.top > over.rect.top + over.rect.height;
+        active.rect.current.translated!.top > over.rect.top + over.rect.height
+          ? overIndex + 1
+          : overIndex;
+      const nextParent = overItem?.container ? overId : overItem?.parent;
 
-      const modifier = isBelowLastItem ? 1 : 0;
-
-      newIndex = overIndex >= 0 ? overIndex + modifier : prev.items.length + 1;
-
-      let nextParent;
-      if (overId) {
-        nextParent = overIsContainer ? overId : overParent;
-      }
-
-      prev.items[activeIndex].parent = nextParent as number;
-      const nextItems = arrayMove(prev.items, activeIndex, newIndex);
-
-      return {
-        items: nextItems,
+      const nextItems = [...prev.items];
+      nextItems[activeIndex] = {
+        ...nextItems[activeIndex],
+        parent: nextParent as number,
       };
+      return { items: arrayMove(nextItems, activeIndex, newIndex) };
     });
   }
 
   function handleDragEnd({ active, over }: DragEndEvent) {
-    let overId: UniqueIdentifier | undefined;
-    if (over) {
-      overId = over.id;
-    }
-
     const activeIndex = data.items.findIndex((item) => item.id === active.id);
-    const overIndex = data.items.findIndex((item) => item.id === overId);
-
-    let newIndex = overIndex >= 0 ? overIndex : 0;
+    const overIndex = over
+      ? data.items.findIndex((item) => item.id === over.id)
+      : 0;
 
     if (activeIndex !== overIndex) {
       setData((prev) => ({
-        items: arrayMove(prev.items, activeIndex, newIndex),
+        items: arrayMove(
+          prev.items,
+          activeIndex,
+          overIndex >= 0 ? overIndex : prev.items.length,
+        ),
       }));
     }
-
     setActiveId(undefined);
   }
 }
