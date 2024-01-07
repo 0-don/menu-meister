@@ -269,9 +269,7 @@ export function SortableContainer(props: any) {
   const items = getItems(id);
   const itemIds = items.map((item: any) => item.id);
 
-  const { setNodeRef } = useDroppable({
-    id,
-  });
+  const { setNodeRef } = useDroppable({ id });
 
   return (
     <SortableItem id={id} handlePosition="top">
