@@ -112,22 +112,12 @@ export function SortableTree() {
 
     const overParent = findParent(overId);
     const overIsContainer = isContainer(overId);
-    const activeIsContainer = isContainer(activeId);
-    if (overIsContainer) {
-      const overIsRow = isRow(overId);
-      const activeIsRow = isRow(activeId);
-      // only columns to be added to rows
-      if (overIsRow) {
-        if (activeIsRow) {
-          return;
-        }
 
-        if (!activeIsContainer) {
-          return;
-        }
-      } else if (activeIsContainer) {
-        return;
-      }
+    const activeItem = findItem(active.id);
+    const overItem = findItem(overId);
+
+    if (activeItem?.container && overItem?.container) {
+      return;
     }
 
     setData((prev) => {
