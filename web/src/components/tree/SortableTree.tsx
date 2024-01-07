@@ -115,9 +115,7 @@ export function SortableTree() {
     return <Item id={activeId} />;
   }
 
-  function handleDragOver(event: DragOverEvent) {
-    const { active, over } = event;
-    const { id } = active;
+  function handleDragOver({ active, over }: DragOverEvent) {
     let overId: UniqueIdentifier | undefined;
     if (over) {
       overId = over.id;
@@ -144,7 +142,7 @@ export function SortableTree() {
     }
 
     setData((prev) => {
-      const activeIndex = data.items.findIndex((item) => item.id === id);
+      const activeIndex = data.items.findIndex((item) => item.id === active.id);
       const overIndex = data.items.findIndex((item) => item.id === overId);
 
       let newIndex = overIndex;
