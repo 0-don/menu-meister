@@ -11,7 +11,6 @@ import {
 import {
   SortableContext,
   arrayMove,
-  horizontalListSortingStrategy,
   useSortable,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
@@ -70,6 +69,15 @@ export function SortableTree() {
     };
   }
 
+  const findItem = (id?: UniqueIdentifier) =>
+    data.items.find((item) => item.id === id);
+  const isContainer = (id?: UniqueIdentifier) => !!findItem(id)?.container;
+  const isRow = (id?: UniqueIdentifier) => !!findItem(id)?.row;
+  const getItems = (parent?: UniqueIdentifier) =>
+    data.items.filter((item) => item.parent === parent);
+  const getItemIds = (parent?: UniqueIdentifier) =>
+    getItems(parent).map((item) => item.id);
+  const findParent = (id?: UniqueIdentifier) => findItem(id)?.parent;
   return (
     <>
       <button onClick={addItem()}>Add Item</button>
@@ -93,7 +101,6 @@ export function SortableTree() {
                     key={item.id}
                     id={item.id}
                     getItems={getItems}
-                    row={item.row}
                   />
                 );
               }
@@ -110,32 +117,6 @@ export function SortableTree() {
       </DndContext>
     </>
   );
-
-  function isContainer(id: UniqueIdentifier | undefined) {
-    const item = data.items.find((item) => item.id === id);
-    return !item ? false : item.container;
-  }
-
-  function isRow(id: UniqueIdentifier | undefined) {
-    const item = data.items.find((item) => item.id === id);
-    return !item ? false : item.row;
-  }
-
-  function getItems(parent?: any) {
-    return data.items.filter((item) => {
-      if (!parent) return !item.parent;
-      return item.parent === parent;
-    });
-  }
-
-  function getItemIds(parent?: any) {
-    return getItems(parent).map((item: any) => item.id);
-  }
-
-  function findParent(id: UniqueIdentifier | undefined) {
-    const item = data.items.find((item) => item.id === id);
-    return !item ? false : item.parent;
-  }
 
   function getDragOverlay() {
     if (!activeId) {
@@ -257,26 +238,18 @@ const Container = forwardRef(
 function SortableContainer({
   getItems,
   id,
-  row,
 }: {
   getItems: (id: UniqueIdentifier) => ItemType[];
   id: UniqueIdentifier;
-  row?: boolean;
 }) {
   const { setNodeRef } = useDroppable({ id });
 
   return (
     <SortableItem id={id}>
-      <Container
-        ref={setNodeRef}
-        row={row}
-        className={`${row ? "bg-gray-400" : "bg-transparent"}`}
-      >
+      <Container ref={setNodeRef}>
         <SortableContext
           items={getItems(id).map((item) => item.id)}
-          strategy={
-            row ? horizontalListSortingStrategy : verticalListSortingStrategy
-          }
+          strategy={verticalListSortingStrategy}
         >
           {getItems(id).map((item) =>
             item.container ? (
@@ -284,7 +257,6 @@ function SortableContainer({
                 key={item.id}
                 id={item.id}
                 getItems={getItems}
-                row={item.row}
               />
             ) : (
               <SortableItem key={item.id} id={item.id}>
