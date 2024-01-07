@@ -16,7 +16,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, forwardRef, useState } from "react";
 
 const wrapperStyle = {
   background: "#e9e9e9",
@@ -235,40 +235,34 @@ export function SortableTree() {
     setActiveId(undefined);
   }
 }
-const containerStyle = {
-  background: "#dadada",
-  padding: "50px 10px 25px",
-  flex: 1,
-  borderRadius: 8,
-  border: "1px solid #ababab",
-  display: "flex",
-  alignSelf: "stretch",
-  minHeight: 50,
-};
 
-export const Container = React.forwardRef((props: any, ref: any) => {
-  const { children, row, style = {} } = props;
+const Container = forwardRef(
+  (
+    props: { row?: boolean; children: ReactNode; className?: string },
+    ref: React.LegacyRef<HTMLDivElement>,
+  ) => {
+    return (
+      <div
+        ref={ref}
+        className={`w-96 flex-1 rounded border border-gray-400 bg-gray-300 p-6 ${
+          props.row ? "flex-row" : "flex-col"
+        } ${props.className}`}
+      >
+        {props.children}
+      </div>
+    );
+  },
+);
 
-  return (
-    <div
-      ref={ref}
-      style={{
-        ...containerStyle,
-        ...style,
-        flexDirection: row ? "row" : "column",
-      }}
-    >
-      {children}
-    </div>
-  );
-});
-
-export function SortableContainer(props: any) {
-  const { getItems, id, row, style = { margin: "50px 25px" } } = props;
-
-  const items = getItems(id);
-  const itemIds = items.map((item: any) => item.id);
-
+function SortableContainer({
+  getItems,
+  id,
+  row,
+}: {
+  getItems: (id: UniqueIdentifier) => ItemType[];
+  id: UniqueIdentifier;
+  row?: boolean;
+}) {
   const { setNodeRef } = useDroppable({ id });
 
   return (
@@ -276,35 +270,28 @@ export function SortableContainer(props: any) {
       <Container
         ref={setNodeRef}
         row={row}
-        style={{ ...style, backgroundColor: row ? "#cdcdcd" : "transparent" }}
+        className={`${row ? "bg-gray-400" : "bg-transparent"}`}
       >
         <SortableContext
-          items={itemIds}
+          items={getItems(id).map((item) => item.id)}
           strategy={
             row ? horizontalListSortingStrategy : verticalListSortingStrategy
           }
         >
-          {items.map((item: any) => {
-            let child = <Item id={item.id} />;
-
-            if (item.container) {
-              return (
-                <SortableContainer
-                  key={item.id}
-                  id={item.id}
-                  getItems={getItems}
-                  row={item.row}
-                  handlePosition="top"
-                />
-              );
-            }
-
-            return (
+          {getItems(id).map((item) =>
+            item.container ? (
+              <SortableContainer
+                key={item.id}
+                id={item.id}
+                getItems={getItems}
+                row={item.row}
+              />
+            ) : (
               <SortableItem key={item.id} id={item.id}>
-                {child}
+                <Item id={item.id} />
               </SortableItem>
-            );
-          })}
+            ),
+          )}
         </SortableContext>
       </Container>
     </SortableItem>
