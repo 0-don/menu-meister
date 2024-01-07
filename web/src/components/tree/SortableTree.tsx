@@ -1,5 +1,4 @@
 "use client";
-/* eslint-disable react/display-name */
 import {
   DndContext,
   DragEndEvent,
@@ -93,7 +92,6 @@ export function SortableTree() {
           })}
         </SortableContext>
 
-        {/* Inline DragOverlay */}
         <DragOverlay>
           {!activeId ? null : isContainer(activeId) ? (
             <Container>
@@ -196,6 +194,8 @@ const Container = forwardRef(
     );
   },
 );
+
+Container.displayName = "Container";
 
 function SortableContainer({
   getItems,
