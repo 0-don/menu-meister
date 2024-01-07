@@ -25,56 +25,90 @@ const wrapperStyle = {
   margin: 50,
 };
 
+export type ItemType = {
+  id: number;
+  parent?: number;
+  container?: boolean;
+  row?: boolean;
+};
+
+export type DataType = {
+  items: ItemType[];
+};
+
 export function SortableTree() {
-  const [data, setData] = useState({
+  const [data, setData] = useState<DataType>({
     items: [
-      { id: 5, parent: 3 },
-      { id: 6, parent: 3 },
-      { id: 1 },
-      { id: 2, parent: 4 },
-      { id: 3, container: true, parent: 7 },
-      { id: 7, container: true, row: true },
-      { id: 4, container: true, parent: 7 },
-      { id: 8, parent: 10 },
-      { id: 9, parent: 10 },
-      { id: 10, container: true },
+      { id: 5, container: true },
+      { id: 3, parent: 5 },
+      { id: 4, parent: 5 },
+      { id: 1, parent: 6 },
+      { id: 10, parent: 6 },
+      { id: 2, parent: 6 },
+      { id: 6, container: true },
+      { id: 8, parent: 7 },
+      { id: 9, parent: 7 },
+      { id: 7, container: true },
+      { id: 11 },
+      { id: 12 },
     ],
   });
   const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>();
-  return (
-    <DndContext
-      onDragStart={(event) => setActiveId(event.active.id)}
-      onDragOver={handleDragOver}
-      onDragEnd={handleDragEnd}
-    >
-      <SortableContext
-        id="root"
-        items={getItemIds()}
-        strategy={verticalListSortingStrategy}
-      >
-        <div style={wrapperStyle}>
-          {getItems().map((item: any) => {
-            if (item.container) {
-              return (
-                <SortableContainer
-                  key={item.id}
-                  id={item.id}
-                  getItems={getItems}
-                  row={item.row}
-                />
-              );
-            }
 
-            return (
-              <SortableItem key={item.id} id={item.id}>
-                <Item id={item.id} />
-              </SortableItem>
-            );
-          })}
-        </div>
-      </SortableContext>
-      <DragOverlay>{getDragOverlay()}</DragOverlay>
-    </DndContext>
+  function addItem(container?: boolean, row?: boolean) {
+    return () => {
+      setData((prev) => ({
+        items: [
+          ...prev.items,
+          {
+            id: prev.items.length + 1,
+            container,
+            row,
+          },
+        ],
+      }));
+    };
+  }
+
+  return (
+    <>
+      <button onClick={addItem()}>Add Item</button>
+      <button onClick={addItem(true)}>Add Column</button>
+      <button onClick={addItem(true, true)}>Add Row</button>
+      <DndContext
+        onDragStart={(event) => setActiveId(event.active.id)}
+        onDragOver={handleDragOver}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext
+          id="root"
+          items={getItemIds()}
+          strategy={verticalListSortingStrategy}
+        >
+          <div style={wrapperStyle}>
+            {getItems().map((item: any) => {
+              if (item.container) {
+                return (
+                  <SortableContainer
+                    key={item.id}
+                    id={item.id}
+                    getItems={getItems}
+                    row={item.row}
+                  />
+                );
+              }
+
+              return (
+                <SortableItem key={item.id} id={item.id}>
+                  <Item id={item.id} />
+                </SortableItem>
+              );
+            })}
+          </div>
+        </SortableContext>
+        <DragOverlay>{getDragOverlay()}</DragOverlay>
+      </DndContext>
+    </>
   );
 
   function isContainer(id: UniqueIdentifier | undefined) {
@@ -235,13 +269,9 @@ export function SortableContainer(props: any) {
   const items = getItems(id);
   const itemIds = items.map((item: any) => item.id);
 
-  const { isOver, setNodeRef } = useDroppable({
+  const { setNodeRef } = useDroppable({
     id,
   });
-
-  if (isOver) {
-    console.log("is over", id);
-  }
 
   return (
     <SortableItem id={id} handlePosition="top">

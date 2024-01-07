@@ -29,7 +29,6 @@ export const Backup3 = () => {
 
   useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
 
-  console.log(Store.activeId);
   return (
     <DndContext
       onDragStart={({ active }) => (Store.activeId = active.id)}
