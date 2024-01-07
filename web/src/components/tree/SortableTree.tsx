@@ -122,7 +122,7 @@ export function SortableTree() {
       const modifier = isBelowLastItem ? 1 : 0;
       newIndex = overIndex >= 0 ? overIndex + modifier : prev.items.length + 1;
       let nextParent = overIsContainer ? over?.id : overParent;
-      
+
       prev.items[activeIndex].parent = nextParent as number;
 
       return { items: arrayMove(prev.items, activeIndex, newIndex) };
