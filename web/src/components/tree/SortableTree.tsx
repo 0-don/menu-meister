@@ -101,34 +101,7 @@ export function SortableTree() {
     }
     // Check if dragging over a footer area of a container
     if (over?.id.toString().includes("-") && !isContainer(active.id)) {
-      const [parentIdStr] = over.id.toString().split("-");
-      const parentId = parseInt(parentIdStr, 10);
-
-      console.log("parentId", parentId);
-
-      setData((prev) => {
-        const activeIndex = prev.items.findIndex(
-          (item) => item.id === active.id,
-        );
-
-        // Calculate the new index within the target container
-        const newIndex = prev.items.reduce((count, item) => {
-          return item.parent === parentId ? count + 1 : count;
-        }, 0);
-
-        // If moving to a different container, update the parent ID
-        if (activeItem.parent !== parentId) {
-          let newItems = [...prev.items];
-          newItems.splice(activeIndex, 1); // Remove item from its current position
-          newItems.splice(newIndex, 0, { ...activeItem, parent: parentId }); // Insert item at the new position with updated parent
-
-          return { items: newItems };
-        } else {
-          // Handle reordering within the same container
-          return { items: arrayMove(prev.items, activeIndex, newIndex) };
-        }
-      });
-      return;
+      return handleFooterAreaDrag(activeItem, over?.id as string);
     }
 
     setData((prev) => {
@@ -151,11 +124,38 @@ export function SortableTree() {
     });
   }
 
+  function handleFooterAreaDrag(activeItem: ItemType, overIdStr: string) {
+    setData((prevData) => {
+      const containerId = parseInt(overIdStr.split("-")[0], 10);
+      const updatedItems = prevData.items.filter(
+        (item) => item.id !== activeItem.id,
+      );
+      const containerIndex = updatedItems.findIndex(
+        (item) => item.id === containerId,
+      );
+
+      // Insert the active item after the container
+      updatedItems.splice(containerIndex + 1, 0, {
+        ...activeItem,
+        container: undefined,
+        parent: undefined,
+      });
+
+      return { items: updatedItems };
+    });
+  }
   function handleDragEnd({ active, over }: DragEndEvent) {
     const activeIndex = data.items.findIndex((item) => item.id === active.id);
     const overIndex = over
       ? data.items.findIndex((item) => item.id === over.id)
       : 0;
+    const activeItem = findItem(active.id);
+
+    if (!activeItem) return;
+
+    if (over?.id.toString().includes("-") && !isContainer(active.id)) {
+      return handleFooterAreaDrag(activeItem, over?.id as string);
+    }
 
     if (activeIndex !== overIndex) {
       setData((prev) => ({
