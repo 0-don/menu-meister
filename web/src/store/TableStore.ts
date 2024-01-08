@@ -69,7 +69,7 @@ export type GroupItem = { groupId: string; items: string[] };
 export const INITIAL_DATAS: DaySchedule[] = [
   {
     id: "day1",
-    servingDate: "2024-01-08",
+    servingDate: "2024-01-10",
     schedules: [
       { id: "schedule1", meal: { id: "meal1", name: "pizza" } },
       { id: "schedule2", meal: { id: "meal2", name: "bread" } },
