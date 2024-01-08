@@ -1,6 +1,6 @@
 "use client";
 import DashboardStore from "@/store/DashboardStore";
-import TableStore from "@/store/TableStore";
+import TableStore, { PLACEHOLDER_KEY } from "@/store/TableStore";
 import {
   DndContext,
   DragOverlay,
@@ -22,6 +22,8 @@ export function SortableTree() {
 
   useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
 
+  console.log("schedules", schedules);
+
   return (
     <>
       <DndContext
@@ -30,39 +32,43 @@ export function SortableTree() {
         onDragOver={useCallback(TableStore.onDragOver, [])}
         onDragEnd={TableStore.onDragEnd}
       >
-        <div>
+        <div className="flex">
           {Object.keys(schedules).map((group) => (
-            <SortableContext items={schedulesIds[group]} key={group}>
-              {schedules[group].map((item) =>
-                item.container ? (
-                  <SortableContainer
-                    key={item.id}
-                    id={item.id}
-                    index={schedules[group].findIndex((i) => i.id === item.id)}
-                  />
-                ) : (
-                  <SortableItem key={item.id} id={item.id}>
-                    <Item id={item.id} />
-                  </SortableItem>
-                ),
-              )}
-            </SortableContext>
-          ))}
-
-          <DragOverlay>
-            {!TableStore.activeId ? null : TableStore.isContainer(
-                TableStore.activeId,
-              ) ? (
-              <Container id={TableStore.activeId}>
-                {TableStore.getItems(TableStore.activeId)?.map((item) => (
-                  <Item key={item.id} id={item.id} />
+            <div key={group}>
+              <SortableContext items={schedulesIds[group]}>
+                {schedules[group].map((item) => (
+                  <div key={item.id} className="">
+                    {item.container ? (
+                      <SortableContainer
+                        id={item.id}
+                        index={schedules[group].findIndex(
+                          (i) => i.id === item.id,
+                        )}
+                      />
+                    ) : (
+                      <SortableItem id={item.id}>
+                        <Item id={item.id} />
+                      </SortableItem>
+                    )}
+                  </div>
                 ))}
-              </Container>
-            ) : (
-              <Item id={TableStore.activeId} />
-            )}
-          </DragOverlay>
+              </SortableContext>
+            </div>
+          ))}
         </div>
+        <DragOverlay>
+          {!TableStore.activeId ? null : TableStore.isContainer(
+              TableStore.activeId,
+            ) ? (
+            <Container id={TableStore.activeId}>
+              {TableStore.getItems(TableStore.activeId)?.map((item) => (
+                <Item key={item.id} id={item.id} />
+              ))}
+            </Container>
+          ) : (
+            <Item id={TableStore.activeId} />
+          )}
+        </DragOverlay>
       </DndContext>
     </>
   );
@@ -96,7 +102,7 @@ function SortableContainer({
 }) {
   const { setNodeRef } = useDroppable({ id });
   const { setNodeRef: ref } = useDroppable({
-    id: `${id}-${index}`,
+    id: `${id}${PLACEHOLDER_KEY}${index}`,
   });
 
   return (
