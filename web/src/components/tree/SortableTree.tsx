@@ -22,8 +22,6 @@ export function SortableTree() {
 
   useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
 
-  console.log("schedules", schedules);
-
   return (
     <>
       <DndContext
@@ -32,7 +30,7 @@ export function SortableTree() {
         onDragOver={useCallback(TableStore.onDragOver, [])}
         onDragEnd={TableStore.onDragEnd}
       >
-        <div className="flex  w-full">
+        <div className="flex w-full">
           {Object.keys(schedules).map((group) => (
             <div key={group} className="w-96">
               <p>{group}</p>
