@@ -30,7 +30,7 @@ export function SortableTree() {
   const [data, setData] = useState<DataType>({
     items: [{ id: 1, container: true }, { id: 2 }, { id: 3, container: true }],
   });
-  console.log(data);
+
   const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>();
 
   const addItem = (container?: boolean) => () =>
@@ -55,34 +55,36 @@ export function SortableTree() {
         onDragOver={useCallback(handleDragOver, [data.items])}
         onDragEnd={handleDragEnd}
       >
-        <SortableContext items={getItemIds()}>
-          {getItems().map((item) =>
-            item.container ? (
-              <SortableContainer
-                key={item.id}
-                id={item.id}
-                index={data.items.findIndex((i) => i.id === item.id)}
-                getItems={getItems}
-              />
-            ) : (
-              <SortableItem key={item.id} id={item.id}>
-                <Item id={item.id} />
-              </SortableItem>
-            ),
-          )}
-        </SortableContext>
+        <div>
+          <SortableContext items={getItemIds()}>
+            {getItems().map((item) =>
+              item.container ? (
+                <SortableContainer
+                  key={item.id}
+                  id={item.id}
+                  index={data.items.findIndex((i) => i.id === item.id)}
+                  getItems={getItems}
+                />
+              ) : (
+                <SortableItem key={item.id} id={item.id}>
+                  <Item id={item.id} />
+                </SortableItem>
+              ),
+            )}
+          </SortableContext>
 
-        <DragOverlay>
-          {!activeId ? null : isContainer(activeId) ? (
-            <Container id={activeId}>
-              {getItems(activeId).map((item) => (
-                <Item key={item.id} id={item.id} />
-              ))}
-            </Container>
-          ) : (
-            <Item id={activeId} />
-          )}
-        </DragOverlay>
+          <DragOverlay>
+            {!activeId ? null : isContainer(activeId) ? (
+              <Container id={activeId}>
+                {getItems(activeId).map((item) => (
+                  <Item key={item.id} id={item.id} />
+                ))}
+              </Container>
+            ) : (
+              <Item id={activeId} />
+            )}
+          </DragOverlay>
+        </div>
       </DndContext>
     </>
   );
@@ -151,10 +153,11 @@ export function SortableTree() {
       : 0;
     const activeItem = findItem(active.id);
 
-    if (!activeItem) return;
+    if (!activeItem) return setActiveId(undefined);
 
     if (over?.id.toString().includes("-") && !isContainer(active.id)) {
-      return handleFooterAreaDrag(activeItem, over?.id as string);
+      handleFooterAreaDrag(activeItem, over?.id as string);
+      return setActiveId(undefined);
     }
 
     if (activeIndex !== overIndex) {
@@ -219,7 +222,7 @@ function SortableContainer({
           </SortableContext>
         </Container>
       </SortableItem>
-      <div className="h-32 w-96 bg-yellow-400" ref={ref} />
+      <div className="h-8 w-96 bg-yellow-400" ref={ref} />
     </div>
   );
 }
