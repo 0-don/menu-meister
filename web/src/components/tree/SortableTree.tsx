@@ -204,7 +204,7 @@ function SortableContainer({
   });
 
   return (
-    <>
+    <div>
       <SortableItem id={id}>
         <Container id={id} ref={setNodeRef}>
           <SortableContext
@@ -220,7 +220,7 @@ function SortableContainer({
         </Container>
       </SortableItem>
       <div className="h-32 w-96 bg-yellow-400" ref={ref} />
-    </>
+    </div>
   );
 }
 
@@ -243,7 +243,7 @@ function SortableItem(props: { children: ReactNode; id: UniqueIdentifier }) {
         transform: CSS.Transform.toString(transform),
         transition,
       }}
-      className="relative my-5 flex-1"
+      className="relative flex-1"
       {...attributes}
       {...listeners}
     >
