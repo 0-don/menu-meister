@@ -35,7 +35,7 @@ export function SortableTree() {
             <div key={group} className="w-96">
               <p>{group}</p>
               <SortableContext items={schedulesIds[group]}>
-                {schedules[group].map((item) => (
+                {TableStore.getItems({ key: group })?.map((item) => (
                   <div key={item.id}>
                     {item.container ? (
                       <SortableContainer
@@ -60,9 +60,9 @@ export function SortableTree() {
               TableStore.activeId,
             ) ? (
             <Container id={TableStore.activeId}>
-              {TableStore.getItems(TableStore.activeId)?.map((item) => (
-                <Item key={item.id} id={item.id} />
-              ))}
+              {TableStore.getItems({ parent: TableStore.activeId })?.map(
+                (item) => <Item key={item.id} id={item.id} />,
+              )}
             </Container>
           ) : (
             <Item id={TableStore.activeId} />
@@ -109,10 +109,12 @@ function SortableContainer({
       <SortableItem id={id}>
         <Container id={id} ref={setNodeRef}>
           <SortableContext
-            items={(TableStore.getItems(id) || []).map((item) => item.id)}
+            items={(TableStore.getItems({ parent: id }) || []).map(
+              (item) => item.id,
+            )}
             strategy={verticalListSortingStrategy}
           >
-            {TableStore.getItems(id)?.map((item) => (
+            {TableStore.getItems({ parent: id })?.map((item) => (
               <SortableItem key={item.id} id={item.id}>
                 <Item id={item.id} />
               </SortableItem>

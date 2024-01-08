@@ -189,14 +189,21 @@ const TableStore = proxy({
     const { date } = TableStore.parseId(id!);
     return TableStore.schedules[date].find((item) => item.id === id);
   },
-  getItems: (parent?: UniqueIdentifier) => {
-    if (!parent) return;
-    const { date } = TableStore.parseId(parent!);
-    return TableStore.schedules[date].filter((item) => item.parent === parent);
+  getItems: ({ key, parent }: { key?: string; parent?: UniqueIdentifier }) => {
+    if (!parent && !key) return;
+
+    if (parent) {
+      const { date } = TableStore.parseId(parent!);
+      return TableStore.schedules[date].filter(
+        (item) => item.parent === parent,
+      );
+    } else {
+      return TableStore.schedules[key!].filter((item) => !item.parent);
+    }
   },
   isContainer: (id?: UniqueIdentifier) => !!TableStore.findItem(id)?.container,
   getItemIds: (parent?: UniqueIdentifier) =>
-    TableStore.getItems(parent)?.map((item) => item.id),
+    TableStore.getItems({ parent })?.map((item) => item.id),
   findParent: (id?: UniqueIdentifier) => TableStore.findItem(id)?.parent,
 
   // ###########################################################
