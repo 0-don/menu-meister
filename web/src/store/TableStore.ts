@@ -272,7 +272,7 @@ const TableStore = proxy({
         : TableStore.schedules[activeDate].length + 1;
     let nextParent = overIsContainer ? over?.id : overParent;
 
-    TableStore.schedules[overDate].splice(overIndex + 1, 0, {
+    TableStore.schedules[overDate].splice(newIndex, 0, {
       ...activeItem,
       parent: nextParent,
       container: undefined,
