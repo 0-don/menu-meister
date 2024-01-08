@@ -101,7 +101,7 @@ export function SortableTree() {
     if (activeItem?.container && overItem?.container) {
       return;
     }
-    console.log(activeItem, overItem);
+
     // Check if dragging over a footer area of a container
     if (over?.id.toString().includes("-") && !isContainer(active.id)) {
       return handleFooterAreaDrag(activeItem, over?.id as string);
