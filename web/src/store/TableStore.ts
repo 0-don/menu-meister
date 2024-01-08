@@ -135,8 +135,9 @@ const TableStore = proxy({
         : schedule.group?.meals[parseInt(groupIndex)])
     );
   },
-  parseId: (uniqueId: UniqueIdentifier) => {
-    const [id, date, mealId, groupIndex] = uniqueId.toString().split("#");
+  parseId: (uniqueId?: UniqueIdentifier) => {
+    const [id, date, mealId, groupIndex] =
+      uniqueId?.toString().split("#") ?? [];
     return { id, date, mealId, groupIndex };
   },
   regroupSchedules: () => {
@@ -180,6 +181,26 @@ const TableStore = proxy({
     TableStore.schedulesIds = newGroupedSchedulesIds;
     TableStore.schedules = newGroupedSchedules;
   },
+
+  // ###########################################################
+
+  findItem: (id?: UniqueIdentifier) => {
+    if (!id) return;
+    const { date } = TableStore.parseId(id!);
+    return TableStore.schedules[date].find((item) => item.id === id);
+  },
+  getItems: (parent?: UniqueIdentifier) => {
+    if (!parent) return;
+    const { date } = TableStore.parseId(parent!);
+    return TableStore.schedules[date].filter((item) => item.parent === parent);
+  },
+  isContainer: (id?: UniqueIdentifier) => !!TableStore.findItem(id)?.container,
+  getItemIds: (parent?: UniqueIdentifier) =>
+    TableStore.getItems(parent)?.map((item) => item.id),
+  findParent: (id?: UniqueIdentifier) => TableStore.findItem(id)?.parent,
+
+  // ###########################################################
+
   handleFooterAreaDrag(activeItem: ItemType, overIdStr: string) {
     const containerId = overIdStr.split(PLACEHOLDER_KEY).at(0);
     if (!containerId) return;
@@ -198,8 +219,94 @@ const TableStore = proxy({
       parent: undefined,
     });
   },
-  onDragEnd: ({ active, over }: DragEndEvent) => {},
-  onDragOver: ({ active, over }: DragOverEvent) => {},
+
+  onDragOver: ({ active, over }: DragOverEvent) => {
+    const overParent = TableStore.findParent(over?.id);
+    const overIsContainer = TableStore.isContainer(over?.id);
+
+    const activeItem = TableStore.findItem(active.id);
+    const overItem = TableStore.findItem(over?.id);
+
+    if (!activeItem) return;
+
+    if (activeItem?.container && overItem?.container) {
+      return;
+    }
+
+    // Check if dragging over a footer area of a container
+    if (
+      over?.id.toString().includes(PLACEHOLDER_KEY) &&
+      !TableStore.isContainer(active.id)
+    ) {
+      return TableStore.handleFooterAreaDrag(activeItem, over?.id as string);
+    }
+
+    const { date: overDate } = TableStore.parseId(overItem?.id);
+    const { date: activeDate } = TableStore.parseId(activeItem.id);
+
+    TableStore.schedules[activeDate] = TableStore.schedules[activeDate].filter(
+      (item) => item.id !== activeItem.id,
+    );
+
+    const overIndex = TableStore.schedules[activeDate].findIndex(
+      (item) => item.id === over?.id,
+    );
+
+    let newIndex = overIndex;
+    const isBelowLastItem =
+      over &&
+      overIndex === TableStore.schedules[activeDate].length - 1 &&
+      active.rect.current.initial!.top > over.rect.top + over.rect.height;
+
+    const modifier = isBelowLastItem ? 1 : 0;
+    newIndex =
+      overIndex >= 0
+        ? overIndex + modifier
+        : TableStore.schedules[activeDate].length + 1;
+    let nextParent = overIsContainer ? over?.id : overParent;
+
+    TableStore.schedules[overDate].splice(overIndex + 1, 0, {
+      ...activeItem,
+      parent: nextParent,
+      container: undefined,
+    });
+  },
+  onDragEnd: ({ active, over }: DragEndEvent) => {
+    const activeItem = TableStore.findItem(active.id);
+    if (!activeItem) {
+      TableStore.activeId = undefined;
+      return;
+    }
+
+    if (
+      over?.id.toString().includes(PLACEHOLDER_KEY) &&
+      !TableStore.isContainer(active.id)
+    ) {
+      TableStore.handleFooterAreaDrag(activeItem, over?.id as string);
+      TableStore.activeId = undefined;
+      return;
+    }
+
+    // Remove the active item from its original position
+    const { date: activeDate } = TableStore.parseId(activeItem.id);
+    TableStore.schedules[activeDate] = TableStore.schedules[activeDate].filter(
+      (item) => item.id !== activeItem.id,
+    );
+
+    // Insert the active item at the new position
+    if (over) {
+      const { date: overDate } = TableStore.parseId(over.id);
+      const overIndex = TableStore.schedules[overDate].findIndex(
+        (item) => item.id === over.id,
+      );
+
+      let newIndex =
+        overIndex >= 0 ? overIndex : TableStore.schedules[overDate].length;
+      TableStore.schedules[overDate].splice(newIndex, 0, activeItem);
+    }
+
+    TableStore.activeId = undefined;
+  },
 });
 
 export default TableStore;
