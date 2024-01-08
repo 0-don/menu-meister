@@ -28,21 +28,9 @@ export type DataType = {
 
 export function SortableTree() {
   const [data, setData] = useState<DataType>({
-    items: [
-      { id: 5, container: true },
-      { id: 3, parent: 5 },
-      { id: 4, parent: 5 },
-      { id: 1, parent: 6 },
-      { id: 10, parent: 6 },
-      { id: 2, parent: 6 },
-      { id: 6, container: true },
-      { id: 8, parent: 7 },
-      { id: 9, parent: 7 },
-      { id: 7, container: true },
-      { id: 11 },
-      { id: 12 },
-    ],
+    items: [{ id: 1, container: true }, { id: 2 }, { id: 3, container: true }],
   });
+  console.log(data);
   const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>();
 
   const addItem = (container?: boolean) => () =>
@@ -73,6 +61,7 @@ export function SortableTree() {
               <SortableContainer
                 key={item.id}
                 id={item.id}
+                index={data.items.findIndex((i) => i.id === item.id)}
                 getItems={getItems}
               />
             ) : (
@@ -105,13 +94,46 @@ export function SortableTree() {
     const activeItem = findItem(active.id);
     const overItem = findItem(over?.id);
 
+    if (!activeItem) return;
+
     if (activeItem?.container && overItem?.container) {
+      return;
+    }
+    // Check if dragging over a footer area of a container
+    if (over?.id.toString().includes("-") && !isContainer(active.id)) {
+      const [parentIdStr] = over.id.toString().split("-");
+      const parentId = parseInt(parentIdStr, 10);
+
+      console.log("parentId", parentId);
+
+      setData((prev) => {
+        const activeIndex = prev.items.findIndex(
+          (item) => item.id === active.id,
+        );
+
+        // Calculate the new index within the target container
+        const newIndex = prev.items.reduce((count, item) => {
+          return item.parent === parentId ? count + 1 : count;
+        }, 0);
+
+        // If moving to a different container, update the parent ID
+        if (activeItem.parent !== parentId) {
+          let newItems = [...prev.items];
+          newItems.splice(activeIndex, 1); // Remove item from its current position
+          newItems.splice(newIndex, 0, { ...activeItem, parent: parentId }); // Insert item at the new position with updated parent
+
+          return { items: newItems };
+        } else {
+          // Handle reordering within the same container
+          return { items: arrayMove(prev.items, activeIndex, newIndex) };
+        }
+      });
       return;
     }
 
     setData((prev) => {
-      const activeIndex = data.items.findIndex((item) => item.id === active.id);
-      const overIndex = data.items.findIndex((item) => item.id === over?.id);
+      const activeIndex = prev.items.findIndex((item) => item.id === active.id);
+      const overIndex = prev.items.findIndex((item) => item.id === over?.id);
 
       let newIndex = overIndex;
       const isBelowLastItem =
@@ -156,7 +178,7 @@ const Container = forwardRef(
     return (
       <div
         ref={ref}
-        className={`w-96 flex-1 rounded border border-gray-400 bg-gray-300 p-6 `}
+        className={`w-96 flex-1 rounded border border-gray-400 bg-gray-300 p-6`}
       >
         <p className="text-black">{props.id}</p>
         {props.children}
@@ -170,27 +192,35 @@ Container.displayName = "Container";
 function SortableContainer({
   getItems,
   id,
+  index,
 }: {
-  getItems: (id: UniqueIdentifier) => ItemType[];
+  getItems: (id?: UniqueIdentifier) => ItemType[];
   id: UniqueIdentifier;
+  index: number;
 }) {
   const { setNodeRef } = useDroppable({ id });
+  const { setNodeRef: ref } = useDroppable({
+    id: `${id}-${index}`,
+  });
 
   return (
-    <SortableItem id={id}>
-      <Container id={id} ref={setNodeRef}>
-        <SortableContext
-          items={getItems(id).map((item) => item.id)}
-          strategy={verticalListSortingStrategy}
-        >
-          {getItems(id).map((item) => (
-            <SortableItem key={item.id} id={item.id}>
-              <Item id={item.id} />
-            </SortableItem>
-          ))}
-        </SortableContext>
-      </Container>
-    </SortableItem>
+    <>
+      <SortableItem id={id}>
+        <Container id={id} ref={setNodeRef}>
+          <SortableContext
+            items={getItems(id).map((item) => item.id)}
+            strategy={verticalListSortingStrategy}
+          >
+            {getItems(id).map((item) => (
+              <SortableItem key={item.id} id={item.id}>
+                <Item id={item.id} />
+              </SortableItem>
+            ))}
+          </SortableContext>
+        </Container>
+      </SortableItem>
+      <div className="h-32 w-96 bg-yellow-400" ref={ref} />
+    </>
   );
 }
 
