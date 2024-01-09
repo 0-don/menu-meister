@@ -1,10 +1,11 @@
+import { GroupedSchedules, INITIAL_DATAS, Meal } from "@/utils/constants";
 import {
-  GroupedSchedules,
-  INITIAL_DATAS,
-  ItemType,
-  Meal,
-} from "@/utils/constants";
-import { DragEndEvent, DragOverEvent, UniqueIdentifier } from "@dnd-kit/core";
+  Active,
+  DragEndEvent,
+  DragOverEvent,
+  Over,
+  UniqueIdentifier,
+} from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import dayjs from "dayjs";
 import { Group } from "next/dist/shared/lib/router/utils/route-regex";
@@ -14,15 +15,18 @@ import DashboardStore from "./DashboardStore";
 export const PLACEHOLDER_KEY = "!";
 
 const TableStore = proxy({
-  activeId: undefined as UniqueIdentifier | undefined,
+  active: undefined as Active | undefined,
   initialSchedules: INITIAL_DATAS,
   schedules: {} as GroupedSchedules,
-  getItem: (uniqueId: UniqueIdentifier): Meal | Group | null | undefined => {
+  getItem: (
+    group: string,
+    uniqueId: UniqueIdentifier,
+  ): Meal | Group | null | undefined => {
     if (!uniqueId) return null;
-    const { id, date, mealId, groupIndex } = TableStore.parseId(uniqueId);
+    const { id, mealId, groupIndex } = TableStore.parseId(uniqueId);
 
     const daySchedule = TableStore.initialSchedules.find(
-      ({ servingDate }) => !dayjs(servingDate).diff(date, "day"),
+      ({ servingDate }) => !dayjs(servingDate).diff(group, "day"),
     );
     if (!daySchedule) return null;
 
@@ -39,40 +43,34 @@ const TableStore = proxy({
     );
   },
   parseId: (uniqueId?: UniqueIdentifier) => {
-    const [id, date, mealId, groupIndex] =
-      uniqueId?.toString().split("#") ?? [];
-    return { id, date, mealId, groupIndex };
+    const [id, mealId, groupIndex] = uniqueId?.toString().split("#") ?? [];
+    return { id, mealId, groupIndex };
   },
   regroupSchedules: () => {
     const newGroupedSchedules: GroupedSchedules = {};
 
-    DashboardStore.daysThatWeek.forEach((day) => {
-      const formattedDay = dayjs(day).format("YYYY-MM-DD");
-      newGroupedSchedules[formattedDay] = [];
-    });
+    DashboardStore.daysThatWeek.forEach(
+      (day) => (newGroupedSchedules[dayjs(day).format("YYYY-MM-DD")] = []),
+    );
 
     // Loop through each initial schedule and organize them
     TableStore.initialSchedules.forEach(({ schedules, servingDate }) => {
       const formattedDate = dayjs(servingDate).format("YYYY-MM-DD");
-      if (!newGroupedSchedules.hasOwnProperty(formattedDate)) return;
+      if (!newGroupedSchedules[formattedDate]) return;
 
-      schedules.forEach((schedule) => {
-        if (schedule.group) {
-          const groupObject = {
-            id: `${schedule.id}#${formattedDate}#${schedule.group.id}`,
-            container: true,
-          };
-          const groupItems = schedule.group.meals.map((meal, index) => ({
-            id: `${schedule.id}#${formattedDate}#${meal.id}#${index}`,
-            parent: groupObject.id,
-          }));
-          newGroupedSchedules[formattedDate].push(groupObject, ...groupItems);
-        } else if (schedule.meal) {
-          newGroupedSchedules[formattedDate].push({
-            id: `${schedule.id}#${formattedDate}#${schedule.meal.id}`,
-          });
-        }
-      });
+      schedules.forEach((schedule) =>
+        newGroupedSchedules[formattedDate].push(
+          ...(schedule.group
+            ? [
+                { id: `${schedule.id}#${schedule.group.id}`, container: true },
+                ...schedule.group.meals.map((meal, index) => ({
+                  id: `${schedule.id}#${meal.id}#${index}`,
+                  parent: `${schedule.id}#${schedule.group?.id}`,
+                })),
+              ]
+            : [{ id: `${schedule.id}#${schedule.meal?.id}` }]),
+        ),
+      );
     });
 
     TableStore.schedules = newGroupedSchedules;
@@ -80,56 +78,52 @@ const TableStore = proxy({
 
   // ###########################################################
 
-  findItem: (id?: UniqueIdentifier) => {
-    if (!id) return;
-    const { date } = TableStore.parseId(id!);
-    return TableStore.schedules[date].find((item) => item.id === id);
-  },
-  getItems: ({ key, parent }: { key?: string; parent?: UniqueIdentifier }) => {
-    if (!parent && !key) return;
+  findItem: (group: string, id?: UniqueIdentifier) =>
+    TableStore.schedules[group || ""].find((item) => item.id === id),
+  getItems: (group: string, parent?: UniqueIdentifier) =>
+    TableStore.schedules[group || ""].filter((item) =>
+      parent ? item.parent === parent : !item.parent,
+    ),
+  isContainer: (group: string, id?: UniqueIdentifier) =>
+    !!TableStore.findItem(group)?.container,
+  getItemIds: (group: string, parent?: UniqueIdentifier) =>
+    TableStore.getItems(group, parent)?.map((item) => item.id),
+  findParent: (group: string, id?: UniqueIdentifier) =>
+    TableStore.findItem(group, id)?.parent,
 
-    if (parent) {
-      const { date } = TableStore.parseId(parent!);
-      return TableStore.schedules[date].filter(
-        (item) => item.parent === parent,
-      );
-    } else {
-      return TableStore.schedules[key!].filter((item) => !item.parent);
-    }
-  },
-  isContainer: (id?: UniqueIdentifier) => !!TableStore.findItem(id)?.container,
-  getItemIds: (parent?: UniqueIdentifier) =>
-    TableStore.getItems({ parent })?.map((item) => item.id),
-  findParent: (id?: UniqueIdentifier) => TableStore.findItem(id)?.parent,
+  getGroup: (item: Active | Over | null): string =>
+    item?.data.current?.sortable.containerId,
 
   // ###########################################################
 
-  handleFooterAreaDrag(activeItem: ItemType, overIdStr: UniqueIdentifier) {
-    const containerId = overIdStr.toString().split(PLACEHOLDER_KEY).at(0);
+  handleFooterAreaDrag(active: Active, over: Over | null) {
+    const containerId = over?.id.toString().split(PLACEHOLDER_KEY).at(0);
     if (!containerId) return;
-    const { date: overDate } = TableStore.parseId(containerId);
-    const updatedItems = TableStore.schedules[overDate].filter(
-      (item) => item.id !== activeItem.id,
+    const overGroup = TableStore.getGroup(over);
+    const updatedItems = TableStore.schedules[overGroup].filter(
+      (item) => item.id !== active.id,
     );
     const containerIndex = updatedItems.findIndex(
       (item) => item.id === containerId,
     );
 
     updatedItems.splice(containerIndex + 1, 0, {
-      ...activeItem,
+      id: active.id,
       container: undefined,
       parent: undefined,
     });
 
-    TableStore.schedules[overDate] = updatedItems;
+    TableStore.schedules[overGroup] = updatedItems;
   },
 
   onDragOver: ({ active, over }: DragOverEvent) => {
-    const overParent = TableStore.findParent(over?.id);
-    const overIsContainer = TableStore.isContainer(over?.id);
+    const overGroup = TableStore.getGroup(over);
+    const activeGroup = TableStore.getGroup(active);
+    const overParent = TableStore.findParent(overGroup, over?.id);
+    const overIsContainer = TableStore.isContainer(overGroup, over?.id);
 
-    const activeItem = TableStore.findItem(active.id);
-    const overItem = TableStore.findItem(over?.id);
+    const activeItem = TableStore.findItem(activeGroup, active.id);
+    const overItem = TableStore.findItem(overGroup, over?.id);
 
     if (!activeItem) return;
 
@@ -139,17 +133,28 @@ const TableStore = proxy({
 
     if (
       over?.id.toString().includes(PLACEHOLDER_KEY) &&
-      !TableStore.isContainer(active.id)
+      !TableStore.isContainer(activeGroup, active.id)
     ) {
-      return TableStore.handleFooterAreaDrag(activeItem, over?.id);
+      return TableStore.handleFooterAreaDrag(active, over);
     }
 
-    const { date: overDate } = TableStore.parseId(overItem?.id);
-    const { date: activeDate } = TableStore.parseId(activeItem.id);
+    if (!activeGroup) return;
 
-    if (!activeDate) return;
+    if (overGroup && activeGroup && overGroup !== activeGroup) {
+      const overIndex = TableStore.schedules[overGroup].findIndex(
+        (item) => item.id === over?.id,
+      );
 
-    const key = overDate ?? activeDate;
+      TableStore.schedules[overGroup].splice(overIndex, 0, {
+        ...activeItem,
+        container: undefined,
+        parent: undefined,
+      });
+
+      return;
+    }
+
+    const key = overGroup ?? activeGroup;
 
     const activeIndex = TableStore.schedules[key].findIndex(
       (item) => item.id === active.id,
@@ -180,38 +185,44 @@ const TableStore = proxy({
     );
   },
   onDragEnd: ({ active, over }: DragEndEvent) => {
-    const { date: overDate } = TableStore.parseId(over?.id);
-    const { date: activeDate } = TableStore.parseId(active.id);
-    const key = overDate ?? activeDate;
+    const activeGroup = TableStore.getGroup(active);
+    const overGroup = TableStore.getGroup(over);
+    const key = activeGroup ?? overGroup;
 
-    const activeItem = TableStore.findItem(active.id);
+    const activeItem = TableStore.findItem(activeGroup, active.id);
 
-    if (!activeItem) return (TableStore.activeId = undefined);
+    if (!activeItem) return (TableStore.active = undefined);
 
     if (
       over?.id.toString().includes(PLACEHOLDER_KEY) &&
-      !TableStore.isContainer(active.id)
+      !TableStore.isContainer(activeGroup, active.id)
     ) {
-      TableStore.handleFooterAreaDrag(activeItem, over?.id as string);
-      return (TableStore.activeId = undefined);
+      TableStore.handleFooterAreaDrag(active, over);
+      return (TableStore.active = undefined);
     }
 
-    if (overDate && activeDate && overDate !== activeDate) {
-      const overIndex = TableStore.schedules[overDate].findIndex(
+    if (overGroup && activeGroup && overGroup !== activeGroup) {
+      const overIndex = TableStore.schedules[overGroup].findIndex(
         (item) => item.id === over?.id,
       );
 
-      TableStore.schedules[overDate].splice(overIndex, 0, {
+      let activeIndex = TableStore.schedules[overGroup].findIndex(
+        (item) => item.id === active.id,
+      );
+
+      if (activeIndex) return (TableStore.active = undefined);
+
+      TableStore.schedules[overGroup].splice(overIndex, 0, {
         ...activeItem,
         container: undefined,
         parent: undefined,
       });
 
-      const activeIndex = TableStore.schedules[activeDate].findIndex(
+      activeIndex = TableStore.schedules[activeGroup].findIndex(
         (item) => item.id === active.id,
       );
-      TableStore.schedules[activeDate].splice(activeIndex, 1);
-      return (TableStore.activeId = undefined);
+      TableStore.schedules[activeGroup].splice(activeIndex, 1);
+      return (TableStore.active = undefined);
     }
 
     const activeIndex = TableStore.schedules[key].findIndex(
@@ -228,7 +239,7 @@ const TableStore = proxy({
       );
     }
 
-    TableStore.activeId = undefined;
+    TableStore.active = undefined;
   },
 });
 

@@ -23,11 +23,14 @@ export function SortableTree() {
 
   useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
 
+  const activeGroup = TableStore.active?.data.current?.sortable.containerId;
+  const activeId = TableStore.active?.id;
+
   return (
     <>
       <DndContext
-        onDragStart={({ active }) => (TableStore.activeId = active.id)}
-        onDragCancel={() => (TableStore.activeId = undefined)}
+        onDragStart={({ active }) => (TableStore.active = active)}
+        onDragCancel={() => (TableStore.active = undefined)}
         onDragOver={useCallback(debounce(TableStore.onDragOver, 0), [])}
         onDragEnd={TableStore.onDragEnd}
       >
@@ -38,20 +41,18 @@ export function SortableTree() {
               className="min-h-96 w-96 flex-col items-start justify-start"
             >
               <p>{group}</p>
-              <SortableContext items={schedules[group].map(({ id }) => id)}>
+              <SortableContext
+                items={schedules[group].map(({ id }) => id)}
+                id={group}
+              >
                 <>
                   {!schedules[group].length && (
                     <Droppable id={group}>test</Droppable>
                   )}
-                  {TableStore.getItems({ key: group })?.map((item) => (
+                  {TableStore.getItems(group)?.map((item) => (
                     <div key={item.id}>
                       {item.container ? (
-                        <SortableContainer
-                          id={item.id}
-                          index={schedules[group].findIndex(
-                            (i) => i.id === item.id,
-                          )}
-                        />
+                        <SortableContainer id={item.id} group={group} />
                       ) : (
                         <SortableItem id={item.id}>
                           <Item id={item.id} />
@@ -65,16 +66,14 @@ export function SortableTree() {
           ))}
         </div>
         <DragOverlay>
-          {!TableStore.activeId ? null : TableStore.isContainer(
-              TableStore.activeId,
-            ) ? (
-            <Container id={TableStore.activeId}>
-              {TableStore.getItems({ parent: TableStore.activeId })?.map(
-                (item) => <Item key={item.id} id={item.id} />,
-              )}
+          {!activeId ? null : TableStore.isContainer(activeGroup, activeId) ? (
+            <Container id={activeId}>
+              {TableStore.getItems(activeGroup, activeId)?.map((item) => (
+                <Item key={item.id} id={item.id} />
+              ))}
             </Container>
           ) : (
-            <Item id={TableStore.activeId} />
+            <Item id={activeId} />
           )}
         </DragOverlay>
       </DndContext>
@@ -117,14 +116,14 @@ Container.displayName = "Container";
 
 function SortableContainer({
   id,
-  index,
+  group,
 }: {
   id: UniqueIdentifier;
-  index: number;
+  group: string;
 }) {
   const { setNodeRef } = useDroppable({ id });
   const { setNodeRef: ref } = useDroppable({
-    id: `${id}${PLACEHOLDER_KEY}${index}`,
+    id: `${id}${PLACEHOLDER_KEY}${group}`,
   });
 
   return (
@@ -132,12 +131,11 @@ function SortableContainer({
       <SortableItem id={id}>
         <Container id={id} ref={setNodeRef}>
           <SortableContext
-            items={(TableStore.getItems({ parent: id }) || []).map(
-              ({ id }) => id,
-            )}
+            items={(TableStore.getItems(group, id) || []).map(({ id }) => id)}
+            id={group}
             strategy={verticalListSortingStrategy}
           >
-            {TableStore.getItems({ parent: id })?.map((item) => (
+            {TableStore.getItems(group, id)?.map((item) => (
               <SortableItem key={item.id} id={item.id}>
                 <Item id={item.id} />
               </SortableItem>
