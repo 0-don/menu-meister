@@ -39,22 +39,27 @@ export function SortableTree() {
             >
               <p>{group}</p>
               <SortableContext items={schedules[group].map(({ id }) => id)}>
-                {TableStore.getItems({ key: group })?.map((item) => (
-                  <div key={item.id}>
-                    {item.container ? (
-                      <SortableContainer
-                        id={item.id}
-                        index={schedules[group].findIndex(
-                          (i) => i.id === item.id,
-                        )}
-                      />
-                    ) : (
-                      <SortableItem id={item.id}>
-                        <Item id={item.id} />
-                      </SortableItem>
-                    )}
-                  </div>
-                ))}
+                <>
+                  {!schedules[group].length && (
+                    <Droppable id={group}>test</Droppable>
+                  )}
+                  {TableStore.getItems({ key: group })?.map((item) => (
+                    <div key={item.id}>
+                      {item.container ? (
+                        <SortableContainer
+                          id={item.id}
+                          index={schedules[group].findIndex(
+                            (i) => i.id === item.id,
+                          )}
+                        />
+                      ) : (
+                        <SortableItem id={item.id}>
+                          <Item id={item.id} />
+                        </SortableItem>
+                      )}
+                    </div>
+                  ))}
+                </>
               </SortableContext>
             </div>
           ))}
@@ -76,7 +81,21 @@ export function SortableTree() {
     </>
   );
 }
+function Droppable(props: {
+  id: UniqueIdentifier;
+  children: ReactNode;
+  className?: string;
+}) {
+  const { setNodeRef } = useDroppable({
+    id: props.id,
+  });
 
+  return (
+    <div className={props.className} ref={setNodeRef}>
+      {props.children}
+    </div>
+  );
+}
 const Container = forwardRef(
   (
     props: { children: ReactNode; id: UniqueIdentifier },

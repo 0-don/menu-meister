@@ -184,12 +184,6 @@ const TableStore = proxy({
     const { date: activeDate } = TableStore.parseId(active.id);
     const key = overDate ?? activeDate;
 
-    const activeIndex = TableStore.schedules[key].findIndex(
-      (item) => item.id === active.id,
-    );
-    const overIndex = over
-      ? TableStore.schedules[key].findIndex((item) => item.id === over.id)
-      : 0;
     const activeItem = TableStore.findItem(active.id);
 
     if (!activeItem) return (TableStore.activeId = undefined);
@@ -202,6 +196,30 @@ const TableStore = proxy({
       return (TableStore.activeId = undefined);
     }
 
+    if (overDate && activeDate && overDate !== activeDate) {
+      const overIndex = TableStore.schedules[overDate].findIndex(
+        (item) => item.id === over?.id,
+      );
+
+      TableStore.schedules[overDate].splice(overIndex, 0, {
+        ...activeItem,
+        container: undefined,
+        parent: undefined,
+      });
+
+      const activeIndex = TableStore.schedules[activeDate].findIndex(
+        (item) => item.id === active.id,
+      );
+      TableStore.schedules[activeDate].splice(activeIndex, 1);
+      return (TableStore.activeId = undefined);
+    }
+
+    const activeIndex = TableStore.schedules[key].findIndex(
+      (item) => item.id === active.id,
+    );
+    const overIndex = over
+      ? TableStore.schedules[key].findIndex((item) => item.id === over.id)
+      : 0;
     if (activeIndex !== overIndex) {
       TableStore.schedules[key] = arrayMove(
         TableStore.schedules[key],
