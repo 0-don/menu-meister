@@ -288,18 +288,14 @@ const TableStore = proxy({
     const schedulesClone = { ...TableStore.schedules };
 
     const activeItem = TableStore.findItem(active.id);
-    if (!activeItem) {
-      TableStore.activeId = undefined;
-      return;
-    }
+    if (!activeItem) return (TableStore.activeId = undefined);
 
     if (
       over?.id.toString().includes(PLACEHOLDER_KEY) &&
       !TableStore.isContainer(active.id)
     ) {
-      TableStore.handleFooterAreaDrag(activeItem, over?.id as string);
-      TableStore.activeId = undefined;
-      return;
+      TableStore.handleFooterAreaDrag(activeItem, over?.id);
+      return (TableStore.activeId = undefined);
     }
 
     const { date: activeDate } = TableStore.parseId(activeItem.id);

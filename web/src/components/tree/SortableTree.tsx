@@ -18,7 +18,7 @@ import { useSnapshot } from "valtio";
 
 export function SortableTree() {
   const dashboardStore = useSnapshot(DashboardStore);
-  const { schedules, schedulesIds, regroupSchedules } = useSnapshot(TableStore);
+  const { schedules, regroupSchedules } = useSnapshot(TableStore);
 
   useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
 
@@ -34,7 +34,7 @@ export function SortableTree() {
           {Object.keys(schedules).map((group) => (
             <div key={group} className="w-96">
               <p>{group}</p>
-              <SortableContext items={schedulesIds[group]}>
+              <SortableContext items={schedules[group].map(({ id }) => id)}>
                 {TableStore.getItems({ key: group })?.map((item) => (
                   <div key={item.id}>
                     {item.container ? (
@@ -110,7 +110,7 @@ function SortableContainer({
         <Container id={id} ref={setNodeRef}>
           <SortableContext
             items={(TableStore.getItems({ parent: id }) || []).map(
-              (item) => item.id,
+              ({ id }) => id,
             )}
             strategy={verticalListSortingStrategy}
           >
