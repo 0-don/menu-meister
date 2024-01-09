@@ -24,23 +24,15 @@ const TableStore = proxy({
   ): Meal | Group | null | undefined => {
     if (!uniqueId) return null;
     const { id, mealId, groupIndex } = TableStore.parseId(uniqueId);
-
     const daySchedule = TableStore.initialSchedules.find(
       ({ servingDate }) => !dayjs(servingDate).diff(group, "day"),
     );
-    if (!daySchedule) return null;
-
-    const schedule = daySchedule.schedules.find(
+    const schedule = daySchedule?.schedules.find(
       ({ id: scheduleId }) => id === scheduleId,
     );
-    if (!schedule) return null;
-
-    return (
-      schedule.meal ??
-      (schedule.group?.id === mealId
-        ? schedule.group
-        : schedule.group?.meals[parseInt(groupIndex)])
-    );
+    return schedule?.meal ?? schedule?.group?.id === mealId
+      ? schedule.group
+      : schedule?.group?.meals[parseInt(groupIndex)];
   },
   parseId: (uniqueId?: UniqueIdentifier) => {
     const [id, mealId, groupIndex] = uniqueId?.toString().split("#") ?? [];
@@ -54,20 +46,22 @@ const TableStore = proxy({
 
     TableStore.initialSchedules.forEach(({ schedules, servingDate }) => {
       const formattedDate = dayjs(servingDate).format("YYYY-MM-DD");
-      if (!newGroupedSchedules[formattedDate]) return;
-
-      schedules.forEach((schedule) =>
-        newGroupedSchedules[formattedDate].push(
-          ...(schedule.group
-            ? [
-                { id: `${schedule.id}#${schedule.group.id}`, container: true },
-                ...schedule.group.meals.map((meal, index) => ({
-                  id: `${schedule.id}#${meal.id}#${index}`,
-                  parent: `${schedule.id}#${schedule.group?.id}`,
-                })),
-              ]
-            : [{ id: `${schedule.id}#${schedule.meal?.id}` }]),
-        ),
+      schedules.forEach(
+        (schedule) =>
+          newGroupedSchedules[formattedDate]?.push(
+            ...(schedule.group
+              ? [
+                  {
+                    id: `${schedule.id}#${schedule.group.id}`,
+                    container: true,
+                  },
+                  ...schedule.group.meals.map((meal, index) => ({
+                    id: `${schedule.id}#${meal.id}#${index}`,
+                    parent: `${schedule.id}#${schedule.group?.id}`,
+                  })),
+                ]
+              : [{ id: `${schedule.id}#${schedule.meal?.id}` }]),
+          ),
       );
     });
     TableStore.schedules = newGroupedSchedules;
@@ -98,7 +92,7 @@ const TableStore = proxy({
     TableStore.active?.data.current?.group,
   // ###########################################################
 
-  handleFooterAreaDrag(active: Active, over: Over | null) {
+  handleFooterAreaDrag: (active: Active, over: Over | null) => {
     const containerId = over?.id.toString().split(PLACEHOLDER_KEY).at(0);
     if (!containerId) return;
     const overGroup = TableStore.getGroup(over);
@@ -108,13 +102,7 @@ const TableStore = proxy({
     const containerIndex = updatedItems.findIndex(
       (item) => item.id === containerId,
     );
-
-    updatedItems.splice(containerIndex + 1, 0, {
-      id: active.id,
-      container: undefined,
-      parent: undefined,
-    });
-
+    updatedItems.splice(containerIndex + 1, 0, { id: active.id });
     TableStore.schedules[overGroup] = updatedItems;
   },
 
@@ -151,9 +139,7 @@ const TableStore = proxy({
 
     let newIndex = overIndex;
     const isBelowLastItem =
-      over &&
-      overIndex === TableStore.schedules[key].length - 1 &&
-      active.rect.current.initial!.top > over.rect.top + over.rect.height;
+      over && overIndex === TableStore.schedules[key].length - 1;
 
     const modifier = isBelowLastItem ? 1 : 0;
     const overParent = TableStore.findParent(overGroup, over?.id);
