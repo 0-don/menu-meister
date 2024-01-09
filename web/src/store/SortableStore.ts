@@ -1,14 +1,9 @@
+import { ItemType } from "@/utils/constants";
 import { DragEndEvent, DragOverEvent, UniqueIdentifier } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import { proxy } from "valtio";
 
-export type ItemType = {
-  id: number;
-  parent?: number;
-  container?: boolean;
-};
-
-export type DataType = {
+type DataType = {
   items: ItemType[];
 };
 

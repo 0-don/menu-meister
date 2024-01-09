@@ -31,10 +31,9 @@ export function SortableTree() {
         onDragOver={useCallback(debounce(TableStore.onDragOver, 0), [])}
         onDragEnd={TableStore.onDragEnd}
       >
-        <div className="flex w-full">
+        <div className="mt-12 flex w-full justify-center">
           {Object.keys(schedules).map((group) => (
             <div key={group} className="w-96">
-              <p>{group}</p>
               <SortableContext items={schedules[group].map(({ id }) => id)}>
                 {TableStore.getItems({ key: group })?.map((item) => (
                   <div key={item.id}>

@@ -1,4 +1,5 @@
 import { GetAllMealSchedulesAdminQuery } from "@/gql/graphql";
+import { UniqueIdentifier } from "@dnd-kit/core";
 
 export const X_URL = "x-url";
 export const BACKEND_INTERNAL_URL = "http://meal-manager-server:4000/graphql";
@@ -35,138 +36,76 @@ export function debounce(fn: (...args: any) => any, ms: number) {
   };
 }
 
-const readTemplate = (template: any, data: any = { items: {} }) => {
-  for (const [key, value] of Object.entries(template)) {
-    // eslint-disable-next-line no-param-reassign
-    data.items[key] = {
-      index: key,
-      canMove: true,
-      isFolder: value !== null,
-      children:
-        value !== null
-          ? Object.keys(value as Record<string, unknown>)
-          : undefined,
-      data: key,
-      canRename: true,
-    };
+export interface DaySchedule {
+  id: UniqueIdentifier;
+  servingDate: string;
+  schedules: Schedule[];
+}
 
-    if (value !== null) {
-      readTemplate(value, data);
-    }
-  }
-  return data;
+export interface Schedule {
+  id: UniqueIdentifier;
+  meal?: Meal;
+  group?: Group;
+}
+
+export interface Group {
+  id: UniqueIdentifier;
+  name: string;
+  meals: Meal[];
+}
+
+export interface Meal {
+  id: UniqueIdentifier;
+  name: string;
+}
+
+export type GroupedSchedules = {
+  [key: string]: ItemType[];
 };
 
-const longTreeTemplate = {
-  root: {
-    Fruit: {
-      Apple: null,
-      Orange: null,
-      Lemon: null,
-      Berries: {
-        Red: {
-          Strawberry: null,
-          Raspberry: null,
+export type ItemType = {
+  id: UniqueIdentifier;
+  parent?: UniqueIdentifier;
+  container?: boolean;
+};
+
+export const INITIAL_DATAS: DaySchedule[] = [
+  {
+    id: "day1",
+    servingDate: "2024-01-08",
+    schedules: [
+      { id: "schedule1", meal: { id: "meal1", name: "pizza" } },
+      { id: "schedule2", meal: { id: "meal2", name: "bread" } },
+      {
+        id: "schedule3",
+        group: {
+          id: "group1",
+          name: "breakfast",
+          meals: [
+            { id: "meal3", name: "tea" },
+            { id: "meal4", name: "sandwich" },
+          ],
         },
-        Blue: {
-          Blueberry: null,
-        },
-        Black: {
-          Blackberry: null,
-        },
       },
-      Banana: null,
-    },
-    Meals: {
-      America: {
-        SmashBurger: null,
-        Chowder: null,
-        Ravioli: null,
-        MacAndCheese: null,
-        Brownies: null,
-      },
-      Europe: {
-        Risotto: null,
-        Spaghetti: null,
-        Pizza: null,
-        Weisswurst: null,
-        Spargel: null,
-      },
-      Asia: {
-        Curry: null,
-        PadThai: null,
-        Jiaozi: null,
-        Sushi: null,
-      },
-      Australia: {
-        PotatoWedges: null,
-        PokeBowl: null,
-        LemonCurd: null,
-        KumaraFries: null,
-      },
-    },
-    Desserts: {
-      Cookies: null,
-      IceCream: null,
-    },
-    Drinks: {
-      PinaColada: null,
-      Cola: null,
-      Juice: null,
-    },
+    ],
   },
-};
-
-const autoDemoTemplate = {
-  root: {
-    Fruit: {
-      Apple: null,
-      Orange: null,
-      Lemon: null,
-      Berries: {
-        Strawberry: null,
-        Blueberry: null,
+  {
+    id: "day2",
+    servingDate: "2024-01-12",
+    schedules: [
+      { id: "schedule4", meal: { id: "meal5", name: "pasta" } },
+      { id: "schedule5", meal: { id: "meal6", name: "salad" } },
+      {
+        id: "schedule6",
+        group: {
+          id: "group2",
+          name: "lunch",
+          meals: [
+            { id: "meal7", name: "soup" },
+            { id: "meal8", name: "burger" },
+          ],
+        },
       },
-      Banana: null,
-    },
-    Meals: {
-      America: {
-        SmashBurger: null,
-        Chowder: null,
-        Ravioli: null,
-        MacAndCheese: null,
-        Brownies: null,
-      },
-      Europe: {
-        Risotto: null,
-        Spaghetti: null,
-        Pizza: null,
-        Weisswurst: null,
-        Spargel: null,
-      },
-      Asia: {
-        Curry: null,
-        PadThai: null,
-        Jiaozi: null,
-        Sushi: null,
-      },
-      Australia: {
-        PotatoWedges: null,
-        PokeBowl: null,
-        LemonCurd: null,
-        KumaraFries: null,
-      },
-    },
-    Desserts: {
-      Cookies: null,
-      IceCream: null,
-    },
-    Drinks: {
-      PinaColada: null,
-      Cola: null,
-      Juice: null,
-    },
+    ],
   },
-};
-
-export const longTree = readTemplate(longTreeTemplate);
+];
