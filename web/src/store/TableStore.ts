@@ -146,8 +146,6 @@ const TableStore = proxy({
       return TableStore.handleFooterAreaDrag(active, over);
     }
 
-    if (!data.activeGroup) return;
-
     let newIndex = data.overIndex;
     const isBelowLastItem =
       over &&
