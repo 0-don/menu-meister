@@ -69,7 +69,7 @@ export type GroupItem = { groupId: string; items: string[] };
 export const INITIAL_DATAS: DaySchedule[] = [
   {
     id: "day1",
-    servingDate: "2024-01-10",
+    servingDate: "2024-01-08",
     schedules: [
       { id: "schedule1", meal: { id: "meal1", name: "pizza" } },
       { id: "schedule2", meal: { id: "meal2", name: "bread" } },
@@ -141,19 +141,17 @@ const TableStore = proxy({
     return { id, date, mealId, groupIndex };
   },
   regroupSchedules: () => {
-    const newGroupedSchedulesIds: GroupedScheduleIds = {};
     const newGroupedSchedules: GroupedSchedules = {};
 
     DashboardStore.daysThatWeek.forEach((day) => {
       const formattedDay = dayjs(day).format("YYYY-MM-DD");
-      newGroupedSchedulesIds[formattedDay] = [];
-      newGroupedSchedules[formattedDay] = [];
+      newGroupedSchedules["2024-01-08"] = [];
     });
 
     // Loop through each initial schedule and organize them
     TableStore.initialSchedules.forEach(({ schedules, servingDate }) => {
       const formattedDate = dayjs(servingDate).format("YYYY-MM-DD");
-      if (!newGroupedSchedulesIds.hasOwnProperty(formattedDate)) return;
+      if (!newGroupedSchedules.hasOwnProperty(formattedDate)) return;
 
       schedules.forEach((schedule) => {
         if (schedule.group) {
@@ -167,18 +165,15 @@ const TableStore = proxy({
           }));
 
           newGroupedSchedules[formattedDate].push(groupObject, ...groupItems);
-          newGroupedSchedulesIds[formattedDate].push(groupObject.id);
         } else if (schedule.meal) {
           const meal = {
             id: `${schedule.id}#${formattedDate}#${schedule.meal.id}`,
           };
-          newGroupedSchedulesIds[formattedDate].push(meal.id);
           newGroupedSchedules[formattedDate].push(meal);
         }
       });
     });
 
-    TableStore.schedulesIds = newGroupedSchedulesIds;
     TableStore.schedules = newGroupedSchedules;
   },
 
@@ -230,7 +225,9 @@ const TableStore = proxy({
   },
 
   onDragOver: ({ active, over }: DragOverEvent) => {
-    const schedulesClone = JSON.parse(JSON.stringify(TableStore.schedules)) as GroupedSchedules;
+    const schedulesClone = JSON.parse(
+      JSON.stringify(TableStore.schedules),
+    ) as GroupedSchedules;
     const overParent = TableStore.findParent(over?.id);
     const overIsContainer = TableStore.isContainer(over?.id);
 
@@ -259,7 +256,7 @@ const TableStore = proxy({
     schedulesClone[activeDate] = schedulesClone[activeDate].filter(
       (item) => item.id !== active.id,
     );
-    console.log(overDate, activeDate);
+    // console.log(overDate, activeDate);
     const overIndex = schedulesClone[overDate].findIndex(
       (item) => item.id === over?.id,
     );
