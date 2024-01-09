@@ -31,7 +31,7 @@ export function SortableTree() {
         onDragOver={useCallback(debounce(TableStore.onDragOver, 0), [])}
         onDragEnd={TableStore.onDragEnd}
       >
-        <div className="mt-12 flex w-full justify-center">
+        <div>
           {Object.keys(schedules).map((group) => (
             <div
               key={group}
