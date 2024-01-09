@@ -230,8 +230,7 @@ const TableStore = proxy({
   },
 
   onDragOver: ({ active, over }: DragOverEvent) => {
-    const schedulesClone = { ...TableStore.schedules };
-
+    const schedulesClone = JSON.parse(JSON.stringify(TableStore.schedules)) as GroupedSchedules;
     const overParent = TableStore.findParent(over?.id);
     const overIsContainer = TableStore.isContainer(over?.id);
 
@@ -255,25 +254,27 @@ const TableStore = proxy({
     const { date: overDate } = TableStore.parseId(overItem?.id);
     const { date: activeDate } = TableStore.parseId(activeItem.id);
 
-    schedulesClone[activeDate] = schedulesClone[activeDate].filter(
-      (item) => item.id !== activeItem.id,
-    );
+    if (!overDate || !activeDate) return;
 
-    const overIndex = schedulesClone[activeDate].findIndex(
+    schedulesClone[activeDate] = schedulesClone[activeDate].filter(
+      (item) => item.id !== active.id,
+    );
+    console.log(overDate, activeDate);
+    const overIndex = schedulesClone[overDate].findIndex(
       (item) => item.id === over?.id,
     );
 
     let newIndex = overIndex;
     const isBelowLastItem =
       over &&
-      overIndex === schedulesClone[activeDate].length - 1 &&
+      overIndex === schedulesClone[overDate].length - 1 &&
       active.rect.current.initial!.top > over.rect.top + over.rect.height;
 
     const modifier = isBelowLastItem ? 1 : 0;
     newIndex =
       overIndex >= 0
         ? overIndex + modifier
-        : schedulesClone[activeDate].length + 1;
+        : schedulesClone[overDate].length + 1;
     let nextParent = overIsContainer ? over?.id : overParent;
 
     schedulesClone[overDate].splice(newIndex, 0, {
@@ -282,6 +283,7 @@ const TableStore = proxy({
       container: undefined,
     });
 
+    console.log(schedulesClone);
     TableStore.schedules = schedulesClone;
   },
   onDragEnd: ({ active, over }: DragEndEvent) => {

@@ -1,6 +1,7 @@
 "use client";
 import DashboardStore from "@/store/DashboardStore";
 import TableStore, { PLACEHOLDER_KEY } from "@/store/TableStore";
+import { debounce } from "@/utils/constants";
 import {
   DndContext,
   DragOverlay,
@@ -27,7 +28,7 @@ export function SortableTree() {
       <DndContext
         onDragStart={({ active }) => (TableStore.activeId = active.id)}
         onDragCancel={() => (TableStore.activeId = undefined)}
-        onDragOver={useCallback(TableStore.onDragOver, [])}
+        onDragOver={useCallback(debounce(TableStore.onDragOver, 0), [])}
         onDragEnd={TableStore.onDragEnd}
       >
         <div className="flex w-full">
