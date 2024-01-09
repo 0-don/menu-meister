@@ -208,26 +208,30 @@ const TableStore = proxy({
 
   // ###########################################################
 
-  handleFooterAreaDrag(activeItem: ItemType, overIdStr: string) {
-    const containerId = overIdStr.split(PLACEHOLDER_KEY).at(0);
+  handleFooterAreaDrag(activeItem: ItemType, overIdStr: UniqueIdentifier) {
+    const schedulesClone = { ...TableStore.schedules };
+    const containerId = overIdStr.toString().split(PLACEHOLDER_KEY).at(0);
     if (!containerId) return;
     const { date: overDate } = TableStore.parseId(containerId);
     const { date: activeDate } = TableStore.parseId(activeItem.id);
 
-    TableStore.schedules[activeDate] = TableStore.schedules[activeDate].filter(
+    schedulesClone[activeDate] = schedulesClone[activeDate].filter(
       (item) => item.id !== activeItem.id,
     );
-    const overIndex = TableStore.schedulesIds[overDate].findIndex(
-      (id) => id === containerId,
+    const overIndex = schedulesClone[overDate].findIndex(
+      (item) => item.id === containerId,
     );
-    TableStore.schedules[overDate].splice(overIndex + 1, 0, {
+    schedulesClone[overDate].splice(overIndex + 1, 0, {
       ...activeItem,
       container: undefined,
       parent: undefined,
     });
+    TableStore.schedules = schedulesClone;
   },
 
   onDragOver: ({ active, over }: DragOverEvent) => {
+    const schedulesClone = { ...TableStore.schedules };
+
     const overParent = TableStore.findParent(over?.id);
     const overIsContainer = TableStore.isContainer(over?.id);
 
@@ -245,40 +249,44 @@ const TableStore = proxy({
       over?.id.toString().includes(PLACEHOLDER_KEY) &&
       !TableStore.isContainer(active.id)
     ) {
-      return TableStore.handleFooterAreaDrag(activeItem, over?.id as string);
+      return TableStore.handleFooterAreaDrag(activeItem, over?.id);
     }
 
     const { date: overDate } = TableStore.parseId(overItem?.id);
     const { date: activeDate } = TableStore.parseId(activeItem.id);
 
-    TableStore.schedules[activeDate] = TableStore.schedules[activeDate].filter(
+    schedulesClone[activeDate] = schedulesClone[activeDate].filter(
       (item) => item.id !== activeItem.id,
     );
 
-    const overIndex = TableStore.schedules[activeDate].findIndex(
+    const overIndex = schedulesClone[activeDate].findIndex(
       (item) => item.id === over?.id,
     );
 
     let newIndex = overIndex;
     const isBelowLastItem =
       over &&
-      overIndex === TableStore.schedules[activeDate].length - 1 &&
+      overIndex === schedulesClone[activeDate].length - 1 &&
       active.rect.current.initial!.top > over.rect.top + over.rect.height;
 
     const modifier = isBelowLastItem ? 1 : 0;
     newIndex =
       overIndex >= 0
         ? overIndex + modifier
-        : TableStore.schedules[activeDate].length + 1;
+        : schedulesClone[activeDate].length + 1;
     let nextParent = overIsContainer ? over?.id : overParent;
 
-    TableStore.schedules[overDate].splice(newIndex, 0, {
+    schedulesClone[overDate].splice(newIndex, 0, {
       ...activeItem,
       parent: nextParent,
       container: undefined,
     });
+
+    TableStore.schedules = schedulesClone;
   },
   onDragEnd: ({ active, over }: DragEndEvent) => {
+    const schedulesClone = { ...TableStore.schedules };
+
     const activeItem = TableStore.findItem(active.id);
     if (!activeItem) {
       TableStore.activeId = undefined;
@@ -294,25 +302,24 @@ const TableStore = proxy({
       return;
     }
 
-    // Remove the active item from its original position
     const { date: activeDate } = TableStore.parseId(activeItem.id);
-    TableStore.schedules[activeDate] = TableStore.schedules[activeDate].filter(
+    schedulesClone[activeDate] = schedulesClone[activeDate].filter(
       (item) => item.id !== activeItem.id,
     );
 
-    // Insert the active item at the new position
     if (over) {
       const { date: overDate } = TableStore.parseId(over.id);
-      const overIndex = TableStore.schedules[overDate].findIndex(
+      const overIndex = schedulesClone[overDate].findIndex(
         (item) => item.id === over.id,
       );
 
       let newIndex =
-        overIndex >= 0 ? overIndex : TableStore.schedules[overDate].length;
-      TableStore.schedules[overDate].splice(newIndex, 0, activeItem);
+        overIndex >= 0 ? overIndex : schedulesClone[overDate].length;
+      schedulesClone[overDate].splice(newIndex, 0, activeItem);
     }
 
     TableStore.activeId = undefined;
+    TableStore.schedules = schedulesClone;
   },
 });
 
