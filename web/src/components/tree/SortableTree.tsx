@@ -124,7 +124,7 @@ function SortableContainer({
   const { setNodeRef } = useDroppable({ id });
   const placheolderId = `${id}${PLACEHOLDER_KEY}${group}`;
   const { setNodeRef: ref } = useSortable({
-    id: `${id}${PLACEHOLDER_KEY}${group}`,
+    id: placheolderId,
   });
 
   return (
@@ -144,9 +144,9 @@ function SortableContainer({
           </SortableContext>
         </Container>
       </SortableItem>
-      <SortableContext items={[placheolderId]} id={group}>
-        <div className="h-3 w-96" ref={ref} />
-      </SortableContext>
+      {/* <SortableContext items={[placheolderId]} id={group}> */}
+      {/* <div className="h-3 w-96" ref={ref} /> */}
+      {/* </SortableContext> */}
     </div>
   );
 }

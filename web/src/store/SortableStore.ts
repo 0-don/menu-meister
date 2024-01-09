@@ -117,7 +117,6 @@ const SortableStore = proxy({
     }
 
     if (activeIndex !== overIndex) {
-      console.log(activeIndex, overIndex);
       SortableStore.data.items = arrayMove(
         SortableStore.data.items,
         activeIndex,

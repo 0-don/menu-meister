@@ -79,9 +79,9 @@ const TableStore = proxy({
   // ###########################################################
 
   findItem: (group: string, id?: UniqueIdentifier) =>
-    TableStore.schedules[group || ""].find((item) => item.id === id),
+    TableStore.schedules[group].find((item) => item.id === id),
   getItems: (group: string, parent?: UniqueIdentifier) =>
-    TableStore.schedules[group || ""].filter((item) =>
+    TableStore.schedules[group].filter((item) =>
       parent ? item.parent === parent : !item.parent,
     ),
   isContainer: (group: string, id?: UniqueIdentifier) =>
@@ -117,7 +117,6 @@ const TableStore = proxy({
   },
 
   onDragOver: ({ active, over }: DragOverEvent) => {
-    console.log(over);
     const overGroup = TableStore.getGroup(over);
     const activeGroup = TableStore.getGroup(active);
     const overParent = TableStore.findParent(
@@ -160,6 +159,8 @@ const TableStore = proxy({
 
       return;
     }
+
+
 
     const key = overGroup ?? activeGroup;
 
