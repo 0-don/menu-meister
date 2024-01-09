@@ -155,7 +155,7 @@ const TableStore = proxy({
             TableStore.schedules[data.overGroup || data.key].length - 1
             ? 1
             : 0)
-        : TableStore.schedules[data.overGroup || data.key].length + 1;
+        : TableStore.schedules[data.overGroup || data.key].length;
     const nextParent = TableStore.isContainer(data.overGroup, over?.id)
       ? over?.id
       : TableStore.findParent(data.overGroup, over?.id);
