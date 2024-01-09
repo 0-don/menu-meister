@@ -148,19 +148,21 @@ const TableStore = proxy({
 
     if (!data.activeGroup) return;
 
-    const newIndex =
-      data.overIndex >= 0
-        ? data.overIndex +
-          (over &&
-          data.overIndex ===
-            TableStore.schedules[data.overGroup || data.key].length - 1
-            ? 1
-            : 0)
-        : TableStore.schedules[data.overGroup || data.key].length + 1;
-    const nextParent = TableStore.isContainer(data.overGroup, over?.id)
-      ? over?.id
-      : TableStore.findParent(data.overGroup, over?.id);
+    let newIndex = data.overIndex;
+    const isBelowLastItem =
+      over &&
+      data.overIndex === TableStore.schedules[data.key].length - 1 &&
+      active.rect.current.initial!.top > over.rect.top + over.rect.height;
 
+    const modifier = isBelowLastItem ? 1 : 0;
+    const overParent = TableStore.findParent(data.overGroup, over?.id);
+    const overIsContainer = TableStore.isContainer(data.overGroup, over?.id);
+
+    newIndex =
+      data.overIndex >= 0
+        ? data.overIndex + modifier
+        : TableStore.schedules[data.key].length + 1;
+    let nextParent = overIsContainer ? over?.id : overParent;
     TableStore.schedules[data.key][data.activeIndex].parent = nextParent;
     TableStore.schedules[data.key] = arrayMove(
       TableStore.schedules[data.key],
