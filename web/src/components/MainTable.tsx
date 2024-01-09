@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import { TableItem } from "./elements/TableItem";
 import { SortableTree } from "./tree/SortableTree";
+import { Sortable } from "./tree/Sortable";
 
 interface DashboardPageProps {}
 
@@ -67,7 +68,8 @@ export function MainTable({}: DashboardPageProps) {
       {/* <BackupTree /> */}
 
       {/* <Backup3 /> */}
-      <SortableTree />
+      <Sortable />
+      {/* <SortableTree /> */}
 
       <Table className="mt-5" aria-label="Table">
         <TableHeader>
