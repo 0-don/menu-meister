@@ -60,16 +60,16 @@ export function Sortable() {
           </SortableContext>
 
           <DragOverlay>
-            {!SortableStore.activeId ? null : SortableStore.isContainer(
-                SortableStore.activeId,
+            {!sortableStore.activeId ? null : sortableStore.isContainer(
+                sortableStore.activeId,
               ) ? (
-              <Container id={SortableStore.activeId}>
-                {SortableStore.getItems(SortableStore.activeId).map((item) => (
+              <Container id={sortableStore.activeId}>
+                {sortableStore.getItems(sortableStore.activeId).map((item) => (
                   <Item key={item.id} id={item.id} />
                 ))}
               </Container>
             ) : (
-              <Item id={SortableStore.activeId} />
+              <Item id={sortableStore.activeId} />
             )}
           </DragOverlay>
         </div>
