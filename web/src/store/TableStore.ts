@@ -95,23 +95,13 @@ const TableStore = proxy({
     const activeGroup = TableStore.getGroup(active);
     const activeItem = TableStore.findItem(activeGroup, active.id);
     const overItem = TableStore.findItem(overGroup, over?.id);
-    const key = overGroup ?? activeGroup;
-    const activeIndex = TableStore.schedules[activeGroup || key].findIndex(
-      (item) => item.id === active.id,
-    );
-    const overIndex = over
-      ? TableStore.schedules[overGroup || key].findIndex(
-          (item) => item.id === over.id,
-        )
-      : 0;
+
     return {
       overGroup,
       activeGroup,
       activeItem,
       overItem,
-      key,
-      activeIndex,
-      overIndex,
+      key: overGroup ?? activeGroup,
     };
   },
   // ###########################################################
@@ -131,47 +121,51 @@ const TableStore = proxy({
   },
 
   onDragOver: ({ active, over }: DragOverEvent) => {
-    const data = TableStore.dragEvenData({ active, over });
+    const { activeGroup, activeItem, key, overGroup, overItem } =
+      TableStore.dragEvenData({ active, over });
 
-    if (
-      !data.activeItem ||
-      (data.activeItem?.container && data.overItem?.container)
-    )
-      return;
+    if (!activeItem || (activeItem?.container && overItem?.container)) return;
 
     if (
       over?.id.toString().includes(PLACEHOLDER_KEY) &&
-      !TableStore.isContainer(data.activeGroup, active.id)
+      !TableStore.isContainer(activeGroup, active.id)
     ) {
       return TableStore.handleFooterAreaDrag(active, over);
     }
 
-    let newIndex = data.overIndex;
-    const isBelowLastItem =
-      over &&
-      data.overIndex === TableStore.schedules[data.key].length - 1 &&
-      active.rect.current.initial!.top > over.rect.top + over.rect.height;
+    if (!activeGroup) return;
 
-    const modifier = isBelowLastItem ? 1 : 0;
-    const overParent = TableStore.findParent(data.overGroup, over?.id);
-    const overIsContainer = TableStore.isContainer(data.overGroup, over?.id);
+    const activeIndex = TableStore.schedules[activeGroup || key].findIndex(
+      (item) => item.id === active.id,
+    );
+    const overIndex = TableStore.schedules[overGroup || key].findIndex(
+      (item) => item.id === over?.id,
+    );
 
-    newIndex =
-      data.overIndex >= 0
-        ? data.overIndex + modifier
-        : TableStore.schedules[data.key].length + 1;
-    let nextParent = overIsContainer ? over?.id : overParent;
-    TableStore.schedules[data.key][data.activeIndex].parent = nextParent;
-    TableStore.schedules[data.key] = arrayMove(
-      TableStore.schedules[data.key],
-      data.activeIndex,
+    const newIndex =
+      overIndex >= 0
+        ? overIndex +
+          (over &&
+          overIndex === TableStore.schedules[overGroup || key].length - 1
+            ? 1
+            : 0)
+        : TableStore.schedules[overGroup || key].length + 1;
+    const nextParent = TableStore.isContainer(overGroup, over?.id)
+      ? over?.id
+      : TableStore.findParent(overGroup, over?.id);
+
+    TableStore.schedules[key][activeIndex].parent = nextParent as number;
+    TableStore.schedules[key] = arrayMove(
+      TableStore.schedules[key],
+      activeIndex,
       newIndex,
     );
   },
   onDragEnd: ({ active, over }: DragEndEvent) => {
-    const { activeItem, key, activeIndex, overIndex } = TableStore.dragEvenData(
-      { active, over },
-    );
+    const { activeGroup, activeItem, key } = TableStore.dragEvenData({
+      active,
+      over,
+    });
 
     if (!activeItem) return (TableStore.active = undefined);
 
@@ -183,6 +177,12 @@ const TableStore = proxy({
       return (TableStore.active = undefined);
     }
 
+    const activeIndex = TableStore.schedules[activeGroup || key].findIndex(
+      (item) => item.id === active.id,
+    );
+    const overIndex = over
+      ? TableStore.schedules[key].findIndex((item) => item.id === over.id)
+      : 0;
     if (activeIndex !== overIndex) {
       TableStore.schedules[key] = arrayMove(
         TableStore.schedules[key],
