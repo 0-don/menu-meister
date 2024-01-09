@@ -18,7 +18,6 @@ import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import { useSnapshot } from "valtio";
 import { TableItem } from "./elements/TableItem";
-import { Sortable } from "./tree/Sortable";
 import { SortableTree } from "./tree/SortableTree";
 
 interface DashboardPageProps {}
@@ -60,7 +59,7 @@ export function MainTable({}: DashboardPageProps) {
       {/* <Backup3 /> */}
 
       <SortableTree />
-      <Sortable />
+      {/* <Sortable /> */}
       <Table className="mt-5" aria-label="Table">
         <TableHeader>
           <TableColumn>{t("MONDAY")}</TableColumn>
