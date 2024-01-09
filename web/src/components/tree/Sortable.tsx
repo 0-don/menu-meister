@@ -149,6 +149,7 @@ function SortableItem(props: { children: ReactNode; id: UniqueIdentifier }) {
         transform: CSS.Transform.toString(transform),
         transition,
       }}
+      className="relative flex-1"
       {...attributes}
       {...listeners}
     >

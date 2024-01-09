@@ -117,13 +117,20 @@ const TableStore = proxy({
   },
 
   onDragOver: ({ active, over }: DragOverEvent) => {
+    console.log(over);
     const overGroup = TableStore.getGroup(over);
     const activeGroup = TableStore.getGroup(active);
-    const overParent = TableStore.findParent(overGroup, over?.id);
-    const overIsContainer = TableStore.isContainer(overGroup, over?.id);
+    const overParent = TableStore.findParent(
+      overGroup || activeGroup,
+      over?.id,
+    );
+    const overIsContainer = TableStore.isContainer(
+      overGroup || activeGroup,
+      over?.id,
+    );
 
     const activeItem = TableStore.findItem(activeGroup, active.id);
-    const overItem = TableStore.findItem(overGroup, over?.id);
+    const overItem = TableStore.findItem(overGroup || activeGroup, over?.id);
 
     if (!activeItem) return;
 
