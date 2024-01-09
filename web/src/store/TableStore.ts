@@ -152,9 +152,6 @@ const TableStore = proxy({
 
     if (!overDate || !activeDate) return;
 
-    // schedulesClone[activeDate] = schedulesClone[activeDate].filter(
-    //   (item) => item.id !== active.id,
-    // );
     const activeIndex = schedulesClone[activeDate].findIndex(
       (item) => item.id === active.id,
     );
@@ -201,9 +198,7 @@ const TableStore = proxy({
     }
 
     const { date: activeDate } = TableStore.parseId(activeItem.id);
-    // schedulesClone[activeDate] = schedulesClone[activeDate].filter(
-    //   (item) => item.id !== activeItem.id,
-    // );
+
     const activeIndex = TableStore.schedules[activeDate].findIndex(
       (item) => item.id === active.id,
     );
@@ -218,10 +213,10 @@ const TableStore = proxy({
         activeIndex,
         overIndex >= 0 ? overIndex : TableStore.schedules[activeDate].length,
       );
+      TableStore.schedules = schedulesClone;
     }
 
     TableStore.activeId = undefined;
-    TableStore.schedules = schedulesClone;
   },
 });
 

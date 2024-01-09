@@ -10,7 +10,7 @@ type DataType = {
 const SortableStore = proxy({
   activeId: undefined as UniqueIdentifier | undefined,
   data: {
-    items: [{ id: 1, container: true }, { id: 2 }, { id: 3, container: true }],
+    items: [{ id: 1, container: true }, { id: 2 }],
   } as DataType,
   addItem: (container?: boolean) => () =>
     (SortableStore.data = {
