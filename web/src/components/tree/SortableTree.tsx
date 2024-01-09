@@ -54,7 +54,7 @@ export function SortableTree() {
                       {item.container ? (
                         <SortableContainer id={item.id} group={group} />
                       ) : (
-                        <SortableItem id={item.id}>
+                        <SortableItem id={item.id} group={group}>
                           <Item id={item.id} />
                         </SortableItem>
                       )}
@@ -123,17 +123,17 @@ function SortableContainer({
 }) {
   const { setNodeRef } = useDroppable({
     id,
-    data: { sortable: { containerId: group } },
+    data: { group },
   });
   const placheolderId = `${id}${PLACEHOLDER_KEY}${group}`;
   const { setNodeRef: ref } = useSortable({
     id: placheolderId,
-    data: { sortable: { containerId: group } },
+    data: { group },
   });
 
   return (
     <div>
-      <SortableItem id={id}>
+      <SortableItem id={id} group={group}>
         <Container id={id} ref={setNodeRef}>
           <SortableContext
             items={(TableStore.getItems(group, id) || []).map(({ id }) => id)}
@@ -141,7 +141,7 @@ function SortableContainer({
             strategy={verticalListSortingStrategy}
           >
             {TableStore.getItems(group, id)?.map((item) => (
-              <SortableItem key={item.id} id={item.id}>
+              <SortableItem key={item.id} id={item.id} group={group}>
                 <Item id={item.id} />
               </SortableItem>
             ))}
@@ -161,10 +161,16 @@ function Item({ id }: { id: UniqueIdentifier }) {
   );
 }
 
-function SortableItem(props: { children: ReactNode; id: UniqueIdentifier }) {
+function SortableItem(props: {
+  children: ReactNode;
+  id: UniqueIdentifier;
+  group: string;
+}) {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: props.id });
-
+    useSortable({
+      id: props.id,
+      data: { group: props.group },
+    });
   return (
     <div
       ref={setNodeRef}

@@ -96,8 +96,10 @@ const TableStore = proxy({
     TableStore.findItem(group, id)?.parent,
 
   getGroup: (item: Active | Over | null): string =>
-    item?.data.current?.sortable?.containerId,
-
+    item?.data.current?.sortable?.containerId ||
+    item?.data.current?.group ||
+    TableStore.active?.data.current?.sortable?.containerId ||
+    TableStore.active?.data.current?.group,
   // ###########################################################
 
   handleFooterAreaDrag(active: Active, over: Over | null) {
@@ -142,20 +144,6 @@ const TableStore = proxy({
 
     if (!activeGroup) return;
 
-    if (overGroup && activeGroup && overGroup !== activeGroup) {
-      const overIndex = TableStore.schedules[overGroup].findIndex(
-        (item) => item.id === over?.id,
-      );
-
-      TableStore.schedules[overGroup].splice(overIndex, 0, {
-        ...activeItem,
-        container: undefined,
-        parent: undefined,
-      });
-
-      return;
-    }
-
     const key = overGroup ?? activeGroup;
 
     const activeIndex = TableStore.schedules[key].findIndex(
@@ -192,6 +180,7 @@ const TableStore = proxy({
   onDragEnd: ({ active, over }: DragEndEvent) => {
     const activeGroup = TableStore.getGroup(active);
     const overGroup = TableStore.getGroup(over);
+
     const key = overGroup ?? activeGroup;
 
     const activeItem = TableStore.findItem(activeGroup, active.id);
@@ -203,30 +192,6 @@ const TableStore = proxy({
       !TableStore.isContainer(activeGroup, active.id)
     ) {
       TableStore.handleFooterAreaDrag(active, over);
-      return (TableStore.active = undefined);
-    }
-
-    if (overGroup && activeGroup && overGroup !== activeGroup) {
-      const overIndex = TableStore.schedules[overGroup].findIndex(
-        (item) => item.id === over?.id,
-      );
-
-      let activeIndex = TableStore.schedules[overGroup].findIndex(
-        (item) => item.id === active.id,
-      );
-
-      if (activeIndex) return (TableStore.active = undefined);
-
-      TableStore.schedules[overGroup].splice(overIndex, 0, {
-        ...activeItem,
-        container: undefined,
-        parent: undefined,
-      });
-
-      activeIndex = TableStore.schedules[activeGroup].findIndex(
-        (item) => item.id === active.id,
-      );
-      TableStore.schedules[activeGroup].splice(activeIndex, 1);
       return (TableStore.active = undefined);
     }
 
