@@ -199,13 +199,11 @@ const TableStore = proxy({
 
     const { date: activeDate } = TableStore.parseId(activeItem.id);
 
-    const activeIndex = TableStore.schedules[activeDate].findIndex(
+    const activeIndex = schedulesClone[activeDate].findIndex(
       (item) => item.id === active.id,
     );
     const overIndex = over
-      ? TableStore.schedules[activeDate].findIndex(
-          (item) => item.id === over.id,
-        )
+      ? schedulesClone[activeDate].findIndex((item) => item.id === over.id)
       : 0;
     if (activeIndex !== overIndex) {
       TableStore.schedules[activeDate] = arrayMove(
@@ -213,6 +211,7 @@ const TableStore = proxy({
         activeIndex,
         overIndex >= 0 ? overIndex : TableStore.schedules[activeDate].length,
       );
+      console.log(schedulesClone);
       TableStore.schedules = schedulesClone;
     }
 

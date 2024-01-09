@@ -58,9 +58,9 @@ export function MainTable({}: DashboardPageProps) {
       {/* <BackupTree /> */}
 
       {/* <Backup3 /> */}
-      <Sortable />
-      <SortableTree />
 
+      <SortableTree />
+      <Sortable />
       <Table className="mt-5" aria-label="Table">
         <TableHeader>
           <TableColumn>{t("MONDAY")}</TableColumn>

@@ -33,7 +33,10 @@ export function SortableTree() {
       >
         <div className="mt-12 flex w-full justify-center">
           {Object.keys(schedules).map((group) => (
-            <div key={group} className="w-96">
+            <div
+              key={group}
+              className="min-h-96 w-96 flex-col items-start justify-start"
+            >
               <SortableContext items={schedules[group].map(({ id }) => id)}>
                 {TableStore.getItems({ key: group })?.map((item) => (
                   <div key={item.id}>
@@ -146,7 +149,6 @@ function SortableItem(props: { children: ReactNode; id: UniqueIdentifier }) {
         transform: CSS.Transform.toString(transform),
         transition,
       }}
-      className="relative flex-1"
       {...attributes}
       {...listeners}
     >
