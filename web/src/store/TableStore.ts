@@ -48,7 +48,7 @@ const TableStore = proxy({
 
     DashboardStore.daysThatWeek.forEach((day) => {
       const formattedDay = dayjs(day).format("YYYY-MM-DD");
-      newGroupedSchedules["2024-01-08"] = [];
+      newGroupedSchedules[formattedDay] = [];
     });
 
     // Loop through each initial schedule and organize them
