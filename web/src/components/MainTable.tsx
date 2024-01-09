@@ -4,7 +4,7 @@ import { GET_ALL_MEAL_SCHEDULES_ADMIN } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
 import { SortOrder } from "@/gql/graphql";
 import DashboardStore from "@/store/DashboardStore";
-import DndStore from "@/store/DndStore";
+
 import { WEEK_GROUP } from "@/utils/constants";
 import {
   Table,
@@ -16,11 +16,10 @@ import {
 } from "@nextui-org/table";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
-import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import { TableItem } from "./elements/TableItem";
-import { SortableTree } from "./tree/SortableTree";
 import { Sortable } from "./tree/Sortable";
+import { SortableTree } from "./tree/SortableTree";
 
 interface DashboardPageProps {}
 
@@ -37,15 +36,6 @@ export function MainTable({}: DashboardPageProps) {
     },
     orderBy: { servingDate: SortOrder.Asc },
   });
-
-  useEffect(
-    () =>
-      void (
-        data?.getAllMealSchedulesAdmin &&
-        (DndStore.schedules = data?.getAllMealSchedulesAdmin)
-      ),
-    [data],
-  );
 
   const groupedMealSchedules = (data?.getAllMealSchedulesAdmin ?? []).reduce(
     (acc, schedule) => {
@@ -69,7 +59,7 @@ export function MainTable({}: DashboardPageProps) {
 
       {/* <Backup3 /> */}
       <Sortable />
-      {/* <SortableTree /> */}
+      <SortableTree />
 
       <Table className="mt-5" aria-label="Table">
         <TableHeader>

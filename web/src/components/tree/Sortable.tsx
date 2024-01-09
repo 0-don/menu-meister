@@ -13,7 +13,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import React, { ReactNode, forwardRef, useCallback } from "react";
 import { useSnapshot } from "valtio";
-import SortableStore from "./SortableStore";
+import SortableStore from "../../store/SortableStore";
 
 export type ItemType = {
   id: number;
