@@ -89,14 +89,14 @@ const TableStore = proxy({
         )
       : undefined,
   isContainer: (group: string, id?: UniqueIdentifier) =>
-    !!TableStore.findItem(group)?.container,
+    !!TableStore.findItem(group, id)?.container,
   getItemIds: (group: string, parent?: UniqueIdentifier) =>
     TableStore.getItems(group, parent)?.map((item) => item.id),
   findParent: (group: string, id?: UniqueIdentifier) =>
     TableStore.findItem(group, id)?.parent,
 
   getGroup: (item: Active | Over | null): string =>
-    item?.data.current?.sortable.containerId,
+    item?.data.current?.sortable?.containerId,
 
   // ###########################################################
 
@@ -123,8 +123,6 @@ const TableStore = proxy({
   onDragOver: ({ active, over }: DragOverEvent) => {
     const overGroup = TableStore.getGroup(over);
     const activeGroup = TableStore.getGroup(active);
-    const overParent = TableStore.findParent(overGroup, over?.id);
-    const overIsContainer = TableStore.isContainer(overGroup, over?.id);
 
     const activeItem = TableStore.findItem(activeGroup, active.id);
     const overItem = TableStore.findItem(overGroup, over?.id);
@@ -174,6 +172,9 @@ const TableStore = proxy({
       active.rect.current.initial!.top > over.rect.top + over.rect.height;
 
     const modifier = isBelowLastItem ? 1 : 0;
+    const overParent = TableStore.findParent(overGroup, over?.id);
+    const overIsContainer = TableStore.isContainer(overGroup, over?.id);
+
     newIndex =
       overIndex >= 0
         ? overIndex + modifier
@@ -181,7 +182,7 @@ const TableStore = proxy({
     let nextParent = overIsContainer ? over?.id : overParent;
 
     TableStore.schedules[key][activeIndex].parent = nextParent as number;
-    console.log(overItem, TableStore.schedules[key][activeIndex].parent);
+
     TableStore.schedules[key] = arrayMove(
       TableStore.schedules[key],
       activeIndex,
