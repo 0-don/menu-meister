@@ -180,15 +180,15 @@ const TableStore = proxy({
     );
   },
   onDragEnd: ({ active, over }: DragEndEvent) => {
+    const { date: overDate } = TableStore.parseId(over?.id);
     const { date: activeDate } = TableStore.parseId(active.id);
+    const key = overDate ?? activeDate;
 
-    const activeIndex = TableStore.schedules[activeDate].findIndex(
+    const activeIndex = TableStore.schedules[key].findIndex(
       (item) => item.id === active.id,
     );
     const overIndex = over
-      ? TableStore.schedules[activeDate].findIndex(
-          (item) => item.id === over.id,
-        )
+      ? TableStore.schedules[key].findIndex((item) => item.id === over.id)
       : 0;
     const activeItem = TableStore.findItem(active.id);
 
@@ -203,10 +203,10 @@ const TableStore = proxy({
     }
 
     if (activeIndex !== overIndex) {
-      TableStore.schedules[activeDate] = arrayMove(
-        TableStore.schedules[activeDate],
+      TableStore.schedules[key] = arrayMove(
+        TableStore.schedules[key],
         activeIndex,
-        overIndex >= 0 ? overIndex : TableStore.schedules[activeDate].length,
+        overIndex >= 0 ? overIndex : TableStore.schedules[key].length,
       );
     }
 
