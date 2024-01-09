@@ -48,12 +48,10 @@ const TableStore = proxy({
   },
   regroupSchedules: () => {
     const newGroupedSchedules: GroupedSchedules = {};
-
     DashboardStore.daysThatWeek.forEach(
       (day) => (newGroupedSchedules[dayjs(day).format("YYYY-MM-DD")] = []),
     );
 
-    // Loop through each initial schedule and organize them
     TableStore.initialSchedules.forEach(({ schedules, servingDate }) => {
       const formattedDate = dayjs(servingDate).format("YYYY-MM-DD");
       if (!newGroupedSchedules[formattedDate]) return;
@@ -72,12 +70,10 @@ const TableStore = proxy({
         ),
       );
     });
-
     TableStore.schedules = newGroupedSchedules;
   },
 
   // ###########################################################
-
   findItem: (group: string, id?: UniqueIdentifier) =>
     group
       ? TableStore.schedules[group].find((item) => item.id === id)
