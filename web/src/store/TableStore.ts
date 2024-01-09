@@ -5,6 +5,7 @@ import {
   Meal,
 } from "@/utils/constants";
 import { DragEndEvent, DragOverEvent, UniqueIdentifier } from "@dnd-kit/core";
+import { arrayMove } from "@dnd-kit/sortable";
 import dayjs from "dayjs";
 import { Group } from "next/dist/shared/lib/router/utils/route-regex";
 import { proxy } from "valtio";
@@ -109,18 +110,16 @@ const TableStore = proxy({
     if (!containerId) return;
     const { date: overDate } = TableStore.parseId(containerId);
     const { date: activeDate } = TableStore.parseId(activeItem.id);
-
-    schedulesClone[activeDate] = schedulesClone[activeDate].filter(
+    const updatedItems = TableStore.schedules[overDate].filter(
       (item) => item.id !== activeItem.id,
     );
-    const overIndex = schedulesClone[overDate].findIndex(
-      (item) => item.id === containerId,
-    );
-    schedulesClone[overDate].splice(overIndex + 1, 0, {
+    const overIndex = updatedItems.findIndex((item) => item.id === containerId);
+    updatedItems.splice(overIndex + 1, 0, {
       ...activeItem,
       container: undefined,
       parent: undefined,
     });
+    schedulesClone[overDate] = updatedItems;
     TableStore.schedules = schedulesClone;
   },
 
@@ -128,6 +127,7 @@ const TableStore = proxy({
     const schedulesClone = JSON.parse(
       JSON.stringify(TableStore.schedules),
     ) as GroupedSchedules;
+
     const overParent = TableStore.findParent(over?.id);
     const overIsContainer = TableStore.isContainer(over?.id);
 
@@ -140,7 +140,6 @@ const TableStore = proxy({
       return;
     }
 
-    // Check if dragging over a footer area of a container
     if (
       over?.id.toString().includes(PLACEHOLDER_KEY) &&
       !TableStore.isContainer(active.id)
@@ -153,40 +152,44 @@ const TableStore = proxy({
 
     if (!overDate || !activeDate) return;
 
-    schedulesClone[activeDate] = schedulesClone[activeDate].filter(
-      (item) => item.id !== active.id,
+    // schedulesClone[activeDate] = schedulesClone[activeDate].filter(
+    //   (item) => item.id !== active.id,
+    // );
+    const activeIndex = schedulesClone[activeDate].findIndex(
+      (item) => item.id === active.id,
     );
-    // console.log(overDate, activeDate);
-    const overIndex = schedulesClone[overDate].findIndex(
+    const overIndex = schedulesClone[activeDate].findIndex(
       (item) => item.id === over?.id,
     );
 
     let newIndex = overIndex;
     const isBelowLastItem =
       over &&
-      overIndex === schedulesClone[overDate].length - 1 &&
+      overIndex === schedulesClone[activeDate].length - 1 &&
       active.rect.current.initial!.top > over.rect.top + over.rect.height;
 
     const modifier = isBelowLastItem ? 1 : 0;
     newIndex =
       overIndex >= 0
         ? overIndex + modifier
-        : schedulesClone[overDate].length + 1;
+        : schedulesClone[activeDate].length + 1;
     let nextParent = overIsContainer ? over?.id : overParent;
 
-    schedulesClone[overDate].splice(newIndex, 0, {
-      ...activeItem,
-      parent: nextParent,
-      container: undefined,
-    });
+    schedulesClone[activeDate][activeIndex].parent = nextParent as number;
 
-    console.log(schedulesClone);
+    schedulesClone[activeDate] = arrayMove(
+      schedulesClone[activeDate],
+      activeIndex,
+      newIndex,
+    );
+
     TableStore.schedules = schedulesClone;
   },
   onDragEnd: ({ active, over }: DragEndEvent) => {
     const schedulesClone = { ...TableStore.schedules };
 
     const activeItem = TableStore.findItem(active.id);
+
     if (!activeItem) return (TableStore.activeId = undefined);
 
     if (
@@ -198,19 +201,23 @@ const TableStore = proxy({
     }
 
     const { date: activeDate } = TableStore.parseId(activeItem.id);
-    schedulesClone[activeDate] = schedulesClone[activeDate].filter(
-      (item) => item.id !== activeItem.id,
+    // schedulesClone[activeDate] = schedulesClone[activeDate].filter(
+    //   (item) => item.id !== activeItem.id,
+    // );
+    const activeIndex = TableStore.schedules[activeDate].findIndex(
+      (item) => item.id === active.id,
     );
-
-    if (over) {
-      const { date: overDate } = TableStore.parseId(over.id);
-      const overIndex = schedulesClone[overDate].findIndex(
-        (item) => item.id === over.id,
+    const overIndex = over
+      ? TableStore.schedules[activeDate].findIndex(
+          (item) => item.id === over.id,
+        )
+      : 0;
+    if (activeIndex !== overIndex) {
+      TableStore.schedules[activeDate] = arrayMove(
+        TableStore.schedules[activeDate],
+        activeIndex,
+        overIndex >= 0 ? overIndex : TableStore.schedules[activeDate].length,
       );
-
-      let newIndex =
-        overIndex >= 0 ? overIndex : schedulesClone[overDate].length;
-      schedulesClone[overDate].splice(newIndex, 0, activeItem);
     }
 
     TableStore.activeId = undefined;
