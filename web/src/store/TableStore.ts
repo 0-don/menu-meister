@@ -140,23 +140,25 @@ const TableStore = proxy({
     )
       return;
 
+    console.log(active, over);
     //drag to empty new day
-    // if (data.overGroup === over?.id) {
-    //   //remove from old group
-    //   TableStore.schedules[data.activeGroup] = TableStore.schedules[
-    //     data.activeGroup
-    //   ].filter((item) => item.id !== data.activeItem?.id);
+    if (data.overGroup === over?.id) {
+      //remove from old group
+      TableStore.schedules[data.activeGroup] = TableStore.schedules[
+        data.activeGroup
+      ].filter((item) => item.id !== data.activeItem?.id);
 
-    //   // add if not already exist
-    //   if (
-    //     !TableStore.schedules[data.overGroup].find(
-    //       (item) => item.id === data.activeItem?.id,
-    //     )
-    //   ) {
-    //     TableStore.schedules[data.overGroup].push(data.activeItem);
-    //   }
-    //   return;
-    // }
+      // add if not already exist
+      if (
+        !TableStore.schedules[data.overGroup].find(
+          (item) => item.id === data.activeItem?.id,
+        )
+      ) {
+        TableStore.schedules[data.overGroup].push(data.activeItem);
+      }
+      return;
+    }
+
     if (
       over?.id.toString().includes(PLACEHOLDER_KEY) &&
       !TableStore.isContainer(data.activeGroup, active.id)

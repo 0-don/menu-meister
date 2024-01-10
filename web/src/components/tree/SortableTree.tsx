@@ -49,9 +49,9 @@ export function SortableTree() {
               >
                 <>
                   {!schedules[group].length && (
-                    <Droppable className="min-h-96" id={group}>
+                    <PlaceholderDroppable className="min-h-96" id={group}>
                       test
-                    </Droppable>
+                    </PlaceholderDroppable>
                   )}
                   {TableStore.getItems(group)?.map((item) => (
                     <div key={item.id}>
@@ -84,13 +84,14 @@ export function SortableTree() {
     </>
   );
 }
-function Droppable(props: {
+function PlaceholderDroppable(props: {
   id: UniqueIdentifier;
   children: ReactNode;
   className?: string;
 }) {
   const { setNodeRef } = useDroppable({
     id: props.id,
+    data: { group: props.id },
   });
 
   return (
