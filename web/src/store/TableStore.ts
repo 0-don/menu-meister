@@ -85,7 +85,7 @@ const TableStore = proxy({
   findParent: (group: string, id?: UniqueIdentifier) =>
     TableStore.findItem(group, id)?.parent,
 
-  getGroup: (item: Active | Over | null): string =>
+  getGroup: (item: Active | Over | null | undefined): string =>
     item?.data.current?.sortable?.containerId ||
     item?.data.current?.group ||
     TableStore.active?.data.current?.sortable?.containerId ||
@@ -178,7 +178,7 @@ const TableStore = proxy({
       newIndex,
     );
   },
-  onDragEnd: ({ active, over }: DragEndEvent) => {
+  onDragEnd: ({ active, over, delta }: DragEndEvent) => {
     let { activeItem, key, activeIndex, overIndex } = TableStore.dragEvenData({
       active,
       over,
@@ -194,13 +194,18 @@ const TableStore = proxy({
       return (TableStore.active = undefined);
     }
 
-    overIndex = overIndex < 0 ? 0 : overIndex;
-
+    overIndex =
+      overIndex < 0
+        ? delta.y > 0
+          ? TableStore.schedules[key].length
+          : 0
+        : overIndex;
+    console.log(delta, active, over, overIndex, activeIndex);
     if (activeIndex !== overIndex) {
       TableStore.schedules[key] = arrayMove(
         TableStore.schedules[key],
         activeIndex,
-        overIndex >= 0 ? overIndex : TableStore.schedules[key].length,
+        overIndex,
       );
     }
 

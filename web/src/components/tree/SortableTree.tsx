@@ -19,12 +19,12 @@ import { useSnapshot } from "valtio";
 
 export function SortableTree() {
   const dashboardStore = useSnapshot(DashboardStore);
-  const { schedules, regroupSchedules } = useSnapshot(TableStore);
+  const { schedules, active: act, regroupSchedules } = useSnapshot(TableStore);
 
   useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
 
-  const activeGroup = TableStore.active?.data.current?.sortable.containerId;
-  const activeId = TableStore.active?.id;
+  const activeGroup = TableStore.getGroup(act);
+  const activeId = act?.id;
 
   return (
     <>
@@ -47,7 +47,9 @@ export function SortableTree() {
               >
                 <>
                   {!schedules[group].length && (
-                    <Droppable id={group}>test</Droppable>
+                    <Droppable className="min-h-96" id={group}>
+                      test
+                    </Droppable>
                   )}
                   {TableStore.getItems(group)?.map((item) => (
                     <div key={item.id}>
