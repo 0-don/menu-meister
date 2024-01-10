@@ -138,6 +138,25 @@ const TableStore = proxy({
     )
       return;
 
+    // //drag to empty new day
+    // if (data.overGroup === over?.id) {
+    //   //remove from old group
+    //   TableStore.schedules[data.activeGroup] = TableStore.schedules[
+    //     data.activeGroup
+    //   ].filter((item) => item.id !== data.activeItem?.id);
+
+    //   // add if not already exist
+    //   if (
+    //     !TableStore.schedules[data.overGroup].find(
+    //       (item) => item.id === data.activeItem?.id,
+    //     )
+    //   ) {
+    //     TableStore.schedules[data.overGroup].push(data.activeItem);
+    //   }
+    //   return;
+    // }
+
+    // drag on container footer to place bellow
     if (
       over?.id.toString().includes(PLACEHOLDER_KEY) &&
       !TableStore.isContainer(data.activeGroup, active.id)
@@ -179,12 +198,27 @@ const TableStore = proxy({
     );
   },
   onDragEnd: ({ active, over, delta }: DragEndEvent) => {
-    let { activeItem, key, activeIndex, overIndex } = TableStore.dragEvenData({
-      active,
-      over,
-    });
+    let data = TableStore.dragEvenData({ active, over });
 
-    if (!activeItem) return (TableStore.active = undefined);
+    if (!data.activeItem) return (TableStore.active = undefined);
+
+    // //drag to empty new day
+    // if (data.overGroup === over?.id) {
+    //   //remove from old group
+    //   TableStore.schedules[data.activeGroup] = TableStore.schedules[
+    //     data.activeGroup
+    //   ].filter((item) => item.id !== data.activeItem?.id);
+
+    //   // add if not already exist
+    //   if (
+    //     !TableStore.schedules[data.overGroup].find(
+    //       (item) => item.id === data.activeItem?.id,
+    //     )
+    //   ) {
+    //     TableStore.schedules[data.overGroup].push(data.activeItem);
+    //   }
+    //   return (TableStore.active = undefined);
+    // }
 
     if (
       over?.id.toString().includes(PLACEHOLDER_KEY) &&
@@ -194,18 +228,18 @@ const TableStore = proxy({
       return (TableStore.active = undefined);
     }
 
-    overIndex =
-      overIndex < 0
-        ? delta.y > 0
-          ? TableStore.schedules[key].length
-          : 0
-        : overIndex;
-
-    if (activeIndex !== overIndex) {
-      TableStore.schedules[key] = arrayMove(
-        TableStore.schedules[key],
-        activeIndex,
-        overIndex,
+    // data.overIndex =
+    //   data.overIndex < 0
+    //     ? delta.y > 0
+    //       ? TableStore.schedules[data.key].length
+    //       : 0
+    //     : data.overIndex;
+    data.overIndex = data.overIndex < 0 ? 0 : data.overIndex;
+    if (data.activeIndex !== data.overIndex) {
+      TableStore.schedules[data.key] = arrayMove(
+        TableStore.schedules[data.key],
+        data.activeIndex,
+        data.overIndex,
       );
     }
 

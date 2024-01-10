@@ -26,6 +26,8 @@ export function SortableTree() {
   const activeGroup = TableStore.getGroup(act);
   const activeId = act?.id;
 
+  console.log(JSON.parse(JSON.stringify(schedules)));
+
   return (
     <>
       <DndContext
