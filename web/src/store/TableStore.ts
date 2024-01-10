@@ -139,6 +139,30 @@ const TableStore = proxy({
       return;
 
     if (
+      active.data.current?.container &&
+      active.data.current?.sortable?.items &&
+      active.data.current?.sortable?.items
+    ) {
+      return;
+    }
+    //drag to empty new day
+    // if (data.overGroup === over?.id) {
+    //   //remove from old group
+    //   TableStore.schedules[data.activeGroup] = TableStore.schedules[
+    //     data.activeGroup
+    //   ].filter((item) => item.id !== data.activeItem?.id);
+
+    //   // add if not already exist
+    //   if (
+    //     !TableStore.schedules[data.overGroup].find(
+    //       (item) => item.id === data.activeItem?.id,
+    //     )
+    //   ) {
+    //     TableStore.schedules[data.overGroup].push(data.activeItem);
+    //   }
+    //   return;
+    // }
+    if (
       over?.id.toString().includes(PLACEHOLDER_KEY) &&
       !TableStore.isContainer(data.activeGroup, active.id)
     ) {

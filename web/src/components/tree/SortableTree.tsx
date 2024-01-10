@@ -26,7 +26,7 @@ export function SortableTree() {
   const activeGroup = TableStore.getGroup(act);
   const activeId = act?.id;
 
-  console.log(JSON.parse(JSON.stringify(schedules)));
+  // console.log(JSON.parse(JSON.stringify(schedules)));
 
   return (
     <>
@@ -125,10 +125,7 @@ function SortableContainer({
   id: UniqueIdentifier;
   group: string;
 }) {
-  const { setNodeRef } = useDroppable({
-    id,
-    data: { group },
-  });
+  const { setNodeRef } = useDroppable({ id, data: { group } });
   const placheolderId = `${id}${PLACEHOLDER_KEY}${group}`;
   const { setNodeRef: ref } = useSortable({
     id: placheolderId,
@@ -137,7 +134,7 @@ function SortableContainer({
 
   return (
     <div>
-      <SortableItem id={id} group={group}>
+      <SortableItem id={id} group={group} container>
         <Container id={id} ref={setNodeRef}>
           <SortableContext
             items={(TableStore.getItems(group, id) || []).map(({ id }) => id)}
@@ -168,12 +165,13 @@ function Item({ id }: { id: UniqueIdentifier }) {
 function SortableItem(props: {
   children: ReactNode;
   id: UniqueIdentifier;
+  container?: boolean;
   group: string;
 }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id: props.id,
-      data: { group: props.group },
+      data: { group: props.group, container: props.container },
     });
   return (
     <div
