@@ -134,13 +134,12 @@ function SortableContainer({
 
   return (
     <div>
-      <SortableItem id={id} group={group} container>
+      <SortableItem id={id} group={group}>
         <Container id={id} ref={setNodeRef}>
           <SortableContext
             items={(TableStore.getItems(group, id) || []).map(({ id }) => id)}
             id={group}
             strategy={verticalListSortingStrategy}
-            
           >
             {TableStore.getItems(group, id)?.map((item) => (
               <SortableItem key={item.id} id={item.id} group={group}>
@@ -166,13 +165,12 @@ function Item({ id }: { id: UniqueIdentifier }) {
 function SortableItem(props: {
   children: ReactNode;
   id: UniqueIdentifier;
-  container?: boolean;
   group: string;
 }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id: props.id,
-      data: { group: props.group, container: props.container },
+      data: { group: props.group },
     });
   return (
     <div
