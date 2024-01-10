@@ -135,19 +135,11 @@ const TableStore = proxy({
 
     if (
       !data.activeItem ||
-      (data.activeItem?.container && data.overItem?.container)
+      (data.activeItem?.container && data.overItem?.container) || // dragging over a container
+      overParent === active.id // dragging over a child
     )
       return;
 
-    if (overParent === active.id) return;
-
-    // if (
-    //   active.data.current?.sortable.items.some(
-    //     (item: string) => over?.data.current?.sortable.items.includes(item),
-    //   )
-    // ) {
-    //   return;
-    // }
     //drag to empty new day
     // if (data.overGroup === over?.id) {
     //   //remove from old group
