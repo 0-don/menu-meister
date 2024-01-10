@@ -38,7 +38,7 @@ export function SortableTree() {
           {Object.keys(schedules).map((group) => (
             <div
               key={group}
-              className="min-h-96 w-96 flex-col items-start justify-start"
+              className="min-h-96 flex-col items-start justify-start"
             >
               <p>{group}</p>
               <SortableContext
@@ -103,7 +103,7 @@ const Container = forwardRef(
     return (
       <div
         ref={ref}
-        className={`w-96 flex-1 rounded border border-gray-400 bg-gray-300 p-6`}
+        className={`flex-1 rounded border border-gray-400 bg-gray-300 p-1`}
       >
         <p className="text-black">{props.id}</p>
         {props.children}
@@ -148,14 +148,14 @@ function SortableContainer({
           </SortableContext>
         </Container>
       </SortableItem>
-      <div className="h-3 w-96" ref={ref} />
+      <div className="h-3 w-full" ref={ref} />
     </div>
   );
 }
 
 function Item({ id }: { id: UniqueIdentifier }) {
   return (
-    <div className="flex h-12 w-64 items-center justify-center rounded-lg border-2 border-gray-400 bg-white !text-black">
+    <div className="flex h-12 items-center justify-center rounded-lg border-2 border-gray-400 bg-white !text-black">
       {id}
     </div>
   );
