@@ -179,12 +179,9 @@ const TableStore = proxy({
     );
   },
   onDragEnd: ({ active, over, delta }: DragEndEvent) => {
-    let { activeItem, key, activeIndex, overIndex } = TableStore.dragEvenData({
-      active,
-      over,
-    });
+    let data = TableStore.dragEvenData({ active, over });
 
-    if (!activeItem) return (TableStore.active = undefined);
+    if (!data.activeItem) return (TableStore.active = undefined);
 
     if (
       over?.id.toString().includes(PLACEHOLDER_KEY) &&
@@ -194,18 +191,18 @@ const TableStore = proxy({
       return (TableStore.active = undefined);
     }
 
-    overIndex =
-      overIndex < 0
+    data.overIndex =
+      data.overIndex < 0
         ? delta.y > 0
-          ? TableStore.schedules[key].length
+          ? TableStore.schedules[data.key].length
           : 0
-        : overIndex;
+        : data.overIndex;
 
-    if (activeIndex !== overIndex) {
-      TableStore.schedules[key] = arrayMove(
-        TableStore.schedules[key],
-        activeIndex,
-        overIndex,
+    if (data.activeIndex !== data.overIndex) {
+      TableStore.schedules[data.key] = arrayMove(
+        TableStore.schedules[data.key],
+        data.activeIndex,
+        data.overIndex,
       );
     }
 
