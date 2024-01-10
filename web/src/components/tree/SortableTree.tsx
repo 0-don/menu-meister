@@ -140,6 +140,7 @@ function SortableContainer({
             items={(TableStore.getItems(group, id) || []).map(({ id }) => id)}
             id={group}
             strategy={verticalListSortingStrategy}
+            
           >
             {TableStore.getItems(group, id)?.map((item) => (
               <SortableItem key={item.id} id={item.id} group={group}>

@@ -138,13 +138,13 @@ const TableStore = proxy({
     )
       return;
 
-    if (
-      active.data.current?.container &&
-      active.data.current?.sortable?.items &&
-      active.data.current?.sortable?.items
-    ) {
-      return;
-    }
+    // if (
+    //   active.data.current?.sortable.items.some(
+    //     (item: string) => over?.data.current?.sortable.items.includes(item),
+    //   )
+    // ) {
+    //   return;
+    // }
     //drag to empty new day
     // if (data.overGroup === over?.id) {
     //   //remove from old group
