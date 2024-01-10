@@ -131,12 +131,15 @@ const TableStore = proxy({
 
   onDragOver: ({ active, over }: DragOverEvent) => {
     const data = TableStore.dragEvenData({ active, over });
+    const overParent = TableStore.findParent(data.overGroup, over?.id);
 
     if (
       !data.activeItem ||
       (data.activeItem?.container && data.overItem?.container)
     )
       return;
+
+    if (overParent === active.id) return;
 
     // if (
     //   active.data.current?.sortable.items.some(
