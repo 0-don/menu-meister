@@ -147,19 +147,30 @@ const TableStore = proxy({
 
     if (!data.activeGroup) return;
 
-    const newIndex =
-      data.overIndex >= 0
-        ? data.overIndex +
-          (over &&
-          data.overIndex ===
-            TableStore.schedules[data.overGroup || data.key].length - 1
-            ? 1
-            : 0)
-        : TableStore.schedules[data.overGroup || data.key].length;
-    const nextParent = TableStore.isContainer(data.overGroup, over?.id)
-      ? over?.id
-      : TableStore.findParent(data.overGroup, over?.id);
+    let newIndex;
+    if (data.overIndex >= 0) {
+      const isLastIndex =
+        over &&
+        data.overIndex ===
+          TableStore.schedules[data.overGroup || data.key].length - 1;
+      if (isLastIndex) {
+        newIndex = data.overIndex + 1;
+      } else {
+        newIndex = data.overIndex;
+      }
+    } else {
+      newIndex = TableStore.schedules[data.overGroup || data.key].length;
+    }
 
+    // Finding the next parent for the dragged item
+    let nextParent;
+    if (TableStore.isContainer(data.overGroup, over?.id)) {
+      nextParent = over?.id;
+    } else {
+      nextParent = TableStore.findParent(data.overGroup, over?.id);
+    }
+
+    // Updating the parent of the active item and moving it in the array
     TableStore.schedules[data.key][data.activeIndex].parent = nextParent;
     TableStore.schedules[data.key] = arrayMove(
       TableStore.schedules[data.key],
@@ -183,7 +194,8 @@ const TableStore = proxy({
       return (TableStore.active = undefined);
     }
 
-    overIndex = over ? overIndex : 0;
+    overIndex = overIndex < 0 ? 0 : overIndex;
+
     if (activeIndex !== overIndex) {
       TableStore.schedules[key] = arrayMove(
         TableStore.schedules[key],
