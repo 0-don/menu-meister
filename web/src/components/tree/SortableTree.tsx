@@ -19,11 +19,8 @@ import { useSnapshot } from "valtio";
 
 export function SortableTree() {
   const dashboardStore = useSnapshot(DashboardStore);
-  const {
-    schedules,
-    active: act,
-    regroupSchedules,
-  } = useSnapshot(TableStore, { sync: true });
+  const { active: act } = useSnapshot(TableStore, { sync: true });
+  const { schedules, regroupSchedules } = useSnapshot(TableStore);
 
   useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
 
@@ -49,7 +46,7 @@ export function SortableTree() {
                 items={schedules[group].map(({ id }) => id)}
                 id={group}
               >
-                <>
+                <ul>
                   {!schedules[group].length && (
                     <PlaceholderDroppable className="min-h-96" id={group}>
                       test
@@ -66,7 +63,7 @@ export function SortableTree() {
                       )}
                     </div>
                   ))}
-                </>
+                </ul>
               </SortableContext>
             </div>
           ))}
@@ -184,7 +181,7 @@ function SortableItem(props: {
     data: { group: props.group },
   });
   return (
-    <div
+    <li
       ref={setNodeRef}
       style={{
         transform: CSS.Transform.toString(transform),
@@ -195,6 +192,6 @@ function SortableItem(props: {
       {...listeners}
     >
       {props.children}
-    </div>
+    </li>
   );
 }
