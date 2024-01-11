@@ -76,6 +76,7 @@ export const INITIAL_DATAS: DaySchedule[] = [
     schedules: [
       { id: "schedule1", meal: { id: "meal1", name: "pizza" } },
       { id: "schedule2", meal: { id: "meal2", name: "bread" } },
+      { id: "schedule8", meal: { id: "meal8", name: "tea" } },
       // {
       //   id: "schedule3",
       //   group: {

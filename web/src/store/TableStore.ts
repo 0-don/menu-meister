@@ -221,10 +221,12 @@ const TableStore = proxy({
       const activeContainer = TableStore.getGroup(active);
       const overContainer = TableStore.getGroup(over);
       const activeIndex = active.data.current?.sortable.index;
-      const overIndex =  over.data.current?.sortable.index;
+      const overIndex = over.data.current?.sortable.index;
 
+      console.log(activeIndex, overIndex);
       if (activeContainer === overContainer) {
         console.log("move between containers");
+        TableStore.active = undefined;
         TableStore.schedules[activeContainer] = arrayMove(
           TableStore.schedules[activeContainer],
           activeIndex,
@@ -241,7 +243,6 @@ const TableStore = proxy({
       }
     }
 
-    TableStore.active = undefined;
     // if (!data.activeItem) return (TableStore.active = undefined);
 
     // //drag to empty new day
