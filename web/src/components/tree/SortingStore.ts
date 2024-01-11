@@ -56,9 +56,8 @@ const SortingStore = proxy({
           ? SortingStore.itemGroups[overContainer].length + 1
           : over.data.current?.sortable.index;
 
-      let newItems;
       if (activeContainer === overContainer) {
-        newItems = {
+        SortingStore.itemGroups = {
           ...SortingStore.itemGroups,
           [overContainer]: arrayMove(
             SortingStore.itemGroups[overContainer],
@@ -67,7 +66,7 @@ const SortingStore = proxy({
           ),
         };
       } else {
-        newItems = SortingStore.moveBetweenContainers(
+        SortingStore.itemGroups = SortingStore.moveBetweenContainers(
           activeContainer,
           activeIndex,
           overContainer,
@@ -75,8 +74,6 @@ const SortingStore = proxy({
           active.id,
         );
       }
-
-      SortingStore.itemGroups = newItems;
     }
 
     SortingStore.activeId = undefined;
