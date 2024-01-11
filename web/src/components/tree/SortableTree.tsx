@@ -26,8 +26,6 @@ export function SortableTree() {
   const activeGroup = TableStore.getGroup(act);
   const activeId = act?.id;
 
-  // console.log(JSON.parse(JSON.stringify(schedules)));
-
   return (
     <>
       <DndContext
@@ -77,7 +75,7 @@ export function SortableTree() {
               ))}
             </Container>
           ) : (
-            <Item id={activeId} />
+            <Item id={activeId} drag />
           )}
         </DragOverlay>
       </DndContext>
@@ -155,9 +153,11 @@ function SortableContainer({
   );
 }
 
-function Item({ id }: { id: UniqueIdentifier }) {
+function Item({ id }: { id: UniqueIdentifier; drag?: boolean }) {
   return (
-    <div className="flex h-12 items-center justify-center rounded-lg border-2 border-gray-400 bg-white !text-black">
+    <div
+      className={`flex h-12 items-center justify-center rounded-lg border-2 border-gray-400 bg-white !text-black`}
+    >
       {id}
     </div>
   );
@@ -168,7 +168,7 @@ function SortableItem(props: {
   id: UniqueIdentifier;
   group: string;
 }) {
-  const { attributes, listeners, setNodeRef, transform, transition } =
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({
       id: props.id,
       data: { group: props.group },
@@ -179,6 +179,7 @@ function SortableItem(props: {
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
+        opacity: isDragging ? 0.5 : 1,
       }}
       {...attributes}
       {...listeners}
