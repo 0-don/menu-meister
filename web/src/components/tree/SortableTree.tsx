@@ -19,7 +19,11 @@ import { useSnapshot } from "valtio";
 
 export function SortableTree() {
   const dashboardStore = useSnapshot(DashboardStore);
-  const { schedules, active: act, regroupSchedules } = useSnapshot(TableStore);
+  const {
+    schedules,
+    active: act,
+    regroupSchedules,
+  } = useSnapshot(TableStore, { sync: true });
 
   useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
 
@@ -44,34 +48,39 @@ export function SortableTree() {
               <SortableContext
                 items={schedules[group].map(({ id }) => id)}
                 id={group}
-                strategy={verticalListSortingStrategy}
               >
-                <ul>
-                  {/* {!schedules[group].length && (
+                <>
+                  {!schedules[group].length && (
                     <PlaceholderDroppable className="min-h-96" id={group}>
                       test
                     </PlaceholderDroppable>
-                  )} */}
-                  {TableStore.getItems(group)?.map((item) =>
-                    item.container ? (
-                      <SortableContainer
-                        id={item.id}
-                        group={group}
-                        key={item.id}
-                      />
-                    ) : (
-                      <SortableItem id={item.id} group={group} key={item.id}>
-                        <Item id={item.id} />
-                      </SortableItem>
-                    ),
                   )}
-                </ul>
+                  {TableStore.getItems(group)?.map((item) => (
+                    <div key={item.id}>
+                      {item.container ? (
+                        <SortableContainer id={item.id} group={group} />
+                      ) : (
+                        <SortableItem id={item.id} group={group}>
+                          <Item id={item.id} />
+                        </SortableItem>
+                      )}
+                    </div>
+                  ))}
+                </>
               </SortableContext>
             </div>
           ))}
         </div>
-        <DragOverlay dropAnimation={{ duration: 1, easing: "ease" }}>
-          {activeId ? <Item id={activeId} drag /> : null}
+        <DragOverlay>
+          {!activeId ? null : TableStore.isContainer(activeGroup, activeId) ? (
+            <Container id={activeId}>
+              {TableStore.getItems(activeGroup, activeId)?.map((item) => (
+                <Item key={item.id} id={item.id} />
+              ))}
+            </Container>
+          ) : (
+            <Item id={activeId} drag />
+          )}
         </DragOverlay>
       </DndContext>
     </>
@@ -149,7 +158,13 @@ function SortableContainer({
 }
 
 function Item({ id }: { id: UniqueIdentifier; drag?: boolean }) {
-  return <div className={`border-gray-400 bg-white !text-black`}>{id}</div>;
+  return (
+    <div
+      className={`flex h-12 items-center justify-center rounded-lg border-2 border-gray-400 bg-white !text-black`}
+    >
+      {id}
+    </div>
+  );
 }
 
 function SortableItem(props: {
@@ -169,7 +184,7 @@ function SortableItem(props: {
     data: { group: props.group },
   });
   return (
-    <li
+    <div
       ref={setNodeRef}
       style={{
         transform: CSS.Transform.toString(transform),
@@ -180,6 +195,6 @@ function SortableItem(props: {
       {...listeners}
     >
       {props.children}
-    </li>
+    </div>
   );
 }

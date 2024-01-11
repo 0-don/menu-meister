@@ -10,7 +10,7 @@ import { useSnapshot } from "valtio";
 import SortingStore from "./SortingStore";
 
 export function Sorting() {
-  const sortingStore = useSnapshot(SortingStore);
+  const sortingStore = useSnapshot(SortingStore, { sync: true });
   return (
     <DndContext
       onDragStart={({ active }) => (SortingStore.activeId = active.id)}
@@ -28,7 +28,7 @@ export function Sorting() {
         ))}
       </div>
       <DragOverlay>
-        {sortingStore.activeId ? <Item id={sortingStore.activeId} /> : null}
+        {SortingStore.activeId ? <Item id={SortingStore.activeId} /> : null}
       </DragOverlay>
     </DndContext>
   );
