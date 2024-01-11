@@ -46,7 +46,7 @@ export function SortableTree() {
                 id={group}
                 strategy={verticalListSortingStrategy}
               >
-                <>
+                <ul>
                   {/* {!schedules[group].length && (
                     <PlaceholderDroppable className="min-h-96" id={group}>
                       test
@@ -65,7 +65,7 @@ export function SortableTree() {
                       </SortableItem>
                     ),
                   )}
-                </>
+                </ul>
               </SortableContext>
             </div>
           ))}
@@ -169,7 +169,7 @@ function SortableItem(props: {
     data: { group: props.group },
   });
   return (
-    <div
+    <li
       ref={setNodeRef}
       style={{
         transform: CSS.Transform.toString(transform),
@@ -180,6 +180,6 @@ function SortableItem(props: {
       {...listeners}
     >
       {props.children}
-    </div>
+    </li>
   );
 }

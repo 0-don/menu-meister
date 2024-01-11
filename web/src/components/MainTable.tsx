@@ -19,6 +19,7 @@ import { useTranslations } from "next-intl";
 import { useSnapshot } from "valtio";
 import { TableItem } from "./elements/TableItem";
 import { SortableTree } from "./tree/SortableTree";
+import { Sorting } from "./tree/Sorting";
 
 interface DashboardPageProps {}
 
@@ -57,7 +58,7 @@ export function MainTable({}: DashboardPageProps) {
       {/* <BackupTree /> */}
 
       {/* <Backup3 /> */}
-
+      <Sorting />
       <SortableTree />
       {/* <Sortable /> */}
       <Table className="mt-5" aria-label="Table">
