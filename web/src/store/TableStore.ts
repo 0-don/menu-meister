@@ -1,4 +1,9 @@
-import { GroupedSchedules, INITIAL_DATAS, Meal } from "@/utils/constants";
+import {
+  GroupedSchedules,
+  INITIAL_DATAS,
+  ItemType,
+  Meal,
+} from "@/utils/constants";
 import {
   Active,
   DragEndEvent,
@@ -77,7 +82,7 @@ const TableStore = proxy({
       ? TableStore.schedules[group].filter((item) =>
           parent ? item.parent === parent : !item.parent,
         )
-      : undefined,
+      : [],
   isContainer: (group: string, id?: UniqueIdentifier) =>
     !!TableStore.findItem(group, id)?.container,
   getItemIds: (group: string, parent?: UniqueIdentifier) =>
@@ -140,22 +145,19 @@ const TableStore = proxy({
     )
       return;
 
-    console.log(active, over);
-    //drag to empty new day
     if (data.overGroup === over?.id) {
-      //remove from old group
+      const items = [
+        TableStore.findItem(data.activeGroup, active.id),
+        ...(TableStore.isContainer(data.activeGroup, active.id)
+          ? TableStore.getItems(data.activeGroup, active.id)
+          : []),
+      ].filter(Boolean) as ItemType[];
+
       TableStore.schedules[data.activeGroup] = TableStore.schedules[
         data.activeGroup
-      ].filter((item) => item.id !== data.activeItem?.id);
+      ].filter((item) => !items.some((i) => i.id === item.id));
+      TableStore.schedules[over?.id] = items;
 
-      // add if not already exist
-      if (
-        !TableStore.schedules[data.overGroup].find(
-          (item) => item.id === data.activeItem?.id,
-        )
-      ) {
-        TableStore.schedules[data.overGroup].push(data.activeItem);
-      }
       return;
     }
 
@@ -203,6 +205,11 @@ const TableStore = proxy({
     let data = TableStore.dragEvenData({ active, over });
 
     if (!data.activeItem) return (TableStore.active = undefined);
+
+    //drag to empty new day
+    if (data.overGroup === over?.id) {
+      return (TableStore.active = undefined);
+    }
 
     if (
       over?.id.toString().includes(PLACEHOLDER_KEY) &&
