@@ -32,7 +32,6 @@ const SortingStore = proxy({
           : over.data.current?.sortable.index;
 
       SortingStore.itemGroups = SortingStore.moveBetweenContainers(
-        SortingStore.itemGroups,
         activeContainer,
         activeIndex,
         overContainer,
@@ -69,7 +68,6 @@ const SortingStore = proxy({
         };
       } else {
         newItems = SortingStore.moveBetweenContainers(
-          SortingStore.itemGroups,
           activeContainer,
           activeIndex,
           overContainer,
@@ -85,7 +83,6 @@ const SortingStore = proxy({
   },
 
   moveBetweenContainers: (
-    items: DataType,
     activeContainer: string,
     activeIndex: number,
     overContainer: string,
@@ -93,22 +90,18 @@ const SortingStore = proxy({
     item: UniqueIdentifier,
   ) => {
     return {
-      ...items,
-      [activeContainer]: removeAtIndex(items[activeContainer], activeIndex),
-      [overContainer]: insertAtIndex(items[overContainer], overIndex, item),
+      ...SortingStore.itemGroups,
+      [activeContainer]: [
+        ...SortingStore.itemGroups[activeContainer].slice(0, activeIndex),
+        ...SortingStore.itemGroups[activeContainer].slice(activeIndex + 1),
+      ],
+      [overContainer]: [
+        ...SortingStore.itemGroups[overContainer].slice(0, overIndex),
+        item,
+        ...SortingStore.itemGroups[overContainer].slice(overIndex),
+      ],
     };
   },
 });
-
-const removeAtIndex = (array: UniqueIdentifier[], index: number) => [
-  ...array.slice(0, index),
-  ...array.slice(index + 1),
-];
-
-const insertAtIndex = (
-  array: UniqueIdentifier[],
-  index: number,
-  item: UniqueIdentifier,
-) => [...array.slice(0, index), item, ...array.slice(index)];
 
 export default SortingStore;
