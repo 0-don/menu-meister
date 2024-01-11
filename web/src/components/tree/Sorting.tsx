@@ -85,7 +85,7 @@ const SortableItem = ({ id }: any) => {
   );
 };
 
-export type DataType = {
+type DataType = {
   [key: string]: UniqueIdentifier[];
 };
 
