@@ -150,7 +150,6 @@ const TableStore = proxy({
 
   onDragOver: ({ active, over }: DragOverEvent) => {
     const data = TableStore.dragEvenData({ active, over });
-    console.log(JSON.parse(JSON.stringify(data)));
 
     if (!over?.id) return;
 
@@ -161,7 +160,6 @@ const TableStore = proxy({
     ) {
       TableStore.moveBetweenContainers(
         data.activeGroup,
-        data.activeIndex,
         data.overGroup,
         data.overIndex,
         data.activeItems,
@@ -225,30 +223,28 @@ const TableStore = proxy({
     // );
   },
   onDragEnd: ({ active, over, delta }: DragEndEvent) => {
-    // let data = TableStore.dragEvenData({ active, over });
-    // if (!over) return (TableStore.active = undefined);
-
-    // if (active.id !== over.id) {
-    //   if (
-    //     data.activeGroup &&
-    //     data.overGroup &&
-    //     data.activeGroup === data.overGroup
-    //   ) {
-    //     TableStore.schedules[data.activeGroup] = arrayMove(
-    //       TableStore.schedules[data.activeGroup],
-    //       data.activeIndex,
-    //       data.overIndex,
-    //     );
-    //   } else if (data.activeGroup && data.overGroup) {
-    //     TableStore.moveBetweenContainers(
-    //       data.activeGroup,
-    //       data.activeIndex,
-    //       data.overGroup,
-    //       data.overIndex,
-    //       data.activeItems,
-    //     );
-    //   }
-    // }
+    let data = TableStore.dragEvenData({ active, over });
+    if (!over) return (TableStore.active = undefined);
+    if (active.id !== over.id) {
+      if (
+        data.activeGroup &&
+        data.overGroup &&
+        data.activeGroup === data.overGroup
+      ) {
+        TableStore.schedules[data.activeGroup] = arrayMove(
+          TableStore.schedules[data.activeGroup],
+          data.activeIndex,
+          data.overIndex,
+        );
+      } else if (data.activeGroup && data.overGroup) {
+        TableStore.moveBetweenContainers(
+          data.activeGroup,
+          data.overGroup,
+          data.overIndex,
+          data.activeItems,
+        );
+      }
+    }
     // if (!data.activeItem) return (TableStore.active = undefined);
 
     // //drag to empty new day
@@ -281,27 +277,42 @@ const TableStore = proxy({
 
     TableStore.active = undefined;
   },
-
   moveBetweenContainers: (
     activeContainer: string,
-    activeIndex: number,
     overContainer: string,
     overIndex: number,
     items: ItemType[],
   ) => {
+    const itemIds = new Set(items.map((item) => item.id));
+
+    // Remove the block of items from the active container
+    const newActiveContainerItems = TableStore.schedules[
+      activeContainer
+    ].filter((item) => !itemIds.has(item.id));
+
+    // Prepare the new over container items and adjust overIndex if needed
+    let newOverContainerItems = [...TableStore.schedules[overContainer]];
+    if (overIndex < 0 || overIndex > newOverContainerItems.length) {
+      overIndex = newOverContainerItems.length;
+    }
+
+    // Insert the block of items into the over container at the correct position
+    newOverContainerItems.splice(
+      overIndex,
+      0,
+      ...items.filter(
+        (item) =>
+          !newOverContainerItems.some(
+            (existingItem) => existingItem.id === item.id,
+          ),
+      ),
+    );
+
+    // Update the schedules state
     TableStore.schedules = {
       ...TableStore.schedules,
-      [activeContainer]: [
-        ...TableStore.schedules[activeContainer].slice(0, activeIndex),
-        ...TableStore.schedules[activeContainer].slice(
-          activeIndex + items.length,
-        ),
-      ],
-      [overContainer]: [
-        ...TableStore.schedules[overContainer].slice(0, overIndex),
-        ...items,
-        ...TableStore.schedules[overContainer].slice(overIndex),
-      ],
+      [activeContainer]: newActiveContainerItems,
+      [overContainer]: newOverContainerItems,
     };
   },
 });

@@ -24,7 +24,6 @@ export function SortableTree() {
   });
 
   useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
-  // console.log(JSON.parse(JSON.stringify(schedules)));
   return (
     <DndContext
       onDragStart={({ active }) => (TableStore.active = active)}
@@ -36,13 +35,13 @@ export function SortableTree() {
         {Object.keys(schedules).map((group) => (
           <div
             key={group}
-            className="min-h-96 flex-col items-start justify-start w-full"
+            className="min-h-96 w-full flex-col items-start justify-start"
           >
             <p>{group}</p>
             <SortableContext
               items={schedules[group].map(({ id }) => id)}
               id={group}
-              // strategy={verticalListSortingStrategy}
+              strategy={verticalListSortingStrategy}
             >
               <ul>
                 {!schedules[group].length && (
