@@ -150,10 +150,9 @@ const TableStore = proxy({
 
   onDragOver: ({ active, over }: DragOverEvent) => {
     const data = TableStore.dragEvenData({ active, over });
+    console.log(JSON.parse(JSON.stringify(data)));
 
     if (!over?.id) return;
-
-    console.log(JSON.parse(JSON.stringify(data)));
 
     if (
       data.activeGroup &&
@@ -226,30 +225,30 @@ const TableStore = proxy({
     // );
   },
   onDragEnd: ({ active, over, delta }: DragEndEvent) => {
-    let data = TableStore.dragEvenData({ active, over });
-    if (!over) return (TableStore.active = undefined);
+    // let data = TableStore.dragEvenData({ active, over });
+    // if (!over) return (TableStore.active = undefined);
 
-    if (active.id !== over.id) {
-      if (
-        data.activeGroup &&
-        data.overGroup &&
-        data.activeGroup === data.overGroup
-      ) {
-        TableStore.schedules[data.activeGroup] = arrayMove(
-          TableStore.schedules[data.activeGroup],
-          data.activeIndex,
-          data.overIndex,
-        );
-      } else if (data.activeGroup && data.overGroup) {
-        TableStore.moveBetweenContainers(
-          data.activeGroup,
-          data.activeIndex,
-          data.overGroup,
-          data.overIndex,
-          data.activeItems,
-        );
-      }
-    }
+    // if (active.id !== over.id) {
+    //   if (
+    //     data.activeGroup &&
+    //     data.overGroup &&
+    //     data.activeGroup === data.overGroup
+    //   ) {
+    //     TableStore.schedules[data.activeGroup] = arrayMove(
+    //       TableStore.schedules[data.activeGroup],
+    //       data.activeIndex,
+    //       data.overIndex,
+    //     );
+    //   } else if (data.activeGroup && data.overGroup) {
+    //     TableStore.moveBetweenContainers(
+    //       data.activeGroup,
+    //       data.activeIndex,
+    //       data.overGroup,
+    //       data.overIndex,
+    //       data.activeItems,
+    //     );
+    //   }
+    // }
     // if (!data.activeItem) return (TableStore.active = undefined);
 
     // //drag to empty new day

@@ -1,6 +1,7 @@
 "use client";
 import DashboardStore from "@/store/DashboardStore";
 import TableStore, { PLACEHOLDER_KEY } from "@/store/TableStore";
+import { debounce } from "@/utils/constants";
 import {
   DndContext,
   DragOverlay,
@@ -13,7 +14,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import React, { ReactNode, forwardRef, useEffect } from "react";
+import React, { ReactNode, forwardRef, useCallback, useEffect } from "react";
 import { useSnapshot } from "valtio";
 
 export function SortableTree() {
@@ -28,14 +29,14 @@ export function SortableTree() {
     <DndContext
       onDragStart={({ active }) => (TableStore.active = active)}
       onDragCancel={() => (TableStore.active = undefined)}
-      onDragOver={TableStore.onDragOver}
+      onDragOver={useCallback(debounce(TableStore.onDragOver, 0), [])}
       onDragEnd={TableStore.onDragEnd}
     >
       <div className="flex w-full justify-between">
         {Object.keys(schedules).map((group) => (
           <div
             key={group}
-            className="min-h-96 flex-col items-start justify-start"
+            className="min-h-96 flex-col items-start justify-start w-full"
           >
             <p>{group}</p>
             <SortableContext
