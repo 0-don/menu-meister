@@ -23,50 +23,48 @@ export function SortableTree() {
   });
 
   useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
-
+  // console.log(JSON.parse(JSON.stringify(schedules)));
   return (
-    <>
-      <DndContext
-        onDragStart={({ active }) => (TableStore.active = active)}
-        onDragCancel={() => (TableStore.active = undefined)}
-        onDragOver={TableStore.onDragOver}
-        onDragEnd={TableStore.onDragEnd}
-      >
-        <div className="flex w-full justify-between">
-          {Object.keys(schedules).map((group) => (
-            <div
-              key={group}
-              className="min-h-96 flex-col items-start justify-start"
+    <DndContext
+      onDragStart={({ active }) => (TableStore.active = active)}
+      onDragCancel={() => (TableStore.active = undefined)}
+      onDragOver={TableStore.onDragOver}
+      onDragEnd={TableStore.onDragEnd}
+    >
+      <div className="flex w-full justify-between">
+        {Object.keys(schedules).map((group) => (
+          <div
+            key={group}
+            className="min-h-96 flex-col items-start justify-start"
+          >
+            <p>{group}</p>
+            <SortableContext
+              items={schedules[group].map(({ id }) => id)}
+              id={group}
+              // strategy={verticalListSortingStrategy}
             >
-              <p>{group}</p>
-              <SortableContext
-                items={schedules[group].map(({ id }) => id)}
-                id={group}
-                // strategy={verticalListSortingStrategy}
-              >
-                <ul>
-                  {!schedules[group].length && (
-                    <PlaceholderDroppable className="min-h-96" id={group} />
-                  )}
-                  {TableStore.getGroupItems(group)?.map((item) => (
-                    <div key={item.id}>
-                      {item.container ? (
-                        <SortableContainer id={item.id} group={group} />
-                      ) : (
-                        <SortableItem id={item.id} group={group}>
-                          <Item id={item.id} />
-                        </SortableItem>
-                      )}
-                    </div>
-                  ))}
-                </ul>
-              </SortableContext>
-            </div>
-          ))}
-        </div>
-        <Overlay />
-      </DndContext>
-    </>
+              <ul>
+                {!schedules[group].length && (
+                  <PlaceholderDroppable className="min-h-96" id={group} />
+                )}
+                {TableStore.getGroupItems(group)?.map((item) => (
+                  <div key={item.id}>
+                    {item.container ? (
+                      <SortableContainer id={item.id} group={group} />
+                    ) : (
+                      <SortableItem id={item.id} group={group}>
+                        <Item id={item.id} />
+                      </SortableItem>
+                    )}
+                  </div>
+                ))}
+              </ul>
+            </SortableContext>
+          </div>
+        ))}
+      </div>
+      <Overlay />
+    </DndContext>
   );
 }
 
@@ -77,8 +75,8 @@ function Overlay() {
   const containerItems = items.filter((i) => !i.container);
 
   return (
-    <DragOverlay adjustScale={false}>
-      {!active?.id ? null : container ? (
+    <DragOverlay>
+      {!active?.id || !items.length ? null : container ? (
         <Container id={container.id}>
           {containerItems.map((item) => (
             <Item key={item.id} id={item.id} />

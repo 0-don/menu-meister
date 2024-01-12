@@ -89,32 +89,37 @@ const TableStore = proxy({
           items.filter((i) => i.id === id || i.parent === id),
         )
       : [],
+
   isContainer: (group: string, id?: UniqueIdentifier) =>
     !!TableStore.findItem(group, id)?.container,
   getItemIds: (group: string, parent?: UniqueIdentifier) =>
     TableStore.getGroupItems(group, parent)?.map((item) => item.id),
   findParent: (group: string, id?: UniqueIdentifier) =>
     TableStore.findItem(group, id)?.parent,
-
-  getGroup: (item: Active | Over | null | undefined): string =>
-    item?.data.current?.sortable?.containerId ||
-    item?.data.current?.group ||
-    TableStore.active?.data.current?.sortable?.containerId ||
-    TableStore.active?.data.current?.group,
+  getGroup: (id?: UniqueIdentifier) =>
+    Object.entries(TableStore.schedules).find(([group, items]) =>
+      items.some((item) => item.id === id),
+    )?.[0],
+  getGroupEvent: (event: Active | Over | null | undefined): string =>
+    event?.data.current?.sortable?.containerId || event?.data.current?.group,
   dragEvenData: ({ active, over }: { active: Active; over: Over | null }) => {
-    const overGroup = TableStore.getGroup(over);
-    const activeGroup = TableStore.getGroup(active);
-    const activeItem = TableStore.findItem(activeGroup, active.id);
-    const overItem = TableStore.findItem(overGroup, over?.id);
+    const overGroup =
+      TableStore.getGroup(over?.id) || TableStore.getGroupEvent(over);
+    const activeGroup = TableStore.getGroup(active.id);
+    const activeItems = TableStore.getItems(active.id);
+    const activeItem = activeItems.at(0);
+    const overItem = TableStore.getItems(over?.id).at(0);
     const key = overGroup ?? activeGroup;
-    const activeIndex = TableStore.schedules[activeGroup || key].findIndex(
-      (item) => item.id === active.id,
-    );
-    const overIndex = TableStore.schedules[overGroup || key].findIndex(
-      (item) => item.id === over?.id,
-    );
-
-    const items = TableStore.getItems(active.id);
+    const activeIndex = activeGroup
+      ? TableStore.schedules[activeGroup].findIndex(
+          (item) => item.id === active.id,
+        )
+      : -1;
+    const overIndex = overGroup
+      ? TableStore.schedules[overGroup].findIndex(
+          (item) => item.id === over?.id,
+        )
+      : -1;
 
     return {
       overGroup,
@@ -124,7 +129,7 @@ const TableStore = proxy({
       key,
       activeIndex,
       overIndex,
-      items,
+      activeItems,
     };
   },
   // ###########################################################
@@ -132,7 +137,7 @@ const TableStore = proxy({
   handleFooterAreaDrag: (active: Active, over: Over | null) => {
     const containerId = over?.id.toString().split(PLACEHOLDER_KEY).at(0);
     if (!containerId) return;
-    const overGroup = TableStore.getGroup(over);
+    const overGroup = TableStore.getGroupEvent(over);
     const updatedItems = TableStore.schedules[overGroup].filter(
       (item) => item.id !== active.id,
     );
@@ -148,13 +153,19 @@ const TableStore = proxy({
 
     if (!over?.id) return;
 
-    if (data.activeGroup !== data.overGroup) {
+    console.log(JSON.parse(JSON.stringify(data)));
+
+    if (
+      data.activeGroup &&
+      data.overGroup &&
+      data.activeGroup !== data.overGroup
+    ) {
       TableStore.moveBetweenContainers(
         data.activeGroup,
         data.activeIndex,
         data.overGroup,
         data.overIndex,
-        data.items,
+        data.activeItems,
       );
     }
     // const overParent = TableStore.findParent(data.overGroup, over?.id);
@@ -219,19 +230,23 @@ const TableStore = proxy({
     if (!over) return (TableStore.active = undefined);
 
     if (active.id !== over.id) {
-      if (data.activeGroup === data.overGroup) {
+      if (
+        data.activeGroup &&
+        data.overGroup &&
+        data.activeGroup === data.overGroup
+      ) {
         TableStore.schedules[data.activeGroup] = arrayMove(
           TableStore.schedules[data.activeGroup],
           data.activeIndex,
           data.overIndex,
         );
-      } else {
+      } else if (data.activeGroup && data.overGroup) {
         TableStore.moveBetweenContainers(
           data.activeGroup,
           data.activeIndex,
           data.overGroup,
           data.overIndex,
-          data.items,
+          data.activeItems,
         );
       }
     }
