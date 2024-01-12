@@ -48,7 +48,7 @@ export function SortableTree() {
                       test
                     </PlaceholderDroppable>
                   )}
-                  {TableStore.getItems(group)?.map((item) => (
+                  {TableStore.getGroupItems(group)?.map((item) => (
                     <div key={item.id}>
                       {item.container ? (
                         <SortableContainer id={item.id} group={group} />
@@ -71,29 +71,21 @@ export function SortableTree() {
 }
 
 function Overlay() {
-  const { active: act } = useSnapshot(TableStore, { sync: true });
-  const { schedules } = useSnapshot(TableStore);
-  const items = Object.entries(schedules).flatMap(([group, items]) => {
-    return items.filter((i) => i.id === act?.id || i.parent === act?.id);
-  });
-  console.log(items);
-  // console.log(JSON.parse(JSON.stringify(schedules)));
-  // console.log(JSON.parse(JSON.stringify(act || "")), activeGroup);
-  // console.log(act?.id, JSON.parse(JSON.stringify(activeItems)));
-
-  const activeId = act?.id;
+  const { active } = useSnapshot(TableStore, { sync: true });
+  const items = TableStore.getItems(active?.id);
   const container = items.find((i) => i.container);
   const containerItems = items.filter((i) => !i.container);
+  
   return (
     <DragOverlay adjustScale={false}>
-      {!activeId ? null : container ? (
+      {!active?.id ? null : container ? (
         <Container id={container.id}>
           {containerItems.map((item) => (
             <Item key={item.id} id={item.id} />
           ))}
         </Container>
       ) : (
-        <Item id={activeId} drag />
+        <Item id={active.id} drag />
       )}
     </DragOverlay>
   );
@@ -153,11 +145,13 @@ function SortableContainer({
       <SortableItem id={id} group={group}>
         <Container id={id} ref={setNodeRef}>
           <SortableContext
-            items={(TableStore.getItems(group, id) || []).map(({ id }) => id)}
+            items={(TableStore.getGroupItems(group, id) || []).map(
+              ({ id }) => id,
+            )}
             id={group}
             strategy={verticalListSortingStrategy}
           >
-            {TableStore.getItems(group, id)?.map((item) => (
+            {TableStore.getGroupItems(group, id)?.map((item) => (
               <SortableItem key={item.id} id={item.id} group={group}>
                 <Item id={item.id} />
               </SortableItem>
