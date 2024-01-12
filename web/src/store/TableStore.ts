@@ -109,9 +109,9 @@ const TableStore = proxy({
     );
     const items = [
       TableStore.findItem(activeGroup, active.id),
-      ...(TableStore.isContainer(activeGroup, active.id)
+      TableStore.isContainer(activeGroup, active.id)
         ? TableStore.getItems(activeGroup, active.id)
-        : []),
+        : null,
     ].filter(Boolean) as ItemType[];
     return {
       overGroup,
@@ -140,11 +140,11 @@ const TableStore = proxy({
     TableStore.schedules[overGroup] = updatedItems;
   },
 
-  onDragOver: ({ active, over, collisions }: DragOverEvent) => {
+  onDragOver: ({ active, over }: DragOverEvent) => {
     const data = TableStore.dragEvenData({ active, over });
     const overId = over?.id;
     if (!overId) return;
-
+    console.log(JSON.parse(JSON.stringify(data)));
     if (data.activeGroup !== data.overGroup) {
       TableStore.moveBetweenContainers(
         data.activeGroup,
