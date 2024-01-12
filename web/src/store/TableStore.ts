@@ -142,6 +142,12 @@ const TableStore = proxy({
     const activeContainer = TableStore.getGroup(active);
     const overContainer = TableStore.getGroup(over);
 
+    const items = [
+      TableStore.findItem(data.activeGroup, active.id),
+      ...(TableStore.isContainer(data.activeGroup, active.id)
+        ? TableStore.getItems(data.activeGroup, active.id)
+        : []),
+    ].filter(Boolean) as ItemType[];
     if (activeContainer !== overContainer) {
       const data = TableStore.dragEvenData({ active, over });
       TableStore.moveBetweenContainers(
@@ -149,11 +155,10 @@ const TableStore = proxy({
         data.activeIndex,
         overContainer,
         data.overIndex,
-        [TableStore.findItem(activeContainer, active.id)!],
+        items,
       );
     }
     // const overParent = TableStore.findParent(data.overGroup, over?.id);
-    // console.log(collisions)
     // if (
     //   !data.activeItem ||
     //   (data.activeItem?.container && data.overItem?.container) || // dragging over a container
@@ -217,15 +222,19 @@ const TableStore = proxy({
       return;
     }
 
+    const items = [
+      TableStore.findItem(data.activeGroup, active.id),
+      ...(TableStore.isContainer(data.activeGroup, active.id)
+        ? TableStore.getItems(data.activeGroup, active.id)
+        : []),
+    ].filter(Boolean) as ItemType[];
     if (active.id !== over.id) {
       const activeContainer = TableStore.getGroup(active);
       const overContainer = TableStore.getGroup(over);
       const activeIndex = active.data.current?.sortable.index;
       const overIndex = over.data.current?.sortable.index;
 
-      console.log(activeIndex, overIndex);
       if (activeContainer === overContainer) {
-        console.log("move between containers");
         TableStore.active = undefined;
         TableStore.schedules[activeContainer] = arrayMove(
           TableStore.schedules[activeContainer],
@@ -238,7 +247,7 @@ const TableStore = proxy({
           activeIndex,
           overContainer,
           overIndex,
-          [TableStore.findItem(activeContainer, active.id)!],
+          items,
         );
       }
     }
