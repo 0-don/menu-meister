@@ -18,18 +18,20 @@ import React, { ReactNode, forwardRef, useCallback, useEffect } from "react";
 import { useSnapshot } from "valtio";
 
 export function SortableTree() {
+  const { activeItems } = TableStore;
   const dashboardStore = useSnapshot(DashboardStore);
-  const { active: act, activeItems } = useSnapshot(TableStore, { sync: true });
+  const { active: act } = useSnapshot(TableStore, { sync: true });
   const { schedules, regroupSchedules } = useSnapshot(TableStore);
 
   useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
 
   const activeGroup = TableStore.getGroup(act);
   const activeId = act?.id;
+  const container = activeItems.find((i) => i.container);
+  const containerItems = activeItems.filter((i) => !i.container);
   // console.log(JSON.parse(JSON.stringify(schedules)));
   // console.log(JSON.parse(JSON.stringify(act || "")), activeGroup);
-
-  console.log(JSON.parse(JSON.stringify(act || "")));
+  // console.log(act?.id, JSON.parse(JSON.stringify(activeItems)));
   return (
     <>
       <DndContext
@@ -48,6 +50,7 @@ export function SortableTree() {
               <SortableContext
                 items={schedules[group].map(({ id }) => id)}
                 id={group}
+                strategy={verticalListSortingStrategy}
               >
                 <ul>
                   {!schedules[group].length && (
@@ -71,14 +74,12 @@ export function SortableTree() {
             </div>
           ))}
         </div>
-        <DragOverlay>
-          {!activeId ? null : activeItems.find((i) => i.container) ? (
-            <Container id={activeId}>
-              {activeItems
-                .filter((i) => !i.container)
-                .map((item) => (
-                  <Item key={item.id} id={item.id} />
-                ))}
+        <DragOverlay adjustScale={false}>
+          {!activeId ? null : container ? (
+            <Container id={container.id}>
+              {containerItems.map((item) => (
+                <Item key={item.id} id={item.id} />
+              ))}
             </Container>
           ) : (
             <Item id={activeId} drag />
@@ -189,7 +190,7 @@ function SortableItem(props: {
     <li
       ref={setNodeRef}
       style={{
-        transform: CSS.Transform.toString(transform),
+        transform: CSS.Translate.toString(transform),
         transition,
         opacity: isDragging ? 0.5 : 1,
       }}

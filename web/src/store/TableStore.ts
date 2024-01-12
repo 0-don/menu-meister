@@ -116,8 +116,6 @@ const TableStore = proxy({
         : []),
     ].filter(Boolean) as ItemType[];
 
-    if (TableStore.active) TableStore.activeItems = items;
-
     return {
       overGroup,
       activeGroup,
@@ -148,10 +146,11 @@ const TableStore = proxy({
   onDragOver: ({ active, over }: DragOverEvent) => {
     const data = TableStore.dragEvenData({ active, over });
     const overId = over?.id;
-    console.log("over", over);
+    console.log(data);
     if (!overId) return;
-    console.log(JSON.parse(JSON.stringify(data)));
+
     if (data.activeGroup !== data.overGroup) {
+      TableStore.activeItems = data.items;
       TableStore.moveBetweenContainers(
         data.activeGroup,
         data.activeIndex,
