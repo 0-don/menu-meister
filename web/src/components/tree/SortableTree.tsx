@@ -19,7 +19,7 @@ import { useSnapshot } from "valtio";
 
 export function SortableTree() {
   const dashboardStore = useSnapshot(DashboardStore);
-  const { active: act } = useSnapshot(TableStore, { sync: true });
+  const { active: act, activeItems } = useSnapshot(TableStore, { sync: true });
   const { schedules, regroupSchedules } = useSnapshot(TableStore);
 
   useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
@@ -28,6 +28,8 @@ export function SortableTree() {
   const activeId = act?.id;
   // console.log(JSON.parse(JSON.stringify(schedules)));
   // console.log(JSON.parse(JSON.stringify(act || "")), activeGroup);
+
+  console.log(JSON.parse(JSON.stringify(act || "")));
   return (
     <>
       <DndContext
@@ -70,11 +72,13 @@ export function SortableTree() {
           ))}
         </div>
         <DragOverlay>
-          {!activeId ? null : TableStore.isContainer(activeGroup, activeId) ? (
+          {!activeId ? null : activeItems.find((i) => i.container) ? (
             <Container id={activeId}>
-              {TableStore.getItems(activeGroup, activeId)?.map((item) => (
-                <Item key={item.id} id={item.id} />
-              ))}
+              {activeItems
+                .filter((i) => !i.container)
+                .map((item) => (
+                  <Item key={item.id} id={item.id} />
+                ))}
             </Container>
           ) : (
             <Item id={activeId} drag />

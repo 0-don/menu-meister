@@ -21,6 +21,7 @@ export const PLACEHOLDER_KEY = "!";
 
 const TableStore = proxy({
   active: undefined as Active | undefined,
+  activeItems: [] as ItemType[],
   initialSchedules: INITIAL_DATAS,
   schedules: {} as GroupedSchedules,
   getItem: (
@@ -107,12 +108,16 @@ const TableStore = proxy({
     const overIndex = TableStore.schedules[overGroup || key].findIndex(
       (item) => item.id === over?.id,
     );
+
     const items = [
       TableStore.findItem(activeGroup, active.id),
-      TableStore.isContainer(activeGroup, active.id)
+      ...(TableStore.isContainer(activeGroup, active.id)
         ? TableStore.getItems(activeGroup, active.id)
-        : null,
+        : []),
     ].filter(Boolean) as ItemType[];
+
+    if (TableStore.active) TableStore.activeItems = items;
+
     return {
       overGroup,
       activeGroup,
@@ -143,6 +148,7 @@ const TableStore = proxy({
   onDragOver: ({ active, over }: DragOverEvent) => {
     const data = TableStore.dragEvenData({ active, over });
     const overId = over?.id;
+    console.log("over", over);
     if (!overId) return;
     console.log(JSON.parse(JSON.stringify(data)));
     if (data.activeGroup !== data.overGroup) {
