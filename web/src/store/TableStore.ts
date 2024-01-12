@@ -107,7 +107,12 @@ const TableStore = proxy({
     const overIndex = TableStore.schedules[overGroup || key].findIndex(
       (item) => item.id === over?.id,
     );
-
+    const items = [
+      TableStore.findItem(activeGroup, active.id),
+      ...(TableStore.isContainer(activeGroup, active.id)
+        ? TableStore.getItems(activeGroup, active.id)
+        : []),
+    ].filter(Boolean) as ItemType[];
     return {
       overGroup,
       activeGroup,
@@ -116,6 +121,7 @@ const TableStore = proxy({
       key,
       activeIndex,
       overIndex,
+      items,
     };
   },
   // ###########################################################
@@ -139,23 +145,13 @@ const TableStore = proxy({
     const overId = over?.id;
     if (!overId) return;
 
-    const activeContainer = TableStore.getGroup(active);
-    const overContainer = TableStore.getGroup(over);
-
-    const items = [
-      TableStore.findItem(data.activeGroup, active.id),
-      ...(TableStore.isContainer(data.activeGroup, active.id)
-        ? TableStore.getItems(data.activeGroup, active.id)
-        : []),
-    ].filter(Boolean) as ItemType[];
-    if (activeContainer !== overContainer) {
-      const data = TableStore.dragEvenData({ active, over });
+    if (data.activeGroup !== data.overGroup) {
       TableStore.moveBetweenContainers(
-        activeContainer,
+        data.activeGroup,
         data.activeIndex,
-        overContainer,
+        data.overGroup,
         data.overIndex,
-        items,
+        data.items,
       );
     }
     // const overParent = TableStore.findParent(data.overGroup, over?.id);
@@ -217,41 +213,25 @@ const TableStore = proxy({
   },
   onDragEnd: ({ active, over, delta }: DragEndEvent) => {
     let data = TableStore.dragEvenData({ active, over });
-    if (!over) {
-      TableStore.active = undefined;
-      return;
-    }
+    if (!over) return (TableStore.active = undefined);
 
-    const items = [
-      TableStore.findItem(data.activeGroup, active.id),
-      ...(TableStore.isContainer(data.activeGroup, active.id)
-        ? TableStore.getItems(data.activeGroup, active.id)
-        : []),
-    ].filter(Boolean) as ItemType[];
     if (active.id !== over.id) {
-      const activeContainer = TableStore.getGroup(active);
-      const overContainer = TableStore.getGroup(over);
-      const activeIndex = active.data.current?.sortable.index;
-      const overIndex = over.data.current?.sortable.index;
-
-      if (activeContainer === overContainer) {
-        TableStore.active = undefined;
-        TableStore.schedules[activeContainer] = arrayMove(
-          TableStore.schedules[activeContainer],
-          activeIndex,
-          overIndex,
+      if (data.activeGroup === data.overGroup) {
+        TableStore.schedules[data.activeGroup] = arrayMove(
+          TableStore.schedules[data.activeGroup],
+          data.activeIndex,
+          data.overIndex,
         );
       } else {
         TableStore.moveBetweenContainers(
-          activeContainer,
-          activeIndex,
-          overContainer,
-          overIndex,
-          items,
+          data.activeGroup,
+          data.activeIndex,
+          data.overGroup,
+          data.overIndex,
+          data.items,
         );
       }
     }
-
     // if (!data.activeItem) return (TableStore.active = undefined);
 
     // //drag to empty new day
@@ -282,7 +262,7 @@ const TableStore = proxy({
     //   );
     // }
 
-    // TableStore.active = undefined;
+    TableStore.active = undefined;
   },
 
   moveBetweenContainers: (
