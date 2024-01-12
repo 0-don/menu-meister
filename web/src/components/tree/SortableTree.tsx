@@ -1,7 +1,6 @@
 "use client";
 import DashboardStore from "@/store/DashboardStore";
 import TableStore, { PLACEHOLDER_KEY } from "@/store/TableStore";
-import { debounce } from "@/utils/constants";
 import {
   DndContext,
   DragOverlay,
@@ -14,30 +13,21 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import React, { ReactNode, forwardRef, useCallback, useEffect } from "react";
+import React, { ReactNode, forwardRef, useEffect } from "react";
 import { useSnapshot } from "valtio";
 
 export function SortableTree() {
-  const { activeItems } = TableStore;
   const dashboardStore = useSnapshot(DashboardStore);
-  const { active: act } = useSnapshot(TableStore, { sync: true });
   const { schedules, regroupSchedules } = useSnapshot(TableStore);
 
   useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
 
-  const activeGroup = TableStore.getGroup(act);
-  const activeId = act?.id;
-  const container = activeItems.find((i) => i.container);
-  const containerItems = activeItems.filter((i) => !i.container);
-  // console.log(JSON.parse(JSON.stringify(schedules)));
-  // console.log(JSON.parse(JSON.stringify(act || "")), activeGroup);
-  // console.log(act?.id, JSON.parse(JSON.stringify(activeItems)));
   return (
     <>
       <DndContext
         onDragStart={({ active }) => (TableStore.active = active)}
         onDragCancel={() => (TableStore.active = undefined)}
-        onDragOver={useCallback(debounce(TableStore.onDragOver, 0), [])}
+        onDragOver={TableStore.onDragOver}
         onDragEnd={TableStore.onDragEnd}
       >
         <div className="flex w-full justify-between">
@@ -50,7 +40,7 @@ export function SortableTree() {
               <SortableContext
                 items={schedules[group].map(({ id }) => id)}
                 id={group}
-                strategy={verticalListSortingStrategy}
+                // strategy={verticalListSortingStrategy}
               >
                 <ul>
                   {!schedules[group].length && (
@@ -74,21 +64,41 @@ export function SortableTree() {
             </div>
           ))}
         </div>
-        <DragOverlay adjustScale={false}>
-          {!activeId ? null : container ? (
-            <Container id={container.id}>
-              {containerItems.map((item) => (
-                <Item key={item.id} id={item.id} />
-              ))}
-            </Container>
-          ) : (
-            <Item id={activeId} drag />
-          )}
-        </DragOverlay>
+        <Overlay />
       </DndContext>
     </>
   );
 }
+
+function Overlay() {
+  const { active: act } = useSnapshot(TableStore, { sync: true });
+  const { schedules } = useSnapshot(TableStore);
+  const items = Object.entries(schedules).flatMap(([group, items]) => {
+    return items.filter((i) => i.id === act?.id || i.parent === act?.id);
+  });
+  console.log(items);
+  // console.log(JSON.parse(JSON.stringify(schedules)));
+  // console.log(JSON.parse(JSON.stringify(act || "")), activeGroup);
+  // console.log(act?.id, JSON.parse(JSON.stringify(activeItems)));
+
+  const activeId = act?.id;
+  const container = items.find((i) => i.container);
+  const containerItems = items.filter((i) => !i.container);
+  return (
+    <DragOverlay adjustScale={false}>
+      {!activeId ? null : container ? (
+        <Container id={container.id}>
+          {containerItems.map((item) => (
+            <Item key={item.id} id={item.id} />
+          ))}
+        </Container>
+      ) : (
+        <Item id={activeId} drag />
+      )}
+    </DragOverlay>
+  );
+}
+
 function PlaceholderDroppable(props: {
   id: UniqueIdentifier;
   children: ReactNode;
