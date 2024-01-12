@@ -18,7 +18,9 @@ import { useSnapshot } from "valtio";
 
 export function SortableTree() {
   const dashboardStore = useSnapshot(DashboardStore);
-  const { schedules, regroupSchedules } = useSnapshot(TableStore);
+  const { schedules, regroupSchedules } = useSnapshot(TableStore, {
+    sync: true,
+  });
 
   useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
 
@@ -44,9 +46,7 @@ export function SortableTree() {
               >
                 <ul>
                   {!schedules[group].length && (
-                    <PlaceholderDroppable className="min-h-96" id={group}>
-                      test
-                    </PlaceholderDroppable>
+                    <PlaceholderDroppable className="min-h-96" id={group} />
                   )}
                   {TableStore.getGroupItems(group)?.map((item) => (
                     <div key={item.id}>
@@ -75,7 +75,7 @@ function Overlay() {
   const items = TableStore.getItems(active?.id);
   const container = items.find((i) => i.container);
   const containerItems = items.filter((i) => !i.container);
-  
+
   return (
     <DragOverlay adjustScale={false}>
       {!active?.id ? null : container ? (
@@ -93,7 +93,7 @@ function Overlay() {
 
 function PlaceholderDroppable(props: {
   id: UniqueIdentifier;
-  children: ReactNode;
+
   className?: string;
 }) {
   const { setNodeRef } = useDroppable({
@@ -101,11 +101,7 @@ function PlaceholderDroppable(props: {
     data: { group: props.id },
   });
 
-  return (
-    <div className={props.className} ref={setNodeRef}>
-      {props.children}
-    </div>
-  );
+  return <div className={props.className} ref={setNodeRef}></div>;
 }
 const Container = forwardRef(
   (

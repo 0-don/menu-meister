@@ -146,7 +146,6 @@ const TableStore = proxy({
   onDragOver: ({ active, over }: DragOverEvent) => {
     const data = TableStore.dragEvenData({ active, over });
 
-    console.log(active, over);
     if (!over?.id) return;
 
     if (data.activeGroup !== data.overGroup) {
