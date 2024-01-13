@@ -184,7 +184,6 @@ const TableStore = proxy({
     ) {
       return TableStore.handleFooterAreaDrag(active, over);
     }
-    // console.log(active, over, data);
     if (active.id === over?.id) return;
 
     const containerId = data.isOverContainer ? over?.id : data.overParent;
@@ -226,30 +225,6 @@ const TableStore = proxy({
 
       return (TableStore.active = undefined);
     }
-    // if (!data.activeItem) return (TableStore.active = undefined);
-
-    // if (
-    //   over?.id.toString().includes(PLACEHOLDER_KEY) &&
-    //   !TableStore.isContainer(TableStore.getGroup(active), active.id)
-    // ) {
-    //   TableStore.handleFooterAreaDrag(active, over);
-    //   return (TableStore.active = undefined);
-    // }
-
-    // data.overIndex =
-    //   data.overIndex < 0
-    //     ? delta.y > 0
-    //       ? TableStore.schedules[data.key].length
-    //       : 0
-    //     : data.overIndex;
-
-    // if (data.activeIndex !== data.overIndex) {
-    //   TableStore.schedules[data.key] = arrayMove(
-    //     TableStore.schedules[data.key],
-    //     data.activeIndex,
-    //     data.overIndex,
-    //   );
-    // }
 
     TableStore.active = undefined;
   },
