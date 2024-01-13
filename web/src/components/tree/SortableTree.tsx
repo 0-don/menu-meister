@@ -73,7 +73,7 @@ function Overlay() {
   const items = TableStore.getItems(active?.id);
   const container = items.find((i) => i.container);
   const containerItems = items.filter((i) => !i.container);
-
+  console.log(JSON.parse(JSON.stringify(items)));
   return (
     <DragOverlay>
       {!active?.id || !items.length ? null : container ? (

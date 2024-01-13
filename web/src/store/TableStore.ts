@@ -158,40 +158,24 @@ const TableStore = proxy({
       data.overGroup &&
       data.activeGroup !== data.overGroup
     ) {
-      TableStore.moveBetweenContainers(
+      return TableStore.moveBetweenContainers(
         data.activeGroup,
         data.overGroup,
         data.overIndex,
         data.activeItems,
       );
     }
-    // const overParent = TableStore.findParent(data.overGroup, over?.id);
+
     // if (
-    //   !data.activeItem ||
-    //   (data.activeItem?.container && data.overItem?.container) || // dragging over a container
-    //   overParent === active.id // dragging over a child
-    // )
-    //   return;
-    // if (data.overGroup === over?.id) {
-    //   const items = [
-    //     TableStore.findItem(data.activeGroup, active.id),
-    //     ...(TableStore.isContainer(data.activeGroup, active.id)
-    //       ? TableStore.getItems(data.activeGroup, active.id)
-    //       : []),
-    //   ].filter(Boolean) as ItemType[];
-    //   TableStore.schedules[data.activeGroup] = TableStore.schedules[
-    //     data.activeGroup
-    //   ].filter((item) => !items.some((i) => i.id === item.id));
-    //   TableStore.schedules[over?.id] = items;
-    //   return;
-    // }
-    // if (
+    //   data.activeGroup &&
     //   over?.id.toString().includes(PLACEHOLDER_KEY) &&
     //   !TableStore.isContainer(data.activeGroup, active.id)
     // ) {
     //   return TableStore.handleFooterAreaDrag(active, over);
     // }
+
     // if (!data.activeGroup) return;
+
     // let newIndex;
     // if (data.overIndex >= 0) {
     //   const isLastIndex =
@@ -206,20 +190,22 @@ const TableStore = proxy({
     // } else {
     //   newIndex = TableStore.schedules[data.overGroup || data.key].length;
     // }
-    // // Finding the next parent for the dragged item
+
+    // // // Finding the next parent for the dragged item
     // let nextParent;
     // if (TableStore.isContainer(data.overGroup, over?.id)) {
     //   nextParent = over?.id;
     // } else {
     //   nextParent = TableStore.findParent(data.overGroup, over?.id);
     // }
-    // // Updating the parent of the active item and moving it in the array
-    // if(!TableStore.schedules[data.key][data.activeIndex]) return;
+
+    // // // Updating the parent of the active item and moving it in the array
+    // if (!TableStore.schedules[data.key][data.activeIndex]) return;
     // TableStore.schedules[data.key][data.activeIndex].parent = nextParent;
     // TableStore.schedules[data.key] = arrayMove(
     //   TableStore.schedules[data.key],
     //   data.activeIndex,
-    //   newIndex,
+    //   newIndex
     // );
   },
   onDragEnd: ({ active, over, delta }: DragEndEvent) => {
@@ -244,6 +230,8 @@ const TableStore = proxy({
           data.activeItems,
         );
       }
+
+      return (TableStore.active = undefined);
     }
     // if (!data.activeItem) return (TableStore.active = undefined);
 
@@ -260,20 +248,20 @@ const TableStore = proxy({
     //   return (TableStore.active = undefined);
     // }
 
-    // data.overIndex =
-    //   data.overIndex < 0
-    //     ? delta.y > 0
-    //       ? TableStore.schedules[data.key].length
-    //       : 0
-    //     : data.overIndex;
+    data.overIndex =
+      data.overIndex < 0
+        ? delta.y > 0
+          ? TableStore.schedules[data.key].length
+          : 0
+        : data.overIndex;
 
-    // if (data.activeIndex !== data.overIndex) {
-    //   TableStore.schedules[data.key] = arrayMove(
-    //     TableStore.schedules[data.key],
-    //     data.activeIndex,
-    //     data.overIndex,
-    //   );
-    // }
+    if (data.activeIndex !== data.overIndex) {
+      TableStore.schedules[data.key] = arrayMove(
+        TableStore.schedules[data.key],
+        data.activeIndex,
+        data.overIndex,
+      );
+    }
 
     TableStore.active = undefined;
   },
