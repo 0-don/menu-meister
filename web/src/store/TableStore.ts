@@ -108,6 +108,14 @@ const TableStore = proxy({
     const activeItems = TableStore.getItems(active.id);
     const activeItem = activeItems.at(0);
     const overItem = TableStore.getItems(over?.id).at(0);
+    const isOverContainer = TableStore.isContainer(overGroup, over?.id);
+    const overParent = TableStore.findParent(overGroup, over?.id);
+    const isActiveContainer = activeGroup
+      ? TableStore.isContainer(activeGroup, active.id)
+      : false;
+    const activeParent = activeGroup
+      ? TableStore.findParent(activeGroup, active.id)
+      : undefined;
     const key = overGroup ?? activeGroup;
     const activeIndex = activeGroup
       ? TableStore.schedules[activeGroup].findIndex(
@@ -129,6 +137,10 @@ const TableStore = proxy({
       activeIndex,
       overIndex,
       activeItems,
+      isOverContainer,
+      overParent,
+      isActiveContainer,
+      activeParent,
     };
   },
   // ###########################################################
@@ -149,17 +161,19 @@ const TableStore = proxy({
 
   onDragOver: ({ active, over }: DragOverEvent) => {
     const data = TableStore.dragEvenData({ active, over });
+
     if (
       data.activeGroup &&
       data.overGroup &&
       data.activeGroup !== data.overGroup
     ) {
-      console.log("moveBetweenContainers");
       return TableStore.moveBetweenContainers(
         data.activeGroup,
         data.overGroup,
         data.overIndex,
-        data.activeItems,
+        data.isActiveContainer
+          ? data.activeItems
+          : data.activeItems.map((item) => ({ ...item, parent: undefined })),
       );
     }
 
@@ -173,20 +187,9 @@ const TableStore = proxy({
     // console.log(active, over, data);
     if (active.id === over?.id) return;
 
-    const containerId = TableStore.isContainer(data.overGroup, over?.id)
-      ? over?.id
-      : TableStore.findParent(data.overGroup, over?.id);
+    const containerId = data.isOverContainer ? over?.id : data.overParent;
 
-    if (
-      data.activeGroup &&
-      data.overGroup &&
-      TableStore.findParent(data.overGroup, over?.id) !== active.id
-    ) {
-      console.log(
-        "container",
-        TableStore.isContainer(data.overGroup, over?.id),
-        TableStore.findParent(data.overGroup, over?.id),
-      );
+    if (data.activeGroup && data.overGroup && data.overParent !== active.id) {
       TableStore.schedules[data.activeGroup][data.activeIndex].parent =
         containerId;
       TableStore.schedules[data.overGroup] = arrayMove(
