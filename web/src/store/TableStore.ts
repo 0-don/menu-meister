@@ -154,6 +154,7 @@ const TableStore = proxy({
       data.overGroup &&
       data.activeGroup !== data.overGroup
     ) {
+      console.log("moveBetweenContainers");
       return TableStore.moveBetweenContainers(
         data.activeGroup,
         data.overGroup,
@@ -169,19 +170,33 @@ const TableStore = proxy({
     ) {
       return TableStore.handleFooterAreaDrag(active, over);
     }
+    // console.log(active, over, data);
+    if (active.id === over?.id) return;
 
     const containerId = TableStore.isContainer(data.overGroup, over?.id)
       ? over?.id
       : TableStore.findParent(data.overGroup, over?.id);
 
-    TableStore.schedules[data.overGroup][data.activeIndex].parent = containerId;
-    TableStore.schedules[data.overGroup] = arrayMove(
-      TableStore.schedules[data.overGroup],
-      data.activeIndex,
-      data.overIndex >= 0
-        ? data.overIndex
-        : TableStore.schedules[data.overGroup].length,
-    );
+    if (
+      data.activeGroup &&
+      data.overGroup &&
+      TableStore.findParent(data.overGroup, over?.id) !== active.id
+    ) {
+      console.log(
+        "container",
+        TableStore.isContainer(data.overGroup, over?.id),
+        TableStore.findParent(data.overGroup, over?.id),
+      );
+      TableStore.schedules[data.activeGroup][data.activeIndex].parent =
+        containerId;
+      TableStore.schedules[data.overGroup] = arrayMove(
+        TableStore.schedules[data.overGroup],
+        data.activeIndex,
+        containerId
+          ? data.overIndex
+          : (TableStore.schedules[data.overGroup] || []).length,
+      );
+    }
   },
   onDragEnd: ({ active, over, delta }: DragEndEvent) => {
     let data = TableStore.dragEvenData({ active, over });

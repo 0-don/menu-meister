@@ -31,7 +31,7 @@ export function SortableTree() {
       onDragOver={useCallback(debounce(TableStore.onDragOver, 0), [])}
       onDragEnd={TableStore.onDragEnd}
     >
-      <div className="flex w-full justify-between">
+      <div className="flex w-full justify-between space-x-5">
         {Object.keys(schedules).map((group) => (
           <div
             key={group}
