@@ -1,4 +1,3 @@
-import { GetAllMealSchedulesAdminQuery } from "@/gql/graphql";
 import { UniqueIdentifier } from "@dnd-kit/core";
 
 export const X_URL = "x-url";
@@ -9,20 +8,6 @@ export const ROLES = "roles";
 
 export const localePath = async (locale: string): Promise<Messages> =>
   (await import(`../../public/locales/${locale}.json`)).default;
-
-export const WEEK_GROUP = {
-  Monday: [],
-  Tuesday: [],
-  Wednesday: [],
-  Thursday: [],
-  Friday: [],
-  Saturday: [],
-  Sunday: [],
-} as {
-  [key: string]: NonNullable<
-    GetAllMealSchedulesAdminQuery["getAllMealSchedulesAdmin"]
-  >;
-};
 
 export function debounce(fn: (...args: any) => any, ms: number) {
   let timer: NodeJS.Timeout | undefined = undefined;
@@ -102,8 +87,8 @@ export const INITIAL_DATAS: DaySchedule[] = [
           id: "group2",
           name: "lunch",
           meals: [
-            { id: "meal7", name: "soup" },
-            { id: "meal8", name: "burger" },
+            // { id: "meal7", name: "soup" },
+            // { id: "meal8", name: "burger" },
           ],
         },
       },

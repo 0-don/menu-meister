@@ -51,22 +51,21 @@ const TableStore = proxy({
 
     TableStore.initialSchedules.forEach(({ schedules, servingDate }) => {
       const formattedDate = dayjs(servingDate).format("YYYY-MM-DD");
-      schedules.forEach(
-        (schedule) =>
-          newGroupedSchedules[formattedDate]?.push(
-            ...(schedule.group
-              ? [
-                  {
-                    id: `${schedule.id}#${schedule.group.id}`,
-                    container: true,
-                  },
-                  ...schedule.group.meals.map((meal, index) => ({
-                    id: `${schedule.id}#${meal.id}#${index}`,
-                    parent: `${schedule.id}#${schedule.group?.id}`,
-                  })),
-                ]
-              : [{ id: `${schedule.id}#${schedule.meal?.id}` }]),
-          ),
+      schedules.forEach((schedule) =>
+        newGroupedSchedules[formattedDate]?.push(
+          ...(schedule.group
+            ? [
+                {
+                  id: `${schedule.id}#${schedule.group.id}`,
+                  container: true,
+                },
+                ...schedule.group.meals.map((meal, index) => ({
+                  id: `${schedule.id}#${meal.id}#${index}`,
+                  parent: `${schedule.id}#${schedule.group?.id}`,
+                })),
+              ]
+            : [{ id: `${schedule.id}#${schedule.meal?.id}` }]),
+        ),
       );
     });
     TableStore.schedules = newGroupedSchedules;
@@ -150,13 +149,11 @@ const TableStore = proxy({
 
   onDragOver: ({ active, over }: DragOverEvent) => {
     const data = TableStore.dragEvenData({ active, over });
-    console.log(active, over);
     if (
       data.activeGroup &&
       data.overGroup &&
       data.activeGroup !== data.overGroup
     ) {
-      // if (!over?.id) return;
       return TableStore.moveBetweenContainers(
         data.activeGroup,
         data.overGroup,
@@ -173,39 +170,18 @@ const TableStore = proxy({
       return TableStore.handleFooterAreaDrag(active, over);
     }
 
-    // if (!data.activeGroup) return;
+    const containerId = TableStore.isContainer(data.overGroup, over?.id)
+      ? over?.id
+      : TableStore.findParent(data.overGroup, over?.id);
 
-    // let newIndex;
-    // if (data.overIndex >= 0) {
-    //   const isLastIndex =
-    //     over &&
-    //     data.overIndex ===
-    //       TableStore.schedules[data.overGroup || data.key].length - 1;
-    //   if (isLastIndex) {
-    //     newIndex = data.overIndex + 1;
-    //   } else {
-    //     newIndex = data.overIndex;
-    //   }
-    // } else {
-    //   newIndex = TableStore.schedules[data.overGroup || data.key].length;
-    // }
-
-    // // // Finding the next parent for the dragged item
-    // let nextParent;
-    // if (TableStore.isContainer(data.overGroup, over?.id)) {
-    //   nextParent = over?.id;
-    // } else {
-    //   nextParent = TableStore.findParent(data.overGroup, over?.id);
-    // }
-
-    // // // Updating the parent of the active item and moving it in the array
-    // if (!TableStore.schedules[data.key][data.activeIndex]) return;
-    // TableStore.schedules[data.key][data.activeIndex].parent = nextParent;
-    // TableStore.schedules[data.key] = arrayMove(
-    //   TableStore.schedules[data.key],
-    //   data.activeIndex,
-    //   newIndex
-    // );
+    TableStore.schedules[data.overGroup][data.activeIndex].parent = containerId;
+    TableStore.schedules[data.overGroup] = arrayMove(
+      TableStore.schedules[data.overGroup],
+      data.activeIndex,
+      data.overIndex >= 0
+        ? data.overIndex
+        : TableStore.schedules[data.overGroup].length,
+    );
   },
   onDragEnd: ({ active, over, delta }: DragEndEvent) => {
     let data = TableStore.dragEvenData({ active, over });

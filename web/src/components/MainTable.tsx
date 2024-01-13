@@ -4,20 +4,9 @@ import { GET_ALL_MEAL_SCHEDULES_ADMIN } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
 import { SortOrder } from "@/gql/graphql";
 import DashboardStore from "@/store/DashboardStore";
-
-import { WEEK_GROUP } from "@/utils/constants";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableColumn,
-  TableHeader,
-  TableRow,
-} from "@nextui-org/table";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import { useSnapshot } from "valtio";
-import { TableItem } from "./elements/TableItem";
 import { SortableTree } from "./tree/SortableTree";
 
 interface DashboardPageProps {}
@@ -36,16 +25,6 @@ export function MainTable({}: DashboardPageProps) {
     orderBy: { servingDate: SortOrder.Asc },
   });
 
-  const groupedMealSchedules = (data?.getAllMealSchedulesAdmin ?? []).reduce(
-    (acc, schedule) => {
-      const weekday = dayjs(schedule.servingDate, "DD.MM.YYYY").format("dddd");
-      acc[weekday] = acc[weekday] || [];
-      acc[weekday]?.push(schedule);
-      return acc;
-    },
-    structuredClone(WEEK_GROUP) as typeof WEEK_GROUP,
-  );
-
   return (
     <>
       {/* <Board items={data?.getAllMealSchedulesAdmin} /> */}
@@ -60,7 +39,7 @@ export function MainTable({}: DashboardPageProps) {
       {/* <Sorting /> */}
       <SortableTree />
       {/* <Sortable /> */}
-      <Table className="mt-5" aria-label="Table">
+      {/* <Table className="mt-5" aria-label="Table">
         <TableHeader>
           <TableColumn>{t("MONDAY")}</TableColumn>
           <TableColumn>{t("TUESDAY")}</TableColumn>
@@ -71,6 +50,7 @@ export function MainTable({}: DashboardPageProps) {
           <TableColumn>{t("SUNDAY")}</TableColumn>
         </TableHeader>
         <TableBody>
+          <div></div>
           <TableRow>
             {Object.entries(groupedMealSchedules).map(
               ([weekday, schedules]) => (
@@ -83,7 +63,7 @@ export function MainTable({}: DashboardPageProps) {
             )}
           </TableRow>
         </TableBody>
-      </Table>
+      </Table> */}
     </>
   );
 }
