@@ -146,26 +146,23 @@ const TableStore = proxy({
   // ###########################################################
 
   handleFooterAreaDrag: (active: Active, over: Over | null) => {
-    const containerId = over?.id.toString().split(PLACEHOLDER_KEY).at(0);
-    if (!containerId) return;
-
     const overGroup = TableStore.getGroupEvent(over);
+    if (!overGroup) return;
 
     const activeIndex = TableStore.schedules[overGroup].findIndex(
       (item) => item.id === active.id,
     );
-
-    if (activeIndex > -1) {
+    if (activeIndex > -1)
       TableStore.schedules[overGroup].splice(activeIndex, 1);
-    }
 
+    const containerId = over?.id.toString().split(PLACEHOLDER_KEY)[0];
     const containerIndex = TableStore.schedules[overGroup].findIndex(
       (item) => item.id === containerId,
     );
-
-    TableStore.schedules[overGroup].splice(containerIndex + 1, 0, {
-      id: active.id,
-    });
+    if (containerIndex > -1)
+      TableStore.schedules[overGroup].splice(containerIndex + 1, 0, {
+        id: active.id,
+      });
   },
 
   onDragOver: ({ active, over, collisions }: DragOverEvent) => {
@@ -178,7 +175,7 @@ const TableStore = proxy({
     ) {
       return TableStore.moveBetweenContainers(
         data.activeGroup,
-        data.overGroup || data.activeGroup,
+        data.overGroup,
         data.overIndex,
         data.isActiveContainer
           ? data.activeItems
@@ -195,7 +192,6 @@ const TableStore = proxy({
     }
 
     if (active.id === over?.id) return;
-
     if (
       data.isActiveContainer &&
       (TableStore.isContainer(data.overGroup, data.overParent) ||
@@ -204,7 +200,6 @@ const TableStore = proxy({
       return;
 
     const containerId = data.isOverContainer ? over?.id : data.overParent;
-
     if (data.activeGroup && data.overGroup && data.overParent !== active.id) {
       TableStore.schedules[data.activeGroup][data.activeIndex].parent =
         containerId;
@@ -213,33 +208,48 @@ const TableStore = proxy({
         data.activeIndex,
         containerId
           ? data.overIndex
-          : (TableStore.schedules[data.overGroup] || []).length,
+          : TableStore.schedules[data.overGroup].length,
       );
     }
   },
-  onDragEnd: ({ active, over, delta }: DragEndEvent) => {
-    let data = TableStore.dragEvenData({ active, over });
+  onDragEnd: ({ active, over }: DragEndEvent) => {
+    const data = TableStore.dragEvenData({ active, over });
+
+    if (
+      !over &&
+      data.activeGroup &&
+      !data.isActiveContainer &&
+      data.activeItem
+    ) {
+      TableStore.schedules[data.activeGroup] = TableStore.schedules[
+        data.activeGroup
+      ].filter((item) => item.id !== active.id);
+      data.activeItem.parent = undefined;
+      TableStore.schedules[data.activeGroup].unshift(data.activeItem);
+      return (TableStore.active = undefined);
+    }
+
     if (!over) return (TableStore.active = undefined);
-    if (active.id !== over.id) {
-      if (
-        data.activeGroup &&
-        data.overGroup &&
-        data.activeGroup === data.overGroup
-      ) {
-        console.log(active, over);
-        TableStore.schedules[data.activeGroup] = arrayMove(
-          TableStore.schedules[data.activeGroup],
-          data.activeIndex,
-          data.overIndex,
-        );
-      } else if (data.activeGroup && data.overGroup) {
-        TableStore.moveBetweenContainers(
-          data.activeGroup,
-          data.overGroup,
-          data.overIndex,
-          data.activeItems,
-        );
-      }
+
+    if (active.id === over?.id) return (TableStore.active = undefined);
+
+    if (
+      data.activeGroup &&
+      data.overGroup &&
+      data.activeGroup === data.overGroup
+    ) {
+      TableStore.schedules[data.activeGroup] = arrayMove(
+        TableStore.schedules[data.activeGroup],
+        data.activeIndex,
+        data.overIndex,
+      );
+    } else if (data.activeGroup && data.overGroup) {
+      TableStore.moveBetweenContainers(
+        data.activeGroup,
+        data.overGroup,
+        data.overIndex,
+        data.activeItems,
+      );
     }
 
     TableStore.active = undefined;
