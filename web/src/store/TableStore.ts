@@ -148,20 +148,29 @@ const TableStore = proxy({
   handleFooterAreaDrag: (active: Active, over: Over | null) => {
     const containerId = over?.id.toString().split(PLACEHOLDER_KEY).at(0);
     if (!containerId) return;
+
     const overGroup = TableStore.getGroupEvent(over);
-    const updatedItems = TableStore.schedules[overGroup].filter(
-      (item) => item.id !== active.id,
+
+    const activeIndex = TableStore.schedules[overGroup].findIndex(
+      (item) => item.id === active.id,
     );
-    const containerIndex = updatedItems.findIndex(
+
+    if (activeIndex > -1) {
+      TableStore.schedules[overGroup].splice(activeIndex, 1);
+    }
+
+    const containerIndex = TableStore.schedules[overGroup].findIndex(
       (item) => item.id === containerId,
     );
-    updatedItems.splice(containerIndex + 1, 0, { id: active.id });
-    TableStore.schedules[overGroup] = updatedItems;
+
+    TableStore.schedules[overGroup].splice(containerIndex + 1, 0, {
+      id: active.id,
+    });
   },
 
   onDragOver: ({ active, over, collisions }: DragOverEvent) => {
     const data = TableStore.dragEvenData({ active, over });
-    console.log(active, over, collisions);
+
     if (
       data.activeGroup &&
       data.overGroup &&
@@ -169,7 +178,7 @@ const TableStore = proxy({
     ) {
       return TableStore.moveBetweenContainers(
         data.activeGroup,
-        data.overGroup,
+        data.overGroup || data.activeGroup,
         data.overIndex,
         data.isActiveContainer
           ? data.activeItems
@@ -184,7 +193,15 @@ const TableStore = proxy({
     ) {
       return TableStore.handleFooterAreaDrag(active, over);
     }
+
     if (active.id === over?.id) return;
+
+    if (
+      data.isActiveContainer &&
+      (TableStore.isContainer(data.overGroup, data.overParent) ||
+        data.isOverContainer)
+    )
+      return;
 
     const containerId = data.isOverContainer ? over?.id : data.overParent;
 
@@ -209,6 +226,7 @@ const TableStore = proxy({
         data.overGroup &&
         data.activeGroup === data.overGroup
       ) {
+        console.log(active, over);
         TableStore.schedules[data.activeGroup] = arrayMove(
           TableStore.schedules[data.activeGroup],
           data.activeIndex,
@@ -222,8 +240,6 @@ const TableStore = proxy({
           data.activeItems,
         );
       }
-
-      return (TableStore.active = undefined);
     }
 
     TableStore.active = undefined;
