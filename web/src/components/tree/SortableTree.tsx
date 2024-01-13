@@ -127,7 +127,7 @@ function SortableContainer({
   id: UniqueIdentifier;
   group: string;
 }) {
-  const { setNodeRef } = useDroppable({ id, data: { group, container: true } });
+  const { setNodeRef } = useDroppable({ id, data: { group } });
   const placheolderId = `${id}${PLACEHOLDER_KEY}${group}`;
   const { setNodeRef: ref } = useSortable({
     id: placheolderId,
@@ -136,7 +136,7 @@ function SortableContainer({
 
   return (
     <div>
-      <SortableItem id={id} group={group} container>
+      <SortableItem id={id} group={group}>
         <Container id={id} ref={setNodeRef}>
           <SortableContext
             items={(TableStore.getGroupItems(group, id) || []).map(
@@ -172,7 +172,6 @@ function SortableItem(props: {
   children: ReactNode;
   id: UniqueIdentifier;
   group: string;
-  container?: boolean;
 }) {
   const {
     attributes,
@@ -183,7 +182,7 @@ function SortableItem(props: {
     isDragging,
   } = useSortable({
     id: props.id,
-    data: { group: props.group, container: props.container },
+    data: { group: props.group },
   });
   return (
     <li

@@ -165,7 +165,7 @@ const TableStore = proxy({
       });
   },
 
-  onDragOver: ({ active, over, collisions }: DragOverEvent) => {
+  onDragOver: ({ active, over }: DragOverEvent) => {
     const data = TableStore.dragEvenData({ active, over });
 
     if (
