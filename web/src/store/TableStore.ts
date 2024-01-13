@@ -159,9 +159,9 @@ const TableStore = proxy({
     TableStore.schedules[overGroup] = updatedItems;
   },
 
-  onDragOver: ({ active, over }: DragOverEvent) => {
+  onDragOver: ({ active, over, collisions }: DragOverEvent) => {
     const data = TableStore.dragEvenData({ active, over });
-
+    console.log(active, over, collisions);
     if (
       data.activeGroup &&
       data.overGroup &&
