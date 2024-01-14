@@ -13,6 +13,7 @@ import { MealIngredientModule } from "./meal-ingredient/meal-ingredient.module";
 import { MealModule } from "./meal/meal.module";
 import { NutritionModule } from "./nutrition/nutrition.module";
 import { UserModule } from "./user/user.module";
+import { WeeklyMealGroupModule } from "./weekly-meal-group/weekly-meal-group.module";
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { UserModule } from "./user/user.module";
     NutritionModule,
     MealModule,
     MealIngredientModule,
+    WeeklyMealGroupModule,
   ],
   controllers: [],
   providers: [

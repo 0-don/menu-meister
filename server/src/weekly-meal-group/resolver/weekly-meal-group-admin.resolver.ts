@@ -7,19 +7,20 @@ import { FindManyWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-mea
 import { UpdateManyWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/update-many-weekly-meal-group.args";
 import { UpdateOneWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/update-one-weekly-meal-group.args";
 import { UpsertOneWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/upsert-one-weekly-meal-group.args";
+import { WeeklyMealGroup } from "@/app_modules/@generated/weekly-meal-group/weekly-meal-group.model";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import { GraphQLResolveInfo } from "graphql";
-import { WeeklyMealGroup } from "../weekly-meal-group.service";
+import { WeeklyMealGroupService } from "../weekly-meal-group.service";
 
 @Resolver(() => WeeklyMealGroup)
 export class WeeklyMealGroupAdminResolver {
   constructor(
     private prisma: PrismaService,
-    private weeklyMealGroupService: WeeklyMealGroup,
+    private weeklyMealGroupService: WeeklyMealGroupService,
   ) {}
 
   @Query(() => [WeeklyMealGroup], { nullable: true })
