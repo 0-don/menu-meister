@@ -3,8 +3,10 @@
 import { GET_ALL_WEEKLY_MEAL_GROUPS_ADMIN } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
 import DashboardStore from "@/store/DashboardStore";
+import { rectSortingStrategy } from "@dnd-kit/sortable";
 import { useTranslations } from "next-intl";
 import { useSnapshot } from "valtio";
+import { MultipleContainers } from "./tree/MultipleContainers";
 
 interface DashboardPageProps {}
 
@@ -26,7 +28,16 @@ export function MainTable({}: DashboardPageProps) {
       {/* <Board items={data?.getAllMealSchedulesAdmin} /> */}
 
       {/* <MultipleContainers /> */}
-
+      <MultipleContainers
+        columns={2}
+        itemCount={5}
+        strategy={rectSortingStrategy}
+        wrapperStyle={() => ({
+          width: 150,
+          height: 150,
+        })}
+        vertical
+      />
       {/* <MultipleTrees2 /> */}
 
       {/* <BackupTree /> */}
