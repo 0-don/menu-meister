@@ -179,7 +179,6 @@ const TableStore = proxy({
     const data = TableStore.dragEvenData({ active, over });
     console.log("drag", active, over, data.activeGroup, data.overGroup);
 
-
     // // diffrent week check
     // if (active && data.overGroup && !data.activeGroup) {
     //   console.log("if move from outside", TableStore.items);
@@ -239,7 +238,6 @@ const TableStore = proxy({
     }
 
     const data = TableStore.dragEvenData({ active, over });
-
 
     // drag to the top outside of container
     if (

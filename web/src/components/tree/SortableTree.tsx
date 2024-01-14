@@ -6,7 +6,6 @@ import {
   DndContext,
   DragOverlay,
   UniqueIdentifier,
-  closestCorners,
   useDroppable,
 } from "@dnd-kit/core";
 import {
@@ -14,7 +13,6 @@ import {
   useSortable,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 import React, { ReactNode, forwardRef, useCallback, useEffect } from "react";
 import { useSnapshot } from "valtio";
 

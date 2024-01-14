@@ -46,22 +46,21 @@ const TableStore = proxy({
 
     TableStore.initialSchedules.forEach(({ schedules, servingDate }) => {
       const formattedDate = dayjs(servingDate).format("YYYY-MM-DD");
-      schedules.forEach(
-        (schedule) =>
-          newGroupedSchedules[formattedDate]?.push(
-            ...(schedule.group
-              ? [
-                  {
-                    id: `${schedule.id}#${schedule.group.id}`,
-                    container: true,
-                  },
-                  ...schedule.group.meals.map((meal, index) => ({
-                    id: `${schedule.id}#${meal.id}#${index}`,
-                    parent: `${schedule.id}#${schedule.group?.id}`,
-                  })),
-                ]
-              : [{ id: `${schedule.id}#${schedule.meal?.id}` }]),
-          ),
+      schedules.forEach((schedule) =>
+        newGroupedSchedules[formattedDate]?.push(
+          ...(schedule.group
+            ? [
+                {
+                  id: `${schedule.id}#${schedule.group.id}`,
+                  container: true,
+                },
+                ...schedule.group.meals.map((meal, index) => ({
+                  id: `${schedule.id}#${meal.id}#${index}`,
+                  parent: `${schedule.id}#${schedule.group?.id}`,
+                })),
+              ]
+            : [{ id: `${schedule.id}#${schedule.meal?.id}` }]),
+        ),
       );
     });
     TableStore.schedules = newGroupedSchedules;
