@@ -165,14 +165,16 @@ const TableStore = proxy({
       });
   },
 
-  handleWeekChange(active: Active, over: Over | null) {},
+  handleWeekChange(active: Active, over: Over | null) {
+    if (over?.id === "back") DashboardStore.decrementWeek();
+    if (over?.id === "next") DashboardStore.incrementWeek();
+  },
 
   onDragOver: ({ active, over }: DragOverEvent) => {
-    const data = TableStore.dragEvenData({ active, over });
-
     if (over?.id === "back" || over?.id === "next") {
       return TableStore.handleWeekChange(active, over);
     }
+    const data = TableStore.dragEvenData({ active, over });
 
     if (
       data.activeGroup &&
@@ -219,10 +221,11 @@ const TableStore = proxy({
     }
   },
   onDragEnd: ({ active, over }: DragEndEvent) => {
-    const data = TableStore.dragEvenData({ active, over });
     if (over?.id === "back" || over?.id === "next") {
       return TableStore.handleWeekChange(active, over);
     }
+
+    const data = TableStore.dragEvenData({ active, over });
 
     if (
       !over &&
