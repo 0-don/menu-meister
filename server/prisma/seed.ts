@@ -137,7 +137,15 @@ async function seedWeeklyMealGroups() {
   const startYear = currentYear - 2;
   const endYear = currentYear + 2;
   const groupsPerWeek = 3;
-
+  const dayFields = [
+    "mondayMealId",
+    "tuesdayMealId",
+    "wednesdayMealId",
+    "thursdayMealId",
+    "fridayMealId",
+    "saturdayMealId",
+    "sundayMealId",
+  ];
   for (let year = startYear; year <= endYear; year++) {
     for (let week = 1; week <= 52; week++) {
       for (let groupIndex = 0; groupIndex < groupsPerWeek; groupIndex++) {
@@ -146,6 +154,7 @@ async function seedWeeklyMealGroups() {
           data: {
             name: faker.commerce.productName(),
             description: faker.lorem.sentence(),
+            color: faker.internet.color(),
             weekOfYear: week,
             orderIndex: groupIndex,
             year,
@@ -153,16 +162,6 @@ async function seedWeeklyMealGroups() {
             updatedBy: user.id,
           },
         });
-
-        const dayFields = [
-          "mondayMealId",
-          "tuesdayMealId",
-          "wednesdayMealId",
-          "thursdayMealId",
-          "fridayMealId",
-          "saturdayMealId",
-          "sundayMealId",
-        ];
 
         for (const dayField of dayFields) {
           const randomMeal = meals[randomInt(0, meals.length - 1)];

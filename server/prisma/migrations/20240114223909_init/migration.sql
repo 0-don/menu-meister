@@ -93,7 +93,7 @@ CREATE TABLE `Meal` (
 CREATE TABLE `WeeklyMealGroup` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
-    `color` VARCHAR(255) NULL,
+    `color` VARCHAR(7) NULL,
     `description` TEXT NULL,
     `year` INTEGER NOT NULL,
     `weekOfYear` INTEGER NOT NULL,

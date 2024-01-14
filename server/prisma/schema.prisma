@@ -167,7 +167,7 @@ model Meal {
 model WeeklyMealGroup {
   id          Int     @id @default(autoincrement())
   name        String  @db.VarChar(255)
-  color       String? @db.VarChar(255)
+  color       String? @db.VarChar(7)
   description String? @db.Text
   year        Int
   weekOfYear  Int // ISO week numbers
