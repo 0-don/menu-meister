@@ -178,12 +178,20 @@ const TableStore = proxy({
     }
     const data = TableStore.dragEvenData({ active, over });
     console.log("drag", active, over, data.activeGroup, data.overGroup);
+
+
+    // // diffrent week check
+    // if (active && data.overGroup && !data.activeGroup) {
+    //   console.log("if move from outside", TableStore.items);
+    //   return (TableStore.schedules[data.overGroup] = [{ id: active.id }]);
+    // }
+
     if (
       data.activeGroup &&
       data.overGroup &&
       data.activeGroup !== data.overGroup
     ) {
-      console.log("move between containers");
+      console.log("if move between containers");
       return TableStore.moveBetweenContainers(
         data.activeGroup,
         data.overGroup,
@@ -224,13 +232,16 @@ const TableStore = proxy({
     }
   },
   onDragEnd: ({ active, over }: DragEndEvent) => {
-    console.log(active, over);
+    TableStore.items = [];
+    // console.log(active, over);
     if (over?.id === "back" || over?.id === "next") {
       return TableStore.handleWeekChange(active, over);
     }
 
     const data = TableStore.dragEvenData({ active, over });
 
+
+    // drag to the top outside of container
     if (
       !over &&
       data.activeGroup &&
@@ -276,6 +287,7 @@ const TableStore = proxy({
     overIndex: number,
     items: ItemType[],
   ) => {
+    console.log("move between containers");
     const itemIds = new Set(items.map((item) => item.id));
 
     // Remove the block of items from the active container

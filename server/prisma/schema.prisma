@@ -63,20 +63,16 @@ model User {
   createdUserRoles UserRole[] @relation("CreatedUserRole")
   updatedUserRoles UserRole[] @relation("UpdatedUserRole")
 
-  createdIngredients     Ingredient[]     @relation("CreatedIngredient")
-  updatedIngredients     Ingredient[]     @relation("UpdatedIngredient")
-  createdNutritions      Nutrition[]      @relation("CreatedNutrition")
-  updatedNutritions      Nutrition[]      @relation("UpdatedNutrition")
-  createdMeals           Meal[]           @relation("CreatedMeal")
-  updatedMeals           Meal[]           @relation("UpdatedMeal")
-  createdMealSchedulers  MealSchedule[]   @relation("CreatedMealSchedule")
-  updatedMealSchedulers  MealSchedule[]   @relation("UpdatedMealSchedule")
-  createdMealIngredients MealIngredient[] @relation("CreatedMealIngredient")
-  updatedMealIngredients MealIngredient[] @relation("UpdatedMealIngredient")
-  createdMealGroups      MealGroup[]      @relation("CreatedMealGroup")
-  updatedMealGroups      MealGroup[]      @relation("UpdatedMealGroup")
-  createdScheduledMeals  ScheduleMeal[]   @relation("CreatedScheduledMeal")
-  updatedScheduledMeals  ScheduleMeal[]   @relation("UpdatedScheduledMeal")
+  createdIngredients      Ingredient[]      @relation("CreatedIngredient")
+  updatedIngredients      Ingredient[]      @relation("UpdatedIngredient")
+  createdNutritions       Nutrition[]       @relation("CreatedNutrition")
+  updatedNutritions       Nutrition[]       @relation("UpdatedNutrition")
+  createdMeals            Meal[]            @relation("CreatedMeal")
+  updatedMeals            Meal[]            @relation("UpdatedMeal")
+  createdMealIngredients  MealIngredient[]  @relation("CreatedMealIngredient")
+  updatedMealIngredients  MealIngredient[]  @relation("UpdatedMealIngredient")
+  createdWeeklyMealGroups WeeklyMealGroup[] @relation("CreatedWeeklyMealGroup")
+  updatedWeeklyMealGroups WeeklyMealGroup[] @relation("UpdatedWeeklyMealGroup")
 
   UserRole UserRole[]
 }
@@ -150,8 +146,6 @@ model Meal {
   image       String? @db.Text
 
   mealIngredients MealIngredient[]
-  mealGroups      MealGroup[]      @relation("MealsInGroup")
-  scheduledMeals  ScheduleMeal[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -160,59 +154,48 @@ model Meal {
 
   createdByUser User @relation("CreatedMeal", fields: [createdBy], references: [id])
   updatedByUser User @relation("UpdatedMeal", fields: [updatedBy], references: [id])
+
+  mondayMealGroups    WeeklyMealGroup[] @relation("MondayMeal")
+  tuesdayMealGroups   WeeklyMealGroup[] @relation("TuesdayMeal")
+  wednesdayMealGroups WeeklyMealGroup[] @relation("WednesdayMeal")
+  thursdayMealGroups  WeeklyMealGroup[] @relation("ThursdayMeal")
+  fridayMealGroups    WeeklyMealGroup[] @relation("FridayMeal")
+  saturdayMealGroups  WeeklyMealGroup[] @relation("SaturdayMeal")
+  sundayMealGroups    WeeklyMealGroup[] @relation("SundayMeal")
 }
 
-model MealSchedule {
-  id          Int      @id @default(autoincrement())
-  servingDate DateTime @unique @db.Date
-
-  scheduledMeals ScheduleMeal[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  createdBy Int?     @db.Int
-  updatedBy Int?     @db.Int
-
-  createdByUser User? @relation("CreatedMealSchedule", fields: [createdBy], references: [id])
-  updatedByUser User? @relation("UpdatedMealSchedule", fields: [updatedBy], references: [id])
-}
-
-model ScheduleMeal {
-  id             Int  @id @default(autoincrement())
-  mealScheduleId Int
-  mealGroupId    Int?
-  mealId         Int?
-
-  mealSchedule MealSchedule @relation(fields: [mealScheduleId], references: [id], onDelete: Cascade)
-  mealGroup    MealGroup?   @relation(fields: [mealGroupId], references: [id])
-  meal         Meal?        @relation(fields: [mealId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  createdBy Int      @db.Int
-  updatedBy Int      @db.Int
-
-  createdByUser User @relation("CreatedScheduledMeal", fields: [createdBy], references: [id])
-  updatedByUser User @relation("UpdatedScheduledMeal", fields: [updatedBy], references: [id])
-
-  @@unique([mealScheduleId, mealGroupId, mealId])
-}
-
-model MealGroup {
+model WeeklyMealGroup {
   id          Int     @id @default(autoincrement())
   name        String  @db.VarChar(255)
+  color       String? @db.VarChar(255)
   description String? @db.Text
+  weekOfYear  Int // ISO week numbers
+  orderIndex  Int // To manage the vertical order of groups
 
-  scheduledMeals ScheduleMeal[]
-  meals          Meal[]         @relation("MealsInGroup")
+  mondayMealId    Int?
+  tuesdayMealId   Int?
+  wednesdayMealId Int?
+  thursdayMealId  Int?
+  fridayMealId    Int?
+  saturdayMealId  Int?
+  sundayMealId    Int?
+
+  mondayMeal    Meal? @relation("MondayMeal", fields: [mondayMealId], references: [id])
+  tuesdayMeal   Meal? @relation("TuesdayMeal", fields: [tuesdayMealId], references: [id])
+  wednesdayMeal Meal? @relation("WednesdayMeal", fields: [wednesdayMealId], references: [id])
+  thursdayMeal  Meal? @relation("ThursdayMeal", fields: [thursdayMealId], references: [id])
+  fridayMeal    Meal? @relation("FridayMeal", fields: [fridayMealId], references: [id])
+  saturdayMeal  Meal? @relation("SaturdayMeal", fields: [saturdayMealId], references: [id])
+  sundayMeal    Meal? @relation("SundayMeal", fields: [sundayMealId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  createdBy Int      @db.Int
-  updatedBy Int      @db.Int
 
-  createdByUser User @relation("CreatedMealGroup", fields: [createdBy], references: [id])
-  updatedByUser User @relation("UpdatedMealGroup", fields: [updatedBy], references: [id])
+  createdBy Int @db.Int
+  updatedBy Int @db.Int
+
+  createdByUser User @relation("CreatedWeeklyMealGroup", fields: [createdBy], references: [id])
+  updatedByUser User @relation("UpdatedWeeklyMealGroup", fields: [updatedBy], references: [id])
 }
 
 model MealIngredient {

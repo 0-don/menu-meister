@@ -6,6 +6,7 @@ import {
   DndContext,
   DragOverlay,
   UniqueIdentifier,
+  closestCorners,
   useDroppable,
 } from "@dnd-kit/core";
 import {
@@ -93,13 +94,13 @@ function PlacholderWeek(props: {
 }
 
 function Overlay() {
-  let { active, items } = useSnapshot(TableStore, { sync: true });
-  items = items.length ? items : TableStore.getItems(active?.id);
+  const { active } = useSnapshot(TableStore, { sync: true });
+  const items = TableStore.getItems(active?.id);
   const container = items.find((i) => i.container);
   const containerItems = items.filter((i) => !i.container);
 
   return (
-    <DragOverlay>
+    <DragOverlay dropAnimation={null}>
       {!active?.id || !items.length ? null : container ? (
         <Container id={container.id}>
           {containerItems.map((item) => (
@@ -202,6 +203,7 @@ function SortableItem(props: {
     listeners,
     setNodeRef,
     transform,
+
     transition,
     isDragging,
   } = useSortable({
@@ -212,8 +214,8 @@ function SortableItem(props: {
     <li
       ref={setNodeRef}
       style={{
-        transform: CSS.Translate.toString(transform),
-        transition,
+        // transform: CSS.Translate.toString(transform),
+        // transition,
         opacity: isDragging ? 0.5 : 1,
       }}
       {...attributes}
