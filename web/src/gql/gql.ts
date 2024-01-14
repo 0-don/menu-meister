@@ -1,6 +1,6 @@
 /* eslint-disable */
-import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
-import * as types from "./graphql";
+import * as types from './graphql';
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 
 /**
  * Map of all GraphQL operations in the project.
@@ -13,15 +13,11 @@ import * as types from "./graphql";
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  "\n  mutation RegisterUser($data: RegisterUserInput!) {\n    registerUser(data: $data) {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n":
-    types.RegisterUserDocument,
-  "\n  mutation LoginUser($data: LoginUserInput!) {\n    loginUser(data: $data) {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n":
-    types.LoginUserDocument,
-  "\n  mutation Logout {\n    logout\n  }\n": types.LogoutDocument,
-  "\n  query Me {\n    me {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n":
-    types.MeDocument,
-  "\n  query GetAllMealSchedulesAdmin(\n    $where: MealScheduleWhereInput\n    $orderBy: [MealScheduleOrderByWithRelationInput!]\n    $cursor: MealScheduleWhereUniqueInput\n    $take: Int\n    $skip: Int\n    $distinct: [MealScheduleScalarFieldEnum!]\n  ) {\n    getAllMealSchedulesAdmin(\n      where: $where\n      orderBy: $orderBy\n      cursor: $cursor\n      take: $take\n      skip: $skip\n      distinct: $distinct\n    ) {\n      id\n      servingDate\n      createdAt\n      updatedAt\n      scheduledMeals {\n        id\n        mealGroupId\n        mealId\n        createdAt\n        updatedAt\n        meal {\n          id\n          name\n          description\n          image\n        }\n        mealGroup {\n          id\n          name\n          description\n          meals {\n            id\n            name\n            description\n            image\n          }\n        }\n      }\n    }\n  }\n":
-    types.GetAllMealSchedulesAdminDocument,
+    "\n  mutation RegisterUser($data: RegisterUserInput!) {\n    registerUser(data: $data) {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n": types.RegisterUserDocument,
+    "\n  mutation LoginUser($data: LoginUserInput!) {\n    loginUser(data: $data) {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n": types.LoginUserDocument,
+    "\n  mutation Logout {\n    logout\n  }\n": types.LogoutDocument,
+    "\n  query Me {\n    me {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n": types.MeDocument,
+    "\n  query GetAllWeeklyMealGroupsAdmin(\n    $where: WeeklyMealGroupWhereInput\n    $orderBy: [WeeklyMealGroupOrderByWithRelationInput!]\n    $cursor: WeeklyMealGroupWhereUniqueInput\n    $take: Int\n    $skip: Int\n    $distinct: [WeeklyMealGroupScalarFieldEnum!]\n  ) {\n    getAllWeeklyMealGroupsAdmin(\n      where: $where\n      orderBy: $orderBy\n      cursor: $cursor\n      take: $take\n      skip: $skip\n      distinct: $distinct\n    ) {\n      id\n      name\n      color\n      description\n      year\n      weekOfYear\n      orderIndex\n      mondayMeal {\n        id\n        name\n        description\n        image\n      }\n      tuesdayMeal {\n        id\n        name\n        description\n        image\n      }\n      wednesdayMeal {\n        id\n        name\n        description\n        image\n      }\n      thursdayMeal {\n        id\n        name\n        description\n        image\n      }\n      fridayMeal {\n        id\n        name\n        description\n        image\n      }\n      saturdayMeal {\n        id\n        name\n        description\n        image\n      }\n      sundayMeal {\n        id\n        name\n        description\n        image\n      }\n    }\n  }\n": types.GetAllWeeklyMealGroupsAdminDocument,
 };
 
 /**
@@ -41,37 +37,26 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-  source: "\n  mutation RegisterUser($data: RegisterUserInput!) {\n    registerUser(data: $data) {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n",
-): (typeof documents)["\n  mutation RegisterUser($data: RegisterUserInput!) {\n    registerUser(data: $data) {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  mutation RegisterUser($data: RegisterUserInput!) {\n    registerUser(data: $data) {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation RegisterUser($data: RegisterUserInput!) {\n    registerUser(data: $data) {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-  source: "\n  mutation LoginUser($data: LoginUserInput!) {\n    loginUser(data: $data) {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n",
-): (typeof documents)["\n  mutation LoginUser($data: LoginUserInput!) {\n    loginUser(data: $data) {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  mutation LoginUser($data: LoginUserInput!) {\n    loginUser(data: $data) {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation LoginUser($data: LoginUserInput!) {\n    loginUser(data: $data) {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-  source: "\n  mutation Logout {\n    logout\n  }\n",
-): (typeof documents)["\n  mutation Logout {\n    logout\n  }\n"];
+export function graphql(source: "\n  mutation Logout {\n    logout\n  }\n"): (typeof documents)["\n  mutation Logout {\n    logout\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-  source: "\n  query Me {\n    me {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n",
-): (typeof documents)["\n  query Me {\n    me {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query Me {\n    me {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  query Me {\n    me {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-  source: "\n  query GetAllMealSchedulesAdmin(\n    $where: MealScheduleWhereInput\n    $orderBy: [MealScheduleOrderByWithRelationInput!]\n    $cursor: MealScheduleWhereUniqueInput\n    $take: Int\n    $skip: Int\n    $distinct: [MealScheduleScalarFieldEnum!]\n  ) {\n    getAllMealSchedulesAdmin(\n      where: $where\n      orderBy: $orderBy\n      cursor: $cursor\n      take: $take\n      skip: $skip\n      distinct: $distinct\n    ) {\n      id\n      servingDate\n      createdAt\n      updatedAt\n      scheduledMeals {\n        id\n        mealGroupId\n        mealId\n        createdAt\n        updatedAt\n        meal {\n          id\n          name\n          description\n          image\n        }\n        mealGroup {\n          id\n          name\n          description\n          meals {\n            id\n            name\n            description\n            image\n          }\n        }\n      }\n    }\n  }\n",
-): (typeof documents)["\n  query GetAllMealSchedulesAdmin(\n    $where: MealScheduleWhereInput\n    $orderBy: [MealScheduleOrderByWithRelationInput!]\n    $cursor: MealScheduleWhereUniqueInput\n    $take: Int\n    $skip: Int\n    $distinct: [MealScheduleScalarFieldEnum!]\n  ) {\n    getAllMealSchedulesAdmin(\n      where: $where\n      orderBy: $orderBy\n      cursor: $cursor\n      take: $take\n      skip: $skip\n      distinct: $distinct\n    ) {\n      id\n      servingDate\n      createdAt\n      updatedAt\n      scheduledMeals {\n        id\n        mealGroupId\n        mealId\n        createdAt\n        updatedAt\n        meal {\n          id\n          name\n          description\n          image\n        }\n        mealGroup {\n          id\n          name\n          description\n          meals {\n            id\n            name\n            description\n            image\n          }\n        }\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query GetAllWeeklyMealGroupsAdmin(\n    $where: WeeklyMealGroupWhereInput\n    $orderBy: [WeeklyMealGroupOrderByWithRelationInput!]\n    $cursor: WeeklyMealGroupWhereUniqueInput\n    $take: Int\n    $skip: Int\n    $distinct: [WeeklyMealGroupScalarFieldEnum!]\n  ) {\n    getAllWeeklyMealGroupsAdmin(\n      where: $where\n      orderBy: $orderBy\n      cursor: $cursor\n      take: $take\n      skip: $skip\n      distinct: $distinct\n    ) {\n      id\n      name\n      color\n      description\n      year\n      weekOfYear\n      orderIndex\n      mondayMeal {\n        id\n        name\n        description\n        image\n      }\n      tuesdayMeal {\n        id\n        name\n        description\n        image\n      }\n      wednesdayMeal {\n        id\n        name\n        description\n        image\n      }\n      thursdayMeal {\n        id\n        name\n        description\n        image\n      }\n      fridayMeal {\n        id\n        name\n        description\n        image\n      }\n      saturdayMeal {\n        id\n        name\n        description\n        image\n      }\n      sundayMeal {\n        id\n        name\n        description\n        image\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetAllWeeklyMealGroupsAdmin(\n    $where: WeeklyMealGroupWhereInput\n    $orderBy: [WeeklyMealGroupOrderByWithRelationInput!]\n    $cursor: WeeklyMealGroupWhereUniqueInput\n    $take: Int\n    $skip: Int\n    $distinct: [WeeklyMealGroupScalarFieldEnum!]\n  ) {\n    getAllWeeklyMealGroupsAdmin(\n      where: $where\n      orderBy: $orderBy\n      cursor: $cursor\n      take: $take\n      skip: $skip\n      distinct: $distinct\n    ) {\n      id\n      name\n      color\n      description\n      year\n      weekOfYear\n      orderIndex\n      mondayMeal {\n        id\n        name\n        description\n        image\n      }\n      tuesdayMeal {\n        id\n        name\n        description\n        image\n      }\n      wednesdayMeal {\n        id\n        name\n        description\n        image\n      }\n      thursdayMeal {\n        id\n        name\n        description\n        image\n      }\n      fridayMeal {\n        id\n        name\n        description\n        image\n      }\n      saturdayMeal {\n        id\n        name\n        description\n        image\n      }\n      sundayMeal {\n        id\n        name\n        description\n        image\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
-  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;
