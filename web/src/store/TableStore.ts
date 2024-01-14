@@ -21,6 +21,7 @@ export const PLACEHOLDER_KEY = "!";
 
 const TableStore = proxy({
   active: undefined as Active | undefined,
+  items: [] as ItemType[],
   initialSchedules: INITIAL_DATAS,
   schedules: {} as GroupedSchedules,
   getItem: (
@@ -106,6 +107,7 @@ const TableStore = proxy({
       TableStore.getGroup(over?.id) || TableStore.getGroupEvent(over);
     const activeGroup = TableStore.getGroup(active.id);
     const activeItems = TableStore.getItems(active.id);
+    TableStore.items = activeItems;
     const activeItem = activeItems.at(0);
     const overItem = TableStore.getItems(over?.id).at(0);
     const isOverContainer = TableStore.isContainer(overGroup, over?.id);
@@ -175,19 +177,20 @@ const TableStore = proxy({
       return TableStore.handleWeekChange(active, over);
     }
     const data = TableStore.dragEvenData({ active, over });
-
+    console.log("drag", active, over, data.activeGroup, data.overGroup);
     if (
       data.activeGroup &&
       data.overGroup &&
       data.activeGroup !== data.overGroup
     ) {
+      console.log("move between containers");
       return TableStore.moveBetweenContainers(
         data.activeGroup,
         data.overGroup,
         data.overIndex,
         data.isActiveContainer
-          ? data.activeItems
-          : data.activeItems.map((item) => ({ ...item, parent: undefined })),
+          ? TableStore.items
+          : TableStore.items.map((item) => ({ ...item, parent: undefined })),
       );
     }
 
@@ -221,6 +224,7 @@ const TableStore = proxy({
     }
   },
   onDragEnd: ({ active, over }: DragEndEvent) => {
+    console.log(active, over);
     if (over?.id === "back" || over?.id === "next") {
       return TableStore.handleWeekChange(active, over);
     }

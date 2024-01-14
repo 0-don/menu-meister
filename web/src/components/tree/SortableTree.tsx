@@ -93,8 +93,8 @@ function PlacholderWeek(props: {
 }
 
 function Overlay() {
-  const { active } = useSnapshot(TableStore, { sync: true });
-  const items = TableStore.getItems(active?.id);
+  let { active, items } = useSnapshot(TableStore, { sync: true });
+  items = items.length ? items : TableStore.getItems(active?.id);
   const container = items.find((i) => i.container);
   const containerItems = items.filter((i) => !i.container);
 
