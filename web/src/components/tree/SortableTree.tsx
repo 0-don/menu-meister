@@ -24,6 +24,7 @@ export function SortableTree() {
   });
 
   useEffect(regroupSchedules, [dashboardStore.daysThatWeek]);
+
   return (
     <DndContext
       onDragStart={({ active }) => (TableStore.active = active)}
@@ -32,6 +33,9 @@ export function SortableTree() {
       onDragEnd={TableStore.onDragEnd}
     >
       <div className="flex w-full justify-between space-x-5">
+        <PlacholderWeek id={"back"} className="min-h-96">
+          back
+        </PlacholderWeek>
         {Object.keys(schedules).map((group) => (
           <div
             key={group}
@@ -62,9 +66,29 @@ export function SortableTree() {
             </SortableContext>
           </div>
         ))}
+        <PlacholderWeek id={"next"} className="min-h-96">
+          next
+        </PlacholderWeek>
       </div>
       <Overlay />
     </DndContext>
+  );
+}
+
+function PlacholderWeek(props: {
+  id: UniqueIdentifier;
+  className?: string;
+  children?: ReactNode;
+}) {
+  const { setNodeRef } = useDroppable({
+    id: props.id,
+    data: { group: props.id },
+  });
+
+  return (
+    <div className={props.className} ref={setNodeRef}>
+      {props.children}
+    </div>
   );
 }
 
@@ -91,7 +115,6 @@ function Overlay() {
 
 function PlaceholderDroppable(props: {
   id: UniqueIdentifier;
-
   className?: string;
 }) {
   const { setNodeRef } = useDroppable({
@@ -101,6 +124,7 @@ function PlaceholderDroppable(props: {
 
   return <div className={props.className} ref={setNodeRef}></div>;
 }
+
 const Container = forwardRef(
   (
     props: { children: ReactNode; id: UniqueIdentifier },

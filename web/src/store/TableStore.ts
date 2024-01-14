@@ -165,8 +165,14 @@ const TableStore = proxy({
       });
   },
 
+  handleWeekChange(active: Active, over: Over | null) {},
+
   onDragOver: ({ active, over }: DragOverEvent) => {
     const data = TableStore.dragEvenData({ active, over });
+
+    if (over?.id === "back" || over?.id === "next") {
+      return TableStore.handleWeekChange(active, over);
+    }
 
     if (
       data.activeGroup &&
@@ -214,6 +220,9 @@ const TableStore = proxy({
   },
   onDragEnd: ({ active, over }: DragEndEvent) => {
     const data = TableStore.dragEvenData({ active, over });
+    if (over?.id === "back" || over?.id === "next") {
+      return TableStore.handleWeekChange(active, over);
+    }
 
     if (
       !over &&
