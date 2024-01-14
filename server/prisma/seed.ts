@@ -134,9 +134,9 @@ async function seedWeeklyMealGroups() {
   const meals = await prisma.meal.findMany();
 
   const currentYear = new Date().getFullYear();
-  const startYear = currentYear - 2; 
-  const endYear = currentYear + 2; 
-  const groupsPerWeek = 3; 
+  const startYear = currentYear - 2;
+  const endYear = currentYear + 2;
+  const groupsPerWeek = 3;
 
   for (let year = startYear; year <= endYear; year++) {
     for (let week = 1; week <= 52; week++) {
@@ -148,6 +148,7 @@ async function seedWeeklyMealGroups() {
             description: faker.lorem.sentence(),
             weekOfYear: week,
             orderIndex: groupIndex,
+            year,
             createdBy: user.id,
             updatedBy: user.id,
           },
@@ -179,6 +180,7 @@ async function seedWeeklyMealGroups() {
     }
   }
 }
+
 const seedMealIngredients = async (mealId: number, userId: number) => {
   const ingredients = await prisma.ingredient.findMany();
   const selectedIngredients = faker.helpers.uniqueArray(

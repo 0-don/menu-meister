@@ -169,6 +169,7 @@ model WeeklyMealGroup {
   name        String  @db.VarChar(255)
   color       String? @db.VarChar(255)
   description String? @db.Text
+  year        Int
   weekOfYear  Int // ISO week numbers
   orderIndex  Int // To manage the vertical order of groups
 

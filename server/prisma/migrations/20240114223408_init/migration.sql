@@ -95,6 +95,7 @@ CREATE TABLE `WeeklyMealGroup` (
     `name` VARCHAR(255) NOT NULL,
     `color` VARCHAR(255) NULL,
     `description` TEXT NULL,
+    `year` INTEGER NOT NULL,
     `weekOfYear` INTEGER NOT NULL,
     `orderIndex` INTEGER NOT NULL,
     `mondayMealId` INTEGER NULL,
