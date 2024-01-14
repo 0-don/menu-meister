@@ -5,7 +5,6 @@ import { useGqlQuery } from "@/fetcher";
 import DashboardStore from "@/store/DashboardStore";
 import { useTranslations } from "next-intl";
 import { useSnapshot } from "valtio";
-import { SortableTree } from "./tree/SortableTree";
 
 interface DashboardPageProps {}
 
@@ -20,6 +19,8 @@ export function MainTable({}: DashboardPageProps) {
     },
   });
 
+  console.log(data);
+
   return (
     <>
       {/* <Board items={data?.getAllMealSchedulesAdmin} /> */}
@@ -32,7 +33,7 @@ export function MainTable({}: DashboardPageProps) {
 
       {/* <Backup3 /> */}
       {/* <Sorting /> */}
-      <SortableTree />
+      {/* <SortableTree /> */}
       {/* <Sortable /> */}
       {/* <Table className="mt-5" aria-label="Table">
         <TableHeader>
