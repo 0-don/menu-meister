@@ -1,10 +1,8 @@
-import { GetAllMealSchedulesAdminQuery } from "@/gql/graphql";
+
 import React from "react";
 
 interface TableItemProps {
-  schedule: NonNullable<
-    GetAllMealSchedulesAdminQuery["getAllMealSchedulesAdmin"]
-  >[number];
+  schedule: any;
 }
 
 export const TableItem: React.FC<TableItemProps> = ({ schedule }) => {
