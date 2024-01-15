@@ -1,11 +1,28 @@
-.Wrapper {
-  display: flex;
-  width: 100%;
+.List {
+  display: grid;
+  grid-auto-rows: max-content;
   box-sizing: border-box;
+  min-width: 350px;
+  grid-gap: 10px;
   padding: 20px;
-  justify-content: flex-start;
+  padding-bottom: 0;
+  margin: 10px;
+  border-radius: 5px;
+  min-height: 200px;
+  transition: background-color 350ms ease;
+  grid-template-columns: repeat(
+    1,
+    1fr
+  ); /* Replace 'var(--columns, 1)' with actual default value */
+}
 
-  &.center {
-    justify-content: center;
-  }
+.List:after {
+  content: "";
+  height: 10px;
+  grid-column-start: span 1; /* Replace 'var(--columns, 1)' with actual default value */
+}
+
+.List.horizontal {
+  width: 100%;
+  grid-auto-flow: column;
 }
