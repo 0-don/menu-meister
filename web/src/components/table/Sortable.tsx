@@ -37,15 +37,17 @@ export function Sortable() {
       }}
       onDragCancel={() => setActiveId(null)}
     >
-      <Draggable id={1}>1</Draggable>
+      <Draggable id={"meal"}>meal</Draggable>
       <hr />
       <br />
       <br />
-      <SortableContext items={items} strategy={verticalListSortingStrategy}>
-        {items.map((value) => (
-          <SortableItem key={value} id={value} />
-        ))}
-      </SortableContext>
+      <div>
+        <SortableContext items={items} strategy={verticalListSortingStrategy}>
+          {items.map((value) => (
+            <SortableItem key={value} id={value} />
+          ))}
+        </SortableContext>
+      </div>
 
       <DragOverlay>{activeId ? <Item value={activeId} /> : null}</DragOverlay>
     </DndContext>
@@ -53,12 +55,19 @@ export function Sortable() {
 }
 
 export function SortableItem({ id }: { id: UniqueIdentifier }) {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    setActivatorNodeRef,
+  } = useSortable({ id });
 
   return (
     <Item
       ref={setNodeRef}
+      activatorRef={setActivatorNodeRef}
       value={id}
       transform={transform}
       transition={transition}
@@ -73,6 +82,7 @@ export interface ItemProps {
   listeners?: DraggableSyntheticListeners;
   transition?: string;
   value: React.ReactNode;
+  activatorRef?: (element: HTMLElement | null) => void;
 }
 
 export const Item = memo(
@@ -89,11 +99,16 @@ export const Item = memo(
               transition,
             } as React.CSSProperties
           }
-          {...listeners}
           {...props}
           ref={ref}
         >
-          <div className="mr-5">{value}</div>
+          <div
+            className="mr-5 bg-yellow-400 p-5"
+            {...listeners}
+            ref={props.activatorRef ? props.activatorRef : undefined}
+          >
+            {value}
+          </div>
           <div className="flex space-x-2">
             <Droppable id={`${"monday"}#${value}`}>drop</Droppable>
             <Droppable id={`${"tuesday"}#${value}`}>drop</Droppable>
