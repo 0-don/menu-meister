@@ -1,368 +1,149 @@
-import React, { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-
+import type { DraggableSyntheticListeners } from "@dnd-kit/core";
 import {
-  Active,
-  Announcements,
-  CollisionDetection,
   DndContext,
   DragOverlay,
-  DropAnimation,
-  KeyboardCoordinateGetter,
-  KeyboardSensor,
-  MeasuringConfiguration,
-  Modifiers,
-  MouseSensor,
-  PointerActivationConstraint,
-  ScreenReaderInstructions,
-  TouchSensor,
   UniqueIdentifier,
   closestCenter,
-  defaultDropAnimationSideEffects,
-  useSensor,
-  useSensors,
+  useDraggable,
+  useDroppable,
 } from "@dnd-kit/core";
 import {
-  AnimateLayoutChanges,
-  NewIndexGetter,
   SortableContext,
-  SortingStrategy,
   arrayMove,
-  rectSortingStrategy,
-  sortableKeyboardCoordinates,
   useSortable,
+  verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { Item } from "./Item";
-import { List } from "./List";
-import { Wrapper } from "./Wrapper";
+import type { Transform } from "@dnd-kit/utilities";
+import { CSS } from "@dnd-kit/utilities";
+import React, { forwardRef, memo, useState } from "react";
 
-const defaultInitializer = (index: number) => index;
-
-export function createRange<T = number>(
-  length: number,
-  initializer: (index: number) => any = defaultInitializer,
-): T[] {
-  return [...new Array(length)].map((_, index) => initializer(index));
-}
-
-export interface Props {
-  activationConstraint?: PointerActivationConstraint;
-  animateLayoutChanges?: AnimateLayoutChanges;
-  adjustScale?: boolean;
-  collisionDetection?: CollisionDetection;
-  coordinateGetter?: KeyboardCoordinateGetter;
-  Container?: any; // To-do: Fix me
-  dropAnimation?: DropAnimation | null;
-  getNewIndex?: NewIndexGetter;
-  handle?: boolean;
-  itemCount?: number;
-  items?: UniqueIdentifier[];
-  measuring?: MeasuringConfiguration;
-  modifiers?: Modifiers;
-  renderItem?: any;
-  removable?: boolean;
-  reorderItems?: typeof arrayMove;
-  strategy?: SortingStrategy;
-  style?: React.CSSProperties;
-  useDragOverlay?: boolean;
-  getItemStyles?(args: {
-    id: UniqueIdentifier;
-    index: number;
-    isSorting: boolean;
-    isDragOverlay: boolean;
-    overIndex: number;
-    isDragging: boolean;
-  }): React.CSSProperties;
-  wrapperStyle?(args: {
-    active: Pick<Active, "id"> | null;
-    index: number;
-    isDragging: boolean;
-    id: UniqueIdentifier;
-  }): React.CSSProperties;
-  isDisabled?(id: UniqueIdentifier): boolean;
-}
-
-const dropAnimationConfig: DropAnimation = {
-  sideEffects: defaultDropAnimationSideEffects({
-    styles: {
-      active: {
-        opacity: "0.5",
-      },
-    },
-  }),
-};
-
-const screenReaderInstructions: ScreenReaderInstructions = {
-  draggable: `
-    To pick up a sortable item, press the space bar.
-    While sorting, use the arrow keys to move the item.
-    Press space again to drop the item in its new position, or press escape to cancel.
-  `,
-};
-
-export function Sortable({
-  activationConstraint,
-  animateLayoutChanges,
-  adjustScale = false,
-  Container = List,
-  collisionDetection = closestCenter,
-  coordinateGetter = sortableKeyboardCoordinates,
-  dropAnimation = dropAnimationConfig,
-  getItemStyles = () => ({}),
-  getNewIndex,
-  handle = false,
-  itemCount = 16,
-  items: initialItems,
-  isDisabled = () => false,
-  measuring,
-  modifiers,
-  removable,
-  renderItem,
-  reorderItems = arrayMove,
-  strategy = rectSortingStrategy,
-  style,
-  useDragOverlay = true,
-  wrapperStyle = () => ({}),
-}: Props) {
-  const [items, setItems] = useState<UniqueIdentifier[]>(
-    () =>
-      initialItems ??
-      createRange<UniqueIdentifier>(itemCount, (index) => index + 1),
-  );
+export function Sortable() {
+  const [items, setItems] = useState<UniqueIdentifier[]>([1, 2, 3, 4]);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const sensors = useSensors(
-    useSensor(MouseSensor, {
-      activationConstraint,
-    }),
-    useSensor(TouchSensor, {
-      activationConstraint,
-    }),
-    useSensor(KeyboardSensor, {
-      // Disable smooth scrolling in Cypress automated tests
-      scrollBehavior: "Cypress" in window ? "auto" : undefined,
-      coordinateGetter,
-    }),
-  );
-  const isFirstAnnouncement = useRef(true);
   const getIndex = (id: UniqueIdentifier) => items.indexOf(id);
-  const getPosition = (id: UniqueIdentifier) => getIndex(id) + 1;
   const activeIndex = activeId ? getIndex(activeId) : -1;
-  const handleRemove = removable
-    ? (id: UniqueIdentifier) =>
-        setItems((items) => items.filter((item) => item !== id))
-    : undefined;
-  const announcements: Announcements = {
-    onDragStart({ active: { id } }) {
-      return `Picked up sortable item ${String(
-        id,
-      )}. Sortable item ${id} is in position ${getPosition(id)} of ${
-        items.length
-      }`;
-    },
-    onDragOver({ active, over }) {
-      // In this specific use-case, the picked up item's `id` is always the same as the first `over` id.
-      // The first `onDragOver` event therefore doesn't need to be announced, because it is called
-      // immediately after the `onDragStart` announcement and is redundant.
-      if (isFirstAnnouncement.current === true) {
-        isFirstAnnouncement.current = false;
-        return;
-      }
-
-      if (over) {
-        return `Sortable item ${
-          active.id
-        } was moved into position ${getPosition(over.id)} of ${items.length}`;
-      }
-
-      return;
-    },
-    onDragEnd({ active, over }) {
-      if (over) {
-        return `Sortable item ${
-          active.id
-        } was dropped at position ${getPosition(over.id)} of ${items.length}`;
-      }
-
-      return;
-    },
-    onDragCancel({ active: { id } }) {
-      return `Sorting was cancelled. Sortable item ${id} was dropped and returned to position ${getPosition(
-        id,
-      )} of ${items.length}.`;
-    },
-  };
-
-  useEffect(() => {
-    if (!activeId) {
-      isFirstAnnouncement.current = true;
-    }
-  }, [activeId]);
 
   return (
     <DndContext
-      accessibility={{
-        announcements,
-        screenReaderInstructions,
-      }}
-      sensors={sensors}
-      collisionDetection={collisionDetection}
-      onDragStart={({ active }) => {
-        if (!active) {
-          return;
-        }
-
-        setActiveId(active.id);
-      }}
+      collisionDetection={closestCenter}
+      onDragStart={({ active }) => setActiveId(active.id)}
       onDragEnd={({ over }) => {
         setActiveId(null);
-
         if (over) {
           const overIndex = getIndex(over.id);
-          if (activeIndex !== overIndex) {
-            setItems((items) => reorderItems(items, activeIndex, overIndex));
-          }
+          if (activeIndex !== overIndex)
+            setItems((items) => arrayMove(items, activeIndex, overIndex));
         }
       }}
       onDragCancel={() => setActiveId(null)}
-      measuring={measuring}
-      modifiers={modifiers}
     >
-      <Wrapper style={style} center>
-        <SortableContext items={items} strategy={strategy}>
-          <Container>
-            {items.map((value, index) => (
-              <SortableItem
-                key={value}
-                id={value}
-                handle={handle}
-                index={index}
-                style={getItemStyles}
-                wrapperStyle={wrapperStyle}
-                disabled={isDisabled(value)}
-                renderItem={renderItem}
-                onRemove={handleRemove}
-                animateLayoutChanges={animateLayoutChanges}
-                useDragOverlay={useDragOverlay}
-                getNewIndex={getNewIndex}
-              />
-            ))}
-          </Container>
-        </SortableContext>
-      </Wrapper>
-      {useDragOverlay
-        ? createPortal(
-            <DragOverlay
-              adjustScale={adjustScale}
-              dropAnimation={dropAnimation}
-            >
-              {activeId ? (
-                <Item
-                  value={items[activeIndex]}
-                  handle={handle}
-                  renderItem={renderItem}
-                  wrapperStyle={wrapperStyle({
-                    active: { id: activeId },
-                    index: activeIndex,
-                    isDragging: true,
-                    id: items[activeIndex],
-                  })}
-                  style={getItemStyles({
-                    id: items[activeIndex],
-                    index: activeIndex,
-                    isSorting: activeId !== null,
-                    isDragging: true,
-                    overIndex: -1,
-                    isDragOverlay: true,
-                  })}
-                  dragOverlay
-                />
-              ) : null}
-            </DragOverlay>,
-            document.body,
-          )
-        : null}
+      <Draggable id={1}>1</Draggable>
+      <hr />
+      <br />
+      <br />
+      <SortableContext items={items} strategy={verticalListSortingStrategy}>
+        {items.map((value) => (
+          <SortableItem key={value} id={value} />
+        ))}
+      </SortableContext>
+
+      <DragOverlay>{activeId ? <Item value={activeId} /> : null}</DragOverlay>
     </DndContext>
   );
 }
 
-interface SortableItemProps {
-  animateLayoutChanges?: AnimateLayoutChanges;
-  disabled?: boolean;
-  getNewIndex?: NewIndexGetter;
-  id: UniqueIdentifier;
-  index: number;
-  handle: boolean;
-  useDragOverlay?: boolean;
-  onRemove?(id: UniqueIdentifier): void;
-  style(values: any): React.CSSProperties;
-  renderItem?(args: any): React.ReactElement;
-  wrapperStyle: Props["wrapperStyle"];
-}
-
-export function SortableItem({
-  disabled,
-  animateLayoutChanges,
-  getNewIndex,
-  handle,
-  id,
-  index,
-  onRemove,
-  style,
-  renderItem,
-  useDragOverlay,
-  wrapperStyle,
-}: SortableItemProps) {
-  const {
-    active,
-    attributes,
-    isDragging,
-    isSorting,
-    listeners,
-    overIndex,
-    setNodeRef,
-    setActivatorNodeRef,
-    transform,
-    transition,
-  } = useSortable({
-    id,
-    animateLayoutChanges,
-    disabled,
-    getNewIndex,
-  });
+export function SortableItem({ id }: { id: UniqueIdentifier }) {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id });
 
   return (
     <Item
       ref={setNodeRef}
       value={id}
-      disabled={disabled}
-      dragging={isDragging}
-      sorting={isSorting}
-      handle={handle}
-      handleProps={
-        handle
-          ? {
-              ref: setActivatorNodeRef,
-            }
-          : undefined
-      }
-      renderItem={renderItem}
-      index={index}
-      style={style({
-        index,
-        id,
-        isDragging,
-        isSorting,
-        overIndex,
-      })}
-      onRemove={onRemove ? () => onRemove(id) : undefined}
       transform={transform}
       transition={transition}
-      wrapperStyle={wrapperStyle?.({ index, isDragging, active, id })}
       listeners={listeners}
-      data-index={index}
-      data-id={id}
-      dragOverlay={!useDragOverlay && isDragging}
       {...attributes}
     />
+  );
+}
+
+export interface ItemProps {
+  transform?: Transform | null;
+  listeners?: DraggableSyntheticListeners;
+  transition?: string;
+  value: React.ReactNode;
+}
+
+export const Item = memo(
+  forwardRef<HTMLLIElement, ItemProps>(
+    ({ listeners, transition, transform, value, ...props }, ref) => {
+      return (
+        <li
+          className="flex list-none items-center bg-gray-500 p-5"
+          style={
+            {
+              transform: transform
+                ? CSS.Transform.toString(transform)
+                : transform,
+              transition,
+            } as React.CSSProperties
+          }
+          {...listeners}
+          {...props}
+          ref={ref}
+        >
+          <div className="mr-5">{value}</div>
+          <div className="flex space-x-2">
+            <Droppable id={`${"monday"}#${value}`}>drop</Droppable>
+            <Droppable id={`${"tuesday"}#${value}`}>drop</Droppable>
+            <Droppable id={`${"wednesday"}#${value}`}>drop</Droppable>
+            <Droppable id={`${"thursday"}#${value}`}>drop</Droppable>
+            <Droppable id={`${"friday"}#${value}`}>drop</Droppable>
+            <Droppable id={`${"saturday"}#${value}`}>drop</Droppable>
+            <Droppable id={`${"sunday"}#${value}`}>drop</Droppable>
+          </div>
+        </li>
+      );
+    },
+  ),
+);
+
+export function Draggable(props: {
+  children: React.ReactNode;
+  id: UniqueIdentifier;
+}) {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: props.id,
+  });
+  const style = transform
+    ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+      }
+    : undefined;
+
+  return (
+    <button ref={setNodeRef} style={style} {...listeners} {...attributes}>
+      {props.children}
+    </button>
+  );
+}
+
+export function Droppable(props: {
+  children: React.ReactNode;
+  id: UniqueIdentifier;
+}) {
+  const { isOver, setNodeRef } = useDroppable({ id: props.id });
+
+  return (
+    <div
+      className="bg-red-500 p-5"
+      ref={setNodeRef}
+      style={{
+        color: isOver ? "green" : undefined,
+      }}
+    >
+      {props.children}
+    </div>
   );
 }
