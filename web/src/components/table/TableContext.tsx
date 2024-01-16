@@ -1,8 +1,7 @@
 import TableStore from "@/store/TableStore";
-import { DndContext, UniqueIdentifier } from "@dnd-kit/core";
+import { DndContext } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 import { useSnapshot } from "valtio";
 import { TableGroupRow } from "./TableGroupRow";
 
@@ -10,7 +9,6 @@ export function TableContext() {
   const t = useTranslations<"Dashboard">();
   const tableStore = useSnapshot(TableStore);
 
-  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   return (
     <main className="relative z-0 mt-5 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small">
       <div className="grid grid-cols-8 gap-2 rounded-lg bg-default-100 p-2 text-tiny font-semibold text-foreground-500">
