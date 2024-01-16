@@ -12,7 +12,7 @@ interface DroppableProps {
 
 export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
   const tableStore = useSnapshot(TableStore);
-  const { setNodeRef } = useDroppable({
+  const { setNodeRef, isOver } = useDroppable({
     id: `${group}#${day}`,
     data: { day, group },
   });
@@ -22,7 +22,7 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
   return (
     <div ref={setNodeRef}>
       {meal ? (
-        <TableMealItem day={day} group={group} meal={meal} />
+        <TableMealItem day={day} group={group} meal={meal} isOver={isOver} />
       ) : (
         <>
           <Card>

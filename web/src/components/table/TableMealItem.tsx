@@ -1,19 +1,21 @@
 import { Meal } from "@/gql/graphql";
 import { WeekDay } from "@/utils/types";
 import { UniqueIdentifier, useDraggable } from "@dnd-kit/core";
-import { Card, CardBody, CardHeader } from "@nextui-org/card";
+import { CSS } from "@dnd-kit/utilities";
 import Image from "next/image";
 
 interface TableMealItemProps {
   meal: Meal;
   day: WeekDay;
   group: UniqueIdentifier;
+  isOver?: boolean;
 }
 
 export const TableMealItem: React.FC<TableMealItemProps> = ({
   meal,
   day,
   group,
+  isOver,
 }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: `${group}#${day}#${meal.id}`,
@@ -21,21 +23,16 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
   });
 
   return (
-    <Card
-      className="py-4"
-      style={{
-        transform: transform
-          ? `translate3d(${transform?.x}px, ${transform?.y}px, 0)`
-          : undefined,
-      }}
-      ref={setNodeRef}
-      {...attributes}
-      {...listeners}
-    >
-      <CardHeader className="flex-col items-start px-4 pb-0 pt-2">
-        <p className="text-tiny font-bold uppercase">{meal.name}</p>
-      </CardHeader>
-      <CardBody className="overflow-visible py-2">
+    <>
+      <div
+        style={{
+          transform: CSS.Translate.toString(transform),
+          opacity: isOver ? 0.5 : 1,
+        }}
+        ref={setNodeRef}
+        {...attributes}
+        {...listeners}
+      >
         <Image
           alt="Card background"
           className="rounded-xl object-cover"
@@ -43,7 +40,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
           width={270}
           height={270}
         />
-      </CardBody>
-    </Card>
+      </div>
+    </>
   );
 };

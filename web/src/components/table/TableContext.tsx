@@ -15,7 +15,7 @@ export function TableContext() {
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   return (
-    <main className="relative z-0 flex w-full flex-col justify-between gap-4 overflow-auto rounded-large bg-content1 p-4 shadow-small mt-5">
+    <main className="relative z-0 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small mt-5">
       <div className="grid grid-cols-8 gap-2 rounded-lg bg-default-100 p-2 text-foreground-500 text-tiny font-semibold">
         <div></div>
         <div>{t("MONDAY")}</div>
