@@ -1,19 +1,31 @@
-import TableStore from "@/store/TableStore";
+import { Size } from "@/utils/types";
+import { UniqueIdentifier } from "@dnd-kit/core";
 import { Autocomplete, AutocompleteItem } from "@nextui-org/autocomplete";
 import React from "react";
-import { useSnapshot } from "valtio";
 
+interface MyAutocompleteProps {
+  label?: string;
+  size?: Size;
+  className?: string;
+  isClearable?: boolean;
+  value: UniqueIdentifier;
+  onChange: (value: UniqueIdentifier) => void;
+  items: { id: UniqueIdentifier; name: string }[];
+}
 
-interface MyAutocompleteProps {}
-
-export const MyAutocomplete: React.FC<MyAutocompleteProps> = ({}) => {
-  const tableStore = useSnapshot(TableStore);
-
+export const MyAutocomplete: React.FC<MyAutocompleteProps> = (props) => {
   return (
-    <Autocomplete label="Select a meal" className="max-w-xs" size="sm" >
-      {tableStore.mealsSorted.map((meal) => (
-        <AutocompleteItem key={meal.id} value={meal.id}>
-          {meal.name}
+    <Autocomplete
+      label={props.label}
+      className={props.className}
+      size={props.size}
+      isClearable={props.isClearable}
+      selectedKey={props.value}
+      onSelectionChange={props.onChange}
+    >
+      {props.items.map((item) => (
+        <AutocompleteItem key={item.id} value={item.id}>
+          {item.name}
         </AutocompleteItem>
       ))}
     </Autocomplete>
