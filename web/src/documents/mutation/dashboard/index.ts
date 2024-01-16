@@ -55,3 +55,9 @@ export const CREATE_WEEKLY_MEAL_GROUP_ADMIN = graphql(/* GraphQL */ `
     }
   }
 `);
+
+export const DELETE_WEEKLY_MEAL_GROUP_ADMIN = graphql(/* GraphQL */ `
+  mutation DeleteWeeklyMealGroupAdmin($id: String!) {
+    deleteWeeklyMealGroupAdmin(id: $id)
+  }
+`);

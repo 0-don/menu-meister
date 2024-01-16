@@ -13,6 +13,7 @@ generator nestgraphql {
   // noAtomicOperations             = true
   graphqlScalars_Bytes_name      = "GraphQLUpload"
   graphqlScalars_Bytes_specifier = "graphql-upload-minimal"
+  noTypeId                       = true
 }
 
 model Token {
