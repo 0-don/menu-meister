@@ -24,7 +24,7 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
       {meal ? (
         <TableMealItem day={day} group={group} meal={meal} isOver={isOver} />
       ) : (
-        <div className="flex h-full items-center justify-center">
+        <div className="flex h-full items-center justify-center flex-col space-y-2">
           <MyAutocomplete />
           <p>OR</p>
           <p>Drop here</p>

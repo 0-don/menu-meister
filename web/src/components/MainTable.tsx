@@ -37,7 +37,7 @@ export function MainTable({}: DashboardPageProps) {
   }, [getAllWeeklyMealGroupsAdmin]);
 
   useEffect(() => {
-    TableStore.meals = getAllWeeklyMealGroupsAdmin;
+    TableStore.meals = getAllMealsAdmin;
     TableStore.refetchMeals = refetchMeals;
   }, [getAllMealsAdmin]);
 
