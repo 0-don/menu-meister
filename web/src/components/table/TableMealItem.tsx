@@ -21,7 +21,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
 }) => {
   const tableStore = useSnapshot(TableStore);
   const id = `${group}#${day}#${meal.id}`;
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+  const { attributes, listeners, setNodeRef, transform, } = useDraggable({
     id: `${group}#${day}#${meal.id}`,
     data: { day, group, meal },
   });
