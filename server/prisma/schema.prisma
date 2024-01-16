@@ -21,16 +21,18 @@ model Token {
   token     String   @unique @db.VarChar(255)
   expiresIn DateTime
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
   /// @HideField({ output: false, input: true })
-  createdBy Int
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedBy Int
-
-  createdByUser User @relation("CreatedToken", fields: [createdBy], references: [id])
-  updatedByUser User @relation("UpdatedToken", fields: [updatedBy], references: [id])
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedToken", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedToken", fields: [updatedBy], references: [id])
 }
 
 model User {
@@ -45,16 +47,18 @@ model User {
   lastOnline DateTime @default(now())
   status     Boolean  @default(true)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
   /// @HideField({ output: false, input: true })
-  createdBy Int?
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedBy Int?
-
-  createdByUser User? @relation("CreatedUser", fields: [createdBy], references: [id])
-  updatedByUser User? @relation("UpdatedUser", fields: [updatedBy], references: [id])
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int?
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int?
+  /// @HideField({ output: false, input: true })
+  createdByUser User?    @relation("CreatedUser", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User?    @relation("UpdatedUser", fields: [updatedBy], references: [id])
 
   createdToken     Token[]    @relation("CreatedToken")
   updatedToken     Token[]    @relation("UpdatedToken")
@@ -82,16 +86,18 @@ model UserRole {
   userId Int
   name   UserRoleName
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
   /// @HideField({ output: false, input: true })
-  createdBy Int
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedBy Int
-
-  createdByUser User @relation("CreatedUserRole", fields: [createdBy], references: [id])
-  updatedByUser User @relation("UpdatedUserRole", fields: [updatedBy], references: [id])
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedUserRole", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedUserRole", fields: [updatedBy], references: [id])
 
   User User @relation(fields: [userId], references: [id])
 
@@ -106,15 +112,18 @@ model Ingredient {
   nutritions      Nutrition[]
   mealIngredients MealIngredient[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy Int
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedBy Int
-
-  createdByUser User @relation("CreatedIngredient", fields: [createdBy], references: [id])
-  updatedByUser User @relation("UpdatedIngredient", fields: [updatedBy], references: [id])
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedIngredient", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedIngredient", fields: [updatedBy], references: [id])
 }
 
 model Nutrition {
@@ -126,15 +135,18 @@ model Nutrition {
   fiber         Decimal    @db.Decimal(10, 2)
   ingredient    Ingredient @relation(fields: [ingredientId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy Int
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedBy Int
-
-  createdByUser User @relation("CreatedNutrition", fields: [createdBy], references: [id])
-  updatedByUser User @relation("UpdatedNutrition", fields: [updatedBy], references: [id])
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedNutrition", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedNutrition", fields: [updatedBy], references: [id])
 
   @@unique([ingredientId])
 }
@@ -147,13 +159,18 @@ model Meal {
 
   mealIngredients MealIngredient[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  createdBy Int      @db.Int
-  updatedBy Int      @db.Int
-
-  createdByUser User @relation("CreatedMeal", fields: [createdBy], references: [id])
-  updatedByUser User @relation("UpdatedMeal", fields: [updatedBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  createdAt     DateTime @default(now())
+  /// @HideField({ output: false, input: true })
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int      @db.Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int      @db.Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedMeal", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedMeal", fields: [updatedBy], references: [id])
 
   mondayMealGroups    WeeklyMealGroup[] @relation("MondayMeal")
   tuesdayMealGroups   WeeklyMealGroup[] @relation("TuesdayMeal")
@@ -189,14 +206,18 @@ model WeeklyMealGroup {
   saturdayMeal  Meal? @relation("SaturdayMeal", fields: [saturdayMealId], references: [id])
   sundayMeal    Meal? @relation("SundayMeal", fields: [sundayMealId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  createdBy Int @db.Int
-  updatedBy Int @db.Int
-
-  createdByUser User @relation("CreatedWeeklyMealGroup", fields: [createdBy], references: [id])
-  updatedByUser User @relation("UpdatedWeeklyMealGroup", fields: [updatedBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  createdAt     DateTime @default(now())
+  /// @HideField({ output: false, input: true })
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int      @db.Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int      @db.Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedWeeklyMealGroup", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedWeeklyMealGroup", fields: [updatedBy], references: [id])
 }
 
 model MealIngredient {
@@ -206,15 +227,18 @@ model MealIngredient {
   meal         Meal       @relation(fields: [mealId], references: [id])
   ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy Int
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedBy Int
-
-  createdByUser User @relation("CreatedMealIngredient", fields: [createdBy], references: [id])
-  updatedByUser User @relation("UpdatedMealIngredient", fields: [updatedBy], references: [id])
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedMealIngredient", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedMealIngredient", fields: [updatedBy], references: [id])
 
   @@id([mealId, ingredientId])
 }
