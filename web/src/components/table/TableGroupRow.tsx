@@ -31,15 +31,12 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
+        borderLeft: `5px solid ${group.color}`,
       }}
       {...attributes}
       ref={setNodeRef}
     >
-      <div
-        className="mr-5 p-5"
-        {...listeners}
-        ref={setActivatorNodeRef}
-      >
+      <div className="mr-5 p-5" {...listeners} ref={setActivatorNodeRef}>
         {group.name}
       </div>
       <Droppable day="monday" group={group.id} />

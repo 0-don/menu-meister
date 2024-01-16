@@ -1,9 +1,6 @@
 import TableStore from "@/store/TableStore";
-import { DndContext, UniqueIdentifier, closestCenter } from "@dnd-kit/core";
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { DndContext, UniqueIdentifier } from "@dnd-kit/core";
+import { SortableContext } from "@dnd-kit/sortable";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
@@ -15,8 +12,8 @@ export function TableContext() {
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   return (
-    <main className="relative z-0 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small mt-5">
-      <div className="grid grid-cols-8 gap-2 rounded-lg bg-default-100 p-2 text-foreground-500 text-tiny font-semibold">
+    <main className="relative z-0 mt-5 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small">
+      <div className="grid grid-cols-8 gap-2 rounded-lg bg-default-100 p-2 text-tiny font-semibold text-foreground-500">
         <div></div>
         <div>{t("MONDAY")}</div>
         <div>{t("TUESDAY")}</div>
@@ -27,22 +24,21 @@ export function TableContext() {
         <div>{t("SUNDAY")}</div>
       </div>
       <DndContext
-        collisionDetection={closestCenter}
-        onDragStart={({ active }) => setActiveId(active.id)}
+        onDragStart={({ active }) => (TableStore.active = active)}
         onDragEnd={({ active, over }) => {
           console.log(active, over);
-          setActiveId(null);
+          TableStore.active = undefined;
           // if (over) {
           //   const overIndex = getIndex(over.id);
           //   if (activeIndex !== overIndex)
           //     setItems((items) => arrayMove(items, activeIndex, overIndex));
           // }
         }}
-        onDragCancel={() => setActiveId(null)}
+        onDragCancel={() => (TableStore.active = undefined)}
       >
         <SortableContext
           items={tableStore.dataSorted.map((i) => i.id)}
-          strategy={verticalListSortingStrategy}
+          // strategy={verticalListSortingStrategy}
         >
           {tableStore.dataSorted.map((value) => (
             <TableGroupRow key={value.id} id={value.id} />

@@ -1,7 +1,6 @@
 import TableStore from "@/store/TableStore";
 import { WeekDay } from "@/utils/types";
 import { UniqueIdentifier, useDroppable } from "@dnd-kit/core";
-import { Card, CardBody } from "@nextui-org/card";
 import { useSnapshot } from "valtio";
 import { TableMealItem } from "./TableMealItem";
 
@@ -24,13 +23,7 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
       {meal ? (
         <TableMealItem day={day} group={group} meal={meal} isOver={isOver} />
       ) : (
-        <>
-          <Card>
-            <CardBody>
-              <p>drop here</p>
-            </CardBody>
-          </Card>
-        </>
+        <div className="flex h-full items-center justify-center">Drop here</div>
       )}
     </div>
   );

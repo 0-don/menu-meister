@@ -15,7 +15,7 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
       <head>
         <title>{process.env.NEXT_PUBLIC_BRAND_NAME}</title>
       </head>
-      <body className="h-full">
+      <body className="h-full overflow-x-hidden">
         <Providers>
           <span
             id="animation"

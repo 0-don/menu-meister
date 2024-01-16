@@ -2,10 +2,11 @@
 
 import { GetAllWeeklyMealGroupsAdminQuery, Meal } from "@/gql/graphql";
 import { WeekDay } from "@/utils/types";
-import { UniqueIdentifier } from "@dnd-kit/core";
+import { Active, UniqueIdentifier } from "@dnd-kit/core";
 import { proxy } from "valtio";
 
 const TableStore = proxy({
+  active: undefined as Active | undefined,
   data: undefined as GetAllWeeklyMealGroupsAdminQuery["getAllWeeklyMealGroupsAdmin"],
   get dataSorted() {
     return (TableStore.data || []).sort((a, b) => a.orderIndex - b.orderIndex);
