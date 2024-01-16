@@ -3,9 +3,19 @@
 import { GET_ALL_WEEKLY_MEAL_GROUPS_ADMIN } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
 import DashboardStore from "@/store/DashboardStore";
+import TableStore from "@/store/TableStore";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from "@nextui-org/table";
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
 import { useSnapshot } from "valtio";
-import { Sortable } from "./table/Sortable";
+import { TableContext } from "./table/TableContext";
 
 interface DashboardPageProps {}
 
@@ -20,31 +30,17 @@ export function MainTable({}: DashboardPageProps) {
     },
   });
 
+  useEffect(
+    () => void (TableStore.data = data?.getAllWeeklyMealGroupsAdmin),
+    [data],
+  );
+
   return (
     <>
-      {/* <Board items={data?.getAllMealSchedulesAdmin} /> */}
-
-      {/* <MultipleContainers /> */}
-      {/* <MultipleContainers
-        columns={2}
-        itemCount={5}
-        strategy={rectSortingStrategy}
-        wrapperStyle={() => ({
-          width: 150,
-          height: 150,
-        })}
-        vertical
-      /> */}
-      {/* <MultipleTrees2 /> */}
-
-      {/* <BackupTree /> */}
-      {<Sortable />}
-      {/* <Backup3 /> */}
-      {/* <Sorting /> */}
-      {/* <SortableTree /> */}
-      {/* <Sortable /> */}
-      {/* <Table className="mt-5" aria-label="Table">
+      <TableContext />
+      <Table className="mt-5" aria-label="Table">
         <TableHeader>
+          <TableColumn>Group</TableColumn>
           <TableColumn>{t("MONDAY")}</TableColumn>
           <TableColumn>{t("TUESDAY")}</TableColumn>
           <TableColumn>{t("WEDNESDAY")}</TableColumn>
@@ -53,21 +49,22 @@ export function MainTable({}: DashboardPageProps) {
           <TableColumn>{t("SATURDAY")}</TableColumn>
           <TableColumn>{t("SUNDAY")}</TableColumn>
         </TableHeader>
+
         <TableBody>
-          <div></div>
-          <TableRow>
-            {Object.entries(groupedMealSchedules).map(
-              ([weekday, schedules]) => (
-                <TableCell key={weekday} className="align-top">
-                  {schedules.map((schedule) => (
-                    <TableItem key={schedule.id} schedule={schedule} />
-                  ))}
-                </TableCell>
-              ),
-            )}
-          </TableRow>
+          {(data?.getAllWeeklyMealGroupsAdmin || []).map((group) => (
+            <TableRow key={group.id}>
+              <TableCell>{group.name}</TableCell>
+              <TableCell>{group.mondayMeal?.name}</TableCell>
+              <TableCell>{group.tuesdayMeal?.name}</TableCell>
+              <TableCell>{group.wednesdayMeal?.name}</TableCell>
+              <TableCell>{group.thursdayMeal?.name}</TableCell>
+              <TableCell>{group.fridayMeal?.name}</TableCell>
+              <TableCell>{group.saturdayMeal?.name}</TableCell>
+              <TableCell>{group.sundayMeal?.name}</TableCell>
+            </TableRow>
+          ))}
         </TableBody>
-      </Table> */}
+      </Table>
     </>
   );
 }

@@ -47,7 +47,7 @@ export function Sortable() {
   );
 }
 
-export function SortableItem({ id }: { id: UniqueIdentifier }) {
+function SortableItem({ id }: { id: UniqueIdentifier }) {
   const {
     attributes,
     listeners,
@@ -70,7 +70,7 @@ export function SortableItem({ id }: { id: UniqueIdentifier }) {
   );
 }
 
-export interface ItemProps {
+interface ItemProps {
   transform?: Transform | null;
   listeners?: DraggableSyntheticListeners;
   transition?: string;
@@ -78,7 +78,7 @@ export interface ItemProps {
   activatorRef?: (element: HTMLElement | null) => void;
 }
 
-export const Item = memo(
+ const Item = memo(
   forwardRef<HTMLLIElement, ItemProps>(
     ({ listeners, transition, transform, value, ...props }, ref) => {
       return (
@@ -117,7 +117,7 @@ export const Item = memo(
   ),
 );
 
-export function Draggable(props: {
+function Draggable(props: {
   children: React.ReactNode;
   id: UniqueIdentifier;
 }) {
@@ -141,7 +141,7 @@ export function Draggable(props: {
   );
 }
 
-export function Droppable(props: {
+function Droppable(props: {
   children: React.ReactNode;
   id: UniqueIdentifier;
 }) {
