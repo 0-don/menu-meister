@@ -7,7 +7,6 @@ export const CREATE_WEEKLY_MEAL_GROUP_ADMIN = graphql(/* GraphQL */ `
       ...WeeklyMealGroupFragment
     }
   }
-  ${WEEKLY_MEAL_GROUP_FRAGMENT}
 `);
 
 export const DELETE_WEEKLY_MEAL_GROUP_ADMIN = graphql(/* GraphQL */ `
@@ -18,5 +17,4 @@ export const DELETE_WEEKLY_MEAL_GROUP_ADMIN = graphql(/* GraphQL */ `
       ...WeeklyMealGroupFragment
     }
   }
-  ${WEEKLY_MEAL_GROUP_FRAGMENT}
 `);
