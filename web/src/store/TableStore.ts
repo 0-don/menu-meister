@@ -17,6 +17,9 @@ const TableStore = proxy({
   get dataSorted() {
     return (TableStore.data || []).sort((a, b) => a.orderIndex - b.orderIndex);
   },
+  get mealsSorted() {
+    return (TableStore.meals || []).sort((a, b) => Number(a.id) - Number(b.id));
+  },
   getGroup: (id: UniqueIdentifier) =>
     TableStore.data?.find((group) => group.id === id),
 

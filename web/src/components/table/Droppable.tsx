@@ -2,6 +2,7 @@ import TableStore from "@/store/TableStore";
 import { WeekDay } from "@/utils/types";
 import { UniqueIdentifier, useDroppable } from "@dnd-kit/core";
 import { useSnapshot } from "valtio";
+import { MyAutocomplete } from "../elements/MyAutocomplete";
 import { TableMealItem } from "./TableMealItem";
 
 interface DroppableProps {
@@ -23,7 +24,11 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
       {meal ? (
         <TableMealItem day={day} group={group} meal={meal} isOver={isOver} />
       ) : (
-        <div className="flex h-full items-center justify-center">Drop here</div>
+        <div className="flex h-full items-center justify-center">
+          <MyAutocomplete />
+          <p>OR</p>
+          <p>Drop here</p>
+        </div>
       )}
     </div>
   );
