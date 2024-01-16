@@ -21,19 +21,21 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
 }) => {
   const tableStore = useSnapshot(TableStore);
   const id = `${group}#${day}#${meal.id}`;
-  const { attributes, listeners, setNodeRef, transform, } = useDraggable({
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: `${group}#${day}#${meal.id}`,
     data: { day, group, meal },
   });
+
+  const isActive = tableStore.active?.id === id;
 
   return (
     <>
       <div
         style={{
           transform: CSS.Translate.toString(transform),
-          opacity: tableStore.active?.id !== id && isOver ? 0.5 : 1,
+          opacity: !isActive && isOver ? 0.5 : 1,
         }}
-        className="z-50 relative"
+        className={`${isActive ? "relative z-50" : ""}`}
         ref={setNodeRef}
         {...attributes}
         {...listeners}
