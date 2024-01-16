@@ -1,7 +1,6 @@
 import type { DraggableSyntheticListeners } from "@dnd-kit/core";
 import {
   DndContext,
-  DragOverlay,
   UniqueIdentifier,
   closestCenter,
   useDraggable,
@@ -27,7 +26,9 @@ export function Sortable() {
     <DndContext
       collisionDetection={closestCenter}
       onDragStart={({ active }) => setActiveId(active.id)}
-      onDragEnd={({ over }) => {
+      onDragEnd={({ active, over }) => {
+
+        console.log(active, over);
         setActiveId(null);
         if (over) {
           const overIndex = getIndex(over.id);
@@ -37,19 +38,11 @@ export function Sortable() {
       }}
       onDragCancel={() => setActiveId(null)}
     >
-      <Draggable id={"meal"}>meal</Draggable>
-      <hr />
-      <br />
-      <br />
-      <div>
-        <SortableContext items={items} strategy={verticalListSortingStrategy}>
-          {items.map((value) => (
-            <SortableItem key={value} id={value} />
-          ))}
-        </SortableContext>
-      </div>
-
-      <DragOverlay>{activeId ? <Item value={activeId} /> : null}</DragOverlay>
+      <SortableContext items={items} strategy={verticalListSortingStrategy}>
+        {items.map((value) => (
+          <SortableItem key={value} id={value} />
+        ))}
+      </SortableContext>
     </DndContext>
   );
 }
@@ -132,13 +125,17 @@ export function Draggable(props: {
     id: props.id,
   });
   const style = transform
-    ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-      }
+    ? { transform: `translate3d(${transform.x}px, ${transform.y}px, 0)` }
     : undefined;
 
   return (
-    <button ref={setNodeRef} style={style} {...listeners} {...attributes}>
+    <button
+      ref={setNodeRef}
+      className="text-xl "
+      style={style}
+      {...listeners}
+      {...attributes}
+    >
       {props.children}
     </button>
   );
@@ -158,6 +155,8 @@ export function Droppable(props: {
         color: isOver ? "green" : undefined,
       }}
     >
+      <Draggable id={`${props.id}#meal`}>meal</Draggable>
+      {props.id}
       {props.children}
     </div>
   );
