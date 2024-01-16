@@ -2,6 +2,7 @@ import DashboardStore from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
 import { WEEK_DAYS } from "@/utils/constants";
 import { DndContext } from "@dnd-kit/core";
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { SortableContext } from "@dnd-kit/sortable";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
@@ -39,6 +40,7 @@ export function TableContext() {
           TableStore.active = undefined;
         }}
         onDragCancel={() => (TableStore.active = undefined)}
+        modifiers={[restrictToWindowEdges]}
       >
         <SortableContext items={tableStore.dataSorted.map((i) => i.id)}>
           {tableStore.dataSorted.map((value) => (

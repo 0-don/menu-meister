@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@dnd-kit/core": "next",
+    "@dnd-kit/modifiers": "^7.0.0",
     "@dnd-kit/sortable": "next",
     "@nextui-org/autocomplete": "^2.0.9",
     "@nextui-org/button": "2.0.26",
