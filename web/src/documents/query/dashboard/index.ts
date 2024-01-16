@@ -1,3 +1,4 @@
+import { WEEKLY_MEAL_GROUP_FRAGMENT } from "@/documents/fragments/dashboard";
 import { graphql } from "@/gql";
 
 export const GET_ALL_WEEKLY_MEAL_GROUPS_ADMIN = graphql(/* GraphQL */ `
@@ -17,57 +18,10 @@ export const GET_ALL_WEEKLY_MEAL_GROUPS_ADMIN = graphql(/* GraphQL */ `
       skip: $skip
       distinct: $distinct
     ) {
-      id
-      name
-      color
-      description
-      year
-      weekOfYear
-      orderIndex
-      mondayMeal {
-        id
-        name
-        description
-        image
-      }
-      tuesdayMeal {
-        id
-        name
-        description
-        image
-      }
-      wednesdayMeal {
-        id
-        name
-        description
-        image
-      }
-      thursdayMeal {
-        id
-        name
-        description
-        image
-      }
-      fridayMeal {
-        id
-        name
-        description
-        image
-      }
-      saturdayMeal {
-        id
-        name
-        description
-        image
-      }
-      sundayMeal {
-        id
-        name
-        description
-        image
-      }
+      ...WeeklyMealGroupFragment
     }
   }
+  ${WEEKLY_MEAL_GROUP_FRAGMENT}
 `);
 
 export const GET_ALL_MEALS_ADMIN = graphql(/* GraphQL */ `
