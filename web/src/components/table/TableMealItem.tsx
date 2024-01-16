@@ -33,6 +33,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
           transform: CSS.Translate.toString(transform),
           opacity: tableStore.active?.id !== id && isOver ? 0.5 : 1,
         }}
+        className="z-50 relative"
         ref={setNodeRef}
         {...attributes}
         {...listeners}

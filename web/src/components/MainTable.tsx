@@ -10,6 +10,7 @@ import TableStore from "@/store/TableStore";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
+import { AddNewRow } from "./table/AddNewRow";
 import { TableContext } from "./table/TableContext";
 
 interface DashboardPageProps {}
@@ -44,6 +45,7 @@ export function MainTable({}: DashboardPageProps) {
   return (
     <>
       <TableContext />
+      <AddNewRow />
     </>
   );
 }
