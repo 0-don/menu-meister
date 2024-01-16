@@ -24,7 +24,9 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
     <Card
       className="py-4"
       style={{
-        transform: `translate3d(${transform?.x}px, ${transform?.y}px, 0)`,
+        transform: transform
+          ? `translate3d(${transform?.x}px, ${transform?.y}px, 0)`
+          : undefined,
       }}
       ref={setNodeRef}
       {...attributes}
@@ -37,8 +39,9 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
         <Image
           alt="Card background"
           className="rounded-xl object-cover"
-          src={meal.image}
+          src={`data:image/jpeg;base64,${meal.image}`}
           width={270}
+          height={270}
         />
       </CardBody>
     </Card>

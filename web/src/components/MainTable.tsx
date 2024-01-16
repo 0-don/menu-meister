@@ -4,14 +4,6 @@ import { GET_ALL_WEEKLY_MEAL_GROUPS_ADMIN } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
 import DashboardStore from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableColumn,
-  TableHeader,
-  TableRow,
-} from "@nextui-org/table";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
@@ -38,7 +30,7 @@ export function MainTable({}: DashboardPageProps) {
   return (
     <>
       <TableContext />
-      <Table className="mt-5" aria-label="Table">
+      {/* <Table className="mt-5" aria-label="Table">
         <TableHeader>
           <TableColumn>Group</TableColumn>
           <TableColumn>{t("MONDAY")}</TableColumn>
@@ -64,7 +56,7 @@ export function MainTable({}: DashboardPageProps) {
             </TableRow>
           ))}
         </TableBody>
-      </Table>
+      </Table> */}
     </>
   );
 }

@@ -27,7 +27,7 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
 
   return (
     <section
-      className="grid grid-cols-8 gap-2 bg-gray-100 p-2"
+      className="grid grid-cols-8 gap-2 p-2"
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
@@ -36,7 +36,7 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
       ref={setNodeRef}
     >
       <div
-        className="mr-5 bg-yellow-400 p-5"
+        className="mr-5 p-5"
         {...listeners}
         ref={setActivatorNodeRef}
       >
