@@ -1,52 +1,42 @@
-import { DraggableSyntheticListeners } from "@dnd-kit/core";
-import type { Transform } from "@dnd-kit/utilities";
-import { CSS } from "@dnd-kit/utilities";
-import { forwardRef, memo } from "react";
-import { Droppable } from "./Droppable";
+import { Meal } from "@/gql/graphql";
+import { WeekDay } from "@/utils/types";
+import { UniqueIdentifier, useDraggable } from "@dnd-kit/core";
+import { Card, CardBody, CardHeader } from "@nextui-org/card";
+import Image from "next/image";
 
 interface TableMealItemProps {
-  transform?: Transform | null;
-  listeners?: DraggableSyntheticListeners;
-  transition?: string;
-  value: React.ReactNode;
-  activatorRef?: (element: HTMLElement | null) => void;
+  meal: Meal;
+  day: WeekDay;
+  group: UniqueIdentifier;
 }
 
-export const TableMealItem = memo(
-  forwardRef<HTMLLIElement, TableMealItemProps>(
-    ({ listeners, transition, transform, value, ...props }, ref) => {
-      return (
-        <li
-          className="flex list-none items-center bg-gray-500 p-5"
-          style={
-            {
-              transform: transform
-                ? CSS.Transform.toString(transform)
-                : transform,
-              transition,
-            } as React.CSSProperties
-          }
-          {...props}
-          ref={ref}
-        >
-          <div
-            className="mr-5 bg-yellow-400 p-5"
-            {...listeners}
-            ref={props.activatorRef ? props.activatorRef : undefined}
-          >
-            {value}
-          </div>
-          <div className="flex space-x-2">
-            <Droppable id={`${"monday"}#${value}`}>drop</Droppable>
-            <Droppable id={`${"tuesday"}#${value}`}>drop</Droppable>
-            <Droppable id={`${"wednesday"}#${value}`}>drop</Droppable>
-            <Droppable id={`${"thursday"}#${value}`}>drop</Droppable>
-            <Droppable id={`${"friday"}#${value}`}>drop</Droppable>
-            <Droppable id={`${"saturday"}#${value}`}>drop</Droppable>
-            <Droppable id={`${"sunday"}#${value}`}>drop</Droppable>
-          </div>
-        </li>
-      );
-    },
-  ),
-);
+export const TableMealItem: React.FC<TableMealItemProps> = ({
+  meal,
+  day,
+  group,
+}) => {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: `${group}#${day}#${meal.id}`,
+    data: { day, group, meal },
+  });
+  const style = transform
+    ? { transform: `translate3d(${transform.x}px, ${transform.y}px, 0)` }
+    : undefined;
+  return (
+    <Card className="py-4">
+      <CardHeader className="flex-col items-start px-4 pb-0 pt-2">
+        <p className="text-tiny font-bold uppercase">Daily Mix</p>
+        <small className="text-default-500">12 Tracks</small>
+        <h4 className="text-large font-bold">Frontend Radio</h4>
+      </CardHeader>
+      <CardBody className="overflow-visible py-2">
+        <Image
+          alt="Card background"
+          className="rounded-xl object-cover"
+          src="/images/hero-card-complete.jpeg"
+          width={270}
+        />
+      </CardBody>
+    </Card>
+  );
+};

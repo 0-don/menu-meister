@@ -17,3 +17,13 @@ export function debounce(fn: (...args: any) => any, ms: number) {
     }, ms);
   };
 }
+
+export const WEEK_DAYS = [
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
+] as const;

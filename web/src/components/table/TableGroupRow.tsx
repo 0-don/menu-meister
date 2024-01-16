@@ -21,35 +21,34 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
     setActivatorNodeRef,
   } = useSortable({ id });
 
-  const group = tableStore.getGroupById(id);
+  const group = tableStore.getGroup(id);
+
+  if (!group) return null;
 
   return (
-    <>
-      <section
-        className="grid grid-cols-8 gap-2 bg-gray-100 p-2"
-        style={{
-          transform: CSS.Transform.toString(transform),
-          transition,
-        }}
-        {...attributes}
-        ref={setNodeRef}
+    <section
+      className="grid grid-cols-8 gap-2 bg-gray-100 p-2"
+      style={{
+        transform: CSS.Transform.toString(transform),
+        transition,
+      }}
+      {...attributes}
+      ref={setNodeRef}
+    >
+      <div
+        className="mr-5 bg-yellow-400 p-5"
+        {...listeners}
+        ref={setActivatorNodeRef}
       >
-        <div
-          className="mr-5 bg-yellow-400 p-5"
-          {...listeners}
-          ref={setActivatorNodeRef}
-        >
-          {group?.name}
-        </div>
-
-        <Droppable id={`${"monday"}#${"value"}`}>drop</Droppable>
-        <Droppable id={`${"tuesday"}#${"value"}`}>drop</Droppable>
-        <Droppable id={`${"wednesday"}#${"value"}`}>drop</Droppable>
-        <Droppable id={`${"thursday"}#${"value"}`}>drop</Droppable>
-        <Droppable id={`${"friday"}#${"value"}`}>drop</Droppable>
-        <Droppable id={`${"saturday"}#${"value"}`}>drop</Droppable>
-        <Droppable id={`${"sunday"}#${"value"}`}>drop</Droppable>
-      </section>
-    </>
+        {group.name}
+      </div>
+      <Droppable day="monday" group={group.id} />
+      <Droppable day="tuesday" group={group.id} />
+      <Droppable day="wednesday" group={group.id} />
+      <Droppable day="thursday" group={group.id} />
+      <Droppable day="friday" group={group.id} />
+      <Droppable day="saturday" group={group.id} />
+      <Droppable day="sunday" group={group.id} />
+    </section>
   );
 };
