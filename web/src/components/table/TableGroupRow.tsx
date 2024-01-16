@@ -19,6 +19,7 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
     transform,
     transition,
     setActivatorNodeRef,
+    isDragging,
   } = useSortable({ id });
 
   const group = tableStore.getGroup(id);
@@ -27,7 +28,7 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
 
   return (
     <section
-      className="grid grid-cols-8 gap-2 p-2"
+      className={`${isDragging ? "relative z-50" : ""} grid grid-cols-8 gap-2 p-2`}
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
@@ -36,7 +37,12 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
       {...attributes}
       ref={setNodeRef}
     >
-      <div className="mr-5 p-5" {...listeners} ref={setActivatorNodeRef}>
+      <div
+        className="mr-5 p-5"
+        style={{ color: group.color! }}
+        {...listeners}
+        ref={setActivatorNodeRef}
+      >
         {group.name}
       </div>
       <Droppable day="monday" group={group.id} />

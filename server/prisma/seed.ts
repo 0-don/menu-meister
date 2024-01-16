@@ -154,7 +154,11 @@ async function seedWeeklyMealGroups() {
           data: {
             name: faker.commerce.productName(),
             description: faker.lorem.sentence(),
-            color: faker.internet.color(),
+            color: faker.internet.color({
+              redBase: 100,
+              greenBase: 100,
+              blueBase: 100,
+            }),
             weekOfYear: week,
             orderIndex: groupIndex,
             year,
