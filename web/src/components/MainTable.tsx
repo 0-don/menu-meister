@@ -5,6 +5,7 @@ import {
   GET_ALL_WEEKLY_MEAL_GROUPS_ADMIN,
 } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
+import { WeeklyMealGroupFragmentFragment } from "@/gql/graphql";
 import DashboardStore from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
 import { useTranslations } from "next-intl";
@@ -33,7 +34,8 @@ export function MainTable({}: DashboardPageProps) {
     useGqlQuery(GET_ALL_MEALS_ADMIN);
 
   useEffect(() => {
-    TableStore.data = getAllWeeklyMealGroupsAdmin;
+    TableStore.data =
+      getAllWeeklyMealGroupsAdmin as WeeklyMealGroupFragmentFragment[];
     TableStore.refetchWeeklyMealGroups = refetchWeeklyMealGroups;
   }, [getAllWeeklyMealGroupsAdmin]);
 

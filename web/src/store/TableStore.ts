@@ -4,6 +4,7 @@ import {
   GetAllMealsAdminQuery,
   GetAllWeeklyMealGroupsAdminQuery,
   Meal,
+  WeeklyMealGroupFragmentFragment,
 } from "@/gql/graphql";
 import { WeekDay } from "@/utils/types";
 import { Active, UniqueIdentifier } from "@dnd-kit/core";
@@ -12,7 +13,7 @@ import { proxy } from "valtio";
 
 const TableStore = proxy({
   active: undefined as Active | undefined,
-  data: undefined as GetAllWeeklyMealGroupsAdminQuery["getAllWeeklyMealGroupsAdmin"],
+  data: [] as WeeklyMealGroupFragmentFragment[],
   meals: [] as GetAllMealsAdminQuery["getAllMealsAdmin"],
   get dataSorted() {
     return (TableStore.data || []).sort((a, b) => a.orderIndex - b.orderIndex);
