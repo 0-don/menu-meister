@@ -48,6 +48,9 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
           width={200}
           height={200}
         />
+        <p className="text-center text-xs">
+          {meal.imageName?.match(/\d+/)?.[0]}
+        </p>
       </div>
     </>
   );
