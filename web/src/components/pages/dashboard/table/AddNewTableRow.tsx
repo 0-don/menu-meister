@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader, Input } from "@nextui-org/react";
+import { Card, Input } from "@nextui-org/react";
 import { FaRegPlusSquare } from "@react-icons/all-files/fa/FaRegPlusSquare";
 import React, { useState } from "react";
 import { MyPopover } from "../../../elements/MyPopover";
@@ -8,7 +8,7 @@ interface AddNewTableRowProps {}
 
 export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
   const [name, setName] = useState<string>("");
-  const [color, setColor] = useState<string>("");
+  const [color, setColor] = useState<string>("#f44336");
 
   return (
     <MyPopover
@@ -19,13 +19,17 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
       placement="top"
       showArrow
     >
-      <Card className="py-4">
-        <CardHeader className="flex-col items-start px-4 pb-0 pt-2">
-          <Input type="text" label="Gruppenname" size="sm" />
-        </CardHeader>
-        <CardBody className="overflow-visible py-2">
-          <ColorPalette />
-        </CardBody>
+      <Card className="p-4">
+        <Input
+          type="text"
+          label="Gruppenname"
+          className="mb-5"
+          size="sm"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <ColorPalette value={color} onChange={setColor} />
       </Card>
     </MyPopover>
   );
