@@ -3,7 +3,7 @@ import { WeekDay } from "@/utils/types";
 import { UniqueIdentifier, useDroppable } from "@dnd-kit/core";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
-import { MyAutocomplete } from "../elements/MyAutocomplete";
+import { MyAutocomplete } from "../../../elements/MyAutocomplete";
 import { TableMealItem } from "./TableMealItem";
 
 interface DroppableProps {

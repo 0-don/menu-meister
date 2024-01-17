@@ -1,7 +1,8 @@
 import { Card, CardBody, CardHeader, Input } from "@nextui-org/react";
 import { FaRegPlusSquare } from "@react-icons/all-files/fa/FaRegPlusSquare";
 import React, { useState } from "react";
-import { MyPopover } from "../elements/MyPopover";
+import { MyPopover } from "../../../elements/MyPopover";
+import { ColorPalette } from "../utils/ColorPalette";
 
 interface AddNewTableRowProps {}
 
@@ -18,19 +19,14 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
       placement="top"
       showArrow
     >
-    <Card className="py-4">
-      <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-      <Input type="email" label="Email" />
-      </CardHeader>
-      <CardBody className="overflow-visible py-2">
-        {/* <Image
-          alt="Card background"
-          className="object-cover rounded-xl"
-          src="/images/hero-card-complete.jpeg"
-          width={270}
-        /> */}
-      </CardBody>
-    </Card>
+      <Card className="py-4">
+        <CardHeader className="flex-col items-start px-4 pb-0 pt-2">
+          <Input type="text" label="Gruppenname" size="sm" />
+        </CardHeader>
+        <CardBody className="overflow-visible py-2">
+          <ColorPalette />
+        </CardBody>
+      </Card>
     </MyPopover>
   );
 };

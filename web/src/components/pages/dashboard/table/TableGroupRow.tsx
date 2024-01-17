@@ -6,7 +6,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
 import React, { useCallback, useState } from "react";
 import { useSnapshot } from "valtio";
-import { useWeeklyMealGroupHook } from "../hooks/useWeeklyMealGroupHook";
+import { useWeeklyMealGroupHook } from "../../../hooks/useWeeklyMealGroupHook";
 import { Droppable } from "./Droppable";
 
 interface TableGroupRowProps {

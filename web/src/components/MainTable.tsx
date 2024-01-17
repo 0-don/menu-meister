@@ -11,8 +11,8 @@ import TableStore from "@/store/TableStore";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
-import { AddNewTableRow } from "./table/AddNewTableRow";
-import { TableContext } from "./table/TableContext";
+import { AddNewTableRow } from "./pages/dashboard/table/AddNewTableRow";
+import { TableContext } from "./pages/dashboard/table/TableContext";
 interface DashboardPageProps {}
 
 export function MainTable({}: DashboardPageProps) {
