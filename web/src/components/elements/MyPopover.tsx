@@ -1,6 +1,5 @@
 import { Backdrop, OverlayPlacement } from "@/utils/types";
-import { Button } from "@nextui-org/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
+import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import { IconType } from "@react-icons/all-files";
 import React from "react";
 interface MyPopoverProps {
