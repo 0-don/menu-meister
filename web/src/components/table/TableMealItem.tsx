@@ -3,7 +3,9 @@ import TableStore from "@/store/TableStore";
 import { WeekDay } from "@/utils/types";
 import { UniqueIdentifier, useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
+import { Link } from "@nextui-org/link";
 import Image from "next/image";
+
 import { useSnapshot } from "valtio";
 
 interface TableMealItemProps {
@@ -35,12 +37,15 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
           transform: CSS.Translate.toString(transform),
           opacity: !isActive && isOver ? 0.5 : 1,
         }}
-        className={`${isActive ? "relative z-50" : ""}`}
+        className={`${isActive ? "relative z-50" : ""} rounded-lg bg-default-100 p-2`}
         ref={setNodeRef}
         {...attributes}
         {...listeners}
       >
-        <p>{meal.name}</p>
+        <Link href="/" color="foreground">
+          {meal.name}
+        </Link>
+
         <Image
           alt="Meal"
           className="rounded-xl object-cover"

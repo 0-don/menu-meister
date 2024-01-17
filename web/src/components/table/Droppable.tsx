@@ -26,17 +26,18 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
       {meal ? (
         <TableMealItem day={day} group={group} meal={meal} isOver={isOver} />
       ) : (
-        <div className="flex h-full flex-col items-center justify-center space-y-2 p-2">
+        <div
+          className="flex h-full flex-col justify-start space-y-2 rounded-lg bg-default-100 p-2"
+          style={{ opacity: isOver ? 0.5 : 1}}
+        >
           <MyAutocomplete
             size="sm"
-            label="Select meal"
+            label="Gericht auswählen"
             isClearable={false}
             items={tableStore.mealsSorted}
             value={value}
             onChange={setValue}
           />
-          <p>OR</p>
-          <p>Drop here</p>
         </div>
       )}
     </div>
