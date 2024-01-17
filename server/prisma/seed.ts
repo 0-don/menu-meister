@@ -35,12 +35,12 @@ const seed = async () => {
 async function downloadImage(url: string) {
   const name = new URL(url).searchParams.get("lock");
   const category = new URL(url).pathname.split("/").at(-1);
-  const fileName = `${category}-${name}.jpg`;
+  const filename = `${category}-${name}.jpg`;
 
-  const filePath = getImageFile(fileName);
+  const filePath = getImageFile(filename);
 
   if (existsSync(filePath)) {
-    return readFileSync(filePath, "base64");
+    return { file: readFileSync(filePath, "base64"), filename };
   }
 
   const response = await fetch(url);
@@ -51,7 +51,7 @@ async function downloadImage(url: string) {
   const imageBuffer = await response.arrayBuffer();
   mkdirSync(dirname(filePath), { recursive: true });
   writeFileSync(filePath, Buffer.from(imageBuffer), "base64");
-  return Buffer.from(imageBuffer).toString("base64");
+  return { file: Buffer.from(imageBuffer).toString("base64"), filename };
 }
 
 const seedIngredientsAndNutritions = async () => {
@@ -79,7 +79,8 @@ const seedIngredientsAndNutritions = async () => {
           "gluten",
           null,
         ]),
-        image,
+        imageName: image.filename,
+        image: image.file,
         createdBy: user.id,
         updatedBy: user.id,
       },
@@ -118,7 +119,8 @@ const seedMeals = async () => {
       data: {
         name: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
-        image,
+        imageName: image.filename,
+        image: image.file,
         createdBy: user.id,
         updatedBy: user.id,
       },

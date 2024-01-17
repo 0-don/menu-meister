@@ -109,6 +109,7 @@ model Ingredient {
   id              Int              @id @default(autoincrement())
   name            String           @db.VarChar(255)
   allergens       String?          @db.VarChar(255)
+  imageName       String?          @db.VarChar(255)
   image           String?          @db.Text
   nutritions      Nutrition[]
   mealIngredients MealIngredient[]
@@ -156,6 +157,7 @@ model Meal {
   id          Int     @id @default(autoincrement())
   name        String  @db.VarChar(255)
   description String? @db.Text
+  imageName   String? @db.VarChar(255)
   image       String? @db.Text
 
   mealIngredients MealIngredient[]
