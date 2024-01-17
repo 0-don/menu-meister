@@ -27,8 +27,6 @@ export function Sortable() {
       collisionDetection={closestCenter}
       onDragStart={({ active }) => setActiveId(active.id)}
       onDragEnd={({ active, over }) => {
-
-        console.log(active, over);
         setActiveId(null);
         if (over) {
           const overIndex = getIndex(over.id);
@@ -78,7 +76,7 @@ interface ItemProps {
   activatorRef?: (element: HTMLElement | null) => void;
 }
 
- const Item = memo(
+const Item = memo(
   forwardRef<HTMLLIElement, ItemProps>(
     ({ listeners, transition, transform, value, ...props }, ref) => {
       return (
@@ -117,10 +115,7 @@ interface ItemProps {
   ),
 );
 
-function Draggable(props: {
-  children: React.ReactNode;
-  id: UniqueIdentifier;
-}) {
+function Draggable(props: { children: React.ReactNode; id: UniqueIdentifier }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: props.id,
   });
@@ -141,10 +136,7 @@ function Draggable(props: {
   );
 }
 
-function Droppable(props: {
-  children: React.ReactNode;
-  id: UniqueIdentifier;
-}) {
+function Droppable(props: { children: React.ReactNode; id: UniqueIdentifier }) {
   const { isOver, setNodeRef } = useDroppable({ id: props.id });
 
   return (

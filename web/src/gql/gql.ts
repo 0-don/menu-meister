@@ -19,6 +19,7 @@ const documents = {
     "\n  mutation Logout {\n    logout\n  }\n": types.LogoutDocument,
     "\n  mutation CreateWeeklyMealGroupAdmin($data: WeeklyMealGroupCreateInput!) {\n    createWeeklyMealGroupAdmin(data: $data) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n": types.CreateWeeklyMealGroupAdminDocument,
     "\n  mutation DeleteWeeklyMealGroupAdmin(\n    $where: WeeklyMealGroupWhereUniqueInput!\n  ) {\n    deleteWeeklyMealGroupAdmin(where: $where) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n": types.DeleteWeeklyMealGroupAdminDocument,
+    "\n  mutation UpdateWeeklyMealGroupAdmin(\n    $data: WeeklyMealGroupUpdateInput!\n    $where: WeeklyMealGroupWhereUniqueInput!\n  ) {\n    updateWeeklyMealGroupAdmin(data: $data, where: $where) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n": types.UpdateWeeklyMealGroupAdminDocument,
     "\n  query Me {\n    me {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      UserRole {\n        id\n        name\n      }\n    }\n  }\n": types.MeDocument,
     "\n  query GetAllWeeklyMealGroupsAdmin(\n    $where: WeeklyMealGroupWhereInput\n    $orderBy: [WeeklyMealGroupOrderByWithRelationInput!]\n    $cursor: WeeklyMealGroupWhereUniqueInput\n    $take: Int\n    $skip: Int\n    $distinct: [WeeklyMealGroupScalarFieldEnum!]\n  ) {\n    getAllWeeklyMealGroupsAdmin(\n      where: $where\n      orderBy: $orderBy\n      cursor: $cursor\n      take: $take\n      skip: $skip\n      distinct: $distinct\n    ) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n": types.GetAllWeeklyMealGroupsAdminDocument,
     "\n  query GetAllMealsAdmin(\n    $where: MealWhereInput\n    $orderBy: [MealOrderByWithRelationInput!]\n    $cursor: MealWhereUniqueInput\n    $take: Int\n    $skip: Int\n    $distinct: [MealScalarFieldEnum!]\n  ) {\n    getAllMealsAdmin(\n      where: $where\n      orderBy: $orderBy\n      cursor: $cursor\n      take: $take\n      skip: $skip\n      distinct: $distinct\n    ) {\n      id\n      name\n    }\n  }\n": types.GetAllMealsAdminDocument,
@@ -62,6 +63,10 @@ export function graphql(source: "\n  mutation CreateWeeklyMealGroupAdmin($data: 
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation DeleteWeeklyMealGroupAdmin(\n    $where: WeeklyMealGroupWhereUniqueInput!\n  ) {\n    deleteWeeklyMealGroupAdmin(where: $where) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n"): (typeof documents)["\n  mutation DeleteWeeklyMealGroupAdmin(\n    $where: WeeklyMealGroupWhereUniqueInput!\n  ) {\n    deleteWeeklyMealGroupAdmin(where: $where) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateWeeklyMealGroupAdmin(\n    $data: WeeklyMealGroupUpdateInput!\n    $where: WeeklyMealGroupWhereUniqueInput!\n  ) {\n    updateWeeklyMealGroupAdmin(data: $data, where: $where) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateWeeklyMealGroupAdmin(\n    $data: WeeklyMealGroupUpdateInput!\n    $where: WeeklyMealGroupWhereUniqueInput!\n  ) {\n    updateWeeklyMealGroupAdmin(data: $data, where: $where) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

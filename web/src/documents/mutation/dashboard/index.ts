@@ -18,3 +18,15 @@ export const DELETE_WEEKLY_MEAL_GROUP_ADMIN = graphql(/* GraphQL */ `
     }
   }
 `);
+
+
+export const UPDATE_WEEKLY_MEAL_GROUP_ADMIN = graphql(/* GraphQL */ `
+  mutation UpdateWeeklyMealGroupAdmin(
+    $data: WeeklyMealGroupUpdateInput!
+    $where: WeeklyMealGroupWhereUniqueInput!
+  ) {
+    updateWeeklyMealGroupAdmin(data: $data, where: $where) {
+      ...WeeklyMealGroupFragment
+    }
+  }
+`);

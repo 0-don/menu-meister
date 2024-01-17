@@ -5,6 +5,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import React, { useCallback, useState } from "react";
 import { useSnapshot } from "valtio";
+import { useWeeklyMealGroupHook } from "../hooks/useWeeklyMealGroupHook";
 import { Droppable } from "./Droppable";
 
 interface TableGroupRowProps {
@@ -12,6 +13,7 @@ interface TableGroupRowProps {
 }
 
 export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
+  const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
   const tableStore = useSnapshot(TableStore);
   const group = tableStore.getGroup(id)!;
   const [color, setColor] = useState<string>(group?.color ?? "");
@@ -51,6 +53,12 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
           type="color"
           value={color}
           onChange={(e) => debouncedSetColor(e.target.value)}
+          onBlur={() =>
+            updateWeeklyMealGroup({
+              where: { id: group.id },
+              data: { color: { set: color } },
+            })
+          }
         />
         {group.name}
       </div>
