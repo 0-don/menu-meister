@@ -1,8 +1,15 @@
 import { Backdrop, OverlayPlacement } from "@/utils/types";
-import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
+import {
+  Button,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@nextui-org/react";
 import { IconType } from "@react-icons/all-files";
 import React from "react";
+
 interface MyPopoverProps {
+  ref: React.RefObject<HTMLButtonElement>;
   children: React.ReactNode;
   className?: string;
   text?: string;
@@ -21,6 +28,7 @@ export const MyPopover: React.FC<MyPopoverProps> = (props) => {
     >
       <PopoverTrigger>
         <Button
+          ref={props.ref}
           className={`flex items-center ${props.text && props.Icon ? "space-x-1" : ""} ${props.className}`}
         >
           {props.text && <p>{props.text}</p>}

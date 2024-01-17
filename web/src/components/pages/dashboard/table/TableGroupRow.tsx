@@ -1,5 +1,6 @@
 import TableStore from "@/store/TableStore";
 import { debounce } from "@/utils/constants";
+import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -14,7 +15,8 @@ interface TableGroupRowProps {
 }
 
 export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
-  const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
+  const { updateWeeklyMealGroup, deleteWeeklyMealgRoup } =
+    useWeeklyMealGroupHook();
   const tableStore = useSnapshot(TableStore);
   const group = tableStore.getGroup(id)!;
   const [color, setColor] = useState<string>(group?.color ?? "");
@@ -42,7 +44,7 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
 
   return (
     <section
-      className={`${isDragging ? "relative z-[9999]" : ""} grid grid-cols-8 gap-2 bg-default-300/10 rounded-lg p-2 focus:outline-none`}
+      className={`${isDragging ? "relative z-[9999]" : ""} grid grid-cols-8 gap-2 rounded-lg bg-default-300/10 p-2 focus:outline-none`}
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
@@ -85,7 +87,19 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
             {...listeners}
             ref={setActivatorNodeRef}
           >
-            <FaRegTrashAlt className="cursor-pointer hover:text-red-600" />
+            <FaRegTrashAlt
+              className="cursor-pointer hover:text-red-600"
+              onClick={async () => {
+                try {
+                  await deleteWeeklyMealgRoup({ where: { id: group.id } });
+                  TableStore.data = TableStore.data.filter(
+                    (g) => g.id !== group.id,
+                  );
+                } catch (error) {
+                  catchErrorAlerts(error);
+                }
+              }}
+            />
           </div>
         </div>
       </div>
