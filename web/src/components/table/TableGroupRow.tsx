@@ -38,28 +38,36 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
-        borderLeft: `5px solid ${color}`,
       }}
       {...attributes}
       ref={setNodeRef}
     >
       <div
-        className="mr-5 p-5"
+        className="flex"
         style={{ color }}
         {...listeners}
         ref={setActivatorNodeRef}
       >
-        <input
-          type="color"
-          value={color}
-          onChange={(e) => debouncedSetColor(e.target.value)}
-          onBlur={() =>
-            updateWeeklyMealGroup({
-              where: { id: group.id },
-              data: { color: { set: color } },
-            })
-          }
-        />
+        <label
+          htmlFor="color"
+          className="h-full w-2"
+          style={{ backgroundColor: color }}
+        >
+          <input
+            type="color"
+            id="color"
+            className="h-0 w-0 opacity-0"
+            value={color}
+            onChange={(e) => debouncedSetColor(e.target.value)}
+            onBlur={() =>
+              updateWeeklyMealGroup({
+                where: { id: group.id },
+                data: { color: { set: color } },
+              })
+            }
+          />
+        </label>
+
         {group.name}
       </div>
       <Droppable day="monday" group={group.id} />

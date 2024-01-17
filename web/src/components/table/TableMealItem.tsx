@@ -45,8 +45,8 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
           alt="Meal"
           className="rounded-xl object-cover"
           src={`data:image/jpeg;base64,${meal.image}`}
-          width={200}
-          height={200}
+          width={220}
+          height={220}
         />
         <p className="text-center text-xs">
           {meal.imageName?.match(/\d+/)?.[0]}
