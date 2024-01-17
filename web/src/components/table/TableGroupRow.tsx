@@ -3,6 +3,7 @@ import { debounce } from "@/utils/constants";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
 import React, { useCallback, useState } from "react";
 import { useSnapshot } from "valtio";
 import { useWeeklyMealGroupHook } from "../hooks/useWeeklyMealGroupHook";
@@ -29,7 +30,13 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
   } = useSortable({ id });
 
   const debouncedSetColor = useCallback(
-    debounce((newColor: string) => setColor(newColor), 0),
+    debounce((newColor: string) => {
+      setColor(newColor);
+      updateWeeklyMealGroup({
+        where: { id: group.id },
+        data: { color: { set: newColor } },
+      });
+    }, 100),
     [],
   );
 
@@ -56,18 +63,12 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
             className="h-0 w-0 opacity-0"
             value={color}
             onChange={(e) => debouncedSetColor(e.target.value)}
-            onBlur={() =>
-              updateWeeklyMealGroup({
-                where: { id: group.id },
-                data: { color: { set: color } },
-              })
-            }
           />
         </label>
 
         <div className="flex flex-col">
           <input
-            className="m-0 w-full bg-transparent p-1 font-semibold focus:outline-none hover:border-default-100 border border-transparent rounded-lg"
+            className="m-0 w-full rounded-lg border border-transparent bg-transparent p-1 font-semibold hover:border-default-100 focus:outline-none"
             type="text"
             style={{ color }}
             value={groupName}
@@ -80,10 +81,12 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
             }}
           />
           <div
-            className="h-full cursor-grab"
+            className="flex h-full cursor-grab items-end justify-end"
             {...listeners}
             ref={setActivatorNodeRef}
-          />
+          >
+            <FaRegTrashAlt className="cursor-pointer hover:text-red-600" />
+          </div>
         </div>
       </div>
       <Droppable day="monday" group={group.id} />
