@@ -42,7 +42,7 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
 
   return (
     <section
-      className={`${isDragging ? "relative z-50" : ""} grid grid-cols-8 gap-2 bg-default-50/50 p-2 focus:outline-none`}
+      className={`${isDragging ? "relative z-50" : ""} grid grid-cols-8 gap-2 bg-default-300/10 rounded-lg p-2 focus:outline-none`}
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
