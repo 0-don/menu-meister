@@ -14,6 +14,7 @@ export const WEEKLY_MEAL_GROUP_FRAGMENT = graphql(/* GraphQL */ `
       name
       description
       image
+      imageName
     }
     tuesdayMeal {
       id
@@ -26,30 +27,35 @@ export const WEEKLY_MEAL_GROUP_FRAGMENT = graphql(/* GraphQL */ `
       name
       description
       image
+      imageName
     }
     thursdayMeal {
       id
       name
       description
       image
+      imageName
     }
     fridayMeal {
       id
       name
       description
       image
+      imageName
     }
     saturdayMeal {
       id
       name
       description
       image
+      imageName
     }
     sundayMeal {
       id
       name
       description
       image
+      imageName
     }
   }
 `);
