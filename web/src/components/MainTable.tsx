@@ -8,12 +8,12 @@ import { useGqlQuery } from "@/fetcher";
 import { WeeklyMealGroupFragmentFragment } from "@/gql/graphql";
 import DashboardStore from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
+import { FaRegPlusSquare } from "@react-icons/all-files/fa/FaRegPlusSquare";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import { MyPopover } from "./elements/MyPopover";
 import { TableContext } from "./table/TableContext";
-
 interface DashboardPageProps {}
 
 export function MainTable({}: DashboardPageProps) {
@@ -47,7 +47,19 @@ export function MainTable({}: DashboardPageProps) {
   return (
     <>
       <TableContext />
-      <MyPopover />
+      <MyPopover text="Add new row" Icon={FaRegPlusSquare} className="mt-5">
+        <div className="flex justify-center">
+          <button
+            className="w-full rounded-lg bg-primary-500 p-2 text-white"
+            onClick={() => {
+              TableStore.refetchWeeklyMealGroups();
+              TableStore.refetchMeals();
+            }}
+          >
+            asdas
+          </button>
+        </div>
+      </MyPopover>
       {/* <AddNewRow /> */}
     </>
   );
