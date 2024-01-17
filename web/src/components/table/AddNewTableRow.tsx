@@ -1,4 +1,4 @@
-import TableStore from "@/store/TableStore";
+import { Card, CardBody, CardHeader, Input } from "@nextui-org/react";
 import { FaRegPlusSquare } from "@react-icons/all-files/fa/FaRegPlusSquare";
 import React, { useState } from "react";
 import { MyPopover } from "../elements/MyPopover";
@@ -18,17 +18,19 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
       placement="top"
       showArrow
     >
-      <div className="flex justify-center">
-        <button
-          className="w-full rounded-lg bg-primary-500 p-2 text-white"
-          onClick={() => {
-            TableStore.refetchWeeklyMealGroups();
-            TableStore.refetchMeals();
-          }}
-        >
-          asdas
-        </button>
-      </div>
+    <Card className="py-4">
+      <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+      <Input type="email" label="Email" />
+      </CardHeader>
+      <CardBody className="overflow-visible py-2">
+        {/* <Image
+          alt="Card background"
+          className="object-cover rounded-xl"
+          src="/images/hero-card-complete.jpeg"
+          width={270}
+        /> */}
+      </CardBody>
+    </Card>
     </MyPopover>
   );
 };
