@@ -1,7 +1,7 @@
 "use client";
 
 import { MainTable } from "@/components/MainTable";
-import { DashboardPagination } from "@/components/elements/DashboardPagination";
+import { DashboardPagination } from "@/components/pages/dashboard/table/DashboardPagination";
 
 interface DashboardPageProps {}
 

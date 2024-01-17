@@ -2,6 +2,7 @@ import DashboardStore from "@/store/DashboardStore";
 import { Button } from "@nextui-org/button";
 import { Pagination } from "@nextui-org/pagination";
 import { FaChevronLeft } from "@react-icons/all-files/fa/FaChevronLeft";
+import { IoCalendarSharp } from "@react-icons/all-files/io5/IoCalendarSharp";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import React, { useRef } from "react";
@@ -26,7 +27,11 @@ export const DashboardPagination: React.FC = () => {
             to: dayjs(daysThatWeek.at(-1))?.format("DD.MM.YYYY"),
             weektag: (chunks) => <p className="font-bold">{chunks}</p>,
             fromtag: (chunks) => <p className="font-bold">{chunks}</p>,
-            totag: (chunks) => <p className="font-bold">{chunks}</p>,
+            totag: (chunks) => (
+              <p className="inline-flex items-center font-bold">
+                {chunks} <IoCalendarSharp className="ml-1" />
+              </p>
+            ),
           })}
         </label>
         <input
