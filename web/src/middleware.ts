@@ -1,6 +1,6 @@
 import createIntlMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
-import psl from "psl";
+import psl, { ParsedDomain } from "psl";
 import { ME } from "./documents/query/auth";
 import { ROLES, TOKEN, X_URL } from "./utils/constants";
 import { customFetcherServer } from "./utils/helpers/serverUtils";
@@ -41,7 +41,7 @@ const tokenParser = async (request: NextRequest, response: NextResponse) => {
   if (!me) {
     const domain =
       process.env.NODE_ENV === "production"
-        ? `.${psl.parse(new URL(referer).hostname).domain}`
+        ? `.${(psl.parse(new URL(referer).hostname) as ParsedDomain).domain}`
         : undefined;
     const sameSite = process.env.NODE_ENV === "production" ? "lax" : "none";
 

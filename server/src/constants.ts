@@ -1,7 +1,7 @@
 import { CookieSerializeOptions } from "@fastify/cookie";
 import { JwtService } from "@nestjs/jwt";
 import "dotenv/config";
-import psl from "psl";
+import psl, { ParsedDomain } from "psl";
 
 export const PORT = process.env?.PORT || 4000;
 export const TOKEN_EXPIRES_IN = 60 * 60 * 24 * 30; // 30 days
@@ -18,9 +18,9 @@ export const COOKIE_SERIALIZE_OPTIONS = (
   let effectiveDomain: string | undefined = undefined;
 
   if (domain && isProduction) {
-    effectiveDomain = `.${psl.parse(new URL(domain).hostname).domain}`;
+    effectiveDomain = `.${(psl.parse(new URL(domain).hostname) as ParsedDomain).domain}`;
   } else if (isProduction && CORS_DOMAINS.length) {
-    effectiveDomain = `.${psl.parse(new URL(CORS_DOMAINS[0]).hostname).domain}`;
+    effectiveDomain = `.${(psl.parse(new URL(CORS_DOMAINS[0]).hostname) as ParsedDomain).domain}`;
   }
 
   return {
