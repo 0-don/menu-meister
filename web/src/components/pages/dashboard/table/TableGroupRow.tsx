@@ -46,7 +46,7 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
     <section
       className={`${isDragging ? "relative z-[9999]" : ""} grid grid-cols-8 gap-2 rounded-lg bg-default-300/10 p-2 focus:outline-none`}
       style={{
-        transform: CSS.Transform.toString(transform),
+        transform: CSS.Translate.toString(transform),
         transition,
       }}
       {...attributes}
