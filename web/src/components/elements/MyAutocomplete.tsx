@@ -4,6 +4,7 @@ import { Autocomplete, AutocompleteItem } from "@nextui-org/autocomplete";
 import React from "react";
 
 interface MyAutocompleteProps {
+  id: string;
   label?: string;
   size?: Size;
   className?: string;
@@ -18,10 +19,13 @@ export const MyAutocomplete: React.FC<MyAutocompleteProps> = (props) => {
     <Autocomplete
       label={props.label}
       className={props.className}
+      name={props.label}
       size={props.size}
       isClearable={props.isClearable}
       selectedKey={props.value}
       onSelectionChange={props.onChange}
+      id={props.id}
+      aria-labelledby={props.id}
     >
       {props.items.map((item) => (
         <AutocompleteItem key={item.id} value={item.id}>

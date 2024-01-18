@@ -3,7 +3,10 @@ import TableStore from "@/store/TableStore";
 import { WEEK_DAYS } from "@/utils/constants";
 import { DndContext } from "@dnd-kit/core";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
-import { SortableContext } from "@dnd-kit/sortable";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import { useSnapshot } from "valtio";
@@ -42,7 +45,10 @@ export function TableContext() {
         onDragCancel={() => (TableStore.active = undefined)}
         modifiers={[restrictToWindowEdges]}
       >
-        <SortableContext items={tableStore.dataSorted.map((i) => i.id)}>
+        <SortableContext
+          strategy={verticalListSortingStrategy}
+          items={tableStore.dataSorted.map((i) => i.id)}
+        >
           {tableStore.dataSorted.map((value) => (
             <TableGroupRow key={value.id} id={value.id} />
           ))}

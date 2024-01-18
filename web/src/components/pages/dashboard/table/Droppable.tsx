@@ -14,8 +14,9 @@ interface DroppableProps {
 export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
   const [value, setValue] = useState<UniqueIdentifier>("");
   const tableStore = useSnapshot(TableStore);
+  const id = `${group}#${day}`;
   const { setNodeRef, isOver } = useDroppable({
-    id: `${group}#${day}`,
+    id,
     data: { day, group },
   });
 
@@ -28,9 +29,10 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
       ) : (
         <div
           className="flex h-full flex-col justify-start space-y-2 rounded-lg bg-default-100 p-2"
-          style={{ opacity: isOver ? 0.5 : 1}}
+          style={{ opacity: isOver ? 0.5 : 1 }}
         >
           <MyAutocomplete
+            id={id}
             size="sm"
             label="Gericht auswählen"
             isClearable={false}

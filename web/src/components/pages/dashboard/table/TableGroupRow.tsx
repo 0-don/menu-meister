@@ -1,3 +1,4 @@
+import { MyModal } from "@/components/elements/MyModal";
 import TableStore from "@/store/TableStore";
 import { debounce } from "@/utils/constants";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
@@ -55,13 +56,14 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
     >
       <div className="flex space-x-2">
         <label
-          htmlFor="color"
+          id={`${group.id}-color`}
           className="h-full w-1.5 cursor-pointer rounded-lg"
           style={{ backgroundColor: color }}
         >
           <input
             type="color"
-            id="color"
+            id={`${group.id}-color`}
+            name={`${group.id}-color`}
             className="h-0 w-0 opacity-0"
             value={color}
             onChange={(e) => debouncedSetColor(e.target.value)}
@@ -72,6 +74,7 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
           <input
             className="m-0 w-full rounded-lg border border-transparent bg-transparent p-1 font-semibold hover:border-default-100 focus:outline-none"
             type="text"
+            name="groupName"
             style={{ color }}
             value={groupName}
             onChange={(e) => {
@@ -84,10 +87,11 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
           />
           <div className="flex h-full w-full items-end justify-end p-2">
             <div
-              className="w-full cursor-grab h-full"
+              className="h-full w-full cursor-grab"
               {...listeners}
               ref={setActivatorNodeRef}
             />
+            {/* <MyModal /> */}
             <FaRegTrashAlt
               className="cursor-pointer hover:text-red-600"
               onClick={async () => {
