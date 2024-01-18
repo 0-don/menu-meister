@@ -73,7 +73,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
               });
             }}
           />
-          <div className="flex h-full w-full items-end justify-end p-2">
+          <div className="flex h-full w-full items-end justify-end">
             <div
               className="h-full w-full cursor-grab"
               {...listeners}
@@ -109,7 +109,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
               Trigger={
                 <FaRegTrashAlt
                   onClick={() => onOpen()}
-                  className="cursor-pointer hover:text-red-600"
+                  className="cursor-pointer hover:text-red-600 m-2"
                 />
               }
             >

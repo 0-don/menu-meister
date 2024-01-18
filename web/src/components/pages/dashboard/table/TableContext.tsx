@@ -1,3 +1,4 @@
+import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import DashboardStore from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
 import { WEEK_DAYS } from "@/utils/constants";
@@ -13,6 +14,7 @@ import { useSnapshot } from "valtio";
 import { TableGroupRow } from "./TableGroupRow";
 
 export function TableContext() {
+  const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
   const t = useTranslations<"Dashboard">();
   const dashboardStore = useSnapshot(DashboardStore);
   const tableStore = useSnapshot(TableStore);
@@ -39,9 +41,31 @@ export function TableContext() {
 
       <DndContext
         onDragStart={({ active }) => (TableStore.active = active)}
-        onDragEnd={({ active, over }) => {
+        onDragEnd={async ({ active, over }) => {
+          if (active.data.current?.sortable && over?.data.current?.sortable) {
+            const activeIndex = active.data.current?.sortable.index;
+            const overIndex = over.data.current?.sortable.index;
 
-          console.log(active, over)
+            if (activeIndex !== overIndex) {
+              TableStore.data = TableStore.data.map((group) => {
+                if (group.id === Number(active.id)) {
+                  return { ...group, orderIndex: overIndex };
+                } else if (group.id === Number(over.id)) {
+                  return { ...group, orderIndex: activeIndex };
+                } else {
+                  return group;
+                }
+              });
+              updateWeeklyMealGroup({
+                where: { id: Number(active.id) },
+                data: { orderIndex: { set: overIndex } },
+              });
+              updateWeeklyMealGroup({
+                where: { id: Number(over.id) },
+                data: { orderIndex: { set: activeIndex } },
+              });
+            }
+          }
 
           TableStore.active = undefined;
         }}
