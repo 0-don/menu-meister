@@ -9,6 +9,8 @@ const prisma = new PrismaClient();
 
 const EMAIL = "admin@admin.de";
 
+const BLACKLISTED_IMG = ["2094537432367104"];
+
 const randomInt = (min = 0, max = 10) =>
   Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -67,7 +69,19 @@ const seedIngredientsAndNutritions = async () => {
       width: 320,
       height: 240,
     });
-    const image = await downloadImage(imgUrl);
+
+    let blacklist = false;
+
+    for (const blacklisted of BLACKLISTED_IMG) {
+      if (imgUrl.includes(blacklisted)) {
+        blacklist = true;
+        break;
+      }
+    }
+
+    const image = blacklist
+      ? await downloadImage(imgUrl)
+      : { file: null, filename: null };
 
     // Create ingredient individually
     const ingredient = await prisma.ingredient.create({
@@ -113,7 +127,19 @@ const seedMeals = async () => {
       width: 320,
       height: 240,
     });
-    const image = await downloadImage(imgUrl);
+
+    let blacklist = false;
+
+    for (const blacklisted of BLACKLISTED_IMG) {
+      if (imgUrl.includes(blacklisted)) {
+        blacklist = true;
+        break;
+      }
+    }
+
+    const image = blacklist
+      ? await downloadImage(imgUrl)
+      : { file: null, filename: null };
 
     const meal = await prisma.meal.create({
       data: {
