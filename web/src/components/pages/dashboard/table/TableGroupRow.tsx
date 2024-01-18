@@ -1,27 +1,19 @@
-import { MyModal } from "@/components/elements/MyModal";
 import TableStore from "@/store/TableStore";
-import { debounce } from "@/utils/constants";
-import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { useSnapshot } from "valtio";
-import { useWeeklyMealGroupHook } from "../../../hooks/useWeeklyMealGroupHook";
 import { Droppable } from "./Droppable";
+import { TableGroup } from "./TableGroup";
 
 interface TableGroupRowProps {
   id: UniqueIdentifier;
 }
 
 export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
-  const { updateWeeklyMealGroup, deleteWeeklyMealgRoup } =
-    useWeeklyMealGroupHook();
   const tableStore = useSnapshot(TableStore);
   const group = tableStore.getGroup(id)!;
-  const [color, setColor] = useState<string>(group?.color ?? "");
-  const [groupName, setGroupName] = useState<string>(group?.name ?? "");
   const {
     attributes,
     listeners,
@@ -31,17 +23,6 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
     setActivatorNodeRef,
     isDragging,
   } = useSortable({ id });
-
-  const debouncedSetColor = useCallback(
-    debounce((newColor: string) => {
-      setColor(newColor);
-      updateWeeklyMealGroup({
-        where: { id: group.id },
-        data: { color: { set: newColor } },
-      });
-    }, 100),
-    [],
-  );
 
   return (
     <section
@@ -54,61 +35,7 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
       role="row"
       ref={setNodeRef}
     >
-      <div className="flex space-x-2">
-        <label
-          id={`${group.id}-color`}
-          className="h-full w-1.5 cursor-pointer rounded-lg"
-          style={{ backgroundColor: color }}
-        >
-          <input
-            type="color"
-            id={`${group.id}-color`}
-            name={`${group.id}-color`}
-            className="h-0 w-0 opacity-0"
-            value={color}
-            onChange={(e) => debouncedSetColor(e.target.value)}
-          />
-        </label>
-
-        <div className="flex flex-col">
-          <input
-            className="m-0 w-full rounded-lg border border-transparent bg-transparent p-1 font-semibold hover:border-default-100 focus:outline-none"
-            type="text"
-            name="groupName"
-            style={{ color }}
-            value={groupName}
-            onChange={(e) => {
-              setGroupName(e.target.value);
-              updateWeeklyMealGroup({
-                where: { id: group.id },
-                data: { name: { set: e.target.value } },
-              });
-            }}
-          />
-          <div className="flex h-full w-full items-end justify-end p-2">
-            <div
-              className="h-full w-full cursor-grab"
-              {...listeners}
-              ref={setActivatorNodeRef}
-            />
-            {/* <MyModal /> */}
-            <FaRegTrashAlt
-              className="cursor-pointer hover:text-red-600"
-              onClick={async () => {
-                console.log(1);
-                try {
-                  await deleteWeeklyMealgRoup({ where: { id: group.id } });
-                  TableStore.data = TableStore.data.filter(
-                    (g) => g.id !== group.id,
-                  );
-                } catch (error) {
-                  catchErrorAlerts(error);
-                }
-              }}
-            />
-          </div>
-        </div>
-      </div>
+      <TableGroup id={id} listeners={listeners} ref={setActivatorNodeRef} />
       <Droppable day="monday" group={group.id} />
       <Droppable day="tuesday" group={group.id} />
       <Droppable day="wednesday" group={group.id} />
