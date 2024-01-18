@@ -4,6 +4,7 @@ import { WeekDay } from "@/utils/types";
 import { UniqueIdentifier, useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { Link } from "@nextui-org/link";
+import mealPlaceholder from "@public/images/meal-placeholder.png";
 import Image from "next/image";
 
 import { useSnapshot } from "valtio";
@@ -49,7 +50,11 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
         <Image
           alt="Meal"
           className="rounded-xl object-cover"
-          src={`data:image/jpeg;base64,${meal.image}`}
+          src={
+            meal.image
+              ? `data:image/jpeg;base64,${meal.image}`
+              : mealPlaceholder
+          }
           width={220}
           height={220}
         />
