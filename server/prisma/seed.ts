@@ -75,7 +75,6 @@ const seedIngredientsAndNutritions = async () => {
     for (const blacklisted of BLACKLISTED_IMG) {
       if (imgUrl.includes(blacklisted)) {
         blacklist = true;
-        break;
       }
     }
 
@@ -133,7 +132,6 @@ const seedMeals = async () => {
     for (const blacklisted of BLACKLISTED_IMG) {
       if (imgUrl.includes(blacklisted)) {
         blacklist = true;
-        break;
       }
     }
 
