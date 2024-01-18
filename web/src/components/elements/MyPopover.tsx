@@ -7,10 +7,10 @@ import {
 } from "@nextui-org/react";
 import { IconType } from "@react-icons/all-files";
 import React from "react";
-
 interface MyPopoverProps {
-  ref: React.RefObject<HTMLButtonElement>;
   children: React.ReactNode;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
   className?: string;
   text?: string;
   Icon?: IconType;
@@ -25,10 +25,11 @@ export const MyPopover: React.FC<MyPopoverProps> = (props) => {
       placement={props.placement}
       showArrow={props.showArrow}
       backdrop={props.backdrop}
+      isOpen={props.isOpen}
+      onOpenChange={(isOpen) => props.setIsOpen(isOpen)}
     >
       <PopoverTrigger>
         <Button
-          ref={props.ref}
           className={`flex items-center ${props.text && props.Icon ? "space-x-1" : ""} ${props.className}`}
         >
           {props.text && <p>{props.text}</p>}

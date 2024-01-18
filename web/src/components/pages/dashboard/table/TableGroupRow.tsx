@@ -82,14 +82,16 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
               });
             }}
           />
-          <div
-            className="flex h-full cursor-grab items-end justify-end p-2"
-            {...listeners}
-            ref={setActivatorNodeRef}
-          >
+          <div className="flex h-full w-full items-end justify-end p-2">
+            <div
+              className="w-full cursor-grab h-full"
+              {...listeners}
+              ref={setActivatorNodeRef}
+            />
             <FaRegTrashAlt
               className="cursor-pointer hover:text-red-600"
               onClick={async () => {
+                console.log(1);
                 try {
                   await deleteWeeklyMealgRoup({ where: { id: group.id } });
                   TableStore.data = TableStore.data.filter(

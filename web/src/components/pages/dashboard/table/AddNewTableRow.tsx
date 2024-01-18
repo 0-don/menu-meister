@@ -5,7 +5,7 @@ import TableStore from "@/store/TableStore";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { Button, Card, Input } from "@nextui-org/react";
 import { FaRegPlusSquare } from "@react-icons/all-files/fa/FaRegPlusSquare";
-import React, { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useSnapshot } from "valtio";
 import { MyPopover } from "../../../elements/MyPopover";
 import { ColorPalette } from "../utils/ColorPalette";
@@ -16,8 +16,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
   const { createWeeklyMealGroup } = useWeeklyMealGroupHook();
   const dashboardStore = useSnapshot(DashboardStore);
   const tableStore = useSnapshot(TableStore);
-
-  const popoverRef = useRef<HTMLButtonElement>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [color, setColor] = useState<string>("#f44336");
 
@@ -40,8 +39,9 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
       TableStore.data.push(
         res.createWeeklyMealGroupAdmin as WeeklyMealGroupFragmentFragment,
       );
+
+      setIsOpen(false);
       setName("");
-      popoverRef.current?.click();
     } catch (error) {
       catchErrorAlerts(error);
     }
@@ -50,7 +50,8 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
   return (
     <MyPopover
       text="Add new row"
-      ref={popoverRef}
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
       Icon={FaRegPlusSquare}
       className="my-5"
       backdrop="opaque"
