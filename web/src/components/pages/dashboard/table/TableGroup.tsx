@@ -13,13 +13,13 @@ import { useSnapshot } from "valtio";
 interface TableGroupProps {
   id: UniqueIdentifier;
   listeners?: SyntheticListenerMap;
-  ref: (element: HTMLElement | null) => void;
+  activatorRef: (element: HTMLElement | null) => void;
 }
 
 export const TableGroup: React.FC<TableGroupProps> = ({
   id,
   listeners,
-  ref,
+  activatorRef,
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { updateWeeklyMealGroup, deleteWeeklyMealgRoup } =
@@ -77,7 +77,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
             <div
               className="h-full w-full cursor-grab"
               {...listeners}
-              ref={ref}
+              ref={activatorRef}
             />
             <MyModal
               title="Warning"

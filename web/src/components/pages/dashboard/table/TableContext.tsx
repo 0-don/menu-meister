@@ -40,6 +40,9 @@ export function TableContext() {
       <DndContext
         onDragStart={({ active }) => (TableStore.active = active)}
         onDragEnd={({ active, over }) => {
+
+          console.log(active, over)
+
           TableStore.active = undefined;
         }}
         onDragCancel={() => (TableStore.active = undefined)}

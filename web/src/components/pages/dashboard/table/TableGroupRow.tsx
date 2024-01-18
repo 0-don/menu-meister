@@ -35,7 +35,11 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
       role="row"
       ref={setNodeRef}
     >
-      <TableGroup id={id} listeners={listeners} ref={setActivatorNodeRef} />
+      <TableGroup
+        id={id}
+        listeners={listeners}
+        activatorRef={setActivatorNodeRef}
+      />
       <Droppable day="monday" group={group.id} />
       <Droppable day="tuesday" group={group.id} />
       <Droppable day="wednesday" group={group.id} />
