@@ -23,8 +23,6 @@ export function TableContext() {
   const dashboardStore = useSnapshot(DashboardStore);
   const tableStore = useSnapshot(TableStore);
 
-  console.log(JSON.parse(JSON.stringify(tableStore.dataSorted)));
-
   const renderDayColumn = (dayKey: string, index: number) => {
     const dayName = t(dayKey as keyof Messages["Dashboard"]);
     const date = dayjs(dashboardStore.daysThatWeek.at(index)).format("DD.MM");
@@ -87,11 +85,8 @@ export function TableContext() {
             const overGroupId = over?.data.current?.group as number;
 
             // meal sorting changed
-            console.log(active, over);
             if (activeDay !== overDay || activeGroupId !== overGroupId) {
               // check if over has meal already
-
-              // console.log(active, over);
               const overMeal = (
                 TableStore.data.find((group) => group.id === overGroupId) as any
               )[`${overDay}Meal`] as Meal | undefined;
@@ -100,7 +95,8 @@ export function TableContext() {
               TableStore.data = TableStore.data.map((group) => {
                 if (group.id === activeGroupId) {
                   group[`${activeDay}Meal` as DayMeals] = overMeal || null;
-                } else if (group.id === overGroupId) {
+                }
+                if (group.id === overGroupId) {
                   group[`${overDay}Meal` as DayMeals] = activeMeal;
                 }
                 return group;
