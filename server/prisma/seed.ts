@@ -78,7 +78,7 @@ const seedIngredientsAndNutritions = async () => {
       }
     }
 
-    const image = blacklist
+    const image = !blacklist
       ? await downloadImage(imgUrl)
       : { file: null, filename: null };
 
@@ -128,14 +128,13 @@ const seedMeals = async () => {
     });
 
     let blacklist = false;
-
     for (const blacklisted of BLACKLISTED_IMG) {
       if (imgUrl.includes(blacklisted)) {
         blacklist = true;
       }
     }
 
-    const image = blacklist
+    const image = !blacklist
       ? await downloadImage(imgUrl)
       : { file: null, filename: null };
 
