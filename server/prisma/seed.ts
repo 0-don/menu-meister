@@ -9,7 +9,11 @@ const prisma = new PrismaClient();
 
 const EMAIL = "admin@admin.de";
 
-const BLACKLISTED_IMG = ["2094537432367104"];
+const BLACKLISTED_IMG = [
+  "2094537432367104",
+  "1049880564858880",
+  "8889722722058240",
+];
 
 const randomInt = (min = 0, max = 10) =>
   Math.floor(Math.random() * (max - min + 1) + min);

@@ -6,7 +6,6 @@ import { CSS } from "@dnd-kit/utilities";
 import { Link } from "@nextui-org/link";
 import mealPlaceholder from "@public/images/meal-placeholder.png";
 import Image from "next/image";
-
 import { useSnapshot } from "valtio";
 
 interface TableMealItemProps {
