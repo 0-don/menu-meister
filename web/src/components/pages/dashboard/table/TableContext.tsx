@@ -3,6 +3,7 @@ import { Meal } from "@/gql/graphql";
 import DashboardStore from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
 import { WEEK_DAYS } from "@/utils/constants";
+import { DayMeals } from "@/utils/types";
 import { DndContext } from "@dnd-kit/core";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import {
@@ -93,16 +94,15 @@ export function TableContext() {
               // Update the local store
               TableStore.data = TableStore.data.map((group) => {
                 if (group.id === activeGroupId) {
-                  const updatedGroup = { ...group };
-                  updatedGroup[`${activeDay}Meal`] = overMeal;
-                  return updatedGroup;
-                } else if (group.id === overGroupId) {
-                  const updatedGroup = { ...group };
-                  updatedGroup[`${overDay}Meal`] = activeMeal;
-                  return updatedGroup;
+                  group[`${activeDay}Meal` as DayMeals] =
+                    activeGroupId === overGroupId ? overMeal : null;
+                }
+                if (group.id === overGroupId) {
+                  group[`${overDay}Meal` as DayMeals] = activeMeal;
                 }
                 return group;
               });
+
               //remove activeMeal from activeDay
               switchWeeklyMealGroup({
                 data: {

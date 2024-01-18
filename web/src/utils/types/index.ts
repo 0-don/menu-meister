@@ -2,6 +2,8 @@ import { WEEK_DAYS } from "../constants";
 
 export type WeekDay = (typeof WEEK_DAYS)[number];
 
+export type DayMeals = 'mondayMeal' | 'tuesdayMeal' | 'wednesdayMeal' | 'thursdayMeal' | 'fridayMeal' | 'saturdayMeal' | 'sundayMeal';
+
 export type Size = "sm" | "md" | "lg" | undefined;
 
 export type MenuType = {
