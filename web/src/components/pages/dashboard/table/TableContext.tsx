@@ -10,6 +10,7 @@ import {
 } from "@dnd-kit/sortable";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 import { useSnapshot } from "valtio";
 import { TableGroupRow } from "./TableGroupRow";
 
@@ -30,13 +31,17 @@ export function TableContext() {
     );
   };
 
+  const dayColumns = useMemo(() => {
+    return WEEK_DAYS.map((day, index) =>
+      renderDayColumn(day.toUpperCase(), index),
+    );
+  }, [dashboardStore.daysThatWeek, t]); // Add dependencies here
+
   return (
     <main className="relative z-0 mt-5 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small">
       <div className="grid grid-cols-8 gap-2 rounded-lg bg-default-100 p-2 text-tiny font-semibold text-foreground-500">
         <div />
-        {WEEK_DAYS.map((day, index) =>
-          renderDayColumn(day.toUpperCase(), index),
-        )}
+        {dayColumns}
       </div>
 
       <DndContext

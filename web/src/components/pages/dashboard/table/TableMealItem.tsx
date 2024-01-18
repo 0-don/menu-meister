@@ -37,25 +37,25 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
           transform: CSS.Translate.toString(transform),
           opacity: !isActive && isOver ? 0.5 : 1,
         }}
-        className={`${isActive ? "relative z-50" : ""} rounded-lg bg-default-100 p-2`}
+        className={`${isActive ? "relative z-50" : ""} flex h-full flex-col justify-between rounded-lg bg-default-100 p-2`}
         ref={setNodeRef}
         {...attributes}
         {...listeners}
       >
-        <Link href="/" color="foreground">
+        <Link href="/" color="foreground" size="sm">
           {meal.name}
         </Link>
 
         <Image
           alt="Meal"
-          className="rounded-xl object-cover"
+          className="h-24 w-full rounded-xl object-cover"
           src={
             meal.image
               ? `data:image/jpeg;base64,${meal.image}`
               : mealPlaceholder
           }
-          width={220}
-          height={220}
+          width={200}
+          height={200}
         />
         <p className="text-center text-xs">
           {meal.imageName?.match(/\d+/)?.[0]}

@@ -13,6 +13,9 @@ const BLACKLISTED_IMG = [
   "2094537432367104",
   "1049880564858880",
   "8889722722058240",
+  "5180683746017280",
+  "2856251358707712",
+  "1309938542444544",
 ];
 
 const randomInt = (min = 0, max = 10) =>
@@ -70,8 +73,8 @@ const seedIngredientsAndNutritions = async () => {
 
     const imgUrl = faker.image.urlLoremFlickr({
       category: "ingredients",
-      width: 320,
-      height: 240,
+      width: 200,
+      height: 200,
     });
 
     let blacklist = false;
@@ -127,8 +130,8 @@ const seedMeals = async () => {
   for (const _ of Array(100).keys()) {
     const imgUrl = faker.image.urlLoremFlickr({
       category: "meal",
-      width: 320,
-      height: 240,
+      width: 200,
+      height: 200,
     });
 
     let blacklist = false;
