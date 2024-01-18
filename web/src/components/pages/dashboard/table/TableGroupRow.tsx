@@ -14,6 +14,7 @@ interface TableGroupRowProps {
 export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
   const tableStore = useSnapshot(TableStore);
   const group = tableStore.getGroup(id)!;
+
   const {
     attributes,
     listeners,
@@ -23,6 +24,8 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
     setActivatorNodeRef,
     isDragging,
   } = useSortable({ id });
+  
+  if (!group) return null;
 
   return (
     <section

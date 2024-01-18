@@ -24,8 +24,8 @@ export function graphqlModuleFactory(): YogaDriverConfig<"fastify"> {
         import("flat").then(({ flatten }) =>
           Logger.warn(
             JSON.stringify({
-              ...flatten(error?.originalError),
-              ...flatten(error),
+              ...flatten(error?.originalError || {}),
+              ...flatten(error || {}),
             }),
           ),
         );

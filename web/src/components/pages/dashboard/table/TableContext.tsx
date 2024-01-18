@@ -1,4 +1,5 @@
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
+import { Meal } from "@/gql/graphql";
 import DashboardStore from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
 import { WEEK_DAYS } from "@/utils/constants";
@@ -15,7 +16,8 @@ import { useSnapshot } from "valtio";
 import { TableGroupRow } from "./TableGroupRow";
 
 export function TableContext() {
-  const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
+  const { updateWeeklyMealGroup, switchWeeklyMealGroup } =
+    useWeeklyMealGroupHook();
   const t = useTranslations<"Dashboard">();
   const dashboardStore = useSnapshot(DashboardStore);
   const tableStore = useSnapshot(TableStore);
@@ -69,6 +71,48 @@ export function TableContext() {
               updateWeeklyMealGroup({
                 where: { id: Number(over.id) },
                 data: { orderIndex: { set: activeIndex } },
+              });
+            }
+          }
+
+          // meal sorting
+          if (active.data.current?.meal.id && over) {
+            const activeMeal = active.data.current.meal as Meal;
+            const activeDay = active.data.current.day as string;
+            const activeGroupId = active.data.current.group as number;
+            const overDay = over?.data.current?.day as string;
+            const overGroupId = over?.data.current?.group as number;
+
+            // meal sorting changed
+            if (activeDay !== overDay) {
+              // check if over has meal already
+              const overMeal = (
+                TableStore.data.find((group) => group.id === overGroupId) as any
+              )[`${overDay}Meal`] as Meal | undefined;
+
+              // Update the local store
+              TableStore.data = TableStore.data.map((group) => {
+                if (group.id === activeGroupId) {
+                  const updatedGroup = { ...group };
+                  updatedGroup[`${activeDay}Meal`] = overMeal;
+                  return updatedGroup;
+                } else if (group.id === overGroupId) {
+                  const updatedGroup = { ...group };
+                  updatedGroup[`${overDay}Meal`] = activeMeal;
+                  return updatedGroup;
+                }
+                return group;
+              });
+              //remove activeMeal from activeDay
+              switchWeeklyMealGroup({
+                data: {
+                  activeDay,
+                  activeGroupId,
+                  activeMealId: activeMeal.id,
+                  overMealId: overMeal?.id,
+                  overDay,
+                  overGroupId,
+                },
               });
             }
           }

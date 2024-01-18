@@ -14,6 +14,7 @@ import { Logger } from "@nestjs/common";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import { GraphQLResolveInfo } from "graphql";
+import { SwitchWeeklyMealGroupInput } from "../model/input/switch-weekly-meal-group.input";
 import { WeeklyMealGroupService } from "../weekly-meal-group.service";
 
 @Resolver(() => WeeklyMealGroup)
@@ -22,6 +23,34 @@ export class WeeklyMealGroupAdminResolver {
     private prisma: PrismaService,
     private weeklyMealGroupService: WeeklyMealGroupService,
   ) {}
+
+  @Mutation(() => Boolean)
+  @Roles("ADMIN")
+  async switchWeeklyMealGroupAdmin(
+    @Args("data") data: SwitchWeeklyMealGroupInput,
+  ) {
+    try {
+      if (data.overGroupId) {
+        await this.prisma.weeklyMealGroup.update({
+          where: { id: data.activeGroupId },
+          data: {
+            [`${data.activeDay}MealId`]: data.overMealId,
+          },
+        });
+      }
+
+      await this.prisma.weeklyMealGroup.update({
+        where: { id: data.overGroupId },
+        data: {
+          [`${data.overDay}MealId`]: data.activeMealId,
+        },
+      });
+      return true;
+    } catch (error) {
+      Logger.error(error);
+      return false;
+    }
+  }
 
   @Query(() => [WeeklyMealGroup], { nullable: true })
   @Roles("ADMIN")

@@ -1,5 +1,10 @@
-import { WEEKLY_MEAL_GROUP_FRAGMENT } from "@/documents/fragments/dashboard";
 import { graphql } from "@/gql";
+
+export const SWITCH_WEEKLY_MEAL_GROUP_ADMIN = graphql(/* GraphQL */ `
+  mutation SwitchWeeklyMealGroupAdmin($data: SwitchWeeklyMealGroupInput!) {
+    switchWeeklyMealGroupAdmin(data: $data)
+  }
+`);
 
 export const CREATE_WEEKLY_MEAL_GROUP_ADMIN = graphql(/* GraphQL */ `
   mutation CreateWeeklyMealGroupAdmin($data: WeeklyMealGroupCreateInput!) {
@@ -18,7 +23,6 @@ export const DELETE_WEEKLY_MEAL_GROUP_ADMIN = graphql(/* GraphQL */ `
     }
   }
 `);
-
 
 export const UPDATE_WEEKLY_MEAL_GROUP_ADMIN = graphql(/* GraphQL */ `
   mutation UpdateWeeklyMealGroupAdmin(
