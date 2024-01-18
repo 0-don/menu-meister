@@ -41,7 +41,8 @@ export function TableContext() {
 
       <DndContext
         onDragStart={({ active }) => (TableStore.active = active)}
-        onDragEnd={async ({ active, over }) => {
+        onDragEnd={({ active, over }) => {
+          // group sorting
           if (active.data.current?.sortable && over?.data.current?.sortable) {
             const activeIndex = active.data.current?.sortable.index;
             const overIndex = over.data.current?.sortable.index;
