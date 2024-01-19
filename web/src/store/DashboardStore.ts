@@ -16,6 +16,8 @@ dayjs.extend(isoWeeksInYear);
 dayjs.extend(isLeapYear);
 dayjs.Ls["en"].weekStart = 1;
 
+export const DASHBOARD_STORE_KEY = "DashboardStore";
+
 const DashboardStore = proxy({
   calendar: {
     year: dayjs().year(),

@@ -8,15 +8,16 @@ import { useGqlQuery } from "@/fetcher";
 import { WeeklyMealGroupFragmentFragment } from "@/gql/graphql";
 import DashboardStore from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
-import { useTranslations } from "next-intl";
+import { useInitialDashboardStore } from "@/store/hooks/useInitialDashboardStore";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import { AddNewTableRow } from "./pages/dashboard/table/AddNewTableRow";
 import { TableContext } from "./pages/dashboard/table/TableContext";
+
 interface DashboardPageProps {}
 
 export function MainTable({}: DashboardPageProps) {
-  const t = useTranslations<"Dashboard">();
+  useInitialDashboardStore();
   const dashboardStore = useSnapshot(DashboardStore);
 
   const {

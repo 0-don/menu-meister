@@ -27,3 +27,8 @@ export const WEEK_DAYS = [
   "saturday",
   "sunday",
 ] as const;
+
+export const setStore = (initial: any, state: any) => {
+  const resetObj = window.structuredClone(initial);
+  Object.keys(resetObj).forEach((key) => (state[key] = resetObj[key]));
+};

@@ -42,7 +42,7 @@ export function TableContext() {
 
   return (
     <main className="relative z-0 mt-5 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small">
-      <div className="grid grid-cols-8 gap-2 rounded-lg bg-default-100 p-2 text-tiny font-semibold text-foreground-500">
+      <div className="grid grid-cols-8 gap-2 rounded-lg bg-default-100 p-2 font-semibold text-foreground-500">
         <div />
         {dayColumns}
       </div>
@@ -93,12 +93,10 @@ export function TableContext() {
 
               // Update the local store
               TableStore.data = TableStore.data.map((group) => {
-                if (group.id === activeGroupId) {
+                if (group.id === activeGroupId)
                   group[`${activeDay}Meal` as DayMeals] = overMeal || null;
-                }
-                if (group.id === overGroupId) {
+                if (group.id === overGroupId)
                   group[`${overDay}Meal` as DayMeals] = activeMeal;
-                }
                 return group;
               });
               //remove activeMeal from activeDay
