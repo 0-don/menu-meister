@@ -1,6 +1,4 @@
 import { ME } from "@/documents/query/auth";
-import { MeQuery } from "@/gql/graphql";
-import { getKey } from "@/utils/helpers/clientUtils";
 import { prefetchQuery } from "@/utils/helpers/serverComponentsUtil";
 import { HydrationBoundary } from "@tanstack/react-query";
 
@@ -13,25 +11,7 @@ export default async function HomeLayout({
   children,
   mealModal,
 }: HomeLayoutProps) {
-  const { queryClient, state } = await prefetchQuery([{ document: ME }]);
-  const data = queryClient.getQueryData<MeQuery>(getKey(ME));
-
-  // let layout = home;
-  // let tree: keyof Messages = "Home";
-  // const isHighRank = data?.me?.UserRole?.some(
-  //   ({ name }) => name === UserRoleName.Admin || name === UserRoleName.Mod,
-  // );
-
-  // if (data?.me) {
-  //   layout = user;
-  //   tree = "User";
-  // }
-  // if (isHighRank) {
-  //   layout = dashboard;
-  //   tree = "Dashboard";
-  // }
-
-  // console.log(mealModal)
+  const { state } = await prefetchQuery([{ document: ME }]);
 
   return (
     <HydrationBoundary state={state}>
