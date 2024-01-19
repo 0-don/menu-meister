@@ -7,11 +7,12 @@ interface MealDetailsProps {
 }
 
 export const MealDetails: React.FC<MealDetailsProps> = ({ id }) => {
-  console.log("MealDetails", id);
-
   return (
-    <>
+    <div className="bg-content1 p-5 ">
       <h1>asdasd {id}</h1>
-    </>
+      <h1>asdasd {id}</h1>
+      <h1>asdasd {id}</h1>
+      <h1>asdasd {id}</h1>
+    </div>
   );
 };

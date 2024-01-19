@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "@/navigation";
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
@@ -12,7 +14,7 @@ export const MyModal: React.FC<MyModalProps> = ({ children, className }) => {
 
   return (
     <Transition.Root show={true} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={() => router.back()}>
+      <Dialog as="div" className="relative z-[9999]" onClose={() => router.back()}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -22,7 +24,7 @@ export const MyModal: React.FC<MyModalProps> = ({ children, className }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-70 transition-opacity" />
+          <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto">
