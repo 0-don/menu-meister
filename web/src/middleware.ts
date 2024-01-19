@@ -33,6 +33,7 @@ const tokenParser = async (request: NextRequest, response: NextResponse) => {
     new URL(process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT).origin;
 
   const authorization = `Bearer ${token}`;
+  console.log("redirect to login");
   const { me } = await customFetcherServer(ME, undefined, {
     authorization,
     referer,
@@ -53,6 +54,7 @@ const tokenParser = async (request: NextRequest, response: NextResponse) => {
       path: "/",
       httpOnly: true,
     });
+
     return NextResponse.redirect(new URL("/login", request.url));
   }
 

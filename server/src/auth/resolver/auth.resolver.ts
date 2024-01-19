@@ -17,7 +17,7 @@ export class AuthResolver {
   ) {}
 
   @Query(() => User, { nullable: true })
-  @Roles("GUEST")
+  @Roles("USER", "MOD")
   async me(@CurrentUser() me?: JwtUser) {
     if (!me) return null;
 

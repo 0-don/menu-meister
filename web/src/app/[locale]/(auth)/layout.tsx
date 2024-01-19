@@ -10,10 +10,14 @@ interface AuthLayoutProps {
 }
 
 export default async function AuthLayout({ children }: AuthLayoutProps) {
-  const { me } = await customFetcherServer(ME, undefined, ssrHeaders());
-  const url = ssrUrl();
+  try {
+    const { me } = await customFetcherServer(ME, undefined, ssrHeaders());
+    const url = ssrUrl();
 
-  if (me && url.pathname !== "/logout") redirect("/");
+    if (me && url.pathname !== "/logout") redirect("/");
+  } catch (error) {
+    redirect("/login");
+  }
 
   return (
     <main className="flex min-h-[calc(100svh-4rem)]">
