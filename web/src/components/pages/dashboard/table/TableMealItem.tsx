@@ -54,7 +54,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
         role="item"
       >
         <div className="flex items-center justify-between">
-          <Link href="#" color="foreground" size="sm">
+          <Link href={`/meal/${meal.id}`} color="foreground" size="sm">
             {meal.name}
           </Link>
           <MyModal

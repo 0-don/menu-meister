@@ -38,6 +38,8 @@ export default async function HomeLayout({
     tree = "Dashboard";
   }
 
+  // console.log(mealModal)
+
   return (
     <NextIntlProvider tree={tree}>
       <HydrationBoundary state={state}>
