@@ -31,7 +31,7 @@ export class WeeklyMealGroupAdminResolver {
     @Args("data") data: SwitchWeeklyMealGroupInput,
   ) {
     try {
-      if (data.overGroupId) {
+      if (data?.overMealId) {
         await this.prisma.weeklyMealGroup.update({
           where: { id: data.activeGroupId },
           data: {
