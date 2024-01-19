@@ -5,6 +5,5 @@ interface MealDetailsPageProps {
 }
 
 export default function MealDetailsPage({ params }: MealDetailsPageProps) {
-  console.log("MealDetailsPage", params.id);
   return <MealDetails id={params.id} />;
 }

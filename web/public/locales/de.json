@@ -52,6 +52,9 @@
     "SELECT_MEAL": "Mahlzeit auswählen",
     "MEAL": "Mahlzeit"
   },
+  "Menu": {
+
+  },
   "User": {},
   "Navbar": {
     "LOGIN": "Anmeldung",

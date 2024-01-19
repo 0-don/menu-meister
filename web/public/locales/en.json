@@ -52,6 +52,7 @@
     "SELECT_MEAL": "Select Meal",
     "MEAL": "Meal"
   },
+  "Menu": {},
   "User": {},
   "Navbar": {
     "LOGIN": "Login",
