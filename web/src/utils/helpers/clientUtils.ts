@@ -13,12 +13,21 @@ export const getKey = <TData = any, TVariables = unknown>(
 
 export const getMenu = (roles: UserRoleName[]) =>
   [
-    { link: "/", name: "HOME" },
+    {
+      link: "/",
+      name: "HOME",
+      display:
+        roles.includes(UserRoleName.Admin) ||
+        roles.includes(UserRoleName.Mod) ||
+        roles.includes(UserRoleName.User),
+    },
     {
       link: "/about",
       name: "ABOUT",
       display:
-        roles.includes(UserRoleName.Admin) || roles.includes(UserRoleName.Mod),
+        roles.includes(UserRoleName.Admin) ||
+        roles.includes(UserRoleName.Mod) ||
+        roles.includes(UserRoleName.User),
     },
   ].filter((link) => !link.display);
 

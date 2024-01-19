@@ -5,6 +5,7 @@ import {
   LoginUserMutationVariables,
   RegisterUserMutation,
   RegisterUserMutationVariables,
+  UserRoleName,
 } from "@/gql/graphql";
 import { useRouter } from "@/navigation";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
@@ -66,7 +67,7 @@ export const AuthStore = proxy({
           msg: t("ACCOUNT_CREATED") as string,
           type: "success",
         });
-        router.push("/");
+        router.push("/menu");
       }
     } catch (err) {
       catchErrorAlerts(err, t);
@@ -104,7 +105,13 @@ export const AuthStore = proxy({
           msg: t("ACCOUNT_LOGGED_IN") as string,
           type: "success",
         });
-        router.push("/");
+
+        loginUser.UserRole?.some(
+          ({ name }) =>
+            name === UserRoleName.Admin || name === UserRoleName.Mod,
+        )
+          ? router.push("/dashboard")
+          : router.push("/menu");
       } else {
         addAlert({
           msg: t("ACCOUNT_NOT_FOUND") as string,
