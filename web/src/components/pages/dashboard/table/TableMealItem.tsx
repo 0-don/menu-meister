@@ -116,7 +116,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
         </div>
 
         <Image
-          alt="Meal"
+          alt={t("MEAL")}
           className="h-24 w-full cursor-grab rounded-xl object-cover"
           ref={setActivatorNodeRef}
           {...listeners}

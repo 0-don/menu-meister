@@ -49,7 +49,8 @@
     "ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_GROUP": "Are you sure you want to delete this group?",
     "ARE_YOU_SURE_DELETE_MEAL": "Are you sure you want to delete the meal <meal>{mealName}</meal> in Group <group>{groupName}</group>?",
     "DELETE_MEAL": "Delete Meal",
-    "SELECT_MEAL": "Select Meal"
+    "SELECT_MEAL": "Select Meal",
+    "MEAL": "Meal"
   },
   "User": {},
   "Navbar": {
