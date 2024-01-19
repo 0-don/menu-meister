@@ -7,6 +7,7 @@ import { UniqueIdentifier } from "@dnd-kit/core";
 import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 import { Button, useDisclosure } from "@nextui-org/react";
 import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
+import { useTranslations } from "next-intl";
 import React, { useCallback, useState } from "react";
 import { useSnapshot } from "valtio";
 
@@ -21,6 +22,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
   listeners,
   activatorRef,
 }) => {
+  const t = useTranslations("Dashboard");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { updateWeeklyMealGroup, deleteWeeklyMealgRoup } =
     useWeeklyMealGroupHook();
@@ -80,7 +82,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
               ref={activatorRef}
             />
             <MyModal
-              title="Warning"
+              title={t("WARNING")}
               isOpen={isOpen}
               onOpen={onOpen}
               onOpenChange={onOpenChange}
@@ -98,22 +100,22 @@ export const TableGroup: React.FC<TableGroupProps> = ({
                         );
                         onOpen();
                       } catch (error) {
-                        catchErrorAlerts(error);
+                        catchErrorAlerts(error, t);
                       }
                     }}
                   >
-                    Yes
+                    {t("YES")}
                   </Button>
                 </div>
               }
               Trigger={
                 <FaRegTrashAlt
                   onClick={() => onOpen()}
-                  className="cursor-pointer hover:text-red-600 m-2"
+                  className="m-2 cursor-pointer hover:text-red-600"
                 />
               }
             >
-              Are you sure you want to delete the group?
+              {t("ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_GROUP")}
             </MyModal>
           </div>
         </div>

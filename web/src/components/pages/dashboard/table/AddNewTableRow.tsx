@@ -5,6 +5,7 @@ import TableStore from "@/store/TableStore";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { Button, Card, Input } from "@nextui-org/react";
 import { FaRegPlusSquare } from "@react-icons/all-files/fa/FaRegPlusSquare";
+import { useTranslations } from "next-intl";
 import React, { FormEvent, useState } from "react";
 import { useSnapshot } from "valtio";
 import { MyPopover } from "../../../elements/MyPopover";
@@ -13,6 +14,7 @@ import { ColorPalette } from "../utils/ColorPalette";
 interface AddNewTableRowProps {}
 
 export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
+  const t = useTranslations<"Dashboard">();
   const { createWeeklyMealGroup } = useWeeklyMealGroupHook();
   const dashboardStore = useSnapshot(DashboardStore);
   const tableStore = useSnapshot(TableStore);
@@ -49,7 +51,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
 
   return (
     <MyPopover
-      text="Add new row"
+      text={t("ADD_NEW_GROUP")}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       Icon={FaRegPlusSquare}
@@ -62,7 +64,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
         <form onSubmit={onSubmit} className="flex flex-col space-y-5">
           <Input
             type="text"
-            label="Gruppenname"
+            label={t("GROUPNAME")}
             required
             size="sm"
             value={name}
@@ -72,7 +74,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
           <ColorPalette value={color} onChange={setColor} />
 
           <Button color="primary" type="submit">
-            Save Group
+            {t("SAVE_GROUP")}
           </Button>
         </form>
       </Card>

@@ -10,6 +10,7 @@ import { Link } from "@nextui-org/link";
 import { Button, useDisclosure } from "@nextui-org/react";
 import mealPlaceholder from "@public/images/meal-placeholder.png";
 import { FaEraser } from "@react-icons/all-files/fa/FaEraser";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useSnapshot } from "valtio";
 
@@ -26,6 +27,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
   group,
   isOver,
 }) => {
+  const t = useTranslations("Dashboard");
   const groupItem = TableStore.getGroup(group);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
@@ -56,7 +58,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
             {meal.name}
           </Link>
           <MyModal
-            title="Warning"
+            title={t("WARNING")}
             isOpen={isOpen}
             onOpen={onOpen}
             onOpenChange={onOpenChange}
@@ -80,31 +82,35 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
 
                     onOpenChange();
                   } catch (error) {
-                    catchErrorAlerts(error);
+                    catchErrorAlerts(error, t);
                   }
                 }}
               >
-                Yes
+                {t("YES")}
               </Button>
             }
             Trigger={
               <FaEraser
                 onClick={onOpen}
-                title="Delete Meal"
+                title={t("DELETE_MEAL")}
                 className="invisible cursor-pointer hover:text-red-500 group-hover:visible"
               />
             }
           >
             <p>
-              Are you sure you want to delete the meal{" "}
-              <span className="font-bold">{meal.name}</span> in Group{" "}
-              <span
-                className="font-bold"
-                style={{ color: groupItem?.color || undefined }}
-              >
-                {groupItem?.name}
-              </span>
-              ?
+              {t?.rich("ARE_YOU_SURE_DELETE_MEAL", {
+                mealName: meal.name,
+                groupName: groupItem?.name,
+                meal: (chunks) => <p className="font-bold">{chunks}</p>,
+                group: (chunks) => (
+                  <p
+                    className="font-bold"
+                    style={{ color: groupItem?.color || undefined }}
+                  >
+                    {chunks}
+                  </p>
+                ),
+              })}
             </p>
           </MyModal>
         </div>
@@ -122,9 +128,6 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
           width={200}
           height={200}
         />
-        <p className="text-center text-xs">
-          {meal.imageName?.match(/\d+/)?.[0]}
-        </p>
       </div>
     </>
   );

@@ -1,7 +1,9 @@
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import TableStore from "@/store/TableStore";
+import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { WeekDay } from "@/utils/types";
 import { UniqueIdentifier, useDroppable } from "@dnd-kit/core";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
 import { MyAutocomplete } from "../../../elements/MyAutocomplete";
@@ -13,6 +15,7 @@ interface DroppableProps {
 }
 
 export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
+  const t = useTranslations<"Dashboard">();
   const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
   const [value, setValue] = useState<UniqueIdentifier>("");
   const { data, getGroupMeal, mealsSorted, refetchWeeklyMealGroups } =
@@ -37,17 +40,21 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
           <MyAutocomplete
             id={id}
             size="sm"
-            label="Gericht auswählen"
+            label={t("SELECT_MEAL")}
             isClearable={false}
             items={mealsSorted}
             value={value}
             onChange={async (e) => {
-              await updateWeeklyMealGroup({
-                where: { id: Number(group) },
-                data: { [`${day}MealId`]: { set: Number(e) } },
-              });
-              refetchWeeklyMealGroups();
-              setValue("");
+              try {
+                await updateWeeklyMealGroup({
+                  where: { id: Number(group) },
+                  data: { [`${day}MealId`]: { set: Number(e) } },
+                });
+                refetchWeeklyMealGroups();
+                setValue("");
+              } catch (error) {
+                catchErrorAlerts(error, t);
+              }
             }}
           />
         </div>

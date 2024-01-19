@@ -40,7 +40,16 @@
     "THURSDAY": "Donnerstag",
     "FRIDAY": "Freitag",
     "SATURDAY": "Samstag",
-    "SUNDAY": "Sonntag"
+    "SUNDAY": "Sonntag",
+    "GROUPNAME": "Gruppenname",
+    "ADD_NEW_GROUP": "Neue Gruppe hinzufügen",
+    "SAVE_GROUP": "Gruppe speichern",
+    "YES": "Ja",
+    "WARNING": "Warnung",
+    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_GROUP": "Sind Sie sicher, dass Sie diese Gruppe löschen möchten?",
+    "ARE_YOU_SURE_DELETE_MEAL": "Sind Sie sicher, dass Sie die Mahlzeit <meal>{mealName}</meal> in der Gruppe <group>{groupName}</group> löschen möchten?",
+    "DELETE_MEAL": "Mahlzeit löschen",
+    "SELECT_MEAL": "Mahlzeit auswählen"
   },
   "User": {},
   "Navbar": {
