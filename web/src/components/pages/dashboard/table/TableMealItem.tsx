@@ -71,11 +71,13 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
                         [`${day}MealId`]: { set: null },
                       },
                     });
-                    TableStore.data = tableStore.data.map((group) =>
-                      group.id === Number(group)
-                        ? { ...group, [`${day}Meal`]: null }
-                        : group,
+
+                    TableStore.data = TableStore.data.map((g) =>
+                      g.id === Number(group)
+                        ? { ...g, [`${day}Meal`]: null }
+                        : g,
                     );
+
                     onOpenChange();
                   } catch (error) {
                     catchErrorAlerts(error);

@@ -15,14 +15,14 @@ interface DroppableProps {
 export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
   const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
   const [value, setValue] = useState<UniqueIdentifier>("");
-  const tableStore = useSnapshot(TableStore);
+  const { data, getGroupMeal, mealsSorted } = useSnapshot(TableStore);
   const id = `${group}#${day}`;
   const { setNodeRef, isOver } = useDroppable({
     id,
     data: { day, group },
   });
 
-  const meal = tableStore.getGroupMeal(group, day);
+  const meal = getGroupMeal(group, day);
 
   return (
     <div ref={setNodeRef}>
@@ -38,7 +38,7 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
             size="sm"
             label="Gericht auswählen"
             isClearable={false}
-            items={tableStore.mealsSorted}
+            items={mealsSorted}
             value={value}
             onChange={(e) => {
               console.log(e);
