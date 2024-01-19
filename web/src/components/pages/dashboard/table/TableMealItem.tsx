@@ -63,9 +63,9 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
             Footer={
               <Button
                 color="danger"
-                onClick={async () => {
+                onClick={() => {
                   try {
-                    await updateWeeklyMealGroup({
+                    updateWeeklyMealGroup({
                       where: { id: Number(group) },
                       data: {
                         [`${day}MealId`]: { set: null },

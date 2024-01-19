@@ -15,7 +15,8 @@ interface DroppableProps {
 export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
   const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
   const [value, setValue] = useState<UniqueIdentifier>("");
-  const { data, getGroupMeal, mealsSorted } = useSnapshot(TableStore);
+  const { data, getGroupMeal, mealsSorted, refetchWeeklyMealGroups } =
+    useSnapshot(TableStore);
   const id = `${group}#${day}`;
   const { setNodeRef, isOver } = useDroppable({
     id,
@@ -40,9 +41,13 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
             isClearable={false}
             items={mealsSorted}
             value={value}
-            onChange={(e) => {
-              console.log(e);
+            onChange={async (e) => {
               setValue(e);
+              await updateWeeklyMealGroup({
+                where: { id: Number(group) },
+                data: { [`${day}MealId`]: { set: Number(e) } },
+              });
+              refetchWeeklyMealGroups();
             }}
           />
         </div>
