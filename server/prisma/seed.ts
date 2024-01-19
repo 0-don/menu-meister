@@ -33,7 +33,7 @@ const seed = async () => {
   await createUser({
     email: EMAIL,
     password: "!admin",
-    roles: ["USER", "ADMIN"],
+    roles: ["ADMIN"],
   });
 
   await seedIngredientsAndNutritions();
