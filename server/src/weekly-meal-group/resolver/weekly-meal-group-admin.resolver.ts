@@ -34,24 +34,18 @@ export class WeeklyMealGroupAdminResolver {
       if (data?.overMealId) {
         await this.prisma.weeklyMealGroup.update({
           where: { id: data.activeGroupId },
-          data: {
-            [`${data.activeDay}MealId`]: data.overMealId,
-          },
+          data: { [`${data.activeDay}MealId`]: data.overMealId },
         });
       } else {
         await this.prisma.weeklyMealGroup.update({
           where: { id: data.activeGroupId },
-          data: {
-            [`${data.activeDay}MealId`]: null,
-          },
+          data: { [`${data.activeDay}MealId`]: null },
         });
       }
 
       await this.prisma.weeklyMealGroup.update({
         where: { id: data.overGroupId },
-        data: {
-          [`${data.overDay}MealId`]: data.activeMealId,
-        },
+        data: { [`${data.overDay}MealId`]: data.activeMealId },
       });
       return true;
     } catch (error) {
