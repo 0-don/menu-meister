@@ -17,24 +17,33 @@ export const getMenu = (roles: UserRoleName[]) =>
       link: "/",
       name: "HOME",
       display:
-        roles.includes(UserRoleName.Admin) ||
-        roles.includes(UserRoleName.Mod) ||
-        roles.includes(UserRoleName.User),
+        !roles.includes(UserRoleName.Admin) &&
+        !roles.includes(UserRoleName.Mod) &&
+        !roles.includes(UserRoleName.User),
     },
     {
       link: "/about",
       name: "ABOUT",
       display:
-        roles.includes(UserRoleName.Admin) ||
-        roles.includes(UserRoleName.Mod) ||
-        roles.includes(UserRoleName.User),
+        !roles.includes(UserRoleName.Admin) &&
+        !roles.includes(UserRoleName.Mod) &&
+        !roles.includes(UserRoleName.User),
     },
     {
       link: "/dashboard",
       name: "DASHBOARD",
-      display: !roles.includes(UserRoleName.User),
+      display:
+        roles.includes(UserRoleName.Admin) || roles.includes(UserRoleName.Mod),
     },
-  ].filter((link) => !link.display);
+    {
+      link: "/menu",
+      name: "MENU",
+      display:
+        roles.includes(UserRoleName.Admin) ||
+        roles.includes(UserRoleName.Mod) ||
+        roles.includes(UserRoleName.User),
+    },
+  ].filter((link) => link.display);
 
 export const catchErrorAlerts = (
   err: unknown,
