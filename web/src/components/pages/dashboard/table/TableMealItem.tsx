@@ -27,7 +27,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
   group,
   isOver,
 }) => {
-  const t = useTranslations("Dashboard");
+  const t = useTranslations<"Dashboard">();
   const groupItem = TableStore.getGroup(group);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
@@ -101,14 +101,14 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
               {t?.rich("ARE_YOU_SURE_DELETE_MEAL", {
                 mealName: meal.name,
                 groupName: groupItem?.name,
-                meal: (chunks) => <p className="font-bold">{chunks}</p>,
+                meal: (chunks) => <span className="font-bold">{chunks}</span>,
                 group: (chunks) => (
-                  <p
+                  <span
                     className="font-bold"
                     style={{ color: groupItem?.color || undefined }}
                   >
                     {chunks}
-                  </p>
+                  </span>
                 ),
               })}
             </p>

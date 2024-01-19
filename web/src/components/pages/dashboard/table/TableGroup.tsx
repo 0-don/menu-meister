@@ -22,7 +22,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
   listeners,
   activatorRef,
 }) => {
-  const t = useTranslations("Dashboard");
+  const t = useTranslations<"Dashboard">();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { updateWeeklyMealGroup, deleteWeeklyMealgRoup } =
     useWeeklyMealGroupHook();
