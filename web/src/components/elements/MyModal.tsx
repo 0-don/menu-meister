@@ -1,39 +1,50 @@
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@nextui-org/react";
-import React from "react";
+import { useRouter } from "@/navigation";
+import { Dialog, Transition } from "@headlessui/react";
+import React, { Fragment } from "react";
 
 interface MyModalProps {
-  Trigger: JSX.Element;
-  isOpen: boolean;
-  onOpen: () => void;
-  onOpenChange: () => void;
-  title: string;
-  children: React.ReactNode;
-  Footer: JSX.Element;
+  children?: React.ReactNode;
+  className?: string;
 }
 
-export const MyModal: React.FC<MyModalProps> = (props) => {
+export const MyModal: React.FC<MyModalProps> = ({ children, className }) => {
+  const router = useRouter();
+
   return (
-    <>
-      {props.Trigger}
-      <Modal isOpen={props.isOpen} onOpenChange={props.onOpenChange}>
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                {props.title}
-              </ModalHeader>
-              <ModalBody>{props.children}</ModalBody>
-              <ModalFooter>{props.Footer}</ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
-    </>
+    <Transition.Root show={true} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={() => router.back()}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black bg-opacity-70 transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 z-10 overflow-y-auto">
+          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            >
+              <Dialog.Panel
+                className={`bg-bodyBg relative mx-5 w-full overflow-hidden rounded-lg shadow-xl md:w-1/2 ${className}`}
+              >
+                {children}
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition.Root>
   );
 };

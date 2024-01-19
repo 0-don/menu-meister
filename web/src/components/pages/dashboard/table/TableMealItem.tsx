@@ -1,4 +1,4 @@
-import { MyModal } from "@/components/elements/MyModal";
+import { MyConfirmModal } from "@/components/elements/MyConfirmModal";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { Meal } from "@/gql/graphql";
 import TableStore from "@/store/TableStore";
@@ -57,7 +57,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
           <Link href={`/meal/${meal.id}`} color="foreground" size="sm">
             {meal.name}
           </Link>
-          <MyModal
+          <MyConfirmModal
             title={t("WARNING")}
             isOpen={isOpen}
             onOpen={onOpen}
@@ -112,7 +112,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
                 ),
               })}
             </p>
-          </MyModal>
+          </MyConfirmModal>
         </div>
 
         <Image

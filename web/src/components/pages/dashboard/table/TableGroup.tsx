@@ -1,4 +1,4 @@
-import { MyModal } from "@/components/elements/MyModal";
+import { MyConfirmModal } from "@/components/elements/MyConfirmModal";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import TableStore from "@/store/TableStore";
 import { debounce } from "@/utils/constants";
@@ -81,7 +81,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
               {...listeners}
               ref={activatorRef}
             />
-            <MyModal
+            <MyConfirmModal
               title={t("WARNING")}
               isOpen={isOpen}
               onOpen={onOpen}
@@ -116,7 +116,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
               }
             >
               {t("ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_GROUP")}
-            </MyModal>
+            </MyConfirmModal>
           </div>
         </div>
       </div>
