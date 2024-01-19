@@ -16,7 +16,7 @@ export class SwitchWeeklyMealGroupInput {
   activeGroupId: number;
 
   @Field(() => Int, { nullable: true })
-  overMealId: number;
+  overMealId?: number;
 
   @IsNotEmpty()
   @Field(() => String)
