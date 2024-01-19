@@ -10,6 +10,7 @@ interface HomeLayoutProps {
   home: React.ReactNode;
   dashboard: React.ReactNode;
   user: React.ReactNode;
+  mealModal: React.ReactNode;
 }
 
 export default async function HomeLayout({
@@ -17,6 +18,7 @@ export default async function HomeLayout({
   home,
   dashboard,
   user,
+  mealModal,
 }: HomeLayoutProps) {
   const { queryClient, state } = await prefetchQuery([{ document: ME }]);
   const data = queryClient.getQueryData<MeQuery>(getKey(ME));
@@ -41,6 +43,7 @@ export default async function HomeLayout({
       <HydrationBoundary state={state}>
         <div className="relative flex min-h-[calc(100svh-4rem)] flex-col items-center px-6">
           {layout}
+          {mealModal}
         </div>
       </HydrationBoundary>
     </NextIntlProvider>
