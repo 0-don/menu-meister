@@ -1,5 +1,6 @@
 import NextIntlProvider from "@/components/NextIntlProvider";
 import { ME } from "@/documents/query/auth";
+import { MeQuery, UserRoleName } from "@/gql/graphql";
 import { redirect } from "@/navigation";
 import { ssrHeaders, ssrUrl } from "@/utils/helpers/serverComponentsUtil";
 import { customFetcherServer } from "@/utils/helpers/serverUtils";
@@ -10,12 +11,20 @@ interface AuthLayoutProps {
 }
 
 export default async function AuthLayout({ children }: AuthLayoutProps) {
-  try {
-    const { me } = await customFetcherServer(ME, undefined, ssrHeaders());
-    const url = ssrUrl();
+  const url = ssrUrl();
+  let user: MeQuery["me"] | undefined;
 
-    if (me && url.pathname !== "/logout") redirect("/");
-  } catch (error) {}
+  try {
+    user = (await customFetcherServer(ME, undefined, ssrHeaders()))?.me;
+  } catch (_) {}
+
+  if (user && url.pathname !== "/logout") {
+    user.UserRole?.some(
+      ({ name }) => name === UserRoleName.Admin || name === UserRoleName.Mod,
+    )
+      ? redirect("/dashboard")
+      : redirect("/menu");
+  }
 
   return (
     <main className="flex min-h-[calc(100svh-4rem)]">
