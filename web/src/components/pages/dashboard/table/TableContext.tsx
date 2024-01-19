@@ -20,12 +20,12 @@ export function TableContext() {
   const { updateWeeklyMealGroup, switchWeeklyMealGroup } =
     useWeeklyMealGroupHook();
   const t = useTranslations<"Dashboard">();
-  const dashboardStore = useSnapshot(DashboardStore);
-  const tableStore = useSnapshot(TableStore);
+  const { daysThatWeek } = useSnapshot(DashboardStore);
+  const { dataSorted } = useSnapshot(TableStore);
 
   const renderDayColumn = (dayKey: string, index: number) => {
     const dayName = t(dayKey as keyof Messages["Dashboard"]);
-    const date = dayjs(dashboardStore.daysThatWeek.at(index)).format("DD.MM");
+    const date = dayjs(DashboardStore.daysThatWeek.at(index)).format("DD.MM");
 
     return (
       <div key={dayKey} title={dayName}>
@@ -38,7 +38,7 @@ export function TableContext() {
     return WEEK_DAYS.map((day, index) =>
       renderDayColumn(day.toUpperCase(), index),
     );
-  }, [dashboardStore.daysThatWeek, t]); // Add dependencies here
+  }, [daysThatWeek]);
 
   return (
     <main className="relative z-0 mt-5 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small">
@@ -77,7 +77,7 @@ export function TableContext() {
           }
 
           // meal sorting
-          if (active.data.current?.meal.id && over) {
+          if (active.data.current?.meal?.id && over) {
             const activeMeal = active.data.current.meal as Meal;
             const activeDay = active.data.current.day as string;
             const activeGroupId = active.data.current.group as number;
@@ -122,9 +122,9 @@ export function TableContext() {
       >
         <SortableContext
           strategy={verticalListSortingStrategy}
-          items={tableStore.dataSorted.map((i) => i.id)}
+          items={dataSorted.map((i) => i.id)}
         >
-          {tableStore.dataSorted.map((value) => (
+          {dataSorted.map((value) => (
             <TableGroupRow key={value.id} id={value.id} />
           ))}
         </SortableContext>
