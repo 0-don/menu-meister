@@ -26,8 +26,6 @@ export const MainMenu: React.FC<MainMenuProps> = ({ pathname }) => {
   const [path, setPath] = useState<string>(pathname || p);
   const [links, setLinks] = useState<MenuType[]>(getMenu(roles));
 
-  console.log(me);
-
   useEffect(() => void setPath(p || pathname), [pathname, p]);
   useEffect(() => void setLinks(getMenu(roles)), [me]);
 

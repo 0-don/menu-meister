@@ -161,7 +161,6 @@ export class WeeklyMealGroupAdminResolver {
         ...select,
       });
     } catch (e) {
-      console.log(e);
       Logger.error(e);
       return null;
     }
