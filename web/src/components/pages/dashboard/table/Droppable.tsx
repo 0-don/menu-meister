@@ -42,12 +42,12 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
             items={mealsSorted}
             value={value}
             onChange={async (e) => {
-              setValue(e);
               await updateWeeklyMealGroup({
                 where: { id: Number(group) },
                 data: { [`${day}MealId`]: { set: Number(e) } },
               });
               refetchWeeklyMealGroups();
+              setValue("");
             }}
           />
         </div>
