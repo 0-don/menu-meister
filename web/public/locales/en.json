@@ -60,6 +60,8 @@
     "HOME": "Home",
     "DASHBOARD": "Dashboard",
     "PROFILE": "Profile",
-    "ABOUT": "About"
+    "ABOUT": "About",
+    "MENU": "Menu",
+    "SETTINGS": "Settings"
   }
 }

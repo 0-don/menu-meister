@@ -29,6 +29,11 @@ export const getMenu = (roles: UserRoleName[]) =>
         roles.includes(UserRoleName.Mod) ||
         roles.includes(UserRoleName.User),
     },
+    {
+      link: "/dashboard",
+      name: "DASHBOARD",
+      display: !roles.includes(UserRoleName.User),
+    },
   ].filter((link) => !link.display);
 
 export const catchErrorAlerts = (
