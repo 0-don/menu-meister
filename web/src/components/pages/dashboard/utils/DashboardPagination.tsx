@@ -1,6 +1,7 @@
 import DashboardStore from "@/store/DashboardStore";
 import { Button } from "@nextui-org/button";
 import { Pagination } from "@nextui-org/pagination";
+import { Link } from "@nextui-org/react";
 import { FaChevronLeft } from "@react-icons/all-files/fa/FaChevronLeft";
 import { IoCalendarSharp } from "@react-icons/all-files/io5/IoCalendarSharp";
 import dayjs from "dayjs";
@@ -15,7 +16,7 @@ export const DashboardPagination: React.FC = () => {
 
   return (
     <>
-      <div className="relative mb-2 mt-5 flex hover:!text-gray-300">
+      <Link href="#" color="foreground" className="relative mb-2 mt-5 flex ">
         <label
           htmlFor="datePicker"
           className="flex cursor-pointer gap-1"
@@ -42,7 +43,7 @@ export const DashboardPagination: React.FC = () => {
           type="date"
           className="invisible absolute h-6 w-0"
         />
-      </div>
+      </Link>
       <div className="flex items-center">
         <Button
           isIconOnly
