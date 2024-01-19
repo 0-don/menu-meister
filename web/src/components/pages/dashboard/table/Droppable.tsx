@@ -1,3 +1,4 @@
+import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import TableStore from "@/store/TableStore";
 import { WeekDay } from "@/utils/types";
 import { UniqueIdentifier, useDroppable } from "@dnd-kit/core";
@@ -12,6 +13,7 @@ interface DroppableProps {
 }
 
 export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
+  const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
   const [value, setValue] = useState<UniqueIdentifier>("");
   const tableStore = useSnapshot(TableStore);
   const id = `${group}#${day}`;
@@ -38,7 +40,10 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
             isClearable={false}
             items={tableStore.mealsSorted}
             value={value}
-            onChange={setValue}
+            onChange={(e) => {
+              console.log(e);
+              setValue(e);
+            }}
           />
         </div>
       )}

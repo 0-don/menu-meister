@@ -5,8 +5,9 @@ import { DeleteOneWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-me
 import { FindFirstWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/find-first-weekly-meal-group.args";
 import { FindManyWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/find-many-weekly-meal-group.args";
 import { UpdateManyWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/update-many-weekly-meal-group.args";
-import { UpdateOneWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/update-one-weekly-meal-group.args";
 import { UpsertOneWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/upsert-one-weekly-meal-group.args";
+import { WeeklyMealGroupUncheckedUpdateInput } from "@/app_modules/@generated/weekly-meal-group/weekly-meal-group-unchecked-update.input";
+import { WeeklyMealGroupWhereUniqueInput } from "@/app_modules/@generated/weekly-meal-group/weekly-meal-group-where-unique.input";
 import { WeeklyMealGroup } from "@/app_modules/@generated/weekly-meal-group/weekly-meal-group.model";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
@@ -153,13 +154,20 @@ export class WeeklyMealGroupAdminResolver {
   @Mutation(() => WeeklyMealGroup, { nullable: true })
   @Roles("ADMIN")
   async updateWeeklyMealGroupAdmin(
-    @Args() args: UpdateOneWeeklyMealGroupArgs,
+    @Args("data") data: WeeklyMealGroupUncheckedUpdateInput,
+    @Args("where") where: WeeklyMealGroupWhereUniqueInput,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
+
     try {
-      return await this.prisma.weeklyMealGroup.update({ ...args, ...select });
+      return await this.prisma.weeklyMealGroup.update({
+        data,
+        where,
+        ...select,
+      });
     } catch (e) {
+      console.log(e);
       Logger.error(e);
       return null;
     }
