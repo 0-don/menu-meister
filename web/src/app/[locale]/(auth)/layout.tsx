@@ -15,9 +15,7 @@ export default async function AuthLayout({ children }: AuthLayoutProps) {
     const url = ssrUrl();
 
     if (me && url.pathname !== "/logout") redirect("/");
-  } catch (error) {
-    redirect("/login");
-  }
+  } catch (error) {}
 
   return (
     <main className="flex min-h-[calc(100svh-4rem)]">

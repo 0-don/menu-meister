@@ -33,13 +33,16 @@ const tokenParser = async (request: NextRequest, response: NextResponse) => {
     new URL(process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT).origin;
 
   const authorization = `Bearer ${token}`;
-  console.log("redirect to login");
-  const { me } = await customFetcherServer(ME, undefined, {
-    authorization,
-    referer,
-  });
 
-  if (!me) {
+  try {
+    const { me } = await customFetcherServer(ME, undefined, {
+      authorization,
+      referer,
+    });
+
+    const roles = me?.UserRole?.map(({ name }) => name).join(",");
+    if (roles) response.headers.set(ROLES, roles);
+  } catch (error) {
     const domain =
       process.env.NODE_ENV === "production"
         ? `.${(psl.parse(new URL(referer).hostname) as ParsedDomain).domain}`
@@ -57,9 +60,6 @@ const tokenParser = async (request: NextRequest, response: NextResponse) => {
 
     return NextResponse.redirect(new URL("/login", request.url));
   }
-
-  const roles = me?.UserRole?.map(({ name }) => name).join(",");
-  if (roles) response.headers.set(ROLES, roles);
 };
 
 export const config = {
