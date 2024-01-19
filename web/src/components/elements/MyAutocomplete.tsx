@@ -26,8 +26,6 @@ export const MyAutocomplete: React.FC<MyAutocompleteProps> = (props) => {
       onSelectionChange={props.onChange}
       id={props.id}
       aria-labelledby={props.id}
-      
-      
     >
       {props.items.map((item) => (
         <AutocompleteItem key={item.id} value={item.id}>

@@ -24,7 +24,7 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
     setActivatorNodeRef,
     isDragging,
   } = useSortable({ id });
-  
+
   if (!group) return null;
 
   return (

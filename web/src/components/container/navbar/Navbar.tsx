@@ -62,7 +62,9 @@ export const Navbar: React.FC<NavbarProps> = async ({}) => {
             href="/"
           >
             <Image src={logo_mini} alt="logo" />
-            <span className="hidden sm:block">{process.env.NEXT_PUBLIC_BRAND_NAME}</span>
+            <span className="hidden sm:block">
+              {process.env.NEXT_PUBLIC_BRAND_NAME}
+            </span>
           </Link>
         </NavbarBrand>
 
