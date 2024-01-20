@@ -77,20 +77,20 @@ model User {
   createdMealBoardPlans   MealBoardPlan[]   @relation("CreatedMealBoardPlan")
   updatedMealBoardPlans   MealBoardPlan[]   @relation("UpdatedMealBoardPlan")
 
-  createdAllergens  Allergens[]  @relation("CreatedAllergen")
-  updatedAllergens  Allergens[]  @relation("UpdatedAllergen")
+  createdAllergens  Allergens[]  @relation("CreatedAllergens")
+  updatedAllergens  Allergens[]  @relation("UpdatedAllergens")
   createdProperties Properties[] @relation("CreatedProperties")
   updatedProperties Properties[] @relation("UpdatedProperties")
   createdAdditives  Additives[]  @relation("CreatedAdditives")
   updatedAdditives  Additives[]  @relation("UpdatedAdditives")
-  createdCategories Categories[] @relation("CreatedCategory")
-  updatedCategories Categories[] @relation("UpdatedCategory")
-  createdSaisons    Saisons[]    @relation("CreatedSaison")
-  updatedSaisons    Saisons[]    @relation("UpdatedSaison")
-  createdKitchens   Kitchens[]   @relation("CreatedKitchen")
-  updatedKitchens   Kitchens[]   @relation("UpdatedKitchen")
-  createdFoodForms  FoodForms[]  @relation("CreatedFoodForm")
-  updatedFoodForms  FoodForms[]  @relation("UpdatedFoodForm")
+  createdCategories Categories[] @relation("CreatedCategories")
+  updatedCategories Categories[] @relation("UpdatedCategories")
+  createdSaisons    Saisons[]    @relation("CreatedSaisons")
+  updatedSaisons    Saisons[]    @relation("UpdatedSaisons")
+  createdKitchens   Kitchens[]   @relation("CreatedKitchens")
+  updatedKitchens   Kitchens[]   @relation("UpdatedKitchens")
+  createdFoodForms  FoodForms[]  @relation("CreatedFoodForms")
+  updatedFoodForms  FoodForms[]  @relation("UpdatedFoodForms")
 
   UserRole UserRole[]
 }
@@ -131,9 +131,9 @@ model Allergens {
   /// @HideField({ output: false, input: true })
   updatedBy     Int
   /// @HideField({ output: false, input: true })
-  createdByUser User     @relation("CreatedAllergen", fields: [createdBy], references: [id])
+  createdByUser User     @relation("CreatedAllergens", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
-  updatedByUser User     @relation("UpdatedAllergen", fields: [updatedBy], references: [id])
+  updatedByUser User     @relation("UpdatedAllergens", fields: [updatedBy], references: [id])
 }
 
 model Properties {
@@ -185,9 +185,9 @@ model Categories {
   /// @HideField({ output: false, input: true })
   updatedBy     Int
   /// @HideField({ output: false, input: true })
-  createdByUser User     @relation("CreatedCategory", fields: [createdBy], references: [id])
+  createdByUser User     @relation("CreatedCategories", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
-  updatedByUser User     @relation("UpdatedCategory", fields: [updatedBy], references: [id])
+  updatedByUser User     @relation("UpdatedCategories", fields: [updatedBy], references: [id])
 }
 
 model Saisons {
@@ -203,9 +203,9 @@ model Saisons {
   /// @HideField({ output: false, input: true })
   updatedBy     Int
   /// @HideField({ output: false, input: true })
-  createdByUser User     @relation("CreatedSaison", fields: [createdBy], references: [id])
+  createdByUser User     @relation("CreatedSaisons", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
-  updatedByUser User     @relation("UpdatedSaison", fields: [updatedBy], references: [id])
+  updatedByUser User     @relation("UpdatedSaisons", fields: [updatedBy], references: [id])
 }
 
 model Kitchens {
@@ -221,9 +221,9 @@ model Kitchens {
   /// @HideField({ output: false, input: true })
   updatedBy     Int
   /// @HideField({ output: false, input: true })
-  createdByUser User     @relation("CreatedKitchen", fields: [createdBy], references: [id])
+  createdByUser User     @relation("CreatedKitchens", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
-  updatedByUser User     @relation("UpdatedKitchen", fields: [updatedBy], references: [id])
+  updatedByUser User     @relation("UpdatedKitchens", fields: [updatedBy], references: [id])
 }
 
 model FoodForms {
@@ -239,9 +239,9 @@ model FoodForms {
   /// @HideField({ output: false, input: true })
   updatedBy     Int
   /// @HideField({ output: false, input: true })
-  createdByUser User     @relation("CreatedFoodForm", fields: [createdBy], references: [id])
+  createdByUser User     @relation("CreatedFoodForms", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
-  updatedByUser User     @relation("UpdatedFoodForm", fields: [updatedBy], references: [id])
+  updatedByUser User     @relation("UpdatedFoodForms", fields: [updatedBy], references: [id])
 }
 
 model Ingredient {
