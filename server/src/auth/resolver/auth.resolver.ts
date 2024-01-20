@@ -32,7 +32,7 @@ export class AuthResolver {
           lastOnline: true,
           createdAt: true,
           updatedAt: true,
-          UserRole: {
+          userRole: {
             select: {
               id: true,
               name: true,

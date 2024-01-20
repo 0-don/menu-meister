@@ -9,7 +9,7 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async upsertUser(data: User) {
-    const { UserRole, ...userData } = data;
+    const { userRole, ...userData } = data;
 
     const password = await argon2.hash(userData.password || "");
     const create = { ...userData, password };
@@ -28,16 +28,16 @@ export class UserService {
   }
 
   async upsertUserRoles(data: User, me?: JwtUser) {
-    const { UserRole } = data;
+    const { userRole } = data;
 
     await this.prisma.userRole.deleteMany({
       where: { userId: data.id },
     });
 
-    for (const userRole of UserRole) {
+    for (const role of userRole) {
       await this.prisma.userRole.create({
         data: {
-          name: userRole.name,
+          name: role.name,
           userId: data.id,
           createdBy: me.sub,
           updatedBy: me.sub,

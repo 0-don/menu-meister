@@ -26,7 +26,7 @@ export class AuthService {
   async login(data: LoginUserInput) {
     const user = await this.prisma.user.findFirst({
       where: { email: { equals: data.email } },
-      include: { UserRole: true },
+      include: { userRole: true },
     });
 
     try {
@@ -36,7 +36,7 @@ export class AuthService {
       ) {
         const { password, ...result } = user;
         return result as User & {
-          UserRole: UserRole[];
+          userRole: UserRole[];
         };
       }
     } catch (_) {
@@ -74,19 +74,19 @@ export class AuthService {
     return await this.prisma.user.update({
       where: { id: user.id },
       data: { createdBy: user.id, updatedBy: user.id },
-      include: { UserRole: true },
+      include: { userRole: true },
     });
   }
 
   async createToken({
     id,
     username,
-    UserRole,
-  }: User & { UserRole: UserRole[] }) {
+    userRole,
+  }: User & { userRole: UserRole[] }) {
     const payload: JwtUser = {
       username,
       sub: id,
-      roles: UserRole.map((r) => r.name),
+      roles: userRole.map((r) => r.name),
     };
     const expiresIn = TOKEN_EXPIRES_IN;
     const token = this.jwtService.sign(payload, {
