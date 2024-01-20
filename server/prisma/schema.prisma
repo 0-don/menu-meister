@@ -444,6 +444,8 @@ model MealRecipe {
   mealId   Int
   recipeId Int
 
+  note String? @db.Text
+
   meal   Meal   @relation(fields: [mealId], references: [id])
   recipe Recipe @relation(fields: [recipeId], references: [id])
 
@@ -462,10 +464,10 @@ model MealRecipe {
 }
 
 model MealBoardPlan {
-  id              Int               @id @default(autoincrement())
-  name            String            @db.VarChar(255)
-  color           String?           @db.VarChar(7)
-  
+  id    Int     @id @default(autoincrement())
+  name  String  @db.VarChar(255)
+  color String? @db.VarChar(7)
+
   WeeklyMealGroup WeeklyMealGroup[]
 
   /// @HideField({ output: false, input: true })

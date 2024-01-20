@@ -214,6 +214,7 @@ CREATE TABLE `MealRecipe` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `mealId` INTEGER NOT NULL,
     `recipeId` INTEGER NOT NULL,
+    `note` TEXT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `createdBy` INTEGER NOT NULL,
