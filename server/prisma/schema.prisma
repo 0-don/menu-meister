@@ -67,11 +67,20 @@ model User {
   updatedUser      User[]     @relation("UpdatedUser")
   createdUserRoles UserRole[] @relation("CreatedUserRole")
   updatedUserRoles UserRole[] @relation("UpdatedUserRole")
+  createdUserMeals UserMeal[] @relation("CreatedUserMeal")
+  updatedUserMeals UserMeal[] @relation("UpdatedUserMeal")
 
-  createdNutritions       Ingredient[]      @relation("CreatedIngredient")
-  updatedIngredients      Ingredient[]      @relation("UpdatedIngredient")
-  createdMeals            Meal[]            @relation("CreatedMeal")
-  updatedMeals            Meal[]            @relation("UpdatedMeal")
+  createdIngredients       Ingredient[]       @relation("CreatedIngredient")
+  updatedIngredients       Ingredient[]       @relation("UpdatedIngredient")
+  createdRecipes           Recipe[]           @relation("CreatedRecipe")
+  updatedRecipes           Recipe[]           @relation("UpdatedRecipe")
+  createdRecipeIngredients RecipeIngredient[] @relation("CreatedRecipeIngredient")
+  updatedRecipeIngredients RecipeIngredient[] @relation("UpdatedRecipeIngredient")
+  createdMeals             Meal[]             @relation("CreatedMeal")
+  updatedMeals             Meal[]             @relation("UpdatedMeal")
+  createdMealRecipes       MealRecipe[]       @relation("CreatedMealRecipe")
+  updatedMealRecipes       MealRecipe[]       @relation("UpdatedMealRecipe")
+
   createdWeeklyMealGroups WeeklyMealGroup[] @relation("CreatedWeeklyMealGroup")
   updatedWeeklyMealGroups WeeklyMealGroup[] @relation("UpdatedWeeklyMealGroup")
   createdMealBoardPlans   MealBoardPlan[]   @relation("CreatedMealBoardPlan")
@@ -79,20 +88,21 @@ model User {
 
   createdAllergens  Allergens[]  @relation("CreatedAllergens")
   updatedAllergens  Allergens[]  @relation("UpdatedAllergens")
-  createdProperties Properties[] @relation("CreatedProperties")
-  updatedProperties Properties[] @relation("UpdatedProperties")
   createdAdditives  Additives[]  @relation("CreatedAdditives")
   updatedAdditives  Additives[]  @relation("UpdatedAdditives")
+  createdProperties Properties[] @relation("CreatedProperties")
+  updatedProperties Properties[] @relation("UpdatedProperties")
   createdCategories Categories[] @relation("CreatedCategories")
   updatedCategories Categories[] @relation("UpdatedCategories")
   createdSaisons    Saisons[]    @relation("CreatedSaisons")
   updatedSaisons    Saisons[]    @relation("UpdatedSaisons")
-  createdKitchens   Kitchens[]   @relation("CreatedKitchens")
-  updatedKitchens   Kitchens[]   @relation("UpdatedKitchens")
   createdFoodForms  FoodForms[]  @relation("CreatedFoodForms")
   updatedFoodForms  FoodForms[]  @relation("UpdatedFoodForms")
+  createdKitchens   Kitchens[]   @relation("CreatedKitchens")
+  updatedKitchens   Kitchens[]   @relation("UpdatedKitchens")
 
-  UserRole UserRole[]
+  userRole UserRole[]
+  userMeal UserMeal[]
 }
 
 model UserRole {
@@ -118,9 +128,36 @@ model UserRole {
   @@unique([userId, name], name: "user_role_userId_name_unique")
 }
 
+model UserMeal {
+  id     Int      @id @default(autoincrement())
+  date   DateTime @db.Date
+  userId Int
+  mealId Int
+
+  User User @relation(fields: [userId], references: [id])
+  Meal Meal @relation(fields: [mealId], references: [id])
+
+  /// @HideField({ output: false, input: true })
+  createdAt     DateTime @default(now())
+  /// @HideField({ output: false, input: true })
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedUserMeal", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedUserMeal", fields: [updatedBy], references: [id])
+}
+
 model Allergens {
   id   Int    @id @default(autoincrement())
   name String @db.VarChar(255)
+
+  ingredients Ingredient[] @relation("IngredientAllergens")
+  recipes     Recipe[]     @relation("RecipeAllergens")
+  meals       Meal[]       @relation("MealAllergens")
 
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
@@ -136,27 +173,13 @@ model Allergens {
   updatedByUser User     @relation("UpdatedAllergens", fields: [updatedBy], references: [id])
 }
 
-model Properties {
-  id   Int    @id @default(autoincrement())
-  name String @db.VarChar(255)
-
-  /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now())
-  /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt
-  /// @HideField({ output: false, input: true })
-  createdBy     Int
-  /// @HideField({ output: false, input: true })
-  updatedBy     Int
-  /// @HideField({ output: false, input: true })
-  createdByUser User     @relation("CreatedProperties", fields: [createdBy], references: [id])
-  /// @HideField({ output: false, input: true })
-  updatedByUser User     @relation("UpdatedProperties", fields: [updatedBy], references: [id])
-}
-
 model Additives {
   id   Int    @id @default(autoincrement())
   name String @db.VarChar(255)
+
+  ingredients Ingredient[] @relation("IngredientAdditives")
+  recipes     Recipe[]     @relation("RecipeAdditives")
+  meals       Meal[]       @relation("MealAdditives")
 
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
@@ -172,9 +195,35 @@ model Additives {
   updatedByUser User     @relation("UpdatedAdditives", fields: [updatedBy], references: [id])
 }
 
+model Properties {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(255)
+
+  ingredients Ingredient[] @relation("IngredientProperties")
+  recipes     Recipe[]     @relation("RecipeProperties")
+  meals       Meal[]       @relation("MealProperties")
+
+  /// @HideField({ output: false, input: true })
+  createdAt     DateTime @default(now())
+  /// @HideField({ output: false, input: true })
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedProperties", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedProperties", fields: [updatedBy], references: [id])
+}
+
 model Categories {
   id   Int    @id @default(autoincrement())
   name String @db.VarChar(255)
+
+  ingredients Ingredient[] @relation("IngredientCategories")
+  recipes     Recipe[]     @relation("RecipeCategories")
+  meals       Meal[]       @relation("MealCategories")
 
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
@@ -194,6 +243,10 @@ model Saisons {
   id   Int    @id @default(autoincrement())
   name String @db.VarChar(255)
 
+  ingredients Ingredient[] @relation("IngredientSaisons")
+  recipes     Recipe[]     @relation("RecipeSaisons")
+  meals       Meal[]       @relation("MealSaisons")
+
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
@@ -208,27 +261,13 @@ model Saisons {
   updatedByUser User     @relation("UpdatedSaisons", fields: [updatedBy], references: [id])
 }
 
-model Kitchens {
-  id   Int    @id @default(autoincrement())
-  name String @db.VarChar(255)
-
-  /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now())
-  /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt
-  /// @HideField({ output: false, input: true })
-  createdBy     Int
-  /// @HideField({ output: false, input: true })
-  updatedBy     Int
-  /// @HideField({ output: false, input: true })
-  createdByUser User     @relation("CreatedKitchens", fields: [createdBy], references: [id])
-  /// @HideField({ output: false, input: true })
-  updatedByUser User     @relation("UpdatedKitchens", fields: [updatedBy], references: [id])
-}
-
 model FoodForms {
   id   Int    @id @default(autoincrement())
   name String @db.VarChar(255)
+
+  ingredients Ingredient[] @relation("IngredientFoodForms")
+  recipes     Recipe[]     @relation("RecipeFoodForms")
+  meals       Meal[]       @relation("MealFoodForms")
 
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
@@ -242,6 +281,27 @@ model FoodForms {
   createdByUser User     @relation("CreatedFoodForms", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
   updatedByUser User     @relation("UpdatedFoodForms", fields: [updatedBy], references: [id])
+}
+
+model Kitchens {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(255)
+
+  ingredients Ingredient[] @relation("IngredientKitchens")
+  recipes     Recipe[]     @relation("RecipeKitchens")
+
+  /// @HideField({ output: false, input: true })
+  createdAt     DateTime @default(now())
+  /// @HideField({ output: false, input: true })
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedKitchens", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedKitchens", fields: [updatedBy], references: [id])
 }
 
 model Ingredient {
@@ -261,6 +321,16 @@ model Ingredient {
   unsaturatedFats Decimal @db.Decimal(10, 2)
   protein         Decimal @db.Decimal(10, 2)
 
+  allergens  Allergens[]  @relation("IngredientAllergens")
+  additives  Additives[]  @relation("IngredientAdditives")
+  properties Properties[] @relation("IngredientProperties")
+  categories Categories[] @relation("IngredientCategories")
+  saisons    Saisons[]    @relation("IngredientSaisons")
+  foodForms  FoodForms[]  @relation("IngredientFoodForms")
+  kitchens   Kitchens[]   @relation("IngredientKitchens")
+
+  recipeIngredient RecipeIngredient[]
+
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
@@ -275,12 +345,85 @@ model Ingredient {
   updatedByUser User     @relation("UpdatedIngredient", fields: [updatedBy], references: [id])
 }
 
+model Recipe {
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+
+  allergens  Allergens[]  @relation("RecipeAllergens")
+  additives  Additives[]  @relation("RecipeAdditives")
+  properties Properties[] @relation("RecipeProperties")
+  categories Categories[] @relation("RecipeCategories")
+  saisons    Saisons[]    @relation("RecipeSaisons")
+  foodForms  FoodForms[]  @relation("RecipeFoodForms")
+  kitchens   Kitchens[]   @relation("RecipeKitchens")
+
+  recipeIngredient RecipeIngredient[]
+  mealRecipe       MealRecipe[]
+
+  /// @HideField({ output: false, input: true })
+  createdAt     DateTime @default(now())
+  /// @HideField({ output: false, input: true })
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int      @db.Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int      @db.Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedRecipe", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedRecipe", fields: [updatedBy], references: [id])
+}
+
+model RecipeIngredient {
+  id           Int @id @default(autoincrement())
+  recipeId     Int
+  ingredientId Int
+
+  amount Decimal @db.Decimal(10, 2)
+  unit   Unit
+
+  recipe     Recipe     @relation(fields: [recipeId], references: [id])
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id])
+
+  /// @HideField({ output: false, input: true })
+  createdAt     DateTime @default(now())
+  /// @HideField({ output: false, input: true })
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int      @db.Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int      @db.Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedRecipeIngredient", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedRecipeIngredient", fields: [updatedBy], references: [id])
+}
+
 model Meal {
   id          Int     @id @default(autoincrement())
   name        String  @db.VarChar(255)
   description String? @db.Text
   imageName   String? @db.VarChar(255)
   image       String? @db.Text
+
+  allergens  Allergens[]  @relation("MealAllergens")
+  additives  Additives[]  @relation("MealAdditives")
+  properties Properties[] @relation("MealProperties")
+  categories Categories[] @relation("MealCategories")
+  saisons    Saisons[]    @relation("MealSaisons")
+  foodForms  FoodForms[]  @relation("MealFoodForms")
+
+  mondayMealGroups    WeeklyMealGroup[] @relation("MondayMeal")
+  tuesdayMealGroups   WeeklyMealGroup[] @relation("TuesdayMeal")
+  wednesdayMealGroups WeeklyMealGroup[] @relation("WednesdayMeal")
+  thursdayMealGroups  WeeklyMealGroup[] @relation("ThursdayMeal")
+  fridayMealGroups    WeeklyMealGroup[] @relation("FridayMeal")
+  saturdayMealGroups  WeeklyMealGroup[] @relation("SaturdayMeal")
+  sundayMealGroups    WeeklyMealGroup[] @relation("SundayMeal")
+
+  mealRecipe MealRecipe[]
+  userMeal   UserMeal[]
 
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
@@ -294,20 +437,35 @@ model Meal {
   createdByUser User     @relation("CreatedMeal", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
   updatedByUser User     @relation("UpdatedMeal", fields: [updatedBy], references: [id])
+}
 
-  mondayMealGroups    WeeklyMealGroup[] @relation("MondayMeal")
-  tuesdayMealGroups   WeeklyMealGroup[] @relation("TuesdayMeal")
-  wednesdayMealGroups WeeklyMealGroup[] @relation("WednesdayMeal")
-  thursdayMealGroups  WeeklyMealGroup[] @relation("ThursdayMeal")
-  fridayMealGroups    WeeklyMealGroup[] @relation("FridayMeal")
-  saturdayMealGroups  WeeklyMealGroup[] @relation("SaturdayMeal")
-  sundayMealGroups    WeeklyMealGroup[] @relation("SundayMeal")
+model MealRecipe {
+  id       Int @id @default(autoincrement())
+  mealId   Int
+  recipeId Int
+
+  meal   Meal   @relation(fields: [mealId], references: [id])
+  recipe Recipe @relation(fields: [recipeId], references: [id])
+
+  /// @HideField({ output: false, input: true })
+  createdAt     DateTime @default(now())
+  /// @HideField({ output: false, input: true })
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int      @db.Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int      @db.Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedMealRecipe", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedMealRecipe", fields: [updatedBy], references: [id])
 }
 
 model MealBoardPlan {
   id              Int               @id @default(autoincrement())
   name            String            @db.VarChar(255)
   color           String?           @db.VarChar(7)
+  
   WeeklyMealGroup WeeklyMealGroup[]
 
   /// @HideField({ output: false, input: true })
@@ -334,8 +492,7 @@ model WeeklyMealGroup {
   orderIndex  Int // To manage the vertical order of groups
 
   mealBoardPlanId Int
-
-  mealBoardPlan MealBoardPlan @relation(fields: [mealBoardPlanId], references: [id])
+  mealBoardPlan   MealBoardPlan @relation(fields: [mealBoardPlanId], references: [id])
 
   mondayMealId    Int?
   tuesdayMealId   Int?
@@ -372,4 +529,11 @@ enum UserRoleName {
   MOD
   USER
   GUEST
+}
+
+enum Unit {
+  G
+  L
+  ML
+  KG
 }

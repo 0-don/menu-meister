@@ -90,35 +90,35 @@ const seedIngredientsAndNutritions = async () => {
       : { file: null, filename: null };
 
     // Create ingredient individually
-    const ingredient = await prisma.ingredient.create({
-      data: {
-        name: ingredientName,
-        allergens: faker.helpers.arrayElement([
-          "nuts",
-          "dairy",
-          "gluten",
-          null,
-        ]),
-        imageName: image.filename,
-        image: image.file,
-        createdBy: user.id,
-        updatedBy: user.id,
-      },
-    });
+    // const ingredient = await prisma.ingredient.create({
+    //   data: {
+    //     name: ingredientName,
+    //     allergens: faker.helpers.arrayElement([
+    //       "nuts",
+    //       "dairy",
+    //       "gluten",
+    //       null,
+    //     ]),
+    //     imageName: image.filename,
+    //     image: image.file,
+    //     createdBy: user.id,
+    //     updatedBy: user.id,
+    //   },
+    // });
 
     // Create corresponding nutrition data
-    await prisma.nutrition.create({
-      data: {
-        ingredientId: ingredient.id,
-        calories: faker.number.float({ min: 0, max: 500 }),
-        protein: faker.number.float({ min: 0, max: 100 }),
-        carbohydrates: faker.number.float({ min: 0, max: 100 }),
-        fats: faker.number.float({ min: 0, max: 100 }),
-        fiber: faker.number.float({ min: 0, max: 100 }),
-        createdBy: user.id,
-        updatedBy: user.id,
-      },
-    });
+    // await prisma.nutrition.create({
+    //   data: {
+    //     ingredientId: ingredient.id,
+    //     calories: faker.number.float({ min: 0, max: 500 }),
+    //     protein: faker.number.float({ min: 0, max: 100 }),
+    //     carbohydrates: faker.number.float({ min: 0, max: 100 }),
+    //     fats: faker.number.float({ min: 0, max: 100 }),
+    //     fiber: faker.number.float({ min: 0, max: 100 }),
+    //     createdBy: user.id,
+    //     updatedBy: user.id,
+    //   },
+    // });
   }
 };
 
@@ -182,33 +182,33 @@ async function seedWeeklyMealGroups() {
     for (let week = 1; week <= 52; week++) {
       for (let groupIndex = 0; groupIndex < groupsPerWeek; groupIndex++) {
         if (coinFlip(0.25)) continue;
-        const weeklyMealGroup = await prisma.weeklyMealGroup.create({
-          data: {
-            name: faker.commerce.productName(),
-            description: faker.lorem.sentence(),
-            color: faker.internet.color({
-              redBase: 100,
-              greenBase: 100,
-              blueBase: 100,
-            }),
-            weekOfYear: week,
-            orderIndex: groupIndex,
-            year,
-            createdBy: user.id,
-            updatedBy: user.id,
-          },
-        });
+        // const weeklyMealGroup = await prisma.weeklyMealGroup.create({
+        //   data: {
+        //     name: faker.commerce.productName(),
+        //     description: faker.lorem.sentence(),
+        //     color: faker.internet.color({
+        //       redBase: 100,
+        //       greenBase: 100,
+        //       blueBase: 100,
+        //     }),
+        //     weekOfYear: week,
+        //     orderIndex: groupIndex,
+        //     year,
+        //     createdBy: user.id,
+        //     updatedBy: user.id,
+        //   },
+        // });
 
         for (const dayField of dayFields) {
           const randomMeal = meals[randomInt(0, meals.length - 1)];
 
           if (coinFlip(0.75)) {
-            await prisma.weeklyMealGroup.update({
-              where: { id: weeklyMealGroup.id },
-              data: {
-                [dayField]: randomMeal.id,
-              },
-            });
+            // await prisma.weeklyMealGroup.update({
+            //   where: { id: weeklyMealGroup.id },
+            //   data: {
+            //     [dayField]: randomMeal.id,
+            //   },
+            // });
           }
         }
       }
@@ -224,15 +224,15 @@ const seedMealIngredients = async (mealId: number, userId: number) => {
   );
 
   for (const ingredient of selectedIngredients) {
-    await prisma.mealIngredient.create({
-      data: {
-        mealId: mealId,
-        ingredientId: ingredient.id,
-        weightGrams: faker.number.float({ min: 1, max: 500 }),
-        createdBy: userId,
-        updatedBy: userId,
-      },
-    });
+    // await prisma.mealIngredient.create({
+    //   data: {
+    //     mealId: mealId,
+    //     ingredientId: ingredient.id,
+    //     weightGrams: faker.number.float({ min: 1, max: 500 }),
+    //     createdBy: userId,
+    //     updatedBy: userId,
+    //   },
+    // });
   }
 };
 
