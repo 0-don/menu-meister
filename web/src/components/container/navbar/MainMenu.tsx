@@ -21,7 +21,7 @@ interface MainMenuProps {
 export const MainMenu: React.FC<MainMenuProps> = ({ pathname }) => {
   const t = useTranslations<"Navbar">();
   const { me } = useMeHook();
-  const roles = me?.UserRole?.map((role) => role.name) || [];
+  const roles = me?.userRole?.map((role) => role.name) || [];
   const p = usePathname();
   const [path, setPath] = useState<string>(pathname || p);
   const [links, setLinks] = useState<MenuType[]>(getMenu(roles));

@@ -10,7 +10,7 @@ export const ME = graphql(/* GraphQL */ `
       status
       createdAt
       updatedAt
-      UserRole {
+      userRole {
         id
         name
       }

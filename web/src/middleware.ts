@@ -40,7 +40,7 @@ const tokenParser = async (request: NextRequest, response: NextResponse) => {
       referer,
     });
 
-    const roles = me?.UserRole?.map(({ name }) => name).join(",");
+    const roles = me?.userRole?.map(({ name }) => name).join(",");
     if (roles) response.headers.set(ROLES, roles);
   } catch (error) {
     const domain =

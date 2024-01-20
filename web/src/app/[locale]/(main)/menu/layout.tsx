@@ -13,7 +13,7 @@ export default async function MenuLayout({ children }: MenuLayoutProps) {
   const { queryClient } = await prefetchQuery([{ document: ME }]);
   const data = queryClient.getQueryData<MeQuery>(getKey(ME));
 
-  if (!data?.me?.UserRole?.map(({ name }) => name === UserRoleName.User))
+  if (!data?.me?.userRole?.map(({ name }) => name === UserRoleName.User))
     redirect("/");
 
   return <NextIntlProvider tree={"Menu"}>{children}</NextIntlProvider>;

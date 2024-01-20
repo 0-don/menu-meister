@@ -19,7 +19,7 @@ export default async function AuthLayout({ children }: AuthLayoutProps) {
   } catch (_) {}
 
   if (user && url.pathname !== "/logout") {
-    user.UserRole?.some(
+    user.userRole?.some(
       ({ name }) => name === UserRoleName.Admin || name === UserRoleName.Mod,
     )
       ? redirect("/dashboard")

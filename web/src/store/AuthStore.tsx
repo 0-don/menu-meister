@@ -106,7 +106,7 @@ export const AuthStore = proxy({
           type: "success",
         });
 
-        loginUser.UserRole?.some(
+        loginUser.userRole?.some(
           ({ name }) =>
             name === UserRoleName.Admin || name === UserRoleName.Mod,
         )

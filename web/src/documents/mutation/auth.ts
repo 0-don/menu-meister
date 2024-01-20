@@ -10,7 +10,7 @@ export const REGISTER_USER = graphql(/* GraphQL */ `
       status
       createdAt
       updatedAt
-      UserRole {
+      userRole {
         id
         name
       }
@@ -28,7 +28,7 @@ export const LOGIN_USER = graphql(/* GraphQL */ `
       status
       createdAt
       updatedAt
-      UserRole {
+      userRole {
         id
         name
       }

@@ -16,7 +16,7 @@ export default async function DashboardLayout({
   const data = queryClient.getQueryData<MeQuery>(getKey(ME));
 
   if (
-    !data?.me?.UserRole?.map(
+    !data?.me?.userRole?.map(
       ({ name }) => name === UserRoleName.Admin || name === UserRoleName.Mod,
     )
   )
