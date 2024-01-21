@@ -417,7 +417,6 @@ const seedMeals = async () => {
         image: image.file,
         createdBy: user.id,
         updatedBy: user.id,
-
         additives: { connect: [...additives].map((name) => ({ name })) },
         allergens: { connect: [...allergens].map((name) => ({ name })) },
         properties: { connect: [...properties].map((name) => ({ name })) },
