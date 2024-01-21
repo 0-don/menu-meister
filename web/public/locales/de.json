@@ -50,7 +50,8 @@
     "ARE_YOU_SURE_DELETE_MEAL": "Sind Sie sicher, dass Sie die Mahlzeit <meal>{mealName}</meal> in der Gruppe <group>{groupName}</group> löschen möchten?",
     "DELETE_MEAL": "Mahlzeit löschen",
     "SELECT_MEAL": "Mahlzeit auswählen",
-    "MEAL": "Mahlzeit"
+    "MEAL": "Mahlzeit",
+    "MEAL_BOARD_PLAN": "Mahlzeitenplan"
   },
   "Menu": {
 

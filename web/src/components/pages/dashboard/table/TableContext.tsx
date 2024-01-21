@@ -1,3 +1,4 @@
+import { MyAutocomplete } from "@/components/elements/MyAutocomplete";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { Meal } from "@/gql/graphql";
 import DashboardStore from "@/store/DashboardStore";
@@ -20,7 +21,8 @@ export function TableContext() {
   const { updateWeeklyMealGroup, switchWeeklyMealGroup } =
     useWeeklyMealGroupHook();
   const t = useTranslations<"Dashboard">();
-  const { daysThatWeek } = useSnapshot(DashboardStore);
+  const { daysThatWeek, mealBoardPlans, activeMealBoardPlan } =
+    useSnapshot(DashboardStore);
   const { dataSorted } = useSnapshot(TableStore);
 
   const renderDayColumn = (dayKey: string, index: number) => {
@@ -40,10 +42,24 @@ export function TableContext() {
     );
   }, [daysThatWeek]);
 
+  console.log(activeMealBoardPlan);
+
   return (
     <main className="relative z-0 mt-5 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small">
-      <div className="grid grid-cols-8 gap-2 rounded-lg bg-default-100 p-2 font-semibold text-foreground-500">
-        <div />
+      <div className="grid grid-cols-8 items-center gap-2 rounded-lg bg-default-100 font-semibold text-foreground-500">
+        <MyAutocomplete
+          id="mealBoardPlan"
+          size="sm"
+          label={t("MEAL_BOARD_PLAN")}
+          labelPlacement="inside"
+          value={activeMealBoardPlan?.id || 0}
+          onChange={(id) => {
+            DashboardStore.activeMealBoardPlan = mealBoardPlans?.find(
+              (plan) => plan.id === Number(id),
+            );
+          }}
+          items={(mealBoardPlans || [])?.map(({ id, name }) => ({ id, name }))}
+        />
         {dayColumns}
       </div>
 

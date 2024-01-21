@@ -50,7 +50,8 @@
     "ARE_YOU_SURE_DELETE_MEAL": "Are you sure you want to delete the meal <meal>{mealName}</meal> in Group <group>{groupName}</group>?",
     "DELETE_MEAL": "Delete Meal",
     "SELECT_MEAL": "Select Meal",
-    "MEAL": "Meal"
+    "MEAL": "Meal",
+    "MEAL_BOARD_PLAN": "Meal Board Plan"
   },
   "Menu": {},
   "User": {},
