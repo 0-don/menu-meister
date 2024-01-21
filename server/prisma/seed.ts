@@ -305,17 +305,12 @@ const seedRecipes = async () => {
         ingredient.kitchens.map((kitchen) => kitchen.id),
       ),
     );
-    await prisma.recipe.create({
+    const recipe = await prisma.recipe.create({
       data: {
         name: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
         createdBy: user.id,
         updatedBy: user.id,
-        recipeIngredient: {
-          connect: randomIngredients.map((ingredient) => ({
-            id: ingredient.id,
-          })),
-        },
         additives: { connect: [...additives].map((id) => ({ id })) },
         allergens: { connect: [...allergens].map((id) => ({ id })) },
         properties: { connect: [...properties].map((id) => ({ id })) },
@@ -325,6 +320,19 @@ const seedRecipes = async () => {
         kitchens: { connect: [...kitchens].map((id) => ({ id })) },
       },
     });
+
+    for (const ingredient of randomIngredients) {
+      await prisma.recipeIngredient.create({
+        data: {
+          recipeId: recipe.id,
+          ingredientId: ingredient.id,
+          amount: randomInt(1, 100),
+          unit: "G",
+          createdBy: user.id,
+          updatedBy: user.id,
+        },
+      });
+    }
   }
 };
 
@@ -401,7 +409,7 @@ const seedMeals = async () => {
       ? await downloadImage(imgUrl)
       : { file: null, filename: null };
 
-    await prisma.meal.create({
+    const meal = await prisma.meal.create({
       data: {
         name: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
@@ -409,9 +417,7 @@ const seedMeals = async () => {
         image: image.file,
         createdBy: user.id,
         updatedBy: user.id,
-        mealRecipe: {
-          connect: randomRecipes.map((recipe) => ({ id: recipe.id })),
-        },
+
         additives: { connect: [...additives].map((name) => ({ name })) },
         allergens: { connect: [...allergens].map((name) => ({ name })) },
         properties: { connect: [...properties].map((name) => ({ name })) },
@@ -420,6 +426,17 @@ const seedMeals = async () => {
         foodForms: { connect: [...foodForms].map((name) => ({ name })) },
       },
     });
+
+    for (const recipe of randomRecipes) {
+      await prisma.mealRecipe.create({
+        data: {
+          mealId: meal.id,
+          recipeId: recipe.id,
+          createdBy: user.id,
+          updatedBy: user.id,
+        },
+      });
+    }
   }
 };
 
@@ -435,7 +452,7 @@ const seedMealBoardPlan = async () => {
   });
 };
 
-async function seedWeeklyMealGroups() {
+const seedWeeklyMealGroups = async () => {
   const user = await prisma.user.findUnique({ where: { email: EMAIL } });
 
   const meals = await prisma.meal.findMany();
@@ -485,7 +502,7 @@ async function seedWeeklyMealGroups() {
       }
     }
   }
-}
+};
 
 const createUser = async ({
   roles,
