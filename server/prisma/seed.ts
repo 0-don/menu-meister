@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import {  Prisma, PrismaClient, UserRoleName } from "@prisma/client";
+import { Prisma, PrismaClient, UserRoleName } from "@prisma/client";
 import argon2 from "argon2";
 import { error } from "console";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
@@ -18,7 +18,16 @@ import {
 const prisma = new PrismaClient();
 
 const EMAIL = "admin@admin.de";
-
+const MEAL_BOARD_PLAN_NAME = "Testplan";
+const DAYFIELDS = [
+  "mondayMealId",
+  "tuesdayMealId",
+  "wednesdayMealId",
+  "thursdayMealId",
+  "fridayMealId",
+  "saturdayMealId",
+  "sundayMealId",
+];
 const BLACKLISTED_IMG = [
   "2094537432367104",
   "1049880564858880",
@@ -235,14 +244,146 @@ const seedIngredients = async () => {
   }
 };
 
-const seedRecipes = async () => {};
+const seedRecipes = async () => {
+  const user = await prisma.user.findFirst({
+    where: { email: EMAIL },
+  });
+
+  const ingredients = await prisma.ingredient.findMany({
+    select: {
+      id: true,
+      name: true,
+      additives: { select: { name: true, id: true } },
+      allergens: { select: { name: true, id: true } },
+      properties: { select: { name: true, id: true } },
+      categories: { select: { name: true, id: true } },
+      seasons: { select: { name: true, id: true } },
+      foodForms: { select: { name: true, id: true } },
+      kitchens: { select: { name: true, id: true } },
+    },
+  });
+
+  for (const _ of Array(500).keys()) {
+    let randomIngredients: typeof ingredients = [];
+
+    for (const _ of Array(randomInt(2, 5)).keys()) {
+      randomIngredients.push(ingredients[randomInt(0, ingredients.length - 1)]);
+    }
+
+    const additives = new Set(
+      ...randomIngredients.map((ingredient) =>
+        ingredient.additives.map((additive) => additive.id),
+      ),
+    );
+    const allergens = new Set(
+      ...randomIngredients.map((ingredient) =>
+        ingredient.allergens.map((allergen) => allergen.id),
+      ),
+    );
+    const properties = new Set(
+      ...randomIngredients.map((ingredient) =>
+        ingredient.properties.map((property) => property.id),
+      ),
+    );
+    const categories = new Set(
+      ...randomIngredients.map((ingredient) =>
+        ingredient.categories.map((category) => category.id),
+      ),
+    );
+    const seasons = new Set(
+      ...randomIngredients.map((ingredient) =>
+        ingredient.seasons.map((season) => season.id),
+      ),
+    );
+    const foodForms = new Set(
+      ...randomIngredients.map((ingredient) =>
+        ingredient.foodForms.map((foodForm) => foodForm.id),
+      ),
+    );
+    const kitchens = new Set(
+      ...randomIngredients.map((ingredient) =>
+        ingredient.kitchens.map((kitchen) => kitchen.id),
+      ),
+    );
+    await prisma.recipe.create({
+      data: {
+        name: faker.commerce.productName(),
+        description: faker.commerce.productDescription(),
+        createdBy: user.id,
+        updatedBy: user.id,
+        recipeIngredient: {
+          connect: randomIngredients.map((ingredient) => ({
+            id: ingredient.id,
+          })),
+        },
+        additives: { connect: [...additives].map((id) => ({ id })) },
+        allergens: { connect: [...allergens].map((id) => ({ id })) },
+        properties: { connect: [...properties].map((id) => ({ id })) },
+        categories: { connect: [...categories].map((id) => ({ id })) },
+        seasons: { connect: [...seasons].map((id) => ({ id })) },
+        foodForms: { connect: [...foodForms].map((id) => ({ id })) },
+        kitchens: { connect: [...kitchens].map((id) => ({ id })) },
+      },
+    });
+  }
+};
 
 const seedMeals = async () => {
   const user = await prisma.user.findFirst({
     where: { email: EMAIL },
   });
 
-  for (const _ of Array(100).keys()) {
+  const recipes = await prisma.recipe.findMany({
+    select: {
+      id: true,
+      name: true,
+      allergens: { select: { name: true } },
+      additives: { select: { name: true } },
+      properties: { select: { name: true } },
+      categories: { select: { name: true } },
+      seasons: { select: { name: true } },
+      foodForms: { select: { name: true } },
+    },
+  });
+
+  for (const _ of Array(250).keys()) {
+    const randomRecipes: typeof recipes = [];
+
+    for (const _ of Array(randomInt(1, 3)).keys()) {
+      randomRecipes.push(recipes[randomInt(0, recipes.length - 1)]);
+    }
+
+    const additives = new Set(
+      ...randomRecipes.map((recipe) =>
+        recipe.additives.map((additive) => additive.name),
+      ),
+    );
+    const allergens = new Set(
+      ...randomRecipes.map((recipe) =>
+        recipe.allergens.map((allergen) => allergen.name),
+      ),
+    );
+    const properties = new Set(
+      ...randomRecipes.map((recipe) =>
+        recipe.properties.map((property) => property.name),
+      ),
+    );
+    const categories = new Set(
+      ...randomRecipes.map((recipe) =>
+        recipe.categories.map((category) => category.name),
+      ),
+    );
+    const seasons = new Set(
+      ...randomRecipes.map((recipe) =>
+        recipe.seasons.map((season) => season.name),
+      ),
+    );
+    const foodForms = new Set(
+      ...randomRecipes.map((recipe) =>
+        recipe.foodForms.map((foodForm) => foodForm.name),
+      ),
+    );
+
     const imgUrl = faker.image.urlLoremFlickr({
       category: "meal",
       width: 200,
@@ -260,7 +401,7 @@ const seedMeals = async () => {
       ? await downloadImage(imgUrl)
       : { file: null, filename: null };
 
-    const meal = await prisma.meal.create({
+    await prisma.meal.create({
       data: {
         name: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
@@ -268,90 +409,83 @@ const seedMeals = async () => {
         image: image.file,
         createdBy: user.id,
         updatedBy: user.id,
+        mealRecipe: {
+          connect: randomRecipes.map((recipe) => ({ id: recipe.id })),
+        },
+        additives: { connect: [...additives].map((name) => ({ name })) },
+        allergens: { connect: [...allergens].map((name) => ({ name })) },
+        properties: { connect: [...properties].map((name) => ({ name })) },
+        categories: { connect: [...categories].map((name) => ({ name })) },
+        seasons: { connect: [...seasons].map((name) => ({ name })) },
+        foodForms: { connect: [...foodForms].map((name) => ({ name })) },
       },
     });
-
-    await seedMealIngredients(meal.id, user.id);
   }
 };
 
-const seedMealBoardPlan = async () => {};
+const seedMealBoardPlan = async () => {
+  const user = await prisma.user.findUnique({ where: { email: EMAIL } });
+
+  await prisma.mealBoardPlan.create({
+    data: {
+      name: MEAL_BOARD_PLAN_NAME,
+      createdBy: user.id,
+      updatedBy: user.id,
+    },
+  });
+};
 
 async function seedWeeklyMealGroups() {
   const user = await prisma.user.findUnique({ where: { email: EMAIL } });
 
   const meals = await prisma.meal.findMany();
+  const mealBoardPlans = await prisma.mealBoardPlan.findMany();
 
-  const currentYear = new Date().getFullYear();
-  const startYear = currentYear - 2;
-  const endYear = currentYear + 2;
-  const groupsPerWeek = 3;
-  const dayFields = [
-    "mondayMealId",
-    "tuesdayMealId",
-    "wednesdayMealId",
-    "thursdayMealId",
-    "fridayMealId",
-    "saturdayMealId",
-    "sundayMealId",
-  ];
-  for (let year = startYear; year <= endYear; year++) {
-    for (let week = 1; week <= 52; week++) {
-      for (let groupIndex = 0; groupIndex < groupsPerWeek; groupIndex++) {
-        if (coinFlip(0.25)) continue;
-        // const weeklyMealGroup = await prisma.weeklyMealGroup.create({
-        //   data: {
-        //     name: faker.commerce.productName(),
-        //     description: faker.lorem.sentence(),
-        //     color: faker.internet.color({
-        //       redBase: 100,
-        //       greenBase: 100,
-        //       blueBase: 100,
-        //     }),
-        //     weekOfYear: week,
-        //     orderIndex: groupIndex,
-        //     year,
-        //     createdBy: user.id,
-        //     updatedBy: user.id,
-        //   },
-        // });
+  for (const mealBoardPlan of mealBoardPlans) {
+    const currentYear = new Date().getFullYear();
+    const startYear = currentYear - 2;
+    const endYear = currentYear + 2;
+    const groupsPerWeek = 3;
 
-        for (const dayField of dayFields) {
-          const randomMeal = meals[randomInt(0, meals.length - 1)];
+    for (let year = startYear; year <= endYear; year++) {
+      for (let week = 1; week <= 52; week++) {
+        for (let groupIndex = 0; groupIndex < groupsPerWeek; groupIndex++) {
+          if (coinFlip(0.25)) continue;
+          const weeklyMealGroup = await prisma.weeklyMealGroup.create({
+            data: {
+              name: faker.commerce.productName(),
+              description: faker.lorem.sentence(),
+              mealBoardPlanId: mealBoardPlan.id,
+              color: faker.internet.color({
+                redBase: 100,
+                greenBase: 100,
+                blueBase: 100,
+              }),
+              weekOfYear: week,
+              orderIndex: groupIndex,
+              year,
+              createdBy: user.id,
+              updatedBy: user.id,
+            },
+          });
 
-          if (coinFlip(0.75)) {
-            // await prisma.weeklyMealGroup.update({
-            //   where: { id: weeklyMealGroup.id },
-            //   data: {
-            //     [dayField]: randomMeal.id,
-            //   },
-            // });
+          for (const dayField of DAYFIELDS) {
+            const randomMeal = meals[randomInt(0, meals.length - 1)];
+
+            if (coinFlip(0.75)) {
+              await prisma.weeklyMealGroup.update({
+                where: { id: weeklyMealGroup.id },
+                data: {
+                  [dayField]: randomMeal.id,
+                },
+              });
+            }
           }
         }
       }
     }
   }
 }
-
-const seedMealIngredients = async (mealId: number, userId: number) => {
-  const ingredients = await prisma.ingredient.findMany();
-  const selectedIngredients = faker.helpers.uniqueArray(
-    ingredients,
-    randomInt(2, 5),
-  );
-
-  for (const ingredient of selectedIngredients) {
-    // await prisma.mealIngredient.create({
-    //   data: {
-    //     mealId: mealId,
-    //     ingredientId: ingredient.id,
-    //     weightGrams: faker.number.float({ min: 1, max: 500 }),
-    //     createdBy: userId,
-    //     updatedBy: userId,
-    //   },
-    // });
-  }
-};
 
 const createUser = async ({
   roles,
