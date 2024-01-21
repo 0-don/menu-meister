@@ -37,7 +37,7 @@ export function MainTable({}: DashboardPageProps) {
   useEffect(() => {
     TableStore.data =
       getAllWeeklyMealGroupsAdmin as WeeklyMealGroupFragmentFragment[];
-    // TableStore.refetchWeeklyMealGroups = refetchWeeklyMealGroups;
+    TableStore.refetchWeeklyMealGroups = refetchWeeklyMealGroups;
   }, [getAllWeeklyMealGroupsAdmin, dashboardStore.activeMealBoardPlan]);
 
   useEffect(() => {
