@@ -1,10 +1,19 @@
 import { faker } from "@faker-js/faker";
-import { Prisma, PrismaClient, UserRoleName } from "@prisma/client";
+import {  Prisma, PrismaClient, UserRoleName } from "@prisma/client";
 import argon2 from "argon2";
 import { error } from "console";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { dirname, join, resolve } from "path";
-import { Ingredient } from "./types";
+import {
+  ADDITIVES,
+  ALLERGENS,
+  CATEGORIES,
+  FOOD_FORMS,
+  Ingredient,
+  KITCHENS,
+  PROPERTIES,
+  SEASONS,
+} from "./data";
 
 const prisma = new PrismaClient();
 
@@ -37,8 +46,12 @@ const seed = async () => {
     roles: ["ADMIN"],
   });
 
+  await seedSettings();
+  await seedAllProperties();
   await seedIngredients();
+  await seedRecipes();
   await seedMeals();
+  await seedMealBoardPlan();
   await seedWeeklyMealGroups();
 };
 
@@ -63,6 +76,89 @@ async function downloadImage(url: string) {
   writeFileSync(filePath, Buffer.from(imageBuffer), "base64");
   return { file: Buffer.from(imageBuffer).toString("base64"), filename };
 }
+
+const seedSettings = async () => {
+  const user = await prisma.user.findFirst({
+    where: { email: EMAIL },
+  });
+
+  await prisma.settings.create({
+    data: {
+      maxEditOrderDays: 3,
+      createdBy: user.id,
+      updatedBy: user.id,
+    },
+  });
+};
+
+const seedAllProperties = async () => {
+  const user = await prisma.user.findFirst({
+    where: { email: EMAIL },
+  });
+
+  await prisma.allergens.createMany({
+    data: ALLERGENS.map((name) => ({
+      name,
+      createdBy: user.id,
+      updatedBy: user.id,
+    })),
+    skipDuplicates: true,
+  });
+
+  await prisma.additives.createMany({
+    data: ADDITIVES.map((name) => ({
+      name,
+      createdBy: user.id,
+      updatedBy: user.id,
+    })),
+    skipDuplicates: true,
+  });
+
+  await prisma.properties.createMany({
+    data: PROPERTIES.map((name) => ({
+      name,
+      createdBy: user.id,
+      updatedBy: user.id,
+    })),
+    skipDuplicates: true,
+  });
+
+  await prisma.categories.createMany({
+    data: CATEGORIES.map((name) => ({
+      name,
+      createdBy: user.id,
+      updatedBy: user.id,
+    })),
+    skipDuplicates: true,
+  });
+
+  await prisma.seasons.createMany({
+    data: SEASONS.map((name) => ({
+      name,
+      createdBy: user.id,
+      updatedBy: user.id,
+    })),
+    skipDuplicates: true,
+  });
+
+  await prisma.foodForms.createMany({
+    data: FOOD_FORMS.map((name) => ({
+      name,
+      createdBy: user.id,
+      updatedBy: user.id,
+    })),
+    skipDuplicates: true,
+  });
+
+  await prisma.kitchens.createMany({
+    data: KITCHENS.map((name) => ({
+      name,
+      createdBy: user.id,
+      updatedBy: user.id,
+    })),
+    skipDuplicates: true,
+  });
+};
 
 const seedIngredients = async () => {
   const ingredients: Ingredient[] = JSON.parse(
@@ -131,13 +227,15 @@ const seedIngredients = async () => {
       },
     };
 
-    const dbIngredient = await prisma.ingredient.upsert({
+    await prisma.ingredient.upsert({
       where: { blsIdentifier: ingredient.bls_identifier },
       create: data,
       update: data,
     });
   }
 };
+
+const seedRecipes = async () => {};
 
 const seedMeals = async () => {
   const user = await prisma.user.findFirst({
@@ -176,6 +274,8 @@ const seedMeals = async () => {
     await seedMealIngredients(meal.id, user.id);
   }
 };
+
+const seedMealBoardPlan = async () => {};
 
 async function seedWeeklyMealGroups() {
   const user = await prisma.user.findUnique({ where: { email: EMAIL } });

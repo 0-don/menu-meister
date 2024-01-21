@@ -36,6 +36,25 @@ model Token {
   updatedByUser User     @relation("UpdatedToken", fields: [updatedBy], references: [id])
 }
 
+model Settings {
+  id Int @id @default(autoincrement())
+
+  maxEditOrderDays Int
+
+  /// @HideField({ output: false, input: true })
+  createdAt     DateTime @default(now())
+  /// @HideField({ output: false, input: true })
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedSettings", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedSettings", fields: [updatedBy], references: [id])
+}
+
 model User {
   id Int @id @default(autoincrement())
 
@@ -69,6 +88,8 @@ model User {
   updatedUserRoles UserRole[] @relation("UpdatedUserRole")
   createdUserMeals UserMeal[] @relation("CreatedUserMeal")
   updatedUserMeals UserMeal[] @relation("UpdatedUserMeal")
+  createdSettings  Settings[] @relation("CreatedSettings")
+  updatedSettings  Settings[] @relation("UpdatedSettings")
 
   createdIngredients       Ingredient[]       @relation("CreatedIngredient")
   updatedIngredients       Ingredient[]       @relation("UpdatedIngredient")
