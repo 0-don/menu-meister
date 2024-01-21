@@ -369,7 +369,7 @@ export type AdditivesWhereUniqueInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
   ingredients?: InputMaybe<IngredientListRelationFilter>;
   meals?: InputMaybe<MealListRelationFilter>;
-  name?: InputMaybe<StringFilter>;
+  name?: InputMaybe<Scalars['String']['input']>;
   recipes?: InputMaybe<RecipeListRelationFilter>;
 };
 
@@ -722,7 +722,7 @@ export type AllergensWhereUniqueInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
   ingredients?: InputMaybe<IngredientListRelationFilter>;
   meals?: InputMaybe<MealListRelationFilter>;
-  name?: InputMaybe<StringFilter>;
+  name?: InputMaybe<Scalars['String']['input']>;
   recipes?: InputMaybe<RecipeListRelationFilter>;
 };
 
@@ -1084,7 +1084,7 @@ export type CategoriesWhereUniqueInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
   ingredients?: InputMaybe<IngredientListRelationFilter>;
   meals?: InputMaybe<MealListRelationFilter>;
-  name?: InputMaybe<StringFilter>;
+  name?: InputMaybe<Scalars['String']['input']>;
   recipes?: InputMaybe<RecipeListRelationFilter>;
 };
 
@@ -1493,7 +1493,7 @@ export type FoodFormsWhereUniqueInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
   ingredients?: InputMaybe<IngredientListRelationFilter>;
   meals?: InputMaybe<MealListRelationFilter>;
-  name?: InputMaybe<StringFilter>;
+  name?: InputMaybe<Scalars['String']['input']>;
   recipes?: InputMaybe<RecipeListRelationFilter>;
 };
 
@@ -1518,9 +1518,9 @@ export type Ingredient = {
   properties?: Maybe<Array<Properties>>;
   protein: Scalars['Decimal']['output'];
   recipeIngredient?: Maybe<Array<RecipeIngredient>>;
-  saisons?: Maybe<Array<Saisons>>;
   salt: Scalars['Decimal']['output'];
   saturatedFats: Scalars['Decimal']['output'];
+  seasons?: Maybe<Array<Seasons>>;
   sugars: Scalars['Decimal']['output'];
   unsaturatedFats: Scalars['Decimal']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -1536,46 +1536,46 @@ export type IngredientCount = {
   kitchens: Scalars['Int']['output'];
   properties: Scalars['Int']['output'];
   recipeIngredient: Scalars['Int']['output'];
-  saisons: Scalars['Int']['output'];
+  seasons: Scalars['Int']['output'];
 };
 
 export type IngredientCreateInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits: Scalars['Decimal']['input'];
-  carbohydrates: Scalars['Decimal']['input'];
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal: Scalars['Decimal']['input'];
-  energyKj: Scalars['Decimal']['input'];
-  fats: Scalars['Decimal']['input'];
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein: Scalars['Decimal']['input'];
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutIngredientsInput>;
-  salt: Scalars['Decimal']['input'];
-  saturatedFats: Scalars['Decimal']['input'];
-  sugars: Scalars['Decimal']['input'];
-  unsaturatedFats: Scalars['Decimal']['input'];
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateManyCreatedByUserInput = {
   blsIdentifier: Scalars['String']['input'];
-  breadUnits: Scalars['Decimal']['input'];
-  carbohydrates: Scalars['Decimal']['input'];
-  energyKcal: Scalars['Decimal']['input'];
-  energyKj: Scalars['Decimal']['input'];
-  fats: Scalars['Decimal']['input'];
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   name: Scalars['String']['input'];
-  protein: Scalars['Decimal']['input'];
-  salt: Scalars['Decimal']['input'];
-  saturatedFats: Scalars['Decimal']['input'];
-  sugars: Scalars['Decimal']['input'];
-  unsaturatedFats: Scalars['Decimal']['input'];
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateManyCreatedByUserInputEnvelope = {
@@ -1585,34 +1585,34 @@ export type IngredientCreateManyCreatedByUserInputEnvelope = {
 
 export type IngredientCreateManyInput = {
   blsIdentifier: Scalars['String']['input'];
-  breadUnits: Scalars['Decimal']['input'];
-  carbohydrates: Scalars['Decimal']['input'];
-  energyKcal: Scalars['Decimal']['input'];
-  energyKj: Scalars['Decimal']['input'];
-  fats: Scalars['Decimal']['input'];
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   name: Scalars['String']['input'];
-  protein: Scalars['Decimal']['input'];
-  salt: Scalars['Decimal']['input'];
-  saturatedFats: Scalars['Decimal']['input'];
-  sugars: Scalars['Decimal']['input'];
-  unsaturatedFats: Scalars['Decimal']['input'];
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateManyUpdatedByUserInput = {
   blsIdentifier: Scalars['String']['input'];
-  breadUnits: Scalars['Decimal']['input'];
-  carbohydrates: Scalars['Decimal']['input'];
-  energyKcal: Scalars['Decimal']['input'];
-  energyKj: Scalars['Decimal']['input'];
-  fats: Scalars['Decimal']['input'];
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   name: Scalars['String']['input'];
-  protein: Scalars['Decimal']['input'];
-  salt: Scalars['Decimal']['input'];
-  saturatedFats: Scalars['Decimal']['input'];
-  sugars: Scalars['Decimal']['input'];
-  unsaturatedFats: Scalars['Decimal']['input'];
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateManyUpdatedByUserInputEnvelope = {
@@ -1663,10 +1663,10 @@ export type IngredientCreateNestedManyWithoutPropertiesInput = {
   create?: InputMaybe<Array<IngredientCreateWithoutPropertiesInput>>;
 };
 
-export type IngredientCreateNestedManyWithoutSaisonsInput = {
+export type IngredientCreateNestedManyWithoutSeasonsInput = {
   connect?: InputMaybe<Array<IngredientWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<IngredientCreateOrConnectWithoutSaisonsInput>>;
-  create?: InputMaybe<Array<IngredientCreateWithoutSaisonsInput>>;
+  connectOrCreate?: InputMaybe<Array<IngredientCreateOrConnectWithoutSeasonsInput>>;
+  create?: InputMaybe<Array<IngredientCreateWithoutSeasonsInput>>;
 };
 
 export type IngredientCreateNestedManyWithoutUpdatedByUserInput = {
@@ -1722,8 +1722,8 @@ export type IngredientCreateOrConnectWithoutRecipeIngredientInput = {
   where: IngredientWhereUniqueInput;
 };
 
-export type IngredientCreateOrConnectWithoutSaisonsInput = {
-  create: IngredientCreateWithoutSaisonsInput;
+export type IngredientCreateOrConnectWithoutSeasonsInput = {
+  create: IngredientCreateWithoutSeasonsInput;
   where: IngredientWhereUniqueInput;
 };
 
@@ -1735,223 +1735,223 @@ export type IngredientCreateOrConnectWithoutUpdatedByUserInput = {
 export type IngredientCreateWithoutAdditivesInput = {
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits: Scalars['Decimal']['input'];
-  carbohydrates: Scalars['Decimal']['input'];
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal: Scalars['Decimal']['input'];
-  energyKj: Scalars['Decimal']['input'];
-  fats: Scalars['Decimal']['input'];
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein: Scalars['Decimal']['input'];
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutIngredientsInput>;
-  salt: Scalars['Decimal']['input'];
-  saturatedFats: Scalars['Decimal']['input'];
-  sugars: Scalars['Decimal']['input'];
-  unsaturatedFats: Scalars['Decimal']['input'];
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutAllergensInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits: Scalars['Decimal']['input'];
-  carbohydrates: Scalars['Decimal']['input'];
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal: Scalars['Decimal']['input'];
-  energyKj: Scalars['Decimal']['input'];
-  fats: Scalars['Decimal']['input'];
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein: Scalars['Decimal']['input'];
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutIngredientsInput>;
-  salt: Scalars['Decimal']['input'];
-  saturatedFats: Scalars['Decimal']['input'];
-  sugars: Scalars['Decimal']['input'];
-  unsaturatedFats: Scalars['Decimal']['input'];
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutCategoriesInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits: Scalars['Decimal']['input'];
-  carbohydrates: Scalars['Decimal']['input'];
-  energyKcal: Scalars['Decimal']['input'];
-  energyKj: Scalars['Decimal']['input'];
-  fats: Scalars['Decimal']['input'];
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein: Scalars['Decimal']['input'];
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutIngredientsInput>;
-  salt: Scalars['Decimal']['input'];
-  saturatedFats: Scalars['Decimal']['input'];
-  sugars: Scalars['Decimal']['input'];
-  unsaturatedFats: Scalars['Decimal']['input'];
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutCreatedByUserInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits: Scalars['Decimal']['input'];
-  carbohydrates: Scalars['Decimal']['input'];
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal: Scalars['Decimal']['input'];
-  energyKj: Scalars['Decimal']['input'];
-  fats: Scalars['Decimal']['input'];
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein: Scalars['Decimal']['input'];
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutIngredientsInput>;
-  salt: Scalars['Decimal']['input'];
-  saturatedFats: Scalars['Decimal']['input'];
-  sugars: Scalars['Decimal']['input'];
-  unsaturatedFats: Scalars['Decimal']['input'];
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutFoodFormsInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits: Scalars['Decimal']['input'];
-  carbohydrates: Scalars['Decimal']['input'];
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal: Scalars['Decimal']['input'];
-  energyKj: Scalars['Decimal']['input'];
-  fats: Scalars['Decimal']['input'];
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein: Scalars['Decimal']['input'];
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutIngredientsInput>;
-  salt: Scalars['Decimal']['input'];
-  saturatedFats: Scalars['Decimal']['input'];
-  sugars: Scalars['Decimal']['input'];
-  unsaturatedFats: Scalars['Decimal']['input'];
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutKitchensInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits: Scalars['Decimal']['input'];
-  carbohydrates: Scalars['Decimal']['input'];
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal: Scalars['Decimal']['input'];
-  energyKj: Scalars['Decimal']['input'];
-  fats: Scalars['Decimal']['input'];
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein: Scalars['Decimal']['input'];
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutIngredientsInput>;
-  salt: Scalars['Decimal']['input'];
-  saturatedFats: Scalars['Decimal']['input'];
-  sugars: Scalars['Decimal']['input'];
-  unsaturatedFats: Scalars['Decimal']['input'];
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutPropertiesInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits: Scalars['Decimal']['input'];
-  carbohydrates: Scalars['Decimal']['input'];
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal: Scalars['Decimal']['input'];
-  energyKj: Scalars['Decimal']['input'];
-  fats: Scalars['Decimal']['input'];
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
-  protein: Scalars['Decimal']['input'];
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutIngredientsInput>;
-  salt: Scalars['Decimal']['input'];
-  saturatedFats: Scalars['Decimal']['input'];
-  sugars: Scalars['Decimal']['input'];
-  unsaturatedFats: Scalars['Decimal']['input'];
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutRecipeIngredientInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits: Scalars['Decimal']['input'];
-  carbohydrates: Scalars['Decimal']['input'];
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal: Scalars['Decimal']['input'];
-  energyKj: Scalars['Decimal']['input'];
-  fats: Scalars['Decimal']['input'];
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein: Scalars['Decimal']['input'];
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutIngredientsInput>;
-  salt: Scalars['Decimal']['input'];
-  saturatedFats: Scalars['Decimal']['input'];
-  sugars: Scalars['Decimal']['input'];
-  unsaturatedFats: Scalars['Decimal']['input'];
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
-export type IngredientCreateWithoutSaisonsInput = {
+export type IngredientCreateWithoutSeasonsInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits: Scalars['Decimal']['input'];
-  carbohydrates: Scalars['Decimal']['input'];
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal: Scalars['Decimal']['input'];
-  energyKj: Scalars['Decimal']['input'];
-  fats: Scalars['Decimal']['input'];
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein: Scalars['Decimal']['input'];
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  salt: Scalars['Decimal']['input'];
-  saturatedFats: Scalars['Decimal']['input'];
-  sugars: Scalars['Decimal']['input'];
-  unsaturatedFats: Scalars['Decimal']['input'];
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutUpdatedByUserInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits: Scalars['Decimal']['input'];
-  carbohydrates: Scalars['Decimal']['input'];
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal: Scalars['Decimal']['input'];
-  energyKj: Scalars['Decimal']['input'];
-  fats: Scalars['Decimal']['input'];
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein: Scalars['Decimal']['input'];
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutIngredientsInput>;
-  salt: Scalars['Decimal']['input'];
-  saturatedFats: Scalars['Decimal']['input'];
-  sugars: Scalars['Decimal']['input'];
-  unsaturatedFats: Scalars['Decimal']['input'];
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientListRelationFilter = {
@@ -1981,9 +1981,9 @@ export type IngredientOrderByWithRelationInput = {
   properties?: InputMaybe<PropertiesOrderByRelationAggregateInput>;
   protein?: InputMaybe<SortOrder>;
   recipeIngredient?: InputMaybe<RecipeIngredientOrderByRelationAggregateInput>;
-  saisons?: InputMaybe<SaisonsOrderByRelationAggregateInput>;
   salt?: InputMaybe<SortOrder>;
   saturatedFats?: InputMaybe<SortOrder>;
+  seasons?: InputMaybe<SeasonsOrderByRelationAggregateInput>;
   sugars?: InputMaybe<SortOrder>;
   unsaturatedFats?: InputMaybe<SortOrder>;
 };
@@ -2048,9 +2048,9 @@ export type IngredientUpdateInput = {
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
   protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutIngredientsNestedInput>;
   salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
   sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
@@ -2105,7 +2105,7 @@ export type IngredientUpdateManyWithWhereWithoutPropertiesInput = {
   where: IngredientScalarWhereInput;
 };
 
-export type IngredientUpdateManyWithWhereWithoutSaisonsInput = {
+export type IngredientUpdateManyWithWhereWithoutSeasonsInput = {
   data: IngredientUpdateManyMutationInput;
   where: IngredientScalarWhereInput;
 };
@@ -2207,17 +2207,17 @@ export type IngredientUpdateManyWithoutPropertiesNestedInput = {
   upsert?: InputMaybe<Array<IngredientUpsertWithWhereUniqueWithoutPropertiesInput>>;
 };
 
-export type IngredientUpdateManyWithoutSaisonsNestedInput = {
+export type IngredientUpdateManyWithoutSeasonsNestedInput = {
   connect?: InputMaybe<Array<IngredientWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<IngredientCreateOrConnectWithoutSaisonsInput>>;
-  create?: InputMaybe<Array<IngredientCreateWithoutSaisonsInput>>;
+  connectOrCreate?: InputMaybe<Array<IngredientCreateOrConnectWithoutSeasonsInput>>;
+  create?: InputMaybe<Array<IngredientCreateWithoutSeasonsInput>>;
   delete?: InputMaybe<Array<IngredientWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<IngredientScalarWhereInput>>;
   disconnect?: InputMaybe<Array<IngredientWhereUniqueInput>>;
   set?: InputMaybe<Array<IngredientWhereUniqueInput>>;
-  update?: InputMaybe<Array<IngredientUpdateWithWhereUniqueWithoutSaisonsInput>>;
-  updateMany?: InputMaybe<Array<IngredientUpdateManyWithWhereWithoutSaisonsInput>>;
-  upsert?: InputMaybe<Array<IngredientUpsertWithWhereUniqueWithoutSaisonsInput>>;
+  update?: InputMaybe<Array<IngredientUpdateWithWhereUniqueWithoutSeasonsInput>>;
+  updateMany?: InputMaybe<Array<IngredientUpdateManyWithWhereWithoutSeasonsInput>>;
+  upsert?: InputMaybe<Array<IngredientUpsertWithWhereUniqueWithoutSeasonsInput>>;
 };
 
 export type IngredientUpdateManyWithoutUpdatedByUserNestedInput = {
@@ -2282,8 +2282,8 @@ export type IngredientUpdateWithWhereUniqueWithoutPropertiesInput = {
   where: IngredientWhereUniqueInput;
 };
 
-export type IngredientUpdateWithWhereUniqueWithoutSaisonsInput = {
-  data: IngredientUpdateWithoutSaisonsInput;
+export type IngredientUpdateWithWhereUniqueWithoutSeasonsInput = {
+  data: IngredientUpdateWithoutSeasonsInput;
   where: IngredientWhereUniqueInput;
 };
 
@@ -2307,9 +2307,9 @@ export type IngredientUpdateWithoutAdditivesInput = {
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
   protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutIngredientsNestedInput>;
   salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
   sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
@@ -2329,9 +2329,9 @@ export type IngredientUpdateWithoutAllergensInput = {
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
   protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutIngredientsNestedInput>;
   salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
   sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
@@ -2351,9 +2351,9 @@ export type IngredientUpdateWithoutCategoriesInput = {
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
   protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutIngredientsNestedInput>;
   salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
   sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
@@ -2374,9 +2374,9 @@ export type IngredientUpdateWithoutCreatedByUserInput = {
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
   protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutIngredientsNestedInput>;
   salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
   sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
@@ -2396,9 +2396,9 @@ export type IngredientUpdateWithoutFoodFormsInput = {
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
   protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutIngredientsNestedInput>;
   salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
   sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
@@ -2418,9 +2418,9 @@ export type IngredientUpdateWithoutKitchensInput = {
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
   protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutIngredientsNestedInput>;
   salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
   sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
@@ -2440,9 +2440,9 @@ export type IngredientUpdateWithoutPropertiesInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutIngredientsNestedInput>;
   salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
   sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
@@ -2462,14 +2462,14 @@ export type IngredientUpdateWithoutRecipeIngredientInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
   protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutIngredientsNestedInput>;
   salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
   sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
 
-export type IngredientUpdateWithoutSaisonsInput = {
+export type IngredientUpdateWithoutSeasonsInput = {
   additives?: InputMaybe<AdditivesUpdateManyWithoutIngredientsNestedInput>;
   allergens?: InputMaybe<AllergensUpdateManyWithoutIngredientsNestedInput>;
   blsIdentifier?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -2507,9 +2507,9 @@ export type IngredientUpdateWithoutUpdatedByUserInput = {
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
   protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutIngredientsNestedInput>;
   salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
   sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
@@ -2556,9 +2556,9 @@ export type IngredientUpsertWithWhereUniqueWithoutPropertiesInput = {
   where: IngredientWhereUniqueInput;
 };
 
-export type IngredientUpsertWithWhereUniqueWithoutSaisonsInput = {
-  create: IngredientCreateWithoutSaisonsInput;
-  update: IngredientUpdateWithoutSaisonsInput;
+export type IngredientUpsertWithWhereUniqueWithoutSeasonsInput = {
+  create: IngredientCreateWithoutSeasonsInput;
+  update: IngredientUpdateWithoutSeasonsInput;
   where: IngredientWhereUniqueInput;
 };
 
@@ -2594,9 +2594,9 @@ export type IngredientWhereInput = {
   properties?: InputMaybe<PropertiesListRelationFilter>;
   protein?: InputMaybe<DecimalFilter>;
   recipeIngredient?: InputMaybe<RecipeIngredientListRelationFilter>;
-  saisons?: InputMaybe<SaisonsListRelationFilter>;
   salt?: InputMaybe<DecimalFilter>;
   saturatedFats?: InputMaybe<DecimalFilter>;
+  seasons?: InputMaybe<SeasonsListRelationFilter>;
   sugars?: InputMaybe<DecimalFilter>;
   unsaturatedFats?: InputMaybe<DecimalFilter>;
 };
@@ -2607,7 +2607,7 @@ export type IngredientWhereUniqueInput = {
   OR?: InputMaybe<Array<IngredientWhereInput>>;
   additives?: InputMaybe<AdditivesListRelationFilter>;
   allergens?: InputMaybe<AllergensListRelationFilter>;
-  blsIdentifier?: InputMaybe<StringFilter>;
+  blsIdentifier?: InputMaybe<Scalars['String']['input']>;
   breadUnits?: InputMaybe<DecimalFilter>;
   carbohydrates?: InputMaybe<DecimalFilter>;
   categories?: InputMaybe<CategoriesListRelationFilter>;
@@ -2621,9 +2621,9 @@ export type IngredientWhereUniqueInput = {
   properties?: InputMaybe<PropertiesListRelationFilter>;
   protein?: InputMaybe<DecimalFilter>;
   recipeIngredient?: InputMaybe<RecipeIngredientListRelationFilter>;
-  saisons?: InputMaybe<SaisonsListRelationFilter>;
   salt?: InputMaybe<DecimalFilter>;
   saturatedFats?: InputMaybe<DecimalFilter>;
+  seasons?: InputMaybe<SeasonsListRelationFilter>;
   sugars?: InputMaybe<DecimalFilter>;
   unsaturatedFats?: InputMaybe<DecimalFilter>;
 };
@@ -2943,7 +2943,7 @@ export type KitchensWhereUniqueInput = {
   OR?: InputMaybe<Array<KitchensWhereInput>>;
   id?: InputMaybe<Scalars['Int']['input']>;
   ingredients?: InputMaybe<IngredientListRelationFilter>;
-  name?: InputMaybe<StringFilter>;
+  name?: InputMaybe<Scalars['String']['input']>;
   recipes?: InputMaybe<RecipeListRelationFilter>;
 };
 
@@ -2970,8 +2970,8 @@ export type Meal = {
   mondayMealGroups?: Maybe<Array<WeeklyMealGroup>>;
   name: Scalars['String']['output'];
   properties?: Maybe<Array<Properties>>;
-  saisons?: Maybe<Array<Saisons>>;
   saturdayMealGroups?: Maybe<Array<WeeklyMealGroup>>;
+  seasons?: Maybe<Array<Seasons>>;
   sundayMealGroups?: Maybe<Array<WeeklyMealGroup>>;
   thursdayMealGroups?: Maybe<Array<WeeklyMealGroup>>;
   tuesdayMealGroups?: Maybe<Array<WeeklyMealGroup>>;
@@ -3000,6 +3000,12 @@ export type MealBoardPlanCount = {
   WeeklyMealGroup: Scalars['Int']['output'];
 };
 
+export type MealBoardPlanCreateInput = {
+  WeeklyMealGroup?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMealBoardPlanInput>;
+  color?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+};
+
 export type MealBoardPlanCreateManyCreatedByUserInput = {
   color?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
@@ -3009,6 +3015,12 @@ export type MealBoardPlanCreateManyCreatedByUserInput = {
 export type MealBoardPlanCreateManyCreatedByUserInputEnvelope = {
   data: Array<MealBoardPlanCreateManyCreatedByUserInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type MealBoardPlanCreateManyInput = {
+  color?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['Int']['input']>;
+  name: Scalars['String']['input'];
 };
 
 export type MealBoardPlanCreateManyUpdatedByUserInput = {
@@ -3096,6 +3108,16 @@ export type MealBoardPlanRelationFilter = {
   isNot?: InputMaybe<MealBoardPlanWhereInput>;
 };
 
+export enum MealBoardPlanScalarFieldEnum {
+  Color = 'color',
+  CreatedAt = 'createdAt',
+  CreatedBy = 'createdBy',
+  Id = 'id',
+  Name = 'name',
+  UpdatedAt = 'updatedAt',
+  UpdatedBy = 'updatedBy'
+}
+
 export type MealBoardPlanScalarWhereInput = {
   AND?: InputMaybe<Array<MealBoardPlanScalarWhereInput>>;
   NOT?: InputMaybe<Array<MealBoardPlanScalarWhereInput>>;
@@ -3103,6 +3125,19 @@ export type MealBoardPlanScalarWhereInput = {
   color?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
+};
+
+export type MealBoardPlanUncheckedUpdateInput = {
+  WeeklyMealGroup?: InputMaybe<WeeklyMealGroupUncheckedUpdateManyWithoutMealBoardPlanNestedInput>;
+  color?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  id?: InputMaybe<IntFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type MealBoardPlanUpdateInput = {
+  WeeklyMealGroup?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMealBoardPlanNestedInput>;
+  color?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
 };
 
 export type MealBoardPlanUpdateManyMutationInput = {
@@ -3235,8 +3270,8 @@ export type MealCount = {
   mealRecipe: Scalars['Int']['output'];
   mondayMealGroups: Scalars['Int']['output'];
   properties: Scalars['Int']['output'];
-  saisons: Scalars['Int']['output'];
   saturdayMealGroups: Scalars['Int']['output'];
+  seasons: Scalars['Int']['output'];
   sundayMealGroups: Scalars['Int']['output'];
   thursdayMealGroups: Scalars['Int']['output'];
   tuesdayMealGroups: Scalars['Int']['output'];
@@ -3257,8 +3292,8 @@ export type MealCreateInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
@@ -3337,10 +3372,10 @@ export type MealCreateNestedManyWithoutPropertiesInput = {
   create?: InputMaybe<Array<MealCreateWithoutPropertiesInput>>;
 };
 
-export type MealCreateNestedManyWithoutSaisonsInput = {
+export type MealCreateNestedManyWithoutSeasonsInput = {
   connect?: InputMaybe<Array<MealWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<MealCreateOrConnectWithoutSaisonsInput>>;
-  create?: InputMaybe<Array<MealCreateWithoutSaisonsInput>>;
+  connectOrCreate?: InputMaybe<Array<MealCreateOrConnectWithoutSeasonsInput>>;
+  create?: InputMaybe<Array<MealCreateWithoutSeasonsInput>>;
 };
 
 export type MealCreateNestedManyWithoutUpdatedByUserInput = {
@@ -3449,13 +3484,13 @@ export type MealCreateOrConnectWithoutPropertiesInput = {
   where: MealWhereUniqueInput;
 };
 
-export type MealCreateOrConnectWithoutSaisonsInput = {
-  create: MealCreateWithoutSaisonsInput;
+export type MealCreateOrConnectWithoutSaturdayMealGroupsInput = {
+  create: MealCreateWithoutSaturdayMealGroupsInput;
   where: MealWhereUniqueInput;
 };
 
-export type MealCreateOrConnectWithoutSaturdayMealGroupsInput = {
-  create: MealCreateWithoutSaturdayMealGroupsInput;
+export type MealCreateOrConnectWithoutSeasonsInput = {
+  create: MealCreateWithoutSeasonsInput;
   where: MealWhereUniqueInput;
 };
 
@@ -3501,8 +3536,8 @@ export type MealCreateWithoutAdditivesInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
@@ -3522,8 +3557,8 @@ export type MealCreateWithoutAllergensInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
@@ -3543,8 +3578,8 @@ export type MealCreateWithoutCategoriesInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
@@ -3565,8 +3600,8 @@ export type MealCreateWithoutCreatedByUserInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
@@ -3586,8 +3621,8 @@ export type MealCreateWithoutFoodFormsInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
@@ -3607,8 +3642,8 @@ export type MealCreateWithoutFridayMealGroupsInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
@@ -3628,8 +3663,8 @@ export type MealCreateWithoutMealRecipeInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
@@ -3649,8 +3684,8 @@ export type MealCreateWithoutMondayMealGroupsInput = {
   mealRecipe?: InputMaybe<MealRecipeCreateNestedManyWithoutMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
@@ -3670,29 +3705,8 @@ export type MealCreateWithoutPropertiesInput = {
   mealRecipe?: InputMaybe<MealRecipeCreateNestedManyWithoutMealInput>;
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
-  sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
-  thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
-  tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
-  userMeal?: InputMaybe<UserMealCreateNestedManyWithoutMealInput>;
-  wednesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutWednesdayMealInput>;
-};
-
-export type MealCreateWithoutSaisonsInput = {
-  additives?: InputMaybe<AdditivesCreateNestedManyWithoutMealsInput>;
-  allergens?: InputMaybe<AllergensCreateNestedManyWithoutMealsInput>;
-  categories?: InputMaybe<CategoriesCreateNestedManyWithoutMealsInput>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutMealsInput>;
-  fridayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutFridayMealInput>;
-  image?: InputMaybe<Scalars['String']['input']>;
-  imageName?: InputMaybe<Scalars['String']['input']>;
-  mealRecipe?: InputMaybe<MealRecipeCreateNestedManyWithoutMealInput>;
-  mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
-  name: Scalars['String']['input'];
-  properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
@@ -3713,7 +3727,28 @@ export type MealCreateWithoutSaturdayMealGroupsInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
+  sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
+  thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
+  tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
+  userMeal?: InputMaybe<UserMealCreateNestedManyWithoutMealInput>;
+  wednesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutWednesdayMealInput>;
+};
+
+export type MealCreateWithoutSeasonsInput = {
+  additives?: InputMaybe<AdditivesCreateNestedManyWithoutMealsInput>;
+  allergens?: InputMaybe<AllergensCreateNestedManyWithoutMealsInput>;
+  categories?: InputMaybe<CategoriesCreateNestedManyWithoutMealsInput>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutMealsInput>;
+  fridayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutFridayMealInput>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  imageName?: InputMaybe<Scalars['String']['input']>;
+  mealRecipe?: InputMaybe<MealRecipeCreateNestedManyWithoutMealInput>;
+  mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
+  name: Scalars['String']['input'];
+  properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
+  saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
@@ -3734,8 +3769,8 @@ export type MealCreateWithoutSundayMealGroupsInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
   userMeal?: InputMaybe<UserMealCreateNestedManyWithoutMealInput>;
@@ -3755,8 +3790,8 @@ export type MealCreateWithoutThursdayMealGroupsInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
   userMeal?: InputMaybe<UserMealCreateNestedManyWithoutMealInput>;
@@ -3776,8 +3811,8 @@ export type MealCreateWithoutTuesdayMealGroupsInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   userMeal?: InputMaybe<UserMealCreateNestedManyWithoutMealInput>;
@@ -3797,8 +3832,8 @@ export type MealCreateWithoutUpdatedByUserInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
@@ -3819,8 +3854,8 @@ export type MealCreateWithoutUserMealInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
@@ -3840,8 +3875,8 @@ export type MealCreateWithoutWednesdayMealGroupsInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutMondayMealInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutMealsInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutMealsInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSaturdayMealInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutMealsInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutSundayMealInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutThursdayMealInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutTuesdayMealInput>;
@@ -3877,8 +3912,8 @@ export type MealOrderByWithRelationInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupOrderByRelationAggregateInput>;
   name?: InputMaybe<SortOrder>;
   properties?: InputMaybe<PropertiesOrderByRelationAggregateInput>;
-  saisons?: InputMaybe<SaisonsOrderByRelationAggregateInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupOrderByRelationAggregateInput>;
+  seasons?: InputMaybe<SeasonsOrderByRelationAggregateInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupOrderByRelationAggregateInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupOrderByRelationAggregateInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupOrderByRelationAggregateInput>;
@@ -4248,8 +4283,8 @@ export type MealUpdateInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
@@ -4294,7 +4329,7 @@ export type MealUpdateManyWithWhereWithoutPropertiesInput = {
   where: MealScalarWhereInput;
 };
 
-export type MealUpdateManyWithWhereWithoutSaisonsInput = {
+export type MealUpdateManyWithWhereWithoutSeasonsInput = {
   data: MealUpdateManyMutationInput;
   where: MealScalarWhereInput;
 };
@@ -4383,17 +4418,17 @@ export type MealUpdateManyWithoutPropertiesNestedInput = {
   upsert?: InputMaybe<Array<MealUpsertWithWhereUniqueWithoutPropertiesInput>>;
 };
 
-export type MealUpdateManyWithoutSaisonsNestedInput = {
+export type MealUpdateManyWithoutSeasonsNestedInput = {
   connect?: InputMaybe<Array<MealWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<MealCreateOrConnectWithoutSaisonsInput>>;
-  create?: InputMaybe<Array<MealCreateWithoutSaisonsInput>>;
+  connectOrCreate?: InputMaybe<Array<MealCreateOrConnectWithoutSeasonsInput>>;
+  create?: InputMaybe<Array<MealCreateWithoutSeasonsInput>>;
   delete?: InputMaybe<Array<MealWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<MealScalarWhereInput>>;
   disconnect?: InputMaybe<Array<MealWhereUniqueInput>>;
   set?: InputMaybe<Array<MealWhereUniqueInput>>;
-  update?: InputMaybe<Array<MealUpdateWithWhereUniqueWithoutSaisonsInput>>;
-  updateMany?: InputMaybe<Array<MealUpdateManyWithWhereWithoutSaisonsInput>>;
-  upsert?: InputMaybe<Array<MealUpsertWithWhereUniqueWithoutSaisonsInput>>;
+  update?: InputMaybe<Array<MealUpdateWithWhereUniqueWithoutSeasonsInput>>;
+  updateMany?: InputMaybe<Array<MealUpdateManyWithWhereWithoutSeasonsInput>>;
+  upsert?: InputMaybe<Array<MealUpsertWithWhereUniqueWithoutSeasonsInput>>;
 };
 
 export type MealUpdateManyWithoutUpdatedByUserNestedInput = {
@@ -4571,8 +4606,8 @@ export type MealUpdateWithWhereUniqueWithoutPropertiesInput = {
   where: MealWhereUniqueInput;
 };
 
-export type MealUpdateWithWhereUniqueWithoutSaisonsInput = {
-  data: MealUpdateWithoutSaisonsInput;
+export type MealUpdateWithWhereUniqueWithoutSeasonsInput = {
+  data: MealUpdateWithoutSeasonsInput;
   where: MealWhereUniqueInput;
 };
 
@@ -4593,8 +4628,8 @@ export type MealUpdateWithoutAdditivesInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
@@ -4614,8 +4649,8 @@ export type MealUpdateWithoutAllergensInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
@@ -4635,8 +4670,8 @@ export type MealUpdateWithoutCategoriesInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
@@ -4657,8 +4692,8 @@ export type MealUpdateWithoutCreatedByUserInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
@@ -4678,8 +4713,8 @@ export type MealUpdateWithoutFoodFormsInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
@@ -4699,8 +4734,8 @@ export type MealUpdateWithoutFridayMealGroupsInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
@@ -4720,8 +4755,8 @@ export type MealUpdateWithoutMealRecipeInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
@@ -4741,8 +4776,8 @@ export type MealUpdateWithoutMondayMealGroupsInput = {
   mealRecipe?: InputMaybe<MealRecipeUpdateManyWithoutMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
@@ -4762,29 +4797,8 @@ export type MealUpdateWithoutPropertiesInput = {
   mealRecipe?: InputMaybe<MealRecipeUpdateManyWithoutMealNestedInput>;
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
-  sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
-  thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
-  tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
-  userMeal?: InputMaybe<UserMealUpdateManyWithoutMealNestedInput>;
-  wednesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutWednesdayMealNestedInput>;
-};
-
-export type MealUpdateWithoutSaisonsInput = {
-  additives?: InputMaybe<AdditivesUpdateManyWithoutMealsNestedInput>;
-  allergens?: InputMaybe<AllergensUpdateManyWithoutMealsNestedInput>;
-  categories?: InputMaybe<CategoriesUpdateManyWithoutMealsNestedInput>;
-  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  foodForms?: InputMaybe<FoodFormsUpdateManyWithoutMealsNestedInput>;
-  fridayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutFridayMealNestedInput>;
-  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  imageName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  mealRecipe?: InputMaybe<MealRecipeUpdateManyWithoutMealNestedInput>;
-  mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
-  name?: InputMaybe<StringFieldUpdateOperationsInput>;
-  properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
@@ -4805,7 +4819,28 @@ export type MealUpdateWithoutSaturdayMealGroupsInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
+  sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
+  thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
+  tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
+  userMeal?: InputMaybe<UserMealUpdateManyWithoutMealNestedInput>;
+  wednesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutWednesdayMealNestedInput>;
+};
+
+export type MealUpdateWithoutSeasonsInput = {
+  additives?: InputMaybe<AdditivesUpdateManyWithoutMealsNestedInput>;
+  allergens?: InputMaybe<AllergensUpdateManyWithoutMealsNestedInput>;
+  categories?: InputMaybe<CategoriesUpdateManyWithoutMealsNestedInput>;
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  foodForms?: InputMaybe<FoodFormsUpdateManyWithoutMealsNestedInput>;
+  fridayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutFridayMealNestedInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  imageName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  mealRecipe?: InputMaybe<MealRecipeUpdateManyWithoutMealNestedInput>;
+  mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
+  saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
@@ -4826,8 +4861,8 @@ export type MealUpdateWithoutSundayMealGroupsInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
   userMeal?: InputMaybe<UserMealUpdateManyWithoutMealNestedInput>;
@@ -4847,8 +4882,8 @@ export type MealUpdateWithoutThursdayMealGroupsInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
   userMeal?: InputMaybe<UserMealUpdateManyWithoutMealNestedInput>;
@@ -4868,8 +4903,8 @@ export type MealUpdateWithoutTuesdayMealGroupsInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   userMeal?: InputMaybe<UserMealUpdateManyWithoutMealNestedInput>;
@@ -4889,8 +4924,8 @@ export type MealUpdateWithoutUpdatedByUserInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
@@ -4911,8 +4946,8 @@ export type MealUpdateWithoutUserMealInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
@@ -4932,8 +4967,8 @@ export type MealUpdateWithoutWednesdayMealGroupsInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutMondayMealNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutMealsNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutMealsNestedInput>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSaturdayMealNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutMealsNestedInput>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutSundayMealNestedInput>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutThursdayMealNestedInput>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutTuesdayMealNestedInput>;
@@ -4976,9 +5011,9 @@ export type MealUpsertWithWhereUniqueWithoutPropertiesInput = {
   where: MealWhereUniqueInput;
 };
 
-export type MealUpsertWithWhereUniqueWithoutSaisonsInput = {
-  create: MealCreateWithoutSaisonsInput;
-  update: MealUpdateWithoutSaisonsInput;
+export type MealUpsertWithWhereUniqueWithoutSeasonsInput = {
+  create: MealCreateWithoutSeasonsInput;
+  update: MealUpdateWithoutSeasonsInput;
   where: MealWhereUniqueInput;
 };
 
@@ -5059,8 +5094,8 @@ export type MealWhereInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupListRelationFilter>;
   name?: InputMaybe<StringFilter>;
   properties?: InputMaybe<PropertiesListRelationFilter>;
-  saisons?: InputMaybe<SaisonsListRelationFilter>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupListRelationFilter>;
+  seasons?: InputMaybe<SeasonsListRelationFilter>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupListRelationFilter>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupListRelationFilter>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupListRelationFilter>;
@@ -5085,8 +5120,8 @@ export type MealWhereUniqueInput = {
   mondayMealGroups?: InputMaybe<WeeklyMealGroupListRelationFilter>;
   name?: InputMaybe<StringFilter>;
   properties?: InputMaybe<PropertiesListRelationFilter>;
-  saisons?: InputMaybe<SaisonsListRelationFilter>;
   saturdayMealGroups?: InputMaybe<WeeklyMealGroupListRelationFilter>;
+  seasons?: InputMaybe<SeasonsListRelationFilter>;
   sundayMealGroups?: InputMaybe<WeeklyMealGroupListRelationFilter>;
   thursdayMealGroups?: InputMaybe<WeeklyMealGroupListRelationFilter>;
   tuesdayMealGroups?: InputMaybe<WeeklyMealGroupListRelationFilter>;
@@ -5098,19 +5133,31 @@ export type Mutation = {
   changePasswordUser?: Maybe<Scalars['Boolean']['output']>;
   createIngredientAdmin?: Maybe<Ingredient>;
   createManyIngredientsAdmin?: Maybe<Array<Ingredient>>;
+  createManyMealBoardPlansAdmin?: Maybe<Array<MealBoardPlan>>;
   createManyMealsAdmin?: Maybe<Array<Meal>>;
+  createManyRecipesAdmin?: Maybe<Array<Recipe>>;
+  createManySettingsAdmin?: Maybe<Array<Settings>>;
   createManyUsersAdmin?: Maybe<Array<User>>;
   createManyWeeklyMealGroupsAdmin?: Maybe<Array<WeeklyMealGroup>>;
   createMealAdmin?: Maybe<Meal>;
+  createMealBoardPlanAdmin?: Maybe<MealBoardPlan>;
+  createRecipeAdmin?: Maybe<Recipe>;
+  createSettingsAdmin?: Maybe<Settings>;
   createUserAdmin?: Maybe<User>;
   createWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
   deleteAccountTokensUser: Scalars['Boolean']['output'];
   deleteIngredientAdmin?: Maybe<Ingredient>;
   deleteManyIngredientsAdmin?: Maybe<Scalars['Int']['output']>;
+  deleteManyMealBoardPlansAdmin?: Maybe<Scalars['Int']['output']>;
   deleteManyMealsAdmin?: Maybe<Scalars['Int']['output']>;
+  deleteManyRecipesAdmin?: Maybe<Scalars['Int']['output']>;
+  deleteManySettingsAdmin?: Maybe<Scalars['Int']['output']>;
   deleteManyUsersAdmin?: Maybe<Scalars['Int']['output']>;
   deleteManyWeeklyMealGroupsAdmin?: Maybe<Scalars['Int']['output']>;
   deleteMealAdmin?: Maybe<Meal>;
+  deleteMealBoardPlanAdmin?: Maybe<MealBoardPlan>;
+  deleteRecipeAdmin?: Maybe<Recipe>;
+  deleteSettingsAdmin?: Maybe<Settings>;
   deleteUserAdmin?: Maybe<User>;
   deleteWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
   loginUser?: Maybe<User>;
@@ -5119,14 +5166,23 @@ export type Mutation = {
   switchWeeklyMealGroupAdmin: Scalars['Boolean']['output'];
   updateIngredientAdmin?: Maybe<Ingredient>;
   updateManyIngredientsAdmin?: Maybe<Array<Ingredient>>;
+  updateManyMealBoardPlansAdmin?: Maybe<Array<MealBoardPlan>>;
   updateManyMealsAdmin?: Maybe<Array<Meal>>;
+  updateManyRecipesAdmin?: Maybe<Array<Recipe>>;
+  updateManySettingsAdmin?: Maybe<Array<Settings>>;
   updateManyUsersAdmin?: Maybe<Array<User>>;
   updateManyWeeklyMealGroupsAdmin?: Maybe<Array<WeeklyMealGroup>>;
   updateMealAdmin?: Maybe<Meal>;
+  updateMealBoardPlanAdmin?: Maybe<MealBoardPlan>;
+  updateRecipeAdmin?: Maybe<Recipe>;
+  updateSettingsAdmin?: Maybe<Settings>;
   updateUserAdmin?: Maybe<User>;
   updateWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
   upsertIngredientAdmin?: Maybe<Ingredient>;
   upsertMealAdmin?: Maybe<Meal>;
+  upsertMealBoardPlanAdmin?: Maybe<MealBoardPlan>;
+  upsertRecipeAdmin?: Maybe<Recipe>;
+  upsertSettingsAdmin?: Maybe<Settings>;
   upsertUserAdmin?: Maybe<User>;
   upsertWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
 };
@@ -5149,8 +5205,26 @@ export type MutationCreateManyIngredientsAdminArgs = {
 };
 
 
+export type MutationCreateManyMealBoardPlansAdminArgs = {
+  data: Array<MealBoardPlanCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
 export type MutationCreateManyMealsAdminArgs = {
   data: Array<MealCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type MutationCreateManyRecipesAdminArgs = {
+  data: Array<RecipeCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type MutationCreateManySettingsAdminArgs = {
+  data: Array<SettingsCreateManyInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -5169,6 +5243,21 @@ export type MutationCreateManyWeeklyMealGroupsAdminArgs = {
 
 export type MutationCreateMealAdminArgs = {
   data: MealCreateInput;
+};
+
+
+export type MutationCreateMealBoardPlanAdminArgs = {
+  data: MealBoardPlanCreateInput;
+};
+
+
+export type MutationCreateRecipeAdminArgs = {
+  data: RecipeCreateInput;
+};
+
+
+export type MutationCreateSettingsAdminArgs = {
+  data: SettingsCreateInput;
 };
 
 
@@ -5192,8 +5281,23 @@ export type MutationDeleteManyIngredientsAdminArgs = {
 };
 
 
+export type MutationDeleteManyMealBoardPlansAdminArgs = {
+  where?: InputMaybe<MealBoardPlanWhereInput>;
+};
+
+
 export type MutationDeleteManyMealsAdminArgs = {
   where?: InputMaybe<MealWhereInput>;
+};
+
+
+export type MutationDeleteManyRecipesAdminArgs = {
+  where?: InputMaybe<RecipeWhereInput>;
+};
+
+
+export type MutationDeleteManySettingsAdminArgs = {
+  where?: InputMaybe<SettingsWhereInput>;
 };
 
 
@@ -5209,6 +5313,21 @@ export type MutationDeleteManyWeeklyMealGroupsAdminArgs = {
 
 export type MutationDeleteMealAdminArgs = {
   where: MealWhereUniqueInput;
+};
+
+
+export type MutationDeleteMealBoardPlanAdminArgs = {
+  where: MealBoardPlanWhereUniqueInput;
+};
+
+
+export type MutationDeleteRecipeAdminArgs = {
+  where: RecipeWhereUniqueInput;
+};
+
+
+export type MutationDeleteSettingsAdminArgs = {
+  where: SettingsWhereUniqueInput;
 };
 
 
@@ -5249,9 +5368,27 @@ export type MutationUpdateManyIngredientsAdminArgs = {
 };
 
 
+export type MutationUpdateManyMealBoardPlansAdminArgs = {
+  data: MealBoardPlanUpdateManyMutationInput;
+  where?: InputMaybe<MealBoardPlanWhereInput>;
+};
+
+
 export type MutationUpdateManyMealsAdminArgs = {
   data: MealUpdateManyMutationInput;
   where?: InputMaybe<MealWhereInput>;
+};
+
+
+export type MutationUpdateManyRecipesAdminArgs = {
+  data: RecipeUpdateManyMutationInput;
+  where?: InputMaybe<RecipeWhereInput>;
+};
+
+
+export type MutationUpdateManySettingsAdminArgs = {
+  data: SettingsUpdateManyMutationInput;
+  where?: InputMaybe<SettingsWhereInput>;
 };
 
 
@@ -5270,6 +5407,24 @@ export type MutationUpdateManyWeeklyMealGroupsAdminArgs = {
 export type MutationUpdateMealAdminArgs = {
   data: MealUpdateInput;
   where: MealWhereUniqueInput;
+};
+
+
+export type MutationUpdateMealBoardPlanAdminArgs = {
+  data: MealBoardPlanUncheckedUpdateInput;
+  where: MealBoardPlanWhereUniqueInput;
+};
+
+
+export type MutationUpdateRecipeAdminArgs = {
+  data: RecipeUpdateInput;
+  where: RecipeWhereUniqueInput;
+};
+
+
+export type MutationUpdateSettingsAdminArgs = {
+  data: SettingsUpdateInput;
+  where: SettingsWhereUniqueInput;
 };
 
 
@@ -5296,6 +5451,27 @@ export type MutationUpsertMealAdminArgs = {
   create: MealCreateInput;
   update: MealUpdateInput;
   where: MealWhereUniqueInput;
+};
+
+
+export type MutationUpsertMealBoardPlanAdminArgs = {
+  create: MealBoardPlanCreateInput;
+  update: MealBoardPlanUpdateInput;
+  where: MealBoardPlanWhereUniqueInput;
+};
+
+
+export type MutationUpsertRecipeAdminArgs = {
+  create: RecipeCreateInput;
+  update: RecipeUpdateInput;
+  where: RecipeWhereUniqueInput;
+};
+
+
+export type MutationUpsertSettingsAdminArgs = {
+  create: SettingsCreateInput;
+  update: SettingsUpdateInput;
+  where: SettingsWhereUniqueInput;
 };
 
 
@@ -5769,17 +5945,24 @@ export type PropertiesWhereUniqueInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
   ingredients?: InputMaybe<IngredientListRelationFilter>;
   meals?: InputMaybe<MealListRelationFilter>;
-  name?: InputMaybe<StringFilter>;
+  name?: InputMaybe<Scalars['String']['input']>;
   recipes?: InputMaybe<RecipeListRelationFilter>;
 };
 
 export type Query = {
   getAllIngredientsAdmin?: Maybe<Array<Ingredient>>;
+  getAllMealBoardPlansAdmin?: Maybe<Array<MealBoardPlan>>;
+  getAllMealBoardPlansUser?: Maybe<Array<MealBoardPlan>>;
   getAllMealsAdmin?: Maybe<Array<Meal>>;
+  getAllRecipesAdmin?: Maybe<Array<Recipe>>;
+  getAllSettingsAdmin?: Maybe<Array<Settings>>;
   getAllUsersAdmin?: Maybe<Array<User>>;
   getAllWeeklyMealGroupsAdmin?: Maybe<Array<WeeklyMealGroup>>;
   getIngredientAdmin?: Maybe<Ingredient>;
   getMealAdmin?: Maybe<Meal>;
+  getMealBoardPlanAdmin?: Maybe<MealBoardPlan>;
+  getRecipeAdmin?: Maybe<Recipe>;
+  getSettingsAdmin?: Maybe<Settings>;
   getUserAdmin?: Maybe<User>;
   getWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
   me?: Maybe<User>;
@@ -5796,6 +5979,26 @@ export type QueryGetAllIngredientsAdminArgs = {
 };
 
 
+export type QueryGetAllMealBoardPlansAdminArgs = {
+  cursor?: InputMaybe<MealBoardPlanWhereUniqueInput>;
+  distinct?: InputMaybe<Array<MealBoardPlanScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<MealBoardPlanOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<MealBoardPlanWhereInput>;
+};
+
+
+export type QueryGetAllMealBoardPlansUserArgs = {
+  cursor?: InputMaybe<MealBoardPlanWhereUniqueInput>;
+  distinct?: InputMaybe<Array<MealBoardPlanScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<MealBoardPlanOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<MealBoardPlanWhereInput>;
+};
+
+
 export type QueryGetAllMealsAdminArgs = {
   cursor?: InputMaybe<MealWhereUniqueInput>;
   distinct?: InputMaybe<Array<MealScalarFieldEnum>>;
@@ -5803,6 +6006,26 @@ export type QueryGetAllMealsAdminArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<MealWhereInput>;
+};
+
+
+export type QueryGetAllRecipesAdminArgs = {
+  cursor?: InputMaybe<RecipeWhereUniqueInput>;
+  distinct?: InputMaybe<Array<RecipeScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<RecipeOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<RecipeWhereInput>;
+};
+
+
+export type QueryGetAllSettingsAdminArgs = {
+  cursor?: InputMaybe<SettingsWhereUniqueInput>;
+  distinct?: InputMaybe<Array<SettingsScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<SettingsOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<SettingsWhereInput>;
 };
 
 
@@ -5846,6 +6069,36 @@ export type QueryGetMealAdminArgs = {
 };
 
 
+export type QueryGetMealBoardPlanAdminArgs = {
+  cursor?: InputMaybe<MealBoardPlanWhereUniqueInput>;
+  distinct?: InputMaybe<Array<MealBoardPlanScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<MealBoardPlanOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<MealBoardPlanWhereInput>;
+};
+
+
+export type QueryGetRecipeAdminArgs = {
+  cursor?: InputMaybe<RecipeWhereUniqueInput>;
+  distinct?: InputMaybe<Array<RecipeScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<RecipeOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<RecipeWhereInput>;
+};
+
+
+export type QueryGetSettingsAdminArgs = {
+  cursor?: InputMaybe<SettingsWhereUniqueInput>;
+  distinct?: InputMaybe<Array<SettingsScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<SettingsOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<SettingsWhereInput>;
+};
+
+
 export type QueryGetUserAdminArgs = {
   cursor?: InputMaybe<UserWhereUniqueInput>;
   distinct?: InputMaybe<Array<UserScalarFieldEnum>>;
@@ -5881,7 +6134,7 @@ export type Recipe = {
   name: Scalars['String']['output'];
   properties?: Maybe<Array<Properties>>;
   recipeIngredient?: Maybe<Array<RecipeIngredient>>;
-  saisons?: Maybe<Array<Saisons>>;
+  seasons?: Maybe<Array<Seasons>>;
   updatedAt: Scalars['DateTime']['output'];
   updatedBy: Scalars['Int']['output'];
   updatedByUser: User;
@@ -5896,7 +6149,21 @@ export type RecipeCount = {
   mealRecipe: Scalars['Int']['output'];
   properties: Scalars['Int']['output'];
   recipeIngredient: Scalars['Int']['output'];
-  saisons: Scalars['Int']['output'];
+  seasons: Scalars['Int']['output'];
+};
+
+export type RecipeCreateInput = {
+  additives?: InputMaybe<AdditivesCreateNestedManyWithoutRecipesInput>;
+  allergens?: InputMaybe<AllergensCreateNestedManyWithoutRecipesInput>;
+  categories?: InputMaybe<CategoriesCreateNestedManyWithoutRecipesInput>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutRecipesInput>;
+  kitchens?: InputMaybe<KitchensCreateNestedManyWithoutRecipesInput>;
+  mealRecipe?: InputMaybe<MealRecipeCreateNestedManyWithoutRecipeInput>;
+  name: Scalars['String']['input'];
+  properties?: InputMaybe<PropertiesCreateNestedManyWithoutRecipesInput>;
+  recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutRecipeInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutRecipesInput>;
 };
 
 export type RecipeCreateManyCreatedByUserInput = {
@@ -5908,6 +6175,12 @@ export type RecipeCreateManyCreatedByUserInput = {
 export type RecipeCreateManyCreatedByUserInputEnvelope = {
   data: Array<RecipeCreateManyCreatedByUserInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type RecipeCreateManyInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['Int']['input']>;
+  name: Scalars['String']['input'];
 };
 
 export type RecipeCreateManyUpdatedByUserInput = {
@@ -5964,10 +6237,10 @@ export type RecipeCreateNestedManyWithoutPropertiesInput = {
   create?: InputMaybe<Array<RecipeCreateWithoutPropertiesInput>>;
 };
 
-export type RecipeCreateNestedManyWithoutSaisonsInput = {
+export type RecipeCreateNestedManyWithoutSeasonsInput = {
   connect?: InputMaybe<Array<RecipeWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<RecipeCreateOrConnectWithoutSaisonsInput>>;
-  create?: InputMaybe<Array<RecipeCreateWithoutSaisonsInput>>;
+  connectOrCreate?: InputMaybe<Array<RecipeCreateOrConnectWithoutSeasonsInput>>;
+  create?: InputMaybe<Array<RecipeCreateWithoutSeasonsInput>>;
 };
 
 export type RecipeCreateNestedManyWithoutUpdatedByUserInput = {
@@ -6034,8 +6307,8 @@ export type RecipeCreateOrConnectWithoutRecipeIngredientInput = {
   where: RecipeWhereUniqueInput;
 };
 
-export type RecipeCreateOrConnectWithoutSaisonsInput = {
-  create: RecipeCreateWithoutSaisonsInput;
+export type RecipeCreateOrConnectWithoutSeasonsInput = {
+  create: RecipeCreateWithoutSeasonsInput;
   where: RecipeWhereUniqueInput;
 };
 
@@ -6054,7 +6327,7 @@ export type RecipeCreateWithoutAdditivesInput = {
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutRecipesInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutRecipeInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutRecipesInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutRecipesInput>;
 };
 
 export type RecipeCreateWithoutAllergensInput = {
@@ -6067,7 +6340,7 @@ export type RecipeCreateWithoutAllergensInput = {
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutRecipesInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutRecipeInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutRecipesInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutRecipesInput>;
 };
 
 export type RecipeCreateWithoutCategoriesInput = {
@@ -6080,7 +6353,7 @@ export type RecipeCreateWithoutCategoriesInput = {
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutRecipesInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutRecipeInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutRecipesInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutRecipesInput>;
 };
 
 export type RecipeCreateWithoutCreatedByUserInput = {
@@ -6094,7 +6367,7 @@ export type RecipeCreateWithoutCreatedByUserInput = {
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutRecipesInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutRecipeInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutRecipesInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutRecipesInput>;
 };
 
 export type RecipeCreateWithoutFoodFormsInput = {
@@ -6107,7 +6380,7 @@ export type RecipeCreateWithoutFoodFormsInput = {
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutRecipesInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutRecipeInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutRecipesInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutRecipesInput>;
 };
 
 export type RecipeCreateWithoutKitchensInput = {
@@ -6120,7 +6393,7 @@ export type RecipeCreateWithoutKitchensInput = {
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutRecipesInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutRecipeInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutRecipesInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutRecipesInput>;
 };
 
 export type RecipeCreateWithoutMealRecipeInput = {
@@ -6133,7 +6406,7 @@ export type RecipeCreateWithoutMealRecipeInput = {
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutRecipesInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutRecipeInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutRecipesInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutRecipesInput>;
 };
 
 export type RecipeCreateWithoutPropertiesInput = {
@@ -6146,7 +6419,7 @@ export type RecipeCreateWithoutPropertiesInput = {
   mealRecipe?: InputMaybe<MealRecipeCreateNestedManyWithoutRecipeInput>;
   name: Scalars['String']['input'];
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutRecipeInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutRecipesInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutRecipesInput>;
 };
 
 export type RecipeCreateWithoutRecipeIngredientInput = {
@@ -6159,10 +6432,10 @@ export type RecipeCreateWithoutRecipeIngredientInput = {
   mealRecipe?: InputMaybe<MealRecipeCreateNestedManyWithoutRecipeInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutRecipesInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutRecipesInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutRecipesInput>;
 };
 
-export type RecipeCreateWithoutSaisonsInput = {
+export type RecipeCreateWithoutSeasonsInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutRecipesInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutRecipesInput>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutRecipesInput>;
@@ -6186,7 +6459,7 @@ export type RecipeCreateWithoutUpdatedByUserInput = {
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutRecipesInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutRecipeInput>;
-  saisons?: InputMaybe<SaisonsCreateNestedManyWithoutRecipesInput>;
+  seasons?: InputMaybe<SeasonsCreateNestedManyWithoutRecipesInput>;
 };
 
 export type RecipeIngredient = {
@@ -6537,10 +6810,35 @@ export type RecipeOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>;
 };
 
+export type RecipeOrderByWithRelationInput = {
+  additives?: InputMaybe<AdditivesOrderByRelationAggregateInput>;
+  allergens?: InputMaybe<AllergensOrderByRelationAggregateInput>;
+  categories?: InputMaybe<CategoriesOrderByRelationAggregateInput>;
+  description?: InputMaybe<SortOrderInput>;
+  foodForms?: InputMaybe<FoodFormsOrderByRelationAggregateInput>;
+  id?: InputMaybe<SortOrder>;
+  kitchens?: InputMaybe<KitchensOrderByRelationAggregateInput>;
+  mealRecipe?: InputMaybe<MealRecipeOrderByRelationAggregateInput>;
+  name?: InputMaybe<SortOrder>;
+  properties?: InputMaybe<PropertiesOrderByRelationAggregateInput>;
+  recipeIngredient?: InputMaybe<RecipeIngredientOrderByRelationAggregateInput>;
+  seasons?: InputMaybe<SeasonsOrderByRelationAggregateInput>;
+};
+
 export type RecipeRelationFilter = {
   is?: InputMaybe<RecipeWhereInput>;
   isNot?: InputMaybe<RecipeWhereInput>;
 };
+
+export enum RecipeScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  CreatedBy = 'createdBy',
+  Description = 'description',
+  Id = 'id',
+  Name = 'name',
+  UpdatedAt = 'updatedAt',
+  UpdatedBy = 'updatedBy'
+}
 
 export type RecipeScalarWhereInput = {
   AND?: InputMaybe<Array<RecipeScalarWhereInput>>;
@@ -6549,6 +6847,20 @@ export type RecipeScalarWhereInput = {
   description?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
+};
+
+export type RecipeUpdateInput = {
+  additives?: InputMaybe<AdditivesUpdateManyWithoutRecipesNestedInput>;
+  allergens?: InputMaybe<AllergensUpdateManyWithoutRecipesNestedInput>;
+  categories?: InputMaybe<CategoriesUpdateManyWithoutRecipesNestedInput>;
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  foodForms?: InputMaybe<FoodFormsUpdateManyWithoutRecipesNestedInput>;
+  kitchens?: InputMaybe<KitchensUpdateManyWithoutRecipesNestedInput>;
+  mealRecipe?: InputMaybe<MealRecipeUpdateManyWithoutRecipeNestedInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  properties?: InputMaybe<PropertiesUpdateManyWithoutRecipesNestedInput>;
+  recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutRecipeNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutRecipesNestedInput>;
 };
 
 export type RecipeUpdateManyMutationInput = {
@@ -6591,7 +6903,7 @@ export type RecipeUpdateManyWithWhereWithoutPropertiesInput = {
   where: RecipeScalarWhereInput;
 };
 
-export type RecipeUpdateManyWithWhereWithoutSaisonsInput = {
+export type RecipeUpdateManyWithWhereWithoutSeasonsInput = {
   data: RecipeUpdateManyMutationInput;
   where: RecipeScalarWhereInput;
 };
@@ -6693,17 +7005,17 @@ export type RecipeUpdateManyWithoutPropertiesNestedInput = {
   upsert?: InputMaybe<Array<RecipeUpsertWithWhereUniqueWithoutPropertiesInput>>;
 };
 
-export type RecipeUpdateManyWithoutSaisonsNestedInput = {
+export type RecipeUpdateManyWithoutSeasonsNestedInput = {
   connect?: InputMaybe<Array<RecipeWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<RecipeCreateOrConnectWithoutSaisonsInput>>;
-  create?: InputMaybe<Array<RecipeCreateWithoutSaisonsInput>>;
+  connectOrCreate?: InputMaybe<Array<RecipeCreateOrConnectWithoutSeasonsInput>>;
+  create?: InputMaybe<Array<RecipeCreateWithoutSeasonsInput>>;
   delete?: InputMaybe<Array<RecipeWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<RecipeScalarWhereInput>>;
   disconnect?: InputMaybe<Array<RecipeWhereUniqueInput>>;
   set?: InputMaybe<Array<RecipeWhereUniqueInput>>;
-  update?: InputMaybe<Array<RecipeUpdateWithWhereUniqueWithoutSaisonsInput>>;
-  updateMany?: InputMaybe<Array<RecipeUpdateManyWithWhereWithoutSaisonsInput>>;
-  upsert?: InputMaybe<Array<RecipeUpsertWithWhereUniqueWithoutSaisonsInput>>;
+  update?: InputMaybe<Array<RecipeUpdateWithWhereUniqueWithoutSeasonsInput>>;
+  updateMany?: InputMaybe<Array<RecipeUpdateManyWithWhereWithoutSeasonsInput>>;
+  upsert?: InputMaybe<Array<RecipeUpsertWithWhereUniqueWithoutSeasonsInput>>;
 };
 
 export type RecipeUpdateManyWithoutUpdatedByUserNestedInput = {
@@ -6781,8 +7093,8 @@ export type RecipeUpdateWithWhereUniqueWithoutPropertiesInput = {
   where: RecipeWhereUniqueInput;
 };
 
-export type RecipeUpdateWithWhereUniqueWithoutSaisonsInput = {
-  data: RecipeUpdateWithoutSaisonsInput;
+export type RecipeUpdateWithWhereUniqueWithoutSeasonsInput = {
+  data: RecipeUpdateWithoutSeasonsInput;
   where: RecipeWhereUniqueInput;
 };
 
@@ -6801,7 +7113,7 @@ export type RecipeUpdateWithoutAdditivesInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutRecipesNestedInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutRecipeNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutRecipesNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutRecipesNestedInput>;
 };
 
 export type RecipeUpdateWithoutAllergensInput = {
@@ -6814,7 +7126,7 @@ export type RecipeUpdateWithoutAllergensInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutRecipesNestedInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutRecipeNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutRecipesNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutRecipesNestedInput>;
 };
 
 export type RecipeUpdateWithoutCategoriesInput = {
@@ -6827,7 +7139,7 @@ export type RecipeUpdateWithoutCategoriesInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutRecipesNestedInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutRecipeNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutRecipesNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutRecipesNestedInput>;
 };
 
 export type RecipeUpdateWithoutCreatedByUserInput = {
@@ -6841,7 +7153,7 @@ export type RecipeUpdateWithoutCreatedByUserInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutRecipesNestedInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutRecipeNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutRecipesNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutRecipesNestedInput>;
 };
 
 export type RecipeUpdateWithoutFoodFormsInput = {
@@ -6854,7 +7166,7 @@ export type RecipeUpdateWithoutFoodFormsInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutRecipesNestedInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutRecipeNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutRecipesNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutRecipesNestedInput>;
 };
 
 export type RecipeUpdateWithoutKitchensInput = {
@@ -6867,7 +7179,7 @@ export type RecipeUpdateWithoutKitchensInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutRecipesNestedInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutRecipeNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutRecipesNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutRecipesNestedInput>;
 };
 
 export type RecipeUpdateWithoutMealRecipeInput = {
@@ -6880,7 +7192,7 @@ export type RecipeUpdateWithoutMealRecipeInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutRecipesNestedInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutRecipeNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutRecipesNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutRecipesNestedInput>;
 };
 
 export type RecipeUpdateWithoutPropertiesInput = {
@@ -6893,7 +7205,7 @@ export type RecipeUpdateWithoutPropertiesInput = {
   mealRecipe?: InputMaybe<MealRecipeUpdateManyWithoutRecipeNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutRecipeNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutRecipesNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutRecipesNestedInput>;
 };
 
 export type RecipeUpdateWithoutRecipeIngredientInput = {
@@ -6906,10 +7218,10 @@ export type RecipeUpdateWithoutRecipeIngredientInput = {
   mealRecipe?: InputMaybe<MealRecipeUpdateManyWithoutRecipeNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutRecipesNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutRecipesNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutRecipesNestedInput>;
 };
 
-export type RecipeUpdateWithoutSaisonsInput = {
+export type RecipeUpdateWithoutSeasonsInput = {
   additives?: InputMaybe<AdditivesUpdateManyWithoutRecipesNestedInput>;
   allergens?: InputMaybe<AllergensUpdateManyWithoutRecipesNestedInput>;
   categories?: InputMaybe<CategoriesUpdateManyWithoutRecipesNestedInput>;
@@ -6933,7 +7245,7 @@ export type RecipeUpdateWithoutUpdatedByUserInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutRecipesNestedInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutRecipeNestedInput>;
-  saisons?: InputMaybe<SaisonsUpdateManyWithoutRecipesNestedInput>;
+  seasons?: InputMaybe<SeasonsUpdateManyWithoutRecipesNestedInput>;
 };
 
 export type RecipeUpsertWithWhereUniqueWithoutAdditivesInput = {
@@ -6978,9 +7290,9 @@ export type RecipeUpsertWithWhereUniqueWithoutPropertiesInput = {
   where: RecipeWhereUniqueInput;
 };
 
-export type RecipeUpsertWithWhereUniqueWithoutSaisonsInput = {
-  create: RecipeCreateWithoutSaisonsInput;
-  update: RecipeUpdateWithoutSaisonsInput;
+export type RecipeUpsertWithWhereUniqueWithoutSeasonsInput = {
+  create: RecipeCreateWithoutSeasonsInput;
+  update: RecipeUpdateWithoutSeasonsInput;
   where: RecipeWhereUniqueInput;
 };
 
@@ -7017,7 +7329,7 @@ export type RecipeWhereInput = {
   name?: InputMaybe<StringFilter>;
   properties?: InputMaybe<PropertiesListRelationFilter>;
   recipeIngredient?: InputMaybe<RecipeIngredientListRelationFilter>;
-  saisons?: InputMaybe<SaisonsListRelationFilter>;
+  seasons?: InputMaybe<SeasonsListRelationFilter>;
 };
 
 export type RecipeWhereUniqueInput = {
@@ -7035,7 +7347,7 @@ export type RecipeWhereUniqueInput = {
   name?: InputMaybe<StringFilter>;
   properties?: InputMaybe<PropertiesListRelationFilter>;
   recipeIngredient?: InputMaybe<RecipeIngredientListRelationFilter>;
-  saisons?: InputMaybe<SaisonsListRelationFilter>;
+  seasons?: InputMaybe<SeasonsListRelationFilter>;
 };
 
 export type RegisterUserInput = {
@@ -7043,8 +7355,8 @@ export type RegisterUserInput = {
   password: Scalars['String']['input'];
 };
 
-export type Saisons = {
-  _count: SaisonsCount;
+export type Seasons = {
+  _count: SeasonsCount;
   createdAt: Scalars['DateTime']['output'];
   createdBy: Scalars['Int']['output'];
   createdByUser: User;
@@ -7058,326 +7370,326 @@ export type Saisons = {
   updatedByUser: User;
 };
 
-export type SaisonsCount = {
+export type SeasonsCount = {
   ingredients: Scalars['Int']['output'];
   meals: Scalars['Int']['output'];
   recipes: Scalars['Int']['output'];
 };
 
-export type SaisonsCreateManyCreatedByUserInput = {
+export type SeasonsCreateManyCreatedByUserInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
   name: Scalars['String']['input'];
 };
 
-export type SaisonsCreateManyCreatedByUserInputEnvelope = {
-  data: Array<SaisonsCreateManyCreatedByUserInput>;
+export type SeasonsCreateManyCreatedByUserInputEnvelope = {
+  data: Array<SeasonsCreateManyCreatedByUserInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type SaisonsCreateManyUpdatedByUserInput = {
+export type SeasonsCreateManyUpdatedByUserInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
   name: Scalars['String']['input'];
 };
 
-export type SaisonsCreateManyUpdatedByUserInputEnvelope = {
-  data: Array<SaisonsCreateManyUpdatedByUserInput>;
+export type SeasonsCreateManyUpdatedByUserInputEnvelope = {
+  data: Array<SeasonsCreateManyUpdatedByUserInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type SaisonsCreateNestedManyWithoutCreatedByUserInput = {
-  connect?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<SaisonsCreateOrConnectWithoutCreatedByUserInput>>;
-  create?: InputMaybe<Array<SaisonsCreateWithoutCreatedByUserInput>>;
-  createMany?: InputMaybe<SaisonsCreateManyCreatedByUserInputEnvelope>;
+export type SeasonsCreateNestedManyWithoutCreatedByUserInput = {
+  connect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SeasonsCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<SeasonsCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<SeasonsCreateManyCreatedByUserInputEnvelope>;
 };
 
-export type SaisonsCreateNestedManyWithoutIngredientsInput = {
-  connect?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<SaisonsCreateOrConnectWithoutIngredientsInput>>;
-  create?: InputMaybe<Array<SaisonsCreateWithoutIngredientsInput>>;
+export type SeasonsCreateNestedManyWithoutIngredientsInput = {
+  connect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SeasonsCreateOrConnectWithoutIngredientsInput>>;
+  create?: InputMaybe<Array<SeasonsCreateWithoutIngredientsInput>>;
 };
 
-export type SaisonsCreateNestedManyWithoutMealsInput = {
-  connect?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<SaisonsCreateOrConnectWithoutMealsInput>>;
-  create?: InputMaybe<Array<SaisonsCreateWithoutMealsInput>>;
+export type SeasonsCreateNestedManyWithoutMealsInput = {
+  connect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SeasonsCreateOrConnectWithoutMealsInput>>;
+  create?: InputMaybe<Array<SeasonsCreateWithoutMealsInput>>;
 };
 
-export type SaisonsCreateNestedManyWithoutRecipesInput = {
-  connect?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<SaisonsCreateOrConnectWithoutRecipesInput>>;
-  create?: InputMaybe<Array<SaisonsCreateWithoutRecipesInput>>;
+export type SeasonsCreateNestedManyWithoutRecipesInput = {
+  connect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SeasonsCreateOrConnectWithoutRecipesInput>>;
+  create?: InputMaybe<Array<SeasonsCreateWithoutRecipesInput>>;
 };
 
-export type SaisonsCreateNestedManyWithoutUpdatedByUserInput = {
-  connect?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<SaisonsCreateOrConnectWithoutUpdatedByUserInput>>;
-  create?: InputMaybe<Array<SaisonsCreateWithoutUpdatedByUserInput>>;
-  createMany?: InputMaybe<SaisonsCreateManyUpdatedByUserInputEnvelope>;
+export type SeasonsCreateNestedManyWithoutUpdatedByUserInput = {
+  connect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SeasonsCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<SeasonsCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<SeasonsCreateManyUpdatedByUserInputEnvelope>;
 };
 
-export type SaisonsCreateOrConnectWithoutCreatedByUserInput = {
-  create: SaisonsCreateWithoutCreatedByUserInput;
-  where: SaisonsWhereUniqueInput;
+export type SeasonsCreateOrConnectWithoutCreatedByUserInput = {
+  create: SeasonsCreateWithoutCreatedByUserInput;
+  where: SeasonsWhereUniqueInput;
 };
 
-export type SaisonsCreateOrConnectWithoutIngredientsInput = {
-  create: SaisonsCreateWithoutIngredientsInput;
-  where: SaisonsWhereUniqueInput;
+export type SeasonsCreateOrConnectWithoutIngredientsInput = {
+  create: SeasonsCreateWithoutIngredientsInput;
+  where: SeasonsWhereUniqueInput;
 };
 
-export type SaisonsCreateOrConnectWithoutMealsInput = {
-  create: SaisonsCreateWithoutMealsInput;
-  where: SaisonsWhereUniqueInput;
+export type SeasonsCreateOrConnectWithoutMealsInput = {
+  create: SeasonsCreateWithoutMealsInput;
+  where: SeasonsWhereUniqueInput;
 };
 
-export type SaisonsCreateOrConnectWithoutRecipesInput = {
-  create: SaisonsCreateWithoutRecipesInput;
-  where: SaisonsWhereUniqueInput;
+export type SeasonsCreateOrConnectWithoutRecipesInput = {
+  create: SeasonsCreateWithoutRecipesInput;
+  where: SeasonsWhereUniqueInput;
 };
 
-export type SaisonsCreateOrConnectWithoutUpdatedByUserInput = {
-  create: SaisonsCreateWithoutUpdatedByUserInput;
-  where: SaisonsWhereUniqueInput;
+export type SeasonsCreateOrConnectWithoutUpdatedByUserInput = {
+  create: SeasonsCreateWithoutUpdatedByUserInput;
+  where: SeasonsWhereUniqueInput;
 };
 
-export type SaisonsCreateWithoutCreatedByUserInput = {
-  ingredients?: InputMaybe<IngredientCreateNestedManyWithoutSaisonsInput>;
-  meals?: InputMaybe<MealCreateNestedManyWithoutSaisonsInput>;
+export type SeasonsCreateWithoutCreatedByUserInput = {
+  ingredients?: InputMaybe<IngredientCreateNestedManyWithoutSeasonsInput>;
+  meals?: InputMaybe<MealCreateNestedManyWithoutSeasonsInput>;
   name: Scalars['String']['input'];
-  recipes?: InputMaybe<RecipeCreateNestedManyWithoutSaisonsInput>;
+  recipes?: InputMaybe<RecipeCreateNestedManyWithoutSeasonsInput>;
 };
 
-export type SaisonsCreateWithoutIngredientsInput = {
-  meals?: InputMaybe<MealCreateNestedManyWithoutSaisonsInput>;
+export type SeasonsCreateWithoutIngredientsInput = {
+  meals?: InputMaybe<MealCreateNestedManyWithoutSeasonsInput>;
   name: Scalars['String']['input'];
-  recipes?: InputMaybe<RecipeCreateNestedManyWithoutSaisonsInput>;
+  recipes?: InputMaybe<RecipeCreateNestedManyWithoutSeasonsInput>;
 };
 
-export type SaisonsCreateWithoutMealsInput = {
-  ingredients?: InputMaybe<IngredientCreateNestedManyWithoutSaisonsInput>;
+export type SeasonsCreateWithoutMealsInput = {
+  ingredients?: InputMaybe<IngredientCreateNestedManyWithoutSeasonsInput>;
   name: Scalars['String']['input'];
-  recipes?: InputMaybe<RecipeCreateNestedManyWithoutSaisonsInput>;
+  recipes?: InputMaybe<RecipeCreateNestedManyWithoutSeasonsInput>;
 };
 
-export type SaisonsCreateWithoutRecipesInput = {
-  ingredients?: InputMaybe<IngredientCreateNestedManyWithoutSaisonsInput>;
-  meals?: InputMaybe<MealCreateNestedManyWithoutSaisonsInput>;
+export type SeasonsCreateWithoutRecipesInput = {
+  ingredients?: InputMaybe<IngredientCreateNestedManyWithoutSeasonsInput>;
+  meals?: InputMaybe<MealCreateNestedManyWithoutSeasonsInput>;
   name: Scalars['String']['input'];
 };
 
-export type SaisonsCreateWithoutUpdatedByUserInput = {
-  ingredients?: InputMaybe<IngredientCreateNestedManyWithoutSaisonsInput>;
-  meals?: InputMaybe<MealCreateNestedManyWithoutSaisonsInput>;
+export type SeasonsCreateWithoutUpdatedByUserInput = {
+  ingredients?: InputMaybe<IngredientCreateNestedManyWithoutSeasonsInput>;
+  meals?: InputMaybe<MealCreateNestedManyWithoutSeasonsInput>;
   name: Scalars['String']['input'];
-  recipes?: InputMaybe<RecipeCreateNestedManyWithoutSaisonsInput>;
+  recipes?: InputMaybe<RecipeCreateNestedManyWithoutSeasonsInput>;
 };
 
-export type SaisonsListRelationFilter = {
-  every?: InputMaybe<SaisonsWhereInput>;
-  none?: InputMaybe<SaisonsWhereInput>;
-  some?: InputMaybe<SaisonsWhereInput>;
+export type SeasonsListRelationFilter = {
+  every?: InputMaybe<SeasonsWhereInput>;
+  none?: InputMaybe<SeasonsWhereInput>;
+  some?: InputMaybe<SeasonsWhereInput>;
 };
 
-export type SaisonsOrderByRelationAggregateInput = {
+export type SeasonsOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>;
 };
 
-export type SaisonsScalarWhereInput = {
-  AND?: InputMaybe<Array<SaisonsScalarWhereInput>>;
-  NOT?: InputMaybe<Array<SaisonsScalarWhereInput>>;
-  OR?: InputMaybe<Array<SaisonsScalarWhereInput>>;
+export type SeasonsScalarWhereInput = {
+  AND?: InputMaybe<Array<SeasonsScalarWhereInput>>;
+  NOT?: InputMaybe<Array<SeasonsScalarWhereInput>>;
+  OR?: InputMaybe<Array<SeasonsScalarWhereInput>>;
   id?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
 };
 
-export type SaisonsUpdateManyMutationInput = {
+export type SeasonsUpdateManyMutationInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
 };
 
-export type SaisonsUpdateManyWithWhereWithoutCreatedByUserInput = {
-  data: SaisonsUpdateManyMutationInput;
-  where: SaisonsScalarWhereInput;
+export type SeasonsUpdateManyWithWhereWithoutCreatedByUserInput = {
+  data: SeasonsUpdateManyMutationInput;
+  where: SeasonsScalarWhereInput;
 };
 
-export type SaisonsUpdateManyWithWhereWithoutIngredientsInput = {
-  data: SaisonsUpdateManyMutationInput;
-  where: SaisonsScalarWhereInput;
+export type SeasonsUpdateManyWithWhereWithoutIngredientsInput = {
+  data: SeasonsUpdateManyMutationInput;
+  where: SeasonsScalarWhereInput;
 };
 
-export type SaisonsUpdateManyWithWhereWithoutMealsInput = {
-  data: SaisonsUpdateManyMutationInput;
-  where: SaisonsScalarWhereInput;
+export type SeasonsUpdateManyWithWhereWithoutMealsInput = {
+  data: SeasonsUpdateManyMutationInput;
+  where: SeasonsScalarWhereInput;
 };
 
-export type SaisonsUpdateManyWithWhereWithoutRecipesInput = {
-  data: SaisonsUpdateManyMutationInput;
-  where: SaisonsScalarWhereInput;
+export type SeasonsUpdateManyWithWhereWithoutRecipesInput = {
+  data: SeasonsUpdateManyMutationInput;
+  where: SeasonsScalarWhereInput;
 };
 
-export type SaisonsUpdateManyWithWhereWithoutUpdatedByUserInput = {
-  data: SaisonsUpdateManyMutationInput;
-  where: SaisonsScalarWhereInput;
+export type SeasonsUpdateManyWithWhereWithoutUpdatedByUserInput = {
+  data: SeasonsUpdateManyMutationInput;
+  where: SeasonsScalarWhereInput;
 };
 
-export type SaisonsUpdateManyWithoutCreatedByUserNestedInput = {
-  connect?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<SaisonsCreateOrConnectWithoutCreatedByUserInput>>;
-  create?: InputMaybe<Array<SaisonsCreateWithoutCreatedByUserInput>>;
-  createMany?: InputMaybe<SaisonsCreateManyCreatedByUserInputEnvelope>;
-  delete?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  deleteMany?: InputMaybe<Array<SaisonsScalarWhereInput>>;
-  disconnect?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  set?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  update?: InputMaybe<Array<SaisonsUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
-  updateMany?: InputMaybe<Array<SaisonsUpdateManyWithWhereWithoutCreatedByUserInput>>;
-  upsert?: InputMaybe<Array<SaisonsUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+export type SeasonsUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SeasonsCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<SeasonsCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<SeasonsCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<SeasonsScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  set?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  update?: InputMaybe<Array<SeasonsUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<SeasonsUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<SeasonsUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
 };
 
-export type SaisonsUpdateManyWithoutIngredientsNestedInput = {
-  connect?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<SaisonsCreateOrConnectWithoutIngredientsInput>>;
-  create?: InputMaybe<Array<SaisonsCreateWithoutIngredientsInput>>;
-  delete?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  deleteMany?: InputMaybe<Array<SaisonsScalarWhereInput>>;
-  disconnect?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  set?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  update?: InputMaybe<Array<SaisonsUpdateWithWhereUniqueWithoutIngredientsInput>>;
-  updateMany?: InputMaybe<Array<SaisonsUpdateManyWithWhereWithoutIngredientsInput>>;
-  upsert?: InputMaybe<Array<SaisonsUpsertWithWhereUniqueWithoutIngredientsInput>>;
+export type SeasonsUpdateManyWithoutIngredientsNestedInput = {
+  connect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SeasonsCreateOrConnectWithoutIngredientsInput>>;
+  create?: InputMaybe<Array<SeasonsCreateWithoutIngredientsInput>>;
+  delete?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<SeasonsScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  set?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  update?: InputMaybe<Array<SeasonsUpdateWithWhereUniqueWithoutIngredientsInput>>;
+  updateMany?: InputMaybe<Array<SeasonsUpdateManyWithWhereWithoutIngredientsInput>>;
+  upsert?: InputMaybe<Array<SeasonsUpsertWithWhereUniqueWithoutIngredientsInput>>;
 };
 
-export type SaisonsUpdateManyWithoutMealsNestedInput = {
-  connect?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<SaisonsCreateOrConnectWithoutMealsInput>>;
-  create?: InputMaybe<Array<SaisonsCreateWithoutMealsInput>>;
-  delete?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  deleteMany?: InputMaybe<Array<SaisonsScalarWhereInput>>;
-  disconnect?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  set?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  update?: InputMaybe<Array<SaisonsUpdateWithWhereUniqueWithoutMealsInput>>;
-  updateMany?: InputMaybe<Array<SaisonsUpdateManyWithWhereWithoutMealsInput>>;
-  upsert?: InputMaybe<Array<SaisonsUpsertWithWhereUniqueWithoutMealsInput>>;
+export type SeasonsUpdateManyWithoutMealsNestedInput = {
+  connect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SeasonsCreateOrConnectWithoutMealsInput>>;
+  create?: InputMaybe<Array<SeasonsCreateWithoutMealsInput>>;
+  delete?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<SeasonsScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  set?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  update?: InputMaybe<Array<SeasonsUpdateWithWhereUniqueWithoutMealsInput>>;
+  updateMany?: InputMaybe<Array<SeasonsUpdateManyWithWhereWithoutMealsInput>>;
+  upsert?: InputMaybe<Array<SeasonsUpsertWithWhereUniqueWithoutMealsInput>>;
 };
 
-export type SaisonsUpdateManyWithoutRecipesNestedInput = {
-  connect?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<SaisonsCreateOrConnectWithoutRecipesInput>>;
-  create?: InputMaybe<Array<SaisonsCreateWithoutRecipesInput>>;
-  delete?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  deleteMany?: InputMaybe<Array<SaisonsScalarWhereInput>>;
-  disconnect?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  set?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  update?: InputMaybe<Array<SaisonsUpdateWithWhereUniqueWithoutRecipesInput>>;
-  updateMany?: InputMaybe<Array<SaisonsUpdateManyWithWhereWithoutRecipesInput>>;
-  upsert?: InputMaybe<Array<SaisonsUpsertWithWhereUniqueWithoutRecipesInput>>;
+export type SeasonsUpdateManyWithoutRecipesNestedInput = {
+  connect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SeasonsCreateOrConnectWithoutRecipesInput>>;
+  create?: InputMaybe<Array<SeasonsCreateWithoutRecipesInput>>;
+  delete?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<SeasonsScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  set?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  update?: InputMaybe<Array<SeasonsUpdateWithWhereUniqueWithoutRecipesInput>>;
+  updateMany?: InputMaybe<Array<SeasonsUpdateManyWithWhereWithoutRecipesInput>>;
+  upsert?: InputMaybe<Array<SeasonsUpsertWithWhereUniqueWithoutRecipesInput>>;
 };
 
-export type SaisonsUpdateManyWithoutUpdatedByUserNestedInput = {
-  connect?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<SaisonsCreateOrConnectWithoutUpdatedByUserInput>>;
-  create?: InputMaybe<Array<SaisonsCreateWithoutUpdatedByUserInput>>;
-  createMany?: InputMaybe<SaisonsCreateManyUpdatedByUserInputEnvelope>;
-  delete?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  deleteMany?: InputMaybe<Array<SaisonsScalarWhereInput>>;
-  disconnect?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  set?: InputMaybe<Array<SaisonsWhereUniqueInput>>;
-  update?: InputMaybe<Array<SaisonsUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
-  updateMany?: InputMaybe<Array<SaisonsUpdateManyWithWhereWithoutUpdatedByUserInput>>;
-  upsert?: InputMaybe<Array<SaisonsUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
+export type SeasonsUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SeasonsCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<SeasonsCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<SeasonsCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<SeasonsScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  set?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  update?: InputMaybe<Array<SeasonsUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<SeasonsUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<SeasonsUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
 };
 
-export type SaisonsUpdateWithWhereUniqueWithoutCreatedByUserInput = {
-  data: SaisonsUpdateWithoutCreatedByUserInput;
-  where: SaisonsWhereUniqueInput;
+export type SeasonsUpdateWithWhereUniqueWithoutCreatedByUserInput = {
+  data: SeasonsUpdateWithoutCreatedByUserInput;
+  where: SeasonsWhereUniqueInput;
 };
 
-export type SaisonsUpdateWithWhereUniqueWithoutIngredientsInput = {
-  data: SaisonsUpdateWithoutIngredientsInput;
-  where: SaisonsWhereUniqueInput;
+export type SeasonsUpdateWithWhereUniqueWithoutIngredientsInput = {
+  data: SeasonsUpdateWithoutIngredientsInput;
+  where: SeasonsWhereUniqueInput;
 };
 
-export type SaisonsUpdateWithWhereUniqueWithoutMealsInput = {
-  data: SaisonsUpdateWithoutMealsInput;
-  where: SaisonsWhereUniqueInput;
+export type SeasonsUpdateWithWhereUniqueWithoutMealsInput = {
+  data: SeasonsUpdateWithoutMealsInput;
+  where: SeasonsWhereUniqueInput;
 };
 
-export type SaisonsUpdateWithWhereUniqueWithoutRecipesInput = {
-  data: SaisonsUpdateWithoutRecipesInput;
-  where: SaisonsWhereUniqueInput;
+export type SeasonsUpdateWithWhereUniqueWithoutRecipesInput = {
+  data: SeasonsUpdateWithoutRecipesInput;
+  where: SeasonsWhereUniqueInput;
 };
 
-export type SaisonsUpdateWithWhereUniqueWithoutUpdatedByUserInput = {
-  data: SaisonsUpdateWithoutUpdatedByUserInput;
-  where: SaisonsWhereUniqueInput;
+export type SeasonsUpdateWithWhereUniqueWithoutUpdatedByUserInput = {
+  data: SeasonsUpdateWithoutUpdatedByUserInput;
+  where: SeasonsWhereUniqueInput;
 };
 
-export type SaisonsUpdateWithoutCreatedByUserInput = {
-  ingredients?: InputMaybe<IngredientUpdateManyWithoutSaisonsNestedInput>;
-  meals?: InputMaybe<MealUpdateManyWithoutSaisonsNestedInput>;
+export type SeasonsUpdateWithoutCreatedByUserInput = {
+  ingredients?: InputMaybe<IngredientUpdateManyWithoutSeasonsNestedInput>;
+  meals?: InputMaybe<MealUpdateManyWithoutSeasonsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
-  recipes?: InputMaybe<RecipeUpdateManyWithoutSaisonsNestedInput>;
+  recipes?: InputMaybe<RecipeUpdateManyWithoutSeasonsNestedInput>;
 };
 
-export type SaisonsUpdateWithoutIngredientsInput = {
-  meals?: InputMaybe<MealUpdateManyWithoutSaisonsNestedInput>;
+export type SeasonsUpdateWithoutIngredientsInput = {
+  meals?: InputMaybe<MealUpdateManyWithoutSeasonsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
-  recipes?: InputMaybe<RecipeUpdateManyWithoutSaisonsNestedInput>;
+  recipes?: InputMaybe<RecipeUpdateManyWithoutSeasonsNestedInput>;
 };
 
-export type SaisonsUpdateWithoutMealsInput = {
-  ingredients?: InputMaybe<IngredientUpdateManyWithoutSaisonsNestedInput>;
+export type SeasonsUpdateWithoutMealsInput = {
+  ingredients?: InputMaybe<IngredientUpdateManyWithoutSeasonsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
-  recipes?: InputMaybe<RecipeUpdateManyWithoutSaisonsNestedInput>;
+  recipes?: InputMaybe<RecipeUpdateManyWithoutSeasonsNestedInput>;
 };
 
-export type SaisonsUpdateWithoutRecipesInput = {
-  ingredients?: InputMaybe<IngredientUpdateManyWithoutSaisonsNestedInput>;
-  meals?: InputMaybe<MealUpdateManyWithoutSaisonsNestedInput>;
+export type SeasonsUpdateWithoutRecipesInput = {
+  ingredients?: InputMaybe<IngredientUpdateManyWithoutSeasonsNestedInput>;
+  meals?: InputMaybe<MealUpdateManyWithoutSeasonsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
 };
 
-export type SaisonsUpdateWithoutUpdatedByUserInput = {
-  ingredients?: InputMaybe<IngredientUpdateManyWithoutSaisonsNestedInput>;
-  meals?: InputMaybe<MealUpdateManyWithoutSaisonsNestedInput>;
+export type SeasonsUpdateWithoutUpdatedByUserInput = {
+  ingredients?: InputMaybe<IngredientUpdateManyWithoutSeasonsNestedInput>;
+  meals?: InputMaybe<MealUpdateManyWithoutSeasonsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
-  recipes?: InputMaybe<RecipeUpdateManyWithoutSaisonsNestedInput>;
+  recipes?: InputMaybe<RecipeUpdateManyWithoutSeasonsNestedInput>;
 };
 
-export type SaisonsUpsertWithWhereUniqueWithoutCreatedByUserInput = {
-  create: SaisonsCreateWithoutCreatedByUserInput;
-  update: SaisonsUpdateWithoutCreatedByUserInput;
-  where: SaisonsWhereUniqueInput;
+export type SeasonsUpsertWithWhereUniqueWithoutCreatedByUserInput = {
+  create: SeasonsCreateWithoutCreatedByUserInput;
+  update: SeasonsUpdateWithoutCreatedByUserInput;
+  where: SeasonsWhereUniqueInput;
 };
 
-export type SaisonsUpsertWithWhereUniqueWithoutIngredientsInput = {
-  create: SaisonsCreateWithoutIngredientsInput;
-  update: SaisonsUpdateWithoutIngredientsInput;
-  where: SaisonsWhereUniqueInput;
+export type SeasonsUpsertWithWhereUniqueWithoutIngredientsInput = {
+  create: SeasonsCreateWithoutIngredientsInput;
+  update: SeasonsUpdateWithoutIngredientsInput;
+  where: SeasonsWhereUniqueInput;
 };
 
-export type SaisonsUpsertWithWhereUniqueWithoutMealsInput = {
-  create: SaisonsCreateWithoutMealsInput;
-  update: SaisonsUpdateWithoutMealsInput;
-  where: SaisonsWhereUniqueInput;
+export type SeasonsUpsertWithWhereUniqueWithoutMealsInput = {
+  create: SeasonsCreateWithoutMealsInput;
+  update: SeasonsUpdateWithoutMealsInput;
+  where: SeasonsWhereUniqueInput;
 };
 
-export type SaisonsUpsertWithWhereUniqueWithoutRecipesInput = {
-  create: SaisonsCreateWithoutRecipesInput;
-  update: SaisonsUpdateWithoutRecipesInput;
-  where: SaisonsWhereUniqueInput;
+export type SeasonsUpsertWithWhereUniqueWithoutRecipesInput = {
+  create: SeasonsCreateWithoutRecipesInput;
+  update: SeasonsUpdateWithoutRecipesInput;
+  where: SeasonsWhereUniqueInput;
 };
 
-export type SaisonsUpsertWithWhereUniqueWithoutUpdatedByUserInput = {
-  create: SaisonsCreateWithoutUpdatedByUserInput;
-  update: SaisonsUpdateWithoutUpdatedByUserInput;
-  where: SaisonsWhereUniqueInput;
+export type SeasonsUpsertWithWhereUniqueWithoutUpdatedByUserInput = {
+  create: SeasonsCreateWithoutUpdatedByUserInput;
+  update: SeasonsUpdateWithoutUpdatedByUserInput;
+  where: SeasonsWhereUniqueInput;
 };
 
-export type SaisonsWhereInput = {
-  AND?: InputMaybe<Array<SaisonsWhereInput>>;
-  NOT?: InputMaybe<Array<SaisonsWhereInput>>;
-  OR?: InputMaybe<Array<SaisonsWhereInput>>;
+export type SeasonsWhereInput = {
+  AND?: InputMaybe<Array<SeasonsWhereInput>>;
+  NOT?: InputMaybe<Array<SeasonsWhereInput>>;
+  OR?: InputMaybe<Array<SeasonsWhereInput>>;
   id?: InputMaybe<IntFilter>;
   ingredients?: InputMaybe<IngredientListRelationFilter>;
   meals?: InputMaybe<MealListRelationFilter>;
@@ -7385,15 +7697,211 @@ export type SaisonsWhereInput = {
   recipes?: InputMaybe<RecipeListRelationFilter>;
 };
 
-export type SaisonsWhereUniqueInput = {
-  AND?: InputMaybe<Array<SaisonsWhereInput>>;
-  NOT?: InputMaybe<Array<SaisonsWhereInput>>;
-  OR?: InputMaybe<Array<SaisonsWhereInput>>;
+export type SeasonsWhereUniqueInput = {
+  AND?: InputMaybe<Array<SeasonsWhereInput>>;
+  NOT?: InputMaybe<Array<SeasonsWhereInput>>;
+  OR?: InputMaybe<Array<SeasonsWhereInput>>;
   id?: InputMaybe<Scalars['Int']['input']>;
   ingredients?: InputMaybe<IngredientListRelationFilter>;
   meals?: InputMaybe<MealListRelationFilter>;
-  name?: InputMaybe<StringFilter>;
+  name?: InputMaybe<Scalars['String']['input']>;
   recipes?: InputMaybe<RecipeListRelationFilter>;
+};
+
+export type Settings = {
+  createdAt: Scalars['DateTime']['output'];
+  createdBy: Scalars['Int']['output'];
+  createdByUser: User;
+  id: Scalars['Int']['output'];
+  maxEditOrderDays: Scalars['Int']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  updatedBy: Scalars['Int']['output'];
+  updatedByUser: User;
+};
+
+export type SettingsCreateInput = {
+  maxEditOrderDays: Scalars['Int']['input'];
+};
+
+export type SettingsCreateManyCreatedByUserInput = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  maxEditOrderDays: Scalars['Int']['input'];
+};
+
+export type SettingsCreateManyCreatedByUserInputEnvelope = {
+  data: Array<SettingsCreateManyCreatedByUserInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type SettingsCreateManyInput = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  maxEditOrderDays: Scalars['Int']['input'];
+};
+
+export type SettingsCreateManyUpdatedByUserInput = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  maxEditOrderDays: Scalars['Int']['input'];
+};
+
+export type SettingsCreateManyUpdatedByUserInputEnvelope = {
+  data: Array<SettingsCreateManyUpdatedByUserInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type SettingsCreateNestedManyWithoutCreatedByUserInput = {
+  connect?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SettingsCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<SettingsCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<SettingsCreateManyCreatedByUserInputEnvelope>;
+};
+
+export type SettingsCreateNestedManyWithoutUpdatedByUserInput = {
+  connect?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SettingsCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<SettingsCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<SettingsCreateManyUpdatedByUserInputEnvelope>;
+};
+
+export type SettingsCreateOrConnectWithoutCreatedByUserInput = {
+  create: SettingsCreateWithoutCreatedByUserInput;
+  where: SettingsWhereUniqueInput;
+};
+
+export type SettingsCreateOrConnectWithoutUpdatedByUserInput = {
+  create: SettingsCreateWithoutUpdatedByUserInput;
+  where: SettingsWhereUniqueInput;
+};
+
+export type SettingsCreateWithoutCreatedByUserInput = {
+  maxEditOrderDays: Scalars['Int']['input'];
+};
+
+export type SettingsCreateWithoutUpdatedByUserInput = {
+  maxEditOrderDays: Scalars['Int']['input'];
+};
+
+export type SettingsListRelationFilter = {
+  every?: InputMaybe<SettingsWhereInput>;
+  none?: InputMaybe<SettingsWhereInput>;
+  some?: InputMaybe<SettingsWhereInput>;
+};
+
+export type SettingsOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type SettingsOrderByWithRelationInput = {
+  id?: InputMaybe<SortOrder>;
+  maxEditOrderDays?: InputMaybe<SortOrder>;
+};
+
+export enum SettingsScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  CreatedBy = 'createdBy',
+  Id = 'id',
+  MaxEditOrderDays = 'maxEditOrderDays',
+  UpdatedAt = 'updatedAt',
+  UpdatedBy = 'updatedBy'
+}
+
+export type SettingsScalarWhereInput = {
+  AND?: InputMaybe<Array<SettingsScalarWhereInput>>;
+  NOT?: InputMaybe<Array<SettingsScalarWhereInput>>;
+  OR?: InputMaybe<Array<SettingsScalarWhereInput>>;
+  id?: InputMaybe<IntFilter>;
+  maxEditOrderDays?: InputMaybe<IntFilter>;
+};
+
+export type SettingsUpdateInput = {
+  maxEditOrderDays?: InputMaybe<IntFieldUpdateOperationsInput>;
+};
+
+export type SettingsUpdateManyMutationInput = {
+  maxEditOrderDays?: InputMaybe<IntFieldUpdateOperationsInput>;
+};
+
+export type SettingsUpdateManyWithWhereWithoutCreatedByUserInput = {
+  data: SettingsUpdateManyMutationInput;
+  where: SettingsScalarWhereInput;
+};
+
+export type SettingsUpdateManyWithWhereWithoutUpdatedByUserInput = {
+  data: SettingsUpdateManyMutationInput;
+  where: SettingsScalarWhereInput;
+};
+
+export type SettingsUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SettingsCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<SettingsCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<SettingsCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<SettingsScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  set?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  update?: InputMaybe<Array<SettingsUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<SettingsUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<SettingsUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type SettingsUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SettingsCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<SettingsCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<SettingsCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<SettingsScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  set?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  update?: InputMaybe<Array<SettingsUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<SettingsUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<SettingsUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
+};
+
+export type SettingsUpdateWithWhereUniqueWithoutCreatedByUserInput = {
+  data: SettingsUpdateWithoutCreatedByUserInput;
+  where: SettingsWhereUniqueInput;
+};
+
+export type SettingsUpdateWithWhereUniqueWithoutUpdatedByUserInput = {
+  data: SettingsUpdateWithoutUpdatedByUserInput;
+  where: SettingsWhereUniqueInput;
+};
+
+export type SettingsUpdateWithoutCreatedByUserInput = {
+  maxEditOrderDays?: InputMaybe<IntFieldUpdateOperationsInput>;
+};
+
+export type SettingsUpdateWithoutUpdatedByUserInput = {
+  maxEditOrderDays?: InputMaybe<IntFieldUpdateOperationsInput>;
+};
+
+export type SettingsUpsertWithWhereUniqueWithoutCreatedByUserInput = {
+  create: SettingsCreateWithoutCreatedByUserInput;
+  update: SettingsUpdateWithoutCreatedByUserInput;
+  where: SettingsWhereUniqueInput;
+};
+
+export type SettingsUpsertWithWhereUniqueWithoutUpdatedByUserInput = {
+  create: SettingsCreateWithoutUpdatedByUserInput;
+  update: SettingsUpdateWithoutUpdatedByUserInput;
+  where: SettingsWhereUniqueInput;
+};
+
+export type SettingsWhereInput = {
+  AND?: InputMaybe<Array<SettingsWhereInput>>;
+  NOT?: InputMaybe<Array<SettingsWhereInput>>;
+  OR?: InputMaybe<Array<SettingsWhereInput>>;
+  id?: InputMaybe<IntFilter>;
+  maxEditOrderDays?: InputMaybe<IntFilter>;
+};
+
+export type SettingsWhereUniqueInput = {
+  AND?: InputMaybe<Array<SettingsWhereInput>>;
+  NOT?: InputMaybe<Array<SettingsWhereInput>>;
+  OR?: InputMaybe<Array<SettingsWhereInput>>;
+  id?: InputMaybe<Scalars['Int']['input']>;
+  maxEditOrderDays?: InputMaybe<IntFilter>;
 };
 
 export enum SortOrder {
@@ -7651,7 +8159,8 @@ export type User = {
   createdProperties?: Maybe<Array<Properties>>;
   createdRecipeIngredients?: Maybe<Array<RecipeIngredient>>;
   createdRecipes?: Maybe<Array<Recipe>>;
-  createdSaisons?: Maybe<Array<Saisons>>;
+  createdSeasons?: Maybe<Array<Seasons>>;
+  createdSettings?: Maybe<Array<Settings>>;
   createdToken?: Maybe<Array<Token>>;
   createdUser?: Maybe<Array<User>>;
   createdUserMeals?: Maybe<Array<UserMeal>>;
@@ -7677,7 +8186,8 @@ export type User = {
   updatedProperties?: Maybe<Array<Properties>>;
   updatedRecipeIngredients?: Maybe<Array<RecipeIngredient>>;
   updatedRecipes?: Maybe<Array<Recipe>>;
-  updatedSaisons?: Maybe<Array<Saisons>>;
+  updatedSeasons?: Maybe<Array<Seasons>>;
+  updatedSettings?: Maybe<Array<Settings>>;
   updatedToken?: Maybe<Array<Token>>;
   updatedUser?: Maybe<Array<User>>;
   updatedUserMeals?: Maybe<Array<UserMeal>>;
@@ -7701,7 +8211,8 @@ export type UserCount = {
   createdProperties: Scalars['Int']['output'];
   createdRecipeIngredients: Scalars['Int']['output'];
   createdRecipes: Scalars['Int']['output'];
-  createdSaisons: Scalars['Int']['output'];
+  createdSeasons: Scalars['Int']['output'];
+  createdSettings: Scalars['Int']['output'];
   createdToken: Scalars['Int']['output'];
   createdUser: Scalars['Int']['output'];
   createdUserMeals: Scalars['Int']['output'];
@@ -7719,7 +8230,8 @@ export type UserCount = {
   updatedProperties: Scalars['Int']['output'];
   updatedRecipeIngredients: Scalars['Int']['output'];
   updatedRecipes: Scalars['Int']['output'];
-  updatedSaisons: Scalars['Int']['output'];
+  updatedSeasons: Scalars['Int']['output'];
+  updatedSettings: Scalars['Int']['output'];
   updatedToken: Scalars['Int']['output'];
   updatedUser: Scalars['Int']['output'];
   updatedUserMeals: Scalars['Int']['output'];
@@ -7742,7 +8254,8 @@ export type UserCreateInput = {
   createdProperties?: InputMaybe<PropertiesCreateNestedManyWithoutCreatedByUserInput>;
   createdRecipeIngredients?: InputMaybe<RecipeIngredientCreateNestedManyWithoutCreatedByUserInput>;
   createdRecipes?: InputMaybe<RecipeCreateNestedManyWithoutCreatedByUserInput>;
-  createdSaisons?: InputMaybe<SaisonsCreateNestedManyWithoutCreatedByUserInput>;
+  createdSeasons?: InputMaybe<SeasonsCreateNestedManyWithoutCreatedByUserInput>;
+  createdSettings?: InputMaybe<SettingsCreateNestedManyWithoutCreatedByUserInput>;
   createdToken?: InputMaybe<TokenCreateNestedManyWithoutCreatedByUserInput>;
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserMeals?: InputMaybe<UserMealCreateNestedManyWithoutCreatedByUserInput>;
@@ -7764,7 +8277,8 @@ export type UserCreateInput = {
   updatedProperties?: InputMaybe<PropertiesCreateNestedManyWithoutUpdatedByUserInput>;
   updatedRecipeIngredients?: InputMaybe<RecipeIngredientCreateNestedManyWithoutUpdatedByUserInput>;
   updatedRecipes?: InputMaybe<RecipeCreateNestedManyWithoutUpdatedByUserInput>;
-  updatedSaisons?: InputMaybe<SaisonsCreateNestedManyWithoutUpdatedByUserInput>;
+  updatedSeasons?: InputMaybe<SeasonsCreateNestedManyWithoutUpdatedByUserInput>;
+  updatedSettings?: InputMaybe<SettingsCreateNestedManyWithoutUpdatedByUserInput>;
   updatedToken?: InputMaybe<TokenCreateNestedManyWithoutUpdatedByUserInput>;
   updatedUser?: InputMaybe<UserCreateNestedManyWithoutUpdatedByUserInput>;
   updatedUserMeals?: InputMaybe<UserMealCreateNestedManyWithoutUpdatedByUserInput>;
@@ -7871,7 +8385,8 @@ export type UserCreateWithoutCreatedByUserInput = {
   createdProperties?: InputMaybe<PropertiesCreateNestedManyWithoutCreatedByUserInput>;
   createdRecipeIngredients?: InputMaybe<RecipeIngredientCreateNestedManyWithoutCreatedByUserInput>;
   createdRecipes?: InputMaybe<RecipeCreateNestedManyWithoutCreatedByUserInput>;
-  createdSaisons?: InputMaybe<SaisonsCreateNestedManyWithoutCreatedByUserInput>;
+  createdSeasons?: InputMaybe<SeasonsCreateNestedManyWithoutCreatedByUserInput>;
+  createdSettings?: InputMaybe<SettingsCreateNestedManyWithoutCreatedByUserInput>;
   createdToken?: InputMaybe<TokenCreateNestedManyWithoutCreatedByUserInput>;
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserMeals?: InputMaybe<UserMealCreateNestedManyWithoutCreatedByUserInput>;
@@ -7893,7 +8408,8 @@ export type UserCreateWithoutCreatedByUserInput = {
   updatedProperties?: InputMaybe<PropertiesCreateNestedManyWithoutUpdatedByUserInput>;
   updatedRecipeIngredients?: InputMaybe<RecipeIngredientCreateNestedManyWithoutUpdatedByUserInput>;
   updatedRecipes?: InputMaybe<RecipeCreateNestedManyWithoutUpdatedByUserInput>;
-  updatedSaisons?: InputMaybe<SaisonsCreateNestedManyWithoutUpdatedByUserInput>;
+  updatedSeasons?: InputMaybe<SeasonsCreateNestedManyWithoutUpdatedByUserInput>;
+  updatedSettings?: InputMaybe<SettingsCreateNestedManyWithoutUpdatedByUserInput>;
   updatedToken?: InputMaybe<TokenCreateNestedManyWithoutUpdatedByUserInput>;
   updatedUser?: InputMaybe<UserCreateNestedManyWithoutUpdatedByUserInput>;
   updatedUserMeals?: InputMaybe<UserMealCreateNestedManyWithoutUpdatedByUserInput>;
@@ -7917,7 +8433,8 @@ export type UserCreateWithoutUpdatedByUserInput = {
   createdProperties?: InputMaybe<PropertiesCreateNestedManyWithoutCreatedByUserInput>;
   createdRecipeIngredients?: InputMaybe<RecipeIngredientCreateNestedManyWithoutCreatedByUserInput>;
   createdRecipes?: InputMaybe<RecipeCreateNestedManyWithoutCreatedByUserInput>;
-  createdSaisons?: InputMaybe<SaisonsCreateNestedManyWithoutCreatedByUserInput>;
+  createdSeasons?: InputMaybe<SeasonsCreateNestedManyWithoutCreatedByUserInput>;
+  createdSettings?: InputMaybe<SettingsCreateNestedManyWithoutCreatedByUserInput>;
   createdToken?: InputMaybe<TokenCreateNestedManyWithoutCreatedByUserInput>;
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserMeals?: InputMaybe<UserMealCreateNestedManyWithoutCreatedByUserInput>;
@@ -7939,7 +8456,8 @@ export type UserCreateWithoutUpdatedByUserInput = {
   updatedProperties?: InputMaybe<PropertiesCreateNestedManyWithoutUpdatedByUserInput>;
   updatedRecipeIngredients?: InputMaybe<RecipeIngredientCreateNestedManyWithoutUpdatedByUserInput>;
   updatedRecipes?: InputMaybe<RecipeCreateNestedManyWithoutUpdatedByUserInput>;
-  updatedSaisons?: InputMaybe<SaisonsCreateNestedManyWithoutUpdatedByUserInput>;
+  updatedSeasons?: InputMaybe<SeasonsCreateNestedManyWithoutUpdatedByUserInput>;
+  updatedSettings?: InputMaybe<SettingsCreateNestedManyWithoutUpdatedByUserInput>;
   updatedToken?: InputMaybe<TokenCreateNestedManyWithoutUpdatedByUserInput>;
   updatedUser?: InputMaybe<UserCreateNestedManyWithoutUpdatedByUserInput>;
   updatedUserMeals?: InputMaybe<UserMealCreateNestedManyWithoutUpdatedByUserInput>;
@@ -7963,7 +8481,8 @@ export type UserCreateWithoutUserMealInput = {
   createdProperties?: InputMaybe<PropertiesCreateNestedManyWithoutCreatedByUserInput>;
   createdRecipeIngredients?: InputMaybe<RecipeIngredientCreateNestedManyWithoutCreatedByUserInput>;
   createdRecipes?: InputMaybe<RecipeCreateNestedManyWithoutCreatedByUserInput>;
-  createdSaisons?: InputMaybe<SaisonsCreateNestedManyWithoutCreatedByUserInput>;
+  createdSeasons?: InputMaybe<SeasonsCreateNestedManyWithoutCreatedByUserInput>;
+  createdSettings?: InputMaybe<SettingsCreateNestedManyWithoutCreatedByUserInput>;
   createdToken?: InputMaybe<TokenCreateNestedManyWithoutCreatedByUserInput>;
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserMeals?: InputMaybe<UserMealCreateNestedManyWithoutCreatedByUserInput>;
@@ -7985,7 +8504,8 @@ export type UserCreateWithoutUserMealInput = {
   updatedProperties?: InputMaybe<PropertiesCreateNestedManyWithoutUpdatedByUserInput>;
   updatedRecipeIngredients?: InputMaybe<RecipeIngredientCreateNestedManyWithoutUpdatedByUserInput>;
   updatedRecipes?: InputMaybe<RecipeCreateNestedManyWithoutUpdatedByUserInput>;
-  updatedSaisons?: InputMaybe<SaisonsCreateNestedManyWithoutUpdatedByUserInput>;
+  updatedSeasons?: InputMaybe<SeasonsCreateNestedManyWithoutUpdatedByUserInput>;
+  updatedSettings?: InputMaybe<SettingsCreateNestedManyWithoutUpdatedByUserInput>;
   updatedToken?: InputMaybe<TokenCreateNestedManyWithoutUpdatedByUserInput>;
   updatedUser?: InputMaybe<UserCreateNestedManyWithoutUpdatedByUserInput>;
   updatedUserMeals?: InputMaybe<UserMealCreateNestedManyWithoutUpdatedByUserInput>;
@@ -8008,7 +8528,8 @@ export type UserCreateWithoutUserRoleInput = {
   createdProperties?: InputMaybe<PropertiesCreateNestedManyWithoutCreatedByUserInput>;
   createdRecipeIngredients?: InputMaybe<RecipeIngredientCreateNestedManyWithoutCreatedByUserInput>;
   createdRecipes?: InputMaybe<RecipeCreateNestedManyWithoutCreatedByUserInput>;
-  createdSaisons?: InputMaybe<SaisonsCreateNestedManyWithoutCreatedByUserInput>;
+  createdSeasons?: InputMaybe<SeasonsCreateNestedManyWithoutCreatedByUserInput>;
+  createdSettings?: InputMaybe<SettingsCreateNestedManyWithoutCreatedByUserInput>;
   createdToken?: InputMaybe<TokenCreateNestedManyWithoutCreatedByUserInput>;
   createdUser?: InputMaybe<UserCreateNestedManyWithoutCreatedByUserInput>;
   createdUserMeals?: InputMaybe<UserMealCreateNestedManyWithoutCreatedByUserInput>;
@@ -8030,7 +8551,8 @@ export type UserCreateWithoutUserRoleInput = {
   updatedProperties?: InputMaybe<PropertiesCreateNestedManyWithoutUpdatedByUserInput>;
   updatedRecipeIngredients?: InputMaybe<RecipeIngredientCreateNestedManyWithoutUpdatedByUserInput>;
   updatedRecipes?: InputMaybe<RecipeCreateNestedManyWithoutUpdatedByUserInput>;
-  updatedSaisons?: InputMaybe<SaisonsCreateNestedManyWithoutUpdatedByUserInput>;
+  updatedSeasons?: InputMaybe<SeasonsCreateNestedManyWithoutUpdatedByUserInput>;
+  updatedSettings?: InputMaybe<SettingsCreateNestedManyWithoutUpdatedByUserInput>;
   updatedToken?: InputMaybe<TokenCreateNestedManyWithoutUpdatedByUserInput>;
   updatedUser?: InputMaybe<UserCreateNestedManyWithoutUpdatedByUserInput>;
   updatedUserMeals?: InputMaybe<UserMealCreateNestedManyWithoutUpdatedByUserInput>;
@@ -8343,6 +8865,12 @@ export type UserMealUpsertWithWhereUniqueWithoutUserInput = {
   where: UserMealWhereUniqueInput;
 };
 
+export type UserMealUser_Meal_UserId_MealId_Date_UniqueCompoundUniqueInput = {
+  date: Scalars['DateTime']['input'];
+  mealId: Scalars['Int']['input'];
+  userId: Scalars['Int']['input'];
+};
+
 export type UserMealWhereInput = {
   AND?: InputMaybe<Array<UserMealWhereInput>>;
   Meal?: InputMaybe<MealRelationFilter>;
@@ -8365,6 +8893,7 @@ export type UserMealWhereUniqueInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
   mealId?: InputMaybe<IntFilter>;
   userId?: InputMaybe<IntFilter>;
+  user_meal_userId_mealId_date_unique?: InputMaybe<UserMealUser_Meal_UserId_MealId_Date_UniqueCompoundUniqueInput>;
 };
 
 export type UserOrderByRelationAggregateInput = {
@@ -8384,7 +8913,8 @@ export type UserOrderByWithRelationInput = {
   createdProperties?: InputMaybe<PropertiesOrderByRelationAggregateInput>;
   createdRecipeIngredients?: InputMaybe<RecipeIngredientOrderByRelationAggregateInput>;
   createdRecipes?: InputMaybe<RecipeOrderByRelationAggregateInput>;
-  createdSaisons?: InputMaybe<SaisonsOrderByRelationAggregateInput>;
+  createdSeasons?: InputMaybe<SeasonsOrderByRelationAggregateInput>;
+  createdSettings?: InputMaybe<SettingsOrderByRelationAggregateInput>;
   createdToken?: InputMaybe<TokenOrderByRelationAggregateInput>;
   createdUser?: InputMaybe<UserOrderByRelationAggregateInput>;
   createdUserMeals?: InputMaybe<UserMealOrderByRelationAggregateInput>;
@@ -8407,7 +8937,8 @@ export type UserOrderByWithRelationInput = {
   updatedProperties?: InputMaybe<PropertiesOrderByRelationAggregateInput>;
   updatedRecipeIngredients?: InputMaybe<RecipeIngredientOrderByRelationAggregateInput>;
   updatedRecipes?: InputMaybe<RecipeOrderByRelationAggregateInput>;
-  updatedSaisons?: InputMaybe<SaisonsOrderByRelationAggregateInput>;
+  updatedSeasons?: InputMaybe<SeasonsOrderByRelationAggregateInput>;
+  updatedSettings?: InputMaybe<SettingsOrderByRelationAggregateInput>;
   updatedToken?: InputMaybe<TokenOrderByRelationAggregateInput>;
   updatedUser?: InputMaybe<UserOrderByRelationAggregateInput>;
   updatedUserMeals?: InputMaybe<UserMealOrderByRelationAggregateInput>;
@@ -8717,7 +9248,8 @@ export type UserUpdateInput = {
   createdProperties?: InputMaybe<PropertiesUpdateManyWithoutCreatedByUserNestedInput>;
   createdRecipeIngredients?: InputMaybe<RecipeIngredientUpdateManyWithoutCreatedByUserNestedInput>;
   createdRecipes?: InputMaybe<RecipeUpdateManyWithoutCreatedByUserNestedInput>;
-  createdSaisons?: InputMaybe<SaisonsUpdateManyWithoutCreatedByUserNestedInput>;
+  createdSeasons?: InputMaybe<SeasonsUpdateManyWithoutCreatedByUserNestedInput>;
+  createdSettings?: InputMaybe<SettingsUpdateManyWithoutCreatedByUserNestedInput>;
   createdToken?: InputMaybe<TokenUpdateManyWithoutCreatedByUserNestedInput>;
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserMeals?: InputMaybe<UserMealUpdateManyWithoutCreatedByUserNestedInput>;
@@ -8739,7 +9271,8 @@ export type UserUpdateInput = {
   updatedProperties?: InputMaybe<PropertiesUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedRecipeIngredients?: InputMaybe<RecipeIngredientUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedRecipes?: InputMaybe<RecipeUpdateManyWithoutUpdatedByUserNestedInput>;
-  updatedSaisons?: InputMaybe<SaisonsUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedSeasons?: InputMaybe<SeasonsUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedSettings?: InputMaybe<SettingsUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedToken?: InputMaybe<TokenUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedUser?: InputMaybe<UserUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedUserMeals?: InputMaybe<UserMealUpdateManyWithoutUpdatedByUserNestedInput>;
@@ -8845,7 +9378,8 @@ export type UserUpdateWithoutCreatedByUserInput = {
   createdProperties?: InputMaybe<PropertiesUpdateManyWithoutCreatedByUserNestedInput>;
   createdRecipeIngredients?: InputMaybe<RecipeIngredientUpdateManyWithoutCreatedByUserNestedInput>;
   createdRecipes?: InputMaybe<RecipeUpdateManyWithoutCreatedByUserNestedInput>;
-  createdSaisons?: InputMaybe<SaisonsUpdateManyWithoutCreatedByUserNestedInput>;
+  createdSeasons?: InputMaybe<SeasonsUpdateManyWithoutCreatedByUserNestedInput>;
+  createdSettings?: InputMaybe<SettingsUpdateManyWithoutCreatedByUserNestedInput>;
   createdToken?: InputMaybe<TokenUpdateManyWithoutCreatedByUserNestedInput>;
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserMeals?: InputMaybe<UserMealUpdateManyWithoutCreatedByUserNestedInput>;
@@ -8867,7 +9401,8 @@ export type UserUpdateWithoutCreatedByUserInput = {
   updatedProperties?: InputMaybe<PropertiesUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedRecipeIngredients?: InputMaybe<RecipeIngredientUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedRecipes?: InputMaybe<RecipeUpdateManyWithoutUpdatedByUserNestedInput>;
-  updatedSaisons?: InputMaybe<SaisonsUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedSeasons?: InputMaybe<SeasonsUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedSettings?: InputMaybe<SettingsUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedToken?: InputMaybe<TokenUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedUser?: InputMaybe<UserUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedUserMeals?: InputMaybe<UserMealUpdateManyWithoutUpdatedByUserNestedInput>;
@@ -8891,7 +9426,8 @@ export type UserUpdateWithoutUpdatedByUserInput = {
   createdProperties?: InputMaybe<PropertiesUpdateManyWithoutCreatedByUserNestedInput>;
   createdRecipeIngredients?: InputMaybe<RecipeIngredientUpdateManyWithoutCreatedByUserNestedInput>;
   createdRecipes?: InputMaybe<RecipeUpdateManyWithoutCreatedByUserNestedInput>;
-  createdSaisons?: InputMaybe<SaisonsUpdateManyWithoutCreatedByUserNestedInput>;
+  createdSeasons?: InputMaybe<SeasonsUpdateManyWithoutCreatedByUserNestedInput>;
+  createdSettings?: InputMaybe<SettingsUpdateManyWithoutCreatedByUserNestedInput>;
   createdToken?: InputMaybe<TokenUpdateManyWithoutCreatedByUserNestedInput>;
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserMeals?: InputMaybe<UserMealUpdateManyWithoutCreatedByUserNestedInput>;
@@ -8913,7 +9449,8 @@ export type UserUpdateWithoutUpdatedByUserInput = {
   updatedProperties?: InputMaybe<PropertiesUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedRecipeIngredients?: InputMaybe<RecipeIngredientUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedRecipes?: InputMaybe<RecipeUpdateManyWithoutUpdatedByUserNestedInput>;
-  updatedSaisons?: InputMaybe<SaisonsUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedSeasons?: InputMaybe<SeasonsUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedSettings?: InputMaybe<SettingsUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedToken?: InputMaybe<TokenUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedUser?: InputMaybe<UserUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedUserMeals?: InputMaybe<UserMealUpdateManyWithoutUpdatedByUserNestedInput>;
@@ -8937,7 +9474,8 @@ export type UserUpdateWithoutUserMealInput = {
   createdProperties?: InputMaybe<PropertiesUpdateManyWithoutCreatedByUserNestedInput>;
   createdRecipeIngredients?: InputMaybe<RecipeIngredientUpdateManyWithoutCreatedByUserNestedInput>;
   createdRecipes?: InputMaybe<RecipeUpdateManyWithoutCreatedByUserNestedInput>;
-  createdSaisons?: InputMaybe<SaisonsUpdateManyWithoutCreatedByUserNestedInput>;
+  createdSeasons?: InputMaybe<SeasonsUpdateManyWithoutCreatedByUserNestedInput>;
+  createdSettings?: InputMaybe<SettingsUpdateManyWithoutCreatedByUserNestedInput>;
   createdToken?: InputMaybe<TokenUpdateManyWithoutCreatedByUserNestedInput>;
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserMeals?: InputMaybe<UserMealUpdateManyWithoutCreatedByUserNestedInput>;
@@ -8959,7 +9497,8 @@ export type UserUpdateWithoutUserMealInput = {
   updatedProperties?: InputMaybe<PropertiesUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedRecipeIngredients?: InputMaybe<RecipeIngredientUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedRecipes?: InputMaybe<RecipeUpdateManyWithoutUpdatedByUserNestedInput>;
-  updatedSaisons?: InputMaybe<SaisonsUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedSeasons?: InputMaybe<SeasonsUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedSettings?: InputMaybe<SettingsUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedToken?: InputMaybe<TokenUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedUser?: InputMaybe<UserUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedUserMeals?: InputMaybe<UserMealUpdateManyWithoutUpdatedByUserNestedInput>;
@@ -8982,7 +9521,8 @@ export type UserUpdateWithoutUserRoleInput = {
   createdProperties?: InputMaybe<PropertiesUpdateManyWithoutCreatedByUserNestedInput>;
   createdRecipeIngredients?: InputMaybe<RecipeIngredientUpdateManyWithoutCreatedByUserNestedInput>;
   createdRecipes?: InputMaybe<RecipeUpdateManyWithoutCreatedByUserNestedInput>;
-  createdSaisons?: InputMaybe<SaisonsUpdateManyWithoutCreatedByUserNestedInput>;
+  createdSeasons?: InputMaybe<SeasonsUpdateManyWithoutCreatedByUserNestedInput>;
+  createdSettings?: InputMaybe<SettingsUpdateManyWithoutCreatedByUserNestedInput>;
   createdToken?: InputMaybe<TokenUpdateManyWithoutCreatedByUserNestedInput>;
   createdUser?: InputMaybe<UserUpdateManyWithoutCreatedByUserNestedInput>;
   createdUserMeals?: InputMaybe<UserMealUpdateManyWithoutCreatedByUserNestedInput>;
@@ -9004,7 +9544,8 @@ export type UserUpdateWithoutUserRoleInput = {
   updatedProperties?: InputMaybe<PropertiesUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedRecipeIngredients?: InputMaybe<RecipeIngredientUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedRecipes?: InputMaybe<RecipeUpdateManyWithoutUpdatedByUserNestedInput>;
-  updatedSaisons?: InputMaybe<SaisonsUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedSeasons?: InputMaybe<SeasonsUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedSettings?: InputMaybe<SettingsUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedToken?: InputMaybe<TokenUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedUser?: InputMaybe<UserUpdateManyWithoutUpdatedByUserNestedInput>;
   updatedUserMeals?: InputMaybe<UserMealUpdateManyWithoutUpdatedByUserNestedInput>;
@@ -9054,7 +9595,8 @@ export type UserWhereInput = {
   createdProperties?: InputMaybe<PropertiesListRelationFilter>;
   createdRecipeIngredients?: InputMaybe<RecipeIngredientListRelationFilter>;
   createdRecipes?: InputMaybe<RecipeListRelationFilter>;
-  createdSaisons?: InputMaybe<SaisonsListRelationFilter>;
+  createdSeasons?: InputMaybe<SeasonsListRelationFilter>;
+  createdSettings?: InputMaybe<SettingsListRelationFilter>;
   createdToken?: InputMaybe<TokenListRelationFilter>;
   createdUser?: InputMaybe<UserListRelationFilter>;
   createdUserMeals?: InputMaybe<UserMealListRelationFilter>;
@@ -9077,7 +9619,8 @@ export type UserWhereInput = {
   updatedProperties?: InputMaybe<PropertiesListRelationFilter>;
   updatedRecipeIngredients?: InputMaybe<RecipeIngredientListRelationFilter>;
   updatedRecipes?: InputMaybe<RecipeListRelationFilter>;
-  updatedSaisons?: InputMaybe<SaisonsListRelationFilter>;
+  updatedSeasons?: InputMaybe<SeasonsListRelationFilter>;
+  updatedSettings?: InputMaybe<SettingsListRelationFilter>;
   updatedToken?: InputMaybe<TokenListRelationFilter>;
   updatedUser?: InputMaybe<UserListRelationFilter>;
   updatedUserMeals?: InputMaybe<UserMealListRelationFilter>;
@@ -9104,7 +9647,8 @@ export type UserWhereUniqueInput = {
   createdProperties?: InputMaybe<PropertiesListRelationFilter>;
   createdRecipeIngredients?: InputMaybe<RecipeIngredientListRelationFilter>;
   createdRecipes?: InputMaybe<RecipeListRelationFilter>;
-  createdSaisons?: InputMaybe<SaisonsListRelationFilter>;
+  createdSeasons?: InputMaybe<SeasonsListRelationFilter>;
+  createdSettings?: InputMaybe<SettingsListRelationFilter>;
   createdToken?: InputMaybe<TokenListRelationFilter>;
   createdUser?: InputMaybe<UserListRelationFilter>;
   createdUserMeals?: InputMaybe<UserMealListRelationFilter>;
@@ -9127,7 +9671,8 @@ export type UserWhereUniqueInput = {
   updatedProperties?: InputMaybe<PropertiesListRelationFilter>;
   updatedRecipeIngredients?: InputMaybe<RecipeIngredientListRelationFilter>;
   updatedRecipes?: InputMaybe<RecipeListRelationFilter>;
-  updatedSaisons?: InputMaybe<SaisonsListRelationFilter>;
+  updatedSeasons?: InputMaybe<SeasonsListRelationFilter>;
+  updatedSettings?: InputMaybe<SettingsListRelationFilter>;
   updatedToken?: InputMaybe<TokenListRelationFilter>;
   updatedUser?: InputMaybe<UserListRelationFilter>;
   updatedUserMeals?: InputMaybe<UserMealListRelationFilter>;
@@ -9806,6 +10351,20 @@ export type WeeklyMealGroupUncheckedUpdateInput = {
   year?: InputMaybe<IntFieldUpdateOperationsInput>;
 };
 
+export type WeeklyMealGroupUncheckedUpdateManyWithoutMealBoardPlanNestedInput = {
+  connect?: InputMaybe<Array<WeeklyMealGroupWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<WeeklyMealGroupCreateOrConnectWithoutMealBoardPlanInput>>;
+  create?: InputMaybe<Array<WeeklyMealGroupCreateWithoutMealBoardPlanInput>>;
+  createMany?: InputMaybe<WeeklyMealGroupCreateManyMealBoardPlanInputEnvelope>;
+  delete?: InputMaybe<Array<WeeklyMealGroupWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<WeeklyMealGroupScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<WeeklyMealGroupWhereUniqueInput>>;
+  set?: InputMaybe<Array<WeeklyMealGroupWhereUniqueInput>>;
+  update?: InputMaybe<Array<WeeklyMealGroupUpdateWithWhereUniqueWithoutMealBoardPlanInput>>;
+  updateMany?: InputMaybe<Array<WeeklyMealGroupUpdateManyWithWhereWithoutMealBoardPlanInput>>;
+  upsert?: InputMaybe<Array<WeeklyMealGroupUpsertWithWhereUniqueWithoutMealBoardPlanInput>>;
+};
+
 export type WeeklyMealGroupUpdateInput = {
   color?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
@@ -10407,6 +10966,18 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeQuery = { me?: { id: number, username: string, email: string, lastOnline: any, status: boolean, createdAt: any, updatedAt: any, userRole?: Array<{ id: number, name: UserRoleName }> | null } | null };
 
+export type GetAllMealBoardPlansUserQueryVariables = Exact<{
+  where?: InputMaybe<MealBoardPlanWhereInput>;
+  orderBy?: InputMaybe<Array<MealBoardPlanOrderByWithRelationInput> | MealBoardPlanOrderByWithRelationInput>;
+  cursor?: InputMaybe<MealBoardPlanWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  distinct?: InputMaybe<Array<MealBoardPlanScalarFieldEnum> | MealBoardPlanScalarFieldEnum>;
+}>;
+
+
+export type GetAllMealBoardPlansUserQuery = { getAllMealBoardPlansUser?: Array<{ id: number, name: string, color?: string | null }> | null };
+
 export type GetAllWeeklyMealGroupsAdminQueryVariables = Exact<{
   where?: InputMaybe<WeeklyMealGroupWhereInput>;
   orderBy?: InputMaybe<Array<WeeklyMealGroupOrderByWithRelationInput> | WeeklyMealGroupOrderByWithRelationInput>;
@@ -10440,5 +11011,6 @@ export const CreateWeeklyMealGroupAdminDocument = {"kind":"Document","definition
 export const DeleteWeeklyMealGroupAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteWeeklyMealGroupAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroupWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteWeeklyMealGroupAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"WeeklyMealGroupFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"WeeklyMealGroupFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroup"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"color"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"weekOfYear"}},{"kind":"Field","name":{"kind":"Name","value":"orderIndex"}},{"kind":"Field","name":{"kind":"Name","value":"mondayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tuesdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"wednesdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"thursdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fridayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"saturdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sundayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}}]}}]} as unknown as DocumentNode<DeleteWeeklyMealGroupAdminMutation, DeleteWeeklyMealGroupAdminMutationVariables>;
 export const UpdateWeeklyMealGroupAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWeeklyMealGroupAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroupUncheckedUpdateInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroupWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWeeklyMealGroupAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"WeeklyMealGroupFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"WeeklyMealGroupFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroup"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"color"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"weekOfYear"}},{"kind":"Field","name":{"kind":"Name","value":"orderIndex"}},{"kind":"Field","name":{"kind":"Name","value":"mondayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tuesdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"wednesdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"thursdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fridayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"saturdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sundayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}}]}}]} as unknown as DocumentNode<UpdateWeeklyMealGroupAdminMutation, UpdateWeeklyMealGroupAdminMutationVariables>;
 export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastOnline"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"userRole"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
+export const GetAllMealBoardPlansUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllMealBoardPlansUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MealBoardPlanWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MealBoardPlanOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MealBoardPlanWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MealBoardPlanScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllMealBoardPlansUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"color"}}]}}]}}]} as unknown as DocumentNode<GetAllMealBoardPlansUserQuery, GetAllMealBoardPlansUserQueryVariables>;
 export const GetAllWeeklyMealGroupsAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllWeeklyMealGroupsAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroupWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroupOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroupWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroupScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllWeeklyMealGroupsAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"WeeklyMealGroupFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"WeeklyMealGroupFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroup"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"color"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"weekOfYear"}},{"kind":"Field","name":{"kind":"Name","value":"orderIndex"}},{"kind":"Field","name":{"kind":"Name","value":"mondayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tuesdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"wednesdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"thursdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fridayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"saturdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sundayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"imageName"}}]}}]}}]} as unknown as DocumentNode<GetAllWeeklyMealGroupsAdminQuery, GetAllWeeklyMealGroupsAdminQueryVariables>;
 export const GetAllMealsAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllMealsAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MealWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MealOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MealWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MealScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllMealsAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetAllMealsAdminQuery, GetAllMealsAdminQueryVariables>;

@@ -1,4 +1,5 @@
 import { ME } from "@/documents/query/auth";
+import { GET_ALL_MEAL_BOARD_PLANS_USER } from "@/documents/query/dashboard";
 import { prefetchQuery } from "@/utils/helpers/serverComponentsUtil";
 import { HydrationBoundary } from "@tanstack/react-query";
 
@@ -11,7 +12,10 @@ export default async function HomeLayout({
   children,
   mealModal,
 }: HomeLayoutProps) {
-  const { state } = await prefetchQuery([{ document: ME }]);
+  const { state } = await prefetchQuery([
+    { document: ME },
+    { document: GET_ALL_MEAL_BOARD_PLANS_USER },
+  ]);
 
   return (
     <HydrationBoundary state={state}>

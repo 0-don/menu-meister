@@ -1,5 +1,6 @@
 "use client";
 
+import { GetAllMealBoardPlansUserQuery } from "@/gql/graphql";
 import dayjs from "dayjs";
 import isLeapYear from "dayjs/plugin/isLeapYear";
 import isoWeek from "dayjs/plugin/isoWeek";
@@ -19,6 +20,11 @@ dayjs.Ls["en"].weekStart = 1;
 export const DASHBOARD_STORE_KEY = "DashboardStore";
 
 const DashboardStore = proxy({
+  activeMealBoardPlan: undefined as
+    | NonNullable<GetAllMealBoardPlansUserQuery["getAllMealBoardPlansUser"]>[0]
+    | undefined,
+  mealBoardPlans:
+    [] as GetAllMealBoardPlansUserQuery["getAllMealBoardPlansUser"],
   calendar: {
     year: dayjs().year(),
     week: dayjs().isoWeek(),

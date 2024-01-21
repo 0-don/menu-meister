@@ -25,6 +25,7 @@ export function MainTable({}: DashboardPageProps) {
     refetch: refetchWeeklyMealGroups,
   } = useGqlQuery(GET_ALL_WEEKLY_MEAL_GROUPS_ADMIN, {
     where: {
+      mealBoardPlanId: { equals: dashboardStore.activeMealBoardPlan?.id },
       year: { equals: dashboardStore.calendar.year },
       weekOfYear: { equals: dashboardStore.calendar.week },
     },
@@ -36,12 +37,12 @@ export function MainTable({}: DashboardPageProps) {
   useEffect(() => {
     TableStore.data =
       getAllWeeklyMealGroupsAdmin as WeeklyMealGroupFragmentFragment[];
-    TableStore.refetchWeeklyMealGroups = refetchWeeklyMealGroups;
+    // TableStore.refetchWeeklyMealGroups = refetchWeeklyMealGroups;
   }, [getAllWeeklyMealGroupsAdmin]);
 
   useEffect(() => {
     TableStore.meals = getAllMealsAdmin;
-    TableStore.refetchMeals = refetchMeals;
+    // TableStore.refetchMeals = refetchMeals;
   }, [getAllMealsAdmin]);
 
   return (

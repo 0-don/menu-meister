@@ -25,11 +25,13 @@ export const ssrHeaders = (): HeadersInit => {
   return { authorization, referer };
 };
 
-export const prefetchQuery = async <TData = any, TVariables = any>(
-  documents: {
-    document: TypedDocumentNode<TData, TVariables>;
-    variables?: TVariables;
-  }[],
+type PrefetchItem<TData, TVariables> = {
+  document: TypedDocumentNode<TData, TVariables>;
+  variables?: TVariables;
+};
+
+export const prefetchQuery = async <T extends PrefetchItem<any, any>[]>(
+  documents: T,
 ): Promise<{ state: DehydratedState; queryClient: QueryClient }> => {
   const queryClient = getQueryClient();
   const authorization = ssrHeaders();
