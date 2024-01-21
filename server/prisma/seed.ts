@@ -1,9 +1,10 @@
 import { faker } from "@faker-js/faker";
-import { PrismaClient, UserRoleName } from "@prisma/client";
+import { Prisma, PrismaClient, UserRoleName } from "@prisma/client";
 import argon2 from "argon2";
 import { error } from "console";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { dirname, join, resolve } from "path";
+import { Ingredient } from "./types";
 
 const prisma = new PrismaClient();
 
@@ -36,7 +37,7 @@ const seed = async () => {
     roles: ["ADMIN"],
   });
 
-  await seedIngredientsAndNutritions();
+  await seedIngredients();
   await seedMeals();
   await seedWeeklyMealGroups();
 };
@@ -63,62 +64,78 @@ async function downloadImage(url: string) {
   return { file: Buffer.from(imageBuffer).toString("base64"), filename };
 }
 
-const seedIngredientsAndNutritions = async () => {
+const seedIngredients = async () => {
+  const ingredients: Ingredient[] = JSON.parse(
+    readFileSync(join(resolve(), "prisma", "ingredients.json"), "utf-8"),
+  );
+
   const user = await prisma.user.findFirst({
     where: { email: EMAIL },
   });
 
-  for (const _ of Array(100).keys()) {
-    const ingredientName = faker.commerce.product();
+  for (const ingredient of ingredients) {
+    const data: Prisma.IngredientUncheckedCreateInput = {
+      name: ingredient.name,
+      blsIdentifier: ingredient.bls_identifier,
+      energyKcal: ingredient.energyKcal,
+      energyKj: ingredient.energyKj,
+      breadUnits: ingredient.breadUnits,
+      carbohydrates: ingredient.carbohydrates,
+      sugars: ingredient.sugars,
+      salt: ingredient.salt,
+      fats: ingredient.fats,
+      saturatedFats: ingredient.saturatedFats,
+      createdBy: user.id,
+      updatedBy: user.id,
+      allergens: {
+        connectOrCreate: ingredient.allergens.map((name) => ({
+          where: { name },
+          create: { name, createdBy: user.id, updatedBy: user.id },
+        })),
+      },
+      additives: {
+        connectOrCreate: ingredient.additives.map((name) => ({
+          where: { name },
+          create: { name, createdBy: user.id, updatedBy: user.id },
+        })),
+      },
+      properties: {
+        connectOrCreate: ingredient.properties.map((name) => ({
+          where: { name },
+          create: { name, createdBy: user.id, updatedBy: user.id },
+        })),
+      },
+      categories: {
+        connectOrCreate: ingredient.categories.map((name) => ({
+          where: { name },
+          create: { name, createdBy: user.id, updatedBy: user.id },
+        })),
+      },
+      seasons: {
+        connectOrCreate: ingredient.seasons.map((name) => ({
+          where: { name },
+          create: { name, createdBy: user.id, updatedBy: user.id },
+        })),
+      },
+      foodForms: {
+        connectOrCreate: ingredient.food_forms.map((name) => ({
+          where: { name },
+          create: { name, createdBy: user.id, updatedBy: user.id },
+        })),
+      },
+      kitchens: {
+        connectOrCreate: ingredient.kitchens.map((name) => ({
+          where: { name },
+          create: { name, createdBy: user.id, updatedBy: user.id },
+        })),
+      },
+    };
 
-    const imgUrl = faker.image.urlLoremFlickr({
-      category: "ingredients",
-      width: 200,
-      height: 200,
+    const dbIngredient = await prisma.ingredient.upsert({
+      where: { blsIdentifier: ingredient.bls_identifier },
+      create: data,
+      update: data,
     });
-
-    let blacklist = false;
-
-    for (const blacklisted of BLACKLISTED_IMG) {
-      if (imgUrl.includes(blacklisted)) {
-        blacklist = true;
-      }
-    }
-
-    const image = !blacklist
-      ? await downloadImage(imgUrl)
-      : { file: null, filename: null };
-
-    // Create ingredient individually
-    // const ingredient = await prisma.ingredient.create({
-    //   data: {
-    //     name: ingredientName,
-    //     allergens: faker.helpers.arrayElement([
-    //       "nuts",
-    //       "dairy",
-    //       "gluten",
-    //       null,
-    //     ]),
-    //     imageName: image.filename,
-    //     image: image.file,
-    //     createdBy: user.id,
-    //     updatedBy: user.id,
-    //   },
-    // });
-
-    // Create corresponding nutrition data
-    // await prisma.nutrition.create({
-    //   data: {
-    //     ingredientId: ingredient.id,
-    //     calories: faker.number.float({ min: 0, max: 500 }),
-    //     protein: faker.number.float({ min: 0, max: 100 }),
-    //     carbohydrates: faker.number.float({ min: 0, max: 100 }),
-    //     fats: faker.number.float({ min: 0, max: 100 }),
-    //     fiber: faker.number.float({ min: 0, max: 100 }),
-    //     createdBy: user.id,
-    //     updatedBy: user.id,
-    //   },
-    // });
   }
 };
 

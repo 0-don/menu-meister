@@ -94,8 +94,8 @@ model User {
   updatedProperties Properties[] @relation("UpdatedProperties")
   createdCategories Categories[] @relation("CreatedCategories")
   updatedCategories Categories[] @relation("UpdatedCategories")
-  createdSaisons    Saisons[]    @relation("CreatedSaisons")
-  updatedSaisons    Saisons[]    @relation("UpdatedSaisons")
+  createdSeasons    Seasons[]    @relation("CreatedSeasons")
+  updatedSeasons    Seasons[]    @relation("UpdatedSeasons")
   createdFoodForms  FoodForms[]  @relation("CreatedFoodForms")
   updatedFoodForms  FoodForms[]  @relation("UpdatedFoodForms")
   createdKitchens   Kitchens[]   @relation("CreatedKitchens")
@@ -149,11 +149,13 @@ model UserMeal {
   createdByUser User     @relation("CreatedUserMeal", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
   updatedByUser User     @relation("UpdatedUserMeal", fields: [updatedBy], references: [id])
+
+  @@unique([userId, mealId, date], name: "user_meal_userId_mealId_date_unique")
 }
 
 model Allergens {
   id   Int    @id @default(autoincrement())
-  name String @db.VarChar(255)
+  name String @unique @db.VarChar(255)
 
   ingredients Ingredient[] @relation("IngredientAllergens")
   recipes     Recipe[]     @relation("RecipeAllergens")
@@ -175,7 +177,7 @@ model Allergens {
 
 model Additives {
   id   Int    @id @default(autoincrement())
-  name String @db.VarChar(255)
+  name String @unique @db.VarChar(255)
 
   ingredients Ingredient[] @relation("IngredientAdditives")
   recipes     Recipe[]     @relation("RecipeAdditives")
@@ -197,7 +199,7 @@ model Additives {
 
 model Properties {
   id   Int    @id @default(autoincrement())
-  name String @db.VarChar(255)
+  name String @unique @db.VarChar(255)
 
   ingredients Ingredient[] @relation("IngredientProperties")
   recipes     Recipe[]     @relation("RecipeProperties")
@@ -219,7 +221,7 @@ model Properties {
 
 model Categories {
   id   Int    @id @default(autoincrement())
-  name String @db.VarChar(255)
+  name String @unique @db.VarChar(255)
 
   ingredients Ingredient[] @relation("IngredientCategories")
   recipes     Recipe[]     @relation("RecipeCategories")
@@ -239,13 +241,13 @@ model Categories {
   updatedByUser User     @relation("UpdatedCategories", fields: [updatedBy], references: [id])
 }
 
-model Saisons {
+model Seasons {
   id   Int    @id @default(autoincrement())
-  name String @db.VarChar(255)
+  name String @unique @db.VarChar(255)
 
-  ingredients Ingredient[] @relation("IngredientSaisons")
-  recipes     Recipe[]     @relation("RecipeSaisons")
-  meals       Meal[]       @relation("MealSaisons")
+  ingredients Ingredient[] @relation("IngredientSeasons")
+  recipes     Recipe[]     @relation("RecipeSeasons")
+  meals       Meal[]       @relation("MealSeasons")
 
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
@@ -256,14 +258,14 @@ model Saisons {
   /// @HideField({ output: false, input: true })
   updatedBy     Int
   /// @HideField({ output: false, input: true })
-  createdByUser User     @relation("CreatedSaisons", fields: [createdBy], references: [id])
+  createdByUser User     @relation("CreatedSeasons", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
-  updatedByUser User     @relation("UpdatedSaisons", fields: [updatedBy], references: [id])
+  updatedByUser User     @relation("UpdatedSeasons", fields: [updatedBy], references: [id])
 }
 
 model FoodForms {
   id   Int    @id @default(autoincrement())
-  name String @db.VarChar(255)
+  name String @unique @db.VarChar(255)
 
   ingredients Ingredient[] @relation("IngredientFoodForms")
   recipes     Recipe[]     @relation("RecipeFoodForms")
@@ -285,7 +287,7 @@ model FoodForms {
 
 model Kitchens {
   id   Int    @id @default(autoincrement())
-  name String @db.VarChar(255)
+  name String @unique @db.VarChar(255)
 
   ingredients Ingredient[] @relation("IngredientKitchens")
   recipes     Recipe[]     @relation("RecipeKitchens")
@@ -308,24 +310,24 @@ model Ingredient {
   id Int @id @default(autoincrement())
 
   name          String @db.VarChar(255)
-  blsIdentifier String @db.VarChar(50)
+  blsIdentifier String @unique @db.VarChar(50)
 
-  energyKcal      Decimal @db.Decimal(10, 2)
-  energyKj        Decimal @db.Decimal(10, 2)
-  breadUnits      Decimal @db.Decimal(10, 2)
-  carbohydrates   Decimal @db.Decimal(10, 2)
-  sugars          Decimal @db.Decimal(10, 2)
-  salt            Decimal @db.Decimal(10, 2)
-  fats            Decimal @db.Decimal(10, 2)
-  saturatedFats   Decimal @db.Decimal(10, 2)
-  unsaturatedFats Decimal @db.Decimal(10, 2)
-  protein         Decimal @db.Decimal(10, 2)
+  energyKcal      Decimal @default(0) @db.Decimal(10, 2)
+  energyKj        Decimal @default(0) @db.Decimal(10, 2)
+  breadUnits      Decimal @default(0) @db.Decimal(10, 2)
+  carbohydrates   Decimal @default(0) @db.Decimal(10, 2)
+  sugars          Decimal @default(0) @db.Decimal(10, 2)
+  salt            Decimal @default(0) @db.Decimal(10, 2)
+  fats            Decimal @default(0) @db.Decimal(10, 2)
+  saturatedFats   Decimal @default(0) @db.Decimal(10, 2)
+  unsaturatedFats Decimal @default(0) @db.Decimal(10, 2)
+  protein         Decimal @default(0) @db.Decimal(10, 2)
 
   allergens  Allergens[]  @relation("IngredientAllergens")
   additives  Additives[]  @relation("IngredientAdditives")
   properties Properties[] @relation("IngredientProperties")
   categories Categories[] @relation("IngredientCategories")
-  saisons    Saisons[]    @relation("IngredientSaisons")
+  seasons    Seasons[]    @relation("IngredientSeasons")
   foodForms  FoodForms[]  @relation("IngredientFoodForms")
   kitchens   Kitchens[]   @relation("IngredientKitchens")
 
@@ -354,7 +356,7 @@ model Recipe {
   additives  Additives[]  @relation("RecipeAdditives")
   properties Properties[] @relation("RecipeProperties")
   categories Categories[] @relation("RecipeCategories")
-  saisons    Saisons[]    @relation("RecipeSaisons")
+  seasons    Seasons[]    @relation("RecipeSeasons")
   foodForms  FoodForms[]  @relation("RecipeFoodForms")
   kitchens   Kitchens[]   @relation("RecipeKitchens")
 
@@ -411,7 +413,7 @@ model Meal {
   additives  Additives[]  @relation("MealAdditives")
   properties Properties[] @relation("MealProperties")
   categories Categories[] @relation("MealCategories")
-  saisons    Saisons[]    @relation("MealSaisons")
+  seasons    Seasons[]    @relation("MealSeasons")
   foodForms  FoodForms[]  @relation("MealFoodForms")
 
   mondayMealGroups    WeeklyMealGroup[] @relation("MondayMeal")

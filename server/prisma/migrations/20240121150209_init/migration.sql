@@ -56,6 +56,7 @@ CREATE TABLE `UserMeal` (
     `createdBy` INTEGER NOT NULL,
     `updatedBy` INTEGER NOT NULL,
 
+    UNIQUE INDEX `UserMeal_userId_mealId_date_key`(`userId`, `mealId`, `date`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -68,6 +69,7 @@ CREATE TABLE `Allergens` (
     `createdBy` INTEGER NOT NULL,
     `updatedBy` INTEGER NOT NULL,
 
+    UNIQUE INDEX `Allergens_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -80,6 +82,7 @@ CREATE TABLE `Additives` (
     `createdBy` INTEGER NOT NULL,
     `updatedBy` INTEGER NOT NULL,
 
+    UNIQUE INDEX `Additives_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -92,6 +95,7 @@ CREATE TABLE `Properties` (
     `createdBy` INTEGER NOT NULL,
     `updatedBy` INTEGER NOT NULL,
 
+    UNIQUE INDEX `Properties_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -104,11 +108,12 @@ CREATE TABLE `Categories` (
     `createdBy` INTEGER NOT NULL,
     `updatedBy` INTEGER NOT NULL,
 
+    UNIQUE INDEX `Categories_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Saisons` (
+CREATE TABLE `Seasons` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -116,6 +121,7 @@ CREATE TABLE `Saisons` (
     `createdBy` INTEGER NOT NULL,
     `updatedBy` INTEGER NOT NULL,
 
+    UNIQUE INDEX `Seasons_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -128,6 +134,7 @@ CREATE TABLE `FoodForms` (
     `createdBy` INTEGER NOT NULL,
     `updatedBy` INTEGER NOT NULL,
 
+    UNIQUE INDEX `FoodForms_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -140,6 +147,7 @@ CREATE TABLE `Kitchens` (
     `createdBy` INTEGER NOT NULL,
     `updatedBy` INTEGER NOT NULL,
 
+    UNIQUE INDEX `Kitchens_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -148,21 +156,22 @@ CREATE TABLE `Ingredient` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
     `blsIdentifier` VARCHAR(50) NOT NULL,
-    `energyKcal` DECIMAL(10, 2) NOT NULL,
-    `energyKj` DECIMAL(10, 2) NOT NULL,
-    `breadUnits` DECIMAL(10, 2) NOT NULL,
-    `carbohydrates` DECIMAL(10, 2) NOT NULL,
-    `sugars` DECIMAL(10, 2) NOT NULL,
-    `salt` DECIMAL(10, 2) NOT NULL,
-    `fats` DECIMAL(10, 2) NOT NULL,
-    `saturatedFats` DECIMAL(10, 2) NOT NULL,
-    `unsaturatedFats` DECIMAL(10, 2) NOT NULL,
-    `protein` DECIMAL(10, 2) NOT NULL,
+    `energyKcal` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `energyKj` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `breadUnits` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `carbohydrates` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `sugars` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `salt` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `fats` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `saturatedFats` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `unsaturatedFats` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `protein` DECIMAL(10, 2) NOT NULL DEFAULT 0,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `createdBy` INTEGER NOT NULL,
     `updatedBy` INTEGER NOT NULL,
 
+    UNIQUE INDEX `Ingredient_blsIdentifier_key`(`blsIdentifier`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -397,12 +406,12 @@ CREATE TABLE `_IngredientProperties` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `_IngredientSaisons` (
+CREATE TABLE `_IngredientSeasons` (
     `A` INTEGER NOT NULL,
     `B` INTEGER NOT NULL,
 
-    UNIQUE INDEX `_IngredientSaisons_AB_unique`(`A`, `B`),
-    INDEX `_IngredientSaisons_B_index`(`B`)
+    UNIQUE INDEX `_IngredientSeasons_AB_unique`(`A`, `B`),
+    INDEX `_IngredientSeasons_B_index`(`B`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -415,12 +424,12 @@ CREATE TABLE `_IngredientKitchens` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `_RecipeSaisons` (
+CREATE TABLE `_RecipeSeasons` (
     `A` INTEGER NOT NULL,
     `B` INTEGER NOT NULL,
 
-    UNIQUE INDEX `_RecipeSaisons_AB_unique`(`A`, `B`),
-    INDEX `_RecipeSaisons_B_index`(`B`)
+    UNIQUE INDEX `_RecipeSeasons_AB_unique`(`A`, `B`),
+    INDEX `_RecipeSeasons_B_index`(`B`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -433,12 +442,12 @@ CREATE TABLE `_MealProperties` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `_MealSaisons` (
+CREATE TABLE `_MealSeasons` (
     `A` INTEGER NOT NULL,
     `B` INTEGER NOT NULL,
 
-    UNIQUE INDEX `_MealSaisons_AB_unique`(`A`, `B`),
-    INDEX `_MealSaisons_B_index`(`B`)
+    UNIQUE INDEX `_MealSeasons_AB_unique`(`A`, `B`),
+    INDEX `_MealSeasons_B_index`(`B`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
@@ -499,10 +508,10 @@ ALTER TABLE `Categories` ADD CONSTRAINT `Categories_createdBy_fkey` FOREIGN KEY 
 ALTER TABLE `Categories` ADD CONSTRAINT `Categories_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Saisons` ADD CONSTRAINT `Saisons_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Seasons` ADD CONSTRAINT `Seasons_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Saisons` ADD CONSTRAINT `Saisons_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Seasons` ADD CONSTRAINT `Seasons_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `FoodForms` ADD CONSTRAINT `FoodForms_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -685,10 +694,10 @@ ALTER TABLE `_IngredientProperties` ADD CONSTRAINT `_IngredientProperties_A_fkey
 ALTER TABLE `_IngredientProperties` ADD CONSTRAINT `_IngredientProperties_B_fkey` FOREIGN KEY (`B`) REFERENCES `Properties`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `_IngredientSaisons` ADD CONSTRAINT `_IngredientSaisons_A_fkey` FOREIGN KEY (`A`) REFERENCES `Ingredient`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `_IngredientSeasons` ADD CONSTRAINT `_IngredientSeasons_A_fkey` FOREIGN KEY (`A`) REFERENCES `Ingredient`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `_IngredientSaisons` ADD CONSTRAINT `_IngredientSaisons_B_fkey` FOREIGN KEY (`B`) REFERENCES `Saisons`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `_IngredientSeasons` ADD CONSTRAINT `_IngredientSeasons_B_fkey` FOREIGN KEY (`B`) REFERENCES `Seasons`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `_IngredientKitchens` ADD CONSTRAINT `_IngredientKitchens_A_fkey` FOREIGN KEY (`A`) REFERENCES `Ingredient`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -697,10 +706,10 @@ ALTER TABLE `_IngredientKitchens` ADD CONSTRAINT `_IngredientKitchens_A_fkey` FO
 ALTER TABLE `_IngredientKitchens` ADD CONSTRAINT `_IngredientKitchens_B_fkey` FOREIGN KEY (`B`) REFERENCES `Kitchens`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `_RecipeSaisons` ADD CONSTRAINT `_RecipeSaisons_A_fkey` FOREIGN KEY (`A`) REFERENCES `Recipe`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `_RecipeSeasons` ADD CONSTRAINT `_RecipeSeasons_A_fkey` FOREIGN KEY (`A`) REFERENCES `Recipe`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `_RecipeSaisons` ADD CONSTRAINT `_RecipeSaisons_B_fkey` FOREIGN KEY (`B`) REFERENCES `Saisons`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `_RecipeSeasons` ADD CONSTRAINT `_RecipeSeasons_B_fkey` FOREIGN KEY (`B`) REFERENCES `Seasons`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `_MealProperties` ADD CONSTRAINT `_MealProperties_A_fkey` FOREIGN KEY (`A`) REFERENCES `Meal`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -709,7 +718,7 @@ ALTER TABLE `_MealProperties` ADD CONSTRAINT `_MealProperties_A_fkey` FOREIGN KE
 ALTER TABLE `_MealProperties` ADD CONSTRAINT `_MealProperties_B_fkey` FOREIGN KEY (`B`) REFERENCES `Properties`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `_MealSaisons` ADD CONSTRAINT `_MealSaisons_A_fkey` FOREIGN KEY (`A`) REFERENCES `Meal`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `_MealSeasons` ADD CONSTRAINT `_MealSeasons_A_fkey` FOREIGN KEY (`A`) REFERENCES `Meal`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `_MealSaisons` ADD CONSTRAINT `_MealSaisons_B_fkey` FOREIGN KEY (`B`) REFERENCES `Saisons`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `_MealSeasons` ADD CONSTRAINT `_MealSeasons_B_fkey` FOREIGN KEY (`B`) REFERENCES `Seasons`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
