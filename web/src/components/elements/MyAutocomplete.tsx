@@ -13,7 +13,8 @@ interface MyAutocompleteProps {
   isClearable?: boolean;
   labelPlacement?: "outside" | "outside-left" | "inside";
   value: UniqueIdentifier;
-  onChange: (value: UniqueIdentifier) => void;
+  onSelectionChange?: (value: UniqueIdentifier) => void;
+  onInputChange?: (value: string) => void;
   items: { id: UniqueIdentifier | number; name: string }[];
 }
 
@@ -21,24 +22,19 @@ export const MyAutocomplete: React.FC<MyAutocompleteProps> = (props) => {
   return (
     <Autocomplete
       label={props.label}
-      value={props.value}
       className={props.className}
       labelPlacement={props.labelPlacement}
       name={props.label}
       size={props.size}
-      // defaultItems={props.items}
+      defaultItems={props.items}
       isClearable={props.isClearable}
-      selectedKey={props.value}
-      // defaultSelectedKey={props.value}
-      onSelectionChange={props.onChange}
+      selectedKey={`${props.value}`}
+      onSelectionChange={props.onSelectionChange} // key
+      onInputChange={props.onInputChange} // value
       id={props.id}
       aria-labelledby={props.id}
     >
-      {props.items.map((item) => (
-        <AutocompleteItem key={item.id} value={item.id}>
-          {item.name}
-        </AutocompleteItem>
-      ))}
+      {(item) => <AutocompleteItem key={item.id}>{item.name}</AutocompleteItem>}
     </Autocomplete>
   );
 };
