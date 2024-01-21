@@ -1,8 +1,8 @@
 version: "3.8"
 
 services:
-  meal-manager-web:
-    container_name: meal-manager-web
+  menu-meister-web:
+    container_name: menu-meister-web
     build:
       context: web/
       dockerfile: Dockerfile
@@ -15,12 +15,12 @@ services:
       - proxy
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.meal-manager-web.rule=Host(`meal-manager.coding.global`)'
-      - 'traefik.http.routers.meal-manager-web.entrypoints=websecure'
-      - 'traefik.http.routers.meal-manager-web.tls.certresolver=letsencrypt'
-      - 'traefik.http.services.meal-manager-web.loadbalancer.server.port=3000'
-  meal-manager-server:
-    container_name: meal-manager-server
+      - 'traefik.http.routers.menu-meister-web.rule=Host(`menu-meister.coding.global`)'
+      - 'traefik.http.routers.menu-meister-web.entrypoints=websecure'
+      - 'traefik.http.routers.menu-meister-web.tls.certresolver=letsencrypt'
+      - 'traefik.http.services.menu-meister-web.loadbalancer.server.port=3000'
+  menu-meister-server:
+    container_name: menu-meister-server
     build:
       context: server/
       dockerfile: Dockerfile
@@ -32,17 +32,17 @@ services:
       - PORT=${PORT}
       - CORS_ORIGIN=${CORS_ORIGIN}
     depends_on:
-      - meal-manager-db
+      - menu-meister-db
     networks:
       - proxy
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.meal-manager-server.rule=Host(`meal-manager.coding.global`) && PathPrefix(`/graphql`)'
-      - 'traefik.http.routers.meal-manager-server.entrypoints=websecure'
-      - 'traefik.http.routers.meal-manager-server.tls.certresolver=letsencrypt'
-      - 'traefik.http.services.meal-manager-server.loadbalancer.server.port=4000'
-  meal-manager-db:
-    container_name: meal-manager-db
+      - 'traefik.http.routers.menu-meister-server.rule=Host(`menu-meister.coding.global`) && PathPrefix(`/graphql`)'
+      - 'traefik.http.routers.menu-meister-server.entrypoints=websecure'
+      - 'traefik.http.routers.menu-meister-server.tls.certresolver=letsencrypt'
+      - 'traefik.http.services.menu-meister-server.loadbalancer.server.port=4000'
+  menu-meister-db:
+    container_name: menu-meister-db
     image: mysql:latest
     restart: always
     environment:

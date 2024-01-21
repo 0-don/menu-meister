@@ -28,7 +28,7 @@ jobs:
           echo NEXT_PUBLIC_BRAND_NAME=${{ secrets.NEXT_PUBLIC_BRAND_NAME }} >> .env
 
       - name: Reset DB
-        run: docker stop meal-manager-db || true && docker rm meal-manager-db || true
+        run: docker stop menu-meister-db || true && docker rm menu-meister-db || true
 
       - name: Docker run
         run: docker compose up -d --force-recreate --build
