@@ -1,4 +1,3 @@
-import NextIntlProvider from "@/components/NextIntlProvider";
 import { ME } from "@/documents/query/auth";
 import { MeQuery, UserRoleName } from "@/gql/graphql";
 import { getKey } from "@/utils/helpers/clientUtils";
@@ -22,5 +21,5 @@ export default async function DashboardLayout({
   )
     redirect("/");
 
-  return <NextIntlProvider tree={"Dashboard"}>{children}</NextIntlProvider>;
+  return <>{children}</>;
 }

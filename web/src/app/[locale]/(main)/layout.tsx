@@ -1,3 +1,4 @@
+import NextIntlProvider from "@/components/NextIntlProvider";
 import { ME } from "@/documents/query/auth";
 import { GET_ALL_MEAL_BOARD_PLANS_USER } from "@/documents/query/dashboard";
 import { prefetchQuery } from "@/utils/helpers/serverComponentsUtil";
@@ -18,11 +19,13 @@ export default async function HomeLayout({
   ]);
 
   return (
-    <HydrationBoundary state={state}>
-      <div className="relative flex min-h-[calc(100svh-4rem)] flex-col items-center px-6">
-        {children}
-        {mealModal}
-      </div>
-    </HydrationBoundary>
+    <NextIntlProvider tree={"Dashboard"}>
+      <HydrationBoundary state={state}>
+        <div className="relative flex min-h-[calc(100svh-4rem)] flex-col items-center px-6">
+          {children}
+          {mealModal}
+        </div>
+      </HydrationBoundary>
+    </NextIntlProvider>
   );
 }

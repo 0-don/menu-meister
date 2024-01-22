@@ -1,13 +1,12 @@
-
 import { MainTable } from "@/components/MainTable";
-import { DashboardPagination } from "@/components/pages/dashboard/utils/DashboardPagination";
+import { MenuPagination } from "@/components/pages/dashboard/utils/MenuPagination";
 
 interface DashboardPageProps {}
 
 export default function DashboardPage({}: DashboardPageProps) {
   return (
     <>
-      <DashboardPagination />
+      <MenuPagination />
       <MainTable />
     </>
   );

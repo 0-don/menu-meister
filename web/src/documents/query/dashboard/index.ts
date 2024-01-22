@@ -24,8 +24,8 @@ export const GET_ALL_MEAL_BOARD_PLANS_USER = graphql(/* GraphQL */ `
   }
 `);
 
-export const GET_ALL_WEEKLY_MEAL_GROUPS_ADMIN = graphql(/* GraphQL */ `
-  query GetAllWeeklyMealGroupsAdmin(
+export const GET_ALL_WEEKLY_MEAL_GROUPS_USER = graphql(/* GraphQL */ `
+  query GetAllWeeklyMealGroupsUser(
     $where: WeeklyMealGroupWhereInput
     $orderBy: [WeeklyMealGroupOrderByWithRelationInput!]
     $cursor: WeeklyMealGroupWhereUniqueInput
@@ -33,7 +33,7 @@ export const GET_ALL_WEEKLY_MEAL_GROUPS_ADMIN = graphql(/* GraphQL */ `
     $skip: Int
     $distinct: [WeeklyMealGroupScalarFieldEnum!]
   ) {
-    getAllWeeklyMealGroupsAdmin(
+    getAllWeeklyMealGroupsUser(
       where: $where
       orderBy: $orderBy
       cursor: $cursor

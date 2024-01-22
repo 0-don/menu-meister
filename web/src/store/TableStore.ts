@@ -2,7 +2,7 @@
 
 import {
   GetAllMealsAdminQuery,
-  GetAllWeeklyMealGroupsAdminQuery,
+  GetAllWeeklyMealGroupsUserQuery,
   Meal,
   WeeklyMealGroupFragmentFragment,
 } from "@/gql/graphql";
@@ -29,7 +29,7 @@ const TableStore = proxy({
 
   refetchWeeklyMealGroups: (() => {}) as (
     options?: RefetchOptions | undefined,
-  ) => Promise<QueryObserverResult<GetAllWeeklyMealGroupsAdminQuery, unknown>>,
+  ) => Promise<QueryObserverResult<GetAllWeeklyMealGroupsUserQuery, unknown>>,
   refetchMeals: (() => {}) as (
     options?: RefetchOptions | undefined,
   ) => Promise<QueryObserverResult<GetAllMealsAdminQuery, unknown>>,

@@ -11,7 +11,7 @@ import { useTranslations } from "next-intl";
 import React, { useRef } from "react";
 import { useSnapshot } from "valtio";
 
-export const DashboardPagination: React.FC = () => {
+export const MenuPagination: React.FC = () => {
   const dateRef = useRef<HTMLInputElement>(null);
   const t = useTranslations<"Dashboard">();
   const { calendar, weeksThatYear, daysThatWeek } = useSnapshot(DashboardStore);

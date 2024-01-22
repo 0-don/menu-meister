@@ -2,7 +2,7 @@
 
 import {
   GET_ALL_MEALS_ADMIN,
-  GET_ALL_WEEKLY_MEAL_GROUPS_ADMIN,
+  GET_ALL_WEEKLY_MEAL_GROUPS_USER,
 } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
 import { WeeklyMealGroupFragmentFragment } from "@/gql/graphql";
@@ -21,9 +21,9 @@ export function MainTable({}: DashboardPageProps) {
   const dashboardStore = useSnapshot(DashboardStore);
 
   const {
-    data: { getAllWeeklyMealGroupsAdmin } = {},
+    data: { getAllWeeklyMealGroupsUser } = {},
     refetch: refetchWeeklyMealGroups,
-  } = useGqlQuery(GET_ALL_WEEKLY_MEAL_GROUPS_ADMIN, {
+  } = useGqlQuery(GET_ALL_WEEKLY_MEAL_GROUPS_USER, {
     where: {
       mealBoardPlanId: { equals: dashboardStore.activeMealBoardPlan?.id },
       year: { equals: dashboardStore.calendar.year },
@@ -36,9 +36,9 @@ export function MainTable({}: DashboardPageProps) {
 
   useEffect(() => {
     TableStore.data =
-      getAllWeeklyMealGroupsAdmin as WeeklyMealGroupFragmentFragment[];
+      getAllWeeklyMealGroupsUser as WeeklyMealGroupFragmentFragment[];
     TableStore.refetchWeeklyMealGroups = refetchWeeklyMealGroups;
-  }, [getAllWeeklyMealGroupsAdmin, dashboardStore.activeMealBoardPlan]);
+  }, [getAllWeeklyMealGroupsUser, dashboardStore.activeMealBoardPlan]);
 
   useEffect(() => {
     TableStore.meals = getAllMealsAdmin;
