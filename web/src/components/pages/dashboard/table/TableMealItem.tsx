@@ -1,4 +1,5 @@
 import { MyConfirmModal } from "@/components/elements/MyConfirmModal";
+import { useMeHook } from "@/components/hooks/useMeHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { Meal } from "@/gql/graphql";
 import TableStore from "@/store/TableStore";
@@ -27,6 +28,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
   group,
   isOver,
 }) => {
+  const { isHighRank } = useMeHook();
   const t = useTranslations<"Dashboard">();
   const groupItem = TableStore.getGroup(group);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -37,6 +39,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
     useDraggable({
       id: `${group}#${day}#${meal.id}`,
       data: { day, group, meal },
+      disabled: !isHighRank,
     });
 
   const isActive = tableStore.active?.id === id;
@@ -54,70 +57,77 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
         role="item"
       >
         <div className="flex items-center justify-between">
-          <Link href={`/meal/${meal.id}`} color="foreground" size="sm">
+          <Link
+            href={`/meal/${meal.id}`}
+            color="foreground"
+            size="sm"
+            isDisabled={!isHighRank}
+          >
             {meal.name}
           </Link>
-          <MyConfirmModal
-            title={t("WARNING")}
-            isOpen={isOpen}
-            onOpen={onOpen}
-            onOpenChange={onOpenChange}
-            Footer={
-              <Button
-                color="danger"
-                onClick={() => {
-                  try {
-                    updateWeeklyMealGroup({
-                      where: { id: Number(group) },
-                      data: {
-                        [`${day}MealId`]: { set: null },
-                      },
-                    });
+          {isHighRank && (
+            <MyConfirmModal
+              title={t("WARNING")}
+              isOpen={isOpen}
+              onOpen={onOpen}
+              onOpenChange={onOpenChange}
+              Footer={
+                <Button
+                  color="danger"
+                  onClick={() => {
+                    try {
+                      updateWeeklyMealGroup({
+                        where: { id: Number(group) },
+                        data: {
+                          [`${day}MealId`]: { set: null },
+                        },
+                      });
 
-                    TableStore.data = TableStore.data.map((g) =>
-                      g.id === Number(group)
-                        ? { ...g, [`${day}Meal`]: null }
-                        : g,
-                    );
+                      TableStore.data = TableStore.data.map((g) =>
+                        g.id === Number(group)
+                          ? { ...g, [`${day}Meal`]: null }
+                          : g,
+                      );
 
-                    onOpenChange();
-                  } catch (error) {
-                    catchErrorAlerts(error, t);
-                  }
-                }}
-              >
-                {t("YES")}
-              </Button>
-            }
-            Trigger={
-              <FaEraser
-                onClick={onOpen}
-                title={t("DELETE_MEAL")}
-                className="invisible cursor-pointer hover:text-red-500 group-hover:visible"
-              />
-            }
-          >
-            <p>
-              {t?.rich("ARE_YOU_SURE_DELETE_MEAL", {
-                mealName: meal.name,
-                groupName: groupItem?.name,
-                meal: (chunks) => <span className="font-bold">{chunks}</span>,
-                group: (chunks) => (
-                  <span
-                    className="font-bold"
-                    style={{ color: groupItem?.color || undefined }}
-                  >
-                    {chunks}
-                  </span>
-                ),
-              })}
-            </p>
-          </MyConfirmModal>
+                      onOpenChange();
+                    } catch (error) {
+                      catchErrorAlerts(error, t);
+                    }
+                  }}
+                >
+                  {t("YES")}
+                </Button>
+              }
+              Trigger={
+                <FaEraser
+                  onClick={onOpen}
+                  title={t("DELETE_MEAL")}
+                  className="invisible cursor-pointer hover:text-red-500 group-hover:visible"
+                />
+              }
+            >
+              <p>
+                {t?.rich("ARE_YOU_SURE_DELETE_MEAL", {
+                  mealName: meal.name,
+                  groupName: groupItem?.name,
+                  meal: (chunks) => <span className="font-bold">{chunks}</span>,
+                  group: (chunks) => (
+                    <span
+                      className="font-bold"
+                      style={{ color: groupItem?.color || undefined }}
+                    >
+                      {chunks}
+                    </span>
+                  ),
+                })}
+              </p>
+            </MyConfirmModal>
+          )}
         </div>
 
         <Image
           alt={t("MEAL")}
-          className="h-24 w-full cursor-grab rounded-xl object-cover"
+          className={`h-24 w-full rounded-xl object-cover ${isHighRank ? "cursor-grab" : ""}`}
           ref={setActivatorNodeRef}
           {...listeners}
           src={
