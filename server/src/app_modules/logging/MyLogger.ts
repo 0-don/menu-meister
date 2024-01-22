@@ -1,5 +1,6 @@
 import { ConsoleLogger } from "@nestjs/common";
 import ErrorStackParser from "error-stack-parser";
+
 export class MyLogger extends ConsoleLogger {
   PROD: boolean = process.env.NODE_ENV === "production";
   error(message: string, trace: string | Error) {
