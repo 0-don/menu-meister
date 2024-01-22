@@ -8,6 +8,7 @@ import TableStore from "@/store/TableStore";
 import { useInitialDashboardStore } from "@/store/hooks/useInitialDashboardStore";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
+import { useMeHook } from "./hooks/useMeHook";
 import { AddNewTableRow } from "./pages/dashboard/table/AddNewTableRow";
 import { TableContext } from "./pages/dashboard/table/TableContext";
 
@@ -15,6 +16,7 @@ interface DashboardPageProps {}
 
 export function MainTable({}: DashboardPageProps) {
   useInitialDashboardStore();
+  const { isHighRank } = useMeHook();
   const dashboardStore = useSnapshot(DashboardStore);
 
   const {
@@ -45,7 +47,7 @@ export function MainTable({}: DashboardPageProps) {
   return (
     <>
       <TableContext />
-      <AddNewTableRow />
+      {isHighRank && <AddNewTableRow />}
     </>
   );
 }

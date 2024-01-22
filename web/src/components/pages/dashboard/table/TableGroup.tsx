@@ -1,4 +1,5 @@
 import { MyConfirmModal } from "@/components/elements/MyConfirmModal";
+import { useMeHook } from "@/components/hooks/useMeHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import TableStore from "@/store/TableStore";
 import { debounce } from "@/utils/constants";
@@ -22,6 +23,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
   listeners,
   activatorRef,
 }) => {
+  const { isHighRank } = useMeHook();
   const t = useTranslations<"Dashboard">();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { updateWeeklyMealGroup, deleteWeeklyMealgRoup } =
@@ -47,7 +49,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
       <div className="flex space-x-2">
         <label
           id={`${group.id}-color`}
-          className="h-full w-1.5 cursor-pointer rounded-lg"
+          className={`h-full w-1.5 rounded-lg ${isHighRank ? "cursor-pointer " : ""}`}
           style={{ backgroundColor: color }}
         >
           <input
@@ -81,42 +83,44 @@ export const TableGroup: React.FC<TableGroupProps> = ({
               {...listeners}
               ref={activatorRef}
             />
-            <MyConfirmModal
-              title={t("WARNING")}
-              isOpen={isOpen}
-              onOpen={onOpen}
-              onOpenChange={onOpenChange}
-              Footer={
-                <div className="flex items-center justify-between">
-                  <Button
-                    color="danger"
-                    onClick={async () => {
-                      try {
-                        await deleteWeeklyMealgRoup({
-                          where: { id: group.id },
-                        });
-                        TableStore.data = TableStore.data.filter(
-                          (g) => g.id !== group.id,
-                        );
-                        onOpen();
-                      } catch (error) {
-                        catchErrorAlerts(error, t);
-                      }
-                    }}
-                  >
-                    {t("YES")}
-                  </Button>
-                </div>
-              }
-              Trigger={
-                <FaRegTrashAlt
-                  onClick={() => onOpen()}
-                  className="m-2 cursor-pointer hover:text-red-600"
-                />
-              }
-            >
-              {t("ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_GROUP")}
-            </MyConfirmModal>
+            {isHighRank && (
+              <MyConfirmModal
+                title={t("WARNING")}
+                isOpen={isOpen}
+                onOpen={onOpen}
+                onOpenChange={onOpenChange}
+                Footer={
+                  <div className="flex items-center justify-between">
+                    <Button
+                      color="danger"
+                      onClick={async () => {
+                        try {
+                          await deleteWeeklyMealgRoup({
+                            where: { id: group.id },
+                          });
+                          TableStore.data = TableStore.data.filter(
+                            (g) => g.id !== group.id,
+                          );
+                          onOpen();
+                        } catch (error) {
+                          catchErrorAlerts(error, t);
+                        }
+                      }}
+                    >
+                      {t("YES")}
+                    </Button>
+                  </div>
+                }
+                Trigger={
+                  <FaRegTrashAlt
+                    onClick={() => onOpen()}
+                    className="m-2 cursor-pointer hover:text-red-600"
+                  />
+                }
+              >
+                {t("ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_GROUP")}
+              </MyConfirmModal>
+            )}
           </div>
         </div>
       </div>

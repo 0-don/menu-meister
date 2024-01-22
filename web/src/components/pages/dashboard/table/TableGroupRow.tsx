@@ -1,3 +1,4 @@
+import { useMeHook } from "@/components/hooks/useMeHook";
 import TableStore from "@/store/TableStore";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
@@ -12,6 +13,7 @@ interface TableGroupRowProps {
 }
 
 export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
+  const { isHighRank } = useMeHook();
   const tableStore = useSnapshot(TableStore);
   const group = tableStore.getGroup(id)!;
 
@@ -23,7 +25,7 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
     transition,
     setActivatorNodeRef,
     isDragging,
-  } = useSortable({ id });
+  } = useSortable({ id, disabled: !isHighRank });
 
   if (!group) return null;
 
