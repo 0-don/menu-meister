@@ -1,3 +1,4 @@
+import { useMeHook } from "@/components/hooks/useMeHook";
 import { useMealHook } from "@/components/hooks/useMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import TableStore from "@/store/TableStore";
@@ -19,6 +20,7 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
   const t = useTranslations<"Dashboard">();
   const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
   const [value, setValue] = useState<UniqueIdentifier>("");
+  const { isHighRank } = useMeHook();
   const { meals } = useMealHook();
   const { data, getGroupMeal, refetchWeeklyMealGroups } =
     useSnapshot(TableStore);
@@ -39,26 +41,28 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
           className="flex h-full flex-col justify-start space-y-2 rounded-lg bg-default-100 p-2"
           style={{ opacity: isOver ? 0.5 : 1 }}
         >
-          <MyAutocomplete
-            id={id}
-            size="sm"
-            label={t("SELECT_MEAL")}
-            isClearable={false}
-            items={meals || []}
-            value={value}
-            onSelectionChange={async (key) => {
-              try {
-                await updateWeeklyMealGroup({
-                  where: { id: Number(group) },
-                  data: { [`${day}MealId`]: { set: Number(key) } },
-                });
-                refetchWeeklyMealGroups();
-                setValue("");
-              } catch (error) {
-                catchErrorAlerts(error, t);
-              }
-            }}
-          />
+          {isHighRank && (
+            <MyAutocomplete
+              id={id}
+              size="sm"
+              label={t("SELECT_MEAL")}
+              isClearable={false}
+              items={meals || []}
+              value={value}
+              onSelectionChange={async (key) => {
+                try {
+                  await updateWeeklyMealGroup({
+                    where: { id: Number(group) },
+                    data: { [`${day}MealId`]: { set: Number(key) } },
+                  });
+                  refetchWeeklyMealGroups();
+                  setValue("");
+                } catch (error) {
+                  catchErrorAlerts(error, t);
+                }
+              }}
+            />
+          )}
         </div>
       )}
     </div>

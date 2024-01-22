@@ -20,13 +20,21 @@ export function MainTable({}: DashboardPageProps) {
   const {
     data: { getAllWeeklyMealGroupsUser } = {},
     refetch: refetchWeeklyMealGroups,
-  } = useGqlQuery(GET_ALL_WEEKLY_MEAL_GROUPS_USER, {
-    where: {
-      mealBoardPlanId: { equals: dashboardStore.activeMealBoardPlan?.id },
-      year: { equals: dashboardStore.calendar.year },
-      weekOfYear: { equals: dashboardStore.calendar.week },
+  } = useGqlQuery(
+    GET_ALL_WEEKLY_MEAL_GROUPS_USER,
+    {
+      where: {
+        mealBoardPlanId: { equals: dashboardStore.activeMealBoardPlan?.id },
+        year: { equals: dashboardStore.calendar.year },
+        weekOfYear: { equals: dashboardStore.calendar.week },
+      },
     },
-  });
+    { enabled: false },
+  );
+
+  useEffect(() => {
+    if (dashboardStore.activeMealBoardPlan?.id) refetchWeeklyMealGroups();
+  }, [dashboardStore.activeMealBoardPlan, dashboardStore.calendar]);
 
   useEffect(() => {
     TableStore.data =
