@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  GetAllMealsUserQuery,
   GetAllWeeklyMealGroupsUserQuery,
   Meal,
   WeeklyMealGroupFragmentFragment,
@@ -14,12 +13,8 @@ import { proxy } from "valtio";
 const TableStore = proxy({
   active: undefined as Active | undefined,
   data: [] as WeeklyMealGroupFragmentFragment[],
-  meals: [] as GetAllMealsUserQuery["getAllMealsUser"],
   get dataSorted() {
     return (TableStore.data || []).sort((a, b) => a.orderIndex - b.orderIndex);
-  },
-  get mealsSorted() {
-    return (TableStore.meals || []).sort((a, b) => Number(a.id) - Number(b.id));
   },
   getGroup: (id: UniqueIdentifier) =>
     TableStore.data?.find((group) => group.id === id),

@@ -1,3 +1,4 @@
+import { useMealHook } from "@/components/hooks/useMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import TableStore from "@/store/TableStore";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
@@ -18,7 +19,8 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
   const t = useTranslations<"Dashboard">();
   const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
   const [value, setValue] = useState<UniqueIdentifier>("");
-  const { data, getGroupMeal, mealsSorted, refetchWeeklyMealGroups } =
+  const { meals } = useMealHook();
+  const { data, getGroupMeal, refetchWeeklyMealGroups } =
     useSnapshot(TableStore);
   const id = `${group}#${day}`;
   const { setNodeRef, isOver } = useDroppable({
@@ -42,7 +44,7 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
             size="sm"
             label={t("SELECT_MEAL")}
             isClearable={false}
-            items={mealsSorted}
+            items={meals || []}
             value={value}
             onSelectionChange={async (key) => {
               try {

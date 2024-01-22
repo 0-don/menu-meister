@@ -1,3 +1,4 @@
+import { useMealHook } from "@/components/hooks/useMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { WeeklyMealGroupFragmentFragment } from "@/gql/graphql";
 import DashboardStore from "@/store/DashboardStore";
@@ -15,6 +16,7 @@ interface AddNewTableRowProps {}
 
 export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
   const t = useTranslations<"Dashboard">();
+  const { meals } = useMealHook();
   const { createWeeklyMealGroup } = useWeeklyMealGroupHook();
   const dashboardStore = useSnapshot(DashboardStore);
   const tableStore = useSnapshot(TableStore);
@@ -33,7 +35,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
           mealBoardPlan: { connect: { id: 1 } },
           name,
           color,
-          orderIndex: tableStore.mealsSorted.length,
+          orderIndex: (meals || []).length,
           weekOfYear: dashboardStore.calendar.week,
           year: dashboardStore.calendar.year,
         },
