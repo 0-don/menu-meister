@@ -16,7 +16,7 @@ export class WeeklyMealGroupUseresolver {
   ) {}
 
   @Query(() => [WeeklyMealGroup], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("USER", "MOD")
   async getAllWeeklyMealGroupsUser(
     @Args() args: FindManyWeeklyMealGroupArgs,
     @Info() info: GraphQLResolveInfo,
