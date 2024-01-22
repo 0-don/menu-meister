@@ -13,6 +13,7 @@ import { MealBoardPlanModule } from "./meal-board-plan/meal-board-plan.module";
 import { MealModule } from "./meal/meal.module";
 import { RecipeModule } from "./recipe/recipe.module";
 import { SettingsModule } from "./settings/settings.module";
+import { UserMealModule } from "./user-meal/user-meal.module";
 import { UserModule } from "./user/user.module";
 import { WeeklyMealGroupModule } from "./weekly-meal-group/weekly-meal-group.module";
 
@@ -30,6 +31,7 @@ import { WeeklyMealGroupModule } from "./weekly-meal-group/weekly-meal-group.mod
     WeeklyMealGroupModule,
     SettingsModule,
     RecipeModule,
+    UserMealModule,
   ],
   controllers: [],
   providers: [
