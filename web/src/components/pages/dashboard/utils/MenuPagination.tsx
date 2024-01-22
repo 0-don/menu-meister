@@ -1,6 +1,6 @@
 "use client";
 
-import DashboardStore from "@/store/DashboardStore";
+import { DashboardStore } from "@/store/DashboardStore";
 import { Button } from "@nextui-org/button";
 import { Pagination } from "@nextui-org/pagination";
 import { Link } from "@nextui-org/react";

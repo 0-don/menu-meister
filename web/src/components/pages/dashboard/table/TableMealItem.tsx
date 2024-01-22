@@ -37,7 +37,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
   const id = `${group}#${day}#${meal.id}`;
   const { attributes, listeners, setNodeRef, transform, setActivatorNodeRef } =
     useDraggable({
-      id: `${group}#${day}#${meal.id}`,
+      id,
       data: { day, group, meal },
       disabled: !isHighRank,
     });

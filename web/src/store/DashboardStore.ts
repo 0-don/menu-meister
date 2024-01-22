@@ -8,7 +8,6 @@ import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear";
 import utc from "dayjs/plugin/utc";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import { proxy } from "valtio";
-import { watch } from "valtio/utils";
 
 dayjs.extend(utc);
 dayjs.extend(weekOfYear);
@@ -19,7 +18,7 @@ dayjs.Ls["en"].weekStart = 1;
 
 export const DASHBOARD_STORE_KEY = "DashboardStore";
 
-const DashboardStore = proxy({
+export const DashboardStore = proxy({
   activeMealBoardPlan: undefined as
     | NonNullable<GetAllMealBoardPlansUserQuery["getAllMealBoardPlansUser"]>[0]
     | undefined,
@@ -58,15 +57,3 @@ const DashboardStore = proxy({
     }
   },
 });
-
-watch((get) => {
-  const { year, week } = get(DashboardStore.calendar);
-  const startOfWeek = dayjs().year(year).isoWeek(week).startOf("week");
-
-  DashboardStore.daysThatWeek = Array.from({ length: 7 }, (_, i) =>
-    startOfWeek.add(i, "day").format("YYYY-MM-DD"),
-  );
-  DashboardStore.weeksThatYear = dayjs().year(year).isoWeeksInYear();
-});
-
-export default DashboardStore;

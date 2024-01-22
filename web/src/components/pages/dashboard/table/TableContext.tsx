@@ -1,7 +1,7 @@
 import { MyAutocomplete } from "@/components/elements/MyAutocomplete";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { Meal } from "@/gql/graphql";
-import DashboardStore from "@/store/DashboardStore";
+import { DashboardStore } from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
 import { WEEK_DAYS } from "@/utils/constants";
 import { DayMeals } from "@/utils/types";
@@ -21,8 +21,7 @@ export function TableContext() {
   const { updateWeeklyMealGroup, switchWeeklyMealGroup } =
     useWeeklyMealGroupHook();
   const t = useTranslations<"Dashboard">();
-  const { daysThatWeek, mealBoardPlans, activeMealBoardPlan } =
-    useSnapshot(DashboardStore);
+  const dashboardStore = useSnapshot(DashboardStore);
   const { dataSorted } = useSnapshot(TableStore);
 
   const renderDayColumn = (dayKey: string, index: number) => {
@@ -40,7 +39,7 @@ export function TableContext() {
     return WEEK_DAYS.map((day, index) =>
       renderDayColumn(day.toUpperCase(), index),
     );
-  }, [daysThatWeek]);
+  }, [dashboardStore.daysThatWeek]);
 
   return (
     <main className="relative z-0 mt-5 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small">
@@ -51,13 +50,17 @@ export function TableContext() {
           size="sm"
           label={t("MEAL_BOARD_PLAN")}
           labelPlacement="inside"
-          value={activeMealBoardPlan?.id || 1}
+          value={dashboardStore.activeMealBoardPlan?.id || 1}
           onSelectionChange={(id) => {
-            DashboardStore.activeMealBoardPlan = mealBoardPlans?.find(
-              (plan) => plan.id === Number(id),
-            );
+            DashboardStore.activeMealBoardPlan =
+              dashboardStore.mealBoardPlans?.find(
+                (plan) => plan.id === Number(id),
+              );
           }}
-          items={(mealBoardPlans || [])?.map(({ id, name }) => ({ id, name }))}
+          items={(dashboardStore.mealBoardPlans || [])?.map(({ id, name }) => ({
+            id,
+            name,
+          }))}
         />
         {dayColumns}
       </div>
