@@ -1,21 +1,11 @@
 import { useMealBoardPlanHook } from "@/components/hooks/useMealBoardPlanHook";
-import dayjs from "dayjs";
-import isLeapYear from "dayjs/plugin/isLeapYear";
-import isoWeek from "dayjs/plugin/isoWeek";
-import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear";
-import utc from "dayjs/plugin/utc";
-import weekOfYear from "dayjs/plugin/weekOfYear";
 import { useEffect } from "react";
 import { subscribe } from "valtio";
-import { watch } from "valtio/utils";
-import { DASHBOARD_STORE_KEY, DashboardStore } from "../DashboardStore";
-
-dayjs.extend(utc);
-dayjs.extend(weekOfYear);
-dayjs.extend(isoWeek);
-dayjs.extend(isoWeeksInYear);
-dayjs.extend(isLeapYear);
-dayjs.Ls["en"].weekStart = 1;
+import {
+  DASHBOARD_STORE_KEY,
+  DashboardStore,
+  dashboardWatch,
+} from "../DashboardStore";
 
 export const useInitialDashboardStore = () => {
   const { mealBoardPlans } = useMealBoardPlanHook();
@@ -34,15 +24,7 @@ export const useInitialDashboardStore = () => {
   }, []);
 
   useEffect(() => {
-    return watch((get) => {
-      const { year, week } = get(DashboardStore.calendar);
-      const startOfWeek = dayjs().year(year).isoWeek(week).startOf("week");
-
-      DashboardStore.daysThatWeek = Array.from({ length: 7 }, (_, i) =>
-        startOfWeek.add(i, "day").format("YYYY-MM-DD"),
-      );
-      DashboardStore.weeksThatYear = dayjs().year(year).isoWeeksInYear();
-    });
+    return dashboardWatch();
   }, []);
 
   useEffect(() => {
