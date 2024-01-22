@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  GetAllMealsAdminQuery,
+  GetAllMealsUserQuery,
   GetAllWeeklyMealGroupsUserQuery,
   Meal,
   WeeklyMealGroupFragmentFragment,
@@ -14,7 +14,7 @@ import { proxy } from "valtio";
 const TableStore = proxy({
   active: undefined as Active | undefined,
   data: [] as WeeklyMealGroupFragmentFragment[],
-  meals: [] as GetAllMealsAdminQuery["getAllMealsAdmin"],
+  meals: [] as GetAllMealsUserQuery["getAllMealsUser"],
   get dataSorted() {
     return (TableStore.data || []).sort((a, b) => a.orderIndex - b.orderIndex);
   },
@@ -30,9 +30,6 @@ const TableStore = proxy({
   refetchWeeklyMealGroups: (() => {}) as (
     options?: RefetchOptions | undefined,
   ) => Promise<QueryObserverResult<GetAllWeeklyMealGroupsUserQuery, unknown>>,
-  refetchMeals: (() => {}) as (
-    options?: RefetchOptions | undefined,
-  ) => Promise<QueryObserverResult<GetAllMealsAdminQuery, unknown>>,
 });
 
 export default TableStore;
