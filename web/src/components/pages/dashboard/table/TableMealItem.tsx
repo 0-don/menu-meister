@@ -30,7 +30,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
   const t = useTranslations<"Dashboard">();
   const { userMeals, createUserMeal, deleteUserMeal, refetchUserMeals } =
     useUserMealHook();
-  const dashboard = useSnapshot(DashboardStore);
+  const dashboardStore = useSnapshot(DashboardStore);
   const { isHighRank, isOrderMenu, me } = useMeHook();
   const groupItem = TableStore.getGroup(props.group);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -45,13 +45,12 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
     });
 
   const isActive = tableStore.active?.id === id;
-
   const isSelectedMeal = userMeals?.find(
     (m) =>
       m.mealId === props.meal.id &&
       dayjs(m.date).format("DD/MM/YYYY") ===
         dayjs(props.date).format("DD/MM/YYYY") &&
-      m.mealBoardPlanId === dashboard.activeMealBoardPlan?.id,
+      m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id,
   );
 
   return (
@@ -64,7 +63,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
         className={classNames(
           isActive && "relative z-50",
           (!isHighRank || isOrderMenu) && "cursor-pointer",
-          isSelectedMeal && "bg-white p-5",
+          isSelectedMeal && "border border-primary",
           "group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2",
         )}
         ref={setNodeRef}
@@ -73,10 +72,13 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
             try {
               await createUserMeal({
                 data: {
-                  mealBoardPlanId: Number(dashboard.activeMealBoardPlan?.id),
+                  mealBoardPlanId: Number(
+                    dashboardStore.activeMealBoardPlan?.id,
+                  ),
+                  weeklyMealGroupId: Number(props.group),
                   userId: Number(me?.id),
                   mealId: props.meal.id,
-                  date: dayjs(props.date).toISOString(),
+                  date: dayjs(props.date).add(1, "day").toISOString(),
                 },
               });
               refetchUserMeals();

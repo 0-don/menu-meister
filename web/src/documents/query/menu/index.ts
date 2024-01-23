@@ -21,7 +21,8 @@ export const GET_ALL_USER_MEALS_USER = graphql(/* GraphQL */ `
       date
       mealId
       mealBoardPlanId
-      Meal {
+      weeklyMealGroupId
+      meal {
         id
         name
       }
