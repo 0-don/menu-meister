@@ -4,6 +4,9 @@ import {
   GET_ALL_MEALS_USER,
   GET_ALL_MEAL_BOARD_PLANS_USER,
 } from "@/documents/query/dashboard";
+import { MeQuery } from "@/gql/graphql";
+import { redirect } from "@/navigation";
+import { getKey } from "@/utils/helpers/clientUtils";
 import { prefetchQuery } from "@/utils/helpers/serverComponentsUtil";
 import { HydrationBoundary } from "@tanstack/react-query";
 
@@ -16,11 +19,14 @@ export default async function HomeLayout({
   children,
   mealModal,
 }: HomeLayoutProps) {
-  const { state } = await prefetchQuery([
+  const { state, queryClient } = await prefetchQuery([
     { document: ME },
     { document: GET_ALL_MEAL_BOARD_PLANS_USER },
     { document: GET_ALL_MEALS_USER },
   ]);
+  const data = queryClient.getQueryData<MeQuery>(getKey(ME));
+
+  if (!data?.me) redirect("/login");
 
   return (
     <NextIntlProvider tree={"Dashboard"}>
