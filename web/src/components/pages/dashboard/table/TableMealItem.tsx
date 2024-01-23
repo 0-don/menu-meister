@@ -45,6 +45,10 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
 
   const isActive = tableStore.active?.id === id;
 
+  const isSelectedMeal = userMeals?.find(
+    (m) => m.mealId === props.meal.id && m.date === props.date,
+  );
+
   return (
     <>
       <div

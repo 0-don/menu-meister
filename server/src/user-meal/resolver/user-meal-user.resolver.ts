@@ -61,8 +61,9 @@ export class UserMealUserResolver {
   ) {
     const select = new PrismaSelect(info).value;
     try {
-      return await this.prisma.userMeal.create({ ...data, ...select });
+      return await this.prisma.userMeal.create({ data, ...select });
     } catch (e) {
+      console.log(e);
       Logger.error(e);
       return null;
     }

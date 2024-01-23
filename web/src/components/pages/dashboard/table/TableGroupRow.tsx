@@ -47,13 +47,13 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
         listeners={listeners}
         activatorRef={setActivatorNodeRef}
       />
-      <Droppable day="monday" group={group.id} date={daysThatWeek.at(0)} />
-      <Droppable day="tuesday" group={group.id} date={daysThatWeek.at(1)} />
-      <Droppable day="wednesday" group={group.id} date={daysThatWeek.at(2)} />
-      <Droppable day="thursday" group={group.id} date={daysThatWeek.at(3)} />
-      <Droppable day="friday" group={group.id} date={daysThatWeek.at(4)} />
-      <Droppable day="saturday" group={group.id} date={daysThatWeek.at(5)} />
-      <Droppable day="sunday" group={group.id} date={daysThatWeek.at(6)} />
+      <Droppable day="monday" groupId={group.id} date={daysThatWeek.at(0)} />
+      <Droppable day="tuesday" groupId={group.id} date={daysThatWeek.at(1)} />
+      <Droppable day="wednesday" groupId={group.id} date={daysThatWeek.at(2)} />
+      <Droppable day="thursday" groupId={group.id} date={daysThatWeek.at(3)} />
+      <Droppable day="friday" groupId={group.id} date={daysThatWeek.at(4)} />
+      <Droppable day="saturday" groupId={group.id} date={daysThatWeek.at(5)} />
+      <Droppable day="sunday" groupId={group.id} date={daysThatWeek.at(6)} />
     </section>
   );
 };

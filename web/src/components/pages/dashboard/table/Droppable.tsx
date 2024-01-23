@@ -13,11 +13,11 @@ import { TableMealItem } from "./TableMealItem";
 
 interface DroppableProps {
   day: WeekDay;
-  group: UniqueIdentifier;
+  groupId: UniqueIdentifier;
   date?: string;
 }
 
-export const Droppable: React.FC<DroppableProps> = ({ day, group, date }) => {
+export const Droppable: React.FC<DroppableProps> = ({ day, groupId, date }) => {
   const t = useTranslations<"Dashboard">();
   const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
   const [value, setValue] = useState<UniqueIdentifier>("");
@@ -25,18 +25,24 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group, date }) => {
   const { meals } = useMealHook();
   const { data, getGroupMeal, refetchWeeklyMealGroups } =
     useSnapshot(TableStore);
-  const id = `${group}#${day}`;
+  const id = `${groupId}#${day}`;
   const { setNodeRef, isOver } = useDroppable({
     id,
-    data: { day, group },
+    data: { day, group: groupId },
   });
 
-  const meal = getGroupMeal(group, day);
+  const meal = getGroupMeal(groupId, day);
 
   return (
     <div ref={setNodeRef}>
       {meal ? (
-        <TableMealItem day={day} group={group} meal={meal} isOver={isOver} date={date} />
+        <TableMealItem
+          day={day}
+          group={groupId}
+          meal={meal}
+          isOver={isOver}
+          date={date}
+        />
       ) : (
         <div
           className="flex h-full flex-col justify-start space-y-2 rounded-lg bg-default-100 p-2"
@@ -53,7 +59,7 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group, date }) => {
               onSelectionChange={async (key) => {
                 try {
                   await updateWeeklyMealGroup({
-                    where: { id: Number(group) },
+                    where: { id: Number(groupId) },
                     data: { [`${day}MealId`]: { set: Number(key) } },
                   });
                   refetchWeeklyMealGroups();
