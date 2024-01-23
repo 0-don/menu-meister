@@ -6,6 +6,7 @@ export const CREATE_USER_MEAL_USER = graphql(/* GraphQL */ `
       id
       date
       mealId
+      mealBoardPlanId
       Meal {
         id
         name
@@ -20,6 +21,7 @@ export const DELETE_USER_MEAL_USER = graphql(/* GraphQL */ `
       id
       date
       mealId
+      mealBoardPlanId
       Meal {
         id
         name
