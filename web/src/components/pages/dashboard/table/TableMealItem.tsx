@@ -62,28 +62,40 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
         }}
         className={classNames(
           isActive && "relative z-50",
-          (!isHighRank || isOrderMenu) && "cursor-pointer",
-          isSelectedMeal && "border border-primary",
+          (!isHighRank || isOrderMenu) &&
+            "cursor-pointer border border-transparent hover:border-primary",
+          isSelectedMeal && "border !border-primary hover:!border-danger",
           "group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2",
         )}
         ref={setNodeRef}
         onClick={async () => {
           if (!isHighRank || isOrderMenu) {
-            try {
-              await createUserMeal({
-                data: {
-                  mealBoardPlanId: Number(
-                    dashboardStore.activeMealBoardPlan?.id,
-                  ),
-                  weeklyMealGroupId: Number(props.group),
-                  userId: Number(me?.id),
-                  mealId: props.meal.id,
-                  date: dayjs(props.date).add(1, "day").toISOString(),
-                },
-              });
-              refetchUserMeals();
-            } catch (error) {
-              catchErrorAlerts(error, t);
+            if (!isSelectedMeal) {
+              try {
+                await createUserMeal({
+                  data: {
+                    mealBoardPlanId: Number(
+                      dashboardStore.activeMealBoardPlan?.id,
+                    ),
+                    weeklyMealGroupId: Number(props.group),
+                    userId: Number(me?.id),
+                    mealId: props.meal.id,
+                    date: dayjs(props.date).add(1, "day").toISOString(),
+                  },
+                });
+                refetchUserMeals();
+              } catch (error) {
+                catchErrorAlerts(error, t);
+              }
+            } else {
+              try {
+                await deleteUserMeal({
+                  where: { id: Number(isSelectedMeal.id) },
+                });
+                refetchUserMeals();
+              } catch (error) {
+                catchErrorAlerts(error, t);
+              }
             }
           }
         }}
