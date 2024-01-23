@@ -5,7 +5,7 @@ import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHoo
 import { Meal } from "@/gql/graphql";
 import { DashboardStore } from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
-import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
+import { catchErrorAlerts, classNames } from "@/utils/helpers/clientUtils";
 import { WeekDay } from "@/utils/types";
 import { UniqueIdentifier, useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
@@ -56,7 +56,12 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
           transform: CSS.Translate.toString(transform),
           opacity: !isActive && props.isOver ? 0.5 : 1,
         }}
-        className={`${isActive ? "relative z-50" : ""} ${!isHighRank || isOrderMenu ? "cursor-pointer" : ""} group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2`}
+        className={classNames(
+          isActive && "relative z-50",
+          (!isHighRank || isOrderMenu) && "cursor-pointer",
+          isSelectedMeal && "bg-primary-500",
+          "group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2",
+        )}
         ref={setNodeRef}
         onClick={async () => {
           if (!isHighRank || isOrderMenu) {

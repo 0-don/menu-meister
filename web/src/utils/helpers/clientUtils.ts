@@ -11,6 +11,23 @@ export const getKey = <TData = any, TVariables = unknown>(
   document: TypedDocumentNode<TData, TVariables>,
 ) => [(document?.definitions?.[0] as DirectiveDefinitionNode)?.name?.value];
 
+export function classNames(
+  ...classes: (string | undefined | null | false | { [key: string]: any })[]
+): string {
+  return classes
+    .flatMap((c) => {
+      if (typeof c === "string") {
+        return c;
+      } else if (c instanceof Object) {
+        return Object.entries(c)
+          .filter(([_, value]) => value)
+          .map(([key, _]) => key);
+      }
+      return [];
+    })
+    .join(" ");
+}
+
 export const getMenu = (roles: UserRoleName[]) =>
   [
     {
