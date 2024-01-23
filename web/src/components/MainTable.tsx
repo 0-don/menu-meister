@@ -16,7 +16,7 @@ interface DashboardPageProps {}
 
 export function MainTable({}: DashboardPageProps) {
   useInitialDashboardStore();
-  const { isHighRank } = useMeHook();
+  const { isHighRank, isOrderMenu } = useMeHook();
   const dashboardStore = useSnapshot(DashboardStore);
 
   const {
@@ -47,7 +47,7 @@ export function MainTable({}: DashboardPageProps) {
   return (
     <>
       <TableContext />
-      {isHighRank && <AddNewTableRow />}
+      {isHighRank && !isOrderMenu && <AddNewTableRow />}
     </>
   );
 }

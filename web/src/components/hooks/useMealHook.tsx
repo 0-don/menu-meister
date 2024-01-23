@@ -1,3 +1,4 @@
+"use client";
 import { GET_ALL_MEALS_USER } from "@/documents/query/dashboard";
 import { customFetcher } from "@/fetcher";
 import { GetAllMealsUserQuery } from "@/gql/graphql";

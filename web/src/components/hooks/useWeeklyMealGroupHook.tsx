@@ -1,3 +1,5 @@
+"use client";
+
 import {
   CREATE_WEEKLY_MEAL_GROUP_ADMIN,
   DELETE_WEEKLY_MEAL_GROUP_ADMIN,
