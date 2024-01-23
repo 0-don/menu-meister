@@ -1,6 +1,10 @@
 "use client";
+import {
+  CREATE_USER_MEAL_USER,
+  DELETE_USER_MEAL_USER,
+} from "@/documents/mutation/menu";
 import { GET_ALL_USER_MEALS_USER } from "@/documents/query/menu";
-import { useGqlQuery } from "@/fetcher";
+import { useGqlMutation, useGqlQuery } from "@/fetcher";
 import { DashboardStore } from "@/store/DashboardStore";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
@@ -32,5 +36,8 @@ export const useUserMealHook = () => {
     }
   }, [dashboardStore.daysThatWeek, dashboardStore.activeMealBoardPlan]);
 
-  return { userMeals: getAllUserMealsUser, refetchUserMeals };
+  const { mutateAsync: createUserMeal } = useGqlMutation(CREATE_USER_MEAL_USER);
+  const { mutateAsync: deleteUserMeal } = useGqlMutation(DELETE_USER_MEAL_USER);
+
+  return { userMeals: getAllUserMealsUser, refetchUserMeals, createUserMeal };
 };

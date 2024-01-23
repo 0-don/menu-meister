@@ -1,5 +1,6 @@
 import { MyConfirmModal } from "@/components/elements/MyConfirmModal";
 import { useMeHook } from "@/components/hooks/useMeHook";
+import { useUserMealHook } from "@/components/hooks/useUserMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { Meal } from "@/gql/graphql";
 import TableStore from "@/store/TableStore";
@@ -28,6 +29,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
   group,
   isOver,
 }) => {
+  const { userMeals } = useUserMealHook();
   const { isHighRank, isOrderMenu } = useMeHook();
   const t = useTranslations<"Dashboard">();
   const groupItem = TableStore.getGroup(group);
@@ -54,7 +56,8 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
         className={`${isActive ? "relative z-50" : ""} ${!isHighRank || isOrderMenu ? "cursor-pointer" : ""} group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2`}
         ref={setNodeRef}
         onClick={() => {
-          console.log("click");
+          if (!isHighRank || isOrderMenu) {
+          }
         }}
         {...attributes}
         role="item"
