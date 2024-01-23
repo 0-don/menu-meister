@@ -28,7 +28,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
   group,
   isOver,
 }) => {
-  const { isHighRank } = useMeHook();
+  const { isHighRank, isOrderMenu } = useMeHook();
   const t = useTranslations<"Dashboard">();
   const groupItem = TableStore.getGroup(group);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -39,7 +39,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
     useDraggable({
       id,
       data: { day, group, meal },
-      disabled: !isHighRank,
+      disabled: !isHighRank || isOrderMenu,
     });
 
   const isActive = tableStore.active?.id === id;
@@ -51,7 +51,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
           transform: CSS.Translate.toString(transform),
           opacity: !isActive && isOver ? 0.5 : 1,
         }}
-        className={`${isActive ? "relative z-50" : ""} ${!isHighRank ? "cursor-pointer" : ""} group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2`}
+        className={`${isActive ? "relative z-50" : ""} ${!isHighRank || isOrderMenu ? "cursor-pointer" : ""} group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2`}
         ref={setNodeRef}
         onClick={() => {
           console.log("click");
@@ -64,11 +64,11 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
             href={`/meal/${meal.id}`}
             color="foreground"
             size="sm"
-            isDisabled={!isHighRank}
+            isDisabled={!isHighRank || isOrderMenu}
           >
             {meal.name}
           </Link>
-          {isHighRank && (
+          {isHighRank && !isOrderMenu && (
             <MyConfirmModal
               title={t("WARNING")}
               isOpen={isOpen}
@@ -130,7 +130,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
 
         <Image
           alt={t("MEAL")}
-          className={`h-24 w-full rounded-xl object-cover ${isHighRank ? "cursor-grab" : ""}`}
+          className={`h-24 w-full rounded-xl object-cover ${isHighRank && !isOrderMenu ? "cursor-grab" : ""}`}
           ref={setActivatorNodeRef}
           {...listeners}
           src={

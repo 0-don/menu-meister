@@ -20,7 +20,7 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
   const t = useTranslations<"Dashboard">();
   const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
   const [value, setValue] = useState<UniqueIdentifier>("");
-  const { isHighRank } = useMeHook();
+  const { isHighRank, isOrderMenu } = useMeHook();
   const { meals } = useMealHook();
   const { data, getGroupMeal, refetchWeeklyMealGroups } =
     useSnapshot(TableStore);
@@ -41,7 +41,7 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
           className="flex h-full flex-col justify-start space-y-2 rounded-lg bg-default-100 p-2"
           style={{ opacity: isOver ? 0.5 : 1 }}
         >
-          {isHighRank && (
+          {isHighRank && !isOrderMenu && (
             <MyAutocomplete
               id={id}
               size="sm"

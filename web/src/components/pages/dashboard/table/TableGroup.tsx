@@ -23,7 +23,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
   listeners,
   activatorRef,
 }) => {
-  const { isHighRank } = useMeHook();
+  const { isHighRank, isOrderMenu } = useMeHook();
   const t = useTranslations<"Dashboard">();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { updateWeeklyMealGroup, deleteWeeklyMealgRoup } =
@@ -49,17 +49,19 @@ export const TableGroup: React.FC<TableGroupProps> = ({
       <div className="flex space-x-2">
         <label
           id={`${group.id}-color`}
-          className={`h-full w-1.5 rounded-lg ${isHighRank ? "cursor-pointer " : ""}`}
+          className={`h-full w-1.5 rounded-lg ${isHighRank && !isOrderMenu ? "cursor-pointer " : ""}`}
           style={{ backgroundColor: color }}
         >
           <input
             type="color"
             id={`${group.id}-color`}
             name={`${group.id}-color`}
-            disabled={!isHighRank}
+            disabled={!isHighRank || isOrderMenu}
             className="h-0 w-0 opacity-0"
             value={color}
-            onChange={(e) => isHighRank && debouncedSetColor(e.target.value)}
+            onChange={(e) =>
+              isHighRank && !isOrderMenu && debouncedSetColor(e.target.value)
+            }
           />
         </label>
 
@@ -69,10 +71,10 @@ export const TableGroup: React.FC<TableGroupProps> = ({
             type="text"
             name="groupName"
             style={{ color }}
-            disabled={!isHighRank}
+            disabled={!isHighRank || isOrderMenu}
             value={groupName}
             onChange={(e) => {
-              if (!isHighRank) return;
+              if (!isHighRank || isOrderMenu) return;
               setGroupName(e.target.value);
               updateWeeklyMealGroup({
                 where: { id: group.id },
@@ -82,11 +84,11 @@ export const TableGroup: React.FC<TableGroupProps> = ({
           />
           <div className="flex h-full w-full items-end justify-end">
             <div
-              className={`h-full w-full ${isHighRank ? "cursor-grab" : ""}`}
+              className={`h-full w-full ${isHighRank && !isOrderMenu ? "cursor-grab" : ""}`}
               {...listeners}
               ref={activatorRef}
             />
-            {isHighRank && (
+            {isHighRank && !isOrderMenu && (
               <MyConfirmModal
                 title={t("WARNING")}
                 isOpen={isOpen}

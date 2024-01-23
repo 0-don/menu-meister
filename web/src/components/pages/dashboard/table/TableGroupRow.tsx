@@ -13,7 +13,7 @@ interface TableGroupRowProps {
 }
 
 export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
-  const { isHighRank } = useMeHook();
+  const { isHighRank, isOrderMenu } = useMeHook();
   const tableStore = useSnapshot(TableStore);
   const group = tableStore.getGroup(id)!;
 
@@ -25,7 +25,7 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
     transition,
     setActivatorNodeRef,
     isDragging,
-  } = useSortable({ id, disabled: !isHighRank });
+  } = useSortable({ id, disabled: !isHighRank || isOrderMenu });
 
   if (!group) return null;
 
