@@ -13,6 +13,7 @@ import { Link } from "@nextui-org/link";
 import { Button, useDisclosure } from "@nextui-org/react";
 import mealPlaceholder from "@public/images/meal-placeholder.png";
 import { FaEraser } from "@react-icons/all-files/fa/FaEraser";
+import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useSnapshot } from "valtio";
@@ -46,7 +47,11 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
   const isActive = tableStore.active?.id === id;
 
   const isSelectedMeal = userMeals?.find(
-    (m) => m.mealId === props.meal.id && m.date === props.date,
+    (m) =>
+      m.mealId === props.meal.id &&
+      dayjs(m.date).format("DD/MM/YYYY") ===
+        dayjs(props.date).format("DD/MM/YYYY") &&
+      m.mealBoardPlanId === dashboard.activeMealBoardPlan?.id,
   );
 
   return (
@@ -59,7 +64,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
         className={classNames(
           isActive && "relative z-50",
           (!isHighRank || isOrderMenu) && "cursor-pointer",
-          isSelectedMeal && "bg-primary-500",
+          isSelectedMeal && "bg-white p-5",
           "group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2",
         )}
         ref={setNodeRef}
@@ -71,7 +76,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
                   mealBoardPlanId: Number(dashboard.activeMealBoardPlan?.id),
                   userId: Number(me?.id),
                   mealId: props.meal.id,
-                  date: props.date,
+                  date: dayjs(props.date).toISOString(),
                 },
               });
               refetchUserMeals();

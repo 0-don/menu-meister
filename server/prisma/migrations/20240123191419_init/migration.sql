@@ -64,6 +64,7 @@ CREATE TABLE `UserMeal` (
     `mealBoardPlanId` INTEGER NOT NULL,
     `userId` INTEGER NOT NULL,
     `mealId` INTEGER NOT NULL,
+    `weeklyMealGroupId` INTEGER NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `createdBy` INTEGER NOT NULL,
@@ -498,6 +499,9 @@ ALTER TABLE `UserMeal` ADD CONSTRAINT `UserMeal_mealId_fkey` FOREIGN KEY (`mealI
 
 -- AddForeignKey
 ALTER TABLE `UserMeal` ADD CONSTRAINT `UserMeal_mealBoardPlanId_fkey` FOREIGN KEY (`mealBoardPlanId`) REFERENCES `MealBoardPlan`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `UserMeal` ADD CONSTRAINT `UserMeal_weeklyMealGroupId_fkey` FOREIGN KEY (`weeklyMealGroupId`) REFERENCES `WeeklyMealGroup`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `UserMeal` ADD CONSTRAINT `UserMeal_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

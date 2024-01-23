@@ -144,21 +144,23 @@ model UserRole {
   /// @HideField({ output: false, input: true })
   updatedByUser User     @relation("UpdatedUserRole", fields: [updatedBy], references: [id])
 
-  User User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 
   @@unique([userId, name], name: "user_role_userId_name_unique")
 }
 
 model UserMeal {
-  id              Int      @id @default(autoincrement())
-  date            DateTime @db.Date
-  mealBoardPlanId Int
-  userId          Int
-  mealId          Int
+  id                Int      @id @default(autoincrement())
+  date              DateTime @db.Date
+  mealBoardPlanId   Int
+  userId            Int
+  mealId            Int
+  weeklyMealGroupId Int
 
-  User          User          @relation(fields: [userId], references: [id])
-  Meal          Meal          @relation(fields: [mealId], references: [id])
-  MealBoardPlan MealBoardPlan @relation(fields: [mealBoardPlanId], references: [id])
+  user            User            @relation(fields: [userId], references: [id])
+  meal            Meal            @relation(fields: [mealId], references: [id])
+  mealBoardPlan   MealBoardPlan   @relation(fields: [mealBoardPlanId], references: [id])
+  weeklyMealGroup WeeklyMealGroup @relation(fields: [weeklyMealGroupId], references: [id])
 
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
@@ -537,6 +539,8 @@ model WeeklyMealGroup {
   fridayMeal    Meal? @relation("FridayMeal", fields: [fridayMealId], references: [id])
   saturdayMeal  Meal? @relation("SaturdayMeal", fields: [saturdayMealId], references: [id])
   sundayMeal    Meal? @relation("SundayMeal", fields: [sundayMealId], references: [id])
+
+  userMeal UserMeal[]
 
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
