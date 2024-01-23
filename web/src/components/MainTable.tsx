@@ -34,6 +34,8 @@ export function MainTable({}: DashboardPageProps) {
     { enabled: false },
   );
 
+  
+
   useEffect(() => {
     if (dashboardStore.activeMealBoardPlan?.id) refetchWeeklyMealGroups();
   }, [dashboardStore.activeMealBoardPlan, dashboardStore.calendar]);

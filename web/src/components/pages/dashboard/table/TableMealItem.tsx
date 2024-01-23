@@ -61,10 +61,9 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
       >
         <div className="flex items-center justify-between">
           <Link
-            href={`/meal/${meal.id}`}
+            href={!isHighRank || isOrderMenu ? "#" : `/meal/${meal.id}`}
             color="foreground"
             size="sm"
-            isDisabled={!isHighRank || isOrderMenu}
           >
             {meal.name}
           </Link>

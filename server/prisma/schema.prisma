@@ -150,13 +150,15 @@ model UserRole {
 }
 
 model UserMeal {
-  id     Int      @id @default(autoincrement())
-  date   DateTime @db.Date
-  userId Int
-  mealId Int
+  id              Int      @id @default(autoincrement())
+  date            DateTime @db.Date
+  mealBoardPlanId Int
+  userId          Int
+  mealId          Int
 
-  User User @relation(fields: [userId], references: [id])
-  Meal Meal @relation(fields: [mealId], references: [id])
+  User          User          @relation(fields: [userId], references: [id])
+  Meal          Meal          @relation(fields: [mealId], references: [id])
+  MealBoardPlan MealBoardPlan @relation(fields: [mealBoardPlanId], references: [id])
 
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
@@ -171,7 +173,7 @@ model UserMeal {
   /// @HideField({ output: false, input: true })
   updatedByUser User     @relation("UpdatedUserMeal", fields: [updatedBy], references: [id])
 
-  @@unique([userId, mealId, date], name: "user_meal_userId_mealId_date_unique")
+  @@unique([date, mealBoardPlanId, userId, mealId], name: "user_meal_date_mealBoardPlanId_userId_mealId_unique")
 }
 
 model Allergens {
@@ -492,6 +494,7 @@ model MealBoardPlan {
   color String? @db.VarChar(7)
 
   WeeklyMealGroup WeeklyMealGroup[]
+  UserMeal        UserMeal[]
 
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())

@@ -61,6 +61,7 @@ CREATE TABLE `UserRole` (
 CREATE TABLE `UserMeal` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `date` DATE NOT NULL,
+    `mealBoardPlanId` INTEGER NOT NULL,
     `userId` INTEGER NOT NULL,
     `mealId` INTEGER NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -68,7 +69,7 @@ CREATE TABLE `UserMeal` (
     `createdBy` INTEGER NOT NULL,
     `updatedBy` INTEGER NOT NULL,
 
-    UNIQUE INDEX `UserMeal_userId_mealId_date_key`(`userId`, `mealId`, `date`),
+    UNIQUE INDEX `UserMeal_date_mealBoardPlanId_userId_mealId_key`(`date`, `mealBoardPlanId`, `userId`, `mealId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -494,6 +495,9 @@ ALTER TABLE `UserMeal` ADD CONSTRAINT `UserMeal_userId_fkey` FOREIGN KEY (`userI
 
 -- AddForeignKey
 ALTER TABLE `UserMeal` ADD CONSTRAINT `UserMeal_mealId_fkey` FOREIGN KEY (`mealId`) REFERENCES `Meal`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `UserMeal` ADD CONSTRAINT `UserMeal_mealBoardPlanId_fkey` FOREIGN KEY (`mealBoardPlanId`) REFERENCES `MealBoardPlan`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `UserMeal` ADD CONSTRAINT `UserMeal_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
