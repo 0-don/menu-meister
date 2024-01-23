@@ -39,5 +39,10 @@ export const useUserMealHook = () => {
   const { mutateAsync: createUserMeal } = useGqlMutation(CREATE_USER_MEAL_USER);
   const { mutateAsync: deleteUserMeal } = useGqlMutation(DELETE_USER_MEAL_USER);
 
-  return { userMeals: getAllUserMealsUser, refetchUserMeals, createUserMeal };
+  return {
+    userMeals: getAllUserMealsUser,
+    refetchUserMeals,
+    createUserMeal,
+    deleteUserMeal,
+  };
 };

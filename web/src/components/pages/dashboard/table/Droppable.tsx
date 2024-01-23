@@ -14,9 +14,10 @@ import { TableMealItem } from "./TableMealItem";
 interface DroppableProps {
   day: WeekDay;
   group: UniqueIdentifier;
+  date?: string;
 }
 
-export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
+export const Droppable: React.FC<DroppableProps> = ({ day, group, date }) => {
   const t = useTranslations<"Dashboard">();
   const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
   const [value, setValue] = useState<UniqueIdentifier>("");
@@ -35,7 +36,7 @@ export const Droppable: React.FC<DroppableProps> = ({ day, group }) => {
   return (
     <div ref={setNodeRef}>
       {meal ? (
-        <TableMealItem day={day} group={group} meal={meal} isOver={isOver} />
+        <TableMealItem day={day} group={group} meal={meal} isOver={isOver} date={date} />
       ) : (
         <div
           className="flex h-full flex-col justify-start space-y-2 rounded-lg bg-default-100 p-2"

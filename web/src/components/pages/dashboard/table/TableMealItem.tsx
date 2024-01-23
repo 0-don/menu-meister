@@ -3,6 +3,7 @@ import { useMeHook } from "@/components/hooks/useMeHook";
 import { useUserMealHook } from "@/components/hooks/useUserMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { Meal } from "@/gql/graphql";
+import { DashboardStore } from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { WeekDay } from "@/utils/types";
@@ -21,26 +22,24 @@ interface TableMealItemProps {
   day: WeekDay;
   group: UniqueIdentifier;
   isOver?: boolean;
+  date?: string;
 }
 
-export const TableMealItem: React.FC<TableMealItemProps> = ({
-  meal,
-  day,
-  group,
-  isOver,
-}) => {
-  const { userMeals } = useUserMealHook();
-  const { isHighRank, isOrderMenu } = useMeHook();
+export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
   const t = useTranslations<"Dashboard">();
-  const groupItem = TableStore.getGroup(group);
+  const { userMeals, createUserMeal, deleteUserMeal, refetchUserMeals } =
+    useUserMealHook();
+  const dashboard = useSnapshot(DashboardStore);
+  const { isHighRank, isOrderMenu, me } = useMeHook();
+  const groupItem = TableStore.getGroup(props.group);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
   const tableStore = useSnapshot(TableStore);
-  const id = `${group}#${day}#${meal.id}`;
+  const id = `${props.group}#${props.day}#${props.meal.id}`;
   const { attributes, listeners, setNodeRef, transform, setActivatorNodeRef } =
     useDraggable({
       id,
-      data: { day, group, meal },
+      data: { day: props.day, group: props.group, meal: props.meal },
       disabled: !isHighRank || isOrderMenu,
     });
 
@@ -51,12 +50,25 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
       <div
         style={{
           transform: CSS.Translate.toString(transform),
-          opacity: !isActive && isOver ? 0.5 : 1,
+          opacity: !isActive && props.isOver ? 0.5 : 1,
         }}
         className={`${isActive ? "relative z-50" : ""} ${!isHighRank || isOrderMenu ? "cursor-pointer" : ""} group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2`}
         ref={setNodeRef}
-        onClick={() => {
+        onClick={async () => {
           if (!isHighRank || isOrderMenu) {
+            try {
+              await createUserMeal({
+                data: {
+                  mealBoardPlanId: Number(dashboard.activeMealBoardPlan?.id),
+                  userId: Number(me?.id),
+                  mealId: props.meal.id,
+                  date: props.date,
+                },
+              });
+              refetchUserMeals();
+            } catch (error) {
+              catchErrorAlerts(error, t);
+            }
           }
         }}
         {...attributes}
@@ -64,11 +76,11 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
       >
         <div className="flex items-center justify-between">
           <Link
-            href={!isHighRank || isOrderMenu ? "#" : `/meal/${meal.id}`}
+            href={!isHighRank || isOrderMenu ? "#" : `/meal/${props.meal.id}`}
             color="foreground"
             size="sm"
           >
-            {meal.name}
+            {props.meal.name}
           </Link>
           {isHighRank && !isOrderMenu && (
             <MyConfirmModal
@@ -82,15 +94,15 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
                   onClick={() => {
                     try {
                       updateWeeklyMealGroup({
-                        where: { id: Number(group) },
+                        where: { id: Number(props.group) },
                         data: {
-                          [`${day}MealId`]: { set: null },
+                          [`${props.day}MealId`]: { set: null },
                         },
                       });
 
                       TableStore.data = TableStore.data.map((g) =>
-                        g.id === Number(group)
-                          ? { ...g, [`${day}Meal`]: null }
+                        g.id === Number(props.group)
+                          ? { ...g, [`${props.day}Meal`]: null }
                           : g,
                       );
 
@@ -113,7 +125,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
             >
               <p>
                 {t?.rich("ARE_YOU_SURE_DELETE_MEAL", {
-                  mealName: meal.name,
+                  mealName: props.meal.name,
                   groupName: groupItem?.name,
                   meal: (chunks) => <span className="font-bold">{chunks}</span>,
                   group: (chunks) => (
@@ -136,8 +148,8 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
           ref={setActivatorNodeRef}
           {...listeners}
           src={
-            meal.image
-              ? `data:image/jpeg;base64,${meal.image}`
+            props.meal.image
+              ? `data:image/jpeg;base64,${props.meal.image}`
               : mealPlaceholder
           }
           width={200}

@@ -1,4 +1,5 @@
 import { useMeHook } from "@/components/hooks/useMeHook";
+import { DashboardStore } from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
@@ -15,6 +16,7 @@ interface TableGroupRowProps {
 export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
   const { isHighRank, isOrderMenu } = useMeHook();
   const tableStore = useSnapshot(TableStore);
+  const { daysThatWeek } = useSnapshot(DashboardStore);
   const group = tableStore.getGroup(id)!;
 
   const {
@@ -45,13 +47,13 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
         listeners={listeners}
         activatorRef={setActivatorNodeRef}
       />
-      <Droppable day="monday" group={group.id} />
-      <Droppable day="tuesday" group={group.id} />
-      <Droppable day="wednesday" group={group.id} />
-      <Droppable day="thursday" group={group.id} />
-      <Droppable day="friday" group={group.id} />
-      <Droppable day="saturday" group={group.id} />
-      <Droppable day="sunday" group={group.id} />
+      <Droppable day="monday" group={group.id} date={daysThatWeek.at(0)} />
+      <Droppable day="tuesday" group={group.id} date={daysThatWeek.at(1)} />
+      <Droppable day="wednesday" group={group.id} date={daysThatWeek.at(2)} />
+      <Droppable day="thursday" group={group.id} date={daysThatWeek.at(3)} />
+      <Droppable day="friday" group={group.id} date={daysThatWeek.at(4)} />
+      <Droppable day="saturday" group={group.id} date={daysThatWeek.at(5)} />
+      <Droppable day="sunday" group={group.id} date={daysThatWeek.at(6)} />
     </section>
   );
 };

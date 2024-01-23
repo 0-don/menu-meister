@@ -1,5 +1,4 @@
 import { CreateManyUserMealArgs } from "@/app_modules/@generated/user-meal/create-many-user-meal.args";
-import { CreateOneUserMealArgs } from "@/app_modules/@generated/user-meal/create-one-user-meal.args";
 import { DeleteManyUserMealArgs } from "@/app_modules/@generated/user-meal/delete-many-user-meal.args";
 import { DeleteOneUserMealArgs } from "@/app_modules/@generated/user-meal/delete-one-user-meal.args";
 import { FindFirstUserMealArgs } from "@/app_modules/@generated/user-meal/find-first-user-meal.args";
@@ -7,6 +6,7 @@ import { FindManyUserMealArgs } from "@/app_modules/@generated/user-meal/find-ma
 import { UpdateManyUserMealArgs } from "@/app_modules/@generated/user-meal/update-many-user-meal.args";
 import { UpdateOneUserMealArgs } from "@/app_modules/@generated/user-meal/update-one-user-meal.args";
 import { UpsertOneUserMealArgs } from "@/app_modules/@generated/user-meal/upsert-one-user-meal.args";
+import { UserMealUncheckedCreateInput } from "@/app_modules/@generated/user-meal/user-meal-unchecked-create.input";
 import { UserMeal } from "@/app_modules/@generated/user-meal/user-meal.model";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
@@ -56,12 +56,12 @@ export class UserMealUserResolver {
   @Mutation(() => UserMeal, { nullable: true })
   @Roles("USER", "MOD")
   async createUserMealUser(
-    @Args() args: CreateOneUserMealArgs,
+    @Args("data") data: UserMealUncheckedCreateInput,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
     try {
-      return await this.prisma.userMeal.create({ ...args, ...select });
+      return await this.prisma.userMeal.create({ ...data, ...select });
     } catch (e) {
       Logger.error(e);
       return null;

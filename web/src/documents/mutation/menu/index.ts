@@ -1,7 +1,7 @@
 import { graphql } from "@/gql";
 
 export const CREATE_USER_MEAL_USER = graphql(/* GraphQL */ `
-  mutation CreateUserMealUser($data: UserMealCreateInput!) {
+  mutation CreateUserMealUser($data: UserMealUncheckedCreateInput!) {
     createUserMealUser(data: $data) {
       id
       date
