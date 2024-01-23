@@ -51,8 +51,11 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
           transform: CSS.Translate.toString(transform),
           opacity: !isActive && isOver ? 0.5 : 1,
         }}
-        className={`${isActive ? "relative z-50" : ""} group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2`}
+        className={`${isActive ? "relative z-50" : ""} ${!isHighRank ? "cursor-pointer" : ""} group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2`}
         ref={setNodeRef}
+        onClick={() => {
+          console.log("click");
+        }}
         {...attributes}
         role="item"
       >

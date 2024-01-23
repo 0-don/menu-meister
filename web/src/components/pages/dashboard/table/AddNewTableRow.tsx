@@ -32,7 +32,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
     try {
       const res = await createWeeklyMealGroup({
         data: {
-          mealBoardPlan: { connect: { id: 1 } },
+          mealBoardPlan: { connect: { id: dashboardStore.activeMealBoardPlan?.id } },
           name,
           color,
           orderIndex: (meals || []).length,
