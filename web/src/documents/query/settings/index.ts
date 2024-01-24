@@ -30,3 +30,10 @@ export const GET_SETTINGS_ADMIN = graphql(/* GraphQL */ `
     }
   }
 `);
+export const GET_SETTINGS_USER = graphql(/* GraphQL */ `
+  query GetSettingsUser {
+    getSettingsUser {
+      maxEditOrderDays
+    }
+  }
+`);

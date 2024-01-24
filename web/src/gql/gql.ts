@@ -29,6 +29,7 @@ const documents = {
     "\n  query GetAllMealsUser(\n    $where: MealWhereInput\n    $orderBy: [MealOrderByWithRelationInput!]\n    $cursor: MealWhereUniqueInput\n    $take: Int\n    $skip: Int\n    $distinct: [MealScalarFieldEnum!]\n  ) {\n    getAllMealsUser(\n      where: $where\n      orderBy: $orderBy\n      cursor: $cursor\n      take: $take\n      skip: $skip\n      distinct: $distinct\n    ) {\n      id\n      name\n    }\n  }\n": types.GetAllMealsUserDocument,
     "\n  query GetAllUserMealsUser(\n    $where: UserMealWhereInput\n    $orderBy: [UserMealOrderByWithRelationInput!]\n    $cursor: UserMealWhereUniqueInput\n    $take: Int\n    $skip: Int\n    $distinct: [UserMealScalarFieldEnum!]\n  ) {\n    getAllUserMealsUser(\n      where: $where\n      orderBy: $orderBy\n      cursor: $cursor\n      take: $take\n      skip: $skip\n      distinct: $distinct\n    ) {\n      id\n      date\n      mealId\n      mealBoardPlanId\n      weeklyMealGroupId\n      meal {\n        id\n        name\n      }\n    }\n  }\n": types.GetAllUserMealsUserDocument,
     "\n  query GetSettingsAdmin(\n    $where: SettingsWhereInput\n    $orderBy: [SettingsOrderByWithRelationInput!]\n    $cursor: SettingsWhereUniqueInput\n    $take: Int\n    $skip: Int\n    $distinct: [SettingsScalarFieldEnum!]\n  ) {\n    getSettingsAdmin(\n      where: $where\n      orderBy: $orderBy\n      cursor: $cursor\n      take: $take\n      skip: $skip\n      distinct: $distinct\n    ) {\n      id\n      maxEditOrderDays\n      createdAt\n      updatedAt\n      createdByUser {\n        username\n      }\n      updatedByUser {\n        username\n      }\n    }\n  }\n": types.GetSettingsAdminDocument,
+    "\n  query GetSettingsUser {\n    getSettingsUser {\n      maxEditOrderDays\n    }\n  }\n": types.GetSettingsUserDocument,
 };
 
 /**
@@ -109,6 +110,10 @@ export function graphql(source: "\n  query GetAllUserMealsUser(\n    $where: Use
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query GetSettingsAdmin(\n    $where: SettingsWhereInput\n    $orderBy: [SettingsOrderByWithRelationInput!]\n    $cursor: SettingsWhereUniqueInput\n    $take: Int\n    $skip: Int\n    $distinct: [SettingsScalarFieldEnum!]\n  ) {\n    getSettingsAdmin(\n      where: $where\n      orderBy: $orderBy\n      cursor: $cursor\n      take: $take\n      skip: $skip\n      distinct: $distinct\n    ) {\n      id\n      maxEditOrderDays\n      createdAt\n      updatedAt\n      createdByUser {\n        username\n      }\n      updatedByUser {\n        username\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetSettingsAdmin(\n    $where: SettingsWhereInput\n    $orderBy: [SettingsOrderByWithRelationInput!]\n    $cursor: SettingsWhereUniqueInput\n    $take: Int\n    $skip: Int\n    $distinct: [SettingsScalarFieldEnum!]\n  ) {\n    getSettingsAdmin(\n      where: $where\n      orderBy: $orderBy\n      cursor: $cursor\n      take: $take\n      skip: $skip\n      distinct: $distinct\n    ) {\n      id\n      maxEditOrderDays\n      createdAt\n      updatedAt\n      createdByUser {\n        username\n      }\n      updatedByUser {\n        username\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetSettingsUser {\n    getSettingsUser {\n      maxEditOrderDays\n    }\n  }\n"): (typeof documents)["\n  query GetSettingsUser {\n    getSettingsUser {\n      maxEditOrderDays\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

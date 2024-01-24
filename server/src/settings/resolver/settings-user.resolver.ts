@@ -7,7 +7,7 @@ import { SettingsUserOutput } from "../model/output/settings-user.output";
 import { SettingsService } from "../settings.service";
 
 @Resolver(() => Settings)
-export class SettingsAdminResolver {
+export class SettingsUserResolver {
   constructor(
     private prisma: PrismaService,
     private settingsService: SettingsService,

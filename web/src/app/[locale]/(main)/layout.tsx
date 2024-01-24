@@ -4,6 +4,7 @@ import {
   GET_ALL_MEALS_USER,
   GET_ALL_MEAL_BOARD_PLANS_USER,
 } from "@/documents/query/dashboard";
+import { GET_SETTINGS_USER } from "@/documents/query/settings";
 import { MeQuery } from "@/gql/graphql";
 import { redirect } from "@/navigation";
 import { getKey } from "@/utils/helpers/clientUtils";
@@ -23,6 +24,7 @@ export default async function HomeLayout({
     { document: ME },
     { document: GET_ALL_MEAL_BOARD_PLANS_USER },
     { document: GET_ALL_MEALS_USER },
+    { document: GET_SETTINGS_USER },
   ]);
   const data = queryClient.getQueryData<MeQuery>(getKey(ME));
 
