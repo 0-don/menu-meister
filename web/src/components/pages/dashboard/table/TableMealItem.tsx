@@ -29,10 +29,10 @@ interface TableMealItemProps {
 export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
   const t = useTranslations<"Dashboard">();
   const {
-    userMealsUser: userMeals,
+    userMealsUser,
     createUserMeal,
     deleteUserMeal,
-    refetchUserMeals,
+    refetchUserMealsUser,
   } = useUserMealHook();
   const dashboardStore = useSnapshot(DashboardStore);
   const { isHighRank, isOrderMenu, me } = useMeHook();
@@ -49,7 +49,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
     });
 
   const isActive = tableStore.active?.id === id;
-  const isSelectedMeal = userMeals?.find(
+  const isSelectedMeal = userMealsUser?.find(
     (m) =>
       m.mealId === props.meal.id &&
       dayjs(m.date).format("DD/MM/YYYY") ===
@@ -89,7 +89,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
                     date: dayjs(props.date).add(1, "day").toISOString(),
                   },
                 });
-                refetchUserMeals();
+                refetchUserMealsUser();
               } catch (error) {
                 catchErrorAlerts(error, t);
               }
@@ -98,7 +98,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
                 await deleteUserMeal({
                   where: { id: Number(isSelectedMeal.id) },
                 });
-                refetchUserMeals();
+                refetchUserMealsUser();
               } catch (error) {
                 catchErrorAlerts(error, t);
               }
