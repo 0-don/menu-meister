@@ -11,12 +11,13 @@ import {
 import { User } from "@nextui-org/user";
 import { BiLogIn } from "@react-icons/all-files/bi/BiLogIn";
 import { FaUser } from "@react-icons/all-files/fa/FaUser";
+import { IoSettings } from "@react-icons/all-files/io5/IoSettings";
 import { SiWebauthn } from "@react-icons/all-files/si/SiWebauthn";
 import { useTranslations } from "next-intl";
 
 export const Profile = () => {
   const t = useTranslations<"Navbar">();
-  const { me } = useMeHook();
+  const { me, isHighRank } = useMeHook();
 
   const Items = [
     me && (
@@ -29,6 +30,15 @@ export const Profile = () => {
             description: "text-default-500",
           }}
         />
+      </DropdownItem>
+    ),
+    me && isHighRank && (
+      <DropdownItem
+        key="settings"
+        href="/settings"
+        endContent={<IoSettings className="text-large" />}
+      >
+        {t("SETTINGS")}
       </DropdownItem>
     ),
     me && (

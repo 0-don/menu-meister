@@ -55,6 +55,10 @@
   },
   "Menu": {},
   "User": {},
+  "Settings": {
+    "SETTINGS": "Settings",
+    "SETTINGS_DESCRIPTION": "Manage your account settings and set your preferences." 
+  },
   "Navbar": {
     "LOGIN": "Login",
     "REGISTER": "Register",

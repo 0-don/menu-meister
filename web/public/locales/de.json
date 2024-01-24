@@ -53,10 +53,12 @@
     "MEAL": "Mahlzeit",
     "MEAL_BOARD_PLAN": "Mahlzeitenplan"
   },
-  "Menu": {
-
-  },
+  "Menu": {},
   "User": {},
+  "Settings": {
+    "SETTINGS": "Einstellungen",
+    "SETTINGS_DESCRIPTION": "Verwalten Sie Ihre Einstellungen"
+  },
   "Navbar": {
     "LOGIN": "Anmeldung",
     "REGISTER": "Registrieren",
