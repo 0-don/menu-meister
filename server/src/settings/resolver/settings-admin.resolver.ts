@@ -46,7 +46,7 @@ export class SettingsAdminResolver {
   ) {
     const select = new PrismaSelect(info).value;
     try {
-      return await this.prisma.settings.findUnique({ ...args, ...select });
+      return await this.prisma.settings.findFirst({ ...args, ...select });
     } catch (e) {
       Logger.error(e);
       return null;

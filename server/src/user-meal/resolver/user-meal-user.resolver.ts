@@ -46,7 +46,7 @@ export class UserMealUserResolver {
   ) {
     const select = new PrismaSelect(info).value;
     try {
-      return await this.prisma.userMeal.findUnique({ ...args, ...select });
+      return await this.prisma.userMeal.findFirst({ ...args, ...select });
     } catch (e) {
       Logger.error(e);
       return null;

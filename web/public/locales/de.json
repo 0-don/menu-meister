@@ -57,7 +57,11 @@
   "User": {},
   "Settings": {
     "SETTINGS": "Einstellungen",
-    "SETTINGS_DESCRIPTION": "Verwalten Sie Ihre Einstellungen"
+    "SETTINGS_DESCRIPTION": "Verwalten Sie Ihre Einstellungen",
+    "MAX_ORDER_CHANGE_DAYS": "Maximale Bestelländerungstage",
+    "MAX_ORDER_CHANGE_DAYS_PLACEHOLDER": "Bitte geben Sie die maximale Anzahl von Tagen ein, an denen Sie Ihre Bestellung ändern können",
+    "SETTINGS_UPDATED": "Einstellungen aktualisiert",
+    "SAVE": "Speichern"
   },
   "Navbar": {
     "LOGIN": "Anmeldung",

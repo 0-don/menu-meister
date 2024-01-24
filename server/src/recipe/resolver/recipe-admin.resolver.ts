@@ -46,7 +46,7 @@ export class RecipeAdminResolver {
   ) {
     const select = new PrismaSelect(info).value;
     try {
-      return await this.prisma.recipe.findUnique({ ...args, ...select });
+      return await this.prisma.recipe.findFirst({ ...args, ...select });
     } catch (e) {
       Logger.error(e);
       return null;

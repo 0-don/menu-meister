@@ -57,7 +57,11 @@
   "User": {},
   "Settings": {
     "SETTINGS": "Settings",
-    "SETTINGS_DESCRIPTION": "Manage your account settings and set your preferences." 
+    "SETTINGS_DESCRIPTION": "Manage your account settings and set your preferences.",
+    "MAX_ORDER_CHANGE_DAYS": "Max Order Change Days",
+    "MAX_ORDER_CHANGE_DAYS_PLACEHOLDER": "Please enter the maximum number of days you can change your order",
+    "SETTINGS_UPDATED": "Settings updated",
+    "SAVE": "Save"
   },
   "Navbar": {
     "LOGIN": "Login",
