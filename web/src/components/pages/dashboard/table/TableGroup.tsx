@@ -29,7 +29,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
   const { isHighRank, isOrderMenu } = useMeHook();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { userMealsAdmin } = useUserMealHook();
-  const { updateWeeklyMealGroup, deleteWeeklyMealgRoup } =
+  const { updateWeeklyMealGroup, deleteWeeklyMealgRoup, isPast } =
     useWeeklyMealGroupHook();
   const dashboardStore = useSnapshot(DashboardStore);
   const tableStore = useSnapshot(TableStore);
@@ -55,24 +55,34 @@ export const TableGroup: React.FC<TableGroupProps> = ({
       m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id,
   );
 
+  const disabled =
+    !isHighRank ||
+    isOrderMenu ||
+    !!seletecMealsAdmin.length ||
+    isPast(dashboardStore.daysThatWeek.at(-1));
+
+  const enabled =
+    isHighRank &&
+    !isOrderMenu &&
+    !seletecMealsAdmin.length &&
+    !isPast(dashboardStore.daysThatWeek.at(-1));
+
   return (
     <>
       <div className="flex space-x-2">
         <label
           id={`${group.id}-color`}
-          className={`h-full w-1.5 rounded-lg ${isHighRank && !isOrderMenu ? "cursor-pointer " : ""}`}
+          className={`h-full w-1.5 rounded-lg ${enabled ? "cursor-pointer " : ""}`}
           style={{ backgroundColor: color }}
         >
           <input
             type="color"
             id={`${group.id}-color`}
             name={`${group.id}-color`}
-            disabled={!isHighRank || isOrderMenu}
+            disabled={disabled}
             className="h-0 w-0 opacity-0"
             value={color}
-            onChange={(e) =>
-              isHighRank && !isOrderMenu && debouncedSetColor(e.target.value)
-            }
+            onChange={(e) => enabled && debouncedSetColor(e.target.value)}
           />
         </label>
 
@@ -82,10 +92,10 @@ export const TableGroup: React.FC<TableGroupProps> = ({
             type="text"
             name="groupName"
             style={{ color }}
-            disabled={!isHighRank || isOrderMenu}
+            disabled={disabled}
             value={groupName}
             onChange={(e) => {
-              if (!isHighRank || isOrderMenu) return;
+              if (enabled) return;
               setGroupName(e.target.value);
               updateWeeklyMealGroup({
                 where: { id: group.id },
@@ -95,11 +105,11 @@ export const TableGroup: React.FC<TableGroupProps> = ({
           />
           <div className="flex h-full w-full items-end justify-end">
             <div
-              className={`h-full w-full ${isHighRank && !isOrderMenu ? "cursor-grab" : ""}`}
+              className={`h-full w-full ${enabled ? "cursor-grab" : ""}`}
               {...listeners}
               ref={activatorRef}
             />
-            {isHighRank && !isOrderMenu && !seletecMealsAdmin.length && (
+            {enabled && (
               <MyConfirmModal
                 title={t("WARNING")}
                 isOpen={isOpen}

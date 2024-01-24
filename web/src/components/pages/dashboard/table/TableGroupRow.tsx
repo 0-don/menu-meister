@@ -1,4 +1,6 @@
 import { useMeHook } from "@/components/hooks/useMeHook";
+import { useUserMealHook } from "@/components/hooks/useUserMealHook";
+import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { DashboardStore } from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
 import { UniqueIdentifier } from "@dnd-kit/core";
@@ -15,9 +17,21 @@ interface TableGroupRowProps {
 
 export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
   const { isHighRank, isOrderMenu } = useMeHook();
+  const { userMealsAdmin } = useUserMealHook();
+  const { isPast } = useWeeklyMealGroupHook();
   const tableStore = useSnapshot(TableStore);
-  const { daysThatWeek } = useSnapshot(DashboardStore);
+  const { daysThatWeek, activeMealBoardPlan } = useSnapshot(DashboardStore);
   const group = tableStore.getGroup(id)!;
+  const seletecMealsAdmin = userMealsAdmin?.filter(
+    (m) =>
+      m.weeklyMealGroupId === group.id &&
+      m.mealBoardPlanId === activeMealBoardPlan?.id,
+  );
+  const disabled =
+    !isHighRank ||
+    isOrderMenu ||
+    !!seletecMealsAdmin.length ||
+    isPast(daysThatWeek.at(-1));
 
   const {
     attributes,
@@ -27,7 +41,10 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
     transition,
     setActivatorNodeRef,
     isDragging,
-  } = useSortable({ id, disabled: !isHighRank || isOrderMenu });
+  } = useSortable({
+    id,
+    disabled: disabled,
+  });
 
   if (!group) return null;
 

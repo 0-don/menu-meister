@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import { useMeHook } from "./hooks/useMeHook";
 import { useUserMealHook } from "./hooks/useUserMealHook";
+import { useWeeklyMealGroupHook } from "./hooks/useWeeklyMealGroupHook";
 import { AddNewTableRow } from "./pages/dashboard/table/AddNewTableRow";
 import { TableContext } from "./pages/dashboard/table/TableContext";
 
@@ -18,6 +19,7 @@ interface DashboardPageProps {}
 export function MainTable({}: DashboardPageProps) {
   useInitialDashboardStore();
   const { isHighRank, isOrderMenu } = useMeHook();
+  const { isPast } = useWeeklyMealGroupHook();
   const { userMealsAdmin } = useUserMealHook();
   const dashboardStore = useSnapshot(DashboardStore);
 
@@ -45,9 +47,10 @@ export function MainTable({}: DashboardPageProps) {
   return (
     <>
       <TableContext />
-      {isHighRank && !isOrderMenu && !userMealsAdmin.length && (
-        <AddNewTableRow />
-      )}
+      {isHighRank &&
+        !isOrderMenu &&
+        !userMealsAdmin.length &&
+        !isPast(dashboardStore.daysThatWeek.at(-1)) && <AddNewTableRow />}
     </>
   );
 }
