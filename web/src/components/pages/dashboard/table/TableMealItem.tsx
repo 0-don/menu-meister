@@ -40,7 +40,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
   const { isHighRank, isOrderMenu, me } = useMeHook();
   const groupItem = TableStore.getGroup(props.group);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
+  const { updateWeeklyMealGroup, isPast } = useWeeklyMealGroupHook();
   const tableStore = useSnapshot(TableStore);
   const id = `${props.group}#${props.day}#${props.meal.id}`;
 
@@ -61,11 +61,28 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
         m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id,
     ) || [];
 
+  const disabled =
+    !isHighRank ||
+    isOrderMenu ||
+    !!selectedMealAdmins.length ||
+    isPast(props.date);
+
+  const enabled =
+    isHighRank &&
+    !isOrderMenu &&
+    !selectedMealAdmins.length &&
+    !isPast(props.date);
+
   const { attributes, listeners, setNodeRef, transform, setActivatorNodeRef } =
     useDraggable({
       id,
-      data: { day: props.day, group: props.group, meal: props.meal },
-      disabled: !isHighRank || isOrderMenu || !!selectedMealAdmins.length,
+      data: {
+        day: props.day,
+        group: props.group,
+        meal: props.meal,
+        date: props.date,
+      },
+      disabled,
     });
 
   const isActive = tableStore.active?.id === id;
@@ -129,7 +146,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
           >
             {props.meal.name}
           </Link>
-          {isHighRank && !isOrderMenu && !selectedMealAdmins.length && (
+          {enabled && (
             <MyConfirmModal
               title={t("WARNING")}
               isOpen={isOpen}
@@ -192,7 +209,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
         <div className="relative">
           <Image
             alt={t("MEAL")}
-            className={`h-24 w-full rounded-xl object-cover ${isHighRank && !isOrderMenu && !selectedMealAdmins.length ? "cursor-grab" : ""}`}
+            className={`h-24 w-full rounded-xl object-cover ${enabled ? "cursor-grab" : ""}`}
             ref={setActivatorNodeRef}
             {...listeners}
             src={
@@ -203,7 +220,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
             width={200}
             height={200}
           />
-          {selectedMealAdmins?.length ? (
+          {selectedMealAdmins?.length && isOrderMenu ? (
             <div
               className="absolute right-1 top-1 flex items-center rounded-lg bg-default-100 p-1"
               title={t("ORDERS")}
