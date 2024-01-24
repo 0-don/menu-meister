@@ -9,6 +9,7 @@ import { useInitialDashboardStore } from "@/store/hooks/useInitialDashboardStore
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import { useMeHook } from "./hooks/useMeHook";
+import { useUserMealHook } from "./hooks/useUserMealHook";
 import { AddNewTableRow } from "./pages/dashboard/table/AddNewTableRow";
 import { TableContext } from "./pages/dashboard/table/TableContext";
 
@@ -17,6 +18,7 @@ interface DashboardPageProps {}
 export function MainTable({}: DashboardPageProps) {
   useInitialDashboardStore();
   const { isHighRank, isOrderMenu } = useMeHook();
+  const { userMealsAdmin } = useUserMealHook();
   const dashboardStore = useSnapshot(DashboardStore);
 
   const {
@@ -43,7 +45,9 @@ export function MainTable({}: DashboardPageProps) {
   return (
     <>
       <TableContext />
-      {isHighRank && !isOrderMenu && <AddNewTableRow />}
+      {isHighRank && !isOrderMenu && !userMealsAdmin.length && (
+        <AddNewTableRow />
+      )}
     </>
   );
 }

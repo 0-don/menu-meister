@@ -7,8 +7,11 @@ import {
   UPDATE_WEEKLY_MEAL_GROUP_ADMIN,
 } from "@/documents/mutation/dashboard";
 import { useGqlMutation } from "@/fetcher";
+import dayjs from "dayjs";
+import { useMeHook } from "./useMeHook";
 
 export const useWeeklyMealGroupHook = () => {
+  const { me, isHighRank, isOrderMenu } = useMeHook();
   const { mutateAsync: updateWeeklyMealGroup } = useGqlMutation(
     UPDATE_WEEKLY_MEAL_GROUP_ADMIN,
   );
@@ -23,10 +26,13 @@ export const useWeeklyMealGroupHook = () => {
     SWITCH_WEEKLY_MEAL_GROUP_ADMIN,
   );
 
+  const isPast = (date?: string) => dayjs(date).isBefore(dayjs());
+
   return {
     updateWeeklyMealGroup,
     deleteWeeklyMealgRoup,
     createWeeklyMealGroup,
     switchWeeklyMealGroup,
+    isPast,
   };
 };
