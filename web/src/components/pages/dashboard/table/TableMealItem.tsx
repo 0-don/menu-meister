@@ -64,7 +64,9 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
           isActive && "relative z-50",
           (!isHighRank || isOrderMenu) &&
             "cursor-pointer border border-transparent hover:border-primary",
-          isSelectedMeal && "border !border-primary hover:!border-danger",
+          isOrderMenu &&
+            isSelectedMeal &&
+            "border !border-primary hover:!border-danger",
           "group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2",
         )}
         ref={setNodeRef}
