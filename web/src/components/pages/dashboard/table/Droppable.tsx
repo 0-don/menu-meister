@@ -28,7 +28,7 @@ export const Droppable: React.FC<DroppableProps> = ({ day, groupId, date }) => {
   const id = `${groupId}#${day}`;
   const { setNodeRef, isOver } = useDroppable({
     id,
-    data: { day, group: groupId },
+    data: { day, group: groupId, date },
   });
 
   const meal = getGroupMeal(groupId, day);

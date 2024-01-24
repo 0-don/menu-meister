@@ -220,7 +220,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
             width={200}
             height={200}
           />
-          {selectedMealAdmins?.length && isOrderMenu ? (
+          {selectedMealAdmins?.length && !isOrderMenu ? (
             <div
               className="absolute right-1 top-1 flex items-center rounded-lg bg-default-100 p-1"
               title={t("ORDERS")}
