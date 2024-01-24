@@ -31,14 +31,8 @@ export function MainTable({}: DashboardPageProps) {
         weekOfYear: { equals: dashboardStore.calendar.week },
       },
     },
-    { enabled: false },
+    { enabled: !!dashboardStore.activeMealBoardPlan },
   );
-
-  
-
-  useEffect(() => {
-    if (dashboardStore.activeMealBoardPlan?.id) refetchWeeklyMealGroups();
-  }, [dashboardStore.activeMealBoardPlan, dashboardStore.calendar]);
 
   useEffect(() => {
     TableStore.data =

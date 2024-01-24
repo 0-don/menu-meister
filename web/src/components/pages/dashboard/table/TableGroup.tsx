@@ -33,25 +33,26 @@ export const TableGroup: React.FC<TableGroupProps> = ({
     useWeeklyMealGroupHook();
   const dashboardStore = useSnapshot(DashboardStore);
   const tableStore = useSnapshot(TableStore);
-  const group = tableStore.getGroup(id)!;
+  const debouncedSetColor = useCallback(
+    debounce((newColor: string) => {
+      setColor(newColor);
+      updateWeeklyMealGroup({
+        where: { id: Number(id) },
+        data: { color: { set: newColor } },
+      });
+    }, 100),
+    [],
+  );
+  const group = tableStore.getGroup(id);
   const [color, setColor] = useState<string>(group?.color ?? "");
   const [groupName, setGroupName] = useState<string>(group?.name ?? "");
+
+  if (!group) return null;
 
   const seletecMealsAdmin = userMealsAdmin?.filter(
     (m) =>
       m.weeklyMealGroupId === group.id &&
       m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id,
-  );
-
-  const debouncedSetColor = useCallback(
-    debounce((newColor: string) => {
-      setColor(newColor);
-      updateWeeklyMealGroup({
-        where: { id: group.id },
-        data: { color: { set: newColor } },
-      });
-    }, 100),
-    [],
   );
 
   return (
