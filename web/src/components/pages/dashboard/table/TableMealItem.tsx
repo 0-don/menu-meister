@@ -28,8 +28,12 @@ interface TableMealItemProps {
 
 export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
   const t = useTranslations<"Dashboard">();
-  const { userMeals, createUserMeal, deleteUserMeal, refetchUserMeals } =
-    useUserMealHook();
+  const {
+    userMealsUser: userMeals,
+    createUserMeal,
+    deleteUserMeal,
+    refetchUserMeals,
+  } = useUserMealHook();
   const dashboardStore = useSnapshot(DashboardStore);
   const { isHighRank, isOrderMenu, me } = useMeHook();
   const groupItem = TableStore.getGroup(props.group);
