@@ -51,7 +51,8 @@
     "DELETE_MEAL": "Delete Meal",
     "SELECT_MEAL": "Select Meal",
     "MEAL": "Meal",
-    "MEAL_BOARD_PLAN": "Meal Board Plan"
+    "MEAL_BOARD_PLAN": "Meal Board Plan",
+    "ORDERS": "Bestellungen"
   },
   "Menu": {},
   "User": {},

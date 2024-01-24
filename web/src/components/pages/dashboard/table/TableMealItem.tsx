@@ -13,6 +13,7 @@ import { Link } from "@nextui-org/link";
 import { Button, useDisclosure } from "@nextui-org/react";
 import mealPlaceholder from "@public/images/meal-placeholder.png";
 import { FaEraser } from "@react-icons/all-files/fa/FaEraser";
+import { IoFastFoodSharp } from "@react-icons/all-files/io5/IoFastFoodSharp";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
@@ -30,6 +31,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
   const t = useTranslations<"Dashboard">();
   const {
     userMealsUser,
+    userMealsAdmin,
     createUserMeal,
     deleteUserMeal,
     refetchUserMealsUser,
@@ -41,21 +43,32 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
   const { updateWeeklyMealGroup } = useWeeklyMealGroupHook();
   const tableStore = useSnapshot(TableStore);
   const id = `${props.group}#${props.day}#${props.meal.id}`;
-  const { attributes, listeners, setNodeRef, transform, setActivatorNodeRef } =
-    useDraggable({
-      id,
-      data: { day: props.day, group: props.group, meal: props.meal },
-      disabled: !isHighRank || isOrderMenu,
-    });
 
-  const isActive = tableStore.active?.id === id;
-  const isSelectedMeal = userMealsUser?.find(
+  const isSelectedMealUser = userMealsUser?.find(
     (m) =>
       m.mealId === props.meal.id &&
       dayjs(m.date).format("DD/MM/YYYY") ===
         dayjs(props.date).format("DD/MM/YYYY") &&
       m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id,
   );
+
+  const selectedMealAdmins =
+    userMealsAdmin?.filter(
+      (m) =>
+        m.mealId === props.meal.id &&
+        dayjs(m.date).format("DD/MM/YYYY") ===
+          dayjs(props.date).format("DD/MM/YYYY") &&
+        m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id,
+    ) || [];
+
+  const { attributes, listeners, setNodeRef, transform, setActivatorNodeRef } =
+    useDraggable({
+      id,
+      data: { day: props.day, group: props.group, meal: props.meal },
+      disabled: !isHighRank || isOrderMenu || !!selectedMealAdmins.length,
+    });
+
+  const isActive = tableStore.active?.id === id;
 
   return (
     <>
@@ -69,14 +82,14 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
           (!isHighRank || isOrderMenu) &&
             "cursor-pointer border border-transparent hover:border-primary",
           isOrderMenu &&
-            isSelectedMeal &&
+            isSelectedMealUser &&
             "border !border-primary hover:!border-danger",
           "group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2",
         )}
         ref={setNodeRef}
         onClick={async () => {
           if (!isHighRank || isOrderMenu) {
-            if (!isSelectedMeal) {
+            if (!isSelectedMealUser) {
               try {
                 await createUserMeal({
                   data: {
@@ -96,7 +109,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
             } else {
               try {
                 await deleteUserMeal({
-                  where: { id: Number(isSelectedMeal.id) },
+                  where: { id: Number(isSelectedMealUser.id) },
                 });
                 refetchUserMealsUser();
               } catch (error) {
@@ -116,7 +129,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
           >
             {props.meal.name}
           </Link>
-          {isHighRank && !isOrderMenu && (
+          {isHighRank && !isOrderMenu && !selectedMealAdmins.length && (
             <MyConfirmModal
               title={t("WARNING")}
               isOpen={isOpen}
@@ -176,19 +189,32 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
           )}
         </div>
 
-        <Image
-          alt={t("MEAL")}
-          className={`h-24 w-full rounded-xl object-cover ${isHighRank && !isOrderMenu ? "cursor-grab" : ""}`}
-          ref={setActivatorNodeRef}
-          {...listeners}
-          src={
-            props.meal.image
-              ? `data:image/jpeg;base64,${props.meal.image}`
-              : mealPlaceholder
-          }
-          width={200}
-          height={200}
-        />
+        <div className="relative">
+          <Image
+            alt={t("MEAL")}
+            className={`h-24 w-full rounded-xl object-cover ${isHighRank && !isOrderMenu && !selectedMealAdmins.length ? "cursor-grab" : ""}`}
+            ref={setActivatorNodeRef}
+            {...listeners}
+            src={
+              props.meal.image
+                ? `data:image/jpeg;base64,${props.meal.image}`
+                : mealPlaceholder
+            }
+            width={200}
+            height={200}
+          />
+          {selectedMealAdmins?.length ? (
+            <div
+              className="absolute right-1 top-1 flex items-center rounded-lg bg-default-100 p-1"
+              title={t("ORDERS")}
+            >
+              <span className="text-sm font-bold text-primary-500">
+                {selectedMealAdmins.length}
+              </span>
+              <IoFastFoodSharp className="text-primary-500" />
+            </div>
+          ) : null}
+        </div>
       </div>
     </>
   );

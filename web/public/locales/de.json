@@ -51,7 +51,8 @@
     "DELETE_MEAL": "Mahlzeit löschen",
     "SELECT_MEAL": "Mahlzeit auswählen",
     "MEAL": "Mahlzeit",
-    "MEAL_BOARD_PLAN": "Mahlzeitenplan"
+    "MEAL_BOARD_PLAN": "Mahlzeitenplan",
+    "ORDERS": "Bestellungen"
   },
   "Menu": {},
   "User": {},

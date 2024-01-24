@@ -1,6 +1,8 @@
 import { MyConfirmModal } from "@/components/elements/MyConfirmModal";
 import { useMeHook } from "@/components/hooks/useMeHook";
+import { useUserMealHook } from "@/components/hooks/useUserMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
+import { DashboardStore } from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
 import { debounce } from "@/utils/constants";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
@@ -23,15 +25,23 @@ export const TableGroup: React.FC<TableGroupProps> = ({
   listeners,
   activatorRef,
 }) => {
-  const { isHighRank, isOrderMenu } = useMeHook();
   const t = useTranslations<"Dashboard">();
+  const { isHighRank, isOrderMenu } = useMeHook();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { userMealsAdmin } = useUserMealHook();
   const { updateWeeklyMealGroup, deleteWeeklyMealgRoup } =
     useWeeklyMealGroupHook();
+  const dashboardStore = useSnapshot(DashboardStore);
   const tableStore = useSnapshot(TableStore);
   const group = tableStore.getGroup(id)!;
   const [color, setColor] = useState<string>(group?.color ?? "");
   const [groupName, setGroupName] = useState<string>(group?.name ?? "");
+
+  const seletecMealsAdmin = userMealsAdmin?.filter(
+    (m) =>
+      m.weeklyMealGroupId === group.id &&
+      m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id,
+  );
 
   const debouncedSetColor = useCallback(
     debounce((newColor: string) => {
@@ -88,7 +98,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
               {...listeners}
               ref={activatorRef}
             />
-            {isHighRank && !isOrderMenu && (
+            {isHighRank && !isOrderMenu && !seletecMealsAdmin.length && (
               <MyConfirmModal
                 title={t("WARNING")}
                 isOpen={isOpen}
