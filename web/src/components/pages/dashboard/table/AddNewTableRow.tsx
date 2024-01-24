@@ -32,7 +32,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
     try {
       const res = await createWeeklyMealGroup({
         data: {
-          mealBoardPlan: { connect: { id: dashboardStore.activeMealBoardPlan?.id } },
+          mealBoardPlanId: Number(dashboardStore.activeMealBoardPlan?.id),
           name,
           color,
           orderIndex: (meals || []).length,
@@ -41,14 +41,18 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
         },
       });
 
-      TableStore.data.push(
-        res.createWeeklyMealGroupAdmin as WeeklyMealGroupFragmentFragment,
-      );
+      console.log(res);
+
+      if (res.createWeeklyMealGroupAdmin) {
+        TableStore.data.push(
+          res.createWeeklyMealGroupAdmin as WeeklyMealGroupFragmentFragment,
+        );
+      }
 
       setIsOpen(false);
       setName("");
     } catch (error) {
-      catchErrorAlerts(error);
+      catchErrorAlerts(error, t);
     }
   };
 

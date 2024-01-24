@@ -7,7 +7,9 @@ export const SWITCH_WEEKLY_MEAL_GROUP_ADMIN = graphql(/* GraphQL */ `
 `);
 
 export const CREATE_WEEKLY_MEAL_GROUP_ADMIN = graphql(/* GraphQL */ `
-  mutation CreateWeeklyMealGroupAdmin($data: WeeklyMealGroupCreateInput!) {
+  mutation CreateWeeklyMealGroupAdmin(
+    $data: WeeklyMealGroupUncheckedCreateInput!
+  ) {
     createWeeklyMealGroupAdmin(data: $data) {
       ...WeeklyMealGroupFragment
     }

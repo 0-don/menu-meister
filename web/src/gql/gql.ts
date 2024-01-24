@@ -18,7 +18,7 @@ const documents = {
     "\n  mutation LoginUser($data: LoginUserInput!) {\n    loginUser(data: $data) {\n      id\n      username\n      email\n      lastOnline\n      status\n      createdAt\n      updatedAt\n      userRole {\n        id\n        name\n      }\n    }\n  }\n": types.LoginUserDocument,
     "\n  mutation Logout {\n    logout\n  }\n": types.LogoutDocument,
     "\n  mutation SwitchWeeklyMealGroupAdmin($data: SwitchWeeklyMealGroupInput!) {\n    switchWeeklyMealGroupAdmin(data: $data)\n  }\n": types.SwitchWeeklyMealGroupAdminDocument,
-    "\n  mutation CreateWeeklyMealGroupAdmin($data: WeeklyMealGroupCreateInput!) {\n    createWeeklyMealGroupAdmin(data: $data) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n": types.CreateWeeklyMealGroupAdminDocument,
+    "\n  mutation CreateWeeklyMealGroupAdmin(\n    $data: WeeklyMealGroupUncheckedCreateInput!\n  ) {\n    createWeeklyMealGroupAdmin(data: $data) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n": types.CreateWeeklyMealGroupAdminDocument,
     "\n  mutation DeleteWeeklyMealGroupAdmin(\n    $where: WeeklyMealGroupWhereUniqueInput!\n  ) {\n    deleteWeeklyMealGroupAdmin(where: $where) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n": types.DeleteWeeklyMealGroupAdminDocument,
     "\n  mutation UpdateWeeklyMealGroupAdmin(\n    $data: WeeklyMealGroupUncheckedUpdateInput!\n    $where: WeeklyMealGroupWhereUniqueInput!\n  ) {\n    updateWeeklyMealGroupAdmin(data: $data, where: $where) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n": types.UpdateWeeklyMealGroupAdminDocument,
     "\n  mutation CreateUserMealUser($data: UserMealUncheckedCreateInput!) {\n    createUserMealUser(data: $data) {\n      id\n      date\n      mealId\n      mealBoardPlanId\n      weeklyMealGroupId\n      meal {\n        id\n        name\n      }\n    }\n  }\n": types.CreateUserMealUserDocument,
@@ -70,7 +70,7 @@ export function graphql(source: "\n  mutation SwitchWeeklyMealGroupAdmin($data: 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation CreateWeeklyMealGroupAdmin($data: WeeklyMealGroupCreateInput!) {\n    createWeeklyMealGroupAdmin(data: $data) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n"): (typeof documents)["\n  mutation CreateWeeklyMealGroupAdmin($data: WeeklyMealGroupCreateInput!) {\n    createWeeklyMealGroupAdmin(data: $data) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n"];
+export function graphql(source: "\n  mutation CreateWeeklyMealGroupAdmin(\n    $data: WeeklyMealGroupUncheckedCreateInput!\n  ) {\n    createWeeklyMealGroupAdmin(data: $data) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n"): (typeof documents)["\n  mutation CreateWeeklyMealGroupAdmin(\n    $data: WeeklyMealGroupUncheckedCreateInput!\n  ) {\n    createWeeklyMealGroupAdmin(data: $data) {\n      ...WeeklyMealGroupFragment\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

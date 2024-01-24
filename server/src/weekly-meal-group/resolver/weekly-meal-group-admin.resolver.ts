@@ -1,11 +1,11 @@
 import { CreateManyWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/create-many-weekly-meal-group.args";
-import { CreateOneWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/create-one-weekly-meal-group.args";
 import { DeleteManyWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/delete-many-weekly-meal-group.args";
 import { DeleteOneWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/delete-one-weekly-meal-group.args";
 import { FindFirstWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/find-first-weekly-meal-group.args";
 import { FindManyWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/find-many-weekly-meal-group.args";
 import { UpdateManyWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/update-many-weekly-meal-group.args";
 import { UpsertOneWeeklyMealGroupArgs } from "@/app_modules/@generated/weekly-meal-group/upsert-one-weekly-meal-group.args";
+import { WeeklyMealGroupUncheckedCreateInput } from "@/app_modules/@generated/weekly-meal-group/weekly-meal-group-unchecked-create.input";
 import { WeeklyMealGroupUncheckedUpdateInput } from "@/app_modules/@generated/weekly-meal-group/weekly-meal-group-unchecked-update.input";
 import { WeeklyMealGroupWhereUniqueInput } from "@/app_modules/@generated/weekly-meal-group/weekly-meal-group-where-unique.input";
 import { WeeklyMealGroup } from "@/app_modules/@generated/weekly-meal-group/weekly-meal-group.model";
@@ -83,13 +83,17 @@ export class WeeklyMealGroupAdminResolver {
   @Mutation(() => WeeklyMealGroup, { nullable: true })
   @Roles("ADMIN")
   async createWeeklyMealGroupAdmin(
-    @Args() args: CreateOneWeeklyMealGroupArgs,
+    @Args("data") data: WeeklyMealGroupUncheckedCreateInput,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
     try {
-      return await this.prisma.weeklyMealGroup.create({ ...args, ...select });
+      return await this.prisma.weeklyMealGroup.create({
+        ...select,
+        data,
+      });
     } catch (e) {
+      console.log(e);
       Logger.error(e);
       return null;
     }
