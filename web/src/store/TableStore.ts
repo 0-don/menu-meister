@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  GetAllUserMealsAdminQuery,
   GetAllWeeklyMealGroupsUserQuery,
   Meal,
   WeeklyMealGroupFragmentFragment,
@@ -11,6 +12,7 @@ import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 import { proxy } from "valtio";
 
 const TableStore = proxy({
+  orderedMeals: [] as GetAllUserMealsAdminQuery["getAllUserMealsAdmin"],
   active: undefined as Active | undefined,
   data: [] as WeeklyMealGroupFragmentFragment[],
   get dataSorted() {

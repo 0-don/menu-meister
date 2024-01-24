@@ -11,7 +11,7 @@ interface DashboardLayoutProps {
 export default async function DashboardLayout({
   children,
 }: DashboardLayoutProps) {
-  const { queryClient } = await prefetchQuery([{ document: ME }]);
+  const { queryClient } = await prefetchQuery([{ document: ME, }]);
   const data = queryClient.getQueryData<MeQuery>(getKey(ME));
 
   if (

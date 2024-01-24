@@ -13,5 +13,5 @@ export const useMealHook = () => {
       queryFn: customFetcher(GET_ALL_MEALS_USER),
     });
 
-  return { meals: getAllMealsUser, refetchMeals };
+  return { meals: getAllMealsUser,  };
 };

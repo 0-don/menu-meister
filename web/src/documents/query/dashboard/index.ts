@@ -68,3 +68,30 @@ export const GET_ALL_MEALS_USER = graphql(/* GraphQL */ `
     }
   }
 `);
+
+export const GET_ALL_USER_MEALS_ADMIN = graphql(/* GraphQL */ `
+  query GetAllUserMealsAdmin(
+    $where: UserMealWhereInput
+    $orderBy: [UserMealOrderByWithRelationInput!]
+    $cursor: UserMealWhereUniqueInput
+    $take: Int
+    $skip: Int
+    $distinct: [UserMealScalarFieldEnum!]
+  ) {
+    getAllUserMealsAdmin(
+      where: $where
+      orderBy: $orderBy
+      cursor: $cursor
+      take: $take
+      skip: $skip
+      distinct: $distinct
+    ) {
+      id
+      mealId
+      mealBoardPlanId
+      date
+      userId
+      weeklyMealGroupId
+    }
+  }
+`);

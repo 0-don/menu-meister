@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { UPDATE_SETTINGS_ADMIN } from "@/documents/mutation/settings";

@@ -6,7 +6,7 @@ import { getKey } from "@/utils/helpers/clientUtils";
 import { useQuery } from "@tanstack/react-query";
 
 export const useSettingsHook = () => {
-  const { data: { getSettingsUser } = {}, refetch: refetchMeals } =
+  const { data: { getSettingsUser } = {}, refetch: refetchSettings } =
     useQuery<GetSettingsUserQuery>({
       queryKey: getKey(GET_SETTINGS_USER),
       enabled: false,

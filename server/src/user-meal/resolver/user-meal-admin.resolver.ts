@@ -9,7 +9,7 @@ import { GraphQLResolveInfo } from "graphql";
 import { UserMealService } from "../user-meal.service";
 
 @Resolver(() => UserMeal)
-export class UserMealUserResolver {
+export class UserMealAdminResolver {
   constructor(
     private prisma: PrismaService,
     private userMealService: UserMealService,

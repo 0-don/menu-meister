@@ -1,10 +1,10 @@
-import { AuthService } from "@/auth/auth.service";
 import { Module } from "@nestjs/common";
+import { UserMealAdminResolver } from "./resolver/user-meal-admin.resolver";
 import { UserMealUserResolver } from "./resolver/user-meal-user.resolver";
 import { UserMealService } from "./user-meal.service";
 
 @Module({
-  providers: [UserMealService, AuthService, UserMealUserResolver],
+  providers: [UserMealService, UserMealUserResolver, UserMealAdminResolver],
   exports: [UserMealService],
 })
 export class UserMealModule {}
