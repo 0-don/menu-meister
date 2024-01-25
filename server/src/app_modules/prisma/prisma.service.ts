@@ -39,7 +39,6 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
           params.args.update.updatedBy = user.sub;
         }
       } catch (_) {}
-      console.log(params.args);
       return next(params);
     });
     await this.$connect();

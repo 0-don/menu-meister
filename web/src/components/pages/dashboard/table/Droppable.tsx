@@ -33,9 +33,6 @@ export const Droppable: React.FC<DroppableProps> = ({ day, groupId, date }) => {
 
   const meal = getGroupMeal(groupId, day);
 
-
-  console.log(date, isPast(date));
-
   return (
     <div ref={setNodeRef}>
       {meal ? (

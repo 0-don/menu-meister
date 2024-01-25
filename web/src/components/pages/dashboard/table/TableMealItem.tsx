@@ -1,5 +1,6 @@
 import { MyConfirmModal } from "@/components/elements/MyConfirmModal";
 import { useMeHook } from "@/components/hooks/useMeHook";
+import { useSettingsHook } from "@/components/hooks/useSettinsHook";
 import { useUserMealHook } from "@/components/hooks/useUserMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { Meal } from "@/gql/graphql";
@@ -36,6 +37,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
     deleteUserMeal,
     refetchUserMealsUser,
   } = useUserMealHook();
+  const { settings } = useSettingsHook();
   const dashboardStore = useSnapshot(DashboardStore);
   const { isHighRank, isOrderMenu, me } = useMeHook();
   const groupItem = TableStore.getGroup(props.group);
@@ -87,6 +89,8 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
 
   const isActive = tableStore.active?.id === id;
 
+  console.log(settings);
+
   return (
     <>
       <div
@@ -97,15 +101,23 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
         className={classNames(
           isActive && "relative z-50",
           (!isHighRank || isOrderMenu) &&
+            !isPast(props.date) &&
             "cursor-pointer border border-transparent hover:border-primary",
           isOrderMenu &&
             isSelectedMealUser &&
-            "border !border-primary hover:!border-danger",
+            "border !border-success-500 hover:!border-danger",
           "group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2",
         )}
         ref={setNodeRef}
         onClick={async () => {
-          if (!isHighRank || isOrderMenu) {
+          if (
+            (!isHighRank || isOrderMenu) &&
+            !isPast(props.date) &&
+            !dayjs(props.date).isBefore(
+              dayjs().add(settings?.maxEditOrderDays || 0, "day"),
+              "day",
+            )
+          ) {
             if (!isSelectedMealUser) {
               try {
                 await createUserMeal({

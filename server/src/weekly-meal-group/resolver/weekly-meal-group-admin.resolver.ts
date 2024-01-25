@@ -93,7 +93,6 @@ export class WeeklyMealGroupAdminResolver {
         data,
       });
     } catch (e) {
-      console.log(e);
       Logger.error(e);
       return null;
     }

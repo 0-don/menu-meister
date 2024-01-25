@@ -63,7 +63,6 @@ export class UserMealUserResolver {
     try {
       return await this.prisma.userMeal.create({ data, ...select });
     } catch (e) {
-      console.log(e);
       Logger.error(e);
       return null;
     }
@@ -94,7 +93,6 @@ export class UserMealUserResolver {
     try {
       return await this.prisma.userMeal.delete({ ...args, ...select });
     } catch (e) {
-      console.log(e);
       Logger.error(e);
       return null;
     }

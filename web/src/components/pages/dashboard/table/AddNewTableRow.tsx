@@ -41,8 +41,6 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
         },
       });
 
-      console.log(res);
-
       if (res.createWeeklyMealGroupAdmin) {
         TableStore.data.push(
           res.createWeeklyMealGroupAdmin as WeeklyMealGroupFragmentFragment,
