@@ -1,4 +1,5 @@
 import { MyAutocomplete } from "@/components/elements/MyAutocomplete";
+import { useUserMealHook } from "@/components/hooks/useUserMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { Meal } from "@/gql/graphql";
 import { DashboardStore } from "@/store/DashboardStore";
@@ -20,6 +21,7 @@ import { TableGroupRow } from "./TableGroupRow";
 export function TableContext() {
   const { updateWeeklyMealGroup, switchWeeklyMealGroup, isPast } =
     useWeeklyMealGroupHook();
+  const { userMealsAdmin } = useUserMealHook();
   const t = useTranslations<"Dashboard">();
   const dashboardStore = useSnapshot(DashboardStore);
   const { dataSorted } = useSnapshot(TableStore);
@@ -101,10 +103,22 @@ export function TableContext() {
             const activeGroupId = active.data.current.group as number;
             const overDay = over?.data.current?.day as string;
             const overGroupId = over?.data.current?.group as number;
-            const overDate = over?.data.current?.date
+            const overDate = over?.data.current?.date;
+
+            const overMealsAdmin = userMealsAdmin?.filter(
+              (m) =>
+                m.weeklyMealGroupId === overGroupId &&
+                m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id &&
+                dayjs(m.date).format("DD/MM/YYYY") ===
+                  dayjs(overDate).format("DD/MM/YYYY"),
+            );
 
             // meal sorting changed
-            if ((activeDay !== overDay || activeGroupId !== overGroupId) && !isPast(overDate)) {
+            if (
+              (activeDay !== overDay || activeGroupId !== overGroupId) &&
+              !isPast(overDate) &&
+              !overMealsAdmin.length
+            ) {
               // check if over has meal already
               const overMeal = (
                 TableStore.data.find((group) => group.id === overGroupId) as any
