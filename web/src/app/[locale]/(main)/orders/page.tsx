@@ -1,5 +1,6 @@
 "use client";
 
+import { useMealHook } from "@/components/hooks/useMealHook";
 import { MenuPagination } from "@/components/pages/dashboard/utils/MenuPagination";
 import { GET_USER_MEALS_GROUPED_ADMIN } from "@/documents/query/orders";
 import { useGqlQuery } from "@/fetcher";
@@ -24,6 +25,7 @@ export default function OrdersPage({}: OrdersPageProps) {
   useInitialDashboardStore();
   const t = useTranslations<"Dashboard">();
   const dashboardStore = useSnapshot(DashboardStore);
+  const { meals } = useMealHook();
 
   const { data: { getUserMealsGroupedAdmin } = {} } = useGqlQuery(
     GET_USER_MEALS_GROUPED_ADMIN,
@@ -52,15 +54,18 @@ export default function OrdersPage({}: OrdersPageProps) {
             <TableColumn>{t("COUNT")}</TableColumn>
           </TableHeader>
           <TableBody>
-            {(getUserMealsGroupedAdmin || []).map((userMeal) => (
-              <TableRow key="1">
-                <TableCell>
-                  {dayjs(userMeal.date).format("DD/MM/YYYY")}
-                </TableCell>
-                <TableCell>{userMeal.mealId}</TableCell>
-                <TableCell>{userMeal._count?.mealId}</TableCell>
-              </TableRow>
-            ))}
+            {(getUserMealsGroupedAdmin || []).map((userMeal) => {
+              const meal = meals?.find((meal) => meal.id === userMeal.mealId);
+              return (
+                <TableRow key="1">
+                  <TableCell>
+                    {dayjs(userMeal.date).format("DD/MM/YYYY")}
+                  </TableCell>
+                  <TableCell>{meal?.name}</TableCell>
+                  <TableCell>{userMeal._count?.mealId}</TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </div>
