@@ -53,6 +53,12 @@ export const getMenu = (roles: UserRoleName[]) =>
         roles.includes(UserRoleName.Admin) || roles.includes(UserRoleName.Mod),
     },
     {
+      link: "/orders",
+      name: "ORDERS",
+      display:
+        roles.includes(UserRoleName.Admin) || roles.includes(UserRoleName.Mod),
+    },
+    {
       link: "/menu",
       name: "MENU",
       display:
