@@ -52,7 +52,9 @@
     "SELECT_MEAL": "Select Meal",
     "MEAL": "Meal",
     "MEAL_BOARD_PLAN": "Meal Board Plan",
-    "ORDERS": "Bestellungen"
+    "ORDERS": "Bestellungen",
+    "COUNT": "Anzahl",
+    "DATE": "Datum"
   },
   "Menu": {},
   "User": {},

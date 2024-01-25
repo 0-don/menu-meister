@@ -1,7 +1,10 @@
 "use client";
 
-import { useUserMealHook } from "@/components/hooks/useUserMealHook";
 import { MenuPagination } from "@/components/pages/dashboard/utils/MenuPagination";
+import { GET_USER_MEALS_GROUPED_ADMIN } from "@/documents/query/orders";
+import { useGqlQuery } from "@/fetcher";
+import { UserMealScalarFieldEnum } from "@/gql/graphql";
+import { DashboardStore } from "@/store/DashboardStore";
 import { useInitialDashboardStore } from "@/store/hooks/useInitialDashboardStore";
 import {
   Table,
@@ -11,13 +14,32 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
+import dayjs from "dayjs";
+import { useTranslations } from "next-intl";
+import { useSnapshot } from "valtio";
 
 interface OrdersPageProps {}
 
 export default function OrdersPage({}: OrdersPageProps) {
   useInitialDashboardStore();
+  const t = useTranslations<"Dashboard">();
+  const dashboardStore = useSnapshot(DashboardStore);
 
-  const {} = useUserMealHook();
+  const { data: { getUserMealsGroupedAdmin } = {} } = useGqlQuery(
+    GET_USER_MEALS_GROUPED_ADMIN,
+    {
+      where: {
+        mealBoardPlanId: { equals: dashboardStore.activeMealBoardPlan?.id },
+        date: {
+          gte: dashboardStore.daysThatWeek.at(0),
+          lte: dashboardStore.daysThatWeek.at(-1),
+        },
+      },
+      by: [UserMealScalarFieldEnum.Date, UserMealScalarFieldEnum.MealId],
+      count: { mealId: true },
+    },
+    { enabled: !!dashboardStore.activeMealBoardPlan },
+  );
 
   return (
     <>
@@ -25,31 +47,20 @@ export default function OrdersPage({}: OrdersPageProps) {
       <div className="container mx-auto">
         <Table aria-label="Example static collection table" className="mt-5">
           <TableHeader>
-            <TableColumn>NAME</TableColumn>
-            <TableColumn>ROLE</TableColumn>
-            <TableColumn>STATUS</TableColumn>
+            <TableColumn>{t("DATE")}</TableColumn>
+            <TableColumn>{t("MEAL")}</TableColumn>
+            <TableColumn>{t("COUNT")}</TableColumn>
           </TableHeader>
           <TableBody>
-            <TableRow key="1">
-              <TableCell>Tony Reichert</TableCell>
-              <TableCell>CEO</TableCell>
-              <TableCell>Active</TableCell>
-            </TableRow>
-            <TableRow key="2">
-              <TableCell>Zoey Lang</TableCell>
-              <TableCell>Technical Lead</TableCell>
-              <TableCell>Paused</TableCell>
-            </TableRow>
-            <TableRow key="3">
-              <TableCell>Jane Fisher</TableCell>
-              <TableCell>Senior Developer</TableCell>
-              <TableCell>Active</TableCell>
-            </TableRow>
-            <TableRow key="4">
-              <TableCell>William Howard</TableCell>
-              <TableCell>Community Manager</TableCell>
-              <TableCell>Vacation</TableCell>
-            </TableRow>
+            {(getUserMealsGroupedAdmin || []).map((userMeal) => (
+              <TableRow key="1">
+                <TableCell>
+                  {dayjs(userMeal.date).format("DD/MM/YYYY")}
+                </TableCell>
+                <TableCell>{userMeal.mealId}</TableCell>
+                <TableCell>{userMeal._count?.mealId}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </div>

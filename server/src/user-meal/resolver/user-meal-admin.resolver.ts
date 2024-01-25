@@ -1,4 +1,6 @@
 import { FindManyUserMealArgs } from "@/app_modules/@generated/user-meal/find-many-user-meal.args";
+import { UserMealGroupByArgs } from "@/app_modules/@generated/user-meal/user-meal-group-by.args";
+import { UserMealGroupBy } from "@/app_modules/@generated/user-meal/user-meal-group-by.output";
 import { UserMeal } from "@/app_modules/@generated/user-meal/user-meal.model";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
@@ -14,6 +16,28 @@ export class UserMealAdminResolver {
     private prisma: PrismaService,
     private userMealService: UserMealService,
   ) {}
+
+  @Query(() => [UserMealGroupBy], { nullable: true })
+  @Roles("ADMIN")
+  async getUserMealsGroupedAdmin(
+    @Info() info: GraphQLResolveInfo,
+    @Args() args: UserMealGroupByArgs,
+  ) {
+    const select = new PrismaSelect(info).value;
+
+    try {
+      // @ts-ignore
+      const result = await this.prisma.userMeal.groupBy({
+        ...args,
+      });
+
+      console.log(result);
+      return result;
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
+  }
 
   @Query(() => [UserMeal], { nullable: true })
   @Roles("ADMIN")

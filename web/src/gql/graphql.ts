@@ -1103,6 +1103,20 @@ export type DateTimeFilter = {
   notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
 };
 
+export type DateTimeWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedDateTimeFilter>;
+  _min?: InputMaybe<NestedDateTimeFilter>;
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
+  in?: InputMaybe<Array<Scalars['DateTime']['input']>>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
+  not?: InputMaybe<NestedDateTimeWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
+};
+
 export type DecimalFieldUpdateOperationsInput = {
   decrement?: InputMaybe<Scalars['Decimal']['input']>;
   divide?: InputMaybe<Scalars['Decimal']['input']>;
@@ -2655,6 +2669,22 @@ export type IntNullableFilter = {
   lt?: InputMaybe<Scalars['Int']['input']>;
   lte?: InputMaybe<Scalars['Int']['input']>;
   not?: InputMaybe<NestedIntNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars['Int']['input']>>;
+};
+
+export type IntWithAggregatesFilter = {
+  _avg?: InputMaybe<NestedFloatFilter>;
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedIntFilter>;
+  _min?: InputMaybe<NestedIntFilter>;
+  _sum?: InputMaybe<NestedIntFilter>;
+  equals?: InputMaybe<Scalars['Int']['input']>;
+  gt?: InputMaybe<Scalars['Int']['input']>;
+  gte?: InputMaybe<Scalars['Int']['input']>;
+  in?: InputMaybe<Array<Scalars['Int']['input']>>;
+  lt?: InputMaybe<Scalars['Int']['input']>;
+  lte?: InputMaybe<Scalars['Int']['input']>;
+  not?: InputMaybe<NestedIntWithAggregatesFilter>;
   notIn?: InputMaybe<Array<Scalars['Int']['input']>>;
 };
 
@@ -5607,6 +5637,20 @@ export type NestedDateTimeFilter = {
   notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
 };
 
+export type NestedDateTimeWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedDateTimeFilter>;
+  _min?: InputMaybe<NestedDateTimeFilter>;
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
+  in?: InputMaybe<Array<Scalars['DateTime']['input']>>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
+  not?: InputMaybe<NestedDateTimeWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
+};
+
 export type NestedDecimalFilter = {
   equals?: InputMaybe<Scalars['Decimal']['input']>;
   gt?: InputMaybe<Scalars['Decimal']['input']>;
@@ -5632,6 +5676,17 @@ export type NestedEnumUserRoleNameFilter = {
   notIn?: InputMaybe<Array<UserRoleName>>;
 };
 
+export type NestedFloatFilter = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  gt?: InputMaybe<Scalars['Float']['input']>;
+  gte?: InputMaybe<Scalars['Float']['input']>;
+  in?: InputMaybe<Array<Scalars['Float']['input']>>;
+  lt?: InputMaybe<Scalars['Float']['input']>;
+  lte?: InputMaybe<Scalars['Float']['input']>;
+  not?: InputMaybe<NestedFloatFilter>;
+  notIn?: InputMaybe<Array<Scalars['Float']['input']>>;
+};
+
 export type NestedIntFilter = {
   equals?: InputMaybe<Scalars['Int']['input']>;
   gt?: InputMaybe<Scalars['Int']['input']>;
@@ -5651,6 +5706,22 @@ export type NestedIntNullableFilter = {
   lt?: InputMaybe<Scalars['Int']['input']>;
   lte?: InputMaybe<Scalars['Int']['input']>;
   not?: InputMaybe<NestedIntNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars['Int']['input']>>;
+};
+
+export type NestedIntWithAggregatesFilter = {
+  _avg?: InputMaybe<NestedFloatFilter>;
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedIntFilter>;
+  _min?: InputMaybe<NestedIntFilter>;
+  _sum?: InputMaybe<NestedIntFilter>;
+  equals?: InputMaybe<Scalars['Int']['input']>;
+  gt?: InputMaybe<Scalars['Int']['input']>;
+  gte?: InputMaybe<Scalars['Int']['input']>;
+  in?: InputMaybe<Array<Scalars['Int']['input']>>;
+  lt?: InputMaybe<Scalars['Int']['input']>;
+  lte?: InputMaybe<Scalars['Int']['input']>;
+  not?: InputMaybe<NestedIntWithAggregatesFilter>;
   notIn?: InputMaybe<Array<Scalars['Int']['input']>>;
 };
 
@@ -6073,6 +6144,7 @@ export type Query = {
   getSettingsUser?: Maybe<SettingsUserOutput>;
   getUserAdmin?: Maybe<User>;
   getUserMealUser?: Maybe<UserMeal>;
+  getUserMealsGroupedAdmin?: Maybe<Array<UserMealGroupBy>>;
   getWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
   me?: Maybe<User>;
 };
@@ -6262,6 +6334,21 @@ export type QueryGetUserMealUserArgs = {
   cursor?: InputMaybe<UserMealWhereUniqueInput>;
   distinct?: InputMaybe<Array<UserMealScalarFieldEnum>>;
   orderBy?: InputMaybe<Array<UserMealOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<UserMealWhereInput>;
+};
+
+
+export type QueryGetUserMealsGroupedAdminArgs = {
+  _avg?: InputMaybe<UserMealAvgAggregateInput>;
+  _count?: InputMaybe<UserMealCountAggregateInput>;
+  _max?: InputMaybe<UserMealMaxAggregateInput>;
+  _min?: InputMaybe<UserMealMinAggregateInput>;
+  _sum?: InputMaybe<UserMealSumAggregateInput>;
+  by: Array<UserMealScalarFieldEnum>;
+  having?: InputMaybe<UserMealScalarWhereWithAggregatesInput>;
+  orderBy?: InputMaybe<Array<UserMealOrderByWithAggregationInput>>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<UserMealWhereInput>;
@@ -8750,6 +8837,65 @@ export type UserMeal = {
   weeklyMealGroupId: Scalars['Int']['output'];
 };
 
+export type UserMealAvgAggregate = {
+  createdBy?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  mealBoardPlanId?: Maybe<Scalars['Float']['output']>;
+  mealId?: Maybe<Scalars['Float']['output']>;
+  updatedBy?: Maybe<Scalars['Float']['output']>;
+  userId?: Maybe<Scalars['Float']['output']>;
+  weeklyMealGroupId?: Maybe<Scalars['Float']['output']>;
+};
+
+export type UserMealAvgAggregateInput = {
+  id?: InputMaybe<Scalars['Boolean']['input']>;
+  mealBoardPlanId?: InputMaybe<Scalars['Boolean']['input']>;
+  mealId?: InputMaybe<Scalars['Boolean']['input']>;
+  userId?: InputMaybe<Scalars['Boolean']['input']>;
+  weeklyMealGroupId?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type UserMealAvgOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+  mealBoardPlanId?: InputMaybe<SortOrder>;
+  mealId?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+  weeklyMealGroupId?: InputMaybe<SortOrder>;
+};
+
+export type UserMealCountAggregate = {
+  _all: Scalars['Int']['output'];
+  createdAt: Scalars['Int']['output'];
+  createdBy: Scalars['Int']['output'];
+  date: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
+  mealBoardPlanId: Scalars['Int']['output'];
+  mealId: Scalars['Int']['output'];
+  updatedAt: Scalars['Int']['output'];
+  updatedBy: Scalars['Int']['output'];
+  userId: Scalars['Int']['output'];
+  weeklyMealGroupId: Scalars['Int']['output'];
+};
+
+export type UserMealCountAggregateInput = {
+  _all?: InputMaybe<Scalars['Boolean']['input']>;
+  date?: InputMaybe<Scalars['Boolean']['input']>;
+  id?: InputMaybe<Scalars['Boolean']['input']>;
+  mealBoardPlanId?: InputMaybe<Scalars['Boolean']['input']>;
+  mealId?: InputMaybe<Scalars['Boolean']['input']>;
+  userId?: InputMaybe<Scalars['Boolean']['input']>;
+  weeklyMealGroupId?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type UserMealCountOrderByAggregateInput = {
+  date?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  mealBoardPlanId?: InputMaybe<SortOrder>;
+  mealId?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+  weeklyMealGroupId?: InputMaybe<SortOrder>;
+};
+
 export type UserMealCreateInput = {
   date: Scalars['DateTime']['input'];
   meal: MealCreateNestedOneWithoutUserMealInput;
@@ -8963,14 +9109,108 @@ export type UserMealCreateWithoutWeeklyMealGroupInput = {
   user: UserCreateNestedOneWithoutUserMealInput;
 };
 
+export type UserMealGroupBy = {
+  _avg?: Maybe<UserMealAvgAggregate>;
+  _count?: Maybe<UserMealCountAggregate>;
+  _max?: Maybe<UserMealMaxAggregate>;
+  _min?: Maybe<UserMealMinAggregate>;
+  _sum?: Maybe<UserMealSumAggregate>;
+  createdAt: Scalars['DateTime']['output'];
+  createdBy: Scalars['Int']['output'];
+  date: Scalars['DateTime']['output'];
+  id: Scalars['Int']['output'];
+  mealBoardPlanId: Scalars['Int']['output'];
+  mealId: Scalars['Int']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  updatedBy: Scalars['Int']['output'];
+  userId: Scalars['Int']['output'];
+  weeklyMealGroupId: Scalars['Int']['output'];
+};
+
 export type UserMealListRelationFilter = {
   every?: InputMaybe<UserMealWhereInput>;
   none?: InputMaybe<UserMealWhereInput>;
   some?: InputMaybe<UserMealWhereInput>;
 };
 
+export type UserMealMaxAggregate = {
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  createdBy?: Maybe<Scalars['Int']['output']>;
+  date?: Maybe<Scalars['DateTime']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  mealBoardPlanId?: Maybe<Scalars['Int']['output']>;
+  mealId?: Maybe<Scalars['Int']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  updatedBy?: Maybe<Scalars['Int']['output']>;
+  userId?: Maybe<Scalars['Int']['output']>;
+  weeklyMealGroupId?: Maybe<Scalars['Int']['output']>;
+};
+
+export type UserMealMaxAggregateInput = {
+  date?: InputMaybe<Scalars['Boolean']['input']>;
+  id?: InputMaybe<Scalars['Boolean']['input']>;
+  mealBoardPlanId?: InputMaybe<Scalars['Boolean']['input']>;
+  mealId?: InputMaybe<Scalars['Boolean']['input']>;
+  userId?: InputMaybe<Scalars['Boolean']['input']>;
+  weeklyMealGroupId?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type UserMealMaxOrderByAggregateInput = {
+  date?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  mealBoardPlanId?: InputMaybe<SortOrder>;
+  mealId?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+  weeklyMealGroupId?: InputMaybe<SortOrder>;
+};
+
+export type UserMealMinAggregate = {
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  createdBy?: Maybe<Scalars['Int']['output']>;
+  date?: Maybe<Scalars['DateTime']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  mealBoardPlanId?: Maybe<Scalars['Int']['output']>;
+  mealId?: Maybe<Scalars['Int']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  updatedBy?: Maybe<Scalars['Int']['output']>;
+  userId?: Maybe<Scalars['Int']['output']>;
+  weeklyMealGroupId?: Maybe<Scalars['Int']['output']>;
+};
+
+export type UserMealMinAggregateInput = {
+  date?: InputMaybe<Scalars['Boolean']['input']>;
+  id?: InputMaybe<Scalars['Boolean']['input']>;
+  mealBoardPlanId?: InputMaybe<Scalars['Boolean']['input']>;
+  mealId?: InputMaybe<Scalars['Boolean']['input']>;
+  userId?: InputMaybe<Scalars['Boolean']['input']>;
+  weeklyMealGroupId?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type UserMealMinOrderByAggregateInput = {
+  date?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  mealBoardPlanId?: InputMaybe<SortOrder>;
+  mealId?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+  weeklyMealGroupId?: InputMaybe<SortOrder>;
+};
+
 export type UserMealOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>;
+};
+
+export type UserMealOrderByWithAggregationInput = {
+  _avg?: InputMaybe<UserMealAvgOrderByAggregateInput>;
+  _count?: InputMaybe<UserMealCountOrderByAggregateInput>;
+  _max?: InputMaybe<UserMealMaxOrderByAggregateInput>;
+  _min?: InputMaybe<UserMealMinOrderByAggregateInput>;
+  _sum?: InputMaybe<UserMealSumOrderByAggregateInput>;
+  date?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  mealBoardPlanId?: InputMaybe<SortOrder>;
+  mealId?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+  weeklyMealGroupId?: InputMaybe<SortOrder>;
 };
 
 export type UserMealOrderByWithRelationInput = {
@@ -9009,6 +9249,44 @@ export type UserMealScalarWhereInput = {
   mealId?: InputMaybe<IntFilter>;
   userId?: InputMaybe<IntFilter>;
   weeklyMealGroupId?: InputMaybe<IntFilter>;
+};
+
+export type UserMealScalarWhereWithAggregatesInput = {
+  AND?: InputMaybe<Array<UserMealScalarWhereWithAggregatesInput>>;
+  NOT?: InputMaybe<Array<UserMealScalarWhereWithAggregatesInput>>;
+  OR?: InputMaybe<Array<UserMealScalarWhereWithAggregatesInput>>;
+  date?: InputMaybe<DateTimeWithAggregatesFilter>;
+  id?: InputMaybe<IntWithAggregatesFilter>;
+  mealBoardPlanId?: InputMaybe<IntWithAggregatesFilter>;
+  mealId?: InputMaybe<IntWithAggregatesFilter>;
+  userId?: InputMaybe<IntWithAggregatesFilter>;
+  weeklyMealGroupId?: InputMaybe<IntWithAggregatesFilter>;
+};
+
+export type UserMealSumAggregate = {
+  createdBy?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  mealBoardPlanId?: Maybe<Scalars['Int']['output']>;
+  mealId?: Maybe<Scalars['Int']['output']>;
+  updatedBy?: Maybe<Scalars['Int']['output']>;
+  userId?: Maybe<Scalars['Int']['output']>;
+  weeklyMealGroupId?: Maybe<Scalars['Int']['output']>;
+};
+
+export type UserMealSumAggregateInput = {
+  id?: InputMaybe<Scalars['Boolean']['input']>;
+  mealBoardPlanId?: InputMaybe<Scalars['Boolean']['input']>;
+  mealId?: InputMaybe<Scalars['Boolean']['input']>;
+  userId?: InputMaybe<Scalars['Boolean']['input']>;
+  weeklyMealGroupId?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type UserMealSumOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+  mealBoardPlanId?: InputMaybe<SortOrder>;
+  mealId?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+  weeklyMealGroupId?: InputMaybe<SortOrder>;
 };
 
 export type UserMealUncheckedCreateInput = {
@@ -11603,6 +11881,23 @@ export type GetAllUserMealsUserQueryVariables = Exact<{
 
 export type GetAllUserMealsUserQuery = { getAllUserMealsUser?: Array<{ id: number, date: any, mealId: number, mealBoardPlanId: number, weeklyMealGroupId: number, meal: { id: number, name: string } }> | null };
 
+export type GetUserMealsGroupedAdminQueryVariables = Exact<{
+  where?: InputMaybe<UserMealWhereInput>;
+  orderBy?: InputMaybe<Array<UserMealOrderByWithAggregationInput> | UserMealOrderByWithAggregationInput>;
+  having?: InputMaybe<UserMealScalarWhereWithAggregatesInput>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  count?: InputMaybe<UserMealCountAggregateInput>;
+  avg?: InputMaybe<UserMealAvgAggregateInput>;
+  sum?: InputMaybe<UserMealSumAggregateInput>;
+  min?: InputMaybe<UserMealMinAggregateInput>;
+  max?: InputMaybe<UserMealMaxAggregateInput>;
+  by: Array<UserMealScalarFieldEnum> | UserMealScalarFieldEnum;
+}>;
+
+
+export type GetUserMealsGroupedAdminQuery = { getUserMealsGroupedAdmin?: Array<{ mealId: number, date: any, _count?: { mealId: number } | null }> | null };
+
 export type GetSettingsAdminQueryVariables = Exact<{
   where?: InputMaybe<SettingsWhereInput>;
   orderBy?: InputMaybe<Array<SettingsOrderByWithRelationInput> | SettingsOrderByWithRelationInput>;
@@ -11637,5 +11932,6 @@ export const GetAllWeeklyMealGroupsUserDocument = {"kind":"Document","definition
 export const GetAllMealsUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllMealsUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MealWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MealOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MealWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MealScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllMealsUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetAllMealsUserQuery, GetAllMealsUserQueryVariables>;
 export const GetAllUserMealsAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllUserMealsAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllUserMealsAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"mealId"}},{"kind":"Field","name":{"kind":"Name","value":"mealBoardPlanId"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"weeklyMealGroupId"}}]}}]}}]} as unknown as DocumentNode<GetAllUserMealsAdminQuery, GetAllUserMealsAdminQueryVariables>;
 export const GetAllUserMealsUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllUserMealsUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllUserMealsUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"mealId"}},{"kind":"Field","name":{"kind":"Name","value":"mealBoardPlanId"}},{"kind":"Field","name":{"kind":"Name","value":"weeklyMealGroupId"}},{"kind":"Field","name":{"kind":"Name","value":"meal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetAllUserMealsUserQuery, GetAllUserMealsUserQueryVariables>;
+export const GetUserMealsGroupedAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserMealsGroupedAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealOrderByWithAggregationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"having"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealScalarWhereWithAggregatesInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"count"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealCountAggregateInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"avg"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealAvgAggregateInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sum"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealSumAggregateInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"min"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealMinAggregateInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"max"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealMaxAggregateInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"by"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealScalarFieldEnum"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getUserMealsGroupedAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"having"},"value":{"kind":"Variable","name":{"kind":"Name","value":"having"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"_count"},"value":{"kind":"Variable","name":{"kind":"Name","value":"count"}}},{"kind":"Argument","name":{"kind":"Name","value":"_avg"},"value":{"kind":"Variable","name":{"kind":"Name","value":"avg"}}},{"kind":"Argument","name":{"kind":"Name","value":"_sum"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sum"}}},{"kind":"Argument","name":{"kind":"Name","value":"_min"},"value":{"kind":"Variable","name":{"kind":"Name","value":"min"}}},{"kind":"Argument","name":{"kind":"Name","value":"_max"},"value":{"kind":"Variable","name":{"kind":"Name","value":"max"}}},{"kind":"Argument","name":{"kind":"Name","value":"by"},"value":{"kind":"Variable","name":{"kind":"Name","value":"by"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mealId"}},{"kind":"Field","name":{"kind":"Name","value":"_count"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mealId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]} as unknown as DocumentNode<GetUserMealsGroupedAdminQuery, GetUserMealsGroupedAdminQueryVariables>;
 export const GetSettingsAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSettingsAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"SettingsWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SettingsOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"SettingsWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SettingsScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getSettingsAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"maxEditOrderDays"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdByUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}}]}},{"kind":"Field","name":{"kind":"Name","value":"updatedByUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<GetSettingsAdminQuery, GetSettingsAdminQueryVariables>;
 export const GetSettingsUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSettingsUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getSettingsUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"maxEditOrderDays"}}]}}]}}]} as unknown as DocumentNode<GetSettingsUserQuery, GetSettingsUserQueryVariables>;

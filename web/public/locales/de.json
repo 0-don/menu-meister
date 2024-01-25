@@ -52,7 +52,9 @@
     "SELECT_MEAL": "Mahlzeit auswählen",
     "MEAL": "Mahlzeit",
     "MEAL_BOARD_PLAN": "Mahlzeitenplan",
-    "ORDERS": "Bestellungen"
+    "ORDERS": "Bestellungen",
+    "COUNT": "Anzahl",
+    "DATE": "Datum"
   },
   "Menu": {},
   "User": {},
