@@ -18,7 +18,7 @@ import { useSnapshot } from "valtio";
 import { TableGroupRow } from "./TableGroupRow";
 
 export function TableContext() {
-  const { updateWeeklyMealGroup, switchWeeklyMealGroup } =
+  const { updateWeeklyMealGroup, switchWeeklyMealGroup, isPast } =
     useWeeklyMealGroupHook();
   const t = useTranslations<"Dashboard">();
   const dashboardStore = useSnapshot(DashboardStore);
@@ -101,9 +101,10 @@ export function TableContext() {
             const activeGroupId = active.data.current.group as number;
             const overDay = over?.data.current?.day as string;
             const overGroupId = over?.data.current?.group as number;
+            const overDate = over?.data.current?.date
 
             // meal sorting changed
-            if (activeDay !== overDay || activeGroupId !== overGroupId) {
+            if ((activeDay !== overDay || activeGroupId !== overGroupId) && !isPast(overDate)) {
               // check if over has meal already
               const overMeal = (
                 TableStore.data.find((group) => group.id === overGroupId) as any
