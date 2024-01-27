@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Prisma, PrismaClient, UserRoleName } from "@prisma/client";
+import { Prisma, PrismaClient, Unit, UserRoleName } from "@prisma/client";
 import argon2 from "argon2";
 import { error } from "console";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
@@ -11,6 +11,7 @@ import {
   FOOD_FORMS,
   Ingredient,
   KITCHENS,
+  MealOrRecipe,
   PROPERTIES,
   SEASONS,
 } from "./data";
@@ -253,87 +254,163 @@ const seedRecipes = async () => {
     select: {
       id: true,
       name: true,
-      additives: { select: { name: true, id: true } },
-      allergens: { select: { name: true, id: true } },
-      properties: { select: { name: true, id: true } },
-      categories: { select: { name: true, id: true } },
-      seasons: { select: { name: true, id: true } },
-      foodForms: { select: { name: true, id: true } },
-      kitchens: { select: { name: true, id: true } },
+      blsIdentifier: true,
     },
   });
 
-  for (const _ of Array(500).keys()) {
-    let randomIngredients: typeof ingredients = [];
+  const additives = await prisma.additives.findMany({
+    select: { id: true, name: true },
+  });
+  const allergens = await prisma.allergens.findMany({
+    select: { id: true, name: true },
+  });
+  const properties = await prisma.properties.findMany({
+    select: { id: true, name: true },
+  });
+  const categories = await prisma.categories.findMany({
+    select: { id: true, name: true },
+  });
+  const seasons = await prisma.seasons.findMany({
+    select: { id: true, name: true },
+  });
+  const foodForms = await prisma.foodForms.findMany({
+    select: { id: true, name: true },
+  });
+  const kitchens = await prisma.kitchens.findMany({
+    select: { id: true, name: true },
+  });
 
-    for (const _ of Array(randomInt(2, 5)).keys()) {
-      randomIngredients.push(ingredients[randomInt(0, ingredients.length - 1)]);
-    }
+  const recipes: MealOrRecipe[] = JSON.parse(
+    readFileSync(join(resolve(), "prisma", "recipes.json"), "utf-8"),
+  );
 
-    const additives = new Set(
-      ...randomIngredients.map((ingredient) =>
-        ingredient.additives.map((additive) => additive.id),
-      ),
+  for (const recipe of recipes) {
+    const additivesIds = recipe.additives.map(
+      (name) => additives.find((additive) => additive.name === name)?.id,
     );
-    const allergens = new Set(
-      ...randomIngredients.map((ingredient) =>
-        ingredient.allergens.map((allergen) => allergen.id),
-      ),
+    const allergensIds = recipe.allergens.map(
+      (name) => allergens.find((allergen) => allergen.name === name)?.id,
     );
-    const properties = new Set(
-      ...randomIngredients.map((ingredient) =>
-        ingredient.properties.map((property) => property.id),
-      ),
+    const propertiesIds = recipe.properties.map(
+      (name) => properties.find((property) => property.name === name)?.id,
     );
-    const categories = new Set(
-      ...randomIngredients.map((ingredient) =>
-        ingredient.categories.map((category) => category.id),
-      ),
+    const categoriesIds = recipe.categories.map(
+      (name) => categories.find((category) => category.name === name)?.id,
     );
-    const seasons = new Set(
-      ...randomIngredients.map((ingredient) =>
-        ingredient.seasons.map((season) => season.id),
-      ),
+    const seasonsIds = recipe.seasons.map(
+      (name) => seasons.find((season) => season.name === name)?.id,
     );
-    const foodForms = new Set(
-      ...randomIngredients.map((ingredient) =>
-        ingredient.foodForms.map((foodForm) => foodForm.id),
-      ),
+    const foodFormsIds = recipe.food_forms.map(
+      (name) => foodForms.find((foodForm) => foodForm.name === name)?.id,
     );
-    const kitchens = new Set(
-      ...randomIngredients.map((ingredient) =>
-        ingredient.kitchens.map((kitchen) => kitchen.id),
-      ),
+    const kitchensIds = recipe.kitchens.map(
+      (name) => kitchens.find((kitchen) => kitchen.name === name)?.id,
     );
-    const recipe = await prisma.recipe.create({
+
+    const recipeDB = await prisma.recipe.create({
       data: {
-        name: faker.commerce.productName(),
-        description: faker.commerce.productDescription(),
+        name: recipe.name,
         createdBy: user.id,
         updatedBy: user.id,
-        additives: { connect: [...additives].map((id) => ({ id })) },
-        allergens: { connect: [...allergens].map((id) => ({ id })) },
-        properties: { connect: [...properties].map((id) => ({ id })) },
-        categories: { connect: [...categories].map((id) => ({ id })) },
-        seasons: { connect: [...seasons].map((id) => ({ id })) },
-        foodForms: { connect: [...foodForms].map((id) => ({ id })) },
-        kitchens: { connect: [...kitchens].map((id) => ({ id })) },
+        additives: { connect: additivesIds.map((id) => ({ id })) },
+        allergens: { connect: allergensIds.map((id) => ({ id })) },
+        properties: { connect: propertiesIds.map((id) => ({ id })) },
+        categories: { connect: categoriesIds.map((id) => ({ id })) },
+        seasons: { connect: seasonsIds.map((id) => ({ id })) },
+        foodForms: { connect: foodFormsIds.map((id) => ({ id })) },
+        kitchens: { connect: kitchensIds.map((id) => ({ id })) },
       },
     });
 
-    for (const ingredient of randomIngredients) {
+    for (const ingredient of recipe.recipe_ingredients) {
+      const ingredientId = ingredients.find(
+        (ingredient) => ingredient.blsIdentifier === ingredient.blsIdentifier,
+      )?.id;
+
       await prisma.recipeIngredient.create({
         data: {
-          recipeId: recipe.id,
-          ingredientId: ingredient.id,
-          amount: randomInt(1, 100),
-          unit: "G",
+          recipeId: recipeDB.id,
+          ingredientId,
+          amount: ingredient.amount / ingredient.factor,
+          unit: ingredient.unit.toUpperCase() as Unit,
           createdBy: user.id,
           updatedBy: user.id,
         },
       });
     }
   }
+
+  // for (const _ of Array(500).keys()) {
+  //   let randomIngredients: typeof ingredients = [];
+
+  //   for (const _ of Array(randomInt(2, 5)).keys()) {
+  //     randomIngredients.push(ingredients[randomInt(0, ingredients.length - 1)]);
+  //   }
+
+  //   const additives = new Set(
+  //     ...randomIngredients.map((ingredient) =>
+  //       ingredient.additives.map((additive) => additive.id),
+  //     ),
+  //   );
+  //   const allergens = new Set(
+  //     ...randomIngredients.map((ingredient) =>
+  //       ingredient.allergens.map((allergen) => allergen.id),
+  //     ),
+  //   );
+  //   const properties = new Set(
+  //     ...randomIngredients.map((ingredient) =>
+  //       ingredient.properties.map((property) => property.id),
+  //     ),
+  //   );
+  //   const categories = new Set(
+  //     ...randomIngredients.map((ingredient) =>
+  //       ingredient.categories.map((category) => category.id),
+  //     ),
+  //   );
+  //   const seasons = new Set(
+  //     ...randomIngredients.map((ingredient) =>
+  //       ingredient.seasons.map((season) => season.id),
+  //     ),
+  //   );
+  //   const foodForms = new Set(
+  //     ...randomIngredients.map((ingredient) =>
+  //       ingredient.foodForms.map((foodForm) => foodForm.id),
+  //     ),
+  //   );
+  //   const kitchens = new Set(
+  //     ...randomIngredients.map((ingredient) =>
+  //       ingredient.kitchens.map((kitchen) => kitchen.id),
+  //     ),
+  //   );
+  //   const recipe = await prisma.recipe.create({
+  //     data: {
+  //       name: faker.commerce.productName(),
+  //       description: faker.commerce.productDescription(),
+  //       createdBy: user.id,
+  //       updatedBy: user.id,
+  //       additives: { connect: [...additives].map((id) => ({ id })) },
+  //       allergens: { connect: [...allergens].map((id) => ({ id })) },
+  //       properties: { connect: [...properties].map((id) => ({ id })) },
+  //       categories: { connect: [...categories].map((id) => ({ id })) },
+  //       seasons: { connect: [...seasons].map((id) => ({ id })) },
+  //       foodForms: { connect: [...foodForms].map((id) => ({ id })) },
+  //       kitchens: { connect: [...kitchens].map((id) => ({ id })) },
+  //     },
+  //   });
+
+  //   for (const ingredient of randomIngredients) {
+  //     await prisma.recipeIngredient.create({
+  //       data: {
+  //         recipeId: recipe.id,
+  //         ingredientId: ingredient.id,
+  //         amount: randomInt(1, 100),
+  //         unit: "G",
+  //         createdBy: user.id,
+  //         updatedBy: user.id,
+  //       },
+  //     });
+  //   }
+  // }
 };
 
 const seedMeals = async () => {
@@ -345,91 +422,71 @@ const seedMeals = async () => {
     select: {
       id: true,
       name: true,
-      allergens: { select: { name: true } },
-      additives: { select: { name: true } },
-      properties: { select: { name: true } },
-      categories: { select: { name: true } },
-      seasons: { select: { name: true } },
-      foodForms: { select: { name: true } },
     },
   });
 
-  for (const _ of Array(250).keys()) {
-    const randomRecipes: typeof recipes = [];
+  const additives = await prisma.additives.findMany({
+    select: { id: true, name: true },
+  });
+  const allergens = await prisma.allergens.findMany({
+    select: { id: true, name: true },
+  });
+  const properties = await prisma.properties.findMany({
+    select: { id: true, name: true },
+  });
+  const categories = await prisma.categories.findMany({
+    select: { id: true, name: true },
+  });
+  const seasons = await prisma.seasons.findMany({
+    select: { id: true, name: true },
+  });
+  const foodForms = await prisma.foodForms.findMany({
+    select: { id: true, name: true },
+  });
 
-    for (const _ of Array(randomInt(1, 3)).keys()) {
-      randomRecipes.push(recipes[randomInt(0, recipes.length - 1)]);
-    }
+  const meals: MealOrRecipe[] = JSON.parse(
+    readFileSync(join(resolve(), "prisma", "meals.json"), "utf-8"),
+  );
 
-    const additives = new Set(
-      ...randomRecipes.map((recipe) =>
-        recipe.additives.map((additive) => additive.name),
-      ),
+  for (const meal of meals) {
+    const additivesIds = meal.additives.map(
+      (name) => additives.find((additive) => additive.name === name)?.id,
     );
-    const allergens = new Set(
-      ...randomRecipes.map((recipe) =>
-        recipe.allergens.map((allergen) => allergen.name),
-      ),
+    const allergensIds = meal.allergens.map(
+      (name) => allergens.find((allergen) => allergen.name === name)?.id,
     );
-    const properties = new Set(
-      ...randomRecipes.map((recipe) =>
-        recipe.properties.map((property) => property.name),
-      ),
+    const propertiesIds = meal.properties.map(
+      (name) => properties.find((property) => property.name === name)?.id,
     );
-    const categories = new Set(
-      ...randomRecipes.map((recipe) =>
-        recipe.categories.map((category) => category.name),
-      ),
+    const categoriesIds = meal.categories.map(
+      (name) => categories.find((category) => category.name === name)?.id,
     );
-    const seasons = new Set(
-      ...randomRecipes.map((recipe) =>
-        recipe.seasons.map((season) => season.name),
-      ),
+    const seasonsIds = meal.seasons.map(
+      (name) => seasons.find((season) => season.name === name)?.id,
     );
-    const foodForms = new Set(
-      ...randomRecipes.map((recipe) =>
-        recipe.foodForms.map((foodForm) => foodForm.name),
-      ),
+    const foodFormsIds = meal.food_forms.map(
+      (name) => foodForms.find((foodForm) => foodForm.name === name)?.id,
     );
 
-    const imgUrl = faker.image.urlLoremFlickr({
-      category: "meal",
-      width: 200,
-      height: 200,
-    });
-
-    let blacklist = false;
-    for (const blacklisted of BLACKLISTED_IMG) {
-      if (imgUrl.includes(blacklisted)) {
-        blacklist = true;
-      }
-    }
-
-    const image = !blacklist
-      ? await downloadImage(imgUrl)
-      : { file: null, filename: null };
-
-    const meal = await prisma.meal.create({
+    const mealDB = await prisma.meal.create({
       data: {
-        name: faker.commerce.productName(),
-        description: faker.commerce.productDescription(),
-        imageName: image.filename,
-        image: image.file,
+        name: meal.name,
         createdBy: user.id,
         updatedBy: user.id,
-        additives: { connect: [...additives].map((name) => ({ name })) },
-        allergens: { connect: [...allergens].map((name) => ({ name })) },
-        properties: { connect: [...properties].map((name) => ({ name })) },
-        categories: { connect: [...categories].map((name) => ({ name })) },
-        seasons: { connect: [...seasons].map((name) => ({ name })) },
-        foodForms: { connect: [...foodForms].map((name) => ({ name })) },
+        additives: { connect: additivesIds.map((id) => ({ id })) },
+        allergens: { connect: allergensIds.map((id) => ({ id })) },
+        properties: { connect: propertiesIds.map((id) => ({ id })) },
+        categories: { connect: categoriesIds.map((id) => ({ id })) },
+        seasons: { connect: seasonsIds.map((id) => ({ id })) },
+        foodForms: { connect: foodFormsIds.map((id) => ({ id })) },
       },
     });
 
-    for (const recipe of randomRecipes) {
+    for (const recipeName of meal.dish_recipes) {
+      const recipe = recipes.find((recipe) => recipe.name === recipeName);
       await prisma.mealRecipe.create({
         data: {
-          mealId: meal.id,
+          mealId: mealDB.id,
           recipeId: recipe.id,
           createdBy: user.id,
           updatedBy: user.id,
@@ -437,6 +494,90 @@ const seedMeals = async () => {
       });
     }
   }
+
+  // for (const _ of Array(250).keys()) {
+  //   const randomRecipes: typeof recipes = [];
+
+  //   for (const _ of Array(randomInt(1, 3)).keys()) {
+  //     randomRecipes.push(recipes[randomInt(0, recipes.length - 1)]);
+  //   }
+
+  //   const additives = new Set(
+  //     ...randomRecipes.map((recipe) =>
+  //       recipe.additives.map((additive) => additive.name),
+  //     ),
+  //   );
+  //   const allergens = new Set(
+  //     ...randomRecipes.map((recipe) =>
+  //       recipe.allergens.map((allergen) => allergen.name),
+  //     ),
+  //   );
+  //   const properties = new Set(
+  //     ...randomRecipes.map((recipe) =>
+  //       recipe.properties.map((property) => property.name),
+  //     ),
+  //   );
+  //   const categories = new Set(
+  //     ...randomRecipes.map((recipe) =>
+  //       recipe.categories.map((category) => category.name),
+  //     ),
+  //   );
+  //   const seasons = new Set(
+  //     ...randomRecipes.map((recipe) =>
+  //       recipe.seasons.map((season) => season.name),
+  //     ),
+  //   );
+  //   const foodForms = new Set(
+  //     ...randomRecipes.map((recipe) =>
+  //       recipe.foodForms.map((foodForm) => foodForm.name),
+  //     ),
+  //   );
+
+  //   const imgUrl = faker.image.urlLoremFlickr({
+  //     category: "meal",
+  //     width: 200,
+  //     height: 200,
+  //   });
+
+  //   let blacklist = false;
+  //   for (const blacklisted of BLACKLISTED_IMG) {
+  //     if (imgUrl.includes(blacklisted)) {
+  //       blacklist = true;
+  //     }
+  //   }
+
+  //   const image = !blacklist
+  //     ? await downloadImage(imgUrl)
+  //     : { file: null, filename: null };
+
+  //   const meal = await prisma.meal.create({
+  //     data: {
+  //       name: faker.commerce.productName(),
+  //       description: faker.commerce.productDescription(),
+  //       imageName: image.filename,
+  //       image: image.file,
+  //       createdBy: user.id,
+  //       updatedBy: user.id,
+  //       additives: { connect: [...additives].map((name) => ({ name })) },
+  //       allergens: { connect: [...allergens].map((name) => ({ name })) },
+  //       properties: { connect: [...properties].map((name) => ({ name })) },
+  //       categories: { connect: [...categories].map((name) => ({ name })) },
+  //       seasons: { connect: [...seasons].map((name) => ({ name })) },
+  //       foodForms: { connect: [...foodForms].map((name) => ({ name })) },
+  //     },
+  //   });
+
+  //   for (const recipe of randomRecipes) {
+  //     await prisma.mealRecipe.create({
+  //       data: {
+  //         mealId: meal.id,
+  //         recipeId: recipe.id,
+  //         createdBy: user.id,
+  //         updatedBy: user.id,
+  //       },
+  //     });
+  //   }
+  // }
 };
 
 const seedMealBoardPlan = async () => {

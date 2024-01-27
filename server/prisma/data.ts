@@ -20,6 +20,33 @@ export interface Ingredient {
   protein: number;
 }
 
+export interface MealOrRecipe {
+  additives: string[];
+  allergens: string[];
+  categories: string[];
+  food_forms: string[];
+  id: number;
+  kitchens: string[];
+  name: string;
+  picture?: null | string;
+  properties: string[];
+  seasons: string[];
+  dish_recipes?: string[];
+  portions?: number;
+  recipe_weighing?: number;
+  analysis?: number[];
+  recipe_ingredients?: RecipeIngredient[];
+}
+
+export interface RecipeIngredient {
+  amount: number;
+  bls_identifier: string;
+  factor: number;
+  name: string;
+  unit: Unit;
+}
+
+export type Unit = "g" | "ml" | "l" | "kg";
 
 export const ALLERGENS = [
   "Cashewnuss",
