@@ -471,6 +471,8 @@ const seedMeals = async () => {
     const mealDB = await prisma.meal.create({
       data: {
         name: meal.name,
+        image: meal.picture,
+        imageName: `${meal.name}.jpg`,
         createdBy: user.id,
         updatedBy: user.id,
         additives: { connect: additivesIds.map((id) => ({ id })) },
