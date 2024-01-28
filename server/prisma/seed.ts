@@ -312,13 +312,27 @@ const seedRecipes = async () => {
         name: recipe.name,
         createdBy: user.id,
         updatedBy: user.id,
-        additives: { connect: additivesIds.map((id) => ({ id })) },
-        allergens: { connect: allergensIds.map((id) => ({ id })) },
-        properties: { connect: propertiesIds.map((id) => ({ id })) },
-        categories: { connect: categoriesIds.map((id) => ({ id })) },
-        seasons: { connect: seasonsIds.map((id) => ({ id })) },
-        foodForms: { connect: foodFormsIds.map((id) => ({ id })) },
-        kitchens: { connect: kitchensIds.map((id) => ({ id })) },
+        additives: additivesIds.length
+          ? { connect: additivesIds.map((id) => ({ id })) }
+          : undefined,
+        allergens: allergensIds.length
+          ? { connect: allergensIds.map((id) => ({ id })) }
+          : undefined,
+        properties: propertiesIds.length
+          ? { connect: propertiesIds.map((id) => ({ id })) }
+          : undefined,
+        categories: categoriesIds.length
+          ? { connect: categoriesIds.map((id) => ({ id })) }
+          : undefined,
+        seasons: seasonsIds.length
+          ? { connect: seasonsIds.map((id) => ({ id })) }
+          : undefined,
+        foodForms: foodFormsIds.length
+          ? { connect: foodFormsIds.map((id) => ({ id })) }
+          : undefined,
+        kitchens: kitchensIds.length
+          ? { connect: kitchensIds.map((id) => ({ id })) }
+          : undefined,
       },
     });
 
@@ -475,12 +489,24 @@ const seedMeals = async () => {
         imageName: `${meal.name}.jpg`,
         createdBy: user.id,
         updatedBy: user.id,
-        additives: { connect: additivesIds.map((id) => ({ id })) },
-        allergens: { connect: allergensIds.map((id) => ({ id })) },
-        properties: { connect: propertiesIds.map((id) => ({ id })) },
-        categories: { connect: categoriesIds.map((id) => ({ id })) },
-        seasons: { connect: seasonsIds.map((id) => ({ id })) },
-        foodForms: { connect: foodFormsIds.map((id) => ({ id })) },
+        additives: additivesIds.length
+          ? { connect: additivesIds.map((id) => ({ id })) }
+          : undefined,
+        allergens: allergensIds.length
+          ? { connect: allergensIds.map((id) => ({ id })) }
+          : undefined,
+        properties: propertiesIds.length
+          ? { connect: propertiesIds.map((id) => ({ id })) }
+          : undefined,
+        categories: categoriesIds.length
+          ? { connect: categoriesIds.map((id) => ({ id })) }
+          : undefined,
+        seasons: seasonsIds.length
+          ? { connect: seasonsIds.map((id) => ({ id })) }
+          : undefined,
+        foodForms: foodFormsIds.length
+          ? { connect: foodFormsIds.map((id) => ({ id })) }
+          : undefined,
       },
     });
 
