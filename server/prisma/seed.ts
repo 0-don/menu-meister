@@ -285,27 +285,27 @@ const seedRecipes = async () => {
   );
 
   for (const recipe of recipes) {
-    const additivesIds = recipe.additives.map(
-      (name) => additives.find((additive) => additive.name === name)?.id,
-    );
-    const allergensIds = recipe.allergens.map(
-      (name) => allergens.find((allergen) => allergen.name === name)?.id,
-    );
-    const propertiesIds = recipe.properties.map(
-      (name) => properties.find((property) => property.name === name)?.id,
-    );
-    const categoriesIds = recipe.categories.map(
-      (name) => categories.find((category) => category.name === name)?.id,
-    );
-    const seasonsIds = recipe.seasons.map(
-      (name) => seasons.find((season) => season.name === name)?.id,
-    );
-    const foodFormsIds = recipe.food_forms.map(
-      (name) => foodForms.find((foodForm) => foodForm.name === name)?.id,
-    );
-    const kitchensIds = recipe.kitchens.map(
-      (name) => kitchens.find((kitchen) => kitchen.name === name)?.id,
-    );
+    const additivesIds = recipe.additives
+      .map((name) => additives.find((additive) => additive.name === name)?.id)
+      .filter(Boolean);
+    const allergensIds = recipe.allergens
+      .map((name) => allergens.find((allergen) => allergen.name === name)?.id)
+      .filter(Boolean);
+    const propertiesIds = recipe.properties
+      .map((name) => properties.find((property) => property.name === name)?.id)
+      .filter(Boolean);
+    const categoriesIds = recipe.categories
+      .map((name) => categories.find((category) => category.name === name)?.id)
+      .filter(Boolean);
+    const seasonsIds = recipe.seasons
+      .map((name) => seasons.find((season) => season.name === name)?.id)
+      .filter(Boolean);
+    const foodFormsIds = recipe.food_forms
+      .map((name) => foodForms.find((foodForm) => foodForm.name === name)?.id)
+      .filter(Boolean);
+    const kitchensIds = recipe.kitchens
+      .map((name) => kitchens.find((kitchen) => kitchen.name === name)?.id)
+      .filter(Boolean);
 
     const recipeDB = await prisma.recipe.create({
       data: {
@@ -463,24 +463,24 @@ const seedMeals = async () => {
   );
 
   for (const meal of meals) {
-    const additivesIds = meal.additives.map(
-      (name) => additives.find((additive) => additive.name === name)?.id,
-    );
-    const allergensIds = meal.allergens.map(
-      (name) => allergens.find((allergen) => allergen.name === name)?.id,
-    );
-    const propertiesIds = meal.properties.map(
-      (name) => properties.find((property) => property.name === name)?.id,
-    );
-    const categoriesIds = meal.categories.map(
-      (name) => categories.find((category) => category.name === name)?.id,
-    );
-    const seasonsIds = meal.seasons.map(
-      (name) => seasons.find((season) => season.name === name)?.id,
-    );
-    const foodFormsIds = meal.food_forms.map(
-      (name) => foodForms.find((foodForm) => foodForm.name === name)?.id,
-    );
+    const additivesIds = meal.additives
+      .map((name) => additives.find((additive) => additive.name === name)?.id)
+      .filter(Boolean);
+    const allergensIds = meal.allergens
+      .map((name) => allergens.find((allergen) => allergen.name === name)?.id)
+      .filter(Boolean);
+    const propertiesIds = meal.properties
+      .map((name) => properties.find((property) => property.name === name)?.id)
+      .filter(Boolean);
+    const categoriesIds = meal.categories
+      .map((name) => categories.find((category) => category.name === name)?.id)
+      .filter(Boolean);
+    const seasonsIds = meal.seasons
+      .map((name) => seasons.find((season) => season.name === name)?.id)
+      .filter(Boolean);
+    const foodFormsIds = meal.food_forms
+      .map((name) => foodForms.find((foodForm) => foodForm.name === name)?.id)
+      .filter(Boolean);
 
     const mealDB = await prisma.meal.create({
       data: {
