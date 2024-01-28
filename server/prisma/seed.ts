@@ -29,14 +29,6 @@ const DAYFIELDS = [
   "saturdayMealId",
   "sundayMealId",
 ];
-const BLACKLISTED_IMG = [
-  "2094537432367104",
-  "1049880564858880",
-  "8889722722058240",
-  "5180683746017280",
-  "2856251358707712",
-  "1309938542444544",
-];
 
 const randomInt = (min = 0, max = 10) =>
   Math.floor(Math.random() * (max - min + 1) + min);
@@ -486,7 +478,6 @@ const seedMeals = async () => {
       data: {
         name: meal.name,
         image: meal.picture,
-        imageName: `${meal.name}.jpg`,
         createdBy: user.id,
         updatedBy: user.id,
         additives: additivesIds.length
