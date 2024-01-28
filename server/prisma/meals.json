@@ -18,7 +18,10 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Alle Lieferanten"
+      {
+        "name": "Alle Lieferanten",
+        "recipeId": 375020
+      }
     ]
   },
   {
@@ -52,10 +55,22 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Apfelfüllung",
-      "Butter Glasur",
-      "Schlagsahne",
-      "Apfelstrudel Teig"
+      {
+        "name": "Apfelfüllung",
+        "recipeId": 25747
+      },
+      {
+        "name": "Butter Glasur",
+        "recipeId": 25746
+      },
+      {
+        "name": "Schlagsahne",
+        "recipeId": 25748
+      },
+      {
+        "name": "Apfelstrudel Teig",
+        "recipeId": 25745
+      }
     ]
   },
   {
@@ -87,7 +102,10 @@
       "Ganzjährig"
     ],
     "dish_recipes": [
-      "Hirse-Gemüse-Quiche"
+      {
+        "name": "Hirse-Gemüse-Quiche",
+        "recipeId": 25749
+      }
     ]
   },
   {
@@ -112,8 +130,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Pesto",
-      "Vollkornnudeln (selbstgemacht)"
+      {
+        "name": "Pesto",
+        "recipeId": 25751
+      },
+      {
+        "name": "Vollkornnudeln (selbstgemacht)",
+        "recipeId": 25750
+      }
     ]
   },
   {
@@ -134,11 +158,26 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Kalbsleber",
-      "Würzmischung",
-      "Äpfel",
-      "Salz und Pfeffer",
-      "Kartoffelpüree"
+      {
+        "name": "Kalbsleber",
+        "recipeId": 26930
+      },
+      {
+        "name": "Würzmischung",
+        "recipeId": 26922
+      },
+      {
+        "name": "Äpfel",
+        "recipeId": 26932
+      },
+      {
+        "name": "Salz und Pfeffer",
+        "recipeId": 26934
+      },
+      {
+        "name": "Kartoffelpüree",
+        "recipeId": 26937
+      }
     ]
   },
   {
@@ -159,8 +198,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Folienkartoffeln",
-      "Kräuterquark"
+      {
+        "name": "Folienkartoffeln",
+        "recipeId": 26918
+      },
+      {
+        "name": "Kräuterquark",
+        "recipeId": 26919
+      }
     ]
   },
   {
@@ -185,14 +230,38 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Rinderhackfleisch",
-      "Tomate",
-      "Salat",
-      "Schmelzkäse",
-      "Brötchen (Milchbrötchen)",
-      "Mayonaise",
-      "Tomaten-Ketchup",
-      "Pommes Frites"
+      {
+        "name": "Rinderhackfleisch",
+        "recipeId": 26920
+      },
+      {
+        "name": "Tomate",
+        "recipeId": 26921
+      },
+      {
+        "name": "Salat",
+        "recipeId": 26925
+      },
+      {
+        "name": "Schmelzkäse",
+        "recipeId": 26926
+      },
+      {
+        "name": "Brötchen (Milchbrötchen)",
+        "recipeId": 26924
+      },
+      {
+        "name": "Mayonaise",
+        "recipeId": 26927
+      },
+      {
+        "name": "Tomaten-Ketchup",
+        "recipeId": 26928
+      },
+      {
+        "name": "Pommes Frites",
+        "recipeId": 26929
+      }
     ]
   },
   {
@@ -215,10 +284,22 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Zanderfilet",
-      "Rucola",
-      "Buttermilch- Dip",
-      "Avocado-Salsa"
+      {
+        "name": "Zanderfilet",
+        "recipeId": 26238
+      },
+      {
+        "name": "Rucola",
+        "recipeId": 27375
+      },
+      {
+        "name": "Buttermilch- Dip",
+        "recipeId": 89629
+      },
+      {
+        "name": "Avocado-Salsa",
+        "recipeId": 100274
+      }
     ]
   },
   {
@@ -242,11 +323,26 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Petersilienkartoffeln",
-      "Gemüsenuggets",
-      "Hackfleisch, Schwein/Rind",
-      "Saure Sahne",
-      "Kapernsauce"
+      {
+        "name": "Petersilienkartoffeln",
+        "recipeId": 26938
+      },
+      {
+        "name": "Gemüsenuggets",
+        "recipeId": 26936
+      },
+      {
+        "name": "Hackfleisch, Schwein/Rind",
+        "recipeId": 26941
+      },
+      {
+        "name": "Saure Sahne",
+        "recipeId": 26942
+      },
+      {
+        "name": "Kapernsauce",
+        "recipeId": 26985
+      }
     ]
   },
   {
@@ -268,9 +364,18 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Rindfleisch, mager",
-      "Zitrone",
-      "Apfelrotkohl"
+      {
+        "name": "Rindfleisch, mager",
+        "recipeId": 26944
+      },
+      {
+        "name": "Zitrone",
+        "recipeId": 26943
+      },
+      {
+        "name": "Apfelrotkohl",
+        "recipeId": 26935
+      }
     ]
   },
   {
@@ -295,10 +400,22 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Gnocchi",
-      "Kirschtomaten-Basilikum-Butter",
-      "Parmesan",
-      "Basilikum"
+      {
+        "name": "Gnocchi",
+        "recipeId": 27357
+      },
+      {
+        "name": "Kirschtomaten-Basilikum-Butter",
+        "recipeId": 27358
+      },
+      {
+        "name": "Parmesan",
+        "recipeId": 27359
+      },
+      {
+        "name": "Basilikum",
+        "recipeId": 27360
+      }
     ]
   },
   {
@@ -320,9 +437,18 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Farfalle mit Aubergine und Tomate-Mozzarella",
-      "Champigon-Cremesuppe",
-      "Schmandsoße"
+      {
+        "name": "Farfalle mit Aubergine und Tomate-Mozzarella",
+        "recipeId": 70763
+      },
+      {
+        "name": "Champigon-Cremesuppe",
+        "recipeId": 70762
+      },
+      {
+        "name": "Schmandsoße",
+        "recipeId": 27724
+      }
     ]
   },
   {
@@ -350,10 +476,22 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Parmesan-Kräuterpanade",
-      "Schweinelachssteak",
-      "gedünstete grüne Bohnen",
-      "Kartoffelpüree"
+      {
+        "name": "Parmesan-Kräuterpanade",
+        "recipeId": 26986
+      },
+      {
+        "name": "Schweinelachssteak",
+        "recipeId": 26987
+      },
+      {
+        "name": "gedünstete grüne Bohnen",
+        "recipeId": 26931
+      },
+      {
+        "name": "Kartoffelpüree",
+        "recipeId": 26937
+      }
     ]
   },
   {
@@ -371,8 +509,14 @@
     "properties": [],
     "seasons": [],
     "dish_recipes": [
-      "Couscous",
-      "Tomate"
+      {
+        "name": "Couscous",
+        "recipeId": 29285
+      },
+      {
+        "name": "Tomate",
+        "recipeId": 26921
+      }
     ]
   },
   {
@@ -390,9 +534,18 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Salz-Kartoffeln",
-      "Würzmischung",
-      "Paprikaschote"
+      {
+        "name": "Salz-Kartoffeln",
+        "recipeId": 26933
+      },
+      {
+        "name": "Würzmischung",
+        "recipeId": 26922
+      },
+      {
+        "name": "Paprikaschote",
+        "recipeId": 26997
+      }
     ]
   },
   {
@@ -414,8 +567,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Rindfleisch, mager",
-      "Füllung"
+      {
+        "name": "Rindfleisch, mager",
+        "recipeId": 26944
+      },
+      {
+        "name": "Füllung",
+        "recipeId": 26939
+      }
     ]
   },
   {
@@ -436,9 +595,18 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Reis",
-      "Butter Glasur",
-      "Zucker&Zimt"
+      {
+        "name": "Reis",
+        "recipeId": 27031
+      },
+      {
+        "name": "Butter Glasur",
+        "recipeId": 25746
+      },
+      {
+        "name": "Zucker&Zimt",
+        "recipeId": 89312
+      }
     ]
   },
   {
@@ -457,8 +625,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Hähnchen",
-      "Füllung"
+      {
+        "name": "Hähnchen",
+        "recipeId": 26923
+      },
+      {
+        "name": "Füllung",
+        "recipeId": 26939
+      }
     ]
   },
   {
@@ -480,7 +654,10 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Entenbrust gebraten"
+      {
+        "name": "Entenbrust gebraten",
+        "recipeId": 27901
+      }
     ]
   },
   {
@@ -500,7 +677,10 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Kürbissuppe mit Ingwer und Kokosmilch"
+      {
+        "name": "Kürbissuppe mit Ingwer und Kokosmilch",
+        "recipeId": 28018
+      }
     ]
   },
   {
@@ -527,10 +707,22 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Kürbissuppe",
-      "Kürbiskerne",
-      "Baguette",
-      "Croutons"
+      {
+        "name": "Kürbissuppe",
+        "recipeId": 27361
+      },
+      {
+        "name": "Kürbiskerne",
+        "recipeId": 27362
+      },
+      {
+        "name": "Baguette",
+        "recipeId": 27363
+      },
+      {
+        "name": "Croutons",
+        "recipeId": 27810
+      }
     ]
   },
   {
@@ -551,8 +743,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Hörnchennudeln",
-      "Rindergulasch"
+      {
+        "name": "Hörnchennudeln",
+        "recipeId": 27370
+      },
+      {
+        "name": "Rindergulasch",
+        "recipeId": 27371
+      }
     ]
   },
   {
@@ -577,10 +775,22 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Flammkuchenteig",
-      "Honig-Senf-Dressing",
-      "Lachslocken",
-      "Rucola"
+      {
+        "name": "Flammkuchenteig",
+        "recipeId": 27372
+      },
+      {
+        "name": "Honig-Senf-Dressing",
+        "recipeId": 27373
+      },
+      {
+        "name": "Lachslocken",
+        "recipeId": 27374
+      },
+      {
+        "name": "Rucola",
+        "recipeId": 27375
+      }
     ]
   },
   {
@@ -605,8 +815,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Schweinefilet",
-      "Butter Glasur"
+      {
+        "name": "Schweinefilet",
+        "recipeId": 27376
+      },
+      {
+        "name": "Butter Glasur",
+        "recipeId": 25746
+      }
     ]
   },
   {
@@ -629,9 +845,18 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Schweineschnitzel, paniert",
-      "Zitrone",
-      "Gemüsenuggets"
+      {
+        "name": "Schweineschnitzel, paniert",
+        "recipeId": 28804
+      },
+      {
+        "name": "Zitrone",
+        "recipeId": 26943
+      },
+      {
+        "name": "Gemüsenuggets",
+        "recipeId": 26936
+      }
     ]
   },
   {
@@ -655,8 +880,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Senfei",
-      "Butterreis"
+      {
+        "name": "Senfei",
+        "recipeId": 27841
+      },
+      {
+        "name": "Butterreis",
+        "recipeId": 27843
+      }
     ]
   },
   {
@@ -678,8 +909,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Spaghetti",
-      "Sauce Napolitana"
+      {
+        "name": "Spaghetti",
+        "recipeId": 27672
+      },
+      {
+        "name": "Sauce Napolitana",
+        "recipeId": 27661
+      }
     ]
   },
   {
@@ -703,7 +940,10 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Pfannkuchenteig"
+      {
+        "name": "Pfannkuchenteig",
+        "recipeId": 28019
+      }
     ]
   },
   {
@@ -724,7 +964,10 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Möhrensuppe"
+      {
+        "name": "Möhrensuppe",
+        "recipeId": 27840
+      }
     ]
   },
   {
@@ -747,8 +990,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Kokosmilch",
-      "Curry"
+      {
+        "name": "Kokosmilch",
+        "recipeId": 27676
+      },
+      {
+        "name": "Curry",
+        "recipeId": 28218
+      }
     ]
   },
   {
@@ -775,8 +1024,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Wirsingeintopf mit Knacker und Crème fraîche",
-      "Knacker Würstchen"
+      {
+        "name": "Wirsingeintopf mit Knacker und Crème fraîche",
+        "recipeId": 27696
+      },
+      {
+        "name": "Knacker Würstchen",
+        "recipeId": 89310
+      }
     ]
   },
   {
@@ -800,8 +1055,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Crème fraîche",
-      "Wirsingcremesuppe mit Lachs"
+      {
+        "name": "Crème fraîche",
+        "recipeId": 27710
+      },
+      {
+        "name": "Wirsingcremesuppe mit Lachs",
+        "recipeId": 27712
+      }
     ]
   },
   {
@@ -816,8 +1077,14 @@
     "properties": [],
     "seasons": [],
     "dish_recipes": [
-      "Buchstabensuppe",
-      "Gemüsenuggets"
+      {
+        "name": "Buchstabensuppe",
+        "recipeId": 27726
+      },
+      {
+        "name": "Gemüsenuggets",
+        "recipeId": 26936
+      }
     ]
   },
   {
@@ -836,7 +1103,10 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Chili Con Carne"
+      {
+        "name": "Chili Con Carne",
+        "recipeId": 27727
+      }
     ]
   },
   {
@@ -865,7 +1135,10 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Ungarische Gulaschsuppe"
+      {
+        "name": "Ungarische Gulaschsuppe",
+        "recipeId": 27729
+      }
     ]
   },
   {
@@ -893,9 +1166,18 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Hefeteig",
-      "Bauchspeck",
-      "Zwiebelschmelze"
+      {
+        "name": "Hefeteig",
+        "recipeId": 27731
+      },
+      {
+        "name": "Bauchspeck",
+        "recipeId": 27732
+      },
+      {
+        "name": "Zwiebelschmelze",
+        "recipeId": 26473
+      }
     ]
   },
   {
@@ -922,12 +1204,30 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Gemüsebrühe mit Fadennudeln",
-      "Gemüsereis",
-      "Frischer Spargel",
-      "Weißweinsauce",
-      "Möhren",
-      "Paprikaschote"
+      {
+        "name": "Gemüsebrühe mit Fadennudeln",
+        "recipeId": 27802
+      },
+      {
+        "name": "Gemüsereis",
+        "recipeId": 27803
+      },
+      {
+        "name": "Frischer Spargel",
+        "recipeId": 27804
+      },
+      {
+        "name": "Weißweinsauce",
+        "recipeId": 27805
+      },
+      {
+        "name": "Möhren",
+        "recipeId": 27806
+      },
+      {
+        "name": "Paprikaschote",
+        "recipeId": 26997
+      }
     ]
   },
   {
@@ -951,9 +1251,18 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "hausgemachte Boulette",
-      "Kartoffelgratin",
-      "Preiselbeeren"
+      {
+        "name": "hausgemachte Boulette",
+        "recipeId": 27733
+      },
+      {
+        "name": "Kartoffelgratin",
+        "recipeId": 28017
+      },
+      {
+        "name": "Preiselbeeren",
+        "recipeId": 417001
+      }
     ]
   },
   {
@@ -976,8 +1285,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Spaghetti",
-      "Spaghetti mit Meeresfrüchten"
+      {
+        "name": "Spaghetti",
+        "recipeId": 27798
+      },
+      {
+        "name": "Spaghetti mit Meeresfrüchten",
+        "recipeId": 27800
+      }
     ]
   },
   {
@@ -1006,8 +1321,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Croutons",
-      "Selleriecremesuppe"
+      {
+        "name": "Croutons",
+        "recipeId": 27810
+      },
+      {
+        "name": "Selleriecremesuppe",
+        "recipeId": 27871
+      }
     ]
   },
   {
@@ -1028,7 +1349,10 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Aubergine und Couscous"
+      {
+        "name": "Aubergine und Couscous",
+        "recipeId": 28020
+      }
     ]
   },
   {
@@ -1055,8 +1379,14 @@
       "Sommer"
     ],
     "dish_recipes": [
-      "Curry",
-      "Reis"
+      {
+        "name": "Curry",
+        "recipeId": 28218
+      },
+      {
+        "name": "Reis",
+        "recipeId": 27031
+      }
     ]
   },
   {
@@ -1082,10 +1412,22 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Äpfel",
-      "Karotten",
-      "Sellerie",
-      "Haselnüsse und div. ..."
+      {
+        "name": "Äpfel",
+        "recipeId": 26932
+      },
+      {
+        "name": "Karotten",
+        "recipeId": 28280
+      },
+      {
+        "name": "Sellerie",
+        "recipeId": 28281
+      },
+      {
+        "name": "Haselnüsse und div. ...",
+        "recipeId": 28283
+      }
     ]
   },
   {
@@ -1102,9 +1444,18 @@
     "properties": [],
     "seasons": [],
     "dish_recipes": [
-      "Zitronenmelisse",
-      "Frisches Obst",
-      "Zitrone"
+      {
+        "name": "Zitronenmelisse",
+        "recipeId": 28401
+      },
+      {
+        "name": "Frisches Obst",
+        "recipeId": 27081
+      },
+      {
+        "name": "Zitrone",
+        "recipeId": 26943
+      }
     ]
   },
   {
@@ -1125,11 +1476,26 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Frisches Obst",
-      "Zitrone",
-      "Zucker",
-      "Zitronenmelisse",
-      "Schlagsahne"
+      {
+        "name": "Frisches Obst",
+        "recipeId": 27081
+      },
+      {
+        "name": "Zitrone",
+        "recipeId": 26943
+      },
+      {
+        "name": "Zucker",
+        "recipeId": 28409
+      },
+      {
+        "name": "Zitronenmelisse",
+        "recipeId": 28401
+      },
+      {
+        "name": "Schlagsahne",
+        "recipeId": 25748
+      }
     ]
   },
   {
@@ -1152,9 +1518,18 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Schweineschnitzel, paniert",
-      "Kartoffelsalat",
-      "Zitrone"
+      {
+        "name": "Schweineschnitzel, paniert",
+        "recipeId": 28804
+      },
+      {
+        "name": "Kartoffelsalat",
+        "recipeId": 28423
+      },
+      {
+        "name": "Zitrone",
+        "recipeId": 26943
+      }
     ]
   },
   {
@@ -1178,8 +1553,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Selleriecremesuppe",
-      "Brot (Baguette)"
+      {
+        "name": "Selleriecremesuppe",
+        "recipeId": 27871
+      },
+      {
+        "name": "Brot (Baguette)",
+        "recipeId": 28433
+      }
     ]
   },
   {
@@ -1201,9 +1582,18 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Schnitzelpfanne",
-      "Karotten",
-      "Kartoffeln"
+      {
+        "name": "Schnitzelpfanne",
+        "recipeId": 27596
+      },
+      {
+        "name": "Karotten",
+        "recipeId": 28280
+      },
+      {
+        "name": "Kartoffeln",
+        "recipeId": 105304
+      }
     ]
   },
   {
@@ -1225,8 +1615,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Schnitzelpfanne",
-      "Erbsen"
+      {
+        "name": "Schnitzelpfanne",
+        "recipeId": 27596
+      },
+      {
+        "name": "Erbsen",
+        "recipeId": 28468
+      }
     ]
   },
   {
@@ -1251,8 +1647,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Sauce (für Senfeier)",
-      "Kartoffelpüree"
+      {
+        "name": "Sauce (für Senfeier)",
+        "recipeId": 28555
+      },
+      {
+        "name": "Kartoffelpüree",
+        "recipeId": 26937
+      }
     ]
   },
   {
@@ -1276,8 +1678,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Curry",
-      "Rote-Bohnen"
+      {
+        "name": "Curry",
+        "recipeId": 28218
+      },
+      {
+        "name": "Rote-Bohnen",
+        "recipeId": 28540
+      }
     ]
   },
   {
@@ -1302,10 +1710,22 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Spaghetti",
-      "Soße (für Paprikaschoten)",
-      "Basilikum",
-      "Parmesan"
+      {
+        "name": "Spaghetti",
+        "recipeId": 27672
+      },
+      {
+        "name": "Soße (für Paprikaschoten)",
+        "recipeId": 28613
+      },
+      {
+        "name": "Basilikum",
+        "recipeId": 27360
+      },
+      {
+        "name": "Parmesan",
+        "recipeId": 27359
+      }
     ]
   },
   {
@@ -1329,8 +1749,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "gedünstete grüne Bohnen",
-      "Marinade (für Bohnensalat)"
+      {
+        "name": "gedünstete grüne Bohnen",
+        "recipeId": 26931
+      },
+      {
+        "name": "Marinade (für Bohnensalat)",
+        "recipeId": 26800
+      }
     ]
   },
   {
@@ -1353,8 +1779,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Picata Milanese",
-      "Spaghetti"
+      {
+        "name": "Picata Milanese",
+        "recipeId": 28989
+      },
+      {
+        "name": "Spaghetti",
+        "recipeId": 27672
+      }
     ]
   },
   {
@@ -1378,7 +1810,10 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Donut"
+      {
+        "name": "Donut",
+        "recipeId": 27660
+      }
     ]
   },
   {
@@ -1393,7 +1828,10 @@
     "properties": [],
     "seasons": [],
     "dish_recipes": [
-      "Pommes Frites"
+      {
+        "name": "Pommes Frites",
+        "recipeId": 26929
+      }
     ]
   },
   {
@@ -1418,8 +1856,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Szekediner Gulasch",
-      "Semmelknödel"
+      {
+        "name": "Szekediner Gulasch",
+        "recipeId": 29094
+      },
+      {
+        "name": "Semmelknödel",
+        "recipeId": 29095
+      }
     ]
   },
   {
@@ -1442,8 +1886,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Kartoffelpüree",
-      "Fischstäbchen"
+      {
+        "name": "Kartoffelpüree",
+        "recipeId": 26937
+      },
+      {
+        "name": "Fischstäbchen",
+        "recipeId": 29110
+      }
     ]
   },
   {
@@ -1462,9 +1912,18 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Pommes Frites",
-      "Gyros",
-      "Tomate"
+      {
+        "name": "Pommes Frites",
+        "recipeId": 26929
+      },
+      {
+        "name": "Gyros",
+        "recipeId": 28430
+      },
+      {
+        "name": "Tomate",
+        "recipeId": 26921
+      }
     ]
   },
   {
@@ -1500,8 +1959,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Hirtenrolle",
-      "Reis"
+      {
+        "name": "Hirtenrolle",
+        "recipeId": 29921
+      },
+      {
+        "name": "Reis",
+        "recipeId": 27031
+      }
     ]
   },
   {
@@ -1518,8 +1983,14 @@
     "properties": [],
     "seasons": [],
     "dish_recipes": [
-      "Thunfischtatar",
-      "Zucchini gegrillt"
+      {
+        "name": "Thunfischtatar",
+        "recipeId": 28997
+      },
+      {
+        "name": "Zucchini gegrillt",
+        "recipeId": 28541
+      }
     ]
   },
   {
@@ -1549,8 +2020,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Schweinegulasch",
-      "Semmelknödel"
+      {
+        "name": "Schweinegulasch",
+        "recipeId": 30083
+      },
+      {
+        "name": "Semmelknödel",
+        "recipeId": 29095
+      }
     ]
   },
   {
@@ -1576,8 +2053,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Broccolirahmsuppe",
-      "Baguette"
+      {
+        "name": "Broccolirahmsuppe",
+        "recipeId": 96654
+      },
+      {
+        "name": "Baguette",
+        "recipeId": 27363
+      }
     ]
   },
   {
@@ -1595,8 +2078,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Frisches Obst",
-      "Würzmischung"
+      {
+        "name": "Frisches Obst",
+        "recipeId": 27081
+      },
+      {
+        "name": "Würzmischung",
+        "recipeId": 26922
+      }
     ]
   },
   {
@@ -1622,9 +2111,18 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Sojaschnitzel",
-      "Erbsen",
-      "Bulgur"
+      {
+        "name": "Sojaschnitzel",
+        "recipeId": 70124
+      },
+      {
+        "name": "Erbsen",
+        "recipeId": 70125
+      },
+      {
+        "name": "Bulgur",
+        "recipeId": 70667
+      }
     ]
   },
   {
@@ -1652,8 +2150,14 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Schwarzwurzelgemüse",
-      "Kartoffelgratin"
+      {
+        "name": "Schwarzwurzelgemüse",
+        "recipeId": 70631
+      },
+      {
+        "name": "Kartoffelgratin",
+        "recipeId": 28017
+      }
     ]
   },
   {
@@ -1678,7 +2182,10 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Schokopudding"
+      {
+        "name": "Schokopudding",
+        "recipeId": 70638
+      }
     ]
   },
   {
@@ -1706,8 +2213,14 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Naturjoghurt",
-      "Orangen"
+      {
+        "name": "Naturjoghurt",
+        "recipeId": 70644
+      },
+      {
+        "name": "Orangen",
+        "recipeId": 30084
+      }
     ]
   },
   {
@@ -1734,8 +2247,14 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Naturjoghurt",
-      "Erdbeeren"
+      {
+        "name": "Naturjoghurt",
+        "recipeId": 70644
+      },
+      {
+        "name": "Erdbeeren",
+        "recipeId": 70645
+      }
     ]
   },
   {
@@ -1760,9 +2279,18 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Pochierter Seelachs",
-      "Bulgur",
-      "Romanesco-Gemüse"
+      {
+        "name": "Pochierter Seelachs",
+        "recipeId": 70661
+      },
+      {
+        "name": "Bulgur",
+        "recipeId": 70667
+      },
+      {
+        "name": "Romanesco-Gemüse",
+        "recipeId": 70702
+      }
     ]
   },
   {
@@ -1784,11 +2312,26 @@
     "properties": [],
     "seasons": [],
     "dish_recipes": [
-      "Gemüsefond",
-      "Würzmischung",
-      "Bulgur",
-      "Wildlachsfilet mit Dill",
-      "Karotten"
+      {
+        "name": "Gemüsefond",
+        "recipeId": 70127
+      },
+      {
+        "name": "Würzmischung",
+        "recipeId": 26922
+      },
+      {
+        "name": "Bulgur",
+        "recipeId": 70667
+      },
+      {
+        "name": "Wildlachsfilet mit Dill",
+        "recipeId": 70666
+      },
+      {
+        "name": "Karotten",
+        "recipeId": 28280
+      }
     ]
   },
   {
@@ -1809,10 +2352,22 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Würzmischung",
-      "Karotten",
-      "Hähnchen Schenkel",
-      "Erbsen"
+      {
+        "name": "Würzmischung",
+        "recipeId": 26922
+      },
+      {
+        "name": "Karotten",
+        "recipeId": 28280
+      },
+      {
+        "name": "Hähnchen Schenkel",
+        "recipeId": 70687
+      },
+      {
+        "name": "Erbsen",
+        "recipeId": 28468
+      }
     ]
   },
   {
@@ -1840,10 +2395,22 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Würzmischung",
-      "Bulgur",
-      "gedünstete grüne Bohnen",
-      "Hähnchen Schenkel"
+      {
+        "name": "Würzmischung",
+        "recipeId": 26922
+      },
+      {
+        "name": "Bulgur",
+        "recipeId": 70667
+      },
+      {
+        "name": "gedünstete grüne Bohnen",
+        "recipeId": 26931
+      },
+      {
+        "name": "Hähnchen Schenkel",
+        "recipeId": 70687
+      }
     ]
   },
   {
@@ -1879,10 +2446,22 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Reibekäse",
-      "Würzmischung",
-      "Sauce Bolognese",
-      "Farfalle"
+      {
+        "name": "Reibekäse",
+        "recipeId": 70705
+      },
+      {
+        "name": "Würzmischung",
+        "recipeId": 26922
+      },
+      {
+        "name": "Sauce Bolognese",
+        "recipeId": 28016
+      },
+      {
+        "name": "Farfalle",
+        "recipeId": 70707
+      }
     ]
   },
   {
@@ -1907,7 +2486,10 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Himbeer-Tiramisu"
+      {
+        "name": "Himbeer-Tiramisu",
+        "recipeId": 96669
+      }
     ]
   },
   {
@@ -1929,8 +2511,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Kokos Maisgrieß ( Polenta )",
-      "Pflaumenkompott"
+      {
+        "name": "Kokos Maisgrieß ( Polenta )",
+        "recipeId": 96660
+      },
+      {
+        "name": "Pflaumenkompott",
+        "recipeId": 96661
+      }
     ]
   },
   {
@@ -1964,9 +2552,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Linsen-Gemüse-Eintopf",
-      "Finnenbaguette",
-      "Grießbrei Birne Helene"
+      {
+        "name": "Linsen-Gemüse-Eintopf",
+        "recipeId": 89379
+      },
+      {
+        "name": "Finnenbaguette",
+        "recipeId": 89380
+      },
+      {
+        "name": "Grießbrei Birne Helene",
+        "recipeId": 89381
+      }
     ]
   },
   {
@@ -1996,7 +2593,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Grießbrei Birne Helene"
+      {
+        "name": "Grießbrei Birne Helene",
+        "recipeId": 89397
+      }
     ]
   },
   {
@@ -2029,8 +2629,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Curry-Kartoffelsuppe Madras",
-      "Brötchen (Milchbrötchen)"
+      {
+        "name": "Curry-Kartoffelsuppe Madras",
+        "recipeId": 89425
+      },
+      {
+        "name": "Brötchen (Milchbrötchen)",
+        "recipeId": 26924
+      }
     ]
   },
   {
@@ -2062,9 +2668,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Heidelbeerquark GV 90g",
-      "Rindergeschnetzeltes mit Bohnen AH",
-      "Kartoffeldrillinge"
+      {
+        "name": "Heidelbeerquark GV 90g",
+        "recipeId": 89585
+      },
+      {
+        "name": "Rindergeschnetzeltes mit Bohnen AH",
+        "recipeId": 89586
+      },
+      {
+        "name": "Kartoffeldrillinge",
+        "recipeId": 89587
+      }
     ]
   },
   {
@@ -2091,7 +2706,10 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Kirschjoghurt"
+      {
+        "name": "Kirschjoghurt",
+        "recipeId": 89599
+      }
     ]
   },
   {
@@ -2120,8 +2738,14 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Hähnchenbrustfricassee",
-      "Vollkornreis"
+      {
+        "name": "Hähnchenbrustfricassee",
+        "recipeId": 100515
+      },
+      {
+        "name": "Vollkornreis",
+        "recipeId": 70126
+      }
     ]
   },
   {
@@ -2153,8 +2777,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Paprikagemüse",
-      "Putengulasch"
+      {
+        "name": "Paprikagemüse",
+        "recipeId": 89607
+      },
+      {
+        "name": "Putengulasch",
+        "recipeId": 89606
+      }
     ]
   },
   {
@@ -2186,9 +2816,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Alaska Seelachsfilet im Backteig FROSTA",
-      "Buttermilch- Dip",
-      "Kartoffeln"
+      {
+        "name": "Alaska Seelachsfilet im Backteig FROSTA",
+        "recipeId": 89622
+      },
+      {
+        "name": "Buttermilch- Dip",
+        "recipeId": 89623
+      },
+      {
+        "name": "Kartoffeln",
+        "recipeId": 89624
+      }
     ]
   },
   {
@@ -2220,9 +2859,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Buttermilch- Dip",
-      "Kartoffeln",
-      "Alaska Seelachsfilet im Backteig"
+      {
+        "name": "Buttermilch- Dip",
+        "recipeId": 89626
+      },
+      {
+        "name": "Kartoffeln",
+        "recipeId": 89627
+      },
+      {
+        "name": "Alaska Seelachsfilet im Backteig",
+        "recipeId": 89628
+      }
     ]
   },
   {
@@ -2254,9 +2902,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Buttermilch- Dip",
-      "Alaska Seelachsfilet im Backteig",
-      "Zucchini"
+      {
+        "name": "Buttermilch- Dip",
+        "recipeId": 89629
+      },
+      {
+        "name": "Alaska Seelachsfilet im Backteig",
+        "recipeId": 89628
+      },
+      {
+        "name": "Zucchini",
+        "recipeId": 27377
+      }
     ]
   },
   {
@@ -2288,9 +2945,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Champignons und Zucchini in Tomatenrahmsauce",
-      "Reis parboiled",
-      "Mandarinen Dickmilch"
+      {
+        "name": "Champignons und Zucchini in Tomatenrahmsauce",
+        "recipeId": 89787
+      },
+      {
+        "name": "Reis parboiled",
+        "recipeId": 89788
+      },
+      {
+        "name": "Mandarinen Dickmilch",
+        "recipeId": 89789
+      }
     ]
   },
   {
@@ -2323,9 +2989,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Geflügelwiener",
-      "Möhrengemüse",
-      "Zucchini"
+      {
+        "name": "Geflügelwiener",
+        "recipeId": 96755
+      },
+      {
+        "name": "Möhrengemüse",
+        "recipeId": 96756
+      },
+      {
+        "name": "Zucchini",
+        "recipeId": 27377
+      }
     ]
   },
   {
@@ -2355,10 +3030,22 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Champignons",
-      "Zucchini",
-      "Tomatensauce",
-      "Reis parboiled"
+      {
+        "name": "Champignons",
+        "recipeId": 89791
+      },
+      {
+        "name": "Zucchini",
+        "recipeId": 27377
+      },
+      {
+        "name": "Tomatensauce",
+        "recipeId": 96622
+      },
+      {
+        "name": "Reis parboiled",
+        "recipeId": 89793
+      }
     ]
   },
   {
@@ -2388,8 +3075,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Pangasius überbacken mit Käse",
-      "Kartoffeln"
+      {
+        "name": "Pangasius überbacken mit Käse",
+        "recipeId": 90038
+      },
+      {
+        "name": "Kartoffeln",
+        "recipeId": 105304
+      }
     ]
   },
   {
@@ -2420,9 +3113,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Putengulasch",
-      "Paprikagemüse",
-      "Kartoffeln"
+      {
+        "name": "Putengulasch",
+        "recipeId": 89606
+      },
+      {
+        "name": "Paprikagemüse",
+        "recipeId": 89607
+      },
+      {
+        "name": "Kartoffeln",
+        "recipeId": 105304
+      }
     ]
   },
   {
@@ -2454,8 +3156,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Kohlrabirahmsuppe",
-      "Brot (Baguette)"
+      {
+        "name": "Kohlrabirahmsuppe",
+        "recipeId": 90061
+      },
+      {
+        "name": "Brot (Baguette)",
+        "recipeId": 28433
+      }
     ]
   },
   {
@@ -2485,8 +3193,14 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Kräuter-Schmand-Sauce",
-      "Apfelbrei mit Joghurtzimtmütze"
+      {
+        "name": "Kräuter-Schmand-Sauce",
+        "recipeId": 90072
+      },
+      {
+        "name": "Apfelbrei mit Joghurtzimtmütze",
+        "recipeId": 90071
+      }
     ]
   },
   {
@@ -2516,8 +3230,14 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Kräuter-Schmand-Sauce",
-      "Apfelbrei mit Joghurtzimtmütze"
+      {
+        "name": "Kräuter-Schmand-Sauce",
+        "recipeId": 90073
+      },
+      {
+        "name": "Apfelbrei mit Joghurtzimtmütze",
+        "recipeId": 90074
+      }
     ]
   },
   {
@@ -2550,8 +3270,14 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Kräuter-Schmand-Sauce",
-      "Buchweizennudeln"
+      {
+        "name": "Kräuter-Schmand-Sauce",
+        "recipeId": 90078
+      },
+      {
+        "name": "Buchweizennudeln",
+        "recipeId": 90075
+      }
     ]
   },
   {
@@ -2578,7 +3304,10 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Apfelbrei mit Joghurtzimtmütze -L"
+      {
+        "name": "Apfelbrei mit Joghurtzimtmütze -L",
+        "recipeId": 90080
+      }
     ]
   },
   {
@@ -2612,9 +3341,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Alaska-Seelachsfilet in Eihülle Dt. See",
-      "Kartoffeln",
-      "Bohnengemüse"
+      {
+        "name": "Alaska-Seelachsfilet in Eihülle Dt. See",
+        "recipeId": 90095
+      },
+      {
+        "name": "Kartoffeln",
+        "recipeId": 90096
+      },
+      {
+        "name": "Bohnengemüse",
+        "recipeId": 90097
+      }
     ]
   },
   {
@@ -2641,9 +3379,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Alaska Seelachsfilet im Backteig",
-      "Bohnengemüse",
-      "Kartoffeln"
+      {
+        "name": "Alaska Seelachsfilet im Backteig",
+        "recipeId": 89628
+      },
+      {
+        "name": "Bohnengemüse",
+        "recipeId": 90101
+      },
+      {
+        "name": "Kartoffeln",
+        "recipeId": 105304
+      }
     ]
   },
   {
@@ -2676,7 +3423,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Mini-Berliner 36 g"
+      {
+        "name": "Mini-Berliner 36 g",
+        "recipeId": 90103
+      }
     ]
   },
   {
@@ -2705,7 +3455,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Bananenquark"
+      {
+        "name": "Bananenquark",
+        "recipeId": 90112
+      }
     ]
   },
   {
@@ -2734,10 +3487,22 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Kohlrabi Pommes 45g",
-      "Kirsch-Bananen-Joghurt",
-      "Chilli sin carne",
-      "Kartoffeln"
+      {
+        "name": "Kohlrabi Pommes 45g",
+        "recipeId": 90114
+      },
+      {
+        "name": "Kirsch-Bananen-Joghurt",
+        "recipeId": 90115
+      },
+      {
+        "name": "Chilli sin carne",
+        "recipeId": 90116
+      },
+      {
+        "name": "Kartoffeln",
+        "recipeId": 90117
+      }
     ]
   },
   {
@@ -2769,8 +3534,14 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Zucchini-Käse-Suppe",
-      "Baguette"
+      {
+        "name": "Zucchini-Käse-Suppe",
+        "recipeId": 96671
+      },
+      {
+        "name": "Baguette",
+        "recipeId": 27363
+      }
     ]
   },
   {
@@ -2795,8 +3566,14 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Zucchini",
-      "Arabisches Reiterfleisch"
+      {
+        "name": "Zucchini",
+        "recipeId": 27377
+      },
+      {
+        "name": "Arabisches Reiterfleisch",
+        "recipeId": 90211
+      }
     ]
   },
   {
@@ -2823,7 +3600,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Apfelquark"
+      {
+        "name": "Apfelquark",
+        "recipeId": 90228
+      }
     ]
   },
   {
@@ -2851,10 +3631,22 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Hörnchen-Nudeln",
-      "Gemüsebolognese",
-      "Verdesalat",
-      "Apfel Dressing fruchtig"
+      {
+        "name": "Hörnchen-Nudeln",
+        "recipeId": 90237
+      },
+      {
+        "name": "Gemüsebolognese",
+        "recipeId": 90238
+      },
+      {
+        "name": "Verdesalat",
+        "recipeId": 90239
+      },
+      {
+        "name": "Apfel Dressing fruchtig",
+        "recipeId": 90240
+      }
     ]
   },
   {
@@ -2883,8 +3675,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Gemüsebolognese",
-      "Hörnchennudeln"
+      {
+        "name": "Gemüsebolognese",
+        "recipeId": 90244
+      },
+      {
+        "name": "Hörnchennudeln",
+        "recipeId": 27370
+      }
     ]
   },
   {
@@ -2910,8 +3708,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Verdesalat",
-      "Apfel Dressing fruchtig"
+      {
+        "name": "Verdesalat",
+        "recipeId": 90251
+      },
+      {
+        "name": "Apfel Dressing fruchtig",
+        "recipeId": 90242
+      }
     ]
   },
   {
@@ -2939,9 +3743,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Salat",
-      "Apfelquark",
-      "Apfel Dressing fruchtig"
+      {
+        "name": "Salat",
+        "recipeId": 90243
+      },
+      {
+        "name": "Apfelquark",
+        "recipeId": 90228
+      },
+      {
+        "name": "Apfel Dressing fruchtig",
+        "recipeId": 90242
+      }
     ]
   },
   {
@@ -2971,8 +3784,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Kartoffel/Karotten-Auflauf",
-      "Tomaten Cherry-Strauch"
+      {
+        "name": "Kartoffel/Karotten-Auflauf",
+        "recipeId": 90278
+      },
+      {
+        "name": "Tomaten Cherry-Strauch",
+        "recipeId": 90279
+      }
     ]
   },
   {
@@ -2999,7 +3818,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Aprikosen Milchshake"
+      {
+        "name": "Aprikosen Milchshake",
+        "recipeId": 90285
+      }
     ]
   },
   {
@@ -3032,9 +3854,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Tomaten Suppe",
-      "Ciabatta",
-      "Nudelbeilage"
+      {
+        "name": "Tomaten Suppe",
+        "recipeId": 90303
+      },
+      {
+        "name": "Ciabatta",
+        "recipeId": 90305
+      },
+      {
+        "name": "Nudelbeilage",
+        "recipeId": 90304
+      }
     ]
   },
   {
@@ -3061,8 +3892,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Milchreis",
-      "Erdbeersauce"
+      {
+        "name": "Milchreis",
+        "recipeId": 90313
+      },
+      {
+        "name": "Erdbeersauce",
+        "recipeId": 90312
+      }
     ]
   },
   {
@@ -3089,7 +3926,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Aprikosenjoghurt"
+      {
+        "name": "Aprikosenjoghurt",
+        "recipeId": 90342
+      }
     ]
   },
   {
@@ -3117,8 +3957,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Paprika Fingerfood",
-      "Strozzapreti"
+      {
+        "name": "Paprika Fingerfood",
+        "recipeId": 90347
+      },
+      {
+        "name": "Strozzapreti",
+        "recipeId": 90346
+      }
     ]
   },
   {
@@ -3146,8 +3992,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Reis parboiled",
-      "Gemüsestifte bunt"
+      {
+        "name": "Reis parboiled",
+        "recipeId": 89793
+      },
+      {
+        "name": "Gemüsestifte bunt",
+        "recipeId": 90425
+      }
     ]
   },
   {
@@ -3175,7 +4027,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Birnenquark"
+      {
+        "name": "Birnenquark",
+        "recipeId": 90426
+      }
     ]
   },
   {
@@ -3204,9 +4059,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Mais",
-      "Fleischlose Hackbällchen",
-      "Brokkoli"
+      {
+        "name": "Mais",
+        "recipeId": 90423
+      },
+      {
+        "name": "Fleischlose Hackbällchen",
+        "recipeId": 90422
+      },
+      {
+        "name": "Brokkoli",
+        "recipeId": 27378
+      }
     ]
   },
   {
@@ -3234,8 +4098,14 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Drei-K-Ragout-L",
-      "Gemüsefrikadelle (ohne MP, weizen)"
+      {
+        "name": "Drei-K-Ragout-L",
+        "recipeId": 90427
+      },
+      {
+        "name": "Gemüsefrikadelle (ohne MP, weizen)",
+        "recipeId": 90428
+      }
     ]
   },
   {
@@ -3268,8 +4138,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Pasta Farm Nudelbeilage 50g",
-      "Tomaten Suppe(190 ml)"
+      {
+        "name": "Pasta Farm Nudelbeilage 50g",
+        "recipeId": 94843
+      },
+      {
+        "name": "Tomaten Suppe(190 ml)",
+        "recipeId": 94848
+      }
     ]
   },
   {
@@ -3297,8 +4173,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Erdbeersauce",
-      "Milchreis"
+      {
+        "name": "Erdbeersauce",
+        "recipeId": 94855
+      },
+      {
+        "name": "Milchreis",
+        "recipeId": 90313
+      }
     ]
   },
   {
@@ -3331,10 +4213,22 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Putengeschnetzeltes",
-      "Reis parboiled",
-      "leichte Senfsauce",
-      "Champignons"
+      {
+        "name": "Putengeschnetzeltes",
+        "recipeId": 94860
+      },
+      {
+        "name": "Reis parboiled",
+        "recipeId": 89793
+      },
+      {
+        "name": "leichte Senfsauce",
+        "recipeId": 28426
+      },
+      {
+        "name": "Champignons",
+        "recipeId": 89791
+      }
     ]
   },
   {
@@ -3360,8 +4254,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Vanillesauce",
-      "Trauben-Wackelsaft rot"
+      {
+        "name": "Vanillesauce",
+        "recipeId": 94871
+      },
+      {
+        "name": "Trauben-Wackelsaft rot",
+        "recipeId": 94872
+      }
     ]
   },
   {
@@ -3393,8 +4293,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Hokkaido-Kürbis-Suppe",
-      "Finnenbaguette EDNA"
+      {
+        "name": "Hokkaido-Kürbis-Suppe",
+        "recipeId": 94882
+      },
+      {
+        "name": "Finnenbaguette EDNA",
+        "recipeId": 94883
+      }
     ]
   },
   {
@@ -3424,7 +4330,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Grießpudding"
+      {
+        "name": "Grießpudding",
+        "recipeId": 94887
+      }
     ]
   },
   {
@@ -3456,8 +4365,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Kartoffel - Möhren - Untereinander",
-      "Nuss - Broccoli - Knusper - Ecke"
+      {
+        "name": "Kartoffel - Möhren - Untereinander",
+        "recipeId": 95846
+      },
+      {
+        "name": "Nuss - Broccoli - Knusper - Ecke",
+        "recipeId": 95847
+      }
     ]
   },
   {
@@ -3486,7 +4401,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Bananen Shake"
+      {
+        "name": "Bananen Shake",
+        "recipeId": 95845
+      }
     ]
   },
   {
@@ -3518,10 +4436,22 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Fagiolini-Nudeln",
-      "Streukäse",
-      "Gurkentaler",
-      "Tomatenmeer 125ml"
+      {
+        "name": "Fagiolini-Nudeln",
+        "recipeId": 95853
+      },
+      {
+        "name": "Streukäse",
+        "recipeId": 95856
+      },
+      {
+        "name": "Gurkentaler",
+        "recipeId": 95855
+      },
+      {
+        "name": "Tomatenmeer 125ml",
+        "recipeId": 95854
+      }
     ]
   },
   {
@@ -3549,7 +4479,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Bananenquark"
+      {
+        "name": "Bananenquark",
+        "recipeId": 90112
+      }
     ]
   },
   {
@@ -3578,7 +4511,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Bananenquark"
+      {
+        "name": "Bananenquark",
+        "recipeId": 95862
+      }
     ]
   },
   {
@@ -3610,10 +4546,22 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Gemüsestifte bunt",
-      "Tomatensauce",
-      "Reis parboiled",
-      "vegetarische Gemüsebälle"
+      {
+        "name": "Gemüsestifte bunt",
+        "recipeId": 90425
+      },
+      {
+        "name": "Tomatensauce",
+        "recipeId": 96622
+      },
+      {
+        "name": "Reis parboiled",
+        "recipeId": 89793
+      },
+      {
+        "name": "vegetarische Gemüsebälle",
+        "recipeId": 89790
+      }
     ]
   },
   {
@@ -3647,9 +4595,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Bechamelkartoffeln",
-      "Gemüsestifte bunt",
-      "Fischfrikadelle"
+      {
+        "name": "Bechamelkartoffeln",
+        "recipeId": 28819
+      },
+      {
+        "name": "Gemüsestifte bunt",
+        "recipeId": 90425
+      },
+      {
+        "name": "Fischfrikadelle",
+        "recipeId": 90050
+      }
     ]
   },
   {
@@ -3676,7 +4633,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Speiseeismix"
+      {
+        "name": "Speiseeismix",
+        "recipeId": 90051
+      }
     ]
   },
   {
@@ -3706,9 +4666,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Kartoffeldrillinge",
-      "Fischstäbchen Frosta",
-      "Sour Cream"
+      {
+        "name": "Kartoffeldrillinge",
+        "recipeId": 96571
+      },
+      {
+        "name": "Fischstäbchen Frosta",
+        "recipeId": 96572
+      },
+      {
+        "name": "Sour Cream",
+        "recipeId": 96573
+      }
     ]
   },
   {
@@ -3738,9 +4707,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Sour Cream",
-      "Fischstäbchen",
-      "Zucchini"
+      {
+        "name": "Sour Cream",
+        "recipeId": 92628
+      },
+      {
+        "name": "Fischstäbchen",
+        "recipeId": 29110
+      },
+      {
+        "name": "Zucchini",
+        "recipeId": 27377
+      }
     ]
   },
   {
@@ -3770,8 +4748,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Gemüsenuggets",
-      "Schmorkartoffeln in Gemüse"
+      {
+        "name": "Gemüsenuggets",
+        "recipeId": 26936
+      },
+      {
+        "name": "Schmorkartoffeln in Gemüse",
+        "recipeId": 96608
+      }
     ]
   },
   {
@@ -3798,8 +4782,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Trauben-Wackelsaft rot",
-      "Vanillesauce"
+      {
+        "name": "Trauben-Wackelsaft rot",
+        "recipeId": 94872
+      },
+      {
+        "name": "Vanillesauce",
+        "recipeId": 94871
+      }
     ]
   },
   {
@@ -3830,10 +4820,22 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Tomatensauce",
-      "Gurkentaler",
-      "Kokos Maisgrieß ( Polenta )",
-      "Maisgrieß-Gemüsebällchen"
+      {
+        "name": "Tomatensauce",
+        "recipeId": 96622
+      },
+      {
+        "name": "Gurkentaler",
+        "recipeId": 95855
+      },
+      {
+        "name": "Kokos Maisgrieß ( Polenta )",
+        "recipeId": 96660
+      },
+      {
+        "name": "Maisgrieß-Gemüsebällchen",
+        "recipeId": 96621
+      }
     ]
   },
   {
@@ -3858,7 +4860,10 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Quarkcreme mit Schoko"
+      {
+        "name": "Quarkcreme mit Schoko",
+        "recipeId": 96630
+      }
     ]
   },
   {
@@ -3891,10 +4896,22 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Broccolirahmsuppe",
-      "Baguette",
-      "Kokos Maisgrieß ( Polenta )",
-      "Pflaumenkompott"
+      {
+        "name": "Broccolirahmsuppe",
+        "recipeId": 96650
+      },
+      {
+        "name": "Baguette",
+        "recipeId": 96651
+      },
+      {
+        "name": "Kokos Maisgrieß ( Polenta )",
+        "recipeId": 96652
+      },
+      {
+        "name": "Pflaumenkompott",
+        "recipeId": 96653
+      }
     ]
   },
   {
@@ -3922,8 +4939,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Kokos Maisgrieß ( Polenta )",
-      "Pflaumenkompott"
+      {
+        "name": "Kokos Maisgrieß ( Polenta )",
+        "recipeId": 96658
+      },
+      {
+        "name": "Pflaumenkompott",
+        "recipeId": 96661
+      }
     ]
   },
   {
@@ -3957,9 +4980,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Himbeer-Tiramisu",
-      "Zucchini-Käse-Suppe",
-      "Baguette Stange S&H"
+      {
+        "name": "Himbeer-Tiramisu",
+        "recipeId": 96665
+      },
+      {
+        "name": "Zucchini-Käse-Suppe",
+        "recipeId": 96666
+      },
+      {
+        "name": "Baguette Stange S&H",
+        "recipeId": 96667
+      }
     ]
   },
   {
@@ -3992,8 +5024,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Zucchini-Käse-Suppe",
-      "Baguette Stange S&H"
+      {
+        "name": "Zucchini-Käse-Suppe",
+        "recipeId": 96674
+      },
+      {
+        "name": "Baguette Stange S&H",
+        "recipeId": 96675
+      }
     ]
   },
   {
@@ -4021,7 +5059,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Himbeerjoghurtshake"
+      {
+        "name": "Himbeerjoghurtshake",
+        "recipeId": 96754
+      }
     ]
   },
   {
@@ -4055,9 +5096,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Spirelli",
-      "Möhren Sticks",
-      "Champignon - Frischkäse- Sauce"
+      {
+        "name": "Spirelli",
+        "recipeId": 96768
+      },
+      {
+        "name": "Möhren Sticks",
+        "recipeId": 96767
+      },
+      {
+        "name": "Champignon - Frischkäse- Sauce",
+        "recipeId": 96766
+      }
     ]
   },
   {
@@ -4085,7 +5135,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Pfirsichjoghurt"
+      {
+        "name": "Pfirsichjoghurt",
+        "recipeId": 96763
+      }
     ]
   },
   {
@@ -4114,10 +5167,22 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Kräuter-Schmand-Sauce-L",
-      "Kohlrabi Pommes 45g",
-      "Kirsch-Sojajoghurt",
-      "Maccaroni"
+      {
+        "name": "Kräuter-Schmand-Sauce-L",
+        "recipeId": 96774
+      },
+      {
+        "name": "Kohlrabi Pommes 45g",
+        "recipeId": 96775
+      },
+      {
+        "name": "Kirsch-Sojajoghurt",
+        "recipeId": 96776
+      },
+      {
+        "name": "Maccaroni",
+        "recipeId": 96777
+      }
     ]
   },
   {
@@ -4142,7 +5207,10 @@
       "Frühling"
     ],
     "dish_recipes": [
-      "Kirsch-Sojajoghurt"
+      {
+        "name": "Kirsch-Sojajoghurt",
+        "recipeId": 96781
+      }
     ]
   },
   {
@@ -4170,9 +5238,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Erdbeersauce",
-      "Gemüsestifte bunt",
-      "Strozzapreti"
+      {
+        "name": "Erdbeersauce",
+        "recipeId": 94855
+      },
+      {
+        "name": "Gemüsestifte bunt",
+        "recipeId": 90425
+      },
+      {
+        "name": "Strozzapreti",
+        "recipeId": 90346
+      }
     ]
   },
   {
@@ -4201,8 +5278,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Gemüsesuppe mit Suppenklößchen",
-      "Brot (Baguette)"
+      {
+        "name": "Gemüsesuppe mit Suppenklößchen",
+        "recipeId": 100273
+      },
+      {
+        "name": "Brot (Baguette)",
+        "recipeId": 28433
+      }
     ]
   },
   {
@@ -4233,7 +5316,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Möhren-Apfel-Suppe"
+      {
+        "name": "Möhren-Apfel-Suppe",
+        "recipeId": 100353
+      }
     ]
   },
   {
@@ -4261,7 +5347,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Pudding Karamel"
+      {
+        "name": "Pudding Karamel",
+        "recipeId": 100377
+      }
     ]
   },
   {
@@ -4297,10 +5386,22 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Blattsalatmix",
-      "Hörnchennudeln",
-      "Zitronenrahmdressing",
-      "Pizzaiola Sauce"
+      {
+        "name": "Blattsalatmix",
+        "recipeId": 100419
+      },
+      {
+        "name": "Hörnchennudeln",
+        "recipeId": 27370
+      },
+      {
+        "name": "Zitronenrahmdressing",
+        "recipeId": 100420
+      },
+      {
+        "name": "Pizzaiola Sauce",
+        "recipeId": 100421
+      }
     ]
   },
   {
@@ -4333,8 +5434,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Sesam-Karotten-Stick",
-      "Kartoffel - Blumenkohl - Curry"
+      {
+        "name": "Sesam-Karotten-Stick",
+        "recipeId": 100427
+      },
+      {
+        "name": "Kartoffel - Blumenkohl - Curry",
+        "recipeId": 100429
+      }
     ]
   },
   {
@@ -4362,7 +5469,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Mango Milchshake"
+      {
+        "name": "Mango Milchshake",
+        "recipeId": 100435
+      }
     ]
   },
   {
@@ -4392,8 +5502,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Gurkentaler",
-      "Pangasius überbacken mit Käse"
+      {
+        "name": "Gurkentaler",
+        "recipeId": 95855
+      },
+      {
+        "name": "Pangasius überbacken mit Käse",
+        "recipeId": 90038
+      }
     ]
   },
   {
@@ -4421,7 +5537,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Speiseeismix"
+      {
+        "name": "Speiseeismix",
+        "recipeId": 90051
+      }
     ]
   },
   {
@@ -4455,10 +5574,22 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Hähnchenbrustfricassee",
-      "Erbsen",
-      "Mais",
-      "Karotten"
+      {
+        "name": "Hähnchenbrustfricassee",
+        "recipeId": 100515
+      },
+      {
+        "name": "Erbsen",
+        "recipeId": 28468
+      },
+      {
+        "name": "Mais",
+        "recipeId": 90423
+      },
+      {
+        "name": "Karotten",
+        "recipeId": 28280
+      }
     ]
   },
   {
@@ -4489,8 +5620,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Kartoffel - Blumenkohl - Curry",
-      "Gemüse-Laibchen"
+      {
+        "name": "Kartoffel - Blumenkohl - Curry",
+        "recipeId": 100894
+      },
+      {
+        "name": "Gemüse-Laibchen",
+        "recipeId": 100895
+      }
     ]
   },
   {
@@ -4517,8 +5654,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Spargel Konserve",
-      "Reis parboiled"
+      {
+        "name": "Spargel Konserve",
+        "recipeId": 100986
+      },
+      {
+        "name": "Reis parboiled",
+        "recipeId": 89793
+      }
     ]
   },
   {
@@ -4549,10 +5692,22 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Selleriecremesuppe",
-      "Baguette",
-      "Kokos Maisgrieß ( Polenta )",
-      "Erdbeersauce"
+      {
+        "name": "Selleriecremesuppe",
+        "recipeId": 27871
+      },
+      {
+        "name": "Baguette",
+        "recipeId": 27363
+      },
+      {
+        "name": "Kokos Maisgrieß ( Polenta )",
+        "recipeId": 96660
+      },
+      {
+        "name": "Erdbeersauce",
+        "recipeId": 94855
+      }
     ]
   },
   {
@@ -4578,8 +5733,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Vanillesauce",
-      "Trauben-Wackelsaft rot"
+      {
+        "name": "Vanillesauce",
+        "recipeId": 94865
+      },
+      {
+        "name": "Trauben-Wackelsaft rot",
+        "recipeId": 103354
+      }
     ]
   },
   {
@@ -4612,8 +5773,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Falafel-Bohnen-Ragout",
-      "Zucchini"
+      {
+        "name": "Falafel-Bohnen-Ragout",
+        "recipeId": 105309
+      },
+      {
+        "name": "Zucchini",
+        "recipeId": 27377
+      }
     ]
   },
   {
@@ -4649,10 +5816,22 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Spirelli bunt",
-      "Bolognese (mit Soja)-Knoblauchsegmenten",
-      "Salat",
-      "Zitronenrahmdressing"
+      {
+        "name": "Spirelli bunt",
+        "recipeId": 109018
+      },
+      {
+        "name": "Bolognese (mit Soja)-Knoblauchsegmenten",
+        "recipeId": 109021
+      },
+      {
+        "name": "Salat",
+        "recipeId": 90243
+      },
+      {
+        "name": "Zitronenrahmdressing",
+        "recipeId": 100420
+      }
     ]
   },
   {
@@ -4680,7 +5859,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Pfirsich- Quarkcreme"
+      {
+        "name": "Pfirsich- Quarkcreme",
+        "recipeId": 109058
+      }
     ]
   },
   {
@@ -4710,11 +5892,26 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Blumenkohl-Käse Stern",
-      "Kartoffeldrillinge",
-      "Grüne Sauce nach Frankfurter Art",
-      "Tomaten Cherry-Strauch 45g",
-      "Mangodickmilch"
+      {
+        "name": "Blumenkohl-Käse Stern",
+        "recipeId": 109070
+      },
+      {
+        "name": "Kartoffeldrillinge",
+        "recipeId": 109071
+      },
+      {
+        "name": "Grüne Sauce nach Frankfurter Art",
+        "recipeId": 109072
+      },
+      {
+        "name": "Tomaten Cherry-Strauch 45g",
+        "recipeId": 109073
+      },
+      {
+        "name": "Mangodickmilch",
+        "recipeId": 109074
+      }
     ]
   },
   {
@@ -4743,7 +5940,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Mangodickmilch"
+      {
+        "name": "Mangodickmilch",
+        "recipeId": 109626
+      }
     ]
   },
   {
@@ -4769,10 +5969,22 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Baguette",
-      "Schmelzkäse",
-      "Kochschinken",
-      "Remoulade"
+      {
+        "name": "Baguette",
+        "recipeId": 27363
+      },
+      {
+        "name": "Schmelzkäse",
+        "recipeId": 26926
+      },
+      {
+        "name": "Kochschinken",
+        "recipeId": 111662
+      },
+      {
+        "name": "Remoulade",
+        "recipeId": 112035
+      }
     ]
   },
   {
@@ -4796,9 +6008,18 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Putengeschnetzeltes",
-      "leichte Senfsauce",
-      "Champignons"
+      {
+        "name": "Putengeschnetzeltes",
+        "recipeId": 94860
+      },
+      {
+        "name": "leichte Senfsauce",
+        "recipeId": 28426
+      },
+      {
+        "name": "Champignons",
+        "recipeId": 89791
+      }
     ]
   },
   {
@@ -4823,8 +6044,14 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "vegetarische Gemüsebälle",
-      "Tomatensauce"
+      {
+        "name": "vegetarische Gemüsebälle",
+        "recipeId": 89790
+      },
+      {
+        "name": "Tomatensauce",
+        "recipeId": 96622
+      }
     ]
   },
   {
@@ -4842,7 +6069,10 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Salat"
+      {
+        "name": "Salat",
+        "recipeId": 90243
+      }
     ]
   },
   {
@@ -4864,7 +6094,10 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Butterreis"
+      {
+        "name": "Butterreis",
+        "recipeId": 113368
+      }
     ]
   },
   {
@@ -4882,7 +6115,10 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Brat-Kartoffeln"
+      {
+        "name": "Brat-Kartoffeln",
+        "recipeId": 113013
+      }
     ]
   },
   {
@@ -4900,7 +6136,10 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Gemischter Salat"
+      {
+        "name": "Gemischter Salat",
+        "recipeId": 113015
+      }
     ]
   },
   {
@@ -4934,10 +6173,22 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Spirelli bunt",
-      "Kräuter-Schmand-Sauce (Basilikum, Bärlauch)",
-      "Eisberg-Mais-Salat",
-      "Orangendressing"
+      {
+        "name": "Spirelli bunt",
+        "recipeId": 123277
+      },
+      {
+        "name": "Kräuter-Schmand-Sauce (Basilikum, Bärlauch)",
+        "recipeId": 123278
+      },
+      {
+        "name": "Eisberg-Mais-Salat",
+        "recipeId": 123279
+      },
+      {
+        "name": "Orangendressing",
+        "recipeId": 123280
+      }
     ]
   },
   {
@@ -4965,7 +6216,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Apfeljoghurt"
+      {
+        "name": "Apfeljoghurt",
+        "recipeId": 123286
+      }
     ]
   },
   {
@@ -4992,9 +6246,18 @@
     ],
     "seasons": [],
     "dish_recipes": [
-      "Hähnchenbrustfricassee",
-      "Spargel Konserve",
-      "Champignons"
+      {
+        "name": "Hähnchenbrustfricassee",
+        "recipeId": 100515
+      },
+      {
+        "name": "Spargel Konserve",
+        "recipeId": 100986
+      },
+      {
+        "name": "Champignons",
+        "recipeId": 89791
+      }
     ]
   },
   {
@@ -5023,8 +6286,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Kartoffelgratin FitK",
-      "Erbsen-Möhren-Gemüse mit Rapsöl FitK"
+      {
+        "name": "Kartoffelgratin FitK",
+        "recipeId": 123779
+      },
+      {
+        "name": "Erbsen-Möhren-Gemüse mit Rapsöl FitK",
+        "recipeId": 123780
+      }
     ]
   },
   {
@@ -5051,8 +6320,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Apfel-Wackelsaft",
-      "Vanillesauce"
+      {
+        "name": "Apfel-Wackelsaft",
+        "recipeId": 123781
+      },
+      {
+        "name": "Vanillesauce",
+        "recipeId": 123782
+      }
     ]
   },
   {
@@ -5103,8 +6378,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Kartoffel - Romanesco - Curry",
-      "Gemüsefrikadelle Avita"
+      {
+        "name": "Kartoffel - Romanesco - Curry",
+        "recipeId": 123788
+      },
+      {
+        "name": "Gemüsefrikadelle Avita",
+        "recipeId": 123789
+      }
     ]
   },
   {
@@ -5135,10 +6416,22 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Seelachs Nuggets Dt. See 15g",
-      "Kartoffeldrillinge",
-      "Remouladensauce",
-      "Gemüsestifte (Möhre, Paprika, Gurke)"
+      {
+        "name": "Seelachs Nuggets Dt. See 15g",
+        "recipeId": 124732
+      },
+      {
+        "name": "Kartoffeldrillinge",
+        "recipeId": 124733
+      },
+      {
+        "name": "Remouladensauce",
+        "recipeId": 124734
+      },
+      {
+        "name": "Gemüsestifte (Möhre, Paprika, Gurke)",
+        "recipeId": 124735
+      }
     ]
   },
   {
@@ -5170,8 +6463,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Chinesisches Putenragout",
-      "Reis parboiled"
+      {
+        "name": "Chinesisches Putenragout",
+        "recipeId": 124744
+      },
+      {
+        "name": "Reis parboiled",
+        "recipeId": 124745
+      }
     ]
   },
   {
@@ -5199,7 +6498,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Himbeerjoghurt"
+      {
+        "name": "Himbeerjoghurt",
+        "recipeId": 124749
+      }
     ]
   },
   {
@@ -5227,8 +6529,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Baguette Stange S&H",
-      "Pflaumengrütze"
+      {
+        "name": "Baguette Stange S&H",
+        "recipeId": 124751
+      },
+      {
+        "name": "Pflaumengrütze",
+        "recipeId": 124752
+      }
     ]
   },
   {
@@ -5257,7 +6565,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Mandarinen Dickmilch"
+      {
+        "name": "Mandarinen Dickmilch",
+        "recipeId": 124756
+      }
     ]
   },
   {
@@ -5289,8 +6600,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Hähnchencurry",
-      "Reis parboiled"
+      {
+        "name": "Hähnchencurry",
+        "recipeId": 124757
+      },
+      {
+        "name": "Reis parboiled",
+        "recipeId": 124758
+      }
     ]
   },
   {
@@ -5323,9 +6640,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Paprika Fingerfood 40g",
-      "Kürbissauce",
-      "Spirelli bunt"
+      {
+        "name": "Paprika Fingerfood 40g",
+        "recipeId": 124775
+      },
+      {
+        "name": "Kürbissauce",
+        "recipeId": 124784
+      },
+      {
+        "name": "Spirelli bunt",
+        "recipeId": 109018
+      }
     ]
   },
   {
@@ -5358,10 +6684,22 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Paprika Fingerfood 40g",
-      "Erdbeerquark GV 90g",
-      "Spirelli bunt",
-      "Kürbissauce"
+      {
+        "name": "Paprika Fingerfood 40g",
+        "recipeId": 124779
+      },
+      {
+        "name": "Erdbeerquark GV 90g",
+        "recipeId": 124780
+      },
+      {
+        "name": "Spirelli bunt",
+        "recipeId": 124781
+      },
+      {
+        "name": "Kürbissauce",
+        "recipeId": 124782
+      }
     ]
   },
   {
@@ -5395,11 +6733,26 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Penne Semola",
-      "Bolognese sauce",
-      "Streukäse",
-      "Gurkensalat",
-      "Schwarzwälder Kirsch Schoko Quark"
+      {
+        "name": "Penne Semola",
+        "recipeId": 125270
+      },
+      {
+        "name": "Bolognese sauce",
+        "recipeId": 125271
+      },
+      {
+        "name": "Streukäse",
+        "recipeId": 125272
+      },
+      {
+        "name": "Gurkensalat",
+        "recipeId": 125273
+      },
+      {
+        "name": "Schwarzwälder Kirsch Schoko Quark",
+        "recipeId": 125274
+      }
     ]
   },
   {
@@ -5430,8 +6783,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Kartoffel - Romanesco - Curry",
-      "Gemüsefrikadelle Avita"
+      {
+        "name": "Kartoffel - Romanesco - Curry",
+        "recipeId": 126298
+      },
+      {
+        "name": "Gemüsefrikadelle Avita",
+        "recipeId": 126299
+      }
     ]
   },
   {
@@ -5465,9 +6824,18 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Maccaroni",
-      "Erbsensauce (Paglia e fieno)",
-      "Gemüsestifte bunt"
+      {
+        "name": "Maccaroni",
+        "recipeId": 126302
+      },
+      {
+        "name": "Erbsensauce (Paglia e fieno)",
+        "recipeId": 126303
+      },
+      {
+        "name": "Gemüsestifte bunt",
+        "recipeId": 90425
+      }
     ]
   },
   {
@@ -5497,8 +6865,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Schmorkartoffeln in Gemüse optimix",
-      "Gemüsenuggets Avita"
+      {
+        "name": "Schmorkartoffeln in Gemüse optimix",
+        "recipeId": 126304
+      },
+      {
+        "name": "Gemüsenuggets Avita",
+        "recipeId": 126305
+      }
     ]
   },
   {
@@ -5530,8 +6904,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Rindergeschnetzeltes mit Bohnen AH",
-      "Kartoffeldrillinge"
+      {
+        "name": "Rindergeschnetzeltes mit Bohnen AH",
+        "recipeId": 126308
+      },
+      {
+        "name": "Kartoffeldrillinge",
+        "recipeId": 126309
+      }
     ]
   },
   {
@@ -5559,7 +6939,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Orangenquark mit Banane"
+      {
+        "name": "Orangenquark mit Banane",
+        "recipeId": 126313
+      }
     ]
   },
   {
@@ -5591,8 +6974,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Möhrenrahmsuppe fruchtig",
-      "Ciabatta- Sandwich EDNA"
+      {
+        "name": "Möhrenrahmsuppe fruchtig",
+        "recipeId": 126314
+      },
+      {
+        "name": "Ciabatta- Sandwich EDNA",
+        "recipeId": 126315
+      }
     ]
   },
   {
@@ -5622,8 +7011,14 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Kartoffel-Karotten-Auflauf",
-      "Tomaten Cherry-Strauch 45g"
+      {
+        "name": "Kartoffel-Karotten-Auflauf",
+        "recipeId": 126317
+      },
+      {
+        "name": "Tomaten Cherry-Strauch 45g",
+        "recipeId": 126318
+      }
     ]
   },
   {
@@ -5650,7 +7045,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Aprikosen Milchshake"
+      {
+        "name": "Aprikosen Milchshake",
+        "recipeId": 126319
+      }
     ]
   },
   {
@@ -5681,7 +7079,10 @@
       "ganzjährig"
     ],
     "dish_recipes": [
-      "Grießpudding"
+      {
+        "name": "Grießpudding",
+        "recipeId": 126322
+      }
     ]
   }
 ]

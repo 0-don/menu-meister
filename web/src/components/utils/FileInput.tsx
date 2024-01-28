@@ -93,7 +93,7 @@ export const FileInput: React.FC<FileInputProps> = (props) => {
                       );
                     }}
                   >
-                    <GiCancel className="text-white" />
+                    <GiCancel />
                   </div>
                   <Image
                     fill

@@ -38,12 +38,6 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
                 {recipe.name}
               </ListboxItem>
             ))}
-            {/* <ListboxItem key="new">New file</ListboxItem>
-          <ListboxItem key="copy">Copy link</ListboxItem>
-          <ListboxItem key="edit">Edit file</ListboxItem>
-          <ListboxItem key="delete" className="text-danger" color="danger">
-            Delete file
-          </ListboxItem> */}
           </Listbox>
         </div>
       </div>

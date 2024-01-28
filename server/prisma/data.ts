@@ -31,7 +31,7 @@ export interface MealOrRecipe {
   picture?: null | string;
   properties: string[];
   seasons: string[];
-  dish_recipes?: string[];
+  dish_recipes?: { name: string, recipeId: number }[];
   portions?: number;
   recipe_weighing?: number;
   analysis?: number[];

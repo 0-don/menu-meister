@@ -510,8 +510,8 @@ const seedMeals = async () => {
       },
     });
 
-    for (const recipeName of meal.dish_recipes) {
-      const recipe = recipes.find((recipe) => recipe.name === recipeName);
+    for (const rec of meal.dish_recipes) {
+      const recipe = recipes.find((recipe) => recipe.name === rec.name);
 
       if (!recipe) continue;
       await prisma.mealRecipe.create({
