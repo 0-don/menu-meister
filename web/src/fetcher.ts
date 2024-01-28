@@ -75,25 +75,56 @@ export const customFetcher = <TData, TVariables, T extends boolean = false>(
   ? Promise<TData>
   : Promise<{ data: TData; headers: Headers }>) => {
   return async () => {
+    let body;
+    let isFileUpload = false;
+    let headers: RequestInit["headers"] = {
+      ...options,
+      "Content-Type": "application/json",
+    };
+
+    // Check if any variable is a file
+    if (variables) {
+      for (const key in variables as any) {
+        const value = (variables as any)[key];
+        if (value instanceof File || value instanceof Blob) {
+          isFileUpload = true;
+          break;
+        }
+      }
+    }
+
+    if (isFileUpload) {
+      const formData = new FormData();
+      if (variables) {
+        Object.entries(variables as any).forEach(([key, value]) => {
+          if (value instanceof File || value instanceof Blob) {
+            formData.append(key, value);
+          } else {
+            formData.append(key, JSON.stringify(value));
+          }
+        });
+      }
+      formData.append("query", print(document));
+      body = formData;
+      headers = { ...options };
+    } else {
+      body = JSON.stringify({
+        query: print(document),
+        variables,
+      });
+    }
+
     const res = await fetch(process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT, {
       method: "POST",
       credentials: "include",
-      headers: {
-        ...options,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        query: print(document),
-        variables,
-      }),
+      headers: headers,
+      body: body,
     });
 
     const json = await res.json();
     if (json.errors) {
       const errorText = JSON.stringify(
-        json.errors
-          .map((e: { message: string | string[] }) => e.message)
-          .flat(),
+        json.errors.map((e: any) => e.message).flat(),
       );
       throw new Error(errorText);
     }

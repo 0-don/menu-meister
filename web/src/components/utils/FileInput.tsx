@@ -73,14 +73,14 @@ export const FileInput: React.FC<FileInputProps> = (props) => {
         onDragOver={handleDrag}
         onDrop={handleDrop}
         onClick={onButtonClick}
-        className={`relative flex max-w-lg cursor-pointer justify-center rounded-md border-2 border-dashed px-6 pb-6 pt-5  ${
+        className={`relative flex max-w-lg cursor-pointer justify-center rounded-md border-2 border-dashed p-1 ${
           dragActive ? "border-green-500" : "border-gray-300"
         }`}
       >
         <div className="space-y-1 text-center">
           <div className="flex flex-wrap justify-center">
             {!props.files?.length ? (
-              <BiImageAdd className="text-6xl text-white" />
+              <BiImageAdd className="text-3xl text-white" />
             ) : (
               props.files.map((file) => (
                 <div key={file.name} className="relative mt-1 h-20 w-20">

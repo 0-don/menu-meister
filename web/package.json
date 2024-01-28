@@ -25,6 +25,7 @@
     "@tanstack/react-query": "^5.17.19",
     "dayjs": "^1.11.10",
     "framer-motion": "^11.0.3",
+    "graphql-upload-minimal": "^1.5.5",
     "next": "14.1.0",
     "next-intl": "3.5.2",
     "next-themes": "^0.2.1",
@@ -32,10 +33,11 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-spring": "^9.7.3",
-    "valtio": "^1.13.0",
-    "sharp": "^0.33.2"
+    "sharp": "^0.33.2",
+    "valtio": "^1.13.0"
   },
   "devDependencies": {
+    "@graphql-codegen/add": "^5.0.0",
     "@graphql-codegen/cli": "^5.0.0",
     "@graphql-codegen/client-preset": "^4.1.0",
     "@graphql-typed-document-node/core": "^3.2.0",

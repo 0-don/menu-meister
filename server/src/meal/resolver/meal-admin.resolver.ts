@@ -14,7 +14,18 @@ import { Logger } from "@nestjs/common";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import { GraphQLResolveInfo } from "graphql";
+import { FileUpload, GraphQLUpload } from "graphql-upload-minimal";
+import { Readable } from "stream";
 import { MealService } from "../meal.service";
+
+async function streamToBuffer(stream: Readable): Promise<Buffer> {
+  const chunks: Buffer[] = [];
+  return new Promise((resolve, reject) => {
+    stream.on("data", (chunk) => chunks.push(Buffer.from(chunk)));
+    stream.on("error", (err) => reject(err));
+    stream.on("end", () => resolve(Buffer.concat(chunks)));
+  });
+}
 
 @Resolver(() => Meal)
 export class MealAdminResolver {
@@ -22,6 +33,22 @@ export class MealAdminResolver {
     private prisma: PrismaService,
     private mealService: MealService,
   ) {}
+
+  @Mutation(() => Boolean, { nullable: true })
+  @Roles("ADMIN")
+  async uploadMealImageAdmin(
+    @Args("mealId") mealId: number,
+    @Args({ name: "file", type: () => GraphQLUpload }) file: FileUpload,
+  ) {
+    const fileBuffer = await streamToBuffer(file.createReadStream());
+    try {
+      // return await this.mealService.uploadMealImage(id, image);
+      return true;
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
+  }
 
   @Query(() => [Meal], { nullable: true })
   @Roles("ADMIN")

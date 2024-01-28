@@ -15,6 +15,11 @@ export function graphqlModuleFactory(): YogaDriverConfig<"fastify"> {
       origin: process.env.NODE_ENV === "production" ? CORS_DOMAINS : "*",
       credentials: true,
     },
+    definitions: {
+      customScalarTypeMapping: {
+        File: "File",
+      },
+    },
     maskedErrors: {
       maskError: (
         error: GraphQLError & { originalError?: OriginalError },

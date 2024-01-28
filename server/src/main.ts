@@ -32,6 +32,12 @@ async function bootstrap() {
   // class-validator
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
+  // if (process.env.NODE_ENV !== "production") {
+  //   await app.init();
+  //   const { schema } = app.get(GraphQLSchemaHost);
+  //   writeFileSync("./schema.graphql", printSchema(schema));
+  // }
+
   process.env.NODE_ENV === "production"
     ? await app.listen(PORT, "0.0.0.0")
     : await app.listen(PORT);

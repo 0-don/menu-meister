@@ -1,10 +1,12 @@
 "use client";
 
 import { FileInput } from "@/components/utils/FileInput";
+import { UPLOAD_MEAL_IMAGE_ADMIN } from "@/documents/mutation/menu";
 import { GET_MEAL_ADMIN } from "@/documents/query/meal";
-import { useGqlQuery } from "@/fetcher";
+import { useGqlMutation, useGqlQuery } from "@/fetcher";
 import { Listbox, ListboxItem } from "@nextui-org/react";
 import { IoTrashOutline } from "@react-icons/all-files/io5/IoTrashOutline";
+import { FileUpload } from "graphql-upload-minimal";
 import Image from "next/image";
 import React from "react";
 
@@ -15,10 +17,11 @@ interface MealDetailsProps {
 
 export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
   const [files, setFiles] = React.useState<File[]>([]);
-
   const { data: { getMealAdmin } = {} } = useGqlQuery(GET_MEAL_ADMIN, {
     where: { id: { equals: Number(id) } },
   });
+
+  const { mutateAsync: uploadImage } = useGqlMutation(UPLOAD_MEAL_IMAGE_ADMIN);
 
   return (
     <div
@@ -51,11 +54,19 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
             height={400}
           />
         )}
-        <FileInput
-          className={`${getMealAdmin?.image ? "mt-5" : ""}`}
-          files={files}
-          setFiles={setFiles}
-        />
+        {
+          <FileInput
+            className={`${getMealAdmin?.image ? "mt-5" : ""}`}
+            files={files}
+            setFiles={(e) => {
+              uploadImage({
+                mealId: Number(getMealAdmin?.id),
+                file: e[0] as unknown as FileUpload,
+              });
+              setFiles(e);
+            }}
+          />
+        }
       </div>
     </div>
   );
