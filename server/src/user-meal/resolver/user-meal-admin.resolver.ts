@@ -31,7 +31,6 @@ export class UserMealAdminResolver {
         ...args,
       });
 
-      console.log(result);
       return result;
     } catch (e) {
       Logger.error(e);

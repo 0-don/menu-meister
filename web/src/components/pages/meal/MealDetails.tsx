@@ -11,7 +11,7 @@ interface MealDetailsProps {
 
 export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
   const { data: { getMealAdmin } = {} } = useGqlQuery(GET_MEAL_ADMIN, {
-    where: { id: { equals: id } },
+    where: { id: { equals: Number(id) } },
   });
 
   console.log(getMealAdmin);
@@ -20,7 +20,7 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
     <div
       className={`w-full rounded-lg bg-content1 p-5 ${modal ? "" : "container mx-auto mt-5"}`}
     >
-      <h1>asdasd {id}</h1>
+      <h1>{getMealAdmin?.name}</h1>
       <h1>asdasd {id}</h1>
       <h1>asdasd {id}</h1>
       <h1>asdasd {id}</h1>

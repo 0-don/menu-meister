@@ -88,9 +88,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
     });
 
   const isActive = tableStore.active?.id === id;
-
-  console.log(settings);
-
+  
   return (
     <>
       <div
