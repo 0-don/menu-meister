@@ -512,6 +512,8 @@ const seedMeals = async () => {
 
     for (const recipeName of meal.dish_recipes) {
       const recipe = recipes.find((recipe) => recipe.name === recipeName);
+
+      if (!recipe) continue;
       await prisma.mealRecipe.create({
         data: {
           mealId: mealDB.id,
