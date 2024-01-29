@@ -15,17 +15,8 @@ import { Logger } from "@nestjs/common";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import { GraphQLResolveInfo } from "graphql";
-import { Readable } from "stream";
+import sharp from "sharp";
 import { MealService } from "../meal.service";
-
-async function streamToBuffer(stream: Readable): Promise<Buffer> {
-  const chunks: Buffer[] = [];
-  return new Promise((resolve, reject) => {
-    stream.on("data", (chunk) => chunks.push(Buffer.from(chunk)));
-    stream.on("error", (err) => reject(err));
-    stream.on("end", () => resolve(Buffer.concat(chunks)));
-  });
-}
 
 @Resolver(() => Meal)
 export class MealAdminResolver {
@@ -40,11 +31,18 @@ export class MealAdminResolver {
     @Args({ name: "mealId", type: () => Int }) mealId: number,
     @Args({ name: "file", type: () => FileScalar }) file: File,
   ) {
-    console.log(1, file);
-    // const fileBuffer = await streamToBuffer(file.createReadStream());
-    // console.log(fileBuffer);
     try {
-      // return await this.mealService.uploadMealImage(id, image);
+      const image = (
+        await sharp(await file.arrayBuffer())
+          .resize(200, 200)
+          .jpeg()
+          .toBuffer()
+      ).toString("base64");
+
+      await this.prisma.meal.update({
+        where: { id: mealId },
+        data: { image },
+      });
       return true;
     } catch (e) {
       Logger.error(e);

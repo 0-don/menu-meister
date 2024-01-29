@@ -431,7 +431,7 @@ model Meal {
   id          Int     @id @default(autoincrement())
   name        String  @db.VarChar(255)
   description String? @db.Text
-  image String? @db.Text
+  image       String? @db.LongText
 
   allergens  Allergens[]  @relation("MealAllergens")
   additives  Additives[]  @relation("MealAdditives")

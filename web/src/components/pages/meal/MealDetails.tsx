@@ -4,6 +4,7 @@ import { FileInput } from "@/components/utils/FileInput";
 import { UPLOAD_MEAL_IMAGE_ADMIN } from "@/documents/mutation/menu";
 import { GET_MEAL_ADMIN } from "@/documents/query/meal";
 import { useGqlMutation, useGqlQuery } from "@/fetcher";
+import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { Listbox, ListboxItem } from "@nextui-org/react";
 import { IoTrashOutline } from "@react-icons/all-files/io5/IoTrashOutline";
 import Image from "next/image";
@@ -57,13 +58,17 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
           <FileInput
             className={`${getMealAdmin?.image ? "mt-5" : ""}`}
             files={files}
-            setFiles={(e) => {
-              const file = e[0];
-              uploadImage({
-                mealId: Number(getMealAdmin?.id),
-                file: file,
-              });
-              setFiles(e);
+            setFiles={async (e) => {
+              try {
+                await uploadImage({
+                  mealId: Number(getMealAdmin?.id),
+                  file: e[0],
+                });
+              } catch (error) {
+                catchErrorAlerts(error);
+              }
+
+              setFiles([]);
             }}
           />
         }
