@@ -19,8 +19,6 @@
   },
   "dependencies": {
     "@fastify/cookie": "^9.3.1",
-    "@fastify/cors": "^9.0.0",
-    "@fastify/multipart": "^8.1.0",
     "@graphql-yoga/nestjs": "^3.1.1",
     "@nestjs/common": "^10.3.1",
     "@nestjs/core": "^10.3.1",
@@ -36,7 +34,6 @@
     "error-stack-parser": "^2.1.4",
     "flat": "^6.0.1",
     "graphql": "^16.8.1",
-    "graphql-upload-minimal": "^1.5.5",
     "graphql-yoga": "^5.1.1",
     "nestjs-request-context": "^3.0.0",
     "prisma-graphql-type-decimal": "^3.0.0",

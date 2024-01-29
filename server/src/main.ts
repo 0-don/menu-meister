@@ -1,4 +1,3 @@
-import cors from "@fastify/cors";
 import { NestFactory } from "@nestjs/core";
 import { GraphQLSchemaHost } from "@nestjs/graphql";
 import {
@@ -15,19 +14,20 @@ import { MyLogger } from "./app_modules/utils/MyLogger";
 import { CORS_DOMAINS, PORT } from "./constants";
 
 async function bootstrap() {
-  const fastify = new FastifyAdapter({});
+  const fastify = new FastifyAdapter();
 
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     fastify,
     { logger: new MyLogger() },
   );
-  await app.register(cors as any, {
+
+  await app.register(require("@fastify/cookie"));
+
+  app.enableCors({
     origin: process.env.NODE_ENV === "production" ? CORS_DOMAINS : false,
     credentials: true,
   });
-
-  await app.register(require("@fastify/cookie"));
 
   // class-validator
   app.useGlobalPipes(new CustomValidationPipe({ forbidUnknownValues: false }));
@@ -40,7 +40,7 @@ async function bootstrap() {
     const { schema } = app.get(GraphQLSchemaHost);
     writeFileSync("./schema.graphql", printSchema(schema));
   }
-  
+
   fastify
     .getInstance()
     .addContentTypeParser("multipart/form-data", {}, (req, payload, done) =>

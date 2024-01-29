@@ -10,21 +10,13 @@ const config: CodegenConfig = {
   ignoreNoDocuments: true,
   config: {
     scalars: {
-      Upload: "FileUpload",
+      File: "File",
     },
   },
   hooks: {},
-
   generates: {
     "src/gql/": {
       preset: "client",
-      plugins: [
-        {
-          add: {
-            content: "import { FileUpload } from 'graphql-upload-minimal';",
-          },
-        },
-      ],
       documents: ["src/documents/**/*.ts"],
       config: {
         skipTypename: true,
