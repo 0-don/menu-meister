@@ -86,11 +86,27 @@ export const customFetcher = <TData, TVariables, T extends boolean = false>(
       let fileIndex = 0;
 
       Object.entries(variables || {}).forEach(([key, value]) => {
-        if (value instanceof File || value instanceof Blob) {
+        // Check if the value is an array
+        if (Array.isArray(value)) {
+          // Iterate over each item in the array
+          value.forEach((item, index) => {
+            if (item instanceof File || item instanceof Blob) {
+              // Append file to formData and update fileMap for files
+              formData.append(fileIndex.toString(), item);
+              fileMap[fileIndex.toString()] = [`variables.${key}.${index}`];
+              fileIndex++;
+            } else {
+              // Append non-file array items as JSON strings
+              formData.append(`${key}[${index}]`, JSON.stringify(item));
+            }
+          });
+        } else if (value instanceof File || value instanceof Blob) {
+          // Handle a single file
           formData.append(fileIndex.toString(), value);
           fileMap[fileIndex.toString()] = [`variables.${key}`];
           fileIndex++;
         } else {
+          // Append other types of non-file, non-array values as JSON strings
           formData.append(key, JSON.stringify(value));
         }
       });
@@ -115,7 +131,7 @@ export const customFetcher = <TData, TVariables, T extends boolean = false>(
       headers,
       body,
     });
-    
+
     const json = await res.json();
 
     if (json.errors) {
