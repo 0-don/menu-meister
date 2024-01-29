@@ -57,6 +57,7 @@ export class MealAdminResolver {
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value;
+    
     try {
       return await this.prisma.meal.findMany({ ...args, ...select });
     } catch (e) {
