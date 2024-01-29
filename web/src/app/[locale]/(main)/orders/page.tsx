@@ -57,7 +57,7 @@ export default function OrdersPage({}: OrdersPageProps) {
             {(getUserMealsGroupedAdmin || []).map((userMeal) => {
               const meal = meals?.find((meal) => meal.id === userMeal.mealId);
               return (
-                <TableRow key="1">
+                <TableRow key={userMeal.mealId + userMeal.date}>
                   <TableCell>
                     {dayjs(userMeal.date).format("DD/MM/YYYY")}
                   </TableCell>

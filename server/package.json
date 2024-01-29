@@ -41,7 +41,8 @@
     "prisma-graphql-type-decimal": "^3.0.0",
     "psl": "^1.9.0",
     "reflect-metadata": "^0.2.1",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "sharp": "^0.33.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.0",
