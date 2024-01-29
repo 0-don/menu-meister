@@ -77,16 +77,11 @@ export const customFetcher = <TData, TVariables, T extends boolean = false>(
   return async () => {
     let body;
     let isFileUpload = false;
-    let headers: RequestInit["headers"] = {
-      ...options,
-      "Content-Type": "application/json",
-    };
 
     // Check if any variable is a file
     if (variables) {
-      for (const key in variables as any) {
-        const value = (variables as any)[key];
-        if (value instanceof File || value instanceof Blob) {
+      for (const key in variables) {
+        if (variables[key] instanceof File || variables[key] instanceof Blob) {
           isFileUpload = true;
           break;
         }
@@ -95,18 +90,26 @@ export const customFetcher = <TData, TVariables, T extends boolean = false>(
 
     if (isFileUpload) {
       const formData = new FormData();
-      if (variables) {
-        Object.entries(variables as any).forEach(([key, value]) => {
-          if (value instanceof File || value instanceof Blob) {
-            formData.append(key, value);
-          } else {
-            formData.append(key, JSON.stringify(value));
-          }
-        });
+      const operations = {
+        query: print(document),
+        variables: { ...variables },
+      };
+
+      const map = {};
+      let index = 0;
+      for (const key in variables) {
+        if (variables[key] instanceof File || variables[key] instanceof Blob) {
+          formData.append(index.toString(), variables[key]);
+          map[index.toString()] = [`variables.${key}`];
+          operations.variables[key] = null;
+          index++;
+        }
       }
-      formData.append("query", print(document));
+
+      formData.append("operations", JSON.stringify(operations));
+      formData.append("map", JSON.stringify(map));
+
       body = formData;
-      headers = { ...options };
     } else {
       body = JSON.stringify({
         query: print(document),
@@ -114,21 +117,23 @@ export const customFetcher = <TData, TVariables, T extends boolean = false>(
       });
     }
 
-    const res = await fetch(process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT, {
+    const headers: RequestInit["headers"] = isFileUpload ? options : {
+      ...options,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT, {
       method: "POST",
       credentials: "include",
       headers: headers,
       body: body,
     });
 
-    const json = await res.json();
+    const json = await response.json();
     if (json.errors) {
-      const errorText = JSON.stringify(
-        json.errors.map((e: any) => e.message).flat(),
-      );
-      throw new Error(errorText);
+      throw new Error(json.errors.map((e: any) => e.message).join(', '));
     }
 
-    return withHeaders ? { data: json.data, headers: res.headers } : json.data;
+    return withHeaders ? { data: json.data, headers: response.headers } : json.data;
   };
 };

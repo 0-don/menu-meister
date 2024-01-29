@@ -3,6 +3,7 @@ import { Logger } from "@nestjs/common";
 import { GraphQLError } from "graphql";
 import { maskError } from "graphql-yoga";
 import { GraphQLContext } from "./app_modules/@types/types";
+import { FileScalar } from "./app_modules/scalars/file.scalar";
 import { CORS_DOMAINS } from "./constants";
 
 type OriginalError = Error & { response?: string | { message?: string[] } };
@@ -15,17 +16,14 @@ export function graphqlModuleFactory(): YogaDriverConfig<"fastify"> {
       origin: process.env.NODE_ENV === "production" ? CORS_DOMAINS : "*",
       credentials: true,
     },
-    definitions: {
-      customScalarTypeMapping: {
-        File: "File",
-      },
-    },
+    resolvers: { File: FileScalar },
     maskedErrors: {
       maskError: (
         error: GraphQLError & { originalError?: OriginalError },
         message,
         isDev,
       ): Error | GraphQLError => {
+        // console.log(error?.originalError, error);
         import("flat").then(({ flatten }) =>
           Logger.warn(
             JSON.stringify({

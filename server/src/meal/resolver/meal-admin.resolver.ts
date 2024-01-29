@@ -10,11 +10,11 @@ import { UpdateOneMealArgs } from "@/app_modules/@generated/meal/update-one-meal
 import { UpsertOneMealArgs } from "@/app_modules/@generated/meal/upsert-one-meal.args";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
+import { FileScalar } from "@/app_modules/scalars/file.scalar";
 import { Logger } from "@nestjs/common";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import { GraphQLResolveInfo } from "graphql";
-import { FileUpload, GraphQLUpload } from "graphql-upload-minimal";
 import { Readable } from "stream";
 import { MealService } from "../meal.service";
 
@@ -37,10 +37,12 @@ export class MealAdminResolver {
   @Mutation(() => Boolean, { nullable: true })
   @Roles("ADMIN")
   async uploadMealImageAdmin(
-    @Args("mealId") mealId: number,
-    @Args({ name: "file", type: () => GraphQLUpload }) file: FileUpload,
+    @Args({ name: "mealId", type: () => Int }) mealId: number,
+    @Args({ name: "file", type: () => FileScalar }) file: File,
   ) {
-    const fileBuffer = await streamToBuffer(file.createReadStream());
+    console.log(1, file);
+    // const fileBuffer = await streamToBuffer(file.createReadStream());
+    // console.log(fileBuffer);
     try {
       // return await this.mealService.uploadMealImage(id, image);
       return true;

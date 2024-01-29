@@ -1,7 +1,7 @@
 import { graphql } from "@/gql";
 
 export const UPLOAD_MEAL_IMAGE_ADMIN = graphql(/* GraphQL */ `
-  mutation UploadMealImageAdmin($mealId: Float!, $file: Upload!) {
+  mutation UploadMealImageAdmin($mealId: Int!, $file: File!) {
     uploadMealImageAdmin(mealId: $mealId, file: $file)
   }
 `);

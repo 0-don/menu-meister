@@ -1,14 +1,17 @@
 import cors from "@fastify/cors";
-import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
+import { GraphQLSchemaHost } from "@nestjs/graphql";
 import {
   FastifyAdapter,
   NestFastifyApplication,
 } from "@nestjs/platform-fastify";
 import { useContainer } from "class-validator";
 import "dotenv/config";
+import { writeFileSync } from "fs";
+import { printSchema } from "graphql";
 import { AppModule } from "./app.module";
-import { MyLogger } from "./app_modules/logging/MyLogger";
+import { CustomValidationPipe } from "./app_modules/utils/CustomValidationPipe";
+import { MyLogger } from "./app_modules/utils/MyLogger";
 import { CORS_DOMAINS, PORT } from "./constants";
 
 async function bootstrap() {
@@ -27,17 +30,22 @@ async function bootstrap() {
   await app.register(require("@fastify/cookie"));
 
   // class-validator
-  app.useGlobalPipes(new ValidationPipe({ forbidUnknownValues: false }));
+  app.useGlobalPipes(new CustomValidationPipe({ forbidUnknownValues: false }));
 
   // class-validator
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
-  // if (process.env.NODE_ENV !== "production") {
-  //   await app.init();
-  //   const { schema } = app.get(GraphQLSchemaHost);
-  //   writeFileSync("./schema.graphql", printSchema(schema));
-  // }
-
+  if (process.env.NODE_ENV !== "production") {
+    await app.init();
+    const { schema } = app.get(GraphQLSchemaHost);
+    writeFileSync("./schema.graphql", printSchema(schema));
+  }
+  
+  fastify
+    .getInstance()
+    .addContentTypeParser("multipart/form-data", {}, (req, payload, done) =>
+      done(null),
+    );
   process.env.NODE_ENV === "production"
     ? await app.listen(PORT, "0.0.0.0")
     : await app.listen(PORT);

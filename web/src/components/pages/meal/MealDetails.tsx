@@ -59,7 +59,7 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
             className={`${getMealAdmin?.image ? "mt-5" : ""}`}
             files={files}
             setFiles={(e) => {
-              console.log(e);
+              // console.log(e);
               uploadImage({
                 mealId: Number(getMealAdmin?.id),
                 file: e[0] as unknown as FileUpload,

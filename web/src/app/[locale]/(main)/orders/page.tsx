@@ -47,7 +47,7 @@ export default function OrdersPage({}: OrdersPageProps) {
     <>
       <MenuPagination />
       <div className="container mx-auto">
-        <Table aria-label="Example static collection table" className="mt-5">
+        <Table className="mt-5">
           <TableHeader>
             <TableColumn>{t("DATE")}</TableColumn>
             <TableColumn>{t("MEAL")}</TableColumn>
