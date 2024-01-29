@@ -6,7 +6,6 @@ import { GET_MEAL_ADMIN } from "@/documents/query/meal";
 import { useGqlMutation, useGqlQuery } from "@/fetcher";
 import { Listbox, ListboxItem } from "@nextui-org/react";
 import { IoTrashOutline } from "@react-icons/all-files/io5/IoTrashOutline";
-import { FileUpload } from "graphql-upload-minimal";
 import Image from "next/image";
 import React from "react";
 

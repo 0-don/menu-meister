@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { FileUpload } from 'graphql-upload-minimal';
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -19,8 +18,8 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
   /** An arbitrary-precision Decimal type */
   Decimal: { input: any; output: any; }
-  /** File Upload */
-  File: { input: any; output: any; }
+  /** The `File` scalar type represents a file upload. */
+  File: { input: File; output: File; }
 };
 
 export type Additives = {
