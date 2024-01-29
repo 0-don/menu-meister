@@ -22,6 +22,4 @@ const config = {
   },
 };
 
-module.exports = withNextIntl({
-  ...config,
-});
+module.exports = withNextIntl({ ...config });
