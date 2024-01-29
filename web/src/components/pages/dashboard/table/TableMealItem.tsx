@@ -100,10 +100,10 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
           isActive && "relative z-50",
           (!isHighRank || isOrderMenu) &&
             !isPast(props.date) &&
-            "cursor-pointer border border-transparent hover:border-primary",
+            "cursor-pointer border-3 border-transparent hover:border-primary",
           isOrderMenu &&
             isSelectedMealUser &&
-            "border !border-success-500 hover:!border-danger",
+            "!border-success-500 border-3 hover:!border-danger",
           "group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2",
         )}
         ref={setNodeRef}
