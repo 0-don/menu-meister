@@ -122,8 +122,33 @@ model User {
   createdKitchens   Kitchens[]   @relation("CreatedKitchens")
   updatedKitchens   Kitchens[]   @relation("UpdatedKitchens")
 
-  userRole UserRole[]
-  userMeal UserMeal[]
+  createdUserProfiles UserProfile[] @relation("CreatedUserProfile")
+  updatedUserProfiles UserProfile[] @relation("UpdatedUserProfile")
+
+  userRole    UserRole[]
+  userMeal    UserMeal[]
+  userProfile UserProfile?
+}
+
+model UserProfile {
+  id     Int    @id @default(autoincrement())
+  userId Int    @unique
+  user   User   @relation(fields: [userId], references: [id])
+  name   String
+  image  String @db.Text
+
+  /// @HideField({ output: false, input: true })
+  createdAt DateTime @default(now())
+  /// @HideField({ output: false, input: true })
+  updatedAt DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy Int
+  /// @HideField({ output: false, input: true })
+  updatedBy Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User @relation("CreatedUserProfile", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User @relation("UpdatedUserProfile", fields: [updatedBy], references: [id])
 }
 
 model UserRole {

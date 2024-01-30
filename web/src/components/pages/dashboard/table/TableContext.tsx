@@ -46,24 +46,28 @@ export function TableContext() {
   return (
     <main className="relative z-0 mt-5 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small">
       <div className="grid grid-cols-8 items-center gap-2 rounded-lg bg-default-100 font-semibold text-foreground-500">
-        <MyAutocomplete
-          isClearable={false}
-          id="mealBoardPlan"
-          size="sm"
-          label={t("MEAL_BOARD_PLAN")}
-          labelPlacement="inside"
-          value={dashboardStore.activeMealBoardPlan?.id || 1}
-          onSelectionChange={(id) => {
-            DashboardStore.activeMealBoardPlan =
-              dashboardStore.mealBoardPlans?.find(
-                (plan) => plan.id === Number(id),
-              );
-          }}
-          items={(dashboardStore.mealBoardPlans || [])?.map(({ id, name }) => ({
-            id,
-            name,
-          }))}
-        />
+        <div>
+          <MyAutocomplete
+            isClearable={false}
+            id="mealBoardPlan"
+            size="sm"
+            label={t("MEAL_BOARD_PLAN")}
+            labelPlacement="inside"
+            value={dashboardStore.activeMealBoardPlan?.id || 1}
+            onSelectionChange={(id) => {
+              DashboardStore.activeMealBoardPlan =
+                dashboardStore.mealBoardPlans?.find(
+                  (plan) => plan.id === Number(id),
+                );
+            }}
+            items={(dashboardStore.mealBoardPlans || [])?.map(
+              ({ id, name }) => ({
+                id,
+                name,
+              }),
+            )}
+          />
+        </div>
         {dayColumns}
       </div>
 
