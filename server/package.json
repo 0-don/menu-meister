@@ -36,7 +36,6 @@
     "graphql": "^16.8.1",
     "graphql-yoga": "^5.1.1",
     "nestjs-request-context": "^3.0.0",
-    "prisma-graphql-type-decimal": "^3.0.0",
     "psl": "^1.9.0",
     "reflect-metadata": "^0.2.1",
     "rxjs": "^7.8.1",
