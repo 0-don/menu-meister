@@ -14,8 +14,9 @@ import {
 } from "@dnd-kit/sortable";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useSnapshot } from "valtio";
+import { CopyTableWeek } from "./CopyTableWeek";
 import { TableGroupRow } from "./TableGroupRow";
 
 export function TableContext() {
@@ -25,6 +26,7 @@ export function TableContext() {
   const t = useTranslations<"Dashboard">();
   const dashboardStore = useSnapshot(DashboardStore);
   const { dataSorted } = useSnapshot(TableStore);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const renderDayColumn = (dayKey: string, index: number) => {
     const dayName = t(dayKey as keyof Messages["Dashboard"]);
@@ -46,7 +48,7 @@ export function TableContext() {
   return (
     <main className="relative z-0 mt-5 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small">
       <div className="grid grid-cols-8 items-center gap-2 rounded-lg bg-default-100 font-semibold text-foreground-500">
-        <div>
+        <div className="flex items-center">
           <MyAutocomplete
             isClearable={false}
             id="mealBoardPlan"
@@ -67,6 +69,7 @@ export function TableContext() {
               }),
             )}
           />
+          <CopyTableWeek />
         </div>
         {dayColumns}
       </div>

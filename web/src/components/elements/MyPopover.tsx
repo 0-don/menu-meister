@@ -1,12 +1,14 @@
 import { Backdrop, OverlayPlacement } from "@/utils/types";
 import {
   Button,
+  ButtonProps,
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@nextui-org/react";
 import { IconType } from "@react-icons/all-files";
 import React from "react";
+
 interface MyPopoverProps {
   children: React.ReactNode;
   isOpen: boolean;
@@ -17,6 +19,8 @@ interface MyPopoverProps {
   placement?: OverlayPlacement;
   showArrow?: boolean;
   backdrop?: Backdrop;
+  color?: ButtonProps["color"];
+  varient?: ButtonProps["variant"];
 }
 
 export const MyPopover: React.FC<MyPopoverProps> = (props) => {
@@ -30,6 +34,9 @@ export const MyPopover: React.FC<MyPopoverProps> = (props) => {
     >
       <PopoverTrigger>
         <Button
+          color={props.color}
+          variant={props.varient}
+          isIconOnly={props.text && props.Icon ? false : true}
           className={`flex items-center ${props.text && props.Icon ? "space-x-1" : ""} ${props.className}`}
         >
           {props.text && <p>{props.text}</p>}
