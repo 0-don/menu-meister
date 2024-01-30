@@ -32,7 +32,7 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
         <h1 className="text-left text-xl font-bold">{getMealAdmin?.name}</h1>
 
         <div className="mt-5 w-full rounded-small border-small border-default-200 px-1 py-2 dark:border-default-100">
-          <Listbox onAction={(key) => alert(key)}>
+          <Listbox>
             {(getMealAdmin?.mealRecipe || []).map(({ id, recipe }) => (
               <ListboxItem
                 key={id}
