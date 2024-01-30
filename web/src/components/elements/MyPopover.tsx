@@ -15,6 +15,7 @@ interface MyPopoverProps {
   setIsOpen: (isOpen: boolean) => void;
   className?: string;
   text?: string;
+  title?: string;
   Icon?: IconType;
   placement?: OverlayPlacement;
   showArrow?: boolean;
@@ -36,6 +37,7 @@ export const MyPopover: React.FC<MyPopoverProps> = (props) => {
         <Button
           color={props.color}
           variant={props.varient}
+          title={props.title}
           isIconOnly={props.text && props.Icon ? false : true}
           className={`flex items-center ${props.text && props.Icon ? "space-x-1" : ""} ${props.className}`}
         >

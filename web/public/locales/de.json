@@ -54,7 +54,8 @@
     "MEAL_BOARD_PLAN": "Mahlzeitenplan",
     "ORDERS": "Bestellungen",
     "COUNT": "Anzahl",
-    "DATE": "Datum"
+    "DATE": "Datum",
+    "COPY_WEEK": "Woche kopieren"
   },
   "Menu": {},
   "User": {},

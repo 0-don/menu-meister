@@ -1,6 +1,6 @@
 import { MyPopover } from "@/components/elements/MyPopover";
 import { Button, Card, Input } from "@nextui-org/react";
-import { FaRegPlusSquare } from "@react-icons/all-files/fa/FaRegPlusSquare";
+import { AiTwotoneCopy } from "@react-icons/all-files/ai/AiTwotoneCopy";
 import { useTranslations } from "next-intl";
 import React, { FormEvent, useState } from "react";
 import { ColorPalette } from "../utils/ColorPalette";
@@ -21,11 +21,12 @@ export const CopyTableWeek: React.FC<CopyTableWeekProps> = ({}) => {
     <MyPopover
       isOpen={isOpen}
       setIsOpen={setIsOpen}
-      Icon={FaRegPlusSquare}
+      Icon={AiTwotoneCopy}
       backdrop="opaque"
       placement="top"
       varient="light"
       color="default"
+      title={t("COPY_WEEK")}
       showArrow
     >
       <Card className="p-4">
