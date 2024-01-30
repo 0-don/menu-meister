@@ -337,16 +337,16 @@ model Ingredient {
   name          String @db.VarChar(255)
   blsIdentifier String @unique @db.VarChar(50)
 
-  energyKcal      Decimal @default(0) @db.Decimal(10, 2)
-  energyKj        Decimal @default(0) @db.Decimal(10, 2)
-  breadUnits      Decimal @default(0) @db.Decimal(10, 2)
-  carbohydrates   Decimal @default(0) @db.Decimal(10, 2)
-  sugars          Decimal @default(0) @db.Decimal(10, 2)
-  salt            Decimal @default(0) @db.Decimal(10, 2)
-  fats            Decimal @default(0) @db.Decimal(10, 2)
-  saturatedFats   Decimal @default(0) @db.Decimal(10, 2)
-  unsaturatedFats Decimal @default(0) @db.Decimal(10, 2)
-  protein         Decimal @default(0) @db.Decimal(10, 2)
+  energyKcal      Float @default(0)
+  energyKj        Float @default(0)
+  breadUnits      Float @default(0)
+  carbohydrates   Float @default(0)
+  sugars          Float @default(0)
+  salt            Float @default(0)
+  fats            Float @default(0)
+  saturatedFats   Float @default(0)
+  unsaturatedFats Float @default(0)
+  protein         Float @default(0)
 
   allergens  Allergens[]  @relation("IngredientAllergens")
   additives  Additives[]  @relation("IngredientAdditives")
@@ -407,7 +407,7 @@ model RecipeIngredient {
   recipeId     Int
   ingredientId Int
 
-  amount Decimal @db.Decimal(10, 2)
+  amount Float
   unit   Unit
 
   recipe     Recipe     @relation(fields: [recipeId], references: [id])
