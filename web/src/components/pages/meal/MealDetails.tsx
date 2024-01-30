@@ -17,7 +17,7 @@ interface MealDetailsProps {
 
 export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
   const [files, setFiles] = React.useState<File[]>([]);
-  const { data: { getMealAdmin } = {} } = useGqlQuery(GET_MEAL_ADMIN, {
+  const { data: { getMealAdmin } = {}, refetch } = useGqlQuery(GET_MEAL_ADMIN, {
     where: { id: { equals: Number(id) } },
   });
 
@@ -64,6 +64,7 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
                   mealId: Number(getMealAdmin?.id),
                   file: e[0],
                 });
+                refetch();
               } catch (error) {
                 catchErrorAlerts(error);
               }
