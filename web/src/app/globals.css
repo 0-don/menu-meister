@@ -74,3 +74,15 @@ html.dark {
 #animation {
   animation: gradientAnimation 20s linear infinite;
 }
+/* 
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  display: none;
+}
+
+input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background: transparent;
+} */

@@ -3,19 +3,18 @@ import { Button, Card, Input } from "@nextui-org/react";
 import { AiTwotoneCopy } from "@react-icons/all-files/ai/AiTwotoneCopy";
 import { useTranslations } from "next-intl";
 import React, { FormEvent, useState } from "react";
-import { ColorPalette } from "../utils/ColorPalette";
 
 interface CopyTableWeekProps {}
 
 export const CopyTableWeek: React.FC<CopyTableWeekProps> = ({}) => {
   const t = useTranslations<"Dashboard">();
-  const [name, setName] = useState<string>("");
+  const [date, setDate] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [color, setColor] = useState<string>("");
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
+    console.log(date);
   };
 
   return (
@@ -33,15 +32,14 @@ export const CopyTableWeek: React.FC<CopyTableWeekProps> = ({}) => {
       <Card className="p-4">
         <form onSubmit={onSubmit} className="flex flex-col space-y-5">
           <Input
-            type="text"
+            type="date"
             label={t("GROUPNAME")}
+            // labelPlacement="outside"
             required
             size="sm"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
           />
-
-          <ColorPalette value={color} onChange={setColor} />
 
           <Button color="primary" type="submit">
             {t("SAVE_GROUP")}

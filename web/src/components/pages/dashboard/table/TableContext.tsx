@@ -14,10 +14,24 @@ import {
 } from "@dnd-kit/sortable";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useSnapshot } from "valtio";
 import { CopyTableWeek } from "./CopyTableWeek";
 import { TableGroupRow } from "./TableGroupRow";
+
+const RenderDayColumn = (props: { dayKey: string; index: number }) => {
+  const t = useTranslations<"Dashboard">();
+  const dayName = t(props.dayKey as keyof Messages["Dashboard"]);
+  const date = dayjs(DashboardStore.daysThatWeek.at(props.index)).format(
+    "DD.MM",
+  );
+
+  return (
+    <div key={props.dayKey} title={dayName}>
+      {`${dayName.substring(0, 2)}. ${date}`}
+    </div>
+  );
+};
 
 export function TableContext() {
   const { updateWeeklyMealGroup, switchWeeklyMealGroup, isPast } =
@@ -27,23 +41,6 @@ export function TableContext() {
   const dashboardStore = useSnapshot(DashboardStore);
   const { dataSorted } = useSnapshot(TableStore);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const renderDayColumn = (dayKey: string, index: number) => {
-    const dayName = t(dayKey as keyof Messages["Dashboard"]);
-    const date = dayjs(DashboardStore.daysThatWeek.at(index)).format("DD.MM");
-
-    return (
-      <div key={dayKey} title={dayName}>
-        {`${dayName.substring(0, 2)}. ${date}`}
-      </div>
-    );
-  };
-
-  const dayColumns = useMemo(() => {
-    return WEEK_DAYS.map((day, index) =>
-      renderDayColumn(day.toUpperCase(), index),
-    );
-  }, [dashboardStore.daysThatWeek]);
 
   return (
     <main className="relative z-0 mt-5 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small">
@@ -71,7 +68,9 @@ export function TableContext() {
           />
           <CopyTableWeek />
         </div>
-        {dayColumns}
+        {WEEK_DAYS.map((day, index) => (
+          <RenderDayColumn key={day} dayKey={day} index={index} />
+        ))}
       </div>
 
       <DndContext
