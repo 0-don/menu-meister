@@ -6,6 +6,15 @@ export const SWITCH_WEEKLY_MEAL_GROUP_ADMIN = graphql(/* GraphQL */ `
   }
 `);
 
+export const SWITCH_DATE_WEEKLY_MEAL_GRPOUP_ADMIN = graphql(/* GraphQL */ `
+  mutation SwitchDateWeeklyMealGroupAdmin(
+    $dateFrom: String!
+    $dateTo: String!
+  ) {
+    switchDateWeeklyMealGroupAdmin(dateFrom: $dateFrom, dateTo: $dateTo)
+  }
+`);
+
 export const CREATE_WEEKLY_MEAL_GROUP_ADMIN = graphql(/* GraphQL */ `
   mutation CreateWeeklyMealGroupAdmin(
     $data: WeeklyMealGroupUncheckedCreateInput!

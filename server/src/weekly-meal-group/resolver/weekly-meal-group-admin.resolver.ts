@@ -17,7 +17,6 @@ import { PrismaSelect } from "@paljs/plugins";
 import dayjs from "dayjs";
 import { SwitchWeeklyMealGroupInput } from "../model/input/switch-weekly-meal-group.input";
 import { WeeklyMealGroupService } from "../weekly-meal-group.service";
-
 import isLeapYear from "dayjs/plugin/isLeapYear";
 import isoWeek from "dayjs/plugin/isoWeek";
 import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear";
@@ -51,6 +50,7 @@ export class WeeklyMealGroupAdminResolver {
           weekOfYear: { equals: dayjs(dateFrom).week() },
           year: { equals: dayjs(dateFrom).year() },
         },
+        select: { id: true },
       });
 
       await this.prisma.weeklyMealGroup.updateMany({
