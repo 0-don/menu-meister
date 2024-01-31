@@ -57,7 +57,9 @@
     "DATE": "Date",
     "COPY_WEEK": "Copy Week",
     "WEEK": "Week",
-    "COPY": "Copy"
+    "COPY": "Copy",
+    "SUCCESS_ADD_MEAL": "Meal ({meal}) added successfully",
+    "REMOVED_MEAL": "Meal ({meal}) removed successfully"
   },
   "Menu": {},
   "User": {},

@@ -5,6 +5,7 @@ import { useUserMealHook } from "@/components/hooks/useUserMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { Meal } from "@/gql/graphql";
 import { DashboardStore } from "@/store/DashboardStore";
+import { GeneralStore } from "@/store/GeneralStore";
 import TableStore from "@/store/TableStore";
 import { catchErrorAlerts, classNames } from "@/utils/helpers/clientUtils";
 import { WeekDay } from "@/utils/types";
@@ -88,7 +89,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
     });
 
   const isActive = tableStore.active?.id === id;
-  
+
   return (
     <>
       <div
@@ -103,7 +104,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
             "cursor-pointer border-3 border-transparent hover:border-primary",
           isOrderMenu &&
             isSelectedMealUser &&
-            "!border-success-500 border-3 hover:!border-danger",
+            "border-3 !border-success-500 hover:!border-danger",
           "group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2",
         )}
         ref={setNodeRef}
@@ -130,6 +131,10 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
                   },
                 });
                 refetchUserMealsUser();
+                GeneralStore.addAlert({
+                  msg: t("SUCCESS_ADD_MEAL", { meal: props.meal.name }),
+                  type: "success",
+                });
               } catch (error) {
                 catchErrorAlerts(error, t);
               }
@@ -139,6 +144,10 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
                   where: { id: Number(isSelectedMealUser.id) },
                 });
                 refetchUserMealsUser();
+                GeneralStore.addAlert({
+                  msg: t("REMOVED_MEAL", { meal: props.meal.name }),
+                  type: "warning",
+                });
               } catch (error) {
                 catchErrorAlerts(error, t);
               }

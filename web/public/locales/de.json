@@ -57,7 +57,9 @@
     "DATE": "Datum",
     "COPY_WEEK": "Woche kopieren",
     "WEEK": "Woche",
-    "COPY": "Copy"
+    "COPY": "Kopieren",
+    "SUCCESS_ADD_MEAL": "Mahlzeit ({meal}) erfolgreich hinzugefügt",
+    "REMOVED_MEAL": "Mahlzeit ({meal}) erfolgreich entfernt"
   },
   "Menu": {},
   "User": {},
