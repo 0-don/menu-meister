@@ -55,7 +55,9 @@
     "ORDERS": "Bestellungen",
     "COUNT": "Anzahl",
     "DATE": "Datum",
-    "COPY_WEEK": "Woche kopieren"
+    "COPY_WEEK": "Woche kopieren",
+    "WEEK": "Woche",
+    "COPY": "Copy"
   },
   "Menu": {},
   "User": {},

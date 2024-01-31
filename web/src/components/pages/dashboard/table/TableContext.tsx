@@ -14,7 +14,6 @@ import {
 } from "@dnd-kit/sortable";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 import { useSnapshot } from "valtio";
 import { CopyTableWeek } from "./CopyTableWeek";
 import { TableGroupRow } from "./TableGroupRow";
@@ -40,7 +39,6 @@ export function TableContext() {
   const t = useTranslations<"Dashboard">();
   const dashboardStore = useSnapshot(DashboardStore);
   const { dataSorted } = useSnapshot(TableStore);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <main className="relative z-0 mt-5 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small">

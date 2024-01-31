@@ -52,10 +52,12 @@
     "SELECT_MEAL": "Select Meal",
     "MEAL": "Meal",
     "MEAL_BOARD_PLAN": "Meal Board Plan",
-    "ORDERS": "Bestellungen",
-    "COUNT": "Anzahl",
-    "DATE": "Datum",
-    "COPY_WEEK": "Woche kopieren"
+    "ORDERS": "Orders",
+    "COUNT": "Count",
+    "DATE": "Date",
+    "COPY_WEEK": "Copy Week",
+    "WEEK": "Week",
+    "COPY": "Copy"
   },
   "Menu": {},
   "User": {},

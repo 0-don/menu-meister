@@ -33,16 +33,15 @@ export const CopyTableWeek: React.FC<CopyTableWeekProps> = ({}) => {
         <form onSubmit={onSubmit} className="flex flex-col space-y-5">
           <Input
             type="date"
-            label={t("GROUPNAME")}
-            // labelPlacement="outside"
+            label={t("WEEK")}
+            labelPlacement="outside-left"
             required
             size="sm"
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
-
           <Button color="primary" type="submit">
-            {t("SAVE_GROUP")}
+            {t("COPY")}
           </Button>
         </form>
       </Card>
