@@ -2102,6 +2102,7 @@ type Mutation {
   updateMealAdmin(data: MealUpdateInput!, where: MealWhereUniqueInput!): Meal
   updateManyMealsAdmin(data: MealUpdateManyMutationInput!, where: MealWhereInput): [Meal!]
   upsertMealAdmin(where: MealWhereUniqueInput!, create: MealCreateInput!, update: MealUpdateInput!): Meal
+  switchDateWeeklyMealGroupAdmin(dateFrom: String!, dateTo: String!): Boolean!
   switchWeeklyMealGroupAdmin(data: SwitchWeeklyMealGroupInput!): Boolean!
   createWeeklyMealGroupAdmin(data: WeeklyMealGroupUncheckedCreateInput!): WeeklyMealGroup
   createManyWeeklyMealGroupsAdmin(data: [WeeklyMealGroupCreateManyInput!]!, skipDuplicates: Boolean): [WeeklyMealGroup!]

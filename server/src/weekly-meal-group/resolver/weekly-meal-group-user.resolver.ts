@@ -23,7 +23,8 @@ export class WeeklyMealGroupUseresolver {
   ) {
     const select = new PrismaSelect(info).value;
     try {
-      return await this.prisma.weeklyMealGroup.findMany({ ...args, ...select });
+      const test = await this.prisma.weeklyMealGroup.findMany({ ...args, ...select });
+      return 
     } catch (e) {
       Logger.error(e);
       return null;

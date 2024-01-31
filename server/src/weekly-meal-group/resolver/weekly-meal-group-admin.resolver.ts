@@ -14,16 +14,63 @@ import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
-import { GraphQLResolveInfo } from "graphql";
+import dayjs from "dayjs";
 import { SwitchWeeklyMealGroupInput } from "../model/input/switch-weekly-meal-group.input";
 import { WeeklyMealGroupService } from "../weekly-meal-group.service";
+
+import isLeapYear from "dayjs/plugin/isLeapYear";
+import isoWeek from "dayjs/plugin/isoWeek";
+import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear";
+import utc from "dayjs/plugin/utc";
+import weekOfYear from "dayjs/plugin/weekOfYear";
+import { GraphQLResolveInfo } from "graphql";
 
 @Resolver(() => WeeklyMealGroup)
 export class WeeklyMealGroupAdminResolver {
   constructor(
     private prisma: PrismaService,
     private weeklyMealGroupService: WeeklyMealGroupService,
-  ) {}
+  ) {
+    dayjs.extend(utc);
+    dayjs.extend(weekOfYear);
+    dayjs.extend(isoWeek);
+    dayjs.extend(isoWeeksInYear);
+    dayjs.extend(isLeapYear);
+    dayjs.Ls["en"].weekStart = 1;
+  }
+
+  @Mutation(() => Boolean)
+  @Roles("ADMIN")
+  async switchDateWeeklyMealGroupAdmin(
+    @Args("dateFrom") dateFrom: string,
+    @Args("dateTo") dateTo: string,
+  ) {
+    try {
+      const weeklyMealGroups = await this.prisma.weeklyMealGroup.findMany({
+        where: {
+          weekOfYear: { equals: dayjs(dateFrom).week() },
+          year: { equals: dayjs(dateFrom).year() },
+        },
+      });
+
+      await this.prisma.weeklyMealGroup.updateMany({
+        data: weeklyMealGroups.map((weeklyMealGroup) => ({
+          id: weeklyMealGroup.id,
+          weekOfYear: dayjs(dateTo).week(),
+          year: dayjs(dateTo).year(),
+        })),
+        where: {
+          id: {
+            in: weeklyMealGroups.map((weeklyMealGroup) => weeklyMealGroup.id),
+          },
+        },
+      });
+      return true;
+    } catch (error) {
+      Logger.error(error);
+      return false;
+    }
+  }
 
   @Mutation(() => Boolean)
   @Roles("ADMIN")
