@@ -62,7 +62,6 @@ export class WeeklyMealGroupAdminResolver {
       });
       return true;
     } catch (error) {
-      console.log(error);
       Logger.error(error);
       return false;
     }
