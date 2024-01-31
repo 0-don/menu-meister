@@ -6,7 +6,7 @@ import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { Button, Card, Input } from "@nextui-org/react";
 import { AiTwotoneCopy } from "@react-icons/all-files/ai/AiTwotoneCopy";
 import { useTranslations } from "next-intl";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 
 interface CopyTableWeekProps {}
@@ -18,17 +18,21 @@ export const CopyTableWeek: React.FC<CopyTableWeekProps> = ({}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { mutateAsync } = useGqlMutation(SWITCH_DATE_WEEKLY_MEAL_GRPOUP_ADMIN);
 
+  useEffect(() => {
+    setDate(dashboardStore.daysThatWeek[0]);
+  }, [dashboardStore.daysThatWeek]);
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      console.log(dashboardStore.daysThatWeek[0], date);
+      console.log(dashboardStore.daysThatWeek[0], date, "2014-02-09");
 
-      // await mutateAsync({
-      //   dateFrom: dashboardStore.daysThatWeek[0],
-      //   dateTo: date,
-      // });
-      // setIsOpen(false);
+      await mutateAsync({
+        dateFrom: dashboardStore.daysThatWeek[0],
+        dateTo: date,
+      });
+      setIsOpen(false);
     } catch (error) {
       catchErrorAlerts(error, t);
     }
