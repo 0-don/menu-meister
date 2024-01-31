@@ -429,6 +429,20 @@ type Settings {
   updatedByUser: User!
 }
 
+type UserProfile {
+  id: Int!
+  userId: Int!
+  name: String!
+  image: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: Int!
+  updatedBy: Int!
+  user: User!
+  createdByUser: User!
+  updatedByUser: User!
+}
+
 type UserCount {
   createdToken: Int!
   updatedToken: Int!
@@ -468,6 +482,8 @@ type UserCount {
   updatedFoodForms: Int!
   createdKitchens: Int!
   updatedKitchens: Int!
+  createdUserProfiles: Int!
+  updatedUserProfiles: Int!
   userRole: Int!
   userMeal: Int!
 }
@@ -523,8 +539,11 @@ type User {
   updatedFoodForms: [FoodForms!]
   createdKitchens: [Kitchens!]
   updatedKitchens: [Kitchens!]
+  createdUserProfiles: [UserProfile!]
+  updatedUserProfiles: [UserProfile!]
   userRole: [UserRole!]
   userMeal: [UserMeal!]
+  userProfile: UserProfile
   _count: UserCount!
 }
 
@@ -684,8 +703,11 @@ input UserWhereInput {
   updatedFoodForms: FoodFormsListRelationFilter
   createdKitchens: KitchensListRelationFilter
   updatedKitchens: KitchensListRelationFilter
+  createdUserProfiles: UserProfileListRelationFilter
+  updatedUserProfiles: UserProfileListRelationFilter
   userRole: UserRoleListRelationFilter
   userMeal: UserMealListRelationFilter
+  userProfile: UserProfileNullableRelationFilter
 }
 
 input IntFilter {
@@ -1274,6 +1296,28 @@ input MealBoardPlanListRelationFilter {
   none: MealBoardPlanWhereInput
 }
 
+input UserProfileListRelationFilter {
+  every: UserProfileWhereInput
+  some: UserProfileWhereInput
+  none: UserProfileWhereInput
+}
+
+input UserProfileWhereInput {
+  AND: [UserProfileWhereInput!]
+  OR: [UserProfileWhereInput!]
+  NOT: [UserProfileWhereInput!]
+  id: IntFilter
+  userId: IntFilter
+  name: StringFilter
+  image: StringFilter
+  user: UserRelationFilter
+}
+
+input UserProfileNullableRelationFilter {
+  is: UserProfileWhereInput
+  isNot: UserProfileWhereInput
+}
+
 input UserOrderByWithRelationInput {
   id: SortOrder
   image: SortOrderInput
@@ -1319,8 +1363,11 @@ input UserOrderByWithRelationInput {
   updatedFoodForms: FoodFormsOrderByRelationAggregateInput
   createdKitchens: KitchensOrderByRelationAggregateInput
   updatedKitchens: KitchensOrderByRelationAggregateInput
+  createdUserProfiles: UserProfileOrderByRelationAggregateInput
+  updatedUserProfiles: UserProfileOrderByRelationAggregateInput
   userRole: UserRoleOrderByRelationAggregateInput
   userMeal: UserMealOrderByRelationAggregateInput
+  userProfile: UserProfileOrderByWithRelationInput
 }
 
 enum SortOrder {
@@ -1414,6 +1461,18 @@ input KitchensOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
+input UserProfileOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input UserProfileOrderByWithRelationInput {
+  id: SortOrder
+  userId: SortOrder
+  name: SortOrder
+  image: SortOrder
+  user: UserOrderByWithRelationInput
+}
+
 input UserWhereUniqueInput {
   id: Int
   username: String
@@ -1462,8 +1521,11 @@ input UserWhereUniqueInput {
   updatedFoodForms: FoodFormsListRelationFilter
   createdKitchens: KitchensListRelationFilter
   updatedKitchens: KitchensListRelationFilter
+  createdUserProfiles: UserProfileListRelationFilter
+  updatedUserProfiles: UserProfileListRelationFilter
   userRole: UserRoleListRelationFilter
   userMeal: UserMealListRelationFilter
+  userProfile: UserProfileNullableRelationFilter
 }
 
 enum UserScalarFieldEnum {
@@ -2125,8 +2187,11 @@ input UserCreateInput {
   updatedFoodForms: FoodFormsCreateNestedManyWithoutUpdatedByUserInput
   createdKitchens: KitchensCreateNestedManyWithoutCreatedByUserInput
   updatedKitchens: KitchensCreateNestedManyWithoutUpdatedByUserInput
+  createdUserProfiles: UserProfileCreateNestedManyWithoutCreatedByUserInput
+  updatedUserProfiles: UserProfileCreateNestedManyWithoutUpdatedByUserInput
   userRole: UserRoleCreateNestedManyWithoutUserInput
   userMeal: UserMealCreateNestedManyWithoutUserInput
+  userProfile: UserProfileCreateNestedOneWithoutUserInput
 }
 
 input TokenCreateNestedManyWithoutCreatedByUserInput {
@@ -2245,8 +2310,11 @@ input UserCreateWithoutCreatedByUserInput {
   updatedFoodForms: FoodFormsCreateNestedManyWithoutUpdatedByUserInput
   createdKitchens: KitchensCreateNestedManyWithoutCreatedByUserInput
   updatedKitchens: KitchensCreateNestedManyWithoutUpdatedByUserInput
+  createdUserProfiles: UserProfileCreateNestedManyWithoutCreatedByUserInput
+  updatedUserProfiles: UserProfileCreateNestedManyWithoutUpdatedByUserInput
   userRole: UserRoleCreateNestedManyWithoutUserInput
   userMeal: UserMealCreateNestedManyWithoutUserInput
+  userProfile: UserProfileCreateNestedOneWithoutUserInput
 }
 
 input UserCreateNestedManyWithoutUpdatedByUserInput {
@@ -2300,8 +2368,11 @@ input UserCreateWithoutUpdatedByUserInput {
   updatedFoodForms: FoodFormsCreateNestedManyWithoutUpdatedByUserInput
   createdKitchens: KitchensCreateNestedManyWithoutCreatedByUserInput
   updatedKitchens: KitchensCreateNestedManyWithoutUpdatedByUserInput
+  createdUserProfiles: UserProfileCreateNestedManyWithoutCreatedByUserInput
+  updatedUserProfiles: UserProfileCreateNestedManyWithoutUpdatedByUserInput
   userRole: UserRoleCreateNestedManyWithoutUserInput
   userMeal: UserMealCreateNestedManyWithoutUserInput
+  userProfile: UserProfileCreateNestedOneWithoutUserInput
 }
 
 input UserRoleCreateNestedManyWithoutCreatedByUserInput {
@@ -2366,7 +2437,10 @@ input UserCreateWithoutUserRoleInput {
   updatedFoodForms: FoodFormsCreateNestedManyWithoutUpdatedByUserInput
   createdKitchens: KitchensCreateNestedManyWithoutCreatedByUserInput
   updatedKitchens: KitchensCreateNestedManyWithoutUpdatedByUserInput
+  createdUserProfiles: UserProfileCreateNestedManyWithoutCreatedByUserInput
+  updatedUserProfiles: UserProfileCreateNestedManyWithoutUpdatedByUserInput
   userMeal: UserMealCreateNestedManyWithoutUserInput
+  userProfile: UserProfileCreateNestedOneWithoutUserInput
 }
 
 input UserRoleCreateNestedManyWithoutUpdatedByUserInput {
@@ -2478,7 +2552,10 @@ input UserCreateWithoutUserMealInput {
   updatedFoodForms: FoodFormsCreateNestedManyWithoutUpdatedByUserInput
   createdKitchens: KitchensCreateNestedManyWithoutCreatedByUserInput
   updatedKitchens: KitchensCreateNestedManyWithoutUpdatedByUserInput
+  createdUserProfiles: UserProfileCreateNestedManyWithoutCreatedByUserInput
+  updatedUserProfiles: UserProfileCreateNestedManyWithoutUpdatedByUserInput
   userRole: UserRoleCreateNestedManyWithoutUserInput
+  userProfile: UserProfileCreateNestedOneWithoutUserInput
 }
 
 input UserMealCreateNestedManyWithoutUpdatedByUserInput {
@@ -5603,6 +5680,116 @@ input KitchensCreateManyUpdatedByUserInput {
   name: String!
 }
 
+input UserProfileCreateNestedManyWithoutCreatedByUserInput {
+  create: [UserProfileCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [UserProfileCreateOrConnectWithoutCreatedByUserInput!]
+  createMany: UserProfileCreateManyCreatedByUserInputEnvelope
+  connect: [UserProfileWhereUniqueInput!]
+}
+
+input UserProfileCreateWithoutCreatedByUserInput {
+  name: String!
+  image: String!
+  user: UserCreateNestedOneWithoutUserProfileInput!
+}
+
+input UserCreateNestedOneWithoutUserProfileInput {
+  create: UserCreateWithoutUserProfileInput
+  connectOrCreate: UserCreateOrConnectWithoutUserProfileInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutUserProfileInput {
+  image: String
+  username: String!
+  email: String!
+  lastOnline: DateTime
+  status: Boolean
+  createdToken: TokenCreateNestedManyWithoutCreatedByUserInput
+  updatedToken: TokenCreateNestedManyWithoutUpdatedByUserInput
+  createdUser: UserCreateNestedManyWithoutCreatedByUserInput
+  updatedUser: UserCreateNestedManyWithoutUpdatedByUserInput
+  createdUserRoles: UserRoleCreateNestedManyWithoutCreatedByUserInput
+  updatedUserRoles: UserRoleCreateNestedManyWithoutUpdatedByUserInput
+  createdUserMeals: UserMealCreateNestedManyWithoutCreatedByUserInput
+  updatedUserMeals: UserMealCreateNestedManyWithoutUpdatedByUserInput
+  createdSettings: SettingsCreateNestedManyWithoutCreatedByUserInput
+  updatedSettings: SettingsCreateNestedManyWithoutUpdatedByUserInput
+  createdIngredients: IngredientCreateNestedManyWithoutCreatedByUserInput
+  updatedIngredients: IngredientCreateNestedManyWithoutUpdatedByUserInput
+  createdRecipes: RecipeCreateNestedManyWithoutCreatedByUserInput
+  updatedRecipes: RecipeCreateNestedManyWithoutUpdatedByUserInput
+  createdRecipeIngredients: RecipeIngredientCreateNestedManyWithoutCreatedByUserInput
+  updatedRecipeIngredients: RecipeIngredientCreateNestedManyWithoutUpdatedByUserInput
+  createdMeals: MealCreateNestedManyWithoutCreatedByUserInput
+  updatedMeals: MealCreateNestedManyWithoutUpdatedByUserInput
+  createdMealRecipes: MealRecipeCreateNestedManyWithoutCreatedByUserInput
+  updatedMealRecipes: MealRecipeCreateNestedManyWithoutUpdatedByUserInput
+  createdWeeklyMealGroups: WeeklyMealGroupCreateNestedManyWithoutCreatedByUserInput
+  updatedWeeklyMealGroups: WeeklyMealGroupCreateNestedManyWithoutUpdatedByUserInput
+  createdMealBoardPlans: MealBoardPlanCreateNestedManyWithoutCreatedByUserInput
+  updatedMealBoardPlans: MealBoardPlanCreateNestedManyWithoutUpdatedByUserInput
+  createdAllergens: AllergensCreateNestedManyWithoutCreatedByUserInput
+  updatedAllergens: AllergensCreateNestedManyWithoutUpdatedByUserInput
+  createdAdditives: AdditivesCreateNestedManyWithoutCreatedByUserInput
+  updatedAdditives: AdditivesCreateNestedManyWithoutUpdatedByUserInput
+  createdProperties: PropertiesCreateNestedManyWithoutCreatedByUserInput
+  updatedProperties: PropertiesCreateNestedManyWithoutUpdatedByUserInput
+  createdCategories: CategoriesCreateNestedManyWithoutCreatedByUserInput
+  updatedCategories: CategoriesCreateNestedManyWithoutUpdatedByUserInput
+  createdSeasons: SeasonsCreateNestedManyWithoutCreatedByUserInput
+  updatedSeasons: SeasonsCreateNestedManyWithoutUpdatedByUserInput
+  createdFoodForms: FoodFormsCreateNestedManyWithoutCreatedByUserInput
+  updatedFoodForms: FoodFormsCreateNestedManyWithoutUpdatedByUserInput
+  createdKitchens: KitchensCreateNestedManyWithoutCreatedByUserInput
+  updatedKitchens: KitchensCreateNestedManyWithoutUpdatedByUserInput
+  createdUserProfiles: UserProfileCreateNestedManyWithoutCreatedByUserInput
+  updatedUserProfiles: UserProfileCreateNestedManyWithoutUpdatedByUserInput
+  userRole: UserRoleCreateNestedManyWithoutUserInput
+  userMeal: UserMealCreateNestedManyWithoutUserInput
+}
+
+input UserProfileCreateNestedManyWithoutUpdatedByUserInput {
+  create: [UserProfileCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [UserProfileCreateOrConnectWithoutUpdatedByUserInput!]
+  createMany: UserProfileCreateManyUpdatedByUserInputEnvelope
+  connect: [UserProfileWhereUniqueInput!]
+}
+
+input UserProfileCreateWithoutUpdatedByUserInput {
+  name: String!
+  image: String!
+  user: UserCreateNestedOneWithoutUserProfileInput!
+}
+
+input UserProfileCreateOrConnectWithoutUpdatedByUserInput {
+  where: UserProfileWhereUniqueInput!
+  create: UserProfileCreateWithoutUpdatedByUserInput!
+}
+
+input UserProfileWhereUniqueInput {
+  id: Int
+  userId: Int
+  AND: [UserProfileWhereInput!]
+  OR: [UserProfileWhereInput!]
+  NOT: [UserProfileWhereInput!]
+  name: StringFilter
+  image: StringFilter
+  user: UserRelationFilter
+}
+
+input UserProfileCreateManyUpdatedByUserInputEnvelope {
+  data: [UserProfileCreateManyUpdatedByUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input UserProfileCreateManyUpdatedByUserInput {
+  id: Int
+  userId: Int!
+  name: String!
+  image: String!
+}
+
 input UserRoleCreateNestedManyWithoutUserInput {
   create: [UserRoleCreateWithoutUserInput!]
   connectOrCreate: [UserRoleCreateOrConnectWithoutUserInput!]
@@ -5627,30 +5814,6 @@ input UserRoleCreateManyUserInputEnvelope {
 input UserRoleCreateManyUserInput {
   id: Int
   name: UserRoleName!
-}
-
-input UserCreateOrConnectWithoutUserMealInput {
-  where: UserWhereUniqueInput!
-  create: UserCreateWithoutUserMealInput!
-}
-
-input UserMealCreateOrConnectWithoutCreatedByUserInput {
-  where: UserMealWhereUniqueInput!
-  create: UserMealCreateWithoutCreatedByUserInput!
-}
-
-input UserMealCreateManyCreatedByUserInputEnvelope {
-  data: [UserMealCreateManyCreatedByUserInput!]!
-  skipDuplicates: Boolean
-}
-
-input UserMealCreateManyCreatedByUserInput {
-  id: Int
-  date: DateTime!
-  mealBoardPlanId: Int!
-  userId: Int!
-  mealId: Int!
-  weeklyMealGroupId: Int!
 }
 
 input UserMealCreateNestedManyWithoutUserInput {
@@ -5681,6 +5844,68 @@ input UserMealCreateManyUserInput {
   id: Int
   date: DateTime!
   mealBoardPlanId: Int!
+  mealId: Int!
+  weeklyMealGroupId: Int!
+}
+
+input UserCreateOrConnectWithoutUserProfileInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutUserProfileInput!
+}
+
+input UserProfileCreateOrConnectWithoutCreatedByUserInput {
+  where: UserProfileWhereUniqueInput!
+  create: UserProfileCreateWithoutCreatedByUserInput!
+}
+
+input UserProfileCreateManyCreatedByUserInputEnvelope {
+  data: [UserProfileCreateManyCreatedByUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input UserProfileCreateManyCreatedByUserInput {
+  id: Int
+  userId: Int!
+  name: String!
+  image: String!
+}
+
+input UserProfileCreateNestedOneWithoutUserInput {
+  create: UserProfileCreateWithoutUserInput
+  connectOrCreate: UserProfileCreateOrConnectWithoutUserInput
+  connect: UserProfileWhereUniqueInput
+}
+
+input UserProfileCreateWithoutUserInput {
+  name: String!
+  image: String!
+}
+
+input UserProfileCreateOrConnectWithoutUserInput {
+  where: UserProfileWhereUniqueInput!
+  create: UserProfileCreateWithoutUserInput!
+}
+
+input UserCreateOrConnectWithoutUserMealInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutUserMealInput!
+}
+
+input UserMealCreateOrConnectWithoutCreatedByUserInput {
+  where: UserMealWhereUniqueInput!
+  create: UserMealCreateWithoutCreatedByUserInput!
+}
+
+input UserMealCreateManyCreatedByUserInputEnvelope {
+  data: [UserMealCreateManyCreatedByUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input UserMealCreateManyCreatedByUserInput {
+  id: Int
+  date: DateTime!
+  mealBoardPlanId: Int!
+  userId: Int!
   mealId: Int!
   weeklyMealGroupId: Int!
 }
@@ -5797,8 +6022,11 @@ input UserUpdateInput {
   updatedFoodForms: FoodFormsUpdateManyWithoutUpdatedByUserNestedInput
   createdKitchens: KitchensUpdateManyWithoutCreatedByUserNestedInput
   updatedKitchens: KitchensUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserProfiles: UserProfileUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserProfiles: UserProfileUpdateManyWithoutUpdatedByUserNestedInput
   userRole: UserRoleUpdateManyWithoutUserNestedInput
   userMeal: UserMealUpdateManyWithoutUserNestedInput
+  userProfile: UserProfileUpdateOneWithoutUserNestedInput
 }
 
 input NullableStringFieldUpdateOperationsInput {
@@ -5965,8 +6193,11 @@ input UserUpdateWithoutCreatedByUserInput {
   updatedFoodForms: FoodFormsUpdateManyWithoutUpdatedByUserNestedInput
   createdKitchens: KitchensUpdateManyWithoutCreatedByUserNestedInput
   updatedKitchens: KitchensUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserProfiles: UserProfileUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserProfiles: UserProfileUpdateManyWithoutUpdatedByUserNestedInput
   userRole: UserRoleUpdateManyWithoutUserNestedInput
   userMeal: UserMealUpdateManyWithoutUserNestedInput
+  userProfile: UserProfileUpdateOneWithoutUserNestedInput
 }
 
 input UserUpdateManyWithoutUpdatedByUserNestedInput {
@@ -6033,8 +6264,11 @@ input UserUpdateWithoutUpdatedByUserInput {
   updatedFoodForms: FoodFormsUpdateManyWithoutUpdatedByUserNestedInput
   createdKitchens: KitchensUpdateManyWithoutCreatedByUserNestedInput
   updatedKitchens: KitchensUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserProfiles: UserProfileUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserProfiles: UserProfileUpdateManyWithoutUpdatedByUserNestedInput
   userRole: UserRoleUpdateManyWithoutUserNestedInput
   userMeal: UserMealUpdateManyWithoutUserNestedInput
+  userProfile: UserProfileUpdateOneWithoutUserNestedInput
 }
 
 input UserRoleUpdateManyWithoutCreatedByUserNestedInput {
@@ -6124,7 +6358,10 @@ input UserUpdateWithoutUserRoleInput {
   updatedFoodForms: FoodFormsUpdateManyWithoutUpdatedByUserNestedInput
   createdKitchens: KitchensUpdateManyWithoutCreatedByUserNestedInput
   updatedKitchens: KitchensUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserProfiles: UserProfileUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserProfiles: UserProfileUpdateManyWithoutUpdatedByUserNestedInput
   userMeal: UserMealUpdateManyWithoutUserNestedInput
+  userProfile: UserProfileUpdateOneWithoutUserNestedInput
 }
 
 input UserRoleUpdateManyWithoutUpdatedByUserNestedInput {
@@ -6261,7 +6498,10 @@ input UserUpdateWithoutUserMealInput {
   updatedFoodForms: FoodFormsUpdateManyWithoutUpdatedByUserNestedInput
   createdKitchens: KitchensUpdateManyWithoutCreatedByUserNestedInput
   updatedKitchens: KitchensUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserProfiles: UserProfileUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserProfiles: UserProfileUpdateManyWithoutUpdatedByUserNestedInput
   userRole: UserRoleUpdateManyWithoutUserNestedInput
+  userProfile: UserProfileUpdateOneWithoutUserNestedInput
 }
 
 input UserMealUpdateManyWithoutUpdatedByUserNestedInput {
@@ -10596,6 +10836,147 @@ input KitchensUpdateManyWithWhereWithoutUpdatedByUserInput {
   data: KitchensUpdateManyMutationInput!
 }
 
+input UserProfileUpdateManyWithoutCreatedByUserNestedInput {
+  create: [UserProfileCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [UserProfileCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [UserProfileUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: UserProfileCreateManyCreatedByUserInputEnvelope
+  set: [UserProfileWhereUniqueInput!]
+  disconnect: [UserProfileWhereUniqueInput!]
+  delete: [UserProfileWhereUniqueInput!]
+  connect: [UserProfileWhereUniqueInput!]
+  update: [UserProfileUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [UserProfileUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [UserProfileScalarWhereInput!]
+}
+
+input UserProfileUpsertWithWhereUniqueWithoutCreatedByUserInput {
+  where: UserProfileWhereUniqueInput!
+  update: UserProfileUpdateWithoutCreatedByUserInput!
+  create: UserProfileCreateWithoutCreatedByUserInput!
+}
+
+input UserProfileUpdateWithoutCreatedByUserInput {
+  name: StringFieldUpdateOperationsInput
+  image: StringFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutUserProfileNestedInput
+}
+
+input UserUpdateOneRequiredWithoutUserProfileNestedInput {
+  create: UserCreateWithoutUserProfileInput
+  connectOrCreate: UserCreateOrConnectWithoutUserProfileInput
+  upsert: UserUpsertWithoutUserProfileInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateToOneWithWhereWithoutUserProfileInput
+}
+
+input UserUpsertWithoutUserProfileInput {
+  update: UserUpdateWithoutUserProfileInput!
+  create: UserCreateWithoutUserProfileInput!
+  where: UserWhereInput
+}
+
+input UserUpdateWithoutUserProfileInput {
+  image: NullableStringFieldUpdateOperationsInput
+  username: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  lastOnline: DateTimeFieldUpdateOperationsInput
+  status: BoolFieldUpdateOperationsInput
+  createdToken: TokenUpdateManyWithoutCreatedByUserNestedInput
+  updatedToken: TokenUpdateManyWithoutUpdatedByUserNestedInput
+  createdUser: UserUpdateManyWithoutCreatedByUserNestedInput
+  updatedUser: UserUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserRoles: UserRoleUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserRoles: UserRoleUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserMeals: UserMealUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserMeals: UserMealUpdateManyWithoutUpdatedByUserNestedInput
+  createdSettings: SettingsUpdateManyWithoutCreatedByUserNestedInput
+  updatedSettings: SettingsUpdateManyWithoutUpdatedByUserNestedInput
+  createdIngredients: IngredientUpdateManyWithoutCreatedByUserNestedInput
+  updatedIngredients: IngredientUpdateManyWithoutUpdatedByUserNestedInput
+  createdRecipes: RecipeUpdateManyWithoutCreatedByUserNestedInput
+  updatedRecipes: RecipeUpdateManyWithoutUpdatedByUserNestedInput
+  createdRecipeIngredients: RecipeIngredientUpdateManyWithoutCreatedByUserNestedInput
+  updatedRecipeIngredients: RecipeIngredientUpdateManyWithoutUpdatedByUserNestedInput
+  createdMeals: MealUpdateManyWithoutCreatedByUserNestedInput
+  updatedMeals: MealUpdateManyWithoutUpdatedByUserNestedInput
+  createdMealRecipes: MealRecipeUpdateManyWithoutCreatedByUserNestedInput
+  updatedMealRecipes: MealRecipeUpdateManyWithoutUpdatedByUserNestedInput
+  createdWeeklyMealGroups: WeeklyMealGroupUpdateManyWithoutCreatedByUserNestedInput
+  updatedWeeklyMealGroups: WeeklyMealGroupUpdateManyWithoutUpdatedByUserNestedInput
+  createdMealBoardPlans: MealBoardPlanUpdateManyWithoutCreatedByUserNestedInput
+  updatedMealBoardPlans: MealBoardPlanUpdateManyWithoutUpdatedByUserNestedInput
+  createdAllergens: AllergensUpdateManyWithoutCreatedByUserNestedInput
+  updatedAllergens: AllergensUpdateManyWithoutUpdatedByUserNestedInput
+  createdAdditives: AdditivesUpdateManyWithoutCreatedByUserNestedInput
+  updatedAdditives: AdditivesUpdateManyWithoutUpdatedByUserNestedInput
+  createdProperties: PropertiesUpdateManyWithoutCreatedByUserNestedInput
+  updatedProperties: PropertiesUpdateManyWithoutUpdatedByUserNestedInput
+  createdCategories: CategoriesUpdateManyWithoutCreatedByUserNestedInput
+  updatedCategories: CategoriesUpdateManyWithoutUpdatedByUserNestedInput
+  createdSeasons: SeasonsUpdateManyWithoutCreatedByUserNestedInput
+  updatedSeasons: SeasonsUpdateManyWithoutUpdatedByUserNestedInput
+  createdFoodForms: FoodFormsUpdateManyWithoutCreatedByUserNestedInput
+  updatedFoodForms: FoodFormsUpdateManyWithoutUpdatedByUserNestedInput
+  createdKitchens: KitchensUpdateManyWithoutCreatedByUserNestedInput
+  updatedKitchens: KitchensUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserProfiles: UserProfileUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserProfiles: UserProfileUpdateManyWithoutUpdatedByUserNestedInput
+  userRole: UserRoleUpdateManyWithoutUserNestedInput
+  userMeal: UserMealUpdateManyWithoutUserNestedInput
+}
+
+input UserProfileUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [UserProfileCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [UserProfileCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [UserProfileUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: UserProfileCreateManyUpdatedByUserInputEnvelope
+  set: [UserProfileWhereUniqueInput!]
+  disconnect: [UserProfileWhereUniqueInput!]
+  delete: [UserProfileWhereUniqueInput!]
+  connect: [UserProfileWhereUniqueInput!]
+  update: [UserProfileUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [UserProfileUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [UserProfileScalarWhereInput!]
+}
+
+input UserProfileUpsertWithWhereUniqueWithoutUpdatedByUserInput {
+  where: UserProfileWhereUniqueInput!
+  update: UserProfileUpdateWithoutUpdatedByUserInput!
+  create: UserProfileCreateWithoutUpdatedByUserInput!
+}
+
+input UserProfileUpdateWithoutUpdatedByUserInput {
+  name: StringFieldUpdateOperationsInput
+  image: StringFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutUserProfileNestedInput
+}
+
+input UserProfileUpdateWithWhereUniqueWithoutUpdatedByUserInput {
+  where: UserProfileWhereUniqueInput!
+  data: UserProfileUpdateWithoutUpdatedByUserInput!
+}
+
+input UserProfileUpdateManyWithWhereWithoutUpdatedByUserInput {
+  where: UserProfileScalarWhereInput!
+  data: UserProfileUpdateManyMutationInput!
+}
+
+input UserProfileScalarWhereInput {
+  AND: [UserProfileScalarWhereInput!]
+  OR: [UserProfileScalarWhereInput!]
+  NOT: [UserProfileScalarWhereInput!]
+  id: IntFilter
+  userId: IntFilter
+  name: StringFilter
+  image: StringFilter
+}
+
+input UserProfileUpdateManyMutationInput {
+  name: StringFieldUpdateOperationsInput
+  image: StringFieldUpdateOperationsInput
+}
+
 input UserRoleUpdateManyWithoutUserNestedInput {
   create: [UserRoleCreateWithoutUserInput!]
   connectOrCreate: [UserRoleCreateOrConnectWithoutUserInput!]
@@ -10628,21 +11009,6 @@ input UserRoleUpdateWithWhereUniqueWithoutUserInput {
 input UserRoleUpdateManyWithWhereWithoutUserInput {
   where: UserRoleScalarWhereInput!
   data: UserRoleUpdateManyMutationInput!
-}
-
-input UserUpdateToOneWithWhereWithoutUserMealInput {
-  where: UserWhereInput
-  data: UserUpdateWithoutUserMealInput!
-}
-
-input UserMealUpdateWithWhereUniqueWithoutCreatedByUserInput {
-  where: UserMealWhereUniqueInput!
-  data: UserMealUpdateWithoutCreatedByUserInput!
-}
-
-input UserMealUpdateManyWithWhereWithoutCreatedByUserInput {
-  where: UserMealScalarWhereInput!
-  data: UserMealUpdateManyMutationInput!
 }
 
 input UserMealUpdateManyWithoutUserNestedInput {
@@ -10678,6 +11044,62 @@ input UserMealUpdateWithWhereUniqueWithoutUserInput {
 }
 
 input UserMealUpdateManyWithWhereWithoutUserInput {
+  where: UserMealScalarWhereInput!
+  data: UserMealUpdateManyMutationInput!
+}
+
+input UserUpdateToOneWithWhereWithoutUserProfileInput {
+  where: UserWhereInput
+  data: UserUpdateWithoutUserProfileInput!
+}
+
+input UserProfileUpdateWithWhereUniqueWithoutCreatedByUserInput {
+  where: UserProfileWhereUniqueInput!
+  data: UserProfileUpdateWithoutCreatedByUserInput!
+}
+
+input UserProfileUpdateManyWithWhereWithoutCreatedByUserInput {
+  where: UserProfileScalarWhereInput!
+  data: UserProfileUpdateManyMutationInput!
+}
+
+input UserProfileUpdateOneWithoutUserNestedInput {
+  create: UserProfileCreateWithoutUserInput
+  connectOrCreate: UserProfileCreateOrConnectWithoutUserInput
+  upsert: UserProfileUpsertWithoutUserInput
+  disconnect: UserProfileWhereInput
+  delete: UserProfileWhereInput
+  connect: UserProfileWhereUniqueInput
+  update: UserProfileUpdateToOneWithWhereWithoutUserInput
+}
+
+input UserProfileUpsertWithoutUserInput {
+  update: UserProfileUpdateWithoutUserInput!
+  create: UserProfileCreateWithoutUserInput!
+  where: UserProfileWhereInput
+}
+
+input UserProfileUpdateWithoutUserInput {
+  name: StringFieldUpdateOperationsInput
+  image: StringFieldUpdateOperationsInput
+}
+
+input UserProfileUpdateToOneWithWhereWithoutUserInput {
+  where: UserProfileWhereInput
+  data: UserProfileUpdateWithoutUserInput!
+}
+
+input UserUpdateToOneWithWhereWithoutUserMealInput {
+  where: UserWhereInput
+  data: UserUpdateWithoutUserMealInput!
+}
+
+input UserMealUpdateWithWhereUniqueWithoutCreatedByUserInput {
+  where: UserMealWhereUniqueInput!
+  data: UserMealUpdateWithoutCreatedByUserInput!
+}
+
+input UserMealUpdateManyWithWhereWithoutCreatedByUserInput {
   where: UserMealScalarWhereInput!
   data: UserMealUpdateManyMutationInput!
 }
