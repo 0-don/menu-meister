@@ -2,6 +2,7 @@ import { MyPopover } from "@/components/elements/MyPopover";
 import { SWITCH_DATE_WEEKLY_MEAL_GRPOUP_ADMIN } from "@/documents/mutation/dashboard";
 import { useGqlMutation } from "@/fetcher";
 import { DashboardStore } from "@/store/DashboardStore";
+import TableStore from "@/store/TableStore";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { Button, Card, Input } from "@nextui-org/react";
 import { AiTwotoneCopy } from "@react-icons/all-files/ai/AiTwotoneCopy";
@@ -26,13 +27,14 @@ export const CopyTableWeek: React.FC<CopyTableWeekProps> = ({}) => {
     e.preventDefault();
 
     try {
-      console.log(dashboardStore.daysThatWeek[0], date, "2014-02-09");
-
       await mutateAsync({
         dateFrom: dashboardStore.daysThatWeek[0],
         dateTo: date,
       });
+
       setIsOpen(false);
+      DashboardStore.setCalendar(date);
+      TableStore.refetchWeeklyMealGroups();
     } catch (error) {
       catchErrorAlerts(error, t);
     }

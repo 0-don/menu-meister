@@ -15,14 +15,14 @@ import { Logger } from "@nestjs/common";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import dayjs from "dayjs";
-import { SwitchWeeklyMealGroupInput } from "../model/input/switch-weekly-meal-group.input";
-import { WeeklyMealGroupService } from "../weekly-meal-group.service";
 import isLeapYear from "dayjs/plugin/isLeapYear";
 import isoWeek from "dayjs/plugin/isoWeek";
 import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear";
 import utc from "dayjs/plugin/utc";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import { GraphQLResolveInfo } from "graphql";
+import { SwitchWeeklyMealGroupInput } from "../model/input/switch-weekly-meal-group.input";
+import { WeeklyMealGroupService } from "../weekly-meal-group.service";
 
 @Resolver(() => WeeklyMealGroup)
 export class WeeklyMealGroupAdminResolver {
@@ -50,23 +50,19 @@ export class WeeklyMealGroupAdminResolver {
           weekOfYear: { equals: dayjs(dateFrom).week() },
           year: { equals: dayjs(dateFrom).year() },
         },
-        select: { id: true },
       });
 
-      await this.prisma.weeklyMealGroup.updateMany({
+      await this.prisma.weeklyMealGroup.createMany({
         data: weeklyMealGroups.map((weeklyMealGroup) => ({
-          id: weeklyMealGroup.id,
+          ...weeklyMealGroup,
           weekOfYear: dayjs(dateTo).week(),
           year: dayjs(dateTo).year(),
+          id: undefined,
         })),
-        where: {
-          id: {
-            in: weeklyMealGroups.map((weeklyMealGroup) => weeklyMealGroup.id),
-          },
-        },
       });
       return true;
     } catch (error) {
+      console.log(error);
       Logger.error(error);
       return false;
     }
