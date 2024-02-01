@@ -3,6 +3,7 @@ import { SWITCH_DATE_WEEKLY_MEAL_GRPOUP_ADMIN } from "@/documents/mutation/dashb
 import { useGqlMutation } from "@/fetcher";
 import { useRouter } from "@/navigation";
 import { DashboardStore } from "@/store/DashboardStore";
+import TableStore from "@/store/TableStore";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { Button, Card, Input } from "@nextui-org/react";
 import { AiTwotoneCopy } from "@react-icons/all-files/ai/AiTwotoneCopy";
@@ -37,7 +38,9 @@ export const CopyTableWeek: React.FC<CopyTableWeekProps> = ({}) => {
       DashboardStore.setCalendar(date);
 
       setTimeout(() => {
+        console.log("refresh");
         router.refresh();
+        TableStore.refetchWeeklyMealGroups();
       }, 2000);
     } catch (error) {
       catchErrorAlerts(error, t);
