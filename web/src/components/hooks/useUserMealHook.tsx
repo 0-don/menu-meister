@@ -6,7 +6,7 @@ import { DashboardStore } from "@/store/DashboardStore";
 import {
   CREATE_USER_MEAL_USER,
   DELETE_USER_MEAL_USER,
-} from "@/store/hooks/menu";
+} from "@/documents/mutation/menu";
 import { useSnapshot } from "valtio";
 import { useMeHook } from "./useMeHook";
 
