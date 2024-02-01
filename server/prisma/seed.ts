@@ -2,8 +2,8 @@ import { faker } from "@faker-js/faker";
 import { Prisma, PrismaClient, Unit, UserRoleName } from "@prisma/client";
 import argon2 from "argon2";
 import { error } from "console";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
-import { dirname, join, resolve } from "path";
+import { readFileSync } from "fs";
+import { join, resolve } from "path";
 import {
   ADDITIVES,
   ALLERGENS,
@@ -56,28 +56,6 @@ const seed = async () => {
   await seedMealBoardPlan();
   await seedWeeklyMealGroups();
 };
-
-async function downloadImage(url: string) {
-  const name = new URL(url).searchParams.get("lock");
-  const category = new URL(url).pathname.split("/").at(-1);
-  const filename = `${category}-${name}.jpg`;
-
-  const filePath = getImageFile(filename);
-
-  if (existsSync(filePath)) {
-    return { file: readFileSync(filePath, "base64"), filename };
-  }
-
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
-  }
-
-  const imageBuffer = await response.arrayBuffer();
-  mkdirSync(dirname(filePath), { recursive: true });
-  writeFileSync(filePath, Buffer.from(imageBuffer), "base64");
-  return { file: Buffer.from(imageBuffer).toString("base64"), filename };
-}
 
 const seedSettings = async () => {
   const user = await prisma.user.findFirst({
@@ -345,78 +323,6 @@ const seedRecipes = async () => {
       });
     }
   }
-
-  // for (const _ of Array(500).keys()) {
-  //   let randomIngredients: typeof ingredients = [];
-
-  //   for (const _ of Array(randomInt(2, 5)).keys()) {
-  //     randomIngredients.push(ingredients[randomInt(0, ingredients.length - 1)]);
-  //   }
-
-  //   const additives = new Set(
-  //     ...randomIngredients.map((ingredient) =>
-  //       ingredient.additives.map((additive) => additive.id),
-  //     ),
-  //   );
-  //   const allergens = new Set(
-  //     ...randomIngredients.map((ingredient) =>
-  //       ingredient.allergens.map((allergen) => allergen.id),
-  //     ),
-  //   );
-  //   const properties = new Set(
-  //     ...randomIngredients.map((ingredient) =>
-  //       ingredient.properties.map((property) => property.id),
-  //     ),
-  //   );
-  //   const categories = new Set(
-  //     ...randomIngredients.map((ingredient) =>
-  //       ingredient.categories.map((category) => category.id),
-  //     ),
-  //   );
-  //   const seasons = new Set(
-  //     ...randomIngredients.map((ingredient) =>
-  //       ingredient.seasons.map((season) => season.id),
-  //     ),
-  //   );
-  //   const foodForms = new Set(
-  //     ...randomIngredients.map((ingredient) =>
-  //       ingredient.foodForms.map((foodForm) => foodForm.id),
-  //     ),
-  //   );
-  //   const kitchens = new Set(
-  //     ...randomIngredients.map((ingredient) =>
-  //       ingredient.kitchens.map((kitchen) => kitchen.id),
-  //     ),
-  //   );
-  //   const recipe = await prisma.recipe.create({
-  //     data: {
-  //       name: faker.commerce.productName(),
-  //       description: faker.commerce.productDescription(),
-  //       createdBy: user.id,
-  //       updatedBy: user.id,
-  //       additives: { connect: [...additives].map((id) => ({ id })) },
-  //       allergens: { connect: [...allergens].map((id) => ({ id })) },
-  //       properties: { connect: [...properties].map((id) => ({ id })) },
-  //       categories: { connect: [...categories].map((id) => ({ id })) },
-  //       seasons: { connect: [...seasons].map((id) => ({ id })) },
-  //       foodForms: { connect: [...foodForms].map((id) => ({ id })) },
-  //       kitchens: { connect: [...kitchens].map((id) => ({ id })) },
-  //     },
-  //   });
-
-  //   for (const ingredient of randomIngredients) {
-  //     await prisma.recipeIngredient.create({
-  //       data: {
-  //         recipeId: recipe.id,
-  //         ingredientId: ingredient.id,
-  //         amount: randomInt(1, 100),
-  //         unit: "G",
-  //         createdBy: user.id,
-  //         updatedBy: user.id,
-  //       },
-  //     });
-  //   }
-  // }
 };
 
 const seedMeals = async () => {
@@ -515,90 +421,6 @@ const seedMeals = async () => {
       });
     }
   }
-
-  // for (const _ of Array(250).keys()) {
-  //   const randomRecipes: typeof recipes = [];
-
-  //   for (const _ of Array(randomInt(1, 3)).keys()) {
-  //     randomRecipes.push(recipes[randomInt(0, recipes.length - 1)]);
-  //   }
-
-  //   const additives = new Set(
-  //     ...randomRecipes.map((recipe) =>
-  //       recipe.additives.map((additive) => additive.name),
-  //     ),
-  //   );
-  //   const allergens = new Set(
-  //     ...randomRecipes.map((recipe) =>
-  //       recipe.allergens.map((allergen) => allergen.name),
-  //     ),
-  //   );
-  //   const properties = new Set(
-  //     ...randomRecipes.map((recipe) =>
-  //       recipe.properties.map((property) => property.name),
-  //     ),
-  //   );
-  //   const categories = new Set(
-  //     ...randomRecipes.map((recipe) =>
-  //       recipe.categories.map((category) => category.name),
-  //     ),
-  //   );
-  //   const seasons = new Set(
-  //     ...randomRecipes.map((recipe) =>
-  //       recipe.seasons.map((season) => season.name),
-  //     ),
-  //   );
-  //   const foodForms = new Set(
-  //     ...randomRecipes.map((recipe) =>
-  //       recipe.foodForms.map((foodForm) => foodForm.name),
-  //     ),
-  //   );
-
-  //   const imgUrl = faker.image.urlLoremFlickr({
-  //     category: "meal",
-  //     width: 200,
-  //     height: 200,
-  //   });
-
-  //   let blacklist = false;
-  //   for (const blacklisted of BLACKLISTED_IMG) {
-  //     if (imgUrl.includes(blacklisted)) {
-  //       blacklist = true;
-  //     }
-  //   }
-
-  //   const image = !blacklist
-  //     ? await downloadImage(imgUrl)
-  //     : { file: null, filename: null };
-
-  //   const meal = await prisma.meal.create({
-  //     data: {
-  //       name: faker.commerce.productName(),
-  //       description: faker.commerce.productDescription(),
-  //       imageName: image.filename,
-  //       image: image.file,
-  //       createdBy: user.id,
-  //       updatedBy: user.id,
-  //       additives: { connect: [...additives].map((name) => ({ name })) },
-  //       allergens: { connect: [...allergens].map((name) => ({ name })) },
-  //       properties: { connect: [...properties].map((name) => ({ name })) },
-  //       categories: { connect: [...categories].map((name) => ({ name })) },
-  //       seasons: { connect: [...seasons].map((name) => ({ name })) },
-  //       foodForms: { connect: [...foodForms].map((name) => ({ name })) },
-  //     },
-  //   });
-
-  //   for (const recipe of randomRecipes) {
-  //     await prisma.mealRecipe.create({
-  //       data: {
-  //         mealId: meal.id,
-  //         recipeId: recipe.id,
-  //         createdBy: user.id,
-  //         updatedBy: user.id,
-  //       },
-  //     });
-  //   }
-  // }
 };
 
 const seedMealBoardPlan = async () => {

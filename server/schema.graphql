@@ -142,7 +142,7 @@ type RecipeIngredient {
   id: Int!
   recipeId: Int!
   ingredientId: Int!
-  amount: Float!
+  amount: Decimal!
   unit: Unit!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -153,6 +153,9 @@ type RecipeIngredient {
   createdByUser: User!
   updatedByUser: User!
 }
+
+"""An arbitrary-precision Decimal type"""
+scalar Decimal
 
 enum Unit {
   G
@@ -246,16 +249,16 @@ type Ingredient {
   id: Int!
   name: String!
   blsIdentifier: String!
-  energyKcal: Float!
-  energyKj: Float!
-  breadUnits: Float!
-  carbohydrates: Float!
-  sugars: Float!
-  salt: Float!
-  fats: Float!
-  saturatedFats: Float!
-  unsaturatedFats: Float!
-  protein: Float!
+  energyKcal: Decimal!
+  energyKj: Decimal!
+  breadUnits: Decimal!
+  carbohydrates: Decimal!
+  sugars: Decimal!
+  salt: Decimal!
+  fats: Decimal!
+  saturatedFats: Decimal!
+  unsaturatedFats: Decimal!
+  protein: Decimal!
   createdAt: DateTime!
   updatedAt: DateTime!
   createdBy: Int!
@@ -958,16 +961,16 @@ input IngredientWhereInput {
   id: IntFilter
   name: StringFilter
   blsIdentifier: StringFilter
-  energyKcal: FloatFilter
-  energyKj: FloatFilter
-  breadUnits: FloatFilter
-  carbohydrates: FloatFilter
-  sugars: FloatFilter
-  salt: FloatFilter
-  fats: FloatFilter
-  saturatedFats: FloatFilter
-  unsaturatedFats: FloatFilter
-  protein: FloatFilter
+  energyKcal: DecimalFilter
+  energyKj: DecimalFilter
+  breadUnits: DecimalFilter
+  carbohydrates: DecimalFilter
+  sugars: DecimalFilter
+  salt: DecimalFilter
+  fats: DecimalFilter
+  saturatedFats: DecimalFilter
+  unsaturatedFats: DecimalFilter
+  protein: DecimalFilter
   allergens: AllergensListRelationFilter
   additives: AdditivesListRelationFilter
   properties: PropertiesListRelationFilter
@@ -978,26 +981,26 @@ input IngredientWhereInput {
   recipeIngredient: RecipeIngredientListRelationFilter
 }
 
-input FloatFilter {
-  equals: Float
-  in: [Float!]
-  notIn: [Float!]
-  lt: Float
-  lte: Float
-  gt: Float
-  gte: Float
-  not: NestedFloatFilter
+input DecimalFilter {
+  equals: Decimal
+  in: [Decimal!]
+  notIn: [Decimal!]
+  lt: Decimal
+  lte: Decimal
+  gt: Decimal
+  gte: Decimal
+  not: NestedDecimalFilter
 }
 
-input NestedFloatFilter {
-  equals: Float
-  in: [Float!]
-  notIn: [Float!]
-  lt: Float
-  lte: Float
-  gt: Float
-  gte: Float
-  not: NestedFloatFilter
+input NestedDecimalFilter {
+  equals: Decimal
+  in: [Decimal!]
+  notIn: [Decimal!]
+  lt: Decimal
+  lte: Decimal
+  gt: Decimal
+  gte: Decimal
+  not: NestedDecimalFilter
 }
 
 input AdditivesListRelationFilter {
@@ -1144,7 +1147,7 @@ input RecipeIngredientWhereInput {
   id: IntFilter
   recipeId: IntFilter
   ingredientId: IntFilter
-  amount: FloatFilter
+  amount: DecimalFilter
   unit: EnumUnitFilter
   recipe: RecipeRelationFilter
   ingredient: IngredientRelationFilter
@@ -1573,16 +1576,16 @@ input IngredientWhereUniqueInput {
   OR: [IngredientWhereInput!]
   NOT: [IngredientWhereInput!]
   name: StringFilter
-  energyKcal: FloatFilter
-  energyKj: FloatFilter
-  breadUnits: FloatFilter
-  carbohydrates: FloatFilter
-  sugars: FloatFilter
-  salt: FloatFilter
-  fats: FloatFilter
-  saturatedFats: FloatFilter
-  unsaturatedFats: FloatFilter
-  protein: FloatFilter
+  energyKcal: DecimalFilter
+  energyKj: DecimalFilter
+  breadUnits: DecimalFilter
+  carbohydrates: DecimalFilter
+  sugars: DecimalFilter
+  salt: DecimalFilter
+  fats: DecimalFilter
+  saturatedFats: DecimalFilter
+  unsaturatedFats: DecimalFilter
+  protein: DecimalFilter
   allergens: AllergensListRelationFilter
   additives: AdditivesListRelationFilter
   properties: PropertiesListRelationFilter
@@ -1993,6 +1996,17 @@ input NestedIntWithAggregatesFilter {
   _sum: NestedIntFilter
   _min: NestedIntFilter
   _max: NestedIntFilter
+}
+
+input NestedFloatFilter {
+  equals: Float
+  in: [Float!]
+  notIn: [Float!]
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+  not: NestedFloatFilter
 }
 
 input DateTimeWithAggregatesFilter {
@@ -2621,16 +2635,16 @@ input IngredientCreateNestedManyWithoutAllergensInput {
 input IngredientCreateWithoutAllergensInput {
   name: String!
   blsIdentifier: String!
-  energyKcal: Float
-  energyKj: Float
-  breadUnits: Float
-  carbohydrates: Float
-  sugars: Float
-  salt: Float
-  fats: Float
-  saturatedFats: Float
-  unsaturatedFats: Float
-  protein: Float
+  energyKcal: Decimal
+  energyKj: Decimal
+  breadUnits: Decimal
+  carbohydrates: Decimal
+  sugars: Decimal
+  salt: Decimal
+  fats: Decimal
+  saturatedFats: Decimal
+  unsaturatedFats: Decimal
+  protein: Decimal
   additives: AdditivesCreateNestedManyWithoutIngredientsInput
   properties: PropertiesCreateNestedManyWithoutIngredientsInput
   categories: CategoriesCreateNestedManyWithoutIngredientsInput
@@ -2730,16 +2744,16 @@ input IngredientCreateNestedManyWithoutAdditivesInput {
 input IngredientCreateWithoutAdditivesInput {
   name: String!
   blsIdentifier: String!
-  energyKcal: Float
-  energyKj: Float
-  breadUnits: Float
-  carbohydrates: Float
-  sugars: Float
-  salt: Float
-  fats: Float
-  saturatedFats: Float
-  unsaturatedFats: Float
-  protein: Float
+  energyKcal: Decimal
+  energyKj: Decimal
+  breadUnits: Decimal
+  carbohydrates: Decimal
+  sugars: Decimal
+  salt: Decimal
+  fats: Decimal
+  saturatedFats: Decimal
+  unsaturatedFats: Decimal
+  protein: Decimal
   allergens: AllergensCreateNestedManyWithoutIngredientsInput
   properties: PropertiesCreateNestedManyWithoutIngredientsInput
   categories: CategoriesCreateNestedManyWithoutIngredientsInput
@@ -2839,16 +2853,16 @@ input IngredientCreateNestedManyWithoutPropertiesInput {
 input IngredientCreateWithoutPropertiesInput {
   name: String!
   blsIdentifier: String!
-  energyKcal: Float
-  energyKj: Float
-  breadUnits: Float
-  carbohydrates: Float
-  sugars: Float
-  salt: Float
-  fats: Float
-  saturatedFats: Float
-  unsaturatedFats: Float
-  protein: Float
+  energyKcal: Decimal
+  energyKj: Decimal
+  breadUnits: Decimal
+  carbohydrates: Decimal
+  sugars: Decimal
+  salt: Decimal
+  fats: Decimal
+  saturatedFats: Decimal
+  unsaturatedFats: Decimal
+  protein: Decimal
   allergens: AllergensCreateNestedManyWithoutIngredientsInput
   additives: AdditivesCreateNestedManyWithoutIngredientsInput
   categories: CategoriesCreateNestedManyWithoutIngredientsInput
@@ -2948,16 +2962,16 @@ input IngredientCreateNestedManyWithoutCategoriesInput {
 input IngredientCreateWithoutCategoriesInput {
   name: String!
   blsIdentifier: String!
-  energyKcal: Float
-  energyKj: Float
-  breadUnits: Float
-  carbohydrates: Float
-  sugars: Float
-  salt: Float
-  fats: Float
-  saturatedFats: Float
-  unsaturatedFats: Float
-  protein: Float
+  energyKcal: Decimal
+  energyKj: Decimal
+  breadUnits: Decimal
+  carbohydrates: Decimal
+  sugars: Decimal
+  salt: Decimal
+  fats: Decimal
+  saturatedFats: Decimal
+  unsaturatedFats: Decimal
+  protein: Decimal
   allergens: AllergensCreateNestedManyWithoutIngredientsInput
   additives: AdditivesCreateNestedManyWithoutIngredientsInput
   properties: PropertiesCreateNestedManyWithoutIngredientsInput
@@ -3057,16 +3071,16 @@ input IngredientCreateNestedManyWithoutSeasonsInput {
 input IngredientCreateWithoutSeasonsInput {
   name: String!
   blsIdentifier: String!
-  energyKcal: Float
-  energyKj: Float
-  breadUnits: Float
-  carbohydrates: Float
-  sugars: Float
-  salt: Float
-  fats: Float
-  saturatedFats: Float
-  unsaturatedFats: Float
-  protein: Float
+  energyKcal: Decimal
+  energyKj: Decimal
+  breadUnits: Decimal
+  carbohydrates: Decimal
+  sugars: Decimal
+  salt: Decimal
+  fats: Decimal
+  saturatedFats: Decimal
+  unsaturatedFats: Decimal
+  protein: Decimal
   allergens: AllergensCreateNestedManyWithoutIngredientsInput
   additives: AdditivesCreateNestedManyWithoutIngredientsInput
   properties: PropertiesCreateNestedManyWithoutIngredientsInput
@@ -3166,16 +3180,16 @@ input IngredientCreateNestedManyWithoutFoodFormsInput {
 input IngredientCreateWithoutFoodFormsInput {
   name: String!
   blsIdentifier: String!
-  energyKcal: Float
-  energyKj: Float
-  breadUnits: Float
-  carbohydrates: Float
-  sugars: Float
-  salt: Float
-  fats: Float
-  saturatedFats: Float
-  unsaturatedFats: Float
-  protein: Float
+  energyKcal: Decimal
+  energyKj: Decimal
+  breadUnits: Decimal
+  carbohydrates: Decimal
+  sugars: Decimal
+  salt: Decimal
+  fats: Decimal
+  saturatedFats: Decimal
+  unsaturatedFats: Decimal
+  protein: Decimal
   allergens: AllergensCreateNestedManyWithoutIngredientsInput
   additives: AdditivesCreateNestedManyWithoutIngredientsInput
   properties: PropertiesCreateNestedManyWithoutIngredientsInput
@@ -3704,16 +3718,16 @@ input IngredientCreateNestedManyWithoutKitchensInput {
 input IngredientCreateWithoutKitchensInput {
   name: String!
   blsIdentifier: String!
-  energyKcal: Float
-  energyKj: Float
-  breadUnits: Float
-  carbohydrates: Float
-  sugars: Float
-  salt: Float
-  fats: Float
-  saturatedFats: Float
-  unsaturatedFats: Float
-  protein: Float
+  energyKcal: Decimal
+  energyKj: Decimal
+  breadUnits: Decimal
+  carbohydrates: Decimal
+  sugars: Decimal
+  salt: Decimal
+  fats: Decimal
+  saturatedFats: Decimal
+  unsaturatedFats: Decimal
+  protein: Decimal
   allergens: AllergensCreateNestedManyWithoutIngredientsInput
   additives: AdditivesCreateNestedManyWithoutIngredientsInput
   properties: PropertiesCreateNestedManyWithoutIngredientsInput
@@ -3731,7 +3745,7 @@ input RecipeIngredientCreateNestedManyWithoutIngredientInput {
 }
 
 input RecipeIngredientCreateWithoutIngredientInput {
-  amount: Float!
+  amount: Decimal!
   unit: Unit!
   recipe: RecipeCreateNestedOneWithoutRecipeIngredientInput!
 }
@@ -3975,7 +3989,7 @@ input RecipeIngredientWhereUniqueInput {
   NOT: [RecipeIngredientWhereInput!]
   recipeId: IntFilter
   ingredientId: IntFilter
-  amount: FloatFilter
+  amount: DecimalFilter
   unit: EnumUnitFilter
   recipe: RecipeRelationFilter
   ingredient: IngredientRelationFilter
@@ -3989,7 +4003,7 @@ input RecipeIngredientCreateManyIngredientInputEnvelope {
 input RecipeIngredientCreateManyIngredientInput {
   id: Int
   recipeId: Int!
-  amount: Float!
+  amount: Decimal!
   unit: Unit!
 }
 
@@ -4021,7 +4035,7 @@ input RecipeIngredientCreateNestedManyWithoutRecipeInput {
 }
 
 input RecipeIngredientCreateWithoutRecipeInput {
-  amount: Float!
+  amount: Decimal!
   unit: Unit!
   ingredient: IngredientCreateNestedOneWithoutRecipeIngredientInput!
 }
@@ -4035,16 +4049,16 @@ input IngredientCreateNestedOneWithoutRecipeIngredientInput {
 input IngredientCreateWithoutRecipeIngredientInput {
   name: String!
   blsIdentifier: String!
-  energyKcal: Float
-  energyKj: Float
-  breadUnits: Float
-  carbohydrates: Float
-  sugars: Float
-  salt: Float
-  fats: Float
-  saturatedFats: Float
-  unsaturatedFats: Float
-  protein: Float
+  energyKcal: Decimal
+  energyKj: Decimal
+  breadUnits: Decimal
+  carbohydrates: Decimal
+  sugars: Decimal
+  salt: Decimal
+  fats: Decimal
+  saturatedFats: Decimal
+  unsaturatedFats: Decimal
+  protein: Decimal
   allergens: AllergensCreateNestedManyWithoutIngredientsInput
   additives: AdditivesCreateNestedManyWithoutIngredientsInput
   properties: PropertiesCreateNestedManyWithoutIngredientsInput
@@ -4112,7 +4126,7 @@ input RecipeIngredientCreateManyRecipeInputEnvelope {
 input RecipeIngredientCreateManyRecipeInput {
   id: Int
   ingredientId: Int!
-  amount: Float!
+  amount: Decimal!
   unit: Unit!
 }
 
@@ -4721,16 +4735,16 @@ input IngredientCreateNestedManyWithoutCreatedByUserInput {
 input IngredientCreateWithoutCreatedByUserInput {
   name: String!
   blsIdentifier: String!
-  energyKcal: Float
-  energyKj: Float
-  breadUnits: Float
-  carbohydrates: Float
-  sugars: Float
-  salt: Float
-  fats: Float
-  saturatedFats: Float
-  unsaturatedFats: Float
-  protein: Float
+  energyKcal: Decimal
+  energyKj: Decimal
+  breadUnits: Decimal
+  carbohydrates: Decimal
+  sugars: Decimal
+  salt: Decimal
+  fats: Decimal
+  saturatedFats: Decimal
+  unsaturatedFats: Decimal
+  protein: Decimal
   allergens: AllergensCreateNestedManyWithoutIngredientsInput
   additives: AdditivesCreateNestedManyWithoutIngredientsInput
   properties: PropertiesCreateNestedManyWithoutIngredientsInput
@@ -4755,16 +4769,16 @@ input IngredientCreateManyCreatedByUserInput {
   id: Int
   name: String!
   blsIdentifier: String!
-  energyKcal: Float
-  energyKj: Float
-  breadUnits: Float
-  carbohydrates: Float
-  sugars: Float
-  salt: Float
-  fats: Float
-  saturatedFats: Float
-  unsaturatedFats: Float
-  protein: Float
+  energyKcal: Decimal
+  energyKj: Decimal
+  breadUnits: Decimal
+  carbohydrates: Decimal
+  sugars: Decimal
+  salt: Decimal
+  fats: Decimal
+  saturatedFats: Decimal
+  unsaturatedFats: Decimal
+  protein: Decimal
 }
 
 input IngredientCreateNestedManyWithoutUpdatedByUserInput {
@@ -4777,16 +4791,16 @@ input IngredientCreateNestedManyWithoutUpdatedByUserInput {
 input IngredientCreateWithoutUpdatedByUserInput {
   name: String!
   blsIdentifier: String!
-  energyKcal: Float
-  energyKj: Float
-  breadUnits: Float
-  carbohydrates: Float
-  sugars: Float
-  salt: Float
-  fats: Float
-  saturatedFats: Float
-  unsaturatedFats: Float
-  protein: Float
+  energyKcal: Decimal
+  energyKj: Decimal
+  breadUnits: Decimal
+  carbohydrates: Decimal
+  sugars: Decimal
+  salt: Decimal
+  fats: Decimal
+  saturatedFats: Decimal
+  unsaturatedFats: Decimal
+  protein: Decimal
   allergens: AllergensCreateNestedManyWithoutIngredientsInput
   additives: AdditivesCreateNestedManyWithoutIngredientsInput
   properties: PropertiesCreateNestedManyWithoutIngredientsInput
@@ -4811,16 +4825,16 @@ input IngredientCreateManyUpdatedByUserInput {
   id: Int
   name: String!
   blsIdentifier: String!
-  energyKcal: Float
-  energyKj: Float
-  breadUnits: Float
-  carbohydrates: Float
-  sugars: Float
-  salt: Float
-  fats: Float
-  saturatedFats: Float
-  unsaturatedFats: Float
-  protein: Float
+  energyKcal: Decimal
+  energyKj: Decimal
+  breadUnits: Decimal
+  carbohydrates: Decimal
+  sugars: Decimal
+  salt: Decimal
+  fats: Decimal
+  saturatedFats: Decimal
+  unsaturatedFats: Decimal
+  protein: Decimal
 }
 
 input RecipeCreateNestedManyWithoutCreatedByUserInput {
@@ -4905,7 +4919,7 @@ input RecipeIngredientCreateNestedManyWithoutCreatedByUserInput {
 }
 
 input RecipeIngredientCreateWithoutCreatedByUserInput {
-  amount: Float!
+  amount: Decimal!
   unit: Unit!
   recipe: RecipeCreateNestedOneWithoutRecipeIngredientInput!
   ingredient: IngredientCreateNestedOneWithoutRecipeIngredientInput!
@@ -4925,7 +4939,7 @@ input RecipeIngredientCreateManyCreatedByUserInput {
   id: Int
   recipeId: Int!
   ingredientId: Int!
-  amount: Float!
+  amount: Decimal!
   unit: Unit!
 }
 
@@ -4937,7 +4951,7 @@ input RecipeIngredientCreateNestedManyWithoutUpdatedByUserInput {
 }
 
 input RecipeIngredientCreateWithoutUpdatedByUserInput {
-  amount: Float!
+  amount: Decimal!
   unit: Unit!
   recipe: RecipeCreateNestedOneWithoutRecipeIngredientInput!
   ingredient: IngredientCreateNestedOneWithoutRecipeIngredientInput!
@@ -4957,7 +4971,7 @@ input RecipeIngredientCreateManyUpdatedByUserInput {
   id: Int
   recipeId: Int!
   ingredientId: Int!
-  amount: Float!
+  amount: Decimal!
   unit: Unit!
 }
 
@@ -6614,16 +6628,16 @@ input IngredientUpsertWithWhereUniqueWithoutAllergensInput {
 input IngredientUpdateWithoutAllergensInput {
   name: StringFieldUpdateOperationsInput
   blsIdentifier: StringFieldUpdateOperationsInput
-  energyKcal: FloatFieldUpdateOperationsInput
-  energyKj: FloatFieldUpdateOperationsInput
-  breadUnits: FloatFieldUpdateOperationsInput
-  carbohydrates: FloatFieldUpdateOperationsInput
-  sugars: FloatFieldUpdateOperationsInput
-  salt: FloatFieldUpdateOperationsInput
-  fats: FloatFieldUpdateOperationsInput
-  saturatedFats: FloatFieldUpdateOperationsInput
-  unsaturatedFats: FloatFieldUpdateOperationsInput
-  protein: FloatFieldUpdateOperationsInput
+  energyKcal: DecimalFieldUpdateOperationsInput
+  energyKj: DecimalFieldUpdateOperationsInput
+  breadUnits: DecimalFieldUpdateOperationsInput
+  carbohydrates: DecimalFieldUpdateOperationsInput
+  sugars: DecimalFieldUpdateOperationsInput
+  salt: DecimalFieldUpdateOperationsInput
+  fats: DecimalFieldUpdateOperationsInput
+  saturatedFats: DecimalFieldUpdateOperationsInput
+  unsaturatedFats: DecimalFieldUpdateOperationsInput
+  protein: DecimalFieldUpdateOperationsInput
   additives: AdditivesUpdateManyWithoutIngredientsNestedInput
   properties: PropertiesUpdateManyWithoutIngredientsNestedInput
   categories: CategoriesUpdateManyWithoutIngredientsNestedInput
@@ -6633,12 +6647,12 @@ input IngredientUpdateWithoutAllergensInput {
   recipeIngredient: RecipeIngredientUpdateManyWithoutIngredientNestedInput
 }
 
-input FloatFieldUpdateOperationsInput {
-  set: Float
-  increment: Float
-  decrement: Float
-  multiply: Float
-  divide: Float
+input DecimalFieldUpdateOperationsInput {
+  set: Decimal
+  increment: Decimal
+  decrement: Decimal
+  multiply: Decimal
+  divide: Decimal
 }
 
 input AdditivesUpdateManyWithoutIngredientsNestedInput {
@@ -6809,16 +6823,16 @@ input IngredientUpsertWithWhereUniqueWithoutAdditivesInput {
 input IngredientUpdateWithoutAdditivesInput {
   name: StringFieldUpdateOperationsInput
   blsIdentifier: StringFieldUpdateOperationsInput
-  energyKcal: FloatFieldUpdateOperationsInput
-  energyKj: FloatFieldUpdateOperationsInput
-  breadUnits: FloatFieldUpdateOperationsInput
-  carbohydrates: FloatFieldUpdateOperationsInput
-  sugars: FloatFieldUpdateOperationsInput
-  salt: FloatFieldUpdateOperationsInput
-  fats: FloatFieldUpdateOperationsInput
-  saturatedFats: FloatFieldUpdateOperationsInput
-  unsaturatedFats: FloatFieldUpdateOperationsInput
-  protein: FloatFieldUpdateOperationsInput
+  energyKcal: DecimalFieldUpdateOperationsInput
+  energyKj: DecimalFieldUpdateOperationsInput
+  breadUnits: DecimalFieldUpdateOperationsInput
+  carbohydrates: DecimalFieldUpdateOperationsInput
+  sugars: DecimalFieldUpdateOperationsInput
+  salt: DecimalFieldUpdateOperationsInput
+  fats: DecimalFieldUpdateOperationsInput
+  saturatedFats: DecimalFieldUpdateOperationsInput
+  unsaturatedFats: DecimalFieldUpdateOperationsInput
+  protein: DecimalFieldUpdateOperationsInput
   allergens: AllergensUpdateManyWithoutIngredientsNestedInput
   properties: PropertiesUpdateManyWithoutIngredientsNestedInput
   categories: CategoriesUpdateManyWithoutIngredientsNestedInput
@@ -6996,16 +7010,16 @@ input IngredientUpsertWithWhereUniqueWithoutPropertiesInput {
 input IngredientUpdateWithoutPropertiesInput {
   name: StringFieldUpdateOperationsInput
   blsIdentifier: StringFieldUpdateOperationsInput
-  energyKcal: FloatFieldUpdateOperationsInput
-  energyKj: FloatFieldUpdateOperationsInput
-  breadUnits: FloatFieldUpdateOperationsInput
-  carbohydrates: FloatFieldUpdateOperationsInput
-  sugars: FloatFieldUpdateOperationsInput
-  salt: FloatFieldUpdateOperationsInput
-  fats: FloatFieldUpdateOperationsInput
-  saturatedFats: FloatFieldUpdateOperationsInput
-  unsaturatedFats: FloatFieldUpdateOperationsInput
-  protein: FloatFieldUpdateOperationsInput
+  energyKcal: DecimalFieldUpdateOperationsInput
+  energyKj: DecimalFieldUpdateOperationsInput
+  breadUnits: DecimalFieldUpdateOperationsInput
+  carbohydrates: DecimalFieldUpdateOperationsInput
+  sugars: DecimalFieldUpdateOperationsInput
+  salt: DecimalFieldUpdateOperationsInput
+  fats: DecimalFieldUpdateOperationsInput
+  saturatedFats: DecimalFieldUpdateOperationsInput
+  unsaturatedFats: DecimalFieldUpdateOperationsInput
+  protein: DecimalFieldUpdateOperationsInput
   allergens: AllergensUpdateManyWithoutIngredientsNestedInput
   additives: AdditivesUpdateManyWithoutIngredientsNestedInput
   categories: CategoriesUpdateManyWithoutIngredientsNestedInput
@@ -7183,16 +7197,16 @@ input IngredientUpsertWithWhereUniqueWithoutCategoriesInput {
 input IngredientUpdateWithoutCategoriesInput {
   name: StringFieldUpdateOperationsInput
   blsIdentifier: StringFieldUpdateOperationsInput
-  energyKcal: FloatFieldUpdateOperationsInput
-  energyKj: FloatFieldUpdateOperationsInput
-  breadUnits: FloatFieldUpdateOperationsInput
-  carbohydrates: FloatFieldUpdateOperationsInput
-  sugars: FloatFieldUpdateOperationsInput
-  salt: FloatFieldUpdateOperationsInput
-  fats: FloatFieldUpdateOperationsInput
-  saturatedFats: FloatFieldUpdateOperationsInput
-  unsaturatedFats: FloatFieldUpdateOperationsInput
-  protein: FloatFieldUpdateOperationsInput
+  energyKcal: DecimalFieldUpdateOperationsInput
+  energyKj: DecimalFieldUpdateOperationsInput
+  breadUnits: DecimalFieldUpdateOperationsInput
+  carbohydrates: DecimalFieldUpdateOperationsInput
+  sugars: DecimalFieldUpdateOperationsInput
+  salt: DecimalFieldUpdateOperationsInput
+  fats: DecimalFieldUpdateOperationsInput
+  saturatedFats: DecimalFieldUpdateOperationsInput
+  unsaturatedFats: DecimalFieldUpdateOperationsInput
+  protein: DecimalFieldUpdateOperationsInput
   allergens: AllergensUpdateManyWithoutIngredientsNestedInput
   additives: AdditivesUpdateManyWithoutIngredientsNestedInput
   properties: PropertiesUpdateManyWithoutIngredientsNestedInput
@@ -7370,16 +7384,16 @@ input IngredientUpsertWithWhereUniqueWithoutSeasonsInput {
 input IngredientUpdateWithoutSeasonsInput {
   name: StringFieldUpdateOperationsInput
   blsIdentifier: StringFieldUpdateOperationsInput
-  energyKcal: FloatFieldUpdateOperationsInput
-  energyKj: FloatFieldUpdateOperationsInput
-  breadUnits: FloatFieldUpdateOperationsInput
-  carbohydrates: FloatFieldUpdateOperationsInput
-  sugars: FloatFieldUpdateOperationsInput
-  salt: FloatFieldUpdateOperationsInput
-  fats: FloatFieldUpdateOperationsInput
-  saturatedFats: FloatFieldUpdateOperationsInput
-  unsaturatedFats: FloatFieldUpdateOperationsInput
-  protein: FloatFieldUpdateOperationsInput
+  energyKcal: DecimalFieldUpdateOperationsInput
+  energyKj: DecimalFieldUpdateOperationsInput
+  breadUnits: DecimalFieldUpdateOperationsInput
+  carbohydrates: DecimalFieldUpdateOperationsInput
+  sugars: DecimalFieldUpdateOperationsInput
+  salt: DecimalFieldUpdateOperationsInput
+  fats: DecimalFieldUpdateOperationsInput
+  saturatedFats: DecimalFieldUpdateOperationsInput
+  unsaturatedFats: DecimalFieldUpdateOperationsInput
+  protein: DecimalFieldUpdateOperationsInput
   allergens: AllergensUpdateManyWithoutIngredientsNestedInput
   additives: AdditivesUpdateManyWithoutIngredientsNestedInput
   properties: PropertiesUpdateManyWithoutIngredientsNestedInput
@@ -7557,16 +7571,16 @@ input IngredientUpsertWithWhereUniqueWithoutFoodFormsInput {
 input IngredientUpdateWithoutFoodFormsInput {
   name: StringFieldUpdateOperationsInput
   blsIdentifier: StringFieldUpdateOperationsInput
-  energyKcal: FloatFieldUpdateOperationsInput
-  energyKj: FloatFieldUpdateOperationsInput
-  breadUnits: FloatFieldUpdateOperationsInput
-  carbohydrates: FloatFieldUpdateOperationsInput
-  sugars: FloatFieldUpdateOperationsInput
-  salt: FloatFieldUpdateOperationsInput
-  fats: FloatFieldUpdateOperationsInput
-  saturatedFats: FloatFieldUpdateOperationsInput
-  unsaturatedFats: FloatFieldUpdateOperationsInput
-  protein: FloatFieldUpdateOperationsInput
+  energyKcal: DecimalFieldUpdateOperationsInput
+  energyKj: DecimalFieldUpdateOperationsInput
+  breadUnits: DecimalFieldUpdateOperationsInput
+  carbohydrates: DecimalFieldUpdateOperationsInput
+  sugars: DecimalFieldUpdateOperationsInput
+  salt: DecimalFieldUpdateOperationsInput
+  fats: DecimalFieldUpdateOperationsInput
+  saturatedFats: DecimalFieldUpdateOperationsInput
+  unsaturatedFats: DecimalFieldUpdateOperationsInput
+  protein: DecimalFieldUpdateOperationsInput
   allergens: AllergensUpdateManyWithoutIngredientsNestedInput
   additives: AdditivesUpdateManyWithoutIngredientsNestedInput
   properties: PropertiesUpdateManyWithoutIngredientsNestedInput
@@ -8392,16 +8406,16 @@ input IngredientUpsertWithWhereUniqueWithoutKitchensInput {
 input IngredientUpdateWithoutKitchensInput {
   name: StringFieldUpdateOperationsInput
   blsIdentifier: StringFieldUpdateOperationsInput
-  energyKcal: FloatFieldUpdateOperationsInput
-  energyKj: FloatFieldUpdateOperationsInput
-  breadUnits: FloatFieldUpdateOperationsInput
-  carbohydrates: FloatFieldUpdateOperationsInput
-  sugars: FloatFieldUpdateOperationsInput
-  salt: FloatFieldUpdateOperationsInput
-  fats: FloatFieldUpdateOperationsInput
-  saturatedFats: FloatFieldUpdateOperationsInput
-  unsaturatedFats: FloatFieldUpdateOperationsInput
-  protein: FloatFieldUpdateOperationsInput
+  energyKcal: DecimalFieldUpdateOperationsInput
+  energyKj: DecimalFieldUpdateOperationsInput
+  breadUnits: DecimalFieldUpdateOperationsInput
+  carbohydrates: DecimalFieldUpdateOperationsInput
+  sugars: DecimalFieldUpdateOperationsInput
+  salt: DecimalFieldUpdateOperationsInput
+  fats: DecimalFieldUpdateOperationsInput
+  saturatedFats: DecimalFieldUpdateOperationsInput
+  unsaturatedFats: DecimalFieldUpdateOperationsInput
+  protein: DecimalFieldUpdateOperationsInput
   allergens: AllergensUpdateManyWithoutIngredientsNestedInput
   additives: AdditivesUpdateManyWithoutIngredientsNestedInput
   properties: PropertiesUpdateManyWithoutIngredientsNestedInput
@@ -8432,7 +8446,7 @@ input RecipeIngredientUpsertWithWhereUniqueWithoutIngredientInput {
 }
 
 input RecipeIngredientUpdateWithoutIngredientInput {
-  amount: FloatFieldUpdateOperationsInput
+  amount: DecimalFieldUpdateOperationsInput
   unit: EnumUnitFieldUpdateOperationsInput
   recipe: RecipeUpdateOneRequiredWithoutRecipeIngredientNestedInput
 }
@@ -8770,12 +8784,12 @@ input RecipeIngredientScalarWhereInput {
   id: IntFilter
   recipeId: IntFilter
   ingredientId: IntFilter
-  amount: FloatFilter
+  amount: DecimalFilter
   unit: EnumUnitFilter
 }
 
 input RecipeIngredientUpdateManyMutationInput {
-  amount: FloatFieldUpdateOperationsInput
+  amount: DecimalFieldUpdateOperationsInput
   unit: EnumUnitFieldUpdateOperationsInput
 }
 
@@ -8796,31 +8810,31 @@ input IngredientScalarWhereInput {
   id: IntFilter
   name: StringFilter
   blsIdentifier: StringFilter
-  energyKcal: FloatFilter
-  energyKj: FloatFilter
-  breadUnits: FloatFilter
-  carbohydrates: FloatFilter
-  sugars: FloatFilter
-  salt: FloatFilter
-  fats: FloatFilter
-  saturatedFats: FloatFilter
-  unsaturatedFats: FloatFilter
-  protein: FloatFilter
+  energyKcal: DecimalFilter
+  energyKj: DecimalFilter
+  breadUnits: DecimalFilter
+  carbohydrates: DecimalFilter
+  sugars: DecimalFilter
+  salt: DecimalFilter
+  fats: DecimalFilter
+  saturatedFats: DecimalFilter
+  unsaturatedFats: DecimalFilter
+  protein: DecimalFilter
 }
 
 input IngredientUpdateManyMutationInput {
   name: StringFieldUpdateOperationsInput
   blsIdentifier: StringFieldUpdateOperationsInput
-  energyKcal: FloatFieldUpdateOperationsInput
-  energyKj: FloatFieldUpdateOperationsInput
-  breadUnits: FloatFieldUpdateOperationsInput
-  carbohydrates: FloatFieldUpdateOperationsInput
-  sugars: FloatFieldUpdateOperationsInput
-  salt: FloatFieldUpdateOperationsInput
-  fats: FloatFieldUpdateOperationsInput
-  saturatedFats: FloatFieldUpdateOperationsInput
-  unsaturatedFats: FloatFieldUpdateOperationsInput
-  protein: FloatFieldUpdateOperationsInput
+  energyKcal: DecimalFieldUpdateOperationsInput
+  energyKj: DecimalFieldUpdateOperationsInput
+  breadUnits: DecimalFieldUpdateOperationsInput
+  carbohydrates: DecimalFieldUpdateOperationsInput
+  sugars: DecimalFieldUpdateOperationsInput
+  salt: DecimalFieldUpdateOperationsInput
+  fats: DecimalFieldUpdateOperationsInput
+  saturatedFats: DecimalFieldUpdateOperationsInput
+  unsaturatedFats: DecimalFieldUpdateOperationsInput
+  protein: DecimalFieldUpdateOperationsInput
 }
 
 input KitchensUpdateWithWhereUniqueWithoutRecipesInput {
@@ -8866,7 +8880,7 @@ input RecipeIngredientUpsertWithWhereUniqueWithoutRecipeInput {
 }
 
 input RecipeIngredientUpdateWithoutRecipeInput {
-  amount: FloatFieldUpdateOperationsInput
+  amount: DecimalFieldUpdateOperationsInput
   unit: EnumUnitFieldUpdateOperationsInput
   ingredient: IngredientUpdateOneRequiredWithoutRecipeIngredientNestedInput
 }
@@ -8888,16 +8902,16 @@ input IngredientUpsertWithoutRecipeIngredientInput {
 input IngredientUpdateWithoutRecipeIngredientInput {
   name: StringFieldUpdateOperationsInput
   blsIdentifier: StringFieldUpdateOperationsInput
-  energyKcal: FloatFieldUpdateOperationsInput
-  energyKj: FloatFieldUpdateOperationsInput
-  breadUnits: FloatFieldUpdateOperationsInput
-  carbohydrates: FloatFieldUpdateOperationsInput
-  sugars: FloatFieldUpdateOperationsInput
-  salt: FloatFieldUpdateOperationsInput
-  fats: FloatFieldUpdateOperationsInput
-  saturatedFats: FloatFieldUpdateOperationsInput
-  unsaturatedFats: FloatFieldUpdateOperationsInput
-  protein: FloatFieldUpdateOperationsInput
+  energyKcal: DecimalFieldUpdateOperationsInput
+  energyKj: DecimalFieldUpdateOperationsInput
+  breadUnits: DecimalFieldUpdateOperationsInput
+  carbohydrates: DecimalFieldUpdateOperationsInput
+  sugars: DecimalFieldUpdateOperationsInput
+  salt: DecimalFieldUpdateOperationsInput
+  fats: DecimalFieldUpdateOperationsInput
+  saturatedFats: DecimalFieldUpdateOperationsInput
+  unsaturatedFats: DecimalFieldUpdateOperationsInput
+  protein: DecimalFieldUpdateOperationsInput
   allergens: AllergensUpdateManyWithoutIngredientsNestedInput
   additives: AdditivesUpdateManyWithoutIngredientsNestedInput
   properties: PropertiesUpdateManyWithoutIngredientsNestedInput
@@ -9718,16 +9732,16 @@ input IngredientUpsertWithWhereUniqueWithoutCreatedByUserInput {
 input IngredientUpdateWithoutCreatedByUserInput {
   name: StringFieldUpdateOperationsInput
   blsIdentifier: StringFieldUpdateOperationsInput
-  energyKcal: FloatFieldUpdateOperationsInput
-  energyKj: FloatFieldUpdateOperationsInput
-  breadUnits: FloatFieldUpdateOperationsInput
-  carbohydrates: FloatFieldUpdateOperationsInput
-  sugars: FloatFieldUpdateOperationsInput
-  salt: FloatFieldUpdateOperationsInput
-  fats: FloatFieldUpdateOperationsInput
-  saturatedFats: FloatFieldUpdateOperationsInput
-  unsaturatedFats: FloatFieldUpdateOperationsInput
-  protein: FloatFieldUpdateOperationsInput
+  energyKcal: DecimalFieldUpdateOperationsInput
+  energyKj: DecimalFieldUpdateOperationsInput
+  breadUnits: DecimalFieldUpdateOperationsInput
+  carbohydrates: DecimalFieldUpdateOperationsInput
+  sugars: DecimalFieldUpdateOperationsInput
+  salt: DecimalFieldUpdateOperationsInput
+  fats: DecimalFieldUpdateOperationsInput
+  saturatedFats: DecimalFieldUpdateOperationsInput
+  unsaturatedFats: DecimalFieldUpdateOperationsInput
+  protein: DecimalFieldUpdateOperationsInput
   allergens: AllergensUpdateManyWithoutIngredientsNestedInput
   additives: AdditivesUpdateManyWithoutIngredientsNestedInput
   properties: PropertiesUpdateManyWithoutIngredientsNestedInput
@@ -9771,16 +9785,16 @@ input IngredientUpsertWithWhereUniqueWithoutUpdatedByUserInput {
 input IngredientUpdateWithoutUpdatedByUserInput {
   name: StringFieldUpdateOperationsInput
   blsIdentifier: StringFieldUpdateOperationsInput
-  energyKcal: FloatFieldUpdateOperationsInput
-  energyKj: FloatFieldUpdateOperationsInput
-  breadUnits: FloatFieldUpdateOperationsInput
-  carbohydrates: FloatFieldUpdateOperationsInput
-  sugars: FloatFieldUpdateOperationsInput
-  salt: FloatFieldUpdateOperationsInput
-  fats: FloatFieldUpdateOperationsInput
-  saturatedFats: FloatFieldUpdateOperationsInput
-  unsaturatedFats: FloatFieldUpdateOperationsInput
-  protein: FloatFieldUpdateOperationsInput
+  energyKcal: DecimalFieldUpdateOperationsInput
+  energyKj: DecimalFieldUpdateOperationsInput
+  breadUnits: DecimalFieldUpdateOperationsInput
+  carbohydrates: DecimalFieldUpdateOperationsInput
+  sugars: DecimalFieldUpdateOperationsInput
+  salt: DecimalFieldUpdateOperationsInput
+  fats: DecimalFieldUpdateOperationsInput
+  saturatedFats: DecimalFieldUpdateOperationsInput
+  unsaturatedFats: DecimalFieldUpdateOperationsInput
+  protein: DecimalFieldUpdateOperationsInput
   allergens: AllergensUpdateManyWithoutIngredientsNestedInput
   additives: AdditivesUpdateManyWithoutIngredientsNestedInput
   properties: PropertiesUpdateManyWithoutIngredientsNestedInput
@@ -9910,7 +9924,7 @@ input RecipeIngredientUpsertWithWhereUniqueWithoutCreatedByUserInput {
 }
 
 input RecipeIngredientUpdateWithoutCreatedByUserInput {
-  amount: FloatFieldUpdateOperationsInput
+  amount: DecimalFieldUpdateOperationsInput
   unit: EnumUnitFieldUpdateOperationsInput
   recipe: RecipeUpdateOneRequiredWithoutRecipeIngredientNestedInput
   ingredient: IngredientUpdateOneRequiredWithoutRecipeIngredientNestedInput
@@ -9947,7 +9961,7 @@ input RecipeIngredientUpsertWithWhereUniqueWithoutUpdatedByUserInput {
 }
 
 input RecipeIngredientUpdateWithoutUpdatedByUserInput {
-  amount: FloatFieldUpdateOperationsInput
+  amount: DecimalFieldUpdateOperationsInput
   unit: EnumUnitFieldUpdateOperationsInput
   recipe: RecipeUpdateOneRequiredWithoutRecipeIngredientNestedInput
   ingredient: IngredientUpdateOneRequiredWithoutRecipeIngredientNestedInput
@@ -11163,16 +11177,16 @@ input UserUpdateManyWithWhereWithoutCreatedByUserInput {
 input IngredientCreateInput {
   name: String!
   blsIdentifier: String!
-  energyKcal: Float
-  energyKj: Float
-  breadUnits: Float
-  carbohydrates: Float
-  sugars: Float
-  salt: Float
-  fats: Float
-  saturatedFats: Float
-  unsaturatedFats: Float
-  protein: Float
+  energyKcal: Decimal
+  energyKj: Decimal
+  breadUnits: Decimal
+  carbohydrates: Decimal
+  sugars: Decimal
+  salt: Decimal
+  fats: Decimal
+  saturatedFats: Decimal
+  unsaturatedFats: Decimal
+  protein: Decimal
   allergens: AllergensCreateNestedManyWithoutIngredientsInput
   additives: AdditivesCreateNestedManyWithoutIngredientsInput
   properties: PropertiesCreateNestedManyWithoutIngredientsInput
@@ -11187,31 +11201,31 @@ input IngredientCreateManyInput {
   id: Int
   name: String!
   blsIdentifier: String!
-  energyKcal: Float
-  energyKj: Float
-  breadUnits: Float
-  carbohydrates: Float
-  sugars: Float
-  salt: Float
-  fats: Float
-  saturatedFats: Float
-  unsaturatedFats: Float
-  protein: Float
+  energyKcal: Decimal
+  energyKj: Decimal
+  breadUnits: Decimal
+  carbohydrates: Decimal
+  sugars: Decimal
+  salt: Decimal
+  fats: Decimal
+  saturatedFats: Decimal
+  unsaturatedFats: Decimal
+  protein: Decimal
 }
 
 input IngredientUpdateInput {
   name: StringFieldUpdateOperationsInput
   blsIdentifier: StringFieldUpdateOperationsInput
-  energyKcal: FloatFieldUpdateOperationsInput
-  energyKj: FloatFieldUpdateOperationsInput
-  breadUnits: FloatFieldUpdateOperationsInput
-  carbohydrates: FloatFieldUpdateOperationsInput
-  sugars: FloatFieldUpdateOperationsInput
-  salt: FloatFieldUpdateOperationsInput
-  fats: FloatFieldUpdateOperationsInput
-  saturatedFats: FloatFieldUpdateOperationsInput
-  unsaturatedFats: FloatFieldUpdateOperationsInput
-  protein: FloatFieldUpdateOperationsInput
+  energyKcal: DecimalFieldUpdateOperationsInput
+  energyKj: DecimalFieldUpdateOperationsInput
+  breadUnits: DecimalFieldUpdateOperationsInput
+  carbohydrates: DecimalFieldUpdateOperationsInput
+  sugars: DecimalFieldUpdateOperationsInput
+  salt: DecimalFieldUpdateOperationsInput
+  fats: DecimalFieldUpdateOperationsInput
+  saturatedFats: DecimalFieldUpdateOperationsInput
+  unsaturatedFats: DecimalFieldUpdateOperationsInput
+  protein: DecimalFieldUpdateOperationsInput
   allergens: AllergensUpdateManyWithoutIngredientsNestedInput
   additives: AdditivesUpdateManyWithoutIngredientsNestedInput
   properties: PropertiesUpdateManyWithoutIngredientsNestedInput
