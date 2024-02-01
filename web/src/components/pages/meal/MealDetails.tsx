@@ -1,10 +1,10 @@
 "use client";
 
 import { FileInput } from "@/components/utils/FileInput";
-import { UPLOAD_MEAL_IMAGE_ADMIN } from "@/documents/mutation/menu";
 import { GET_MEAL_ADMIN } from "@/documents/query/meal";
 import { useGqlMutation, useGqlQuery } from "@/fetcher";
 import TableStore from "@/store/TableStore";
+import { UPLOAD_MEAL_IMAGE_ADMIN } from "@/store/hooks/menu";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { Listbox, ListboxItem } from "@nextui-org/react";
 import { IoTrashOutline } from "@react-icons/all-files/io5/IoTrashOutline";

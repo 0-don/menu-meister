@@ -1,12 +1,12 @@
 "use client";
-import {
-  CREATE_USER_MEAL_USER,
-  DELETE_USER_MEAL_USER,
-} from "@/documents/mutation/menu";
 import { GET_ALL_USER_MEALS_ADMIN } from "@/documents/query/dashboard";
 import { GET_ALL_USER_MEALS_USER } from "@/documents/query/menu";
 import { useGqlMutation, useGqlQuery } from "@/fetcher";
 import { DashboardStore } from "@/store/DashboardStore";
+import {
+  CREATE_USER_MEAL_USER,
+  DELETE_USER_MEAL_USER,
+} from "@/store/hooks/menu";
 import { useSnapshot } from "valtio";
 import { useMeHook } from "./useMeHook";
 
