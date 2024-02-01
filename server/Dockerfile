@@ -25,7 +25,7 @@ RUN yarn build
 
 # Production image, copy only production files
 # Stage 2
-FROM node:20-alpine AS prod
+FROM node:20-alpine3.18 AS prod
 
 WORKDIR /app
 

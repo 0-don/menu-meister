@@ -122,33 +122,8 @@ model User {
   createdKitchens   Kitchens[]   @relation("CreatedKitchens")
   updatedKitchens   Kitchens[]   @relation("UpdatedKitchens")
 
-  createdUserProfiles UserProfile[] @relation("CreatedUserProfile")
-  updatedUserProfiles UserProfile[] @relation("UpdatedUserProfile")
-
-  userRole    UserRole[]
-  userMeal    UserMeal[]
-  userProfile UserProfile?
-}
-
-model UserProfile {
-  id     Int    @id @default(autoincrement())
-  userId Int    @unique
-  user   User   @relation(fields: [userId], references: [id])
-  name   String
-  image  String @db.Text
-
-  /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now())
-  /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt
-  /// @HideField({ output: false, input: true })
-  createdBy     Int
-  /// @HideField({ output: false, input: true })
-  updatedBy     Int
-  /// @HideField({ output: false, input: true })
-  createdByUser User     @relation("CreatedUserProfile", fields: [createdBy], references: [id])
-  /// @HideField({ output: false, input: true })
-  updatedByUser User     @relation("UpdatedUserProfile", fields: [updatedBy], references: [id])
+  userRole UserRole[]
+  userMeal UserMeal[]
 }
 
 model UserRole {
@@ -452,7 +427,6 @@ model RecipeIngredient {
   updatedByUser User     @relation("UpdatedRecipeIngredient", fields: [updatedBy], references: [id])
 }
 
-
 model Meal {
   id          Int     @id @default(autoincrement())
   name        String  @db.VarChar(255)
@@ -538,10 +512,11 @@ model MealBoardPlan {
 }
 
 model WeeklyMealGroup {
-  id          Int     @id @default(autoincrement())
-  name        String  @db.VarChar(255)
-  color       String? @db.VarChar(7)
-  description String? @db.Text
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(255)
+  color       String?   @db.VarChar(7)
+  description String?   @db.Text
+  timeOfDay   TimeOfDay @default(Any)
   year        Int
   weekOfYear  Int // ISO week numbers
   orderIndex  Int // To manage the vertical order of groups
@@ -596,6 +571,7 @@ enum Unit {
 }
 
 enum TimeOfDay {
+  Any // egal
   Morning // Morgen
   Forenoon // Vormittag
   Noon // Mittag
