@@ -1,4 +1,3 @@
-# Install dependencies only when needed
 # Stage 0
 FROM node:20-alpine AS deps
 WORKDIR /app
@@ -10,7 +9,6 @@ RUN yarn
 #############################################
 
 
-# Rebuild the source code only when needed
 # Stage 1
 FROM node:20-alpine AS builder
 WORKDIR /app
@@ -23,7 +21,6 @@ RUN yarn build
 #############################################
 
 
-# Production image, copy only production files
 # Stage 2
 FROM node:20-alpine AS prod
 
