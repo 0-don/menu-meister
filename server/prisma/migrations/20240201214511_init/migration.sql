@@ -44,17 +44,17 @@ CREATE TABLE `User` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `UserProfile` (
+CREATE TABLE `UserMealLocation` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `userId` INTEGER NOT NULL,
-    `name` VARCHAR(191) NOT NULL,
-    `image` TEXT NOT NULL,
+    `timeOfDay` ENUM('Any', 'Morning', 'Forenoon', 'Noon', 'Afternoon', 'Evening', 'Night') NOT NULL DEFAULT 'Any',
+    `name` ENUM('InRoom', 'CommunalDining', 'OutdoorPatio', 'TherapyGarden', 'SpecialDietary', 'StaffCafeteria', 'VisitorCafe', 'RehabilitationGym', 'GroupActivityRoom', 'QuietRoom', 'NutritionCenter', 'Poolside', 'FamilyDining', 'HealingGarden', 'OnTheGo') NOT NULL DEFAULT 'InRoom',
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `createdBy` INTEGER NOT NULL,
     `updatedBy` INTEGER NOT NULL,
 
-    UNIQUE INDEX `UserProfile_userId_key`(`userId`),
+    UNIQUE INDEX `UserMealLocation_userId_timeOfDay_name_key`(`userId`, `timeOfDay`, `name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -279,6 +279,7 @@ CREATE TABLE `WeeklyMealGroup` (
     `name` VARCHAR(255) NOT NULL,
     `color` VARCHAR(7) NULL,
     `description` TEXT NULL,
+    `timeOfDay` ENUM('Any', 'Morning', 'Forenoon', 'Noon', 'Afternoon', 'Evening', 'Night') NOT NULL DEFAULT 'Any',
     `year` INTEGER NOT NULL,
     `weekOfYear` INTEGER NOT NULL,
     `orderIndex` INTEGER NOT NULL,
@@ -323,6 +324,15 @@ CREATE TABLE `_MealAllergens` (
 
     UNIQUE INDEX `_MealAllergens_AB_unique`(`A`, `B`),
     INDEX `_MealAllergens_B_index`(`B`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `_UserAllergens` (
+    `A` INTEGER NOT NULL,
+    `B` INTEGER NOT NULL,
+
+    UNIQUE INDEX `_UserAllergens_AB_unique`(`A`, `B`),
+    INDEX `_UserAllergens_B_index`(`B`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -497,13 +507,13 @@ ALTER TABLE `User` ADD CONSTRAINT `User_createdBy_fkey` FOREIGN KEY (`createdBy`
 ALTER TABLE `User` ADD CONSTRAINT `User_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `UserProfile` ADD CONSTRAINT `UserProfile_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `UserMealLocation` ADD CONSTRAINT `UserMealLocation_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `UserProfile` ADD CONSTRAINT `UserProfile_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `UserMealLocation` ADD CONSTRAINT `UserMealLocation_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `UserProfile` ADD CONSTRAINT `UserProfile_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `UserMealLocation` ADD CONSTRAINT `UserMealLocation_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `UserRole` ADD CONSTRAINT `UserRole_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -669,6 +679,12 @@ ALTER TABLE `_MealAllergens` ADD CONSTRAINT `_MealAllergens_A_fkey` FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE `_MealAllergens` ADD CONSTRAINT `_MealAllergens_B_fkey` FOREIGN KEY (`B`) REFERENCES `Meal`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_UserAllergens` ADD CONSTRAINT `_UserAllergens_A_fkey` FOREIGN KEY (`A`) REFERENCES `Allergens`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_UserAllergens` ADD CONSTRAINT `_UserAllergens_B_fkey` FOREIGN KEY (`B`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `_IngredientAdditives` ADD CONSTRAINT `_IngredientAdditives_A_fkey` FOREIGN KEY (`A`) REFERENCES `Additives`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
