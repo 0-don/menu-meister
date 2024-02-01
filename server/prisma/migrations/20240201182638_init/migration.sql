@@ -44,6 +44,21 @@ CREATE TABLE `User` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `UserProfile` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `userId` INTEGER NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `image` TEXT NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+    `createdBy` INTEGER NOT NULL,
+    `updatedBy` INTEGER NOT NULL,
+
+    UNIQUE INDEX `UserProfile_userId_key`(`userId`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `UserRole` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `userId` INTEGER NOT NULL,
@@ -170,16 +185,16 @@ CREATE TABLE `Ingredient` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
     `blsIdentifier` VARCHAR(50) NOT NULL,
-    `energyKcal` DOUBLE NOT NULL DEFAULT 0,
-    `energyKj` DOUBLE NOT NULL DEFAULT 0,
-    `breadUnits` DOUBLE NOT NULL DEFAULT 0,
-    `carbohydrates` DOUBLE NOT NULL DEFAULT 0,
-    `sugars` DOUBLE NOT NULL DEFAULT 0,
-    `salt` DOUBLE NOT NULL DEFAULT 0,
-    `fats` DOUBLE NOT NULL DEFAULT 0,
-    `saturatedFats` DOUBLE NOT NULL DEFAULT 0,
-    `unsaturatedFats` DOUBLE NOT NULL DEFAULT 0,
-    `protein` DOUBLE NOT NULL DEFAULT 0,
+    `energyKcal` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `energyKj` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `breadUnits` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `carbohydrates` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `sugars` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `salt` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `fats` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `saturatedFats` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `unsaturatedFats` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    `protein` DECIMAL(10, 2) NOT NULL DEFAULT 0,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `createdBy` INTEGER NOT NULL,
@@ -207,7 +222,7 @@ CREATE TABLE `RecipeIngredient` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `recipeId` INTEGER NOT NULL,
     `ingredientId` INTEGER NOT NULL,
-    `amount` DOUBLE NOT NULL,
+    `amount` DECIMAL(10, 2) NOT NULL,
     `unit` ENUM('G', 'L', 'ML', 'KG') NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
@@ -480,6 +495,15 @@ ALTER TABLE `User` ADD CONSTRAINT `User_createdBy_fkey` FOREIGN KEY (`createdBy`
 
 -- AddForeignKey
 ALTER TABLE `User` ADD CONSTRAINT `User_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `UserProfile` ADD CONSTRAINT `UserProfile_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `UserProfile` ADD CONSTRAINT `UserProfile_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `UserProfile` ADD CONSTRAINT `UserProfile_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `UserRole` ADD CONSTRAINT `UserRole_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

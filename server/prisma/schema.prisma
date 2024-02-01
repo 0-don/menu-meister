@@ -138,17 +138,17 @@ model UserProfile {
   image  String @db.Text
 
   /// @HideField({ output: false, input: true })
-  createdAt DateTime @default(now())
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt DateTime @updatedAt
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy Int
+  createdBy     Int
   /// @HideField({ output: false, input: true })
-  updatedBy Int
+  updatedBy     Int
   /// @HideField({ output: false, input: true })
-  createdByUser User @relation("CreatedUserProfile", fields: [createdBy], references: [id])
+  createdByUser User     @relation("CreatedUserProfile", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
-  updatedByUser User @relation("UpdatedUserProfile", fields: [updatedBy], references: [id])
+  updatedByUser User     @relation("UpdatedUserProfile", fields: [updatedBy], references: [id])
 }
 
 model UserRole {
@@ -362,16 +362,16 @@ model Ingredient {
   name          String @db.VarChar(255)
   blsIdentifier String @unique @db.VarChar(50)
 
-  energyKcal      Float @default(0)
-  energyKj        Float @default(0)
-  breadUnits      Float @default(0)
-  carbohydrates   Float @default(0)
-  sugars          Float @default(0)
-  salt            Float @default(0)
-  fats            Float @default(0)
-  saturatedFats   Float @default(0)
-  unsaturatedFats Float @default(0)
-  protein         Float @default(0)
+  energyKcal      Decimal @default(0) @db.Decimal(10, 2)
+  energyKj        Decimal @default(0) @db.Decimal(10, 2)
+  breadUnits      Decimal @default(0) @db.Decimal(10, 2)
+  carbohydrates   Decimal @default(0) @db.Decimal(10, 2)
+  sugars          Decimal @default(0) @db.Decimal(10, 2)
+  salt            Decimal @default(0) @db.Decimal(10, 2)
+  fats            Decimal @default(0) @db.Decimal(10, 2)
+  saturatedFats   Decimal @default(0) @db.Decimal(10, 2)
+  unsaturatedFats Decimal @default(0) @db.Decimal(10, 2)
+  protein         Decimal @default(0) @db.Decimal(10, 2)
 
   allergens  Allergens[]  @relation("IngredientAllergens")
   additives  Additives[]  @relation("IngredientAdditives")
@@ -432,7 +432,7 @@ model RecipeIngredient {
   recipeId     Int
   ingredientId Int
 
-  amount Float
+  amount Decimal @db.Decimal(10, 2)
   unit   Unit
 
   recipe     Recipe     @relation(fields: [recipeId], references: [id])
@@ -451,6 +451,7 @@ model RecipeIngredient {
   /// @HideField({ output: false, input: true })
   updatedByUser User     @relation("UpdatedRecipeIngredient", fields: [updatedBy], references: [id])
 }
+
 
 model Meal {
   id          Int     @id @default(autoincrement())
@@ -592,4 +593,13 @@ enum Unit {
   L
   ML
   KG
+}
+
+enum TimeOfDay {
+  Morning // Morgen
+  Forenoon // Vormittag
+  Noon // Mittag
+  Afternoon // Nachmittag
+  Evening // Abend
+  Night // Nacht
 }
