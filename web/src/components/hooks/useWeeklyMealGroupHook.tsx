@@ -8,10 +8,8 @@ import {
 } from "@/documents/mutation/dashboard";
 import { useGqlMutation } from "@/fetcher";
 import dayjs from "dayjs";
-import { useMeHook } from "./useMeHook";
 
 export const useWeeklyMealGroupHook = () => {
-  const { me, isHighRank, isOrderMenu } = useMeHook();
   const { mutateAsync: updateWeeklyMealGroup } = useGqlMutation(
     UPDATE_WEEKLY_MEAL_GROUP_ADMIN,
   );

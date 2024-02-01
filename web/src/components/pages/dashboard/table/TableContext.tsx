@@ -15,11 +15,39 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import dayjs from "dayjs";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 import { CopyTableWeek } from "./CopyTableWeek";
-import { RenderDayColumn } from "./RenderDayColumn";
 import { TableGroupRow } from "./TableGroupRow";
+
+interface RenderDayColumnProps {
+  dayKey: string;
+  index: number;
+}
+
+const RenderDayColumn: React.FC<RenderDayColumnProps> = (props) => {
+  const locale = useLocale();
+  const t = useTranslations<"Dashboard">();
+  const [dayName, setDayName] = useState<string>(
+    t(props.dayKey.toUpperCase() as keyof Messages["Dashboard"]),
+  );
+  const date = dayjs(DashboardStore.daysThatWeek.at(props.index)).format(
+    "DD.MM",
+  );
+
+  useEffect(() => {
+    setDayName(t(props.dayKey.toUpperCase() as keyof Messages["Dashboard"]));
+  }, [locale]);
+
+  const dateToday = dayName.substring(0, 2);
+
+  return (
+    <div key={props.dayKey} title={dayName}>
+      {`${dateToday.at(0)?.toUpperCase()}${dateToday.at(1)}. ${date}`}
+    </div>
+  );
+};
 
 export function TableContext() {
   const t = useTranslations<"Dashboard">();
