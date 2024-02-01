@@ -16,6 +16,8 @@ export type Scalars = {
   Float: { input: number; output: number; }
   /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: { input: any; output: any; }
+  /** An arbitrary-precision Decimal type */
+  Decimal: { input: any; output: any; }
   /** The `File` scalar type represents a file upload. */
   File: { input: File; output: File; }
 };
@@ -1117,6 +1119,25 @@ export type DateTimeWithAggregatesFilter = {
   notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
 };
 
+export type DecimalFieldUpdateOperationsInput = {
+  decrement?: InputMaybe<Scalars['Decimal']['input']>;
+  divide?: InputMaybe<Scalars['Decimal']['input']>;
+  increment?: InputMaybe<Scalars['Decimal']['input']>;
+  multiply?: InputMaybe<Scalars['Decimal']['input']>;
+  set?: InputMaybe<Scalars['Decimal']['input']>;
+};
+
+export type DecimalFilter = {
+  equals?: InputMaybe<Scalars['Decimal']['input']>;
+  gt?: InputMaybe<Scalars['Decimal']['input']>;
+  gte?: InputMaybe<Scalars['Decimal']['input']>;
+  in?: InputMaybe<Array<Scalars['Decimal']['input']>>;
+  lt?: InputMaybe<Scalars['Decimal']['input']>;
+  lte?: InputMaybe<Scalars['Decimal']['input']>;
+  not?: InputMaybe<NestedDecimalFilter>;
+  notIn?: InputMaybe<Array<Scalars['Decimal']['input']>>;
+};
+
 export type EnumUnitFieldUpdateOperationsInput = {
   set?: InputMaybe<Unit>;
 };
@@ -1137,25 +1158,6 @@ export type EnumUserRoleNameFilter = {
   in?: InputMaybe<Array<UserRoleName>>;
   not?: InputMaybe<NestedEnumUserRoleNameFilter>;
   notIn?: InputMaybe<Array<UserRoleName>>;
-};
-
-export type FloatFieldUpdateOperationsInput = {
-  decrement?: InputMaybe<Scalars['Float']['input']>;
-  divide?: InputMaybe<Scalars['Float']['input']>;
-  increment?: InputMaybe<Scalars['Float']['input']>;
-  multiply?: InputMaybe<Scalars['Float']['input']>;
-  set?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type FloatFilter = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  gt?: InputMaybe<Scalars['Float']['input']>;
-  gte?: InputMaybe<Scalars['Float']['input']>;
-  in?: InputMaybe<Array<Scalars['Float']['input']>>;
-  lt?: InputMaybe<Scalars['Float']['input']>;
-  lte?: InputMaybe<Scalars['Float']['input']>;
-  not?: InputMaybe<NestedFloatFilter>;
-  notIn?: InputMaybe<Array<Scalars['Float']['input']>>;
 };
 
 export type FoodForms = {
@@ -1516,27 +1518,27 @@ export type Ingredient = {
   additives?: Maybe<Array<Additives>>;
   allergens?: Maybe<Array<Allergens>>;
   blsIdentifier: Scalars['String']['output'];
-  breadUnits: Scalars['Float']['output'];
-  carbohydrates: Scalars['Float']['output'];
+  breadUnits: Scalars['Decimal']['output'];
+  carbohydrates: Scalars['Decimal']['output'];
   categories?: Maybe<Array<Categories>>;
   createdAt: Scalars['DateTime']['output'];
   createdBy: Scalars['Int']['output'];
   createdByUser: User;
-  energyKcal: Scalars['Float']['output'];
-  energyKj: Scalars['Float']['output'];
-  fats: Scalars['Float']['output'];
+  energyKcal: Scalars['Decimal']['output'];
+  energyKj: Scalars['Decimal']['output'];
+  fats: Scalars['Decimal']['output'];
   foodForms?: Maybe<Array<FoodForms>>;
   id: Scalars['Int']['output'];
   kitchens?: Maybe<Array<Kitchens>>;
   name: Scalars['String']['output'];
   properties?: Maybe<Array<Properties>>;
-  protein: Scalars['Float']['output'];
+  protein: Scalars['Decimal']['output'];
   recipeIngredient?: Maybe<Array<RecipeIngredient>>;
-  salt: Scalars['Float']['output'];
-  saturatedFats: Scalars['Float']['output'];
+  salt: Scalars['Decimal']['output'];
+  saturatedFats: Scalars['Decimal']['output'];
   seasons?: Maybe<Array<Seasons>>;
-  sugars: Scalars['Float']['output'];
-  unsaturatedFats: Scalars['Float']['output'];
+  sugars: Scalars['Decimal']['output'];
+  unsaturatedFats: Scalars['Decimal']['output'];
   updatedAt: Scalars['DateTime']['output'];
   updatedBy: Scalars['Int']['output'];
   updatedByUser: User;
@@ -1557,39 +1559,39 @@ export type IngredientCreateInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits?: InputMaybe<Scalars['Float']['input']>;
-  carbohydrates?: InputMaybe<Scalars['Float']['input']>;
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal?: InputMaybe<Scalars['Float']['input']>;
-  energyKj?: InputMaybe<Scalars['Float']['input']>;
-  fats?: InputMaybe<Scalars['Float']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein?: InputMaybe<Scalars['Float']['input']>;
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  salt?: InputMaybe<Scalars['Float']['input']>;
-  saturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
   seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
-  sugars?: InputMaybe<Scalars['Float']['input']>;
-  unsaturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateManyCreatedByUserInput = {
   blsIdentifier: Scalars['String']['input'];
-  breadUnits?: InputMaybe<Scalars['Float']['input']>;
-  carbohydrates?: InputMaybe<Scalars['Float']['input']>;
-  energyKcal?: InputMaybe<Scalars['Float']['input']>;
-  energyKj?: InputMaybe<Scalars['Float']['input']>;
-  fats?: InputMaybe<Scalars['Float']['input']>;
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   name: Scalars['String']['input'];
-  protein?: InputMaybe<Scalars['Float']['input']>;
-  salt?: InputMaybe<Scalars['Float']['input']>;
-  saturatedFats?: InputMaybe<Scalars['Float']['input']>;
-  sugars?: InputMaybe<Scalars['Float']['input']>;
-  unsaturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateManyCreatedByUserInputEnvelope = {
@@ -1599,34 +1601,34 @@ export type IngredientCreateManyCreatedByUserInputEnvelope = {
 
 export type IngredientCreateManyInput = {
   blsIdentifier: Scalars['String']['input'];
-  breadUnits?: InputMaybe<Scalars['Float']['input']>;
-  carbohydrates?: InputMaybe<Scalars['Float']['input']>;
-  energyKcal?: InputMaybe<Scalars['Float']['input']>;
-  energyKj?: InputMaybe<Scalars['Float']['input']>;
-  fats?: InputMaybe<Scalars['Float']['input']>;
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   name: Scalars['String']['input'];
-  protein?: InputMaybe<Scalars['Float']['input']>;
-  salt?: InputMaybe<Scalars['Float']['input']>;
-  saturatedFats?: InputMaybe<Scalars['Float']['input']>;
-  sugars?: InputMaybe<Scalars['Float']['input']>;
-  unsaturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateManyUpdatedByUserInput = {
   blsIdentifier: Scalars['String']['input'];
-  breadUnits?: InputMaybe<Scalars['Float']['input']>;
-  carbohydrates?: InputMaybe<Scalars['Float']['input']>;
-  energyKcal?: InputMaybe<Scalars['Float']['input']>;
-  energyKj?: InputMaybe<Scalars['Float']['input']>;
-  fats?: InputMaybe<Scalars['Float']['input']>;
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   name: Scalars['String']['input'];
-  protein?: InputMaybe<Scalars['Float']['input']>;
-  salt?: InputMaybe<Scalars['Float']['input']>;
-  saturatedFats?: InputMaybe<Scalars['Float']['input']>;
-  sugars?: InputMaybe<Scalars['Float']['input']>;
-  unsaturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateManyUpdatedByUserInputEnvelope = {
@@ -1749,223 +1751,223 @@ export type IngredientCreateOrConnectWithoutUpdatedByUserInput = {
 export type IngredientCreateWithoutAdditivesInput = {
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits?: InputMaybe<Scalars['Float']['input']>;
-  carbohydrates?: InputMaybe<Scalars['Float']['input']>;
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal?: InputMaybe<Scalars['Float']['input']>;
-  energyKj?: InputMaybe<Scalars['Float']['input']>;
-  fats?: InputMaybe<Scalars['Float']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein?: InputMaybe<Scalars['Float']['input']>;
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  salt?: InputMaybe<Scalars['Float']['input']>;
-  saturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
   seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
-  sugars?: InputMaybe<Scalars['Float']['input']>;
-  unsaturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutAllergensInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits?: InputMaybe<Scalars['Float']['input']>;
-  carbohydrates?: InputMaybe<Scalars['Float']['input']>;
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal?: InputMaybe<Scalars['Float']['input']>;
-  energyKj?: InputMaybe<Scalars['Float']['input']>;
-  fats?: InputMaybe<Scalars['Float']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein?: InputMaybe<Scalars['Float']['input']>;
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  salt?: InputMaybe<Scalars['Float']['input']>;
-  saturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
   seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
-  sugars?: InputMaybe<Scalars['Float']['input']>;
-  unsaturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutCategoriesInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits?: InputMaybe<Scalars['Float']['input']>;
-  carbohydrates?: InputMaybe<Scalars['Float']['input']>;
-  energyKcal?: InputMaybe<Scalars['Float']['input']>;
-  energyKj?: InputMaybe<Scalars['Float']['input']>;
-  fats?: InputMaybe<Scalars['Float']['input']>;
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein?: InputMaybe<Scalars['Float']['input']>;
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  salt?: InputMaybe<Scalars['Float']['input']>;
-  saturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
   seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
-  sugars?: InputMaybe<Scalars['Float']['input']>;
-  unsaturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutCreatedByUserInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits?: InputMaybe<Scalars['Float']['input']>;
-  carbohydrates?: InputMaybe<Scalars['Float']['input']>;
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal?: InputMaybe<Scalars['Float']['input']>;
-  energyKj?: InputMaybe<Scalars['Float']['input']>;
-  fats?: InputMaybe<Scalars['Float']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein?: InputMaybe<Scalars['Float']['input']>;
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  salt?: InputMaybe<Scalars['Float']['input']>;
-  saturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
   seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
-  sugars?: InputMaybe<Scalars['Float']['input']>;
-  unsaturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutFoodFormsInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits?: InputMaybe<Scalars['Float']['input']>;
-  carbohydrates?: InputMaybe<Scalars['Float']['input']>;
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal?: InputMaybe<Scalars['Float']['input']>;
-  energyKj?: InputMaybe<Scalars['Float']['input']>;
-  fats?: InputMaybe<Scalars['Float']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein?: InputMaybe<Scalars['Float']['input']>;
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  salt?: InputMaybe<Scalars['Float']['input']>;
-  saturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
   seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
-  sugars?: InputMaybe<Scalars['Float']['input']>;
-  unsaturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutKitchensInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits?: InputMaybe<Scalars['Float']['input']>;
-  carbohydrates?: InputMaybe<Scalars['Float']['input']>;
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal?: InputMaybe<Scalars['Float']['input']>;
-  energyKj?: InputMaybe<Scalars['Float']['input']>;
-  fats?: InputMaybe<Scalars['Float']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein?: InputMaybe<Scalars['Float']['input']>;
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  salt?: InputMaybe<Scalars['Float']['input']>;
-  saturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
   seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
-  sugars?: InputMaybe<Scalars['Float']['input']>;
-  unsaturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutPropertiesInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits?: InputMaybe<Scalars['Float']['input']>;
-  carbohydrates?: InputMaybe<Scalars['Float']['input']>;
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal?: InputMaybe<Scalars['Float']['input']>;
-  energyKj?: InputMaybe<Scalars['Float']['input']>;
-  fats?: InputMaybe<Scalars['Float']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
-  protein?: InputMaybe<Scalars['Float']['input']>;
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  salt?: InputMaybe<Scalars['Float']['input']>;
-  saturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
   seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
-  sugars?: InputMaybe<Scalars['Float']['input']>;
-  unsaturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutRecipeIngredientInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits?: InputMaybe<Scalars['Float']['input']>;
-  carbohydrates?: InputMaybe<Scalars['Float']['input']>;
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal?: InputMaybe<Scalars['Float']['input']>;
-  energyKj?: InputMaybe<Scalars['Float']['input']>;
-  fats?: InputMaybe<Scalars['Float']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein?: InputMaybe<Scalars['Float']['input']>;
-  salt?: InputMaybe<Scalars['Float']['input']>;
-  saturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
   seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
-  sugars?: InputMaybe<Scalars['Float']['input']>;
-  unsaturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutSeasonsInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits?: InputMaybe<Scalars['Float']['input']>;
-  carbohydrates?: InputMaybe<Scalars['Float']['input']>;
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal?: InputMaybe<Scalars['Float']['input']>;
-  energyKj?: InputMaybe<Scalars['Float']['input']>;
-  fats?: InputMaybe<Scalars['Float']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein?: InputMaybe<Scalars['Float']['input']>;
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  salt?: InputMaybe<Scalars['Float']['input']>;
-  saturatedFats?: InputMaybe<Scalars['Float']['input']>;
-  sugars?: InputMaybe<Scalars['Float']['input']>;
-  unsaturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientCreateWithoutUpdatedByUserInput = {
   additives?: InputMaybe<AdditivesCreateNestedManyWithoutIngredientsInput>;
   allergens?: InputMaybe<AllergensCreateNestedManyWithoutIngredientsInput>;
   blsIdentifier: Scalars['String']['input'];
-  breadUnits?: InputMaybe<Scalars['Float']['input']>;
-  carbohydrates?: InputMaybe<Scalars['Float']['input']>;
+  breadUnits?: InputMaybe<Scalars['Decimal']['input']>;
+  carbohydrates?: InputMaybe<Scalars['Decimal']['input']>;
   categories?: InputMaybe<CategoriesCreateNestedManyWithoutIngredientsInput>;
-  energyKcal?: InputMaybe<Scalars['Float']['input']>;
-  energyKj?: InputMaybe<Scalars['Float']['input']>;
-  fats?: InputMaybe<Scalars['Float']['input']>;
+  energyKcal?: InputMaybe<Scalars['Decimal']['input']>;
+  energyKj?: InputMaybe<Scalars['Decimal']['input']>;
+  fats?: InputMaybe<Scalars['Decimal']['input']>;
   foodForms?: InputMaybe<FoodFormsCreateNestedManyWithoutIngredientsInput>;
   kitchens?: InputMaybe<KitchensCreateNestedManyWithoutIngredientsInput>;
   name: Scalars['String']['input'];
   properties?: InputMaybe<PropertiesCreateNestedManyWithoutIngredientsInput>;
-  protein?: InputMaybe<Scalars['Float']['input']>;
+  protein?: InputMaybe<Scalars['Decimal']['input']>;
   recipeIngredient?: InputMaybe<RecipeIngredientCreateNestedManyWithoutIngredientInput>;
-  salt?: InputMaybe<Scalars['Float']['input']>;
-  saturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  salt?: InputMaybe<Scalars['Decimal']['input']>;
+  saturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
   seasons?: InputMaybe<SeasonsCreateNestedManyWithoutIngredientsInput>;
-  sugars?: InputMaybe<Scalars['Float']['input']>;
-  unsaturatedFats?: InputMaybe<Scalars['Float']['input']>;
+  sugars?: InputMaybe<Scalars['Decimal']['input']>;
+  unsaturatedFats?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type IngredientListRelationFilter = {
@@ -2032,56 +2034,56 @@ export type IngredientScalarWhereInput = {
   NOT?: InputMaybe<Array<IngredientScalarWhereInput>>;
   OR?: InputMaybe<Array<IngredientScalarWhereInput>>;
   blsIdentifier?: InputMaybe<StringFilter>;
-  breadUnits?: InputMaybe<FloatFilter>;
-  carbohydrates?: InputMaybe<FloatFilter>;
-  energyKcal?: InputMaybe<FloatFilter>;
-  energyKj?: InputMaybe<FloatFilter>;
-  fats?: InputMaybe<FloatFilter>;
+  breadUnits?: InputMaybe<DecimalFilter>;
+  carbohydrates?: InputMaybe<DecimalFilter>;
+  energyKcal?: InputMaybe<DecimalFilter>;
+  energyKj?: InputMaybe<DecimalFilter>;
+  fats?: InputMaybe<DecimalFilter>;
   id?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
-  protein?: InputMaybe<FloatFilter>;
-  salt?: InputMaybe<FloatFilter>;
-  saturatedFats?: InputMaybe<FloatFilter>;
-  sugars?: InputMaybe<FloatFilter>;
-  unsaturatedFats?: InputMaybe<FloatFilter>;
+  protein?: InputMaybe<DecimalFilter>;
+  salt?: InputMaybe<DecimalFilter>;
+  saturatedFats?: InputMaybe<DecimalFilter>;
+  sugars?: InputMaybe<DecimalFilter>;
+  unsaturatedFats?: InputMaybe<DecimalFilter>;
 };
 
 export type IngredientUpdateInput = {
   additives?: InputMaybe<AdditivesUpdateManyWithoutIngredientsNestedInput>;
   allergens?: InputMaybe<AllergensUpdateManyWithoutIngredientsNestedInput>;
   blsIdentifier?: InputMaybe<StringFieldUpdateOperationsInput>;
-  breadUnits?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  carbohydrates?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  breadUnits?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  carbohydrates?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   categories?: InputMaybe<CategoriesUpdateManyWithoutIngredientsNestedInput>;
-  energyKcal?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  energyKj?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  fats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  energyKcal?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  energyKj?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  fats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   foodForms?: InputMaybe<FoodFormsUpdateManyWithoutIngredientsNestedInput>;
   kitchens?: InputMaybe<KitchensUpdateManyWithoutIngredientsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
-  protein?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  salt?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  saturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
-  sugars?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  unsaturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
 
 export type IngredientUpdateManyMutationInput = {
   blsIdentifier?: InputMaybe<StringFieldUpdateOperationsInput>;
-  breadUnits?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  carbohydrates?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  energyKcal?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  energyKj?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  fats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  breadUnits?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  carbohydrates?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  energyKcal?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  energyKj?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  fats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
-  protein?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  salt?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  saturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  sugars?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  unsaturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
 
 export type IngredientUpdateManyWithWhereWithoutAdditivesInput = {
@@ -2309,223 +2311,223 @@ export type IngredientUpdateWithWhereUniqueWithoutUpdatedByUserInput = {
 export type IngredientUpdateWithoutAdditivesInput = {
   allergens?: InputMaybe<AllergensUpdateManyWithoutIngredientsNestedInput>;
   blsIdentifier?: InputMaybe<StringFieldUpdateOperationsInput>;
-  breadUnits?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  carbohydrates?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  breadUnits?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  carbohydrates?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   categories?: InputMaybe<CategoriesUpdateManyWithoutIngredientsNestedInput>;
-  energyKcal?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  energyKj?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  fats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  energyKcal?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  energyKj?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  fats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   foodForms?: InputMaybe<FoodFormsUpdateManyWithoutIngredientsNestedInput>;
   kitchens?: InputMaybe<KitchensUpdateManyWithoutIngredientsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
-  protein?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  salt?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  saturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
-  sugars?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  unsaturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
 
 export type IngredientUpdateWithoutAllergensInput = {
   additives?: InputMaybe<AdditivesUpdateManyWithoutIngredientsNestedInput>;
   blsIdentifier?: InputMaybe<StringFieldUpdateOperationsInput>;
-  breadUnits?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  carbohydrates?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  breadUnits?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  carbohydrates?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   categories?: InputMaybe<CategoriesUpdateManyWithoutIngredientsNestedInput>;
-  energyKcal?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  energyKj?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  fats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  energyKcal?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  energyKj?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  fats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   foodForms?: InputMaybe<FoodFormsUpdateManyWithoutIngredientsNestedInput>;
   kitchens?: InputMaybe<KitchensUpdateManyWithoutIngredientsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
-  protein?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  salt?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  saturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
-  sugars?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  unsaturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
 
 export type IngredientUpdateWithoutCategoriesInput = {
   additives?: InputMaybe<AdditivesUpdateManyWithoutIngredientsNestedInput>;
   allergens?: InputMaybe<AllergensUpdateManyWithoutIngredientsNestedInput>;
   blsIdentifier?: InputMaybe<StringFieldUpdateOperationsInput>;
-  breadUnits?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  carbohydrates?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  energyKcal?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  energyKj?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  fats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  breadUnits?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  carbohydrates?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  energyKcal?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  energyKj?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  fats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   foodForms?: InputMaybe<FoodFormsUpdateManyWithoutIngredientsNestedInput>;
   kitchens?: InputMaybe<KitchensUpdateManyWithoutIngredientsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
-  protein?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  salt?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  saturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
-  sugars?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  unsaturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
 
 export type IngredientUpdateWithoutCreatedByUserInput = {
   additives?: InputMaybe<AdditivesUpdateManyWithoutIngredientsNestedInput>;
   allergens?: InputMaybe<AllergensUpdateManyWithoutIngredientsNestedInput>;
   blsIdentifier?: InputMaybe<StringFieldUpdateOperationsInput>;
-  breadUnits?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  carbohydrates?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  breadUnits?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  carbohydrates?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   categories?: InputMaybe<CategoriesUpdateManyWithoutIngredientsNestedInput>;
-  energyKcal?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  energyKj?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  fats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  energyKcal?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  energyKj?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  fats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   foodForms?: InputMaybe<FoodFormsUpdateManyWithoutIngredientsNestedInput>;
   kitchens?: InputMaybe<KitchensUpdateManyWithoutIngredientsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
-  protein?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  salt?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  saturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
-  sugars?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  unsaturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
 
 export type IngredientUpdateWithoutFoodFormsInput = {
   additives?: InputMaybe<AdditivesUpdateManyWithoutIngredientsNestedInput>;
   allergens?: InputMaybe<AllergensUpdateManyWithoutIngredientsNestedInput>;
   blsIdentifier?: InputMaybe<StringFieldUpdateOperationsInput>;
-  breadUnits?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  carbohydrates?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  breadUnits?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  carbohydrates?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   categories?: InputMaybe<CategoriesUpdateManyWithoutIngredientsNestedInput>;
-  energyKcal?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  energyKj?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  fats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  energyKcal?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  energyKj?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  fats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   kitchens?: InputMaybe<KitchensUpdateManyWithoutIngredientsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
-  protein?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  salt?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  saturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
-  sugars?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  unsaturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
 
 export type IngredientUpdateWithoutKitchensInput = {
   additives?: InputMaybe<AdditivesUpdateManyWithoutIngredientsNestedInput>;
   allergens?: InputMaybe<AllergensUpdateManyWithoutIngredientsNestedInput>;
   blsIdentifier?: InputMaybe<StringFieldUpdateOperationsInput>;
-  breadUnits?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  carbohydrates?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  breadUnits?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  carbohydrates?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   categories?: InputMaybe<CategoriesUpdateManyWithoutIngredientsNestedInput>;
-  energyKcal?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  energyKj?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  fats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  energyKcal?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  energyKj?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  fats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   foodForms?: InputMaybe<FoodFormsUpdateManyWithoutIngredientsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
-  protein?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  salt?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  saturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
-  sugars?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  unsaturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
 
 export type IngredientUpdateWithoutPropertiesInput = {
   additives?: InputMaybe<AdditivesUpdateManyWithoutIngredientsNestedInput>;
   allergens?: InputMaybe<AllergensUpdateManyWithoutIngredientsNestedInput>;
   blsIdentifier?: InputMaybe<StringFieldUpdateOperationsInput>;
-  breadUnits?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  carbohydrates?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  breadUnits?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  carbohydrates?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   categories?: InputMaybe<CategoriesUpdateManyWithoutIngredientsNestedInput>;
-  energyKcal?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  energyKj?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  fats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  energyKcal?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  energyKj?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  fats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   foodForms?: InputMaybe<FoodFormsUpdateManyWithoutIngredientsNestedInput>;
   kitchens?: InputMaybe<KitchensUpdateManyWithoutIngredientsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
-  protein?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  salt?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  saturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
-  sugars?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  unsaturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
 
 export type IngredientUpdateWithoutRecipeIngredientInput = {
   additives?: InputMaybe<AdditivesUpdateManyWithoutIngredientsNestedInput>;
   allergens?: InputMaybe<AllergensUpdateManyWithoutIngredientsNestedInput>;
   blsIdentifier?: InputMaybe<StringFieldUpdateOperationsInput>;
-  breadUnits?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  carbohydrates?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  breadUnits?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  carbohydrates?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   categories?: InputMaybe<CategoriesUpdateManyWithoutIngredientsNestedInput>;
-  energyKcal?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  energyKj?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  fats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  energyKcal?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  energyKj?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  fats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   foodForms?: InputMaybe<FoodFormsUpdateManyWithoutIngredientsNestedInput>;
   kitchens?: InputMaybe<KitchensUpdateManyWithoutIngredientsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
-  protein?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  salt?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  saturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
-  sugars?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  unsaturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
 
 export type IngredientUpdateWithoutSeasonsInput = {
   additives?: InputMaybe<AdditivesUpdateManyWithoutIngredientsNestedInput>;
   allergens?: InputMaybe<AllergensUpdateManyWithoutIngredientsNestedInput>;
   blsIdentifier?: InputMaybe<StringFieldUpdateOperationsInput>;
-  breadUnits?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  carbohydrates?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  breadUnits?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  carbohydrates?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   categories?: InputMaybe<CategoriesUpdateManyWithoutIngredientsNestedInput>;
-  energyKcal?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  energyKj?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  fats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  energyKcal?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  energyKj?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  fats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   foodForms?: InputMaybe<FoodFormsUpdateManyWithoutIngredientsNestedInput>;
   kitchens?: InputMaybe<KitchensUpdateManyWithoutIngredientsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
-  protein?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  salt?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  saturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  sugars?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  unsaturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
 
 export type IngredientUpdateWithoutUpdatedByUserInput = {
   additives?: InputMaybe<AdditivesUpdateManyWithoutIngredientsNestedInput>;
   allergens?: InputMaybe<AllergensUpdateManyWithoutIngredientsNestedInput>;
   blsIdentifier?: InputMaybe<StringFieldUpdateOperationsInput>;
-  breadUnits?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  carbohydrates?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  breadUnits?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  carbohydrates?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   categories?: InputMaybe<CategoriesUpdateManyWithoutIngredientsNestedInput>;
-  energyKcal?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  energyKj?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  fats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  energyKcal?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  energyKj?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  fats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   foodForms?: InputMaybe<FoodFormsUpdateManyWithoutIngredientsNestedInput>;
   kitchens?: InputMaybe<KitchensUpdateManyWithoutIngredientsNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   properties?: InputMaybe<PropertiesUpdateManyWithoutIngredientsNestedInput>;
-  protein?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  protein?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipeIngredient?: InputMaybe<RecipeIngredientUpdateManyWithoutIngredientNestedInput>;
-  salt?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  saturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  salt?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  saturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   seasons?: InputMaybe<SeasonsUpdateManyWithoutIngredientsNestedInput>;
-  sugars?: InputMaybe<FloatFieldUpdateOperationsInput>;
-  unsaturatedFats?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  sugars?: InputMaybe<DecimalFieldUpdateOperationsInput>;
+  unsaturatedFats?: InputMaybe<DecimalFieldUpdateOperationsInput>;
 };
 
 export type IngredientUpsertWithWhereUniqueWithoutAdditivesInput = {
@@ -2595,24 +2597,24 @@ export type IngredientWhereInput = {
   additives?: InputMaybe<AdditivesListRelationFilter>;
   allergens?: InputMaybe<AllergensListRelationFilter>;
   blsIdentifier?: InputMaybe<StringFilter>;
-  breadUnits?: InputMaybe<FloatFilter>;
-  carbohydrates?: InputMaybe<FloatFilter>;
+  breadUnits?: InputMaybe<DecimalFilter>;
+  carbohydrates?: InputMaybe<DecimalFilter>;
   categories?: InputMaybe<CategoriesListRelationFilter>;
-  energyKcal?: InputMaybe<FloatFilter>;
-  energyKj?: InputMaybe<FloatFilter>;
-  fats?: InputMaybe<FloatFilter>;
+  energyKcal?: InputMaybe<DecimalFilter>;
+  energyKj?: InputMaybe<DecimalFilter>;
+  fats?: InputMaybe<DecimalFilter>;
   foodForms?: InputMaybe<FoodFormsListRelationFilter>;
   id?: InputMaybe<IntFilter>;
   kitchens?: InputMaybe<KitchensListRelationFilter>;
   name?: InputMaybe<StringFilter>;
   properties?: InputMaybe<PropertiesListRelationFilter>;
-  protein?: InputMaybe<FloatFilter>;
+  protein?: InputMaybe<DecimalFilter>;
   recipeIngredient?: InputMaybe<RecipeIngredientListRelationFilter>;
-  salt?: InputMaybe<FloatFilter>;
-  saturatedFats?: InputMaybe<FloatFilter>;
+  salt?: InputMaybe<DecimalFilter>;
+  saturatedFats?: InputMaybe<DecimalFilter>;
   seasons?: InputMaybe<SeasonsListRelationFilter>;
-  sugars?: InputMaybe<FloatFilter>;
-  unsaturatedFats?: InputMaybe<FloatFilter>;
+  sugars?: InputMaybe<DecimalFilter>;
+  unsaturatedFats?: InputMaybe<DecimalFilter>;
 };
 
 export type IngredientWhereUniqueInput = {
@@ -2622,24 +2624,24 @@ export type IngredientWhereUniqueInput = {
   additives?: InputMaybe<AdditivesListRelationFilter>;
   allergens?: InputMaybe<AllergensListRelationFilter>;
   blsIdentifier?: InputMaybe<Scalars['String']['input']>;
-  breadUnits?: InputMaybe<FloatFilter>;
-  carbohydrates?: InputMaybe<FloatFilter>;
+  breadUnits?: InputMaybe<DecimalFilter>;
+  carbohydrates?: InputMaybe<DecimalFilter>;
   categories?: InputMaybe<CategoriesListRelationFilter>;
-  energyKcal?: InputMaybe<FloatFilter>;
-  energyKj?: InputMaybe<FloatFilter>;
-  fats?: InputMaybe<FloatFilter>;
+  energyKcal?: InputMaybe<DecimalFilter>;
+  energyKj?: InputMaybe<DecimalFilter>;
+  fats?: InputMaybe<DecimalFilter>;
   foodForms?: InputMaybe<FoodFormsListRelationFilter>;
   id?: InputMaybe<Scalars['Int']['input']>;
   kitchens?: InputMaybe<KitchensListRelationFilter>;
   name?: InputMaybe<StringFilter>;
   properties?: InputMaybe<PropertiesListRelationFilter>;
-  protein?: InputMaybe<FloatFilter>;
+  protein?: InputMaybe<DecimalFilter>;
   recipeIngredient?: InputMaybe<RecipeIngredientListRelationFilter>;
-  salt?: InputMaybe<FloatFilter>;
-  saturatedFats?: InputMaybe<FloatFilter>;
+  salt?: InputMaybe<DecimalFilter>;
+  saturatedFats?: InputMaybe<DecimalFilter>;
   seasons?: InputMaybe<SeasonsListRelationFilter>;
-  sugars?: InputMaybe<FloatFilter>;
-  unsaturatedFats?: InputMaybe<FloatFilter>;
+  sugars?: InputMaybe<DecimalFilter>;
+  unsaturatedFats?: InputMaybe<DecimalFilter>;
 };
 
 export type IntFieldUpdateOperationsInput = {
@@ -5619,6 +5621,17 @@ export type NestedDateTimeWithAggregatesFilter = {
   notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
 };
 
+export type NestedDecimalFilter = {
+  equals?: InputMaybe<Scalars['Decimal']['input']>;
+  gt?: InputMaybe<Scalars['Decimal']['input']>;
+  gte?: InputMaybe<Scalars['Decimal']['input']>;
+  in?: InputMaybe<Array<Scalars['Decimal']['input']>>;
+  lt?: InputMaybe<Scalars['Decimal']['input']>;
+  lte?: InputMaybe<Scalars['Decimal']['input']>;
+  not?: InputMaybe<NestedDecimalFilter>;
+  notIn?: InputMaybe<Array<Scalars['Decimal']['input']>>;
+};
+
 export type NestedEnumUnitFilter = {
   equals?: InputMaybe<Unit>;
   in?: InputMaybe<Array<Unit>>;
@@ -6666,7 +6679,7 @@ export type RecipeCreateWithoutUpdatedByUserInput = {
 };
 
 export type RecipeIngredient = {
-  amount: Scalars['Float']['output'];
+  amount: Scalars['Decimal']['output'];
   createdAt: Scalars['DateTime']['output'];
   createdBy: Scalars['Int']['output'];
   createdByUser: User;
@@ -6682,7 +6695,7 @@ export type RecipeIngredient = {
 };
 
 export type RecipeIngredientCreateManyCreatedByUserInput = {
-  amount: Scalars['Float']['input'];
+  amount: Scalars['Decimal']['input'];
   id?: InputMaybe<Scalars['Int']['input']>;
   ingredientId: Scalars['Int']['input'];
   recipeId: Scalars['Int']['input'];
@@ -6695,7 +6708,7 @@ export type RecipeIngredientCreateManyCreatedByUserInputEnvelope = {
 };
 
 export type RecipeIngredientCreateManyIngredientInput = {
-  amount: Scalars['Float']['input'];
+  amount: Scalars['Decimal']['input'];
   id?: InputMaybe<Scalars['Int']['input']>;
   recipeId: Scalars['Int']['input'];
   unit: Unit;
@@ -6707,7 +6720,7 @@ export type RecipeIngredientCreateManyIngredientInputEnvelope = {
 };
 
 export type RecipeIngredientCreateManyRecipeInput = {
-  amount: Scalars['Float']['input'];
+  amount: Scalars['Decimal']['input'];
   id?: InputMaybe<Scalars['Int']['input']>;
   ingredientId: Scalars['Int']['input'];
   unit: Unit;
@@ -6719,7 +6732,7 @@ export type RecipeIngredientCreateManyRecipeInputEnvelope = {
 };
 
 export type RecipeIngredientCreateManyUpdatedByUserInput = {
-  amount: Scalars['Float']['input'];
+  amount: Scalars['Decimal']['input'];
   id?: InputMaybe<Scalars['Int']['input']>;
   ingredientId: Scalars['Int']['input'];
   recipeId: Scalars['Int']['input'];
@@ -6780,26 +6793,26 @@ export type RecipeIngredientCreateOrConnectWithoutUpdatedByUserInput = {
 };
 
 export type RecipeIngredientCreateWithoutCreatedByUserInput = {
-  amount: Scalars['Float']['input'];
+  amount: Scalars['Decimal']['input'];
   ingredient: IngredientCreateNestedOneWithoutRecipeIngredientInput;
   recipe: RecipeCreateNestedOneWithoutRecipeIngredientInput;
   unit: Unit;
 };
 
 export type RecipeIngredientCreateWithoutIngredientInput = {
-  amount: Scalars['Float']['input'];
+  amount: Scalars['Decimal']['input'];
   recipe: RecipeCreateNestedOneWithoutRecipeIngredientInput;
   unit: Unit;
 };
 
 export type RecipeIngredientCreateWithoutRecipeInput = {
-  amount: Scalars['Float']['input'];
+  amount: Scalars['Decimal']['input'];
   ingredient: IngredientCreateNestedOneWithoutRecipeIngredientInput;
   unit: Unit;
 };
 
 export type RecipeIngredientCreateWithoutUpdatedByUserInput = {
-  amount: Scalars['Float']['input'];
+  amount: Scalars['Decimal']['input'];
   ingredient: IngredientCreateNestedOneWithoutRecipeIngredientInput;
   recipe: RecipeCreateNestedOneWithoutRecipeIngredientInput;
   unit: Unit;
@@ -6819,7 +6832,7 @@ export type RecipeIngredientScalarWhereInput = {
   AND?: InputMaybe<Array<RecipeIngredientScalarWhereInput>>;
   NOT?: InputMaybe<Array<RecipeIngredientScalarWhereInput>>;
   OR?: InputMaybe<Array<RecipeIngredientScalarWhereInput>>;
-  amount?: InputMaybe<FloatFilter>;
+  amount?: InputMaybe<DecimalFilter>;
   id?: InputMaybe<IntFilter>;
   ingredientId?: InputMaybe<IntFilter>;
   recipeId?: InputMaybe<IntFilter>;
@@ -6827,7 +6840,7 @@ export type RecipeIngredientScalarWhereInput = {
 };
 
 export type RecipeIngredientUpdateManyMutationInput = {
-  amount?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  amount?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   unit?: InputMaybe<EnumUnitFieldUpdateOperationsInput>;
 };
 
@@ -6928,26 +6941,26 @@ export type RecipeIngredientUpdateWithWhereUniqueWithoutUpdatedByUserInput = {
 };
 
 export type RecipeIngredientUpdateWithoutCreatedByUserInput = {
-  amount?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  amount?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   ingredient?: InputMaybe<IngredientUpdateOneRequiredWithoutRecipeIngredientNestedInput>;
   recipe?: InputMaybe<RecipeUpdateOneRequiredWithoutRecipeIngredientNestedInput>;
   unit?: InputMaybe<EnumUnitFieldUpdateOperationsInput>;
 };
 
 export type RecipeIngredientUpdateWithoutIngredientInput = {
-  amount?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  amount?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   recipe?: InputMaybe<RecipeUpdateOneRequiredWithoutRecipeIngredientNestedInput>;
   unit?: InputMaybe<EnumUnitFieldUpdateOperationsInput>;
 };
 
 export type RecipeIngredientUpdateWithoutRecipeInput = {
-  amount?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  amount?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   ingredient?: InputMaybe<IngredientUpdateOneRequiredWithoutRecipeIngredientNestedInput>;
   unit?: InputMaybe<EnumUnitFieldUpdateOperationsInput>;
 };
 
 export type RecipeIngredientUpdateWithoutUpdatedByUserInput = {
-  amount?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  amount?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   ingredient?: InputMaybe<IngredientUpdateOneRequiredWithoutRecipeIngredientNestedInput>;
   recipe?: InputMaybe<RecipeUpdateOneRequiredWithoutRecipeIngredientNestedInput>;
   unit?: InputMaybe<EnumUnitFieldUpdateOperationsInput>;
@@ -6981,7 +6994,7 @@ export type RecipeIngredientWhereInput = {
   AND?: InputMaybe<Array<RecipeIngredientWhereInput>>;
   NOT?: InputMaybe<Array<RecipeIngredientWhereInput>>;
   OR?: InputMaybe<Array<RecipeIngredientWhereInput>>;
-  amount?: InputMaybe<FloatFilter>;
+  amount?: InputMaybe<DecimalFilter>;
   id?: InputMaybe<IntFilter>;
   ingredient?: InputMaybe<IngredientRelationFilter>;
   ingredientId?: InputMaybe<IntFilter>;
@@ -6994,7 +7007,7 @@ export type RecipeIngredientWhereUniqueInput = {
   AND?: InputMaybe<Array<RecipeIngredientWhereInput>>;
   NOT?: InputMaybe<Array<RecipeIngredientWhereInput>>;
   OR?: InputMaybe<Array<RecipeIngredientWhereInput>>;
-  amount?: InputMaybe<FloatFilter>;
+  amount?: InputMaybe<DecimalFilter>;
   id?: InputMaybe<Scalars['Int']['input']>;
   ingredient?: InputMaybe<IngredientRelationFilter>;
   ingredientId?: InputMaybe<IntFilter>;
@@ -12274,7 +12287,7 @@ export type GetMealAdminQueryVariables = Exact<{
 }>;
 
 
-export type GetMealAdminQuery = { getMealAdmin?: { id: number, name: string, description?: string | null, image?: string | null, createdAt: any, updatedAt: any, allergens?: Array<{ id: number, name: string }> | null, additives?: Array<{ id: number, name: string }> | null, properties?: Array<{ id: number, name: string }> | null, categories?: Array<{ id: number, name: string }> | null, seasons?: Array<{ id: number, name: string }> | null, foodForms?: Array<{ id: number, name: string }> | null, mealRecipe?: Array<{ id: number, recipe: { id: number, name: string, allergens?: Array<{ id: number, name: string }> | null, additives?: Array<{ id: number, name: string }> | null, properties?: Array<{ id: number, name: string }> | null, categories?: Array<{ id: number, name: string }> | null, seasons?: Array<{ id: number, name: string }> | null, foodForms?: Array<{ id: number, name: string }> | null, kitchens?: Array<{ id: number, name: string }> | null, recipeIngredient?: Array<{ id: number, amount: number, unit: Unit, ingredient: { id: number, name: string, blsIdentifier: string, energyKcal: number, energyKj: number, breadUnits: number, carbohydrates: number, sugars: number, salt: number, fats: number, unsaturatedFats: number, saturatedFats: number, protein: number, allergens?: Array<{ id: number, name: string }> | null, additives?: Array<{ id: number, name: string }> | null, properties?: Array<{ id: number, name: string }> | null, categories?: Array<{ id: number, name: string }> | null, seasons?: Array<{ id: number, name: string }> | null, foodForms?: Array<{ id: number, name: string }> | null, kitchens?: Array<{ id: number, name: string }> | null } }> | null } }> | null } | null };
+export type GetMealAdminQuery = { getMealAdmin?: { id: number, name: string, description?: string | null, image?: string | null, createdAt: any, updatedAt: any, allergens?: Array<{ id: number, name: string }> | null, additives?: Array<{ id: number, name: string }> | null, properties?: Array<{ id: number, name: string }> | null, categories?: Array<{ id: number, name: string }> | null, seasons?: Array<{ id: number, name: string }> | null, foodForms?: Array<{ id: number, name: string }> | null, mealRecipe?: Array<{ id: number, recipe: { id: number, name: string, allergens?: Array<{ id: number, name: string }> | null, additives?: Array<{ id: number, name: string }> | null, properties?: Array<{ id: number, name: string }> | null, categories?: Array<{ id: number, name: string }> | null, seasons?: Array<{ id: number, name: string }> | null, foodForms?: Array<{ id: number, name: string }> | null, kitchens?: Array<{ id: number, name: string }> | null, recipeIngredient?: Array<{ id: number, amount: any, unit: Unit, ingredient: { id: number, name: string, blsIdentifier: string, energyKcal: any, energyKj: any, breadUnits: any, carbohydrates: any, sugars: any, salt: any, fats: any, unsaturatedFats: any, saturatedFats: any, protein: any, allergens?: Array<{ id: number, name: string }> | null, additives?: Array<{ id: number, name: string }> | null, properties?: Array<{ id: number, name: string }> | null, categories?: Array<{ id: number, name: string }> | null, seasons?: Array<{ id: number, name: string }> | null, foodForms?: Array<{ id: number, name: string }> | null, kitchens?: Array<{ id: number, name: string }> | null } }> | null } }> | null } | null };
 
 export type GetAllUserMealsUserQueryVariables = Exact<{
   where?: InputMaybe<UserMealWhereInput>;
