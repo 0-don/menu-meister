@@ -67,6 +67,8 @@ model User {
   lastOnline DateTime @default(now())
   status     Boolean  @default(true)
 
+  allergens Allergens[] @relation("UserAllergens")
+
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
@@ -122,8 +124,36 @@ model User {
   createdKitchens   Kitchens[]   @relation("CreatedKitchens")
   updatedKitchens   Kitchens[]   @relation("UpdatedKitchens")
 
-  userRole UserRole[]
-  userMeal UserMeal[]
+  createdUserMealLocations UserMealLocation[] @relation("CreatedUserMealLocation")
+  updatedUserMealLocations UserMealLocation[] @relation("UpdatedUserMealLocation")
+
+  userRole         UserRole[]
+  userMeal         UserMeal[]
+  UserMealLocation UserMealLocation[]
+}
+
+model UserMealLocation {
+  id        Int          @id @default(autoincrement())
+  userId    Int
+  timeOfDay TimeOfDay    @default(Any)
+  name      MealLocation @default(InRoom)
+
+  /// @HideField({ output: false, input: true })
+  createdAt     DateTime @default(now())
+  /// @HideField({ output: false, input: true })
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedUserMealLocation", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedUserMealLocation", fields: [updatedBy], references: [id])
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, timeOfDay, name], name: "user_meal_location_userId_timeOfDay_name_unique")
 }
 
 model UserRole {
@@ -185,6 +215,7 @@ model Allergens {
   ingredients Ingredient[] @relation("IngredientAllergens")
   recipes     Recipe[]     @relation("RecipeAllergens")
   meals       Meal[]       @relation("MealAllergens")
+  users       User[]       @relation("UserAllergens")
 
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
@@ -578,4 +609,22 @@ enum TimeOfDay {
   Afternoon // Nachmittag
   Evening // Abend
   Night // Nacht
+}
+
+enum MealLocation {
+  InRoom // Meals served directly in a patient's room for privacy or convenience.
+  CommunalDining // A shared dining area for communal meals, promoting social interaction.
+  OutdoorPatio // Outdoor meals in a patio setting, beneficial for mental health and wellness.
+  TherapyGarden // An area used for therapeutic activities, where meals can be part of therapy.
+  SpecialDietary // Dedicated space for patients with specific dietary needs or restrictions.
+  StaffCafeteria // Exclusive dining area for staff, separate from patient dining areas.
+  VisitorCafe // A café or small dining area designated for visitors and families.
+  RehabilitationGym // For patients in physical therapy, small snacks or meals might be provided.
+  GroupActivityRoom // Meals or snacks provided during group therapy or activities.
+  QuietRoom // A quiet, distraction-free area for patients who might be overwhelmed by crowded spaces.
+  NutritionCenter // A special area focused on nutritional education and cooking demonstrations.
+  Poolside // For centers with aquatic therapy, light meals or snacks near the pool area.
+  FamilyDining // An area where patients can have private meals with their families.
+  HealingGarden // A serene garden area designated for relaxation and meals outdoors.
+  OnTheGo // A designated pick-up point for patients and staff to grab meals/snacks on the move.
 }
