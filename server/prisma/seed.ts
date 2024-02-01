@@ -36,8 +36,6 @@ const randomInt = (min = 0, max = 10) =>
 const coinFlip = (probability = 0.5) =>
   Math.random() <= probability ? true : false;
 
-const getImageFile = (name: string) => join(resolve(), "images", name);
-
 const seed = async () => {
   const userCount = await prisma.user.count();
   if (userCount > 0) return;
