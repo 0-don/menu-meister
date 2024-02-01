@@ -5,6 +5,7 @@ WORKDIR /app
 COPY package.json ./
 COPY prisma ./prisma
 RUN yarn
+RUN yarn add sharp --ignore-engines
 
 #############################################
 
@@ -34,7 +35,7 @@ COPY --from=builder /app/tsconfig.json ./tsconfig.json
 
 EXPOSE 4000
 
-RUN yarn add sharp --ignore-engines
+
 
 CMD yarn start
 #############################################
