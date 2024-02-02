@@ -86,6 +86,23 @@ export const ALLERGENS = [
   { key: "BERRIES", value: "Beerenobst" },
   { key: "POLLEN_SPICE_ALLERGY", value: "Pollen-Gewürzallergie" },
   { key: "MUSHROOMS", value: "Pilze" },
+  { key: "POME_FRUIT", value: "Kernobst" },
+  { key: "TROUT", value: "Forelle" },
+  { key: "HERRING", value: "Hering" },
+  { key: "CARAWAY", value: "Kümmel" },
+  { key: "HERB_ALLERGY", value: "Küchenkräuter Allergie" },
+  { key: "TOMATOS", value: "Tomaten" },
+  { key: "CORN_ALLERGY", value: "Mais Allergie" },
+  { key: "FENNEL", value: "Fenchel" },
+  {
+    key: "SUGAR_INTOLERANCE",
+    value: "Zuckerintoleranz",
+  },
+  { key: "BASIL", value: "Basilikum" },
+  { key: "LOVAGE", value: "Liebstöckel" },
+  { key: "LEEK_ALLERGY", value: "Lauch Allergie" },
+  { key: "FLAXSEED", value: "Leinsamen" },
+  { key: "SULFUR_DIOXIDE_AND_SULFITES", value: "Schwefeldioxid und Sulphite" },
 ];
 
 export const ADDITIVES = [
@@ -178,6 +195,8 @@ export const PROPERTIES = [
   { key: "VEGETARIAN", value: "Vegetarisch" },
   { key: "GAME_MEAT", value: "Wildfleisch" },
   { key: "FRUCTOSE_MALABSORPTION", value: "Fructose Malabsorption" },
+  { key: "GELLING_AGENT_GELATIN", value: "Geliermittel/Gelantine" },
+  { key: "DIABETES", value: "Diabetes" },
 ];
 
 export const CATEGORIES = [
@@ -301,6 +320,7 @@ export const SEASONS = [
   { key: "WINTER", value: "Winter" },
   { key: "CHRISTMAS", value: "Weihnachten" },
   { key: "EASTER", value: "Ostern" },
+  { key: "YEAR_ROUND", value: "ganzjährig" },
 ];
 
 export const FOOD_FORMS = [
@@ -360,4 +380,6 @@ export const KITCHENS = [
   { key: "SIMMER", value: "schmoren" },
   { key: "BOIL_GENTLY", value: "sieden" },
   { key: "SOUS_VIDE", value: "Sous Vide" },
+  { key: "BAKING", value: "backen" },
+  { key: "WHISKING", value: "aufschlagen" },
 ];

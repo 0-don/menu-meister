@@ -164,7 +164,6 @@ const seedIngredients = async () => {
       allergens: {
         connectOrCreate: ingredient.allergens.map((name) => {
           const item = ALLERGENS.find((allergen) => allergen.value === name);
-          if (!item) console.log(name, ingredient.allergens);
           return {
             where: { name: item?.key },
             create: { name: item?.key, createdBy: user.id, updatedBy: user.id },
@@ -174,7 +173,6 @@ const seedIngredients = async () => {
       additives: {
         connectOrCreate: ingredient.additives.map((name) => {
           const item = ADDITIVES.find((additive) => additive.value === name);
-          if (!item) console.log(name, ingredient.additives);
           return {
             where: { name: item?.key },
             create: { name: item?.key, createdBy: user.id, updatedBy: user.id },
@@ -184,7 +182,6 @@ const seedIngredients = async () => {
       properties: {
         connectOrCreate: ingredient.properties.map((name) => {
           const item = PROPERTIES.find((property) => property.value === name);
-          if (!item) console.log(name, ingredient.properties);
           return {
             where: { name: item?.key },
             create: { name: item?.key, createdBy: user.id, updatedBy: user.id },
@@ -194,7 +191,6 @@ const seedIngredients = async () => {
       categories: {
         connectOrCreate: ingredient.categories.map((name) => {
           const item = CATEGORIES.find((category) => category.value === name);
-          if (!item) console.log(name, ingredient.categories);
           return {
             where: { name: item?.key },
             create: { name: item?.key, createdBy: user.id, updatedBy: user.id },
@@ -204,7 +200,6 @@ const seedIngredients = async () => {
       seasons: {
         connectOrCreate: ingredient.seasons.map((name) => {
           const item = SEASONS.find((season) => season.value === name);
-          if (!item) console.log(name, ingredient.seasons);
           return {
             where: { name: item?.key },
             create: { name: item?.key, createdBy: user.id, updatedBy: user.id },
@@ -214,7 +209,6 @@ const seedIngredients = async () => {
       foodForms: {
         connectOrCreate: ingredient.food_forms.map((name) => {
           const item = FOOD_FORMS.find((foodForm) => foodForm.value === name);
-          if (!item) console.log(name, ingredient.food_forms);
           return {
             where: { name: item?.key },
             create: { name: item?.key, createdBy: user.id, updatedBy: user.id },
@@ -224,7 +218,6 @@ const seedIngredients = async () => {
       kitchens: {
         connectOrCreate: ingredient.kitchens.map((name) => {
           const item = KITCHENS.find((kitchen) => kitchen.value === name);
-          if (!item) console.log(name, ingredient.kitchens);
           return {
             where: { name: item?.key },
             create: { name: item?.key, createdBy: user.id, updatedBy: user.id },
@@ -429,22 +422,58 @@ const seedMeals = async () => {
 
   for (const meal of meals) {
     const additivesIds = meal.additives
-      .map((name) => additives.find((additive) => additive.name === name)?.id)
+      .map((name) => {
+        const item = ADDITIVES.find((additive) => additive.value === name);
+        const actualAdditive = additives.find(
+          (additive) => additive.name === item?.key,
+        );
+        return actualAdditive?.id;
+      })
       .filter(Boolean);
     const allergensIds = meal.allergens
-      .map((name) => allergens.find((allergen) => allergen.name === name)?.id)
+      .map((name) => {
+        const item = ALLERGENS.find((allergen) => allergen.value === name);
+        const actualAllergen = allergens.find(
+          (allergen) => allergen.name === item?.key,
+        );
+        return actualAllergen?.id;
+      })
       .filter(Boolean);
     const propertiesIds = meal.properties
-      .map((name) => properties.find((property) => property.name === name)?.id)
+      .map((name) => {
+        const item = PROPERTIES.find((property) => property.value === name);
+        const actualProperty = properties.find(
+          (property) => property.name === item?.key,
+        );
+        return actualProperty?.id;
+      })
       .filter(Boolean);
     const categoriesIds = meal.categories
-      .map((name) => categories.find((category) => category.name === name)?.id)
+      .map((name) => {
+        const item = CATEGORIES.find((category) => category.value === name);
+        const actualCategory = categories.find(
+          (category) => category.name === item?.key,
+        );
+        return actualCategory?.id;
+      })
       .filter(Boolean);
     const seasonsIds = meal.seasons
-      .map((name) => seasons.find((season) => season.name === name)?.id)
+      .map((name) => {
+        const item = SEASONS.find((season) => season.value === name);
+        const actualSeason = seasons.find(
+          (season) => season.name === item?.key,
+        );
+        return actualSeason?.id;
+      })
       .filter(Boolean);
     const foodFormsIds = meal.food_forms
-      .map((name) => foodForms.find((foodForm) => foodForm.name === name)?.id)
+      .map((name) => {
+        const item = FOOD_FORMS.find((foodForm) => foodForm.value === name);
+        const actualFoodForm = foodForms.find(
+          (foodForm) => foodForm.name === item?.key,
+        );
+        return actualFoodForm?.id;
+      })
       .filter(Boolean);
 
     const mealDB = await prisma.meal.create({
@@ -474,8 +503,8 @@ const seedMeals = async () => {
       },
     });
 
-    for (const rec of meal.dish_recipes) {
-      const recipe = recipes.find((recipe) => recipe.name === rec.name);
+    for (const mealRecipes of meal.dish_recipes) {
+      const recipe = recipes.find((recipe) => recipe.name === mealRecipes.name);
 
       if (!recipe) continue;
       await prisma.mealRecipe.create({
