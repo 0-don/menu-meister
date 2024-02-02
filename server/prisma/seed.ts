@@ -76,7 +76,7 @@ const seedAllProperties = async () => {
 
   await prisma.allergens.createMany({
     data: ALLERGENS.map((name) => ({
-      name,
+      name: name.key,
       createdBy: user.id,
       updatedBy: user.id,
     })),
@@ -85,7 +85,7 @@ const seedAllProperties = async () => {
 
   await prisma.additives.createMany({
     data: ADDITIVES.map((name) => ({
-      name,
+      name: name.key,
       createdBy: user.id,
       updatedBy: user.id,
     })),
@@ -94,7 +94,7 @@ const seedAllProperties = async () => {
 
   await prisma.properties.createMany({
     data: PROPERTIES.map((name) => ({
-      name,
+      name: name.key,
       createdBy: user.id,
       updatedBy: user.id,
     })),
@@ -103,7 +103,7 @@ const seedAllProperties = async () => {
 
   await prisma.categories.createMany({
     data: CATEGORIES.map((name) => ({
-      name,
+      name: name.key,
       createdBy: user.id,
       updatedBy: user.id,
     })),
@@ -112,7 +112,7 @@ const seedAllProperties = async () => {
 
   await prisma.seasons.createMany({
     data: SEASONS.map((name) => ({
-      name,
+      name: name.key,
       createdBy: user.id,
       updatedBy: user.id,
     })),
@@ -121,7 +121,7 @@ const seedAllProperties = async () => {
 
   await prisma.foodForms.createMany({
     data: FOOD_FORMS.map((name) => ({
-      name,
+      name: name.key,
       createdBy: user.id,
       updatedBy: user.id,
     })),
@@ -130,7 +130,7 @@ const seedAllProperties = async () => {
 
   await prisma.kitchens.createMany({
     data: KITCHENS.map((name) => ({
-      name,
+      name: name.key,
       createdBy: user.id,
       updatedBy: user.id,
     })),
@@ -162,46 +162,74 @@ const seedIngredients = async () => {
       createdBy: user.id,
       updatedBy: user.id,
       allergens: {
-        connectOrCreate: ingredient.allergens.map((name) => ({
-          where: { name },
-          create: { name, createdBy: user.id, updatedBy: user.id },
-        })),
+        connectOrCreate: ingredient.allergens.map((name) => {
+          const item = ALLERGENS.find((allergen) => allergen.value === name);
+          if (!item) console.log(name, ingredient.allergens);
+          return {
+            where: { name: item?.key },
+            create: { name: item?.key, createdBy: user.id, updatedBy: user.id },
+          };
+        }),
       },
       additives: {
-        connectOrCreate: ingredient.additives.map((name) => ({
-          where: { name },
-          create: { name, createdBy: user.id, updatedBy: user.id },
-        })),
+        connectOrCreate: ingredient.additives.map((name) => {
+          const item = ADDITIVES.find((additive) => additive.value === name);
+          if (!item) console.log(name, ingredient.additives);
+          return {
+            where: { name: item?.key },
+            create: { name: item?.key, createdBy: user.id, updatedBy: user.id },
+          };
+        }),
       },
       properties: {
-        connectOrCreate: ingredient.properties.map((name) => ({
-          where: { name },
-          create: { name, createdBy: user.id, updatedBy: user.id },
-        })),
+        connectOrCreate: ingredient.properties.map((name) => {
+          const item = PROPERTIES.find((property) => property.value === name);
+          if (!item) console.log(name, ingredient.properties);
+          return {
+            where: { name: item?.key },
+            create: { name: item?.key, createdBy: user.id, updatedBy: user.id },
+          };
+        }),
       },
       categories: {
-        connectOrCreate: ingredient.categories.map((name) => ({
-          where: { name },
-          create: { name, createdBy: user.id, updatedBy: user.id },
-        })),
+        connectOrCreate: ingredient.categories.map((name) => {
+          const item = CATEGORIES.find((category) => category.value === name);
+          if (!item) console.log(name, ingredient.categories);
+          return {
+            where: { name: item?.key },
+            create: { name: item?.key, createdBy: user.id, updatedBy: user.id },
+          };
+        }),
       },
       seasons: {
-        connectOrCreate: ingredient.seasons.map((name) => ({
-          where: { name },
-          create: { name, createdBy: user.id, updatedBy: user.id },
-        })),
+        connectOrCreate: ingredient.seasons.map((name) => {
+          const item = SEASONS.find((season) => season.value === name);
+          if (!item) console.log(name, ingredient.seasons);
+          return {
+            where: { name: item?.key },
+            create: { name: item?.key, createdBy: user.id, updatedBy: user.id },
+          };
+        }),
       },
       foodForms: {
-        connectOrCreate: ingredient.food_forms.map((name) => ({
-          where: { name },
-          create: { name, createdBy: user.id, updatedBy: user.id },
-        })),
+        connectOrCreate: ingredient.food_forms.map((name) => {
+          const item = FOOD_FORMS.find((foodForm) => foodForm.value === name);
+          if (!item) console.log(name, ingredient.food_forms);
+          return {
+            where: { name: item?.key },
+            create: { name: item?.key, createdBy: user.id, updatedBy: user.id },
+          };
+        }),
       },
       kitchens: {
-        connectOrCreate: ingredient.kitchens.map((name) => ({
-          where: { name },
-          create: { name, createdBy: user.id, updatedBy: user.id },
-        })),
+        connectOrCreate: ingredient.kitchens.map((name) => {
+          const item = KITCHENS.find((kitchen) => kitchen.value === name);
+          if (!item) console.log(name, ingredient.kitchens);
+          return {
+            where: { name: item?.key },
+            create: { name: item?.key, createdBy: user.id, updatedBy: user.id },
+          };
+        }),
       },
     };
 
@@ -254,27 +282,68 @@ const seedRecipes = async () => {
 
   for (const recipe of recipes) {
     const additivesIds = recipe.additives
-      .map((name) => additives.find((additive) => additive.name === name)?.id)
+      .map((name) => {
+        const item = ADDITIVES.find((additive) => additive.value === name);
+        const actualAdditive = additives.find(
+          (additive) => additive.name === item?.key,
+        );
+        return actualAdditive?.id;
+      })
       .filter(Boolean);
     const allergensIds = recipe.allergens
-      .map((name) => allergens.find((allergen) => allergen.name === name)?.id)
+      .map((name) => {
+        const item = ALLERGENS.find((allergen) => allergen.value === name);
+        const actualAllergen = allergens.find(
+          (allergen) => allergen.name === item?.key,
+        );
+        return actualAllergen?.id;
+      })
       .filter(Boolean);
     const propertiesIds = recipe.properties
-      .map((name) => properties.find((property) => property.name === name)?.id)
+      .map((name) => {
+        const item = PROPERTIES.find((property) => property.value === name);
+        const actualProperty = properties.find(
+          (property) => property.name === item?.key,
+        );
+        return actualProperty?.id;
+      })
       .filter(Boolean);
     const categoriesIds = recipe.categories
-      .map((name) => categories.find((category) => category.name === name)?.id)
+      .map((name) => {
+        const item = CATEGORIES.find((category) => category.value === name);
+        const actualCategory = categories.find(
+          (category) => category.name === item?.key,
+        );
+        return actualCategory?.id;
+      })
       .filter(Boolean);
     const seasonsIds = recipe.seasons
-      .map((name) => seasons.find((season) => season.name === name)?.id)
+      .map((name) => {
+        const item = SEASONS.find((season) => season.value === name);
+        const actualSeason = seasons.find(
+          (season) => season.name === item?.key,
+        );
+        return actualSeason?.id;
+      })
       .filter(Boolean);
     const foodFormsIds = recipe.food_forms
-      .map((name) => foodForms.find((foodForm) => foodForm.name === name)?.id)
+      .map((name) => {
+        const item = FOOD_FORMS.find((foodForm) => foodForm.value === name);
+        const actualFoodForm = foodForms.find(
+          (foodForm) => foodForm.name === item?.key,
+        );
+        return actualFoodForm?.id;
+      })
       .filter(Boolean);
     const kitchensIds = recipe.kitchens
-      .map((name) => kitchens.find((kitchen) => kitchen.name === name)?.id)
+      .map((name) => {
+        const item = KITCHENS.find((kitchen) => kitchen.value === name);
+        const actualKitchen = kitchens.find(
+          (kitchen) => kitchen.name === item?.key,
+        );
+        return actualKitchen?.id;
+      })
       .filter(Boolean);
-
     const recipeDB = await prisma.recipe.create({
       data: {
         name: recipe.name,
