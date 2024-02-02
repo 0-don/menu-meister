@@ -286,7 +286,6 @@ export const CATEGORIES = [
   { key: "SALAD", value: "Salat" },
   { key: "SAUCE", value: "Sauce" },
   { key: "PORK", value: "Schwein" },
-  { key: "SNACK", value: "Snack" },
   { key: "SPIRITS", value: "Spirituosen" },
   { key: "SOUP", value: "Suppe" },
   { key: "SWEET", value: "Süßware" },
@@ -296,7 +295,6 @@ export const CATEGORIES = [
   { key: "TRADITIONAL", value: "Traditionell" },
   { key: "VEGAN", value: "Vegan" },
   { key: "VEGETARIAN", value: "Vegetarisch" },
-  { key: "SNACK", value: "Vesper" },
   { key: "VITAL", value: "Vital" },
   { key: "WHOLEGRAIN_PASTA", value: "Vollkornpasta" },
   { key: "WHOLEGRAIN_PRODUCT", value: "Vollkornprodukt" },
@@ -320,7 +318,6 @@ export const SEASONS = [
   { key: "WINTER", value: "Winter" },
   { key: "CHRISTMAS", value: "Weihnachten" },
   { key: "EASTER", value: "Ostern" },
-  { key: "YEAR_ROUND", value: "ganzjährig" },
 ];
 
 export const FOOD_FORMS = [
@@ -380,6 +377,4 @@ export const KITCHENS = [
   { key: "SIMMER", value: "schmoren" },
   { key: "BOIL_GENTLY", value: "sieden" },
   { key: "SOUS_VIDE", value: "Sous Vide" },
-  { key: "BAKING", value: "backen" },
-  { key: "WHISKING", value: "aufschlagen" },
 ];
