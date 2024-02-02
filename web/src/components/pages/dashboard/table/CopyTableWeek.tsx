@@ -37,11 +37,7 @@ export const CopyTableWeek: React.FC<CopyTableWeekProps> = ({}) => {
       setIsOpen(false);
       DashboardStore.setCalendar(date);
 
-      setTimeout(() => {
-        console.log("refresh");
-        router.refresh();
-        TableStore.refetchWeeklyMealGroups();
-      }, 2000);
+      setTimeout(TableStore.refetchWeeklyMealGroups, 1000);
     } catch (error) {
       catchErrorAlerts(error, t);
     }
