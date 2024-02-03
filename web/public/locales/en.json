@@ -82,14 +82,16 @@
     "SETTINGS": "Settings",
     "ORDERS": "Bestellungen"
   },
-  "Menu": {
+  "Meal": {
     "ALLERGENS": "Allergene",
     "ADDITIVES": "Zusatzstoffe",
     "PROPERTIES": "Eigenschaften",
     "CATEGORIES": "Kategorien",
     "SEASONS": "Saisonen",
     "FOOD_FORMS": "Ernährungsformen",
-    "KITCHENS": "Küchen"
+    "KITCHENS": "Küchen",
+    "UPLOAD_OR_DRAG_DROP": "Upload a file or drag and drop",
+    "UPLOAD_TYPE_AND_LIMIT": "PNG, JPG, GIF up to 10MB"
   },
   "Allergens": {
     "CASHEW_NUT": "Cashew Nut",

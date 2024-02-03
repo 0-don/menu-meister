@@ -1,5 +1,5 @@
 export const MEAL_TRANSLATIONS: (keyof Messages)[] = [
-  "Menu",
+  "Meal",
   "Allergens",
   "Additives",
   "Properties",

@@ -1,5 +1,6 @@
 import { BiImageAdd } from "@react-icons/all-files/bi/BiImageAdd";
 import { GiCancel } from "@react-icons/all-files/gi/GiCancel";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React, {
   ChangeEvent,
@@ -18,6 +19,7 @@ interface FileInputProps {
 }
 
 export const FileInput: React.FC<FileInputProps> = (props) => {
+  const t = useTranslations<"Meal">();
   const [dragActive, setDragActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -80,7 +82,7 @@ export const FileInput: React.FC<FileInputProps> = (props) => {
         <div className="space-y-1 text-center">
           <div className="flex flex-wrap justify-center">
             {!props.files?.length ? (
-              <BiImageAdd className="text-3xl text-white" />
+              <BiImageAdd className="text-3xl" />
             ) : (
               props.files.map((file) => (
                 <div key={file.name} className="relative mt-1 h-20 w-20">
@@ -115,9 +117,9 @@ export const FileInput: React.FC<FileInputProps> = (props) => {
           />
 
           <p className="pl-1 text-center  text-sm">
-            Upload a file or drag and drop
+            {t("UPLOAD_OR_DRAG_DROP")}
           </p>
-          <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+          <p className="text-xs text-gray-500">{t("UPLOAD_TYPE_AND_LIMIT")}</p>
         </div>
       </div>
     </div>
