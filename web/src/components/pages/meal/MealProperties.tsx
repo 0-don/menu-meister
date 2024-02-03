@@ -1,4 +1,5 @@
 import { Card, CardBody, CardHeader, Chip } from "@nextui-org/react";
+import { useTranslations } from "next-intl";
 import React from "react";
 
 interface MealPropertiesProps {
@@ -7,25 +8,27 @@ interface MealPropertiesProps {
   className?: string;
 }
 
-export const MealProperties: React.FC<MealPropertiesProps> = (props) => {
-  const initialFruits = ["Apple", "Banana", "Cherry", "Watermelon", "Orange"];
-  const [fruits, setFruits] = React.useState(initialFruits);
+type MealPropertiesType =
+  | "Allergens"
+  | "Additives"
+  | "Properties"
+  | "Categories"
+  | "Seasons"
+  | "FoodForms"
+  | "Kitchens";
 
-  const handleClose = (fruitToRemove: string) => {
-    setFruits(fruits.filter((fruit) => fruit !== fruitToRemove));
-    if (fruits.length === 1) {
-      setFruits(initialFruits);
-    }
-  };
+export const MealProperties: React.FC<MealPropertiesProps> = (props) => {
+  const t = useTranslations<MealPropertiesType>();
+
   return (
     <Card className={props.className}>
       <CardHeader className="flex-col items-start px-4 pb-0 pt-2">
         <p className="font-bold uppercase">{props.title}</p>
       </CardHeader>
       <CardBody className="flex">
-        {fruits.map((fruit, index) => (
-          <Chip key={index} onClose={() => handleClose(fruit)} variant="flat">
-            {fruit}
+        {props.items.map((item) => (
+          <Chip key={item.id} onClose={() => {}} variant="flat">
+            {t(item.name as keyof Messages[MealPropertiesType])}
           </Chip>
         ))}
       </CardBody>
