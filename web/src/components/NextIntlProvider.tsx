@@ -7,7 +7,7 @@ import { NextIntlClientProvider, useLocale } from "next-intl";
 
 interface NextIntlProviderProps {
   children: React.ReactNode;
-  tree: keyof Messages;
+  tree: (keyof Messages)[];
 }
 
 export default async function NextIntlProvider({
@@ -15,10 +15,11 @@ export default async function NextIntlProvider({
   tree,
 }: NextIntlProviderProps) {
   const locale = useLocale();
+  const messages = await localePath(locale);
   return (
     <NextIntlClientProvider
       locale={locale}
-      messages={(await localePath(locale))[tree]}
+      messages={tree.reduce((acc, t) => ({ ...acc, ...messages[t] }), {})}
       onError={onErrorTranslation}
       getMessageFallback={getMessageFallbackTranslation}
     >

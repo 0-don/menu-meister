@@ -31,7 +31,7 @@ export default async function HomeLayout({
   if (!data?.me) redirect("/login");
 
   return (
-    <NextIntlProvider tree={"Dashboard"}>
+    <NextIntlProvider tree={["Dashboard"]}>
       <HydrationBoundary state={state}>
         <div className="relative flex min-h-[calc(100svh-4rem)] flex-col items-center px-6">
           {children}

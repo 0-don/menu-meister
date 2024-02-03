@@ -1,13 +1,14 @@
 import NextIntlProvider from "@/components/NextIntlProvider";
+import React from "react";
 
-interface MealIdLayoutProps {
+interface MealLayoutProps {
   children: React.ReactNode;
 }
 
-export default function MealIdLayout({ children }: MealIdLayoutProps) {
+export const MealLayout: React.FC<MealLayoutProps> = ({ children }) => {
   return (
     <>
       <NextIntlProvider tree={["Allergens"]}>{children}</NextIntlProvider>
     </>
   );
-}
+};

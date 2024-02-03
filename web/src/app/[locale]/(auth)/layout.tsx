@@ -30,7 +30,7 @@ export default async function AuthLayout({ children }: AuthLayoutProps) {
     <main className="flex min-h-[calc(100svh-4rem)]">
       <div className="m-auto max-w-[500px] md:w-2/5">
         <Card fullWidth>
-          <NextIntlProvider tree="Auth">{children}</NextIntlProvider>
+          <NextIntlProvider tree={["Auth"]}>{children}</NextIntlProvider>
         </Card>
       </div>
     </main>

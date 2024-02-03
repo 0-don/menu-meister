@@ -7,5 +7,5 @@ interface SettingsLayoutProps {
 export default async function SettingsLayout({
   children,
 }: SettingsLayoutProps) {
-  return <NextIntlProvider tree={"Settings"}>{children}</NextIntlProvider>;
+  return <NextIntlProvider tree={["Settings"]}>{children}</NextIntlProvider>;
 }
