@@ -19,7 +19,7 @@ interface MealDetailsProps {
 }
 
 export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
-  const t = useTranslations<"Allergens">();
+  const t = useTranslations<"Menu">();
   const [files, setFiles] = React.useState<File[]>([]);
   const { data: { getMealAdmin } = {}, refetch } = useGqlQuery(GET_MEAL_ADMIN, {
     where: { id: { equals: Number(id) } },
@@ -33,7 +33,7 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
     <div
       className={`w-full rounded-lg bg-content1 p-5 ${modal ? "" : "container mx-auto mt-5"} flex space-x-10`}
     >
-      <div className="w-5/6">
+      <div className="w-4/6">
         <h1 className="text-left text-xl font-bold">{getMealAdmin?.name}</h1>
 
         <div className="mt-5 w-full rounded-small border-small border-default-200 px-1 py-2 dark:border-default-100">
@@ -50,19 +50,18 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
           </Listbox>
         </div>
       </div>
-      <div>
+      <div className="flex flex-1 flex-col space-y-5">
         {getMealAdmin?.image && (
           <Image
             alt={"MEAL"}
-            className={`h-24 w-full rounded-xl object-cover`}
+            className={`h-28 w-full rounded-xl object-cover`}
             src={`data:image/jpeg;base64,${getMealAdmin.image}`}
             width={200}
-            height={400}
+            height={200}
           />
         )}
         {
           <FileInput
-            className={`${getMealAdmin?.image ? "mt-5" : ""}`}
             files={files}
             setFiles={async (e) => {
               try {
@@ -80,7 +79,10 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
             }}
           />
         }
-        <MealProperties items={getMealAdmin?.additives || []} />
+        <MealProperties
+          title={t("ALLERGENS")}
+          items={getMealAdmin?.allergens || []}
+        />
       </div>
     </div>
   );

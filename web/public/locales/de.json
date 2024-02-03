@@ -61,7 +61,7 @@
     "SUCCESS_ADD_MEAL": "Mahlzeit ({meal}) erfolgreich hinzugefügt",
     "REMOVED_MEAL": "Mahlzeit ({meal}) erfolgreich entfernt"
   },
-  "Menu": {},
+
   "User": {},
   "Settings": {
     "SETTINGS": "Einstellungen",
@@ -82,6 +82,15 @@
     "MENU": "Menü",
     "SETTINGS": "Einstellungen",
     "ORDERS": "Bestellungen"
+  },
+  "Menu": {
+    "ALLERGENS": "Allergene",
+    "ADDITIVES": "Zusatzstoffe",
+    "PROPERTIES": "Eigenschaften",
+    "CATEGORIES": "Kategorien",
+    "SEASONS": "Saisonen",
+    "FOOD_FORMS": "Ernährungsformen",
+    "KITCHENS": "Küchen"
   },
   "Allergens": {
     "CASHEW_NUT": "Cashewnuss",
