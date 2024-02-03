@@ -8,6 +8,7 @@ import TableStore from "@/store/TableStore";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { Listbox, ListboxItem } from "@nextui-org/react";
 import { IoTrashOutline } from "@react-icons/all-files/io5/IoTrashOutline";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
 
@@ -17,10 +18,13 @@ interface MealDetailsProps {
 }
 
 export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
+  const t = useTranslations<"Allergens">();
   const [files, setFiles] = React.useState<File[]>([]);
   const { data: { getMealAdmin } = {}, refetch } = useGqlQuery(GET_MEAL_ADMIN, {
     where: { id: { equals: Number(id) } },
   });
+
+  console.log(t("ALMOND"));
 
   const { mutateAsync: uploadImage } = useGqlMutation(UPLOAD_MEAL_IMAGE_ADMIN);
 
