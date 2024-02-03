@@ -11,6 +11,7 @@ import { IoTrashOutline } from "@react-icons/all-files/io5/IoTrashOutline";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
+import { MealProperties } from "./MealProperties";
 
 interface MealDetailsProps {
   id: number;
@@ -24,9 +25,9 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
     where: { id: { equals: Number(id) } },
   });
 
-  console.log(t("ALMOND"));
-
   const { mutateAsync: uploadImage } = useGqlMutation(UPLOAD_MEAL_IMAGE_ADMIN);
+
+  console.log(getMealAdmin);
 
   return (
     <div
@@ -79,6 +80,7 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
             }}
           />
         }
+        <MealProperties items={getMealAdmin?.additives || []} />
       </div>
     </div>
   );
