@@ -11,7 +11,7 @@ interface LogoSwitchProps {}
 export const LogoSwitch: React.FC<LogoSwitchProps> = ({}) => {
   const { theme } = useTheme();
   const isSSR = useIsSSR();
-  const isSelected = theme === "ligth" || isSSR;
+  const isSelected = theme === "dark" || isSSR;
 
   return (
     <>
