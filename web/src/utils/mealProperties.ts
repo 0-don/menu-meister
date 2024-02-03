@@ -1,3 +1,13 @@
+export const MEAL_TRANSLATIONS: (keyof Messages)[] = [
+  "Allergens",
+  "Additives",
+  "Properties",
+  "Categories",
+  "Seasons",
+  "FoodForms",
+  "Kitchens",
+];
+
 export const ALLERGENS = [
   "CASHEW_NUT",
   "SPELT_GREEN_SPELT",
