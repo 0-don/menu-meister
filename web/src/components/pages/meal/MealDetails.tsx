@@ -19,7 +19,7 @@ interface MealDetailsProps {
 }
 
 export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
-  const t = useTranslations<"Menu">();
+  const t = useTranslations<"Meal">();
   const [files, setFiles] = React.useState<File[]>([]);
   const { data: { getMealAdmin } = {}, refetch } = useGqlQuery(GET_MEAL_ADMIN, {
     where: { id: { equals: Number(id) } },
