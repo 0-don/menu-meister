@@ -1,6 +1,6 @@
 "use client";
 
-import { FileInput } from "@/components/utils/FileInput";
+import { MyFileInput } from "@/components/elements/MyFileInput";
 import { UPLOAD_MEAL_IMAGE_ADMIN } from "@/documents/mutation/menu";
 import { GET_MEAL_ADMIN } from "@/documents/query/meal";
 import { useGqlMutation, useGqlQuery } from "@/fetcher";
@@ -26,8 +26,6 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
   });
 
   const { mutateAsync: uploadImage } = useGqlMutation(UPLOAD_MEAL_IMAGE_ADMIN);
-
-  console.log(getMealAdmin);
 
   return (
     <div
@@ -61,7 +59,7 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
           />
         )}
         {
-          <FileInput
+          <MyFileInput
             files={files}
             setFiles={async (e) => {
               try {

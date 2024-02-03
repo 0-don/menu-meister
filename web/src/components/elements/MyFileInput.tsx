@@ -11,14 +11,14 @@ import React, {
   useState,
 } from "react";
 
-interface FileInputProps {
+interface MyFileInputProps {
   className?: string;
   multiple?: boolean;
   files: File[] | null;
   setFiles: (files: File[]) => void;
 }
 
-export const FileInput: React.FC<FileInputProps> = (props) => {
+export const MyFileInput: React.FC<MyFileInputProps> = (props) => {
   const t = useTranslations<"Meal">();
   const [dragActive, setDragActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);

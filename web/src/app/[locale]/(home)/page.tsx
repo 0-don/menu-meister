@@ -1,6 +1,6 @@
 "use client";
 
-import { LogoSwitch } from "@/components/pages/home/LogoSwitch";
+import { LogoSwitch } from "@/components/utils/LogoSwitch";
 import { Button } from "@nextui-org/button";
 import { useTranslations } from "next-intl";
 import Link from "next/link";

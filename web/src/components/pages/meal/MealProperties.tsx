@@ -27,7 +27,7 @@ export const MealProperties: React.FC<MealPropertiesProps> = (props) => {
       </CardHeader>
       <CardBody className="flex flex-row flex-wrap">
         {props.items.map((item) => (
-          <Chip key={item.id} onClose={() => {}} variant="flat" className="mb-1">
+          <Chip key={item.id} variant="flat" className="mb-1" size="sm">
             {t(item.name as keyof Messages[MealPropertiesType])}
           </Chip>
         ))}
