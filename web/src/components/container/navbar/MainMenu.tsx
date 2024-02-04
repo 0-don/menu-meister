@@ -33,8 +33,12 @@ export const MainMenu: React.FC<MainMenuProps> = ({ pathname }) => {
     <>
       <NavbarContent className="hidden gap-4 sm:flex">
         {links.map(({ link, name }) => (
-          <NavbarItem key={link} isActive={path === link}>
-            <MyLink href={link} size="lg">
+          <NavbarItem
+            key={link}
+            isActive={path === link}
+            className="after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:content-['']"
+          >
+            <MyLink href={link} size="lg" className="!font-normal">
               {t(name as keyof Messages["Navbar"])}
             </MyLink>
           </NavbarItem>
@@ -43,7 +47,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({ pathname }) => {
       <NavbarMenu>
         {links.map(({ link, name }) => (
           <NavbarMenuItem key={link} isActive={path === link}>
-            <MyLink href={link} size="lg">
+            <MyLink href={link} size="lg" className="!font-bold">
               {t(name as keyof Messages["Navbar"])}
             </MyLink>
           </NavbarMenuItem>
