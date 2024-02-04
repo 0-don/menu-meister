@@ -30,11 +30,9 @@ export class UserMealUserResolver {
     @Args() args: FindManyUserMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealSelect;
-    };
+    const select = new PrismaSelect(info).value.select as Prisma.UserMealSelect;
     try {
-      return await this.prisma.userMeal.findMany({ ...args, ...select });
+      return await this.prisma.userMeal.findMany({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -47,11 +45,9 @@ export class UserMealUserResolver {
     @Args() args: FindFirstUserMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealSelect;
-    };
+    const select = new PrismaSelect(info).value.select as Prisma.UserMealSelect;
     try {
-      return await this.prisma.userMeal.findFirst({ ...args, ...select });
+      return await this.prisma.userMeal.findFirst({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -64,11 +60,9 @@ export class UserMealUserResolver {
     @Args("data") data: UserMealUncheckedCreateInput,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealSelect;
-    };
+    const select = new PrismaSelect(info).value.select as Prisma.UserMealSelect;
     try {
-      return await this.prisma.userMeal.create({ data, ...select });
+      return await this.prisma.userMeal.create({ data, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -81,14 +75,10 @@ export class UserMealUserResolver {
     @Args() args: CreateManyUserMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealSelect;
-    };
+    const select = new PrismaSelect(info).value.select as Prisma.UserMealSelect;
     try {
       const data = await Promise.all(
-        args.data.map((data) =>
-          this.prisma.userMeal.create({ data, ...select }),
-        ),
+        args.data.map((data) => this.prisma.userMeal.create({ data, select })),
       );
 
       return data;
@@ -104,11 +94,9 @@ export class UserMealUserResolver {
     @Args() args: DeleteOneUserMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealSelect;
-    };
+    const select = new PrismaSelect(info).value.select as Prisma.UserMealSelect;
     try {
-      return await this.prisma.userMeal.delete({ ...args, ...select });
+      return await this.prisma.userMeal.delete({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -132,11 +120,9 @@ export class UserMealUserResolver {
     @Args() args: UpdateOneUserMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealSelect;
-    };
+    const select = new PrismaSelect(info).value.select as Prisma.UserMealSelect;
     try {
-      return await this.prisma.userMeal.update({ ...args, ...select });
+      return await this.prisma.userMeal.update({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -149,13 +135,12 @@ export class UserMealUserResolver {
     @Args() args: UpdateManyUserMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealSelect;
-    };
+    const select = new PrismaSelect(info).value.select as Prisma.UserMealSelect;
+
     try {
       const data = await this.prisma.userMeal.findMany({
         where: args.where,
-        ...select,
+        select,
       });
 
       await this.prisma.userMeal.updateMany({ ...args });
@@ -173,11 +158,9 @@ export class UserMealUserResolver {
     @Args() args: UpsertOneUserMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealSelect;
-    };
+    const select = new PrismaSelect(info).value.select as Prisma.UserMealSelect;
     try {
-      return await this.prisma.userMeal.upsert({ ...args, ...select });
+      return await this.prisma.userMeal.upsert({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;

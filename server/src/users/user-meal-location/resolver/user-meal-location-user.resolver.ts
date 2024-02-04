@@ -31,12 +31,12 @@ export class UserMealLocationUserResolver {
     @Args() args: FindManyUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealLocationSelect;
-    };
+    const select = new PrismaSelect(info).value
+      .select as Prisma.UserMealLocationSelect;
+
     try {
       return await this.prisma.userMealLocation.findMany({
-        ...select,
+        select,
         ...args,
       });
     } catch (e) {
@@ -51,12 +51,11 @@ export class UserMealLocationUserResolver {
     @Args() args: FindFirstUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealLocationSelect;
-    };
+    const select = new PrismaSelect(info).value
+      .select as Prisma.UserMealLocationSelect;
     try {
       return await this.prisma.userMealLocation.findFirst({
-        ...select,
+        select,
         ...args,
       });
     } catch (e) {
@@ -71,11 +70,10 @@ export class UserMealLocationUserResolver {
     @Args("data") data: UserMealLocationUncheckedCreateInput,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealLocationSelect;
-    };
+    const select = new PrismaSelect(info).value
+      .select as Prisma.UserMealLocationSelect;
     try {
-      return await this.prisma.userMealLocation.create({ data, ...select });
+      return await this.prisma.userMealLocation.create({ data, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -88,13 +86,12 @@ export class UserMealLocationUserResolver {
     @Args() args: CreateManyUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealLocationSelect;
-    };
+    const select = new PrismaSelect(info).value
+      .select as Prisma.UserMealLocationSelect;
     try {
       const data = await Promise.all(
         args.data.map((data) =>
-          this.prisma.userMealLocation.create({ data, ...select }),
+          this.prisma.userMealLocation.create({ data, select }),
         ),
       );
 

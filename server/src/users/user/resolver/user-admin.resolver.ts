@@ -13,6 +13,7 @@ import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
+import { Prisma } from "@prisma/client";
 import { GraphQLResolveInfo } from "graphql";
 import { UserService } from "../user.service";
 
@@ -29,9 +30,9 @@ export class UserAdminResolver {
     @Args() args: FindManyUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.UserSelect;
     try {
-      return await this.prisma.user.findMany({ ...args, ...select });
+      return await this.prisma.user.findMany({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -44,9 +45,9 @@ export class UserAdminResolver {
     @Args() args: FindFirstUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.UserSelect;
     try {
-      return await this.prisma.user.findFirst({ ...args, ...select });
+      return await this.prisma.user.findFirst({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -59,9 +60,9 @@ export class UserAdminResolver {
     @Args() args: CreateOneUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.UserSelect;
     try {
-      return await this.prisma.user.create({ ...args, ...select });
+      return await this.prisma.user.create({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -74,9 +75,18 @@ export class UserAdminResolver {
     @Args() args: CreateManyUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.UserSelect;
     try {
-      return await this.prisma.user.createMany({ ...args, ...select });
+      const data = await Promise.all(
+        args.data.map((userData) =>
+          this.prisma.user.create({
+            data: userData,
+            select,
+          }),
+        ),
+      );
+
+      return data;
     } catch (e) {
       Logger.error(e);
       return null;
@@ -89,9 +99,9 @@ export class UserAdminResolver {
     @Args() args: DeleteOneUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.UserSelect;
     try {
-      return await this.prisma.user.delete({ ...args, ...select });
+      return await this.prisma.user.delete({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -100,13 +110,9 @@ export class UserAdminResolver {
 
   @Mutation(() => Int, { nullable: true })
   @Roles("ADMIN")
-  async deleteManyUsersAdmin(
-    @Args() args: DeleteManyUserArgs,
-    @Info() info: GraphQLResolveInfo,
-  ) {
-    const select = new PrismaSelect(info).value;
+  async deleteManyUsersAdmin(@Args() args: DeleteManyUserArgs) {
     try {
-      return (await this.prisma.user.deleteMany({ ...args, ...select })).count;
+      return (await this.prisma.user.deleteMany({ ...args })).count;
     } catch (e) {
       Logger.error(e);
       return null;
@@ -119,9 +125,9 @@ export class UserAdminResolver {
     @Args() args: UpdateOneUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.UserSelect;
     try {
-      return await this.prisma.user.update({ ...args, ...select });
+      return await this.prisma.user.update({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -134,9 +140,16 @@ export class UserAdminResolver {
     @Args() args: UpdateManyUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.UserSelect;
     try {
-      return await this.prisma.user.updateMany({ ...args, ...select });
+      const data = await this.prisma.user.findMany({
+        where: args.where,
+        select,
+      });
+
+      await this.prisma.user.updateMany({ ...args });
+
+      return data;
     } catch (e) {
       Logger.error(e);
       return null;
@@ -149,9 +162,9 @@ export class UserAdminResolver {
     @Args() args: UpsertOneUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.UserSelect;
     try {
-      return await this.prisma.user.upsert({ ...args, ...select });
+      return await this.prisma.user.upsert({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
