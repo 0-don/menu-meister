@@ -158,11 +158,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
         role="item"
       >
         <div className="flex items-center justify-between">
-          <Link
-            href={!isHighRank || isOrderMenu ? "#" : `/meal/${props.meal.id}`}
-            color="foreground"
-            size="sm"
-          >
+          <Link href={`/meal/${props.meal.id}`} color="foreground" size="sm">
             {props.meal.name}
           </Link>
           {enabled && (
@@ -202,7 +198,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
                 <FaEraser
                   onClick={onOpen}
                   title={t("DELETE_MEAL")}
-                  className="invisible cursor-pointer hover:text-red-500 group-hover:visible"
+                  className="invisible w-11 cursor-pointer text-lg hover:text-red-500 group-hover:visible"
                 />
               }
             >
@@ -228,7 +224,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
         <div className="relative">
           <Image
             alt={t("MEAL")}
-            className={`h-24 w-full rounded-xl object-cover ${enabled ? "cursor-grab" : ""}`}
+            className={`h-24 3xl:h-48 w-full rounded-xl object-cover ${enabled ? "cursor-grab" : ""}`}
             ref={setActivatorNodeRef}
             {...listeners}
             src={

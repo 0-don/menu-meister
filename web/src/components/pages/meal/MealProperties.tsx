@@ -23,7 +23,7 @@ export const MealProperties: React.FC<MealPropertiesProps> = (props) => {
   return (
     <Card className={props.className}>
       <CardHeader className="flex-col items-start px-4 pb-0 pt-2">
-        <p className="font-bold uppercase">{props.title}</p>
+        <p className="text-sm font-bold uppercase">{props.title}</p>
       </CardHeader>
       <CardBody className="flex flex-row flex-wrap">
         {props.items.map((item) => (

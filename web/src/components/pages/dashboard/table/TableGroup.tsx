@@ -26,13 +26,18 @@ export const TableGroup: React.FC<TableGroupProps> = ({
   activatorRef,
 }) => {
   const t = useTranslations<"Dashboard">();
+  const dashboardStore = useSnapshot(DashboardStore);
+  const tableStore = useSnapshot(TableStore);
+  const group = tableStore.getGroup(id);
+  const [color, setColor] = useState<string>(group?.color ?? "");
+  const [groupName, setGroupName] = useState<string>(group?.name ?? "");
+
   const { isHighRank, isOrderMenu } = useMeHook();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { userMealsAdmin } = useUserMealHook();
   const { updateWeeklyMealGroup, deleteWeeklyMealgRoup, isPast } =
     useWeeklyMealGroupHook();
-  const dashboardStore = useSnapshot(DashboardStore);
-  const tableStore = useSnapshot(TableStore);
+
   const debouncedSetColor = useCallback(
     debounce((newColor: string) => {
       setColor(newColor);
@@ -43,9 +48,6 @@ export const TableGroup: React.FC<TableGroupProps> = ({
     }, 100),
     [],
   );
-  const group = tableStore.getGroup(id);
-  const [color, setColor] = useState<string>(group?.color ?? "");
-  const [groupName, setGroupName] = useState<string>(group?.name ?? "");
 
   if (!group) return null;
 
@@ -140,7 +142,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
                 Trigger={
                   <FaRegTrashAlt
                     onClick={() => onOpen()}
-                    className="m-2 cursor-pointer hover:text-red-600"
+                    className="m-2 cursor-pointer text-sm hover:text-red-600"
                   />
                 }
               >

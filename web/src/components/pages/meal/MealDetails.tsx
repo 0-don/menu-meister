@@ -81,6 +81,26 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
           title={t("ALLERGENS")}
           items={getMealAdmin?.allergens || []}
         />
+        <MealProperties
+          title={t("ADDITIVES")}
+          items={getMealAdmin?.additives || []}
+        />
+        <MealProperties
+          title={t("PROPERTIES")}
+          items={getMealAdmin?.properties || []}
+        />
+        <MealProperties
+          title={t("CATEGORIES")}
+          items={getMealAdmin?.categories || []}
+        />
+        <MealProperties
+          title={t("SEASONS")}
+          items={getMealAdmin?.seasons || []}
+        />
+        <MealProperties
+          title={t("FOOD_FORMS")}
+          items={getMealAdmin?.foodForms || []}
+        />
       </div>
     </div>
   );
