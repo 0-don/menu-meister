@@ -32,7 +32,7 @@ export default function LoginPage({}: LoginPageProps) {
         placeholder={t("EMAIL_PLACEHOLDER")}
         value={authStore.email}
         type="email"
-        onChange={(e) => (AuthStore.email = e)}
+        onChange={(e) => (AuthStore.email = e.target.value)}
         Icon={BiLogIn}
         required
       />
@@ -40,7 +40,7 @@ export default function LoginPage({}: LoginPageProps) {
         label={t("PASSWORD")}
         placeholder={t("PASSWORD_PLACEHOLDER")}
         value={authStore.password}
-        onChange={(e) => (AuthStore.password = e)}
+        onChange={(e) => (AuthStore.password = e.target.value)}
         type={authStore.passwordInputType}
         Icon={CgPassword}
         endContent={<DisplayPassword />}
