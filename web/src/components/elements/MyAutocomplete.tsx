@@ -1,11 +1,14 @@
 import { Size } from "@/utils/types";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { Autocomplete, AutocompleteItem } from "@nextui-org/autocomplete";
-import { AutocompleteSlots, SlotsToClasses } from "@nextui-org/react";
+import {
+  AutocompleteProps,
+  AutocompleteSlots,
+  SlotsToClasses,
+} from "@nextui-org/react";
 import React from "react";
 
-interface MyAutocompleteProps {
-  id: string;
+type MyAutocompleteProps = Omit<AutocompleteProps, "children"> & {
   label?: string;
   size?: Size;
   className?: string;
@@ -16,11 +19,12 @@ interface MyAutocompleteProps {
   onSelectionChange?: (value: UniqueIdentifier) => void;
   onInputChange?: (value: string) => void;
   items: { id: UniqueIdentifier | number; name: string }[];
-}
+};
 
 export const MyAutocomplete: React.FC<MyAutocompleteProps> = (props) => {
   return (
     <Autocomplete
+      {...props}
       label={props.label}
       className={props.className}
       labelPlacement={props.labelPlacement}

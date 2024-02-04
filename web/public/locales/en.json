@@ -59,7 +59,15 @@
     "WEEK": "Week",
     "COPY": "Copy",
     "SUCCESS_ADD_MEAL": "Meal ({meal}) added successfully",
-    "REMOVED_MEAL": "Meal ({meal}) removed successfully"
+    "REMOVED_MEAL": "Meal ({meal}) removed successfully",
+    "TIME_OF_DAY": "Time of Day",
+    "ANY": "Any",
+    "MORNING": "Morning",
+    "FORENOON": "Forenoon",
+    "NOON": "Noon",
+    "AFTERNOON": "Afternoon",
+    "EVENING": "Evening",
+    "NIGHT": "Night"
   },
   "User": {},
   "Settings": {

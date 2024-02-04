@@ -59,7 +59,15 @@
     "WEEK": "Woche",
     "COPY": "Kopieren",
     "SUCCESS_ADD_MEAL": "Mahlzeit ({meal}) erfolgreich hinzugefügt",
-    "REMOVED_MEAL": "Mahlzeit ({meal}) erfolgreich entfernt"
+    "REMOVED_MEAL": "Mahlzeit ({meal}) erfolgreich entfernt",
+    "TIME_OF_DAY": "Tageszeit",
+    "ANY": "Jeder",
+    "MORNING": "Morgen",
+    "FORENOON": "Vormittag",
+    "NOON": "Mittag",
+    "AFTERNOON": "Nachmittag",
+    "EVENING": "Abend",
+    "NIGHT": "Nacht"
   },
   "User": {},
   "Settings": {

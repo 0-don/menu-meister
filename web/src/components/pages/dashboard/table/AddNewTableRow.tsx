@@ -1,6 +1,7 @@
+import { MyAutocomplete } from "@/components/elements/MyAutocomplete";
 import { useMealHook } from "@/components/hooks/useMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
-import { WeeklyMealGroupFragmentFragment } from "@/gql/graphql";
+import { TimeOfDay, WeeklyMealGroupFragmentFragment } from "@/gql/graphql";
 import { DashboardStore } from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
@@ -22,6 +23,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
   const tableStore = useSnapshot(TableStore);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
+  const [timeOfDay, setTimeOfDay] = useState<TimeOfDay>(TimeOfDay.Any);
   const [color, setColor] = useState<string>("#f44336");
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -74,6 +76,17 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
             size="sm"
             value={name}
             onChange={(e) => setName(e.target.value)}
+          />
+
+          <MyAutocomplete
+            label={t("TIME_OF_DAY")}
+            value={timeOfDay}
+            items={Object.values(TimeOfDay).map((key) => ({
+              id: key,
+              name: t(key.toUpperCase() as keyof Messages["Dashboard"]),
+            }))}
+            clearButtonProps={{ className: "invisible" }}
+            onSelectionChange={(key) => setTimeOfDay(key as TimeOfDay)}
           />
 
           <ColorPalette value={color} onChange={setColor} />
