@@ -36,7 +36,7 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
       className={`w-full rounded-lg bg-content1 p-5 ${modal ? "" : "container mx-auto mt-5"} flex space-x-10`}
     >
       <div className="w-4/6">
-        <h1 className="text-left text-xl font-bold">{getMealAdmin?.name}</h1>
+        <h1 className="text-left text-2xl font-bold">{getMealAdmin?.name}</h1>
 
         <div className="mt-5 w-full rounded-small border-small border-default-200 px-1 py-2 dark:border-default-100">
           <Listbox>

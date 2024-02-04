@@ -224,7 +224,11 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
         <div className="relative">
           <Image
             alt={t("MEAL")}
-            className={`h-24 3xl:h-48 w-full rounded-xl object-cover ${enabled ? "cursor-grab" : ""}`}
+            className={classNames(
+              `h-24 w-full rounded-xl object-cover 3xl:h-48`,
+              enabled && tableStore.active?.id !== id && "cursor-grab",
+              enabled && tableStore.active?.id === id && "cursor-grabbing",
+            )}
             ref={setActivatorNodeRef}
             {...listeners}
             src={

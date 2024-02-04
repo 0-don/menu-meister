@@ -5,7 +5,7 @@ import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHoo
 import { DashboardStore } from "@/store/DashboardStore";
 import TableStore from "@/store/TableStore";
 import { debounce } from "@/utils/constants";
-import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
+import { catchErrorAlerts, classNames } from "@/utils/helpers/clientUtils";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 import { Button, useDisclosure } from "@nextui-org/react";
@@ -107,7 +107,11 @@ export const TableGroup: React.FC<TableGroupProps> = ({
           />
           <div className="flex h-full w-full items-end justify-end">
             <div
-              className={`h-full w-full ${enabled ? "cursor-grab" : ""}`}
+              className={classNames(
+                `h-full w-full `,
+                enabled && tableStore.active?.id !== id && "cursor-grab",
+                enabled && tableStore.active?.id === id && "cursor-grabbing",
+              )}
               {...listeners}
               ref={activatorRef}
             />
