@@ -14,9 +14,9 @@ import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
+import { Prisma } from "@prisma/client";
 import { GraphQLResolveInfo } from "graphql";
 import { MealBoardPlanService } from "../meal-board-plan.service";
-
 
 @Resolver(() => MealBoardPlan)
 export class MealBoardPlanAdminResolver {
@@ -31,9 +31,10 @@ export class MealBoardPlanAdminResolver {
     @Args() args: FindManyMealBoardPlanArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.MealBoardPlanSelect;
     try {
-      return await this.prisma.mealBoardPlan.findMany({ ...args, ...select });
+      return await this.prisma.mealBoardPlan.findMany({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -46,9 +47,10 @@ export class MealBoardPlanAdminResolver {
     @Args() args: FindFirstMealBoardPlanArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.MealBoardPlanSelect;
     try {
-      return await this.prisma.mealBoardPlan.findFirst({ ...args, ...select });
+      return await this.prisma.mealBoardPlan.findFirst({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -61,9 +63,10 @@ export class MealBoardPlanAdminResolver {
     @Args() args: CreateOneMealBoardPlanArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.MealBoardPlanSelect;
     try {
-      return await this.prisma.mealBoardPlan.create({ ...args, ...select });
+      return await this.prisma.mealBoardPlan.create({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -76,9 +79,10 @@ export class MealBoardPlanAdminResolver {
     @Args() args: CreateManyMealBoardPlanArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.MealBoardPlanSelect;
     try {
-      return await this.prisma.mealBoardPlan.createMany({ ...args, ...select });
+      return await this.prisma.mealBoardPlan.createMany({ ...args });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -91,9 +95,10 @@ export class MealBoardPlanAdminResolver {
     @Args() args: DeleteOneMealBoardPlanArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.MealBoardPlanSelect;
     try {
-      return await this.prisma.mealBoardPlan.delete({ ...args, ...select });
+      return await this.prisma.mealBoardPlan.delete({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -104,13 +109,9 @@ export class MealBoardPlanAdminResolver {
   @Roles("ADMIN")
   async deleteManyMealBoardPlansAdmin(
     @Args() args: DeleteManyMealBoardPlanArgs,
-    @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
     try {
-      return (
-        await this.prisma.mealBoardPlan.deleteMany({ ...args, ...select })
-      ).count;
+      return (await this.prisma.mealBoardPlan.deleteMany({ ...args })).count;
     } catch (e) {
       Logger.error(e);
       return null;
@@ -121,12 +122,14 @@ export class MealBoardPlanAdminResolver {
   @Roles("ADMIN")
   async updateMealBoardPlanAdmin(
     @Args("data") data: MealBoardPlanUncheckedUpdateInput,
-    @Args("where") where: MealBoardPlanWhereUniqueInput,
+    @Args({ name: "where", type: () => MealBoardPlanWhereUniqueInput })
+    where: Prisma.AtLeast<MealBoardPlanWhereUniqueInput, "id">,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.MealBoardPlanSelect;
     try {
-      return await this.prisma.mealBoardPlan.update({ data, where, ...select });
+      return await this.prisma.mealBoardPlan.update({ data, where, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -139,9 +142,10 @@ export class MealBoardPlanAdminResolver {
     @Args() args: UpdateManyMealBoardPlanArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.MealBoardPlanSelect;
     try {
-      return await this.prisma.mealBoardPlan.updateMany({ ...args, ...select });
+      return await this.prisma.mealBoardPlan.updateMany({ ...args });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -154,9 +158,10 @@ export class MealBoardPlanAdminResolver {
     @Args() args: UpsertOneMealBoardPlanArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.MealBoardPlanSelect;
     try {
-      return await this.prisma.mealBoardPlan.upsert({ ...args, ...select });
+      return await this.prisma.mealBoardPlan.upsert({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;

@@ -204,8 +204,10 @@ export class WeeklyMealGroupAdminResolver {
   @Mutation(() => WeeklyMealGroup, { nullable: true })
   @Roles("ADMIN")
   async updateWeeklyMealGroupAdmin(
+    // @Args() args: UpdateOneWeeklyMealGroupArgs,
     @Args("data") data: WeeklyMealGroupUncheckedUpdateInput,
-    @Args("where") where: Prisma.AtLeast<WeeklyMealGroupWhereUniqueInput, "id">,
+    @Args({ name: "where", type: () => WeeklyMealGroupWhereUniqueInput })
+    where: Prisma.AtLeast<WeeklyMealGroupWhereUniqueInput, "id">,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value

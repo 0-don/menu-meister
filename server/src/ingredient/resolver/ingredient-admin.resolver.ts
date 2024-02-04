@@ -13,6 +13,7 @@ import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
+import { Prisma } from "@prisma/client";
 import { GraphQLResolveInfo } from "graphql";
 import { IngredientService } from "../ingredient.service";
 
@@ -29,9 +30,10 @@ export class IngredientAdminResolver {
     @Args() args: FindManyIngredientArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.IngredientSelect;
     try {
-      return await this.prisma.ingredient.findMany({ ...args, ...select });
+      return await this.prisma.ingredient.findMany({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -44,9 +46,10 @@ export class IngredientAdminResolver {
     @Args() args: FindFirstIngredientArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.IngredientSelect;
     try {
-      return await this.prisma.ingredient.findFirst({ ...args, ...select });
+      return await this.prisma.ingredient.findFirst({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -59,9 +62,10 @@ export class IngredientAdminResolver {
     @Args() args: CreateOneIngredientArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.IngredientSelect;
     try {
-      return await this.prisma.ingredient.create({ ...args, ...select });
+      return await this.prisma.ingredient.create({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -74,9 +78,10 @@ export class IngredientAdminResolver {
     @Args() args: CreateManyIngredientArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.IngredientSelect;
     try {
-      return await this.prisma.ingredient.createMany({ ...args, ...select });
+      return await this.prisma.ingredient.createMany({ ...args });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -89,9 +94,10 @@ export class IngredientAdminResolver {
     @Args() args: DeleteOneIngredientArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.IngredientSelect;
     try {
-      return await this.prisma.ingredient.delete({ ...args, ...select });
+      return await this.prisma.ingredient.delete({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -100,14 +106,9 @@ export class IngredientAdminResolver {
 
   @Mutation(() => Int, { nullable: true })
   @Roles("ADMIN")
-  async deleteManyIngredientsAdmin(
-    @Args() args: DeleteManyIngredientArgs,
-    @Info() info: GraphQLResolveInfo,
-  ) {
-    const select = new PrismaSelect(info).value;
+  async deleteManyIngredientsAdmin(@Args() args: DeleteManyIngredientArgs) {
     try {
-      return (await this.prisma.ingredient.deleteMany({ ...args, ...select }))
-        .count;
+      return (await this.prisma.ingredient.deleteMany({ ...args })).count;
     } catch (e) {
       Logger.error(e);
       return null;
@@ -120,9 +121,10 @@ export class IngredientAdminResolver {
     @Args() args: UpdateOneIngredientArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.IngredientSelect;
     try {
-      return await this.prisma.ingredient.update({ ...args, ...select });
+      return await this.prisma.ingredient.update({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -135,9 +137,10 @@ export class IngredientAdminResolver {
     @Args() args: UpdateManyIngredientArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.IngredientSelect;
     try {
-      return await this.prisma.ingredient.updateMany({ ...args, ...select });
+      return await this.prisma.ingredient.updateMany({ ...args });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -150,9 +153,10 @@ export class IngredientAdminResolver {
     @Args() args: UpsertOneIngredientArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.IngredientSelect;
     try {
-      return await this.prisma.ingredient.upsert({ ...args, ...select });
+      return await this.prisma.ingredient.upsert({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;

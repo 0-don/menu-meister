@@ -13,6 +13,7 @@ import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
+import { Prisma } from "@prisma/client";
 import { GraphQLResolveInfo } from "graphql";
 import { RecipeService } from "../recipe.service";
 
@@ -29,9 +30,9 @@ export class RecipeAdminResolver {
     @Args() args: FindManyRecipeArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.RecipeSelect;
     try {
-      return await this.prisma.recipe.findMany({ ...args, ...select });
+      return await this.prisma.recipe.findMany({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -44,9 +45,9 @@ export class RecipeAdminResolver {
     @Args() args: FindFirstRecipeArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.RecipeSelect;
     try {
-      return await this.prisma.recipe.findFirst({ ...args, ...select });
+      return await this.prisma.recipe.findFirst({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -59,9 +60,9 @@ export class RecipeAdminResolver {
     @Args() args: CreateOneRecipeArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.RecipeSelect;
     try {
-      return await this.prisma.recipe.create({ ...args, ...select });
+      return await this.prisma.recipe.create({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -74,9 +75,9 @@ export class RecipeAdminResolver {
     @Args() args: CreateManyRecipeArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.RecipeSelect;
     try {
-      return await this.prisma.recipe.createMany({ ...args, ...select });
+      return await this.prisma.recipe.createMany({ ...args });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -89,9 +90,9 @@ export class RecipeAdminResolver {
     @Args() args: DeleteOneRecipeArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.RecipeSelect;
     try {
-      return await this.prisma.recipe.delete({ ...args, ...select });
+      return await this.prisma.recipe.delete({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -100,14 +101,9 @@ export class RecipeAdminResolver {
 
   @Mutation(() => Int, { nullable: true })
   @Roles("ADMIN")
-  async deleteManyRecipesAdmin(
-    @Args() args: DeleteManyRecipeArgs,
-    @Info() info: GraphQLResolveInfo,
-  ) {
-    const select = new PrismaSelect(info).value;
+  async deleteManyRecipesAdmin(@Args() args: DeleteManyRecipeArgs) {
     try {
-      return (await this.prisma.recipe.deleteMany({ ...args, ...select }))
-        .count;
+      return (await this.prisma.recipe.deleteMany({ ...args })).count;
     } catch (e) {
       Logger.error(e);
       return null;
@@ -120,9 +116,9 @@ export class RecipeAdminResolver {
     @Args() args: UpdateOneRecipeArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.RecipeSelect;
     try {
-      return await this.prisma.recipe.update({ ...args, ...select });
+      return await this.prisma.recipe.update({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -135,9 +131,9 @@ export class RecipeAdminResolver {
     @Args() args: UpdateManyRecipeArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.RecipeSelect;
     try {
-      return await this.prisma.recipe.updateMany({ ...args, ...select });
+      return await this.prisma.recipe.updateMany({ ...args });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -150,9 +146,9 @@ export class RecipeAdminResolver {
     @Args() args: UpsertOneRecipeArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.RecipeSelect;
     try {
-      return await this.prisma.recipe.upsert({ ...args, ...select });
+      return await this.prisma.recipe.upsert({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;

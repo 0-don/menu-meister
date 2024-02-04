@@ -13,6 +13,7 @@ import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
 import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
+import { Prisma } from "@prisma/client";
 import { GraphQLResolveInfo } from "graphql";
 import { SettingsService } from "../settings.service";
 
@@ -29,9 +30,9 @@ export class SettingsAdminResolver {
     @Args() args: FindManySettingsArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.SettingsSelect;
     try {
-      return await this.prisma.settings.findMany({ ...args, ...select });
+      return await this.prisma.settings.findMany({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -44,9 +45,9 @@ export class SettingsAdminResolver {
     @Args() args: FindFirstSettingsArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.SettingsSelect;
     try {
-      return await this.prisma.settings.findFirst({ ...args, ...select });
+      return await this.prisma.settings.findFirst({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -59,9 +60,9 @@ export class SettingsAdminResolver {
     @Args() args: CreateOneSettingsArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.SettingsSelect;
     try {
-      return await this.prisma.settings.create({ ...args, ...select });
+      return await this.prisma.settings.create({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -74,9 +75,9 @@ export class SettingsAdminResolver {
     @Args() args: CreateManySettingsArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.SettingsSelect;
     try {
-      return await this.prisma.settings.createMany({ ...args, ...select });
+      return await this.prisma.settings.createMany({ ...args });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -89,9 +90,9 @@ export class SettingsAdminResolver {
     @Args() args: DeleteOneSettingsArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.SettingsSelect;
     try {
-      return await this.prisma.settings.delete({ ...args, ...select });
+      return await this.prisma.settings.delete({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -104,10 +105,8 @@ export class SettingsAdminResolver {
     @Args() args: DeleteManySettingsArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
     try {
-      return (await this.prisma.settings.deleteMany({ ...args, ...select }))
-        .count;
+      return (await this.prisma.settings.deleteMany({ ...args })).count;
     } catch (e) {
       Logger.error(e);
       return null;
@@ -120,9 +119,9 @@ export class SettingsAdminResolver {
     @Args() args: UpdateOneSettingsArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.SettingsSelect;
     try {
-      return await this.prisma.settings.update({ ...args, ...select });
+      return await this.prisma.settings.update({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -135,9 +134,9 @@ export class SettingsAdminResolver {
     @Args() args: UpdateManySettingsArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.SettingsSelect;
     try {
-      return await this.prisma.settings.updateMany({ ...args, ...select });
+      return await this.prisma.settings.updateMany({ ...args });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -150,9 +149,9 @@ export class SettingsAdminResolver {
     @Args() args: UpsertOneSettingsArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.SettingsSelect;
     try {
-      return await this.prisma.settings.upsert({ ...args, ...select });
+      return await this.prisma.settings.upsert({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
