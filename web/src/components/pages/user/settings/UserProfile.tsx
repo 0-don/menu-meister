@@ -1,4 +1,5 @@
 import { MyAutocomplete } from "@/components/elements/MyAutocomplete";
+import { useIngredientPropertiesHook } from "@/components/hooks/useIngredientPropertiesHook";
 import { useMeHook } from "@/components/hooks/useMeHook";
 import { Listbox, ListboxItem } from "@nextui-org/react";
 import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
@@ -8,10 +9,11 @@ import React, { useState } from "react";
 interface UserProfileProps {}
 
 export const UserProfile: React.FC<UserProfileProps> = ({}) => {
+  const t = useTranslations<"User" | "Allergens">();
   const { me } = useMeHook();
+  const { allergens } = useIngredientPropertiesHook();
   const [allergen, setAllergen] = useState<string>("");
   const [timeOfDay, setTimeOfDay] = useState<string>("");
-  const t = useTranslations<"User">();
 
   return (
     <form className="subpixel-antialiased">
@@ -23,14 +25,16 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="md">
           <MyAutocomplete
-            label={t("NOTIFICATIONS")}
+            label={t("ALLERGENS")}
             value={allergen}
             size="sm"
-            onChange={(e) => setAllergen(e.target.value)}
+            onChange={async (e) => {
+              setAllergen(e.target.value);
+            }}
             items={
-              A.map(({ id, name }) => ({
+              allergens?.map(({ id, name }) => ({
                 id,
-                name,
+                name: t(name as keyof Messages["Allergens"]),
               })) || []
             }
           />

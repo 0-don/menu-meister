@@ -81,7 +81,8 @@
     "SECURITY": "Sicherheit",
     "SECURITY_DESCRIPTION": "Einstellungen zur Sicherung Ihres Kontos.",
     "SECURITY_DETAILS": "Sicherheitsdetails",
-    "SECURITY_DETAILS_DESCRIPTION": "Erweiterte Sicherheitseinstellungen und Kontosicherheitsinformationen."
+    "SECURITY_DETAILS_DESCRIPTION": "Erweiterte Sicherheitseinstellungen und Kontosicherheitsinformationen.",
+    "ALLERGENS": "Allergene"
   },
   "Settings": {
     "SETTINGS": "Einstellungen",

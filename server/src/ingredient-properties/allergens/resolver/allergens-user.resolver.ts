@@ -17,7 +17,7 @@ export class AllergensUserResolver {
     private allergensService: AllergensService,
   ) {}
 
-  @Query(() => [Meal], { nullable: true })
+  @Query(() => [Allergens], { nullable: true })
   @Roles("USER", "MOD")
   async getAllAllergensUser(
     @Args() args: FindManyAllergensArgs,

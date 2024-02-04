@@ -5,5 +5,5 @@ interface UserLayoutProps {
 }
 
 export default function UserLayout({ children }: UserLayoutProps) {
-  return <NextIntlProvider tree={["User"]}>{children}</NextIntlProvider>;
+  return <NextIntlProvider tree={["User", "Allergens"]}>{children}</NextIntlProvider>;
 }
