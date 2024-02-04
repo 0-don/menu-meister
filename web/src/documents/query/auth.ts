@@ -6,11 +6,16 @@ export const ME = graphql(/* GraphQL */ `
       id
       username
       email
-      lastOnline
-      status
-      createdAt
-      updatedAt
       userRole {
+        id
+        name
+      }
+      UserMealLocation {
+        id
+        timeOfDay
+        name
+      }
+      allergens {
         id
         name
       }

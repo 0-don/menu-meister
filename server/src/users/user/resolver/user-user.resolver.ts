@@ -5,10 +5,7 @@ import { CurrentUser } from "@/app_modules/decorators/currentUser.decorator";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
-import { Args, Info, Mutation, Resolver } from "@nestjs/graphql";
-import { PrismaSelect } from "@paljs/plugins";
-import { Prisma } from "@prisma/client";
-import { GraphQLResolveInfo } from "graphql";
+import { Args, Mutation, Resolver } from "@nestjs/graphql";
 import { UserService } from "../user.service";
 
 @Resolver(() => User)
@@ -18,18 +15,15 @@ export class UserUserResolver {
     private userService: UserService,
   ) {}
 
-  @Mutation(() => User, { nullable: true })
+  @Mutation(() => Boolean, { nullable: true })
   @Roles("USER", "MOD")
-  async updateUserAllergens(
+  async updateUserAllergensUser(
     @Args("data") data: UserUpdateInput,
-    @Info() info: GraphQLResolveInfo,
     @CurrentUser() me?: JwtUser,
   ) {
-    const select = new PrismaSelect(info).value.select as Prisma.UserSelect;
     try {
       return await this.prisma.user.update({
         data,
-        select,
         where: { id: me.sub },
       });
     } catch (e) {
