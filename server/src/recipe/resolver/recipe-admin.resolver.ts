@@ -147,10 +147,7 @@ export class RecipeAdminResolver {
         select,
       });
 
-      await this.prisma.recipe.updateMany({
-        where: args.where,
-        data: args.data,
-      });
+      await this.prisma.recipe.updateMany({ ...args });
 
       const updatedRecipes = recipesToUpdate.map((recipe) => ({
         ...recipe,
