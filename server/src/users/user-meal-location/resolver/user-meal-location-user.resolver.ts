@@ -208,7 +208,7 @@ export class UserMealLocationUserResolver {
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value
-      .select as Prisma.UserMealLocationSelect;
+      ?.select as Prisma.UserMealLocationSelect;
     try {
       return await this.prisma.userMealLocation.upsert({ ...args, select });
     } catch (e) {

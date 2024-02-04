@@ -189,7 +189,7 @@ export class MealAdminResolver {
     @Args() args: UpsertOneMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value.select as Prisma.MealSelect;
+    const select = new PrismaSelect(info).value?.select as Prisma.MealSelect;
     try {
       return await this.prisma.meal.upsert({ ...args, select });
     } catch (e) {

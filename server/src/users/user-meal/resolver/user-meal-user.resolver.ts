@@ -158,7 +158,7 @@ export class UserMealUserResolver {
     @Args() args: UpsertOneUserMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value.select as Prisma.UserMealSelect;
+    const select = new PrismaSelect(info).value?.select as Prisma.UserMealSelect;
     try {
       return await this.prisma.userMeal.upsert({ ...args, select });
     } catch (e) {

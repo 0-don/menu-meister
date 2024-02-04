@@ -125,7 +125,7 @@ export class RecipeAdminResolver {
     @Args() args: UpdateOneRecipeArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value.select as Prisma.RecipeSelect;
+    const select = new PrismaSelect(info).value?.select as Prisma.RecipeSelect;
     try {
       return await this.prisma.recipe.update({ ...args, select });
     } catch (e) {

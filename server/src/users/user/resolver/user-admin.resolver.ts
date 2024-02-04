@@ -162,7 +162,7 @@ export class UserAdminResolver {
     @Args() args: UpsertOneUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value.select as Prisma.UserSelect;
+    const select = new PrismaSelect(info).value?.select as Prisma.UserSelect;
     try {
       return await this.prisma.user.upsert({ ...args, select });
     } catch (e) {

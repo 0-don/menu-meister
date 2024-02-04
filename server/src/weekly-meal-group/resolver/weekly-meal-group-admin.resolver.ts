@@ -254,7 +254,7 @@ export class WeeklyMealGroupAdminResolver {
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value
-      .select as Prisma.WeeklyMealGroupSelect;
+      ?.select as Prisma.WeeklyMealGroupSelect;
     try {
       return await this.prisma.weeklyMealGroup.upsert({ ...args, select });
     } catch (e) {

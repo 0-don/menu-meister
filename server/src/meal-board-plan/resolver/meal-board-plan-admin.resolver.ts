@@ -181,7 +181,7 @@ export class MealBoardPlanAdminResolver {
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value
-      .select as Prisma.MealBoardPlanSelect;
+      ?.select as Prisma.MealBoardPlanSelect;
     try {
       return await this.prisma.mealBoardPlan.upsert({ ...args, select });
     } catch (e) {

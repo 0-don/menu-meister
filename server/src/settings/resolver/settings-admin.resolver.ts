@@ -162,7 +162,7 @@ export class SettingsAdminResolver {
     @Args() args: UpsertOneSettingsArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value.select as Prisma.SettingsSelect;
+    const select = new PrismaSelect(info).value?.select as Prisma.SettingsSelect;
     try {
       return await this.prisma.settings.upsert({ ...args, select });
     } catch (e) {

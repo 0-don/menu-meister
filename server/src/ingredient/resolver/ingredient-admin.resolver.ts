@@ -169,7 +169,7 @@ export class IngredientAdminResolver {
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value
-      .select as Prisma.IngredientSelect;
+      ?.select as Prisma.IngredientSelect;
     try {
       return await this.prisma.ingredient.upsert({ ...args, select });
     } catch (e) {
