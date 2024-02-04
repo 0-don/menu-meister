@@ -85,6 +85,7 @@
     "ALLERGENS": "Allergens",
     "NO_ALLERGIES": "No allergies",
     "TIME_OF_DAY": "Time of Day",
+    "MEAL_LOCATION": "Meal Location",
     "NO_USER_MEAL_LOCATION": "No user meal location selected"
   },
   "Settings": {
@@ -117,6 +118,31 @@
     "KITCHENS": "Küchen",
     "UPLOAD_OR_DRAG_DROP": "Upload a file or drag and drop",
     "UPLOAD_TYPE_AND_LIMIT": "PNG, JPG, GIF up to 10MB"
+  },
+  "Enums": {
+    "Any": "Any",
+    "Morning": "Morning",
+    "Forenoon": "Forenoon",
+    "Noon": "Noon",
+    "Afternoon": "Afternoon",
+    "Evening": "Evening",
+    "Night": "Night",
+    "XXXXXXXXXX": "XXXXXXXXXX",
+    "InRoom": "In Room",
+    "CommunalDining": "Communal Dining",
+    "OutdoorPatio": "Outdoor Patio",
+    "TherapyGarden": "Therapy Garden",
+    "SpecialDietary": "Special Dietary",
+    "StaffCafeteria": "Staff Cafeteria",
+    "VisitorCafe": "Visitor Cafe",
+    "RehabilitationGym": "Rehabilitation Gym",
+    "GroupActivityRoom": "Group Activity Room",
+    "QuietRoom": "Quiet Room",
+    "NutritionCenter": "Nutrition Center",
+    "Poolside": "Poolside",
+    "FamilyDining": "Family Dining",
+    "HealingGarden": "Healing Garden",
+    "OnTheGo": "On The Go"
   },
   "Allergens": {
     "CASHEW_NUT": "Cashew Nut",

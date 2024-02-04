@@ -132,31 +132,6 @@ model User {
   UserMealLocation UserMealLocation[]
 }
 
-model UserMealLocation {
-  id        Int          @id @default(autoincrement())
-  userId    Int
-  timeOfDay TimeOfDay    @default(Any)
-  name      MealLocation @default(InRoom)
-
-  /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now())
-  /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt
-  /// @HideField({ output: false, input: true })
-  createdBy     Int
-  /// @HideField({ output: false, input: true })
-  updatedBy     Int
-  /// @HideField({ output: false, input: true })
-  createdByUser User     @relation("CreatedUserMealLocation", fields: [createdBy], references: [id])
-  /// @HideField({ output: false, input: true })
-  updatedByUser User     @relation("UpdatedUserMealLocation", fields: [updatedBy], references: [id])
-
-  user     User       @relation(fields: [userId], references: [id])
-  userMeal UserMeal[]
-
-  @@unique([userId, timeOfDay, name], name: "user_meal_location_userId_timeOfDay_name_unique")
-}
-
 model UserRole {
   id     Int          @id @default(autoincrement())
   userId Int
@@ -210,6 +185,31 @@ model UserMeal {
   updatedByUser User     @relation("UpdatedUserMeal", fields: [updatedBy], references: [id])
 
   @@unique([date, mealBoardPlanId, userId, mealId], name: "user_meal_date_mealBoardPlanId_userId_mealId_unique")
+}
+
+model UserMealLocation {
+  id           Int          @id @default(autoincrement())
+  userId       Int
+  timeOfDay    TimeOfDay    @default(Any)
+  mealLocation MealLocation @default(InRoom)
+
+  /// @HideField({ output: false, input: true })
+  createdAt     DateTime @default(now())
+  /// @HideField({ output: false, input: true })
+  updatedAt     DateTime @updatedAt
+  /// @HideField({ output: false, input: true })
+  createdBy     Int
+  /// @HideField({ output: false, input: true })
+  updatedBy     Int
+  /// @HideField({ output: false, input: true })
+  createdByUser User     @relation("CreatedUserMealLocation", fields: [createdBy], references: [id])
+  /// @HideField({ output: false, input: true })
+  updatedByUser User     @relation("UpdatedUserMealLocation", fields: [updatedBy], references: [id])
+
+  user     User       @relation(fields: [userId], references: [id])
+  userMeal UserMeal[]
+
+  @@unique([userId, timeOfDay, mealLocation], name: "user_meal_location_userId_timeOfDay_mealLocation_unique")
 }
 
 model Allergens {

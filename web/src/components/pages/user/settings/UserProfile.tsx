@@ -1,6 +1,7 @@
 import { MyAutocomplete } from "@/components/elements/MyAutocomplete";
 import { useIngredientPropertiesHook } from "@/components/hooks/useIngredientPropertiesHook";
 import { useMeHook } from "@/components/hooks/useMeHook";
+import { MealLocation, TimeOfDay } from "@/gql/graphql";
 import { Card, CardBody, Listbox, ListboxItem } from "@nextui-org/react";
 import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
 import { useTranslations } from "next-intl";
@@ -9,11 +10,12 @@ import React, { useState } from "react";
 interface UserProfileProps {}
 
 export const UserProfile: React.FC<UserProfileProps> = ({}) => {
-  const t = useTranslations<"User" | "Allergens">();
+  const t = useTranslations<"User" | "Allergens" | "Enums">();
   const { me, refetchMe } = useMeHook();
   const { allergens } = useIngredientPropertiesHook();
   const [allergen, setAllergen] = useState<string>("");
   const [timeOfDay, setTimeOfDay] = useState<string>("");
+  const [mealLocation, setMealLocation] = useState<string>("");
 
   return (
     <form className="subpixel-antialiased">
@@ -25,67 +27,67 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>
           <CardBody>
-            <MyAutocomplete
-              label={t("ALLERGENS")}
-              labelPlacement="outside"
-              placeholder=" "
-              value={allergen}
-              size="sm"
-              onChange={async (e) => {
-                setAllergen(e.target.value);
-              }}
-              items={(allergens || []).map(({ id, name }) => ({
-                id,
-                name: t(name as keyof Messages["Allergens"]),
-              }))}
-            />
-            <Listbox emptyContent={t("NO_ALLERGIES")}>
-              {(me?.allergens || []).map(({ id, name }) => (
-                <ListboxItem
-                  key={id}
-                  endContent={
-                    <FaRegTrashAlt className="cursor-pointer hover:text-red-600" />
-                  }
-                >
-                  {t(name as keyof Messages["Allergens"])}
-                </ListboxItem>
-              ))}
-            </Listbox>
+            <form>
+              <MyAutocomplete
+                label={t("ALLERGENS")}
+                labelPlacement="outside"
+                placeholder=" "
+                value={allergen}
+                size="sm"
+                onChange={async (e) => {
+                  setAllergen(e.target.value);
+                }}
+                items={(allergens || []).map(({ id, name }) => ({
+                  id,
+                  name: t(name as keyof Messages["Allergens"]),
+                }))}
+              />
+              <Listbox emptyContent={t("NO_ALLERGIES")}>
+                {(me?.allergens || []).map(({ id, name }) => (
+                  <ListboxItem
+                    key={id}
+                    endContent={
+                      <FaRegTrashAlt className="cursor-pointer hover:text-red-600" />
+                    }
+                  >
+                    {t(name as keyof Messages["Allergens"])}
+                  </ListboxItem>
+                ))}
+              </Listbox>
+            </form>
           </CardBody>
         </Card>
 
         <Card>
           <CardBody>
-            <div className="flex items-center space-x-3">
+            <form className="flex items-center space-x-3">
               <MyAutocomplete
                 label={t("TIME_OF_DAY")}
                 labelPlacement="outside"
                 placeholder=" "
-                value={allergen}
+                value={timeOfDay}
+                required
                 size="sm"
-                onChange={(e) => setAllergen(e.target.value)}
-                items={
-                  me?.allergens?.map(({ id, name }) => ({
-                    id,
-                    name,
-                  })) || []
-                }
+                onChange={(e) => setTimeOfDay(e.target.value)}
+                items={Object.values(TimeOfDay).map((time) => ({
+                  id: time,
+                  name: t(time as keyof Messages["Enums"]),
+                }))}
               />
               <MyAutocomplete
-                label={t("TIME_OF_DAY")}
+                label={t("MEAL_LOCATION")}
                 labelPlacement="outside"
                 placeholder=" "
-                value={allergen}
+                required
+                value={mealLocation}
                 size="sm"
-                onChange={(e) => setAllergen(e.target.value)}
-                items={
-                  me?.allergens?.map(({ id, name }) => ({
-                    id,
-                    name,
-                  })) || []
-                }
+                onChange={(e) => setMealLocation(e.target.value)}
+                items={Object.values(MealLocation).map((location) => ({
+                  id: location,
+                  name: t(location as keyof Messages["Enums"]),
+                }))}
               />
-            </div>
+            </form>
             <Listbox emptyContent={t("NO_USER_MEAL_LOCATION")}>
               {(me?.UserMealLocation || []).map(({ id, name }) => (
                 <ListboxItem
@@ -94,7 +96,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                     <FaRegTrashAlt className="cursor-pointer hover:text-red-600" />
                   }
                 >
-                  {t(name as unknown as keyof Messages["User"])}
+                  {t(name as keyof Messages["Enums"])}
                 </ListboxItem>
               ))}
             </Listbox>
