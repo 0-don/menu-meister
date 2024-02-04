@@ -8,7 +8,6 @@ import { UpdateOneUserMealLocationArgs } from "@/app_modules/@generated/user-mea
 import { UpsertOneUserMealLocationArgs } from "@/app_modules/@generated/user-meal-location/upsert-one-user-meal-location.args";
 import { UserMealLocationUncheckedCreateInput } from "@/app_modules/@generated/user-meal-location/user-meal-location-unchecked-create.input";
 import { UserMealLocation } from "@/app_modules/@generated/user-meal-location/user-meal-location.model";
-import { UserMeal } from "@/app_modules/@generated/user-meal/user-meal.model";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
@@ -186,7 +185,7 @@ export class UserMealLocationUserResolver {
     }
   }
 
-  @Mutation(() => UserMeal, { nullable: true })
+  @Mutation(() => UserMealLocation, { nullable: true })
   @Roles("USER", "MOD")
   async updateUserMealUser(
     @Args() args: UpdateOneUserMealLocationArgs,
@@ -202,7 +201,7 @@ export class UserMealLocationUserResolver {
     }
   }
 
-  @Mutation(() => UserMeal, { nullable: true })
+  @Mutation(() => UserMealLocation, { nullable: true })
   @Roles("USER", "MOD")
   async upsertUserMealUser(
     @Args() args: UpsertOneUserMealLocationArgs,

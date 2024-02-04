@@ -2194,9 +2194,9 @@ type Mutation {
   createManyUserMealsUser(data: [UserMealCreateManyInput!]!, skipDuplicates: Boolean): [UserMeal!]
   deleteUserMealUser(where: UserMealWhereUniqueInput!): UserMeal
   deleteManyUserMealsUser(where: UserMealWhereInput): Int
-  updateUserMealUser(data: UserMealLocationUpdateInput!, where: UserMealLocationWhereUniqueInput!): UserMeal
+  updateUserMealUser(data: UserMealLocationUpdateInput!, where: UserMealLocationWhereUniqueInput!): UserMealLocation
   updateManyUserMealsUser(data: UserMealUpdateManyMutationInput!, where: UserMealWhereInput): [UserMeal!]
-  upsertUserMealUser(where: UserMealLocationWhereUniqueInput!, create: UserMealLocationCreateInput!, update: UserMealLocationUpdateInput!): UserMeal
+  upsertUserMealUser(where: UserMealLocationWhereUniqueInput!, create: UserMealLocationCreateInput!, update: UserMealLocationUpdateInput!): UserMealLocation
   createUserMealLocationUser(data: UserMealLocationUncheckedCreateInput!): UserMealLocation
   createManyUserMealLocationsUser(data: [UserMealLocationCreateManyInput!]!, skipDuplicates: Boolean): [UserMealLocation!]
   deleteUserMealLocationUser(where: UserMealLocationWhereUniqueInput!): UserMealLocation
