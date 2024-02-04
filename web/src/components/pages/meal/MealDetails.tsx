@@ -1,6 +1,7 @@
 "use client";
 
 import { MyFileInput } from "@/components/elements/MyFileInput";
+import { useMeHook } from "@/components/hooks/useMeHook";
 import { UPLOAD_MEAL_IMAGE_ADMIN } from "@/documents/mutation/menu";
 import { GET_MEAL_ADMIN } from "@/documents/query/meal";
 import { useGqlMutation, useGqlQuery } from "@/fetcher";
@@ -19,11 +20,14 @@ interface MealDetailsProps {
 }
 
 export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
+  const { isHighRank, isOrderMenu } = useMeHook();
   const t = useTranslations<"Meal">();
   const [files, setFiles] = React.useState<File[]>([]);
   const { data: { getMealAdmin } = {}, refetch } = useGqlQuery(GET_MEAL_ADMIN, {
     where: { id: { equals: Number(id) } },
   });
+
+  const isDisabled = !isHighRank || isOrderMenu;
 
   const { mutateAsync: uploadImage } = useGqlMutation(UPLOAD_MEAL_IMAGE_ADMIN);
 
@@ -40,7 +44,11 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
               <ListboxItem
                 key={id}
                 className="text-left"
-                endContent={<IoTrashOutline className="hover:text-red-500" />}
+                endContent={
+                  isDisabled ? undefined : (
+                    <IoTrashOutline className="hover:text-red-500" />
+                  )
+                }
               >
                 {recipe.name}
               </ListboxItem>
@@ -58,7 +66,7 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
             height={200}
           />
         )}
-        {
+        {isDisabled && (
           <MyFileInput
             files={files}
             setFiles={async (e) => {
@@ -76,7 +84,7 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
               setFiles([]);
             }}
           />
-        }
+        )}
         <MealProperties
           title={t("ALLERGENS")}
           items={getMealAdmin?.allergens || []}
