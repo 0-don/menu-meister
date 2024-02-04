@@ -1,31 +1,32 @@
 import { Input as InputNext } from "@nextui-org/input";
+import { InputProps } from "@nextui-org/react";
 import { IconType } from "@react-icons/all-files";
 import React, { HTMLInputTypeAttribute } from "react";
 
-interface MyInputProps {
+type MyInputProps = InputProps & {
   label?: string;
   placeholder?: string;
   value?: string;
-  onChange?: (value: string) => void;
   Icon?: IconType;
   type?: HTMLInputTypeAttribute;
   isClearable?: boolean;
   required?: boolean;
   endContent?: React.ReactNode;
-}
+};
 
-export const MyInput: React.FC<MyInputProps> = (prop) => {
+export const MyInput: React.FC<MyInputProps> = (props) => {
   const uppercaseLabel =
-    prop.label && prop.label.charAt(0).toUpperCase() + prop.label.slice(1);
+    props.label && props.label.charAt(0).toUpperCase() + props.label.slice(1);
 
   return (
     <InputNext
+      {...props}
       label={uppercaseLabel}
-      isClearable={prop.isClearable}
+      isClearable={props.isClearable}
       radius="lg"
-      value={prop.value}
+      value={props.value}
       fullWidth
-      onChange={(e) => prop.onChange && prop.onChange(e.target.value)}
+      onChange={(e) => props.onChange && props.onChange(e)}
       classNames={{
         label: "text-black/50 dark:text-white/90",
         input: [
@@ -47,15 +48,15 @@ export const MyInput: React.FC<MyInputProps> = (prop) => {
           "!cursor-text",
         ],
       }}
-      type={prop.type}
-      placeholder={prop.placeholder}
+      type={props.type}
+      placeholder={props.placeholder}
       startContent={
-        prop.Icon && (
-          <prop.Icon className="pointer-events-none mb-0.5 flex-shrink-0 text-black/50 text-slate-400 dark:text-white/90" />
+        props.Icon && (
+          <props.Icon className="pointer-events-none mb-0.5 flex-shrink-0 text-black/50 text-slate-400 dark:text-white/90" />
         )
       }
-      required={prop.required}
-      endContent={prop.endContent}
+      required={props.required}
+      endContent={props.endContent}
     />
   );
 };

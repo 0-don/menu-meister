@@ -29,12 +29,13 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!name) return;
+    if (!name || !timeOfDay) return;
 
     try {
       const res = await createWeeklyMealGroup({
         data: {
           mealBoardPlanId: Number(dashboardStore.activeMealBoardPlan?.id),
+          timeOfDay,
           name,
           color,
           orderIndex: (meals || []).length,
