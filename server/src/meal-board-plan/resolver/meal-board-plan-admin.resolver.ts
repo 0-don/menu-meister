@@ -82,7 +82,15 @@ export class MealBoardPlanAdminResolver {
     const select = new PrismaSelect(info).value
       .select as Prisma.MealBoardPlanSelect;
     try {
-      return await this.prisma.mealBoardPlan.createMany({ ...args });
+      const createdMealBoardPlans = await Promise.all(
+        args.data.map((data) =>
+          this.prisma.mealBoardPlan.create({
+            data,
+            select,
+          }),
+        ),
+      );
+      return createdMealBoardPlans;
     } catch (e) {
       Logger.error(e);
       return null;
@@ -145,7 +153,21 @@ export class MealBoardPlanAdminResolver {
     const select = new PrismaSelect(info).value
       .select as Prisma.MealBoardPlanSelect;
     try {
-      return await this.prisma.mealBoardPlan.updateMany({ ...args });
+      const mealBoardPlansToUpdate = await this.prisma.mealBoardPlan.findMany({
+        where: args.where,
+        select,
+      });
+
+      await this.prisma.mealBoardPlan.updateMany({ ...args });
+
+      const updatedMealBoardPlans = mealBoardPlansToUpdate.map(
+        (mealBoardPlan) => ({
+          ...mealBoardPlan,
+          ...args.data,
+        }),
+      );
+
+      return updatedMealBoardPlans;
     } catch (e) {
       Logger.error(e);
       return null;

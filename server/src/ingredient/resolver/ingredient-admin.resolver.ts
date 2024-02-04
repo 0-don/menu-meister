@@ -81,7 +81,10 @@ export class IngredientAdminResolver {
     const select = new PrismaSelect(info).value
       .select as Prisma.IngredientSelect;
     try {
-      return await this.prisma.ingredient.createMany({ ...args });
+      const createdIngredients = await Promise.all(
+        args.data.map((data) => this.prisma.meal.create({ data, select })),
+      );
+      return createdIngredients;
     } catch (e) {
       Logger.error(e);
       return null;
@@ -140,7 +143,19 @@ export class IngredientAdminResolver {
     const select = new PrismaSelect(info).value
       .select as Prisma.IngredientSelect;
     try {
-      return await this.prisma.ingredient.updateMany({ ...args });
+      const ingredientToUpdate = await this.prisma.ingredient.findMany({
+        where: args.where,
+        select,
+      });
+
+      await this.prisma.ingredient.updateMany({ ...args });
+
+      const updatedIngredients = ingredientToUpdate.map((mealBoardPlan) => ({
+        ...mealBoardPlan,
+        ...args.data,
+      }));
+
+      return updatedIngredients;
     } catch (e) {
       Logger.error(e);
       return null;
