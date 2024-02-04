@@ -5287,6 +5287,7 @@ export type Mutation = {
   createManyMealsAdmin?: Maybe<Array<Meal>>;
   createManyRecipesAdmin?: Maybe<Array<Recipe>>;
   createManySettingsAdmin?: Maybe<Array<Settings>>;
+  createManyUserMealLocationsUser?: Maybe<Array<UserMealLocation>>;
   createManyUserMealsUser?: Maybe<Array<UserMeal>>;
   createManyUsersAdmin?: Maybe<Array<User>>;
   createManyWeeklyMealGroupsAdmin?: Maybe<Array<WeeklyMealGroup>>;
@@ -5295,6 +5296,7 @@ export type Mutation = {
   createRecipeAdmin?: Maybe<Recipe>;
   createSettingsAdmin?: Maybe<Settings>;
   createUserAdmin?: Maybe<User>;
+  createUserMealLocationUser?: Maybe<UserMealLocation>;
   createUserMealUser?: Maybe<UserMeal>;
   createWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
   deleteAccountTokensUser: Scalars['Boolean']['output'];
@@ -5304,6 +5306,7 @@ export type Mutation = {
   deleteManyMealsAdmin?: Maybe<Scalars['Int']['output']>;
   deleteManyRecipesAdmin?: Maybe<Scalars['Int']['output']>;
   deleteManySettingsAdmin?: Maybe<Scalars['Int']['output']>;
+  deleteManyUserMealLocationsUser?: Maybe<Scalars['Int']['output']>;
   deleteManyUserMealsUser?: Maybe<Scalars['Int']['output']>;
   deleteManyUsersAdmin?: Maybe<Scalars['Int']['output']>;
   deleteManyWeeklyMealGroupsAdmin?: Maybe<Scalars['Int']['output']>;
@@ -5312,6 +5315,7 @@ export type Mutation = {
   deleteRecipeAdmin?: Maybe<Recipe>;
   deleteSettingsAdmin?: Maybe<Settings>;
   deleteUserAdmin?: Maybe<User>;
+  deleteUserMealLocationUser?: Maybe<UserMealLocation>;
   deleteUserMealUser?: Maybe<UserMeal>;
   deleteWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
   loginUser?: Maybe<User>;
@@ -5325,6 +5329,7 @@ export type Mutation = {
   updateManyMealsAdmin?: Maybe<Array<Meal>>;
   updateManyRecipesAdmin?: Maybe<Array<Recipe>>;
   updateManySettingsAdmin?: Maybe<Array<Settings>>;
+  updateManyUserMealLocationsUser?: Maybe<Array<UserMealLocation>>;
   updateManyUserMealsUser?: Maybe<Array<UserMeal>>;
   updateManyUsersAdmin?: Maybe<Array<User>>;
   updateManyWeeklyMealGroupsAdmin?: Maybe<Array<WeeklyMealGroup>>;
@@ -5333,6 +5338,7 @@ export type Mutation = {
   updateRecipeAdmin?: Maybe<Recipe>;
   updateSettingsAdmin?: Maybe<Settings>;
   updateUserAdmin?: Maybe<User>;
+  updateUserMealLocationUser?: Maybe<UserMealLocation>;
   updateUserMealUser?: Maybe<UserMeal>;
   updateWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
   uploadMealImageAdmin?: Maybe<Scalars['Boolean']['output']>;
@@ -5342,6 +5348,7 @@ export type Mutation = {
   upsertRecipeAdmin?: Maybe<Recipe>;
   upsertSettingsAdmin?: Maybe<Settings>;
   upsertUserAdmin?: Maybe<User>;
+  upsertUserMealLocationUser?: Maybe<UserMealLocation>;
   upsertUserMealUser?: Maybe<UserMeal>;
   upsertWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
 };
@@ -5384,6 +5391,12 @@ export type MutationCreateManyRecipesAdminArgs = {
 
 export type MutationCreateManySettingsAdminArgs = {
   data: Array<SettingsCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type MutationCreateManyUserMealLocationsUserArgs = {
+  data: Array<UserMealLocationCreateManyInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -5431,6 +5444,11 @@ export type MutationCreateUserAdminArgs = {
 };
 
 
+export type MutationCreateUserMealLocationUserArgs = {
+  data: UserMealLocationUncheckedCreateInput;
+};
+
+
 export type MutationCreateUserMealUserArgs = {
   data: UserMealUncheckedCreateInput;
 };
@@ -5471,6 +5489,11 @@ export type MutationDeleteManySettingsAdminArgs = {
 };
 
 
+export type MutationDeleteManyUserMealLocationsUserArgs = {
+  where?: InputMaybe<UserMealLocationWhereInput>;
+};
+
+
 export type MutationDeleteManyUserMealsUserArgs = {
   where?: InputMaybe<UserMealWhereInput>;
 };
@@ -5508,6 +5531,11 @@ export type MutationDeleteSettingsAdminArgs = {
 
 export type MutationDeleteUserAdminArgs = {
   where: UserWhereUniqueInput;
+};
+
+
+export type MutationDeleteUserMealLocationUserArgs = {
+  where: UserMealLocationWhereUniqueInput;
 };
 
 
@@ -5578,6 +5606,12 @@ export type MutationUpdateManySettingsAdminArgs = {
 };
 
 
+export type MutationUpdateManyUserMealLocationsUserArgs = {
+  data: UserMealLocationUpdateManyMutationInput;
+  where?: InputMaybe<UserMealLocationWhereInput>;
+};
+
+
 export type MutationUpdateManyUserMealsUserArgs = {
   data: UserMealUpdateManyMutationInput;
   where?: InputMaybe<UserMealWhereInput>;
@@ -5626,9 +5660,15 @@ export type MutationUpdateUserAdminArgs = {
 };
 
 
+export type MutationUpdateUserMealLocationUserArgs = {
+  data: UserMealLocationUpdateInput;
+  where: UserMealLocationWhereUniqueInput;
+};
+
+
 export type MutationUpdateUserMealUserArgs = {
-  data: UserMealUpdateInput;
-  where: UserMealWhereUniqueInput;
+  data: UserMealLocationUpdateInput;
+  where: UserMealLocationWhereUniqueInput;
 };
 
 
@@ -5686,10 +5726,17 @@ export type MutationUpsertUserAdminArgs = {
 };
 
 
+export type MutationUpsertUserMealLocationUserArgs = {
+  create: UserMealLocationCreateInput;
+  update: UserMealLocationUpdateInput;
+  where: UserMealLocationWhereUniqueInput;
+};
+
+
 export type MutationUpsertUserMealUserArgs = {
-  create: UserMealCreateInput;
-  update: UserMealUpdateInput;
-  where: UserMealWhereUniqueInput;
+  create: UserMealLocationCreateInput;
+  update: UserMealLocationUpdateInput;
+  where: UserMealLocationWhereUniqueInput;
 };
 
 
@@ -6223,6 +6270,7 @@ export type Query = {
   getAllMealsUser?: Maybe<Array<Meal>>;
   getAllRecipesAdmin?: Maybe<Array<Recipe>>;
   getAllSettingsAdmin?: Maybe<Array<Settings>>;
+  getAllUserMealLocationsUser?: Maybe<Array<UserMealLocation>>;
   getAllUserMealsAdmin?: Maybe<Array<UserMeal>>;
   getAllUserMealsUser?: Maybe<Array<UserMeal>>;
   getAllUsersAdmin?: Maybe<Array<User>>;
@@ -6235,6 +6283,7 @@ export type Query = {
   getSettingsAdmin?: Maybe<Settings>;
   getSettingsUser?: Maybe<SettingsUserOutput>;
   getUserAdmin?: Maybe<User>;
+  getUserMealLocationUser?: Maybe<UserMealLocation>;
   getUserMealUser?: Maybe<UserMeal>;
   getUserMealsGroupedAdmin?: Maybe<Array<UserMealGroupBy>>;
   getWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
@@ -6309,6 +6358,16 @@ export type QueryGetAllSettingsAdminArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<SettingsWhereInput>;
+};
+
+
+export type QueryGetAllUserMealLocationsUserArgs = {
+  cursor?: InputMaybe<UserMealLocationWhereUniqueInput>;
+  distinct?: InputMaybe<Array<UserMealLocationScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<UserMealLocationOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<UserMealLocationWhereInput>;
 };
 
 
@@ -6419,6 +6478,16 @@ export type QueryGetUserAdminArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<UserWhereInput>;
+};
+
+
+export type QueryGetUserMealLocationUserArgs = {
+  cursor?: InputMaybe<UserMealLocationWhereUniqueInput>;
+  distinct?: InputMaybe<Array<UserMealLocationScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<UserMealLocationOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<UserMealLocationWhereInput>;
 };
 
 
@@ -9150,14 +9219,6 @@ export type UserMealCountOrderByAggregateInput = {
   weeklyMealGroupId?: InputMaybe<SortOrder>;
 };
 
-export type UserMealCreateInput = {
-  date: Scalars['DateTime']['input'];
-  meal: MealCreateNestedOneWithoutUserMealInput;
-  mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
-  user: UserCreateNestedOneWithoutUserMealInput;
-  weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput;
-};
-
 export type UserMealCreateManyCreatedByUserInput = {
   date: Scalars['DateTime']['input'];
   id?: InputMaybe<Scalars['Int']['input']>;
@@ -9401,6 +9462,12 @@ export type UserMealLocation = {
   userId: Scalars['Int']['output'];
 };
 
+export type UserMealLocationCreateInput = {
+  name?: InputMaybe<MealLocation>;
+  timeOfDay?: InputMaybe<TimeOfDay>;
+  user: UserCreateNestedOneWithoutUserMealLocationInput;
+};
+
 export type UserMealLocationCreateManyCreatedByUserInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<MealLocation>;
@@ -9411,6 +9478,13 @@ export type UserMealLocationCreateManyCreatedByUserInput = {
 export type UserMealLocationCreateManyCreatedByUserInputEnvelope = {
   data: Array<UserMealLocationCreateManyCreatedByUserInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type UserMealLocationCreateManyInput = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<MealLocation>;
+  timeOfDay?: InputMaybe<TimeOfDay>;
+  userId: Scalars['Int']['input'];
 };
 
 export type UserMealLocationCreateManyUpdatedByUserInput = {
@@ -9499,6 +9573,25 @@ export type UserMealLocationOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>;
 };
 
+export type UserMealLocationOrderByWithRelationInput = {
+  id?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  timeOfDay?: InputMaybe<SortOrder>;
+  user?: InputMaybe<UserOrderByWithRelationInput>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export enum UserMealLocationScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  CreatedBy = 'createdBy',
+  Id = 'id',
+  Name = 'name',
+  TimeOfDay = 'timeOfDay',
+  UpdatedAt = 'updatedAt',
+  UpdatedBy = 'updatedBy',
+  UserId = 'userId'
+}
+
 export type UserMealLocationScalarWhereInput = {
   AND?: InputMaybe<Array<UserMealLocationScalarWhereInput>>;
   NOT?: InputMaybe<Array<UserMealLocationScalarWhereInput>>;
@@ -9507,6 +9600,19 @@ export type UserMealLocationScalarWhereInput = {
   name?: InputMaybe<EnumMealLocationFilter>;
   timeOfDay?: InputMaybe<EnumTimeOfDayFilter>;
   userId?: InputMaybe<IntFilter>;
+};
+
+export type UserMealLocationUncheckedCreateInput = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<MealLocation>;
+  timeOfDay?: InputMaybe<TimeOfDay>;
+  userId: Scalars['Int']['input'];
+};
+
+export type UserMealLocationUpdateInput = {
+  name?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealLocationNestedInput>;
 };
 
 export type UserMealLocationUpdateManyMutationInput = {
@@ -9848,14 +9954,6 @@ export type UserMealUncheckedUpdateManyWithoutWeeklyMealGroupNestedInput = {
   update?: InputMaybe<Array<UserMealUpdateWithWhereUniqueWithoutWeeklyMealGroupInput>>;
   updateMany?: InputMaybe<Array<UserMealUpdateManyWithWhereWithoutWeeklyMealGroupInput>>;
   upsert?: InputMaybe<Array<UserMealUpsertWithWhereUniqueWithoutWeeklyMealGroupInput>>;
-};
-
-export type UserMealUpdateInput = {
-  date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  meal?: InputMaybe<MealUpdateOneRequiredWithoutUserMealNestedInput>;
-  mealBoardPlan?: InputMaybe<MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealNestedInput>;
-  weeklyMealGroup?: InputMaybe<WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput>;
 };
 
 export type UserMealUpdateManyMutationInput = {
