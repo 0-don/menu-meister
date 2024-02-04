@@ -11,6 +11,7 @@ import {
 import { User } from "@nextui-org/user";
 import { BiLogIn } from "@react-icons/all-files/bi/BiLogIn";
 import { FaUser } from "@react-icons/all-files/fa/FaUser";
+import { ImProfile } from "@react-icons/all-files/im/ImProfile";
 import { IoSettings } from "@react-icons/all-files/io5/IoSettings";
 import { SiWebauthn } from "@react-icons/all-files/si/SiWebauthn";
 import { useTranslations } from "next-intl";
@@ -37,6 +38,15 @@ export const Profile = () => {
         key="settings"
         href="/settings"
         endContent={<IoSettings className="text-large" />}
+      >
+        {t("SETTINGS")}
+      </DropdownItem>
+    ),
+    me && (
+      <DropdownItem
+        key="profile"
+        href="/user/profile"
+        endContent={<ImProfile className="text-large" />}
       >
         {t("SETTINGS")}
       </DropdownItem>

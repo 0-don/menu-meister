@@ -11,7 +11,7 @@ import { useTranslations } from "next-intl";
 import React, { FormEvent, useState } from "react";
 import { useSnapshot } from "valtio";
 import { MyPopover } from "../../../elements/MyPopover";
-import { ColorPalette } from "../utils/ColorPalette";
+import { COLORS, ColorPalette } from "../utils/ColorPalette";
 
 interface AddNewTableRowProps {}
 
@@ -24,7 +24,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [timeOfDay, setTimeOfDay] = useState<TimeOfDay>(TimeOfDay.Any);
-  const [color, setColor] = useState<string>("#f44336");
+  const [color, setColor] = useState<string>(COLORS[0].value);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

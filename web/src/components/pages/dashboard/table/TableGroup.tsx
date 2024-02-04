@@ -113,7 +113,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
             {group.timeOfDay === TimeOfDay.Any && (
               <Chip
                 startContent={<TbCalendarTime />}
-                variant="faded"
+                variant="flat"
                 size="sm"
                 style={{ color }}
               >
@@ -124,7 +124,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
             {group.timeOfDay === TimeOfDay.Morning && (
               <Chip
                 startContent={<LuClock6 />}
-                variant="faded"
+                variant="flat"
                 size="sm"
                 style={{ color }}
               >
@@ -137,7 +137,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
             {group.timeOfDay === TimeOfDay.Forenoon && (
               <Chip
                 startContent={<LuClock10 />}
-                variant="faded"
+                variant="flat"
                 size="sm"
                 style={{ color }}
               >
@@ -150,7 +150,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
             {group.timeOfDay === TimeOfDay.Noon && (
               <Chip
                 startContent={<LuClock12 />}
-                variant="faded"
+                variant="flat"
                 size="sm"
                 style={{ color }}
               >
@@ -161,7 +161,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
             {group.timeOfDay === TimeOfDay.Afternoon && (
               <Chip
                 startContent={<LuClock2 />}
-                variant="faded"
+                variant="flat"
                 size="sm"
                 style={{ color }}
               >
@@ -174,7 +174,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
             {group.timeOfDay === TimeOfDay.Evening && (
               <Chip
                 startContent={<LuClock6 />}
-                variant="faded"
+                variant="flat"
                 size="sm"
                 style={{ color }}
               >
@@ -187,7 +187,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
             {group.timeOfDay === TimeOfDay.Night && (
               <Chip
                 startContent={<LuClock12 />}
-                variant="faded"
+                variant="flat"
                 size="sm"
                 style={{ color }}
               >
