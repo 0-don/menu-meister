@@ -2,7 +2,7 @@ import { User } from "@/app_modules/@generated/user/user.model";
 import { JwtUser } from "@/app_modules/@types/types";
 import { Injectable } from "@nestjs/common";
 import argon2 from "argon2";
-import { PrismaService } from "../app_modules/prisma/prisma.service";
+import { PrismaService } from "../../app_modules/prisma/prisma.service";
 
 @Injectable()
 export class UserService {

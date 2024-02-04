@@ -670,6 +670,10 @@ type Query {
   me: User
   getAllUsersAdmin(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]
   getUserAdmin(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): User
+  getAllUserMealsUser(where: UserMealWhereInput, orderBy: [UserMealOrderByWithRelationInput!], cursor: UserMealWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealScalarFieldEnum!]): [UserMeal!]
+  getUserMealUser(where: UserMealWhereInput, orderBy: [UserMealOrderByWithRelationInput!], cursor: UserMealWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealScalarFieldEnum!]): UserMeal
+  getUserMealsGroupedAdmin(where: UserMealWhereInput, orderBy: [UserMealOrderByWithAggregationInput!], by: [UserMealScalarFieldEnum!]!, having: UserMealScalarWhereWithAggregatesInput, take: Int, skip: Int, _count: UserMealCountAggregateInput, _avg: UserMealAvgAggregateInput, _sum: UserMealSumAggregateInput, _min: UserMealMinAggregateInput, _max: UserMealMaxAggregateInput): [UserMealGroupBy!]
+  getAllUserMealsAdmin(where: UserMealWhereInput, orderBy: [UserMealOrderByWithRelationInput!], cursor: UserMealWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealScalarFieldEnum!]): [UserMeal!]
   getAllIngredientsAdmin(where: IngredientWhereInput, orderBy: [IngredientOrderByWithRelationInput!], cursor: IngredientWhereUniqueInput, take: Int, skip: Int, distinct: [IngredientScalarFieldEnum!]): [Ingredient!]
   getIngredientAdmin(where: IngredientWhereInput, orderBy: [IngredientOrderByWithRelationInput!], cursor: IngredientWhereUniqueInput, take: Int, skip: Int, distinct: [IngredientScalarFieldEnum!]): Ingredient
   getAllMealBoardPlansAdmin(where: MealBoardPlanWhereInput, orderBy: [MealBoardPlanOrderByWithRelationInput!], cursor: MealBoardPlanWhereUniqueInput, take: Int, skip: Int, distinct: [MealBoardPlanScalarFieldEnum!]): [MealBoardPlan!]
@@ -686,10 +690,6 @@ type Query {
   getSettingsUser: SettingsUserOutput
   getAllRecipesAdmin(where: RecipeWhereInput, orderBy: [RecipeOrderByWithRelationInput!], cursor: RecipeWhereUniqueInput, take: Int, skip: Int, distinct: [RecipeScalarFieldEnum!]): [Recipe!]
   getRecipeAdmin(where: RecipeWhereInput, orderBy: [RecipeOrderByWithRelationInput!], cursor: RecipeWhereUniqueInput, take: Int, skip: Int, distinct: [RecipeScalarFieldEnum!]): Recipe
-  getAllUserMealsUser(where: UserMealWhereInput, orderBy: [UserMealOrderByWithRelationInput!], cursor: UserMealWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealScalarFieldEnum!]): [UserMeal!]
-  getUserMealUser(where: UserMealWhereInput, orderBy: [UserMealOrderByWithRelationInput!], cursor: UserMealWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealScalarFieldEnum!]): UserMeal
-  getUserMealsGroupedAdmin(where: UserMealWhereInput, orderBy: [UserMealOrderByWithAggregationInput!], by: [UserMealScalarFieldEnum!]!, having: UserMealScalarWhereWithAggregatesInput, take: Int, skip: Int, _count: UserMealCountAggregateInput, _avg: UserMealAvgAggregateInput, _sum: UserMealSumAggregateInput, _min: UserMealMinAggregateInput, _max: UserMealMaxAggregateInput): [UserMealGroupBy!]
-  getAllUserMealsAdmin(where: UserMealWhereInput, orderBy: [UserMealOrderByWithRelationInput!], cursor: UserMealWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealScalarFieldEnum!]): [UserMeal!]
 }
 
 input UserWhereInput {
@@ -1599,104 +1599,17 @@ enum UserScalarFieldEnum {
   updatedBy
 }
 
-input IngredientOrderByWithRelationInput {
+input UserMealOrderByWithRelationInput {
   id: SortOrder
-  name: SortOrder
-  blsIdentifier: SortOrder
-  energyKcal: SortOrder
-  energyKj: SortOrder
-  breadUnits: SortOrder
-  carbohydrates: SortOrder
-  sugars: SortOrder
-  salt: SortOrder
-  fats: SortOrder
-  saturatedFats: SortOrder
-  unsaturatedFats: SortOrder
-  protein: SortOrder
-  allergens: AllergensOrderByRelationAggregateInput
-  additives: AdditivesOrderByRelationAggregateInput
-  properties: PropertiesOrderByRelationAggregateInput
-  categories: CategoriesOrderByRelationAggregateInput
-  seasons: SeasonsOrderByRelationAggregateInput
-  foodForms: FoodFormsOrderByRelationAggregateInput
-  kitchens: KitchensOrderByRelationAggregateInput
-  recipeIngredient: RecipeIngredientOrderByRelationAggregateInput
-}
-
-input IngredientWhereUniqueInput {
-  id: Int
-  blsIdentifier: String
-  AND: [IngredientWhereInput!]
-  OR: [IngredientWhereInput!]
-  NOT: [IngredientWhereInput!]
-  name: StringFilter
-  energyKcal: DecimalFilter
-  energyKj: DecimalFilter
-  breadUnits: DecimalFilter
-  carbohydrates: DecimalFilter
-  sugars: DecimalFilter
-  salt: DecimalFilter
-  fats: DecimalFilter
-  saturatedFats: DecimalFilter
-  unsaturatedFats: DecimalFilter
-  protein: DecimalFilter
-  allergens: AllergensListRelationFilter
-  additives: AdditivesListRelationFilter
-  properties: PropertiesListRelationFilter
-  categories: CategoriesListRelationFilter
-  seasons: SeasonsListRelationFilter
-  foodForms: FoodFormsListRelationFilter
-  kitchens: KitchensListRelationFilter
-  recipeIngredient: RecipeIngredientListRelationFilter
-}
-
-enum IngredientScalarFieldEnum {
-  id
-  name
-  blsIdentifier
-  energyKcal
-  energyKj
-  breadUnits
-  carbohydrates
-  sugars
-  salt
-  fats
-  saturatedFats
-  unsaturatedFats
-  protein
-  createdAt
-  updatedAt
-  createdBy
-  updatedBy
-}
-
-input MealBoardPlanOrderByWithRelationInput {
-  id: SortOrder
-  name: SortOrder
-  color: SortOrderInput
-  WeeklyMealGroup: WeeklyMealGroupOrderByRelationAggregateInput
-  UserMeal: UserMealOrderByRelationAggregateInput
-}
-
-input MealBoardPlanWhereUniqueInput {
-  id: Int
-  AND: [MealBoardPlanWhereInput!]
-  OR: [MealBoardPlanWhereInput!]
-  NOT: [MealBoardPlanWhereInput!]
-  name: StringFilter
-  color: StringNullableFilter
-  WeeklyMealGroup: WeeklyMealGroupListRelationFilter
-  UserMeal: UserMealListRelationFilter
-}
-
-enum MealBoardPlanScalarFieldEnum {
-  id
-  name
-  color
-  createdAt
-  updatedAt
-  createdBy
-  updatedBy
+  date: SortOrder
+  mealBoardPlanId: SortOrder
+  userId: SortOrder
+  mealId: SortOrder
+  weeklyMealGroupId: SortOrder
+  user: UserOrderByWithRelationInput
+  meal: MealOrderByWithRelationInput
+  mealBoardPlan: MealBoardPlanOrderByWithRelationInput
+  weeklyMealGroup: WeeklyMealGroupOrderByWithRelationInput
 }
 
 input MealOrderByWithRelationInput {
@@ -1721,40 +1634,12 @@ input MealOrderByWithRelationInput {
   userMeal: UserMealOrderByRelationAggregateInput
 }
 
-input MealWhereUniqueInput {
-  id: Int
-  AND: [MealWhereInput!]
-  OR: [MealWhereInput!]
-  NOT: [MealWhereInput!]
-  name: StringFilter
-  description: StringNullableFilter
-  image: StringNullableFilter
-  allergens: AllergensListRelationFilter
-  additives: AdditivesListRelationFilter
-  properties: PropertiesListRelationFilter
-  categories: CategoriesListRelationFilter
-  seasons: SeasonsListRelationFilter
-  foodForms: FoodFormsListRelationFilter
-  mondayMealGroups: WeeklyMealGroupListRelationFilter
-  tuesdayMealGroups: WeeklyMealGroupListRelationFilter
-  wednesdayMealGroups: WeeklyMealGroupListRelationFilter
-  thursdayMealGroups: WeeklyMealGroupListRelationFilter
-  fridayMealGroups: WeeklyMealGroupListRelationFilter
-  saturdayMealGroups: WeeklyMealGroupListRelationFilter
-  sundayMealGroups: WeeklyMealGroupListRelationFilter
-  mealRecipe: MealRecipeListRelationFilter
-  userMeal: UserMealListRelationFilter
-}
-
-enum MealScalarFieldEnum {
-  id
-  name
-  description
-  image
-  createdAt
-  updatedAt
-  createdBy
-  updatedBy
+input MealBoardPlanOrderByWithRelationInput {
+  id: SortOrder
+  name: SortOrder
+  color: SortOrderInput
+  WeeklyMealGroup: WeeklyMealGroupOrderByRelationAggregateInput
+  UserMeal: UserMealOrderByRelationAggregateInput
 }
 
 input WeeklyMealGroupOrderByWithRelationInput {
@@ -1783,138 +1668,6 @@ input WeeklyMealGroupOrderByWithRelationInput {
   saturdayMeal: MealOrderByWithRelationInput
   sundayMeal: MealOrderByWithRelationInput
   userMeal: UserMealOrderByRelationAggregateInput
-}
-
-input WeeklyMealGroupWhereUniqueInput {
-  id: Int
-  AND: [WeeklyMealGroupWhereInput!]
-  OR: [WeeklyMealGroupWhereInput!]
-  NOT: [WeeklyMealGroupWhereInput!]
-  name: StringFilter
-  color: StringNullableFilter
-  description: StringNullableFilter
-  timeOfDay: EnumTimeOfDayFilter
-  year: IntFilter
-  weekOfYear: IntFilter
-  orderIndex: IntFilter
-  mealBoardPlanId: IntFilter
-  mondayMealId: IntNullableFilter
-  tuesdayMealId: IntNullableFilter
-  wednesdayMealId: IntNullableFilter
-  thursdayMealId: IntNullableFilter
-  fridayMealId: IntNullableFilter
-  saturdayMealId: IntNullableFilter
-  sundayMealId: IntNullableFilter
-  mealBoardPlan: MealBoardPlanRelationFilter
-  mondayMeal: MealNullableRelationFilter
-  tuesdayMeal: MealNullableRelationFilter
-  wednesdayMeal: MealNullableRelationFilter
-  thursdayMeal: MealNullableRelationFilter
-  fridayMeal: MealNullableRelationFilter
-  saturdayMeal: MealNullableRelationFilter
-  sundayMeal: MealNullableRelationFilter
-  userMeal: UserMealListRelationFilter
-}
-
-enum WeeklyMealGroupScalarFieldEnum {
-  id
-  name
-  color
-  description
-  timeOfDay
-  year
-  weekOfYear
-  orderIndex
-  mealBoardPlanId
-  mondayMealId
-  tuesdayMealId
-  wednesdayMealId
-  thursdayMealId
-  fridayMealId
-  saturdayMealId
-  sundayMealId
-  createdAt
-  updatedAt
-  createdBy
-  updatedBy
-}
-
-input SettingsOrderByWithRelationInput {
-  id: SortOrder
-  maxEditOrderDays: SortOrder
-}
-
-input SettingsWhereUniqueInput {
-  id: Int
-  AND: [SettingsWhereInput!]
-  OR: [SettingsWhereInput!]
-  NOT: [SettingsWhereInput!]
-  maxEditOrderDays: IntFilter
-}
-
-enum SettingsScalarFieldEnum {
-  id
-  maxEditOrderDays
-  createdAt
-  updatedAt
-  createdBy
-  updatedBy
-}
-
-input RecipeOrderByWithRelationInput {
-  id: SortOrder
-  name: SortOrder
-  description: SortOrderInput
-  allergens: AllergensOrderByRelationAggregateInput
-  additives: AdditivesOrderByRelationAggregateInput
-  properties: PropertiesOrderByRelationAggregateInput
-  categories: CategoriesOrderByRelationAggregateInput
-  seasons: SeasonsOrderByRelationAggregateInput
-  foodForms: FoodFormsOrderByRelationAggregateInput
-  kitchens: KitchensOrderByRelationAggregateInput
-  recipeIngredient: RecipeIngredientOrderByRelationAggregateInput
-  mealRecipe: MealRecipeOrderByRelationAggregateInput
-}
-
-input RecipeWhereUniqueInput {
-  id: Int
-  AND: [RecipeWhereInput!]
-  OR: [RecipeWhereInput!]
-  NOT: [RecipeWhereInput!]
-  name: StringFilter
-  description: StringNullableFilter
-  allergens: AllergensListRelationFilter
-  additives: AdditivesListRelationFilter
-  properties: PropertiesListRelationFilter
-  categories: CategoriesListRelationFilter
-  seasons: SeasonsListRelationFilter
-  foodForms: FoodFormsListRelationFilter
-  kitchens: KitchensListRelationFilter
-  recipeIngredient: RecipeIngredientListRelationFilter
-  mealRecipe: MealRecipeListRelationFilter
-}
-
-enum RecipeScalarFieldEnum {
-  id
-  name
-  description
-  createdAt
-  updatedAt
-  createdBy
-  updatedBy
-}
-
-input UserMealOrderByWithRelationInput {
-  id: SortOrder
-  date: SortOrder
-  mealBoardPlanId: SortOrder
-  userId: SortOrder
-  mealId: SortOrder
-  weeklyMealGroupId: SortOrder
-  user: UserOrderByWithRelationInput
-  meal: MealOrderByWithRelationInput
-  mealBoardPlan: MealBoardPlanOrderByWithRelationInput
-  weeklyMealGroup: WeeklyMealGroupOrderByWithRelationInput
 }
 
 input UserMealWhereUniqueInput {
@@ -2138,6 +1891,253 @@ input UserMealMaxAggregateInput {
   weeklyMealGroupId: Boolean
 }
 
+input IngredientOrderByWithRelationInput {
+  id: SortOrder
+  name: SortOrder
+  blsIdentifier: SortOrder
+  energyKcal: SortOrder
+  energyKj: SortOrder
+  breadUnits: SortOrder
+  carbohydrates: SortOrder
+  sugars: SortOrder
+  salt: SortOrder
+  fats: SortOrder
+  saturatedFats: SortOrder
+  unsaturatedFats: SortOrder
+  protein: SortOrder
+  allergens: AllergensOrderByRelationAggregateInput
+  additives: AdditivesOrderByRelationAggregateInput
+  properties: PropertiesOrderByRelationAggregateInput
+  categories: CategoriesOrderByRelationAggregateInput
+  seasons: SeasonsOrderByRelationAggregateInput
+  foodForms: FoodFormsOrderByRelationAggregateInput
+  kitchens: KitchensOrderByRelationAggregateInput
+  recipeIngredient: RecipeIngredientOrderByRelationAggregateInput
+}
+
+input IngredientWhereUniqueInput {
+  id: Int
+  blsIdentifier: String
+  AND: [IngredientWhereInput!]
+  OR: [IngredientWhereInput!]
+  NOT: [IngredientWhereInput!]
+  name: StringFilter
+  energyKcal: DecimalFilter
+  energyKj: DecimalFilter
+  breadUnits: DecimalFilter
+  carbohydrates: DecimalFilter
+  sugars: DecimalFilter
+  salt: DecimalFilter
+  fats: DecimalFilter
+  saturatedFats: DecimalFilter
+  unsaturatedFats: DecimalFilter
+  protein: DecimalFilter
+  allergens: AllergensListRelationFilter
+  additives: AdditivesListRelationFilter
+  properties: PropertiesListRelationFilter
+  categories: CategoriesListRelationFilter
+  seasons: SeasonsListRelationFilter
+  foodForms: FoodFormsListRelationFilter
+  kitchens: KitchensListRelationFilter
+  recipeIngredient: RecipeIngredientListRelationFilter
+}
+
+enum IngredientScalarFieldEnum {
+  id
+  name
+  blsIdentifier
+  energyKcal
+  energyKj
+  breadUnits
+  carbohydrates
+  sugars
+  salt
+  fats
+  saturatedFats
+  unsaturatedFats
+  protein
+  createdAt
+  updatedAt
+  createdBy
+  updatedBy
+}
+
+input MealBoardPlanWhereUniqueInput {
+  id: Int
+  AND: [MealBoardPlanWhereInput!]
+  OR: [MealBoardPlanWhereInput!]
+  NOT: [MealBoardPlanWhereInput!]
+  name: StringFilter
+  color: StringNullableFilter
+  WeeklyMealGroup: WeeklyMealGroupListRelationFilter
+  UserMeal: UserMealListRelationFilter
+}
+
+enum MealBoardPlanScalarFieldEnum {
+  id
+  name
+  color
+  createdAt
+  updatedAt
+  createdBy
+  updatedBy
+}
+
+input MealWhereUniqueInput {
+  id: Int
+  AND: [MealWhereInput!]
+  OR: [MealWhereInput!]
+  NOT: [MealWhereInput!]
+  name: StringFilter
+  description: StringNullableFilter
+  image: StringNullableFilter
+  allergens: AllergensListRelationFilter
+  additives: AdditivesListRelationFilter
+  properties: PropertiesListRelationFilter
+  categories: CategoriesListRelationFilter
+  seasons: SeasonsListRelationFilter
+  foodForms: FoodFormsListRelationFilter
+  mondayMealGroups: WeeklyMealGroupListRelationFilter
+  tuesdayMealGroups: WeeklyMealGroupListRelationFilter
+  wednesdayMealGroups: WeeklyMealGroupListRelationFilter
+  thursdayMealGroups: WeeklyMealGroupListRelationFilter
+  fridayMealGroups: WeeklyMealGroupListRelationFilter
+  saturdayMealGroups: WeeklyMealGroupListRelationFilter
+  sundayMealGroups: WeeklyMealGroupListRelationFilter
+  mealRecipe: MealRecipeListRelationFilter
+  userMeal: UserMealListRelationFilter
+}
+
+enum MealScalarFieldEnum {
+  id
+  name
+  description
+  image
+  createdAt
+  updatedAt
+  createdBy
+  updatedBy
+}
+
+input WeeklyMealGroupWhereUniqueInput {
+  id: Int
+  AND: [WeeklyMealGroupWhereInput!]
+  OR: [WeeklyMealGroupWhereInput!]
+  NOT: [WeeklyMealGroupWhereInput!]
+  name: StringFilter
+  color: StringNullableFilter
+  description: StringNullableFilter
+  timeOfDay: EnumTimeOfDayFilter
+  year: IntFilter
+  weekOfYear: IntFilter
+  orderIndex: IntFilter
+  mealBoardPlanId: IntFilter
+  mondayMealId: IntNullableFilter
+  tuesdayMealId: IntNullableFilter
+  wednesdayMealId: IntNullableFilter
+  thursdayMealId: IntNullableFilter
+  fridayMealId: IntNullableFilter
+  saturdayMealId: IntNullableFilter
+  sundayMealId: IntNullableFilter
+  mealBoardPlan: MealBoardPlanRelationFilter
+  mondayMeal: MealNullableRelationFilter
+  tuesdayMeal: MealNullableRelationFilter
+  wednesdayMeal: MealNullableRelationFilter
+  thursdayMeal: MealNullableRelationFilter
+  fridayMeal: MealNullableRelationFilter
+  saturdayMeal: MealNullableRelationFilter
+  sundayMeal: MealNullableRelationFilter
+  userMeal: UserMealListRelationFilter
+}
+
+enum WeeklyMealGroupScalarFieldEnum {
+  id
+  name
+  color
+  description
+  timeOfDay
+  year
+  weekOfYear
+  orderIndex
+  mealBoardPlanId
+  mondayMealId
+  tuesdayMealId
+  wednesdayMealId
+  thursdayMealId
+  fridayMealId
+  saturdayMealId
+  sundayMealId
+  createdAt
+  updatedAt
+  createdBy
+  updatedBy
+}
+
+input SettingsOrderByWithRelationInput {
+  id: SortOrder
+  maxEditOrderDays: SortOrder
+}
+
+input SettingsWhereUniqueInput {
+  id: Int
+  AND: [SettingsWhereInput!]
+  OR: [SettingsWhereInput!]
+  NOT: [SettingsWhereInput!]
+  maxEditOrderDays: IntFilter
+}
+
+enum SettingsScalarFieldEnum {
+  id
+  maxEditOrderDays
+  createdAt
+  updatedAt
+  createdBy
+  updatedBy
+}
+
+input RecipeOrderByWithRelationInput {
+  id: SortOrder
+  name: SortOrder
+  description: SortOrderInput
+  allergens: AllergensOrderByRelationAggregateInput
+  additives: AdditivesOrderByRelationAggregateInput
+  properties: PropertiesOrderByRelationAggregateInput
+  categories: CategoriesOrderByRelationAggregateInput
+  seasons: SeasonsOrderByRelationAggregateInput
+  foodForms: FoodFormsOrderByRelationAggregateInput
+  kitchens: KitchensOrderByRelationAggregateInput
+  recipeIngredient: RecipeIngredientOrderByRelationAggregateInput
+  mealRecipe: MealRecipeOrderByRelationAggregateInput
+}
+
+input RecipeWhereUniqueInput {
+  id: Int
+  AND: [RecipeWhereInput!]
+  OR: [RecipeWhereInput!]
+  NOT: [RecipeWhereInput!]
+  name: StringFilter
+  description: StringNullableFilter
+  allergens: AllergensListRelationFilter
+  additives: AdditivesListRelationFilter
+  properties: PropertiesListRelationFilter
+  categories: CategoriesListRelationFilter
+  seasons: SeasonsListRelationFilter
+  foodForms: FoodFormsListRelationFilter
+  kitchens: KitchensListRelationFilter
+  recipeIngredient: RecipeIngredientListRelationFilter
+  mealRecipe: MealRecipeListRelationFilter
+}
+
+enum RecipeScalarFieldEnum {
+  id
+  name
+  description
+  createdAt
+  updatedAt
+  createdBy
+  updatedBy
+}
+
 type Mutation {
   registerUser(data: RegisterUserInput!): User
   loginUser(data: LoginUserInput!): User
@@ -2151,6 +2151,13 @@ type Mutation {
   updateUserAdmin(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsersAdmin(data: UserUpdateManyMutationInput!, where: UserWhereInput): [User!]
   upsertUserAdmin(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User
+  createUserMealUser(data: UserMealUncheckedCreateInput!): UserMeal
+  createManyUserMealsUser(data: [UserMealCreateManyInput!]!, skipDuplicates: Boolean): [UserMeal!]
+  deleteUserMealUser(where: UserMealWhereUniqueInput!): UserMeal
+  deleteManyUserMealsUser(where: UserMealWhereInput): Int
+  updateUserMealUser(data: UserMealUpdateInput!, where: UserMealWhereUniqueInput!): UserMeal
+  updateManyUserMealsUser(data: UserMealUpdateManyMutationInput!, where: UserMealWhereInput): [UserMeal!]
+  upsertUserMealUser(where: UserMealWhereUniqueInput!, create: UserMealCreateInput!, update: UserMealUpdateInput!): UserMeal
   createIngredientAdmin(data: IngredientCreateInput!): Ingredient
   createManyIngredientsAdmin(data: [IngredientCreateManyInput!]!, skipDuplicates: Boolean): [Ingredient!]
   deleteIngredientAdmin(where: IngredientWhereUniqueInput!): Ingredient
@@ -2196,13 +2203,6 @@ type Mutation {
   updateRecipeAdmin(data: RecipeUpdateInput!, where: RecipeWhereUniqueInput!): Recipe
   updateManyRecipesAdmin(data: RecipeUpdateManyMutationInput!, where: RecipeWhereInput): [Recipe!]
   upsertRecipeAdmin(where: RecipeWhereUniqueInput!, create: RecipeCreateInput!, update: RecipeUpdateInput!): Recipe
-  createUserMealUser(data: UserMealUncheckedCreateInput!): UserMeal
-  createManyUserMealsUser(data: [UserMealCreateManyInput!]!, skipDuplicates: Boolean): [UserMeal!]
-  deleteUserMealUser(where: UserMealWhereUniqueInput!): UserMeal
-  deleteManyUserMealsUser(where: UserMealWhereInput): Int
-  updateUserMealUser(data: UserMealUpdateInput!, where: UserMealWhereUniqueInput!): UserMeal
-  updateManyUserMealsUser(data: UserMealUpdateManyMutationInput!, where: UserMealWhereInput): [UserMeal!]
-  upsertUserMealUser(where: UserMealWhereUniqueInput!, create: UserMealCreateInput!, update: UserMealUpdateInput!): UserMeal
 }
 
 input RegisterUserInput {
@@ -11520,6 +11520,40 @@ input AllergensUpdateManyWithWhereWithoutUsersInput {
   data: AllergensUpdateManyMutationInput!
 }
 
+input UserMealUncheckedCreateInput {
+  id: Int
+  date: DateTime!
+  mealBoardPlanId: Int!
+  userId: Int!
+  mealId: Int!
+  weeklyMealGroupId: Int!
+}
+
+input UserMealCreateManyInput {
+  id: Int
+  date: DateTime!
+  mealBoardPlanId: Int!
+  userId: Int!
+  mealId: Int!
+  weeklyMealGroupId: Int!
+}
+
+input UserMealUpdateInput {
+  date: DateTimeFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutUserMealNestedInput
+  meal: MealUpdateOneRequiredWithoutUserMealNestedInput
+  mealBoardPlan: MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput
+  weeklyMealGroup: WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput
+}
+
+input UserMealCreateInput {
+  date: DateTime!
+  user: UserCreateNestedOneWithoutUserMealInput!
+  meal: MealCreateNestedOneWithoutUserMealInput!
+  mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput!
+  weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput!
+}
+
 input IngredientCreateInput {
   name: String!
   blsIdentifier: String!
@@ -11870,38 +11904,4 @@ input RecipeUpdateInput {
   kitchens: KitchensUpdateManyWithoutRecipesNestedInput
   recipeIngredient: RecipeIngredientUpdateManyWithoutRecipeNestedInput
   mealRecipe: MealRecipeUpdateManyWithoutRecipeNestedInput
-}
-
-input UserMealUncheckedCreateInput {
-  id: Int
-  date: DateTime!
-  mealBoardPlanId: Int!
-  userId: Int!
-  mealId: Int!
-  weeklyMealGroupId: Int!
-}
-
-input UserMealCreateManyInput {
-  id: Int
-  date: DateTime!
-  mealBoardPlanId: Int!
-  userId: Int!
-  mealId: Int!
-  weeklyMealGroupId: Int!
-}
-
-input UserMealUpdateInput {
-  date: DateTimeFieldUpdateOperationsInput
-  user: UserUpdateOneRequiredWithoutUserMealNestedInput
-  meal: MealUpdateOneRequiredWithoutUserMealNestedInput
-  mealBoardPlan: MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput
-  weeklyMealGroup: WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput
-}
-
-input UserMealCreateInput {
-  date: DateTime!
-  user: UserCreateNestedOneWithoutUserMealInput!
-  meal: MealCreateNestedOneWithoutUserMealInput!
-  mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput!
-  weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput!
 }
