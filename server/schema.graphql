@@ -2215,7 +2215,7 @@ type Mutation {
   createManyMealBoardPlansAdmin(data: [MealBoardPlanCreateManyInput!]!, skipDuplicates: Boolean): [MealBoardPlan!]
   deleteMealBoardPlanAdmin(where: MealBoardPlanWhereUniqueInput!): MealBoardPlan
   deleteManyMealBoardPlansAdmin(where: MealBoardPlanWhereInput): Int
-  updateMealBoardPlanAdmin(data: MealBoardPlanUncheckedUpdateInput!, where: MealBoardPlanWhereUniqueInput!): MealBoardPlan
+  updateMealBoardPlanAdmin(data: MealBoardPlanUncheckedUpdateInput!, where: WeeklyMealGroupWhereUniqueInput!): MealBoardPlan
   updateManyMealBoardPlansAdmin(data: MealBoardPlanUpdateManyMutationInput!, where: MealBoardPlanWhereInput): [MealBoardPlan!]
   upsertMealBoardPlanAdmin(where: MealBoardPlanWhereUniqueInput!, create: MealBoardPlanCreateInput!, update: MealBoardPlanUpdateInput!): MealBoardPlan
   uploadMealImageAdmin(mealId: Int!, file: File!): Boolean

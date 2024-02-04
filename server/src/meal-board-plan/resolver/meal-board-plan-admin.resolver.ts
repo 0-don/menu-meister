@@ -5,10 +5,10 @@ import { DeleteOneMealBoardPlanArgs } from "@/app_modules/@generated/meal-board-
 import { FindFirstMealBoardPlanArgs } from "@/app_modules/@generated/meal-board-plan/find-first-meal-board-plan.args";
 import { FindManyMealBoardPlanArgs } from "@/app_modules/@generated/meal-board-plan/find-many-meal-board-plan.args";
 import { MealBoardPlanUncheckedUpdateInput } from "@/app_modules/@generated/meal-board-plan/meal-board-plan-unchecked-update.input";
-import { MealBoardPlanWhereUniqueInput } from "@/app_modules/@generated/meal-board-plan/meal-board-plan-where-unique.input";
 import { MealBoardPlan } from "@/app_modules/@generated/meal-board-plan/meal-board-plan.model";
 import { UpdateManyMealBoardPlanArgs } from "@/app_modules/@generated/meal-board-plan/update-many-meal-board-plan.args";
 import { UpsertOneMealBoardPlanArgs } from "@/app_modules/@generated/meal-board-plan/upsert-one-meal-board-plan.args";
+import { WeeklyMealGroupWhereUniqueInput } from "@/app_modules/@generated/weekly-meal-group/weekly-meal-group-where-unique.input";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
@@ -122,8 +122,8 @@ export class MealBoardPlanAdminResolver {
   @Roles("ADMIN")
   async updateMealBoardPlanAdmin(
     @Args("data") data: MealBoardPlanUncheckedUpdateInput,
-    @Args({ name: "where", type: () => MealBoardPlanWhereUniqueInput })
-    where: Prisma.AtLeast<MealBoardPlanWhereUniqueInput, "id">,
+    @Args({ name: "where", type: () => WeeklyMealGroupWhereUniqueInput })
+    where: Prisma.AtLeast<WeeklyMealGroupWhereUniqueInput, "id">,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value

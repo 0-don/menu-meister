@@ -77,7 +77,16 @@ export class RecipeAdminResolver {
   ) {
     const select = new PrismaSelect(info).value.select as Prisma.RecipeSelect;
     try {
-      return await this.prisma.recipe.createMany({ ...args });
+      const createdRecipes = await Promise.all(
+        args.data.map((recipeData) =>
+          this.prisma.recipe.create({
+            data: recipeData,
+            select,
+          }),
+        ),
+      );
+
+      return createdRecipes;
     } catch (e) {
       Logger.error(e);
       return null;
@@ -133,13 +142,26 @@ export class RecipeAdminResolver {
   ) {
     const select = new PrismaSelect(info).value.select as Prisma.RecipeSelect;
     try {
-      return await this.prisma.recipe.updateMany({ ...args });
+      const recipesToUpdate = await this.prisma.recipe.findMany({
+        where: args.where,
+        select,
+      });
+
+      await this.prisma.recipe.updateMany({
+        where: args.where,
+        data: args.data,
+      });
+
+      const updatedRecipes = recipesToUpdate.map((recipe) => ({
+        ...recipe,
+        ...args.data,
+      }));
+      return updatedRecipes;
     } catch (e) {
       Logger.error(e);
       return null;
     }
   }
-
   @Mutation(() => Recipe, { nullable: true })
   @Roles("ADMIN")
   async upsertRecipeAdmin(

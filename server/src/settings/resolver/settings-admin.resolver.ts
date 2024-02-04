@@ -77,7 +77,16 @@ export class SettingsAdminResolver {
   ) {
     const select = new PrismaSelect(info).value.select as Prisma.SettingsSelect;
     try {
-      return await this.prisma.settings.createMany({ ...args });
+      const createdSettings = await Promise.all(
+        args.data.map((settingData) =>
+          this.prisma.settings.create({
+            data: settingData,
+            select,
+          }),
+        ),
+      );
+
+      return createdSettings;
     } catch (e) {
       Logger.error(e);
       return null;
@@ -133,7 +142,14 @@ export class SettingsAdminResolver {
   ) {
     const select = new PrismaSelect(info).value.select as Prisma.SettingsSelect;
     try {
-      return await this.prisma.settings.updateMany({ ...args });
+      const existingSettings = await this.prisma.settings.findMany({
+        where: args.where,
+        select,
+      });
+
+      await this.prisma.settings.updateMany({ ...args });
+
+      return existingSettings.map((setting) => ({ ...setting, ...args.data }));
     } catch (e) {
       Logger.error(e);
       return null;
