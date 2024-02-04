@@ -8,7 +8,7 @@ import { useGqlMutation, useGqlQuery } from "@/fetcher";
 import TableStore from "@/store/TableStore";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { Listbox, ListboxItem } from "@nextui-org/react";
-import { IoTrashOutline } from "@react-icons/all-files/io5/IoTrashOutline";
+import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -30,7 +30,7 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
   const { mutateAsync: uploadImage } = useGqlMutation(UPLOAD_MEAL_IMAGE_ADMIN);
 
   const isDisabled = !isHighRank || isOrderMenu;
-  
+
   return (
     <div
       className={`w-full rounded-lg bg-content1 p-5 ${modal ? "" : "container mx-auto mt-5"} flex space-x-10`}
@@ -46,7 +46,7 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
                 className="text-left"
                 endContent={
                   isDisabled ? undefined : (
-                    <IoTrashOutline className="hover:text-red-500" />
+                    <FaRegTrashAlt className="hover:text-red-500" />
                   )
                 }
               >
