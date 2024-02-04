@@ -69,7 +69,20 @@
     "EVENING": "Evening",
     "NIGHT": "Night"
   },
-  "User": {},
+  "User": {
+    "PROFILE": "Profile",
+    "PROFILE_DESCRIPTION": "Your personal and account settings.",
+    "PROFILE_DETAILS": "Profile Details",
+    "PROFILE_DETAILS_DESCRIPTION": "Detailed information and settings of your profile.",
+    "NOTIFICATIONS": "Notifications",
+    "NOTIFICATIONS_DESCRIPTION": "Your notification and messaging settings.",
+    "NOTIFICATIONS_DETAILS": "Notification Details",
+    "NOTIFICATIONS_DETAILS_DESCRIPTION": "Detailed settings for the notifications you receive.",
+    "SECURITY": "Security",
+    "SECURITY_DESCRIPTION": "Settings to secure your account.",
+    "SECURITY_DETAILS": "Security Details",
+    "SECURITY_DETAILS_DESCRIPTION": "Advanced security settings and account security information."
+  },
   "Settings": {
     "SETTINGS": "Settings",
     "SETTINGS_DESCRIPTION": "Manage your account settings and set your preferences.",
@@ -84,7 +97,7 @@
     "LOGOUT": "Logout",
     "HOME": "Home",
     "DASHBOARD": "Dashboard",
-    "PROFILE": "Profile",
+    "PROFILE_SETTINGS": "Profile Settings",
     "ABOUT": "About",
     "MENU": "Menu",
     "SETTINGS": "Settings",

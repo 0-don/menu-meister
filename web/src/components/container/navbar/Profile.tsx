@@ -33,6 +33,15 @@ export const Profile = () => {
         />
       </DropdownItem>
     ),
+    me && (
+      <DropdownItem
+        key="profileSettings"
+        href="/user/settings"
+        endContent={<ImProfile className="text-large" />}
+      >
+        {t("PROFILE_SETTINGS")}
+      </DropdownItem>
+    ),
     me && isHighRank && (
       <DropdownItem
         key="settings"
@@ -42,15 +51,7 @@ export const Profile = () => {
         {t("SETTINGS")}
       </DropdownItem>
     ),
-    me && (
-      <DropdownItem
-        key="profile"
-        href="/user/profile"
-        endContent={<ImProfile className="text-large" />}
-      >
-        {t("SETTINGS")}
-      </DropdownItem>
-    ),
+
     me && (
       <DropdownItem
         key="logout"

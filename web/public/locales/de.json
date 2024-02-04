@@ -69,7 +69,20 @@
     "EVENING": "Abend",
     "NIGHT": "Nacht"
   },
-  "User": {},
+  "User": {
+    "PROFILE": "Profil",
+    "PROFILE_DESCRIPTION": "Ihre persönlichen und Kontoeinstellungen.",
+    "PROFILE_DETAILS": "Profil Details",
+    "PROFILE_DETAILS_DESCRIPTION": "Detaillierte Informationen und Einstellungen Ihres Profils.",
+    "NOTIFICATIONS": "Benachrichtigungen",
+    "NOTIFICATIONS_DESCRIPTION": "Ihre Benachrichtigungs- und Nachrichteneinstellungen.",
+    "NOTIFICATIONS_DETAILS": "Benachrichtigungsdetails",
+    "NOTIFICATIONS_DETAILS_DESCRIPTION": "Detaillierte Einstellungen für die Benachrichtigungen, die Sie erhalten.",
+    "SECURITY": "Sicherheit",
+    "SECURITY_DESCRIPTION": "Einstellungen zur Sicherung Ihres Kontos.",
+    "SECURITY_DETAILS": "Sicherheitsdetails",
+    "SECURITY_DETAILS_DESCRIPTION": "Erweiterte Sicherheitseinstellungen und Kontosicherheitsinformationen."
+  },
   "Settings": {
     "SETTINGS": "Einstellungen",
     "SETTINGS_DESCRIPTION": "Verwalten Sie Ihre Einstellungen",
@@ -84,7 +97,7 @@
     "LOGOUT": "Ausloggen",
     "HOME": "Home",
     "DASHBOARD": "Dashboard",
-    "PROFILE": "Profil",
+    "PROFILE_SETTINGS": "Profil Einstellungen",
     "ABOUT": "Über",
     "MENU": "Menü",
     "SETTINGS": "Einstellungen",
