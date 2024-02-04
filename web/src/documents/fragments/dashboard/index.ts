@@ -8,6 +8,7 @@ export const WEEKLY_MEAL_GROUP_FRAGMENT = graphql(/* GraphQL */ `
     description
     year
     weekOfYear
+    timeOfDay
     orderIndex
     mondayMeal {
       id
