@@ -1,50 +1,12 @@
-import { FindManyUserMealArgs } from "@/app_modules/@generated/user-meal/find-many-user-meal.args";
-import { UserMealGroupByArgs } from "@/app_modules/@generated/user-meal/user-meal-group-by.args";
-import { UserMealGroupBy } from "@/app_modules/@generated/user-meal/user-meal-group-by.output";
-import { UserMeal } from "@/app_modules/@generated/user-meal/user-meal.model";
-import { Roles } from "@/app_modules/decorators/roles.decorator";
+import { UserMealLocation } from "@/app_modules/@generated/user-meal-location/user-meal-location.model";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
-import { Logger } from "@nestjs/common";
-import { Args, Info, Query, Resolver } from "@nestjs/graphql";
-import { PrismaSelect } from "@paljs/plugins";
-import { GraphQLResolveInfo } from "graphql";
+import { Resolver } from "@nestjs/graphql";
 import { UserMeaLocationService } from "../user-meal-location.service";
 
-@Resolver(() => UserMeal)
+@Resolver(() => UserMealLocation)
 export class UserMealLocationAdminResolver {
   constructor(
     private prisma: PrismaService,
-    private userMealService: UserMeaLocationService,
+    private userMealLocationService: UserMeaLocationService,
   ) {}
-
-  @Query(() => [UserMealGroupBy], { nullable: true })
-  @Roles("ADMIN")
-  async getUserMealsGroupedAdmin(@Args() args: UserMealGroupByArgs) {
-    try {
-      // @ts-ignore
-      const result = await this.prisma.userMeal.groupBy({
-        ...args,
-      });
-
-      return result;
-    } catch (e) {
-      Logger.error(e);
-      return null;
-    }
-  }
-
-  @Query(() => [UserMeal], { nullable: true })
-  @Roles("ADMIN")
-  async getAllUserMealsAdmin(
-    @Args() args: FindManyUserMealArgs,
-    @Info() info: GraphQLResolveInfo,
-  ) {
-    const select = new PrismaSelect(info).value;
-    try {
-      return await this.prisma.userMeal.findMany({ ...args, ...select });
-    } catch (e) {
-      Logger.error(e);
-      return null;
-    }
-  }
 }

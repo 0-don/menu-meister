@@ -108,11 +108,10 @@ export class UserMealLocationUserResolver {
     @Args() args: DeleteOneUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealLocationSelect;
-    };
+    const select = new PrismaSelect(info).value
+      .select as Prisma.UserMealLocationSelect;
     try {
-      return await this.prisma.userMealLocation.delete({ ...args, ...select });
+      return await this.prisma.userMealLocation.delete({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -138,11 +137,10 @@ export class UserMealLocationUserResolver {
     @Args() args: UpdateOneUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealLocationSelect;
-    };
+    const select = new PrismaSelect(info).value
+      .select as Prisma.UserMealLocationSelect;
     try {
-      return await this.prisma.userMealLocation.update({ ...args, ...select });
+      return await this.prisma.userMealLocation.update({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -155,13 +153,12 @@ export class UserMealLocationUserResolver {
     @Args() args: UpdateManyUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealLocationSelect;
-    };
+    const select = new PrismaSelect(info).value
+      .select as Prisma.UserMealLocationSelect;
     try {
       const data = await this.prisma.userMealLocation.findMany({
         where: args.where,
-        ...select,
+        select,
       });
 
       await this.prisma.userMealLocation.updateMany({ ...args });
@@ -179,11 +176,10 @@ export class UserMealLocationUserResolver {
     @Args() args: UpsertOneUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealLocationSelect;
-    };
+    const select = new PrismaSelect(info).value
+      .select as Prisma.UserMealLocationSelect;
     try {
-      return await this.prisma.userMealLocation.upsert({ ...args, ...select });
+      return await this.prisma.userMealLocation.upsert({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -196,11 +192,10 @@ export class UserMealLocationUserResolver {
     @Args() args: UpdateOneUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealLocationSelect;
-    };
+    const select = new PrismaSelect(info).value
+      .select as Prisma.UserMealLocationSelect;
     try {
-      return await this.prisma.userMealLocation.update({ ...args, ...select });
+      return await this.prisma.userMealLocation.update({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -213,11 +208,10 @@ export class UserMealLocationUserResolver {
     @Args() args: UpsertOneUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.UserMealLocationSelect;
-    };
+    const select = new PrismaSelect(info).value
+      .select as Prisma.UserMealLocationSelect;
     try {
-      return await this.prisma.userMealLocation.upsert({ ...args, ...select });
+      return await this.prisma.userMealLocation.upsert({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;

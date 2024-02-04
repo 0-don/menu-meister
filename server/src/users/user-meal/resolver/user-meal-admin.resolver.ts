@@ -19,12 +19,7 @@ export class UserMealAdminResolver {
 
   @Query(() => [UserMealGroupBy], { nullable: true })
   @Roles("ADMIN")
-  async getUserMealsGroupedAdmin(
-    @Info() info: GraphQLResolveInfo,
-    @Args() args: UserMealGroupByArgs,
-  ) {
-    const select = new PrismaSelect(info).value;
-
+  async getUserMealsGroupedAdmin(@Args() args: UserMealGroupByArgs) {
     try {
       // @ts-ignore
       const result = await this.prisma.userMeal.groupBy({
