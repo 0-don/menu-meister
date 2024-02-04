@@ -2190,6 +2190,7 @@ type Mutation {
   updateUserAdmin(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsersAdmin(data: UserUpdateManyMutationInput!, where: UserWhereInput): [User!]
   upsertUserAdmin(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User
+  updateUserAllergens(data: UserUpdateInput!): User
   createUserMealUser(data: UserMealUncheckedCreateInput!): UserMeal
   createManyUserMealsUser(data: [UserMealCreateManyInput!]!, skipDuplicates: Boolean): [UserMeal!]
   deleteUserMealUser(where: UserMealWhereUniqueInput!): UserMeal
