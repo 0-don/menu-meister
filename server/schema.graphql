@@ -681,7 +681,7 @@ type Query {
   getAllMealBoardPlansAdmin(where: MealBoardPlanWhereInput, orderBy: [MealBoardPlanOrderByWithRelationInput!], cursor: MealBoardPlanWhereUniqueInput, take: Int, skip: Int, distinct: [MealBoardPlanScalarFieldEnum!]): [MealBoardPlan!]
   getMealBoardPlanAdmin(where: MealBoardPlanWhereInput, orderBy: [MealBoardPlanOrderByWithRelationInput!], cursor: MealBoardPlanWhereUniqueInput, take: Int, skip: Int, distinct: [MealBoardPlanScalarFieldEnum!]): MealBoardPlan
   getAllMealBoardPlansUser(where: MealBoardPlanWhereInput, orderBy: [MealBoardPlanOrderByWithRelationInput!], cursor: MealBoardPlanWhereUniqueInput, take: Int, skip: Int, distinct: [MealBoardPlanScalarFieldEnum!]): [MealBoardPlan!]
-  getAllAllergensUser(where: MealWhereInput, orderBy: [MealOrderByWithRelationInput!], cursor: MealWhereUniqueInput, take: Int, skip: Int, distinct: [MealScalarFieldEnum!]): [Meal!]
+  getAllAllergensUser(where: AllergensWhereInput, orderBy: [AllergensOrderByWithRelationInput!], cursor: AllergensWhereUniqueInput, take: Int, skip: Int, distinct: [AllergensScalarFieldEnum!]): [Meal!]
   getAllMealsAdmin(where: MealWhereInput, orderBy: [MealOrderByWithRelationInput!], cursor: MealWhereUniqueInput, take: Int, skip: Int, distinct: [MealScalarFieldEnum!]): [Meal!]
   getMealAdmin(where: MealWhereInput, orderBy: [MealOrderByWithRelationInput!], cursor: MealWhereUniqueInput, take: Int, skip: Int, distinct: [MealScalarFieldEnum!]): Meal
   getAllMealsUser(where: MealWhereInput, orderBy: [MealOrderByWithRelationInput!], cursor: MealWhereUniqueInput, take: Int, skip: Int, distinct: [MealScalarFieldEnum!]): [Meal!]
@@ -2017,6 +2017,36 @@ enum MealBoardPlanScalarFieldEnum {
   id
   name
   color
+  createdAt
+  updatedAt
+  createdBy
+  updatedBy
+}
+
+input AllergensOrderByWithRelationInput {
+  id: SortOrder
+  name: SortOrder
+  ingredients: IngredientOrderByRelationAggregateInput
+  recipes: RecipeOrderByRelationAggregateInput
+  meals: MealOrderByRelationAggregateInput
+  users: UserOrderByRelationAggregateInput
+}
+
+input AllergensWhereUniqueInput {
+  id: Int
+  name: String
+  AND: [AllergensWhereInput!]
+  OR: [AllergensWhereInput!]
+  NOT: [AllergensWhereInput!]
+  ingredients: IngredientListRelationFilter
+  recipes: RecipeListRelationFilter
+  meals: MealListRelationFilter
+  users: UserListRelationFilter
+}
+
+enum AllergensScalarFieldEnum {
+  id
+  name
   createdAt
   updatedAt
   createdBy
@@ -5431,18 +5461,6 @@ input AllergensCreateWithoutCreatedByUserInput {
 input AllergensCreateOrConnectWithoutCreatedByUserInput {
   where: AllergensWhereUniqueInput!
   create: AllergensCreateWithoutCreatedByUserInput!
-}
-
-input AllergensWhereUniqueInput {
-  id: Int
-  name: String
-  AND: [AllergensWhereInput!]
-  OR: [AllergensWhereInput!]
-  NOT: [AllergensWhereInput!]
-  ingredients: IngredientListRelationFilter
-  recipes: RecipeListRelationFilter
-  meals: MealListRelationFilter
-  users: UserListRelationFilter
 }
 
 input AllergensCreateManyCreatedByUserInputEnvelope {

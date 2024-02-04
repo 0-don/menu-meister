@@ -5,6 +5,7 @@ import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
 import { Args, Info, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
+import { Prisma } from "@prisma/client";
 import { GraphQLResolveInfo } from "graphql";
 import { WeeklyMealGroupService } from "../weekly-meal-group.service";
 
@@ -21,9 +22,10 @@ export class WeeklyMealGroupUseresolver {
     @Args() args: FindManyWeeklyMealGroupArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value
+      .select as Prisma.WeeklyMealGroupSelect;
     try {
-      return await this.prisma.weeklyMealGroup.findMany({ ...args, ...select });
+      return await this.prisma.weeklyMealGroup.findMany({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;

@@ -7,6 +7,7 @@ import { Args, Info, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import { GraphQLResolveInfo } from "graphql";
 import { MealService } from "../meal.service";
+import { Prisma } from "@prisma/client";
 
 @Resolver(() => Meal)
 export class MealUserResolver {
@@ -21,9 +22,9 @@ export class MealUserResolver {
     @Args() args: FindManyMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.MealSelect;
     try {
-      return await this.prisma.meal.findMany({ ...args, ...select });
+      return await this.prisma.meal.findMany({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;

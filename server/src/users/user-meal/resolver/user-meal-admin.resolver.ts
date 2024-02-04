@@ -7,6 +7,7 @@ import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
 import { Args, Info, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
+import { Prisma } from "@prisma/client";
 import { GraphQLResolveInfo } from "graphql";
 import { UserMealService } from "../user-meal.service";
 
@@ -39,9 +40,9 @@ export class UserMealAdminResolver {
     @Args() args: FindManyUserMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value;
+    const select = new PrismaSelect(info).value.select as Prisma.UserMealSelect;
     try {
-      return await this.prisma.userMeal.findMany({ ...args, ...select });
+      return await this.prisma.userMeal.findMany({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
