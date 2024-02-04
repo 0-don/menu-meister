@@ -101,10 +101,7 @@ export class SettingsAdminResolver {
 
   @Mutation(() => Int, { nullable: true })
   @Roles("ADMIN")
-  async deleteManySettingsAdmin(
-    @Args() args: DeleteManySettingsArgs,
-    @Info() info: GraphQLResolveInfo,
-  ) {
+  async deleteManySettingsAdmin(@Args() args: DeleteManySettingsArgs) {
     try {
       return (await this.prisma.settings.deleteMany({ ...args })).count;
     } catch (e) {

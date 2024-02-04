@@ -96,11 +96,11 @@ export class WeeklyMealGroupAdminResolver {
     @Args() args: FindManyWeeklyMealGroupArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.WeeklyMealGroupSelect;
-    };
+    const select = new PrismaSelect(info).value
+      .select as Prisma.WeeklyMealGroupSelect;
+
     try {
-      return await this.prisma.weeklyMealGroup.findMany({ ...args, ...select });
+      return await this.prisma.weeklyMealGroup.findMany({ ...args, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -113,13 +113,12 @@ export class WeeklyMealGroupAdminResolver {
     @Args() args: FindFirstWeeklyMealGroupArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value as {
-      select: Prisma.WeeklyMealGroupSelect;
-    };
+    const select = new PrismaSelect(info).value
+      .select as Prisma.WeeklyMealGroupSelect;
     try {
       return await this.prisma.weeklyMealGroup.findFirst({
         ...args,
-        ...select,
+        select,
       });
     } catch (e) {
       Logger.error(e);
@@ -234,9 +233,14 @@ export class WeeklyMealGroupAdminResolver {
     const select = new PrismaSelect(info).value
       .select as Prisma.WeeklyMealGroupSelect;
     try {
-      return await this.prisma.weeklyMealGroup.updateMany({
-        ...args,
+      const data = await this.prisma.weeklyMealGroup.findMany({
+        where: args.where,
+        select,
       });
+
+      await this.prisma.weeklyMealGroup.updateMany({ ...args });
+
+      return data.map((d) => ({ ...d, ...args.data }));
     } catch (e) {
       Logger.error(e);
       return null;
