@@ -681,6 +681,7 @@ type Query {
   getAllMealBoardPlansAdmin(where: MealBoardPlanWhereInput, orderBy: [MealBoardPlanOrderByWithRelationInput!], cursor: MealBoardPlanWhereUniqueInput, take: Int, skip: Int, distinct: [MealBoardPlanScalarFieldEnum!]): [MealBoardPlan!]
   getMealBoardPlanAdmin(where: MealBoardPlanWhereInput, orderBy: [MealBoardPlanOrderByWithRelationInput!], cursor: MealBoardPlanWhereUniqueInput, take: Int, skip: Int, distinct: [MealBoardPlanScalarFieldEnum!]): MealBoardPlan
   getAllMealBoardPlansUser(where: MealBoardPlanWhereInput, orderBy: [MealBoardPlanOrderByWithRelationInput!], cursor: MealBoardPlanWhereUniqueInput, take: Int, skip: Int, distinct: [MealBoardPlanScalarFieldEnum!]): [MealBoardPlan!]
+  getAllAllergensUser(where: MealWhereInput, orderBy: [MealOrderByWithRelationInput!], cursor: MealWhereUniqueInput, take: Int, skip: Int, distinct: [MealScalarFieldEnum!]): [Meal!]
   getAllMealsAdmin(where: MealWhereInput, orderBy: [MealOrderByWithRelationInput!], cursor: MealWhereUniqueInput, take: Int, skip: Int, distinct: [MealScalarFieldEnum!]): [Meal!]
   getMealAdmin(where: MealWhereInput, orderBy: [MealOrderByWithRelationInput!], cursor: MealWhereUniqueInput, take: Int, skip: Int, distinct: [MealScalarFieldEnum!]): Meal
   getAllMealsUser(where: MealWhereInput, orderBy: [MealOrderByWithRelationInput!], cursor: MealWhereUniqueInput, take: Int, skip: Int, distinct: [MealScalarFieldEnum!]): [Meal!]

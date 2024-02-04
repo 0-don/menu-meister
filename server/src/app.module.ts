@@ -8,6 +8,7 @@ import { RolesGuard } from "./app_modules/guards/roles.guard";
 import { ModulesModule } from "./app_modules/modules.module";
 import { AuthModule } from "./auth/auth.module";
 import { graphqlModuleFactory } from "./graphql";
+import { IngredientPropertiesModule } from "./ingredient-properties/ingrediend-properties.module";
 import { IngredientModule } from "./ingredient/ingredient.module";
 import { MealBoardPlanModule } from "./meal-board-plan/meal-board-plan.module";
 import { MealModule } from "./meal/meal.module";
@@ -27,6 +28,7 @@ import { WeeklyMealGroupModule } from "./weekly-meal-group/weekly-meal-group.mod
     ModulesModule,
     IngredientModule,
     MealBoardPlanModule,
+    IngredientPropertiesModule,
     MealModule,
     WeeklyMealGroupModule,
     SettingsModule,

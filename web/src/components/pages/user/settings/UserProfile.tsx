@@ -28,7 +28,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
             size="sm"
             onChange={(e) => setAllergen(e.target.value)}
             items={
-              me?.allergens?.map(({ id, name }) => ({
+              A.map(({ id, name }) => ({
                 id,
                 name,
               })) || []
