@@ -674,6 +674,8 @@ type Query {
   getUserMealUser(where: UserMealWhereInput, orderBy: [UserMealOrderByWithRelationInput!], cursor: UserMealWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealScalarFieldEnum!]): UserMeal
   getUserMealsGroupedAdmin(where: UserMealWhereInput, orderBy: [UserMealOrderByWithAggregationInput!], by: [UserMealScalarFieldEnum!]!, having: UserMealScalarWhereWithAggregatesInput, take: Int, skip: Int, _count: UserMealCountAggregateInput, _avg: UserMealAvgAggregateInput, _sum: UserMealSumAggregateInput, _min: UserMealMinAggregateInput, _max: UserMealMaxAggregateInput): [UserMealGroupBy!]
   getAllUserMealsAdmin(where: UserMealWhereInput, orderBy: [UserMealOrderByWithRelationInput!], cursor: UserMealWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealScalarFieldEnum!]): [UserMeal!]
+  getAllUserMealLocationsUser(where: UserMealLocationWhereInput, orderBy: [UserMealLocationOrderByWithRelationInput!], cursor: UserMealLocationWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealLocationScalarFieldEnum!]): [UserMealLocation!]
+  getUserMealLocationUser(where: UserMealLocationWhereInput, orderBy: [UserMealLocationOrderByWithRelationInput!], cursor: UserMealLocationWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealLocationScalarFieldEnum!]): UserMealLocation
   getAllIngredientsAdmin(where: IngredientWhereInput, orderBy: [IngredientOrderByWithRelationInput!], cursor: IngredientWhereUniqueInput, take: Int, skip: Int, distinct: [IngredientScalarFieldEnum!]): [Ingredient!]
   getIngredientAdmin(where: IngredientWhereInput, orderBy: [IngredientOrderByWithRelationInput!], cursor: IngredientWhereUniqueInput, take: Int, skip: Int, distinct: [IngredientScalarFieldEnum!]): Ingredient
   getAllMealBoardPlansAdmin(where: MealBoardPlanWhereInput, orderBy: [MealBoardPlanOrderByWithRelationInput!], cursor: MealBoardPlanWhereUniqueInput, take: Int, skip: Int, distinct: [MealBoardPlanScalarFieldEnum!]): [MealBoardPlan!]
@@ -1891,6 +1893,43 @@ input UserMealMaxAggregateInput {
   weeklyMealGroupId: Boolean
 }
 
+input UserMealLocationOrderByWithRelationInput {
+  id: SortOrder
+  userId: SortOrder
+  timeOfDay: SortOrder
+  name: SortOrder
+  user: UserOrderByWithRelationInput
+}
+
+input UserMealLocationWhereUniqueInput {
+  id: Int
+  user_meal_location_userId_timeOfDay_name_unique: UserMealLocationUser_meal_location_userId_timeOfDay_name_uniqueCompoundUniqueInput
+  AND: [UserMealLocationWhereInput!]
+  OR: [UserMealLocationWhereInput!]
+  NOT: [UserMealLocationWhereInput!]
+  userId: IntFilter
+  timeOfDay: EnumTimeOfDayFilter
+  name: EnumMealLocationFilter
+  user: UserRelationFilter
+}
+
+input UserMealLocationUser_meal_location_userId_timeOfDay_name_uniqueCompoundUniqueInput {
+  userId: Int!
+  timeOfDay: TimeOfDay!
+  name: MealLocation!
+}
+
+enum UserMealLocationScalarFieldEnum {
+  id
+  userId
+  timeOfDay
+  name
+  createdAt
+  updatedAt
+  createdBy
+  updatedBy
+}
+
 input IngredientOrderByWithRelationInput {
   id: SortOrder
   name: SortOrder
@@ -2155,9 +2194,16 @@ type Mutation {
   createManyUserMealsUser(data: [UserMealCreateManyInput!]!, skipDuplicates: Boolean): [UserMeal!]
   deleteUserMealUser(where: UserMealWhereUniqueInput!): UserMeal
   deleteManyUserMealsUser(where: UserMealWhereInput): Int
-  updateUserMealUser(data: UserMealUpdateInput!, where: UserMealWhereUniqueInput!): UserMeal
+  updateUserMealUser(data: UserMealLocationUpdateInput!, where: UserMealLocationWhereUniqueInput!): UserMeal
   updateManyUserMealsUser(data: UserMealUpdateManyMutationInput!, where: UserMealWhereInput): [UserMeal!]
-  upsertUserMealUser(where: UserMealWhereUniqueInput!, create: UserMealCreateInput!, update: UserMealUpdateInput!): UserMeal
+  upsertUserMealUser(where: UserMealLocationWhereUniqueInput!, create: UserMealLocationCreateInput!, update: UserMealLocationUpdateInput!): UserMeal
+  createUserMealLocationUser(data: UserMealLocationUncheckedCreateInput!): UserMealLocation
+  createManyUserMealLocationsUser(data: [UserMealLocationCreateManyInput!]!, skipDuplicates: Boolean): [UserMealLocation!]
+  deleteUserMealLocationUser(where: UserMealLocationWhereUniqueInput!): UserMealLocation
+  deleteManyUserMealLocationsUser(where: UserMealLocationWhereInput): Int
+  updateUserMealLocationUser(data: UserMealLocationUpdateInput!, where: UserMealLocationWhereUniqueInput!): UserMealLocation
+  updateManyUserMealLocationsUser(data: UserMealLocationUpdateManyMutationInput!, where: UserMealLocationWhereInput): [UserMealLocation!]
+  upsertUserMealLocationUser(where: UserMealLocationWhereUniqueInput!, create: UserMealLocationCreateInput!, update: UserMealLocationUpdateInput!): UserMealLocation
   createIngredientAdmin(data: IngredientCreateInput!): Ingredient
   createManyIngredientsAdmin(data: [IngredientCreateManyInput!]!, skipDuplicates: Boolean): [Ingredient!]
   deleteIngredientAdmin(where: IngredientWhereUniqueInput!): Ingredient
@@ -5880,24 +5926,6 @@ input UserMealLocationCreateWithoutUpdatedByUserInput {
 input UserMealLocationCreateOrConnectWithoutUpdatedByUserInput {
   where: UserMealLocationWhereUniqueInput!
   create: UserMealLocationCreateWithoutUpdatedByUserInput!
-}
-
-input UserMealLocationWhereUniqueInput {
-  id: Int
-  user_meal_location_userId_timeOfDay_name_unique: UserMealLocationUser_meal_location_userId_timeOfDay_name_uniqueCompoundUniqueInput
-  AND: [UserMealLocationWhereInput!]
-  OR: [UserMealLocationWhereInput!]
-  NOT: [UserMealLocationWhereInput!]
-  userId: IntFilter
-  timeOfDay: EnumTimeOfDayFilter
-  name: EnumMealLocationFilter
-  user: UserRelationFilter
-}
-
-input UserMealLocationUser_meal_location_userId_timeOfDay_name_uniqueCompoundUniqueInput {
-  userId: Int!
-  timeOfDay: TimeOfDay!
-  name: MealLocation!
 }
 
 input UserMealLocationCreateManyUpdatedByUserInputEnvelope {
@@ -11538,20 +11566,30 @@ input UserMealCreateManyInput {
   weeklyMealGroupId: Int!
 }
 
-input UserMealUpdateInput {
-  date: DateTimeFieldUpdateOperationsInput
-  user: UserUpdateOneRequiredWithoutUserMealNestedInput
-  meal: MealUpdateOneRequiredWithoutUserMealNestedInput
-  mealBoardPlan: MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput
-  weeklyMealGroup: WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput
+input UserMealLocationUpdateInput {
+  timeOfDay: EnumTimeOfDayFieldUpdateOperationsInput
+  name: EnumMealLocationFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutUserMealLocationNestedInput
 }
 
-input UserMealCreateInput {
-  date: DateTime!
-  user: UserCreateNestedOneWithoutUserMealInput!
-  meal: MealCreateNestedOneWithoutUserMealInput!
-  mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput!
-  weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput!
+input UserMealLocationCreateInput {
+  timeOfDay: TimeOfDay
+  name: MealLocation
+  user: UserCreateNestedOneWithoutUserMealLocationInput!
+}
+
+input UserMealLocationUncheckedCreateInput {
+  id: Int
+  userId: Int!
+  timeOfDay: TimeOfDay
+  name: MealLocation
+}
+
+input UserMealLocationCreateManyInput {
+  id: Int
+  userId: Int!
+  timeOfDay: TimeOfDay
+  name: MealLocation
 }
 
 input IngredientCreateInput {

@@ -151,7 +151,8 @@ model UserMealLocation {
   /// @HideField({ output: false, input: true })
   updatedByUser User     @relation("UpdatedUserMealLocation", fields: [updatedBy], references: [id])
 
-  user User @relation(fields: [userId], references: [id])
+  user     User       @relation(fields: [userId], references: [id])
+  userMeal UserMeal[]
 
   @@unique([userId, timeOfDay, name], name: "user_meal_location_userId_timeOfDay_name_unique")
 }
@@ -180,17 +181,20 @@ model UserRole {
 }
 
 model UserMeal {
-  id                Int      @id @default(autoincrement())
-  date              DateTime @db.Date
-  mealBoardPlanId   Int
+  id   Int      @id @default(autoincrement())
+  date DateTime @db.Date
+
   userId            Int
   mealId            Int
+  mealBoardPlanId   Int
   weeklyMealGroupId Int
+  userLocationId    Int
 
-  user            User            @relation(fields: [userId], references: [id])
-  meal            Meal            @relation(fields: [mealId], references: [id])
-  mealBoardPlan   MealBoardPlan   @relation(fields: [mealBoardPlanId], references: [id])
-  weeklyMealGroup WeeklyMealGroup @relation(fields: [weeklyMealGroupId], references: [id])
+  user             User             @relation(fields: [userId], references: [id])
+  meal             Meal             @relation(fields: [mealId], references: [id])
+  mealBoardPlan    MealBoardPlan    @relation(fields: [mealBoardPlanId], references: [id])
+  weeklyMealGroup  WeeklyMealGroup  @relation(fields: [weeklyMealGroupId], references: [id])
+  userMealLocation UserMealLocation @relation(fields: [userLocationId], references: [id])
 
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
