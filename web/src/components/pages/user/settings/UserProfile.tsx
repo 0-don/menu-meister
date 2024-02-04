@@ -1,7 +1,7 @@
 import { MyAutocomplete } from "@/components/elements/MyAutocomplete";
 import { useIngredientPropertiesHook } from "@/components/hooks/useIngredientPropertiesHook";
 import { useMeHook } from "@/components/hooks/useMeHook";
-import { Listbox, ListboxItem } from "@nextui-org/react";
+import { Card, CardBody, Listbox, ListboxItem } from "@nextui-org/react";
 import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
 import { useTranslations } from "next-intl";
 import React, { useState } from "react";
@@ -10,7 +10,7 @@ interface UserProfileProps {}
 
 export const UserProfile: React.FC<UserProfileProps> = ({}) => {
   const t = useTranslations<"User" | "Allergens">();
-  const { me } = useMeHook();
+  const { me, refetchMe } = useMeHook();
   const { allergens } = useIngredientPropertiesHook();
   const [allergen, setAllergen] = useState<string>("");
   const [timeOfDay, setTimeOfDay] = useState<string>("");
@@ -23,55 +23,83 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
       </p>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <div className="md">
-          <MyAutocomplete
-            label={t("ALLERGENS")}
-            value={allergen}
-            size="sm"
-            onChange={async (e) => {
-              setAllergen(e.target.value);
-            }}
-            items={
-              allergens?.map(({ id, name }) => ({
+        <Card>
+          <CardBody>
+            <MyAutocomplete
+              label={t("ALLERGENS")}
+              labelPlacement="outside"
+              placeholder=" "
+              value={allergen}
+              size="sm"
+              onChange={async (e) => {
+                setAllergen(e.target.value);
+              }}
+              items={(allergens || []).map(({ id, name }) => ({
                 id,
                 name: t(name as keyof Messages["Allergens"]),
-              })) || []
-            }
-          />
-          <Listbox>
-            <ListboxItem
-              key="new"
-              endContent={
-                <FaRegTrashAlt className="cursor-pointer hover:text-red-600" />
-              }
-            >
-              New file
-            </ListboxItem>
-            <ListboxItem key="copy" endContent={<FaRegTrashAlt />}>
-              Copy link
-            </ListboxItem>
-            <ListboxItem key="edit" endContent={<FaRegTrashAlt />}>
-              Edit file
-            </ListboxItem>
-            <ListboxItem key="delete" endContent={<FaRegTrashAlt />}>
-              Delete file
-            </ListboxItem>
-          </Listbox>
-        </div>
-        <div>
-          <MyAutocomplete
-            label={t("NOTIFICATIONS")}
-            value={allergen}
-            size="sm"
-            onChange={(e) => setAllergen(e.target.value)}
-            items={
-              me?.allergens?.map(({ id, name }) => ({
-                id,
-                name,
-              })) || []
-            }
-          />
-        </div>
+              }))}
+            />
+            <Listbox emptyContent={t("NO_ALLERGIES")}>
+              {(me?.allergens || []).map(({ id, name }) => (
+                <ListboxItem
+                  key={id}
+                  endContent={
+                    <FaRegTrashAlt className="cursor-pointer hover:text-red-600" />
+                  }
+                >
+                  {t(name as keyof Messages["Allergens"])}
+                </ListboxItem>
+              ))}
+            </Listbox>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardBody>
+            <div className="flex items-center space-x-3">
+              <MyAutocomplete
+                label={t("TIME_OF_DAY")}
+                labelPlacement="outside"
+                placeholder=" "
+                value={allergen}
+                size="sm"
+                onChange={(e) => setAllergen(e.target.value)}
+                items={
+                  me?.allergens?.map(({ id, name }) => ({
+                    id,
+                    name,
+                  })) || []
+                }
+              />
+              <MyAutocomplete
+                label={t("TIME_OF_DAY")}
+                labelPlacement="outside"
+                placeholder=" "
+                value={allergen}
+                size="sm"
+                onChange={(e) => setAllergen(e.target.value)}
+                items={
+                  me?.allergens?.map(({ id, name }) => ({
+                    id,
+                    name,
+                  })) || []
+                }
+              />
+            </div>
+            <Listbox emptyContent={t("NO_USER_MEAL_LOCATION")}>
+              {(me?.UserMealLocation || []).map(({ id, name }) => (
+                <ListboxItem
+                  key={id}
+                  endContent={
+                    <FaRegTrashAlt className="cursor-pointer hover:text-red-600" />
+                  }
+                >
+                  {t(name as unknown as keyof Messages["User"])}
+                </ListboxItem>
+              ))}
+            </Listbox>
+          </CardBody>
+        </Card>
       </div>
     </form>
   );

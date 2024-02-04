@@ -82,7 +82,11 @@
     "SECURITY_DESCRIPTION": "Einstellungen zur Sicherung Ihres Kontos.",
     "SECURITY_DETAILS": "Sicherheitsdetails",
     "SECURITY_DETAILS_DESCRIPTION": "Erweiterte Sicherheitseinstellungen und Kontosicherheitsinformationen.",
-    "ALLERGENS": "Allergene"
+    "ALLERGENS": "Allergene",
+    "NO_ALLERGIES": "Keine Allergien",
+    "TIME_OF_DAY": "Tageszeit",
+    "NO_TIME_OF_DAY": "Keine Tageszeiten ausgewählt",
+    "NO_USER_MEAL_LOCATION": "Kein Mahlzeitstandort ausgewählt"
   },
   "Settings": {
     "SETTINGS": "Einstellungen",

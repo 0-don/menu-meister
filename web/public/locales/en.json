@@ -82,7 +82,10 @@
     "SECURITY_DESCRIPTION": "Settings to secure your account.",
     "SECURITY_DETAILS": "Security Details",
     "SECURITY_DETAILS_DESCRIPTION": "Advanced security settings and account security information.",
-    "ALLERGENS": "Allergens"
+    "ALLERGENS": "Allergens",
+    "NO_ALLERGIES": "No allergies",
+    "TIME_OF_DAY": "Time of Day",
+    "NO_USER_MEAL_LOCATION": "No user meal location selected"
   },
   "Settings": {
     "SETTINGS": "Settings",
