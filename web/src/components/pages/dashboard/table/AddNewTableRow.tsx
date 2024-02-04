@@ -57,6 +57,16 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
     }
   };
 
+  const items = [
+    TimeOfDay.Any,
+    TimeOfDay.Morning,
+    TimeOfDay.Forenoon,
+    TimeOfDay.Noon,
+    TimeOfDay.Afternoon,
+    TimeOfDay.Evening,
+    TimeOfDay.Night,
+  ];
+
   return (
     <MyPopover
       text={t("ADD_NEW_GROUP")}
@@ -82,7 +92,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
           <MyAutocomplete
             label={t("TIME_OF_DAY")}
             value={timeOfDay}
-            items={Object.values(TimeOfDay).map((key) => ({
+            items={items.map((key) => ({
               id: key,
               name: t(key.toUpperCase() as keyof Messages["Dashboard"]),
             }))}
