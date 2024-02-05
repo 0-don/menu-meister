@@ -89,16 +89,22 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
               />
             </form>
             <Listbox emptyContent={t("NO_USER_MEAL_LOCATION")}>
-              {(me?.UserMealLocation || []).map(({ id, name }) => (
-                <ListboxItem
-                  key={id}
-                  endContent={
-                    <FaRegTrashAlt className="cursor-pointer hover:text-red-600" />
-                  }
-                >
-                  {t(name as keyof Messages["Enums"])}
-                </ListboxItem>
-              ))}
+              {(me?.UserMealLocation || []).map(
+                ({ id, mealLocation, timeOfDay }) => (
+                  <ListboxItem
+                    key={id}
+                    endContent={
+                      <FaRegTrashAlt className="cursor-pointer hover:text-red-600" />
+                    }
+                  >
+                    <div className="flex justify-between space-x-2">
+                      <p>{t(timeOfDay as keyof Messages["Enums"])}</p>
+                      <div className="" />
+                      <p>{t(mealLocation as keyof Messages["Enums"])}</p>
+                    </div>
+                  </ListboxItem>
+                ),
+              )}
             </Listbox>
           </CardBody>
         </Card>

@@ -1246,6 +1246,16 @@ export type EnumTimeOfDayFilter = {
   notIn?: InputMaybe<Array<TimeOfDay>>;
 };
 
+export type EnumTimeOfDayWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedEnumTimeOfDayFilter>;
+  _min?: InputMaybe<NestedEnumTimeOfDayFilter>;
+  equals?: InputMaybe<TimeOfDay>;
+  in?: InputMaybe<Array<TimeOfDay>>;
+  not?: InputMaybe<NestedEnumTimeOfDayWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<TimeOfDay>>;
+};
+
 export type EnumUnitFieldUpdateOperationsInput = {
   set?: InputMaybe<Unit>;
 };
@@ -5825,6 +5835,16 @@ export type NestedEnumTimeOfDayFilter = {
   notIn?: InputMaybe<Array<TimeOfDay>>;
 };
 
+export type NestedEnumTimeOfDayWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedEnumTimeOfDayFilter>;
+  _min?: InputMaybe<NestedEnumTimeOfDayFilter>;
+  equals?: InputMaybe<TimeOfDay>;
+  in?: InputMaybe<Array<TimeOfDay>>;
+  not?: InputMaybe<NestedEnumTimeOfDayWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<TimeOfDay>>;
+};
+
 export type NestedEnumUnitFilter = {
   equals?: InputMaybe<Unit>;
   in?: InputMaybe<Array<Unit>>;
@@ -9186,11 +9206,13 @@ export type UserMeal = {
   mealBoardPlan: MealBoardPlan;
   mealBoardPlanId: Scalars['Int']['output'];
   mealId: Scalars['Int']['output'];
+  timeOfDay: TimeOfDay;
   updatedAt: Scalars['DateTime']['output'];
   updatedBy: Scalars['Int']['output'];
   updatedByUser: User;
   user: User;
   userId: Scalars['Int']['output'];
+  userMealLocation?: Maybe<UserMealLocation>;
   weeklyMealGroup: WeeklyMealGroup;
   weeklyMealGroupId: Scalars['Int']['output'];
 };
@@ -9229,6 +9251,7 @@ export type UserMealCountAggregate = {
   id: Scalars['Int']['output'];
   mealBoardPlanId: Scalars['Int']['output'];
   mealId: Scalars['Int']['output'];
+  timeOfDay: Scalars['Int']['output'];
   updatedAt: Scalars['Int']['output'];
   updatedBy: Scalars['Int']['output'];
   userId: Scalars['Int']['output'];
@@ -9241,6 +9264,7 @@ export type UserMealCountAggregateInput = {
   id?: InputMaybe<Scalars['Boolean']['input']>;
   mealBoardPlanId?: InputMaybe<Scalars['Boolean']['input']>;
   mealId?: InputMaybe<Scalars['Boolean']['input']>;
+  timeOfDay?: InputMaybe<Scalars['Boolean']['input']>;
   userId?: InputMaybe<Scalars['Boolean']['input']>;
   weeklyMealGroupId?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -9250,6 +9274,7 @@ export type UserMealCountOrderByAggregateInput = {
   id?: InputMaybe<SortOrder>;
   mealBoardPlanId?: InputMaybe<SortOrder>;
   mealId?: InputMaybe<SortOrder>;
+  timeOfDay?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
   weeklyMealGroupId?: InputMaybe<SortOrder>;
 };
@@ -9259,6 +9284,7 @@ export type UserMealCreateManyCreatedByUserInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
   mealBoardPlanId: Scalars['Int']['input'];
   mealId: Scalars['Int']['input'];
+  timeOfDay?: InputMaybe<TimeOfDay>;
   userId: Scalars['Int']['input'];
   weeklyMealGroupId: Scalars['Int']['input'];
 };
@@ -9273,6 +9299,7 @@ export type UserMealCreateManyInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
   mealBoardPlanId: Scalars['Int']['input'];
   mealId: Scalars['Int']['input'];
+  timeOfDay?: InputMaybe<TimeOfDay>;
   userId: Scalars['Int']['input'];
   weeklyMealGroupId: Scalars['Int']['input'];
 };
@@ -9281,6 +9308,7 @@ export type UserMealCreateManyMealBoardPlanInput = {
   date: Scalars['DateTime']['input'];
   id?: InputMaybe<Scalars['Int']['input']>;
   mealId: Scalars['Int']['input'];
+  timeOfDay?: InputMaybe<TimeOfDay>;
   userId: Scalars['Int']['input'];
   weeklyMealGroupId: Scalars['Int']['input'];
 };
@@ -9294,6 +9322,7 @@ export type UserMealCreateManyMealInput = {
   date: Scalars['DateTime']['input'];
   id?: InputMaybe<Scalars['Int']['input']>;
   mealBoardPlanId: Scalars['Int']['input'];
+  timeOfDay?: InputMaybe<TimeOfDay>;
   userId: Scalars['Int']['input'];
   weeklyMealGroupId: Scalars['Int']['input'];
 };
@@ -9308,6 +9337,7 @@ export type UserMealCreateManyUpdatedByUserInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
   mealBoardPlanId: Scalars['Int']['input'];
   mealId: Scalars['Int']['input'];
+  timeOfDay?: InputMaybe<TimeOfDay>;
   userId: Scalars['Int']['input'];
   weeklyMealGroupId: Scalars['Int']['input'];
 };
@@ -9322,6 +9352,7 @@ export type UserMealCreateManyUserInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
   mealBoardPlanId: Scalars['Int']['input'];
   mealId: Scalars['Int']['input'];
+  timeOfDay?: InputMaybe<TimeOfDay>;
   weeklyMealGroupId: Scalars['Int']['input'];
 };
 
@@ -9330,11 +9361,25 @@ export type UserMealCreateManyUserInputEnvelope = {
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type UserMealCreateManyUserMealLocationInput = {
+  date: Scalars['DateTime']['input'];
+  id?: InputMaybe<Scalars['Int']['input']>;
+  mealBoardPlanId: Scalars['Int']['input'];
+  mealId: Scalars['Int']['input'];
+  weeklyMealGroupId: Scalars['Int']['input'];
+};
+
+export type UserMealCreateManyUserMealLocationInputEnvelope = {
+  data: Array<UserMealCreateManyUserMealLocationInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export type UserMealCreateManyWeeklyMealGroupInput = {
   date: Scalars['DateTime']['input'];
   id?: InputMaybe<Scalars['Int']['input']>;
   mealBoardPlanId: Scalars['Int']['input'];
   mealId: Scalars['Int']['input'];
+  timeOfDay?: InputMaybe<TimeOfDay>;
   userId: Scalars['Int']['input'];
 };
 
@@ -9378,6 +9423,13 @@ export type UserMealCreateNestedManyWithoutUserInput = {
   createMany?: InputMaybe<UserMealCreateManyUserInputEnvelope>;
 };
 
+export type UserMealCreateNestedManyWithoutUserMealLocationInput = {
+  connect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<UserMealCreateOrConnectWithoutUserMealLocationInput>>;
+  create?: InputMaybe<Array<UserMealCreateWithoutUserMealLocationInput>>;
+  createMany?: InputMaybe<UserMealCreateManyUserMealLocationInputEnvelope>;
+};
+
 export type UserMealCreateNestedManyWithoutWeeklyMealGroupInput = {
   connect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<UserMealCreateOrConnectWithoutWeeklyMealGroupInput>>;
@@ -9410,6 +9462,11 @@ export type UserMealCreateOrConnectWithoutUserInput = {
   where: UserMealWhereUniqueInput;
 };
 
+export type UserMealCreateOrConnectWithoutUserMealLocationInput = {
+  create: UserMealCreateWithoutUserMealLocationInput;
+  where: UserMealWhereUniqueInput;
+};
+
 export type UserMealCreateOrConnectWithoutWeeklyMealGroupInput = {
   create: UserMealCreateWithoutWeeklyMealGroupInput;
   where: UserMealWhereUniqueInput;
@@ -9420,6 +9477,7 @@ export type UserMealCreateWithoutCreatedByUserInput = {
   meal: MealCreateNestedOneWithoutUserMealInput;
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
   user: UserCreateNestedOneWithoutUserMealInput;
+  userMealLocation?: InputMaybe<UserMealLocationCreateNestedOneWithoutUserMealInput>;
   weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput;
 };
 
@@ -9427,6 +9485,7 @@ export type UserMealCreateWithoutMealBoardPlanInput = {
   date: Scalars['DateTime']['input'];
   meal: MealCreateNestedOneWithoutUserMealInput;
   user: UserCreateNestedOneWithoutUserMealInput;
+  userMealLocation?: InputMaybe<UserMealLocationCreateNestedOneWithoutUserMealInput>;
   weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput;
 };
 
@@ -9434,6 +9493,7 @@ export type UserMealCreateWithoutMealInput = {
   date: Scalars['DateTime']['input'];
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
   user: UserCreateNestedOneWithoutUserMealInput;
+  userMealLocation?: InputMaybe<UserMealLocationCreateNestedOneWithoutUserMealInput>;
   weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput;
 };
 
@@ -9442,6 +9502,7 @@ export type UserMealCreateWithoutUpdatedByUserInput = {
   meal: MealCreateNestedOneWithoutUserMealInput;
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
   user: UserCreateNestedOneWithoutUserMealInput;
+  userMealLocation?: InputMaybe<UserMealLocationCreateNestedOneWithoutUserMealInput>;
   weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput;
 };
 
@@ -9449,6 +9510,15 @@ export type UserMealCreateWithoutUserInput = {
   date: Scalars['DateTime']['input'];
   meal: MealCreateNestedOneWithoutUserMealInput;
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
+  userMealLocation?: InputMaybe<UserMealLocationCreateNestedOneWithoutUserMealInput>;
+  weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput;
+};
+
+export type UserMealCreateWithoutUserMealLocationInput = {
+  date: Scalars['DateTime']['input'];
+  meal: MealCreateNestedOneWithoutUserMealInput;
+  mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
+  user: UserCreateNestedOneWithoutUserMealInput;
   weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput;
 };
 
@@ -9457,6 +9527,7 @@ export type UserMealCreateWithoutWeeklyMealGroupInput = {
   meal: MealCreateNestedOneWithoutUserMealInput;
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
   user: UserCreateNestedOneWithoutUserMealInput;
+  userMealLocation?: InputMaybe<UserMealLocationCreateNestedOneWithoutUserMealInput>;
 };
 
 export type UserMealGroupBy = {
@@ -9471,6 +9542,7 @@ export type UserMealGroupBy = {
   id: Scalars['Int']['output'];
   mealBoardPlanId: Scalars['Int']['output'];
   mealId: Scalars['Int']['output'];
+  timeOfDay: TimeOfDay;
   updatedAt: Scalars['DateTime']['output'];
   updatedBy: Scalars['Int']['output'];
   userId: Scalars['Int']['output'];
@@ -9484,28 +9556,35 @@ export type UserMealListRelationFilter = {
 };
 
 export type UserMealLocation = {
+  _count: UserMealLocationCount;
   createdAt: Scalars['DateTime']['output'];
   createdBy: Scalars['Int']['output'];
   createdByUser: User;
   id: Scalars['Int']['output'];
-  name: MealLocation;
+  mealLocation: MealLocation;
   timeOfDay: TimeOfDay;
   updatedAt: Scalars['DateTime']['output'];
   updatedBy: Scalars['Int']['output'];
   updatedByUser: User;
   user: User;
   userId: Scalars['Int']['output'];
+  userMeal?: Maybe<Array<UserMeal>>;
+};
+
+export type UserMealLocationCount = {
+  userMeal: Scalars['Int']['output'];
 };
 
 export type UserMealLocationCreateInput = {
-  name?: InputMaybe<MealLocation>;
+  mealLocation?: InputMaybe<MealLocation>;
   timeOfDay?: InputMaybe<TimeOfDay>;
   user: UserCreateNestedOneWithoutUserMealLocationInput;
+  userMeal?: InputMaybe<UserMealCreateNestedManyWithoutUserMealLocationInput>;
 };
 
 export type UserMealLocationCreateManyCreatedByUserInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<MealLocation>;
+  mealLocation?: InputMaybe<MealLocation>;
   timeOfDay?: InputMaybe<TimeOfDay>;
   userId: Scalars['Int']['input'];
 };
@@ -9517,14 +9596,14 @@ export type UserMealLocationCreateManyCreatedByUserInputEnvelope = {
 
 export type UserMealLocationCreateManyInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<MealLocation>;
+  mealLocation?: InputMaybe<MealLocation>;
   timeOfDay?: InputMaybe<TimeOfDay>;
   userId: Scalars['Int']['input'];
 };
 
 export type UserMealLocationCreateManyUpdatedByUserInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<MealLocation>;
+  mealLocation?: InputMaybe<MealLocation>;
   timeOfDay?: InputMaybe<TimeOfDay>;
   userId: Scalars['Int']['input'];
 };
@@ -9536,7 +9615,7 @@ export type UserMealLocationCreateManyUpdatedByUserInputEnvelope = {
 
 export type UserMealLocationCreateManyUserInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<MealLocation>;
+  mealLocation?: InputMaybe<MealLocation>;
   timeOfDay?: InputMaybe<TimeOfDay>;
 };
 
@@ -9566,6 +9645,12 @@ export type UserMealLocationCreateNestedManyWithoutUserInput = {
   createMany?: InputMaybe<UserMealLocationCreateManyUserInputEnvelope>;
 };
 
+export type UserMealLocationCreateNestedOneWithoutUserMealInput = {
+  connect?: InputMaybe<UserMealLocationWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserMealLocationCreateOrConnectWithoutUserMealInput>;
+  create?: InputMaybe<UserMealLocationCreateWithoutUserMealInput>;
+};
+
 export type UserMealLocationCreateOrConnectWithoutCreatedByUserInput = {
   create: UserMealLocationCreateWithoutCreatedByUserInput;
   where: UserMealLocationWhereUniqueInput;
@@ -9581,21 +9666,35 @@ export type UserMealLocationCreateOrConnectWithoutUserInput = {
   where: UserMealLocationWhereUniqueInput;
 };
 
+export type UserMealLocationCreateOrConnectWithoutUserMealInput = {
+  create: UserMealLocationCreateWithoutUserMealInput;
+  where: UserMealLocationWhereUniqueInput;
+};
+
 export type UserMealLocationCreateWithoutCreatedByUserInput = {
-  name?: InputMaybe<MealLocation>;
+  mealLocation?: InputMaybe<MealLocation>;
   timeOfDay?: InputMaybe<TimeOfDay>;
   user: UserCreateNestedOneWithoutUserMealLocationInput;
+  userMeal?: InputMaybe<UserMealCreateNestedManyWithoutUserMealLocationInput>;
 };
 
 export type UserMealLocationCreateWithoutUpdatedByUserInput = {
-  name?: InputMaybe<MealLocation>;
+  mealLocation?: InputMaybe<MealLocation>;
   timeOfDay?: InputMaybe<TimeOfDay>;
   user: UserCreateNestedOneWithoutUserMealLocationInput;
+  userMeal?: InputMaybe<UserMealCreateNestedManyWithoutUserMealLocationInput>;
 };
 
 export type UserMealLocationCreateWithoutUserInput = {
-  name?: InputMaybe<MealLocation>;
+  mealLocation?: InputMaybe<MealLocation>;
   timeOfDay?: InputMaybe<TimeOfDay>;
+  userMeal?: InputMaybe<UserMealCreateNestedManyWithoutUserMealLocationInput>;
+};
+
+export type UserMealLocationCreateWithoutUserMealInput = {
+  mealLocation?: InputMaybe<MealLocation>;
+  timeOfDay?: InputMaybe<TimeOfDay>;
+  user: UserCreateNestedOneWithoutUserMealLocationInput;
 };
 
 export type UserMealLocationListRelationFilter = {
@@ -9604,23 +9703,29 @@ export type UserMealLocationListRelationFilter = {
   some?: InputMaybe<UserMealLocationWhereInput>;
 };
 
+export type UserMealLocationNullableRelationFilter = {
+  is?: InputMaybe<UserMealLocationWhereInput>;
+  isNot?: InputMaybe<UserMealLocationWhereInput>;
+};
+
 export type UserMealLocationOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>;
 };
 
 export type UserMealLocationOrderByWithRelationInput = {
   id?: InputMaybe<SortOrder>;
-  name?: InputMaybe<SortOrder>;
+  mealLocation?: InputMaybe<SortOrder>;
   timeOfDay?: InputMaybe<SortOrder>;
   user?: InputMaybe<UserOrderByWithRelationInput>;
   userId?: InputMaybe<SortOrder>;
+  userMeal?: InputMaybe<UserMealOrderByRelationAggregateInput>;
 };
 
 export enum UserMealLocationScalarFieldEnum {
   CreatedAt = 'createdAt',
   CreatedBy = 'createdBy',
   Id = 'id',
-  Name = 'name',
+  MealLocation = 'mealLocation',
   TimeOfDay = 'timeOfDay',
   UpdatedAt = 'updatedAt',
   UpdatedBy = 'updatedBy',
@@ -9632,26 +9737,28 @@ export type UserMealLocationScalarWhereInput = {
   NOT?: InputMaybe<Array<UserMealLocationScalarWhereInput>>;
   OR?: InputMaybe<Array<UserMealLocationScalarWhereInput>>;
   id?: InputMaybe<IntFilter>;
-  name?: InputMaybe<EnumMealLocationFilter>;
+  mealLocation?: InputMaybe<EnumMealLocationFilter>;
   timeOfDay?: InputMaybe<EnumTimeOfDayFilter>;
   userId?: InputMaybe<IntFilter>;
 };
 
 export type UserMealLocationUncheckedCreateInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<MealLocation>;
+  mealLocation?: InputMaybe<MealLocation>;
   timeOfDay?: InputMaybe<TimeOfDay>;
   userId: Scalars['Int']['input'];
+  userMeal?: InputMaybe<UserMealUncheckedCreateNestedManyWithoutUserMealLocationInput>;
 };
 
 export type UserMealLocationUpdateInput = {
-  name?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
+  mealLocation?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
   timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealLocationNestedInput>;
+  userMeal?: InputMaybe<UserMealUpdateManyWithoutUserMealLocationNestedInput>;
 };
 
 export type UserMealLocationUpdateManyMutationInput = {
-  name?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
+  mealLocation?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
   timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
 };
 
@@ -9712,6 +9819,21 @@ export type UserMealLocationUpdateManyWithoutUserNestedInput = {
   upsert?: InputMaybe<Array<UserMealLocationUpsertWithWhereUniqueWithoutUserInput>>;
 };
 
+export type UserMealLocationUpdateOneWithoutUserMealNestedInput = {
+  connect?: InputMaybe<UserMealLocationWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserMealLocationCreateOrConnectWithoutUserMealInput>;
+  create?: InputMaybe<UserMealLocationCreateWithoutUserMealInput>;
+  delete?: InputMaybe<UserMealLocationWhereInput>;
+  disconnect?: InputMaybe<UserMealLocationWhereInput>;
+  update?: InputMaybe<UserMealLocationUpdateToOneWithWhereWithoutUserMealInput>;
+  upsert?: InputMaybe<UserMealLocationUpsertWithoutUserMealInput>;
+};
+
+export type UserMealLocationUpdateToOneWithWhereWithoutUserMealInput = {
+  data: UserMealLocationUpdateWithoutUserMealInput;
+  where?: InputMaybe<UserMealLocationWhereInput>;
+};
+
 export type UserMealLocationUpdateWithWhereUniqueWithoutCreatedByUserInput = {
   data: UserMealLocationUpdateWithoutCreatedByUserInput;
   where: UserMealLocationWhereUniqueInput;
@@ -9728,20 +9850,29 @@ export type UserMealLocationUpdateWithWhereUniqueWithoutUserInput = {
 };
 
 export type UserMealLocationUpdateWithoutCreatedByUserInput = {
-  name?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
+  mealLocation?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
   timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealLocationNestedInput>;
+  userMeal?: InputMaybe<UserMealUpdateManyWithoutUserMealLocationNestedInput>;
 };
 
 export type UserMealLocationUpdateWithoutUpdatedByUserInput = {
-  name?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
+  mealLocation?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
   timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealLocationNestedInput>;
+  userMeal?: InputMaybe<UserMealUpdateManyWithoutUserMealLocationNestedInput>;
 };
 
 export type UserMealLocationUpdateWithoutUserInput = {
-  name?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
+  mealLocation?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
   timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
+  userMeal?: InputMaybe<UserMealUpdateManyWithoutUserMealLocationNestedInput>;
+};
+
+export type UserMealLocationUpdateWithoutUserMealInput = {
+  mealLocation?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealLocationNestedInput>;
 };
 
 export type UserMealLocationUpsertWithWhereUniqueWithoutCreatedByUserInput = {
@@ -9762,8 +9893,19 @@ export type UserMealLocationUpsertWithWhereUniqueWithoutUserInput = {
   where: UserMealLocationWhereUniqueInput;
 };
 
-export type UserMealLocationUser_Meal_Location_UserId_TimeOfDay_Name_UniqueCompoundUniqueInput = {
-  name: MealLocation;
+export type UserMealLocationUpsertWithoutUserMealInput = {
+  create: UserMealLocationCreateWithoutUserMealInput;
+  update: UserMealLocationUpdateWithoutUserMealInput;
+  where?: InputMaybe<UserMealLocationWhereInput>;
+};
+
+export type UserMealLocationUser_Meal_Location_UserId_TimeOfDay_MealLocation_UniqueCompoundUniqueInput = {
+  mealLocation: MealLocation;
+  timeOfDay: TimeOfDay;
+  userId: Scalars['Int']['input'];
+};
+
+export type UserMealLocationUser_Meal_Location_UserId_TimeOfDay_UniqueCompoundUniqueInput = {
   timeOfDay: TimeOfDay;
   userId: Scalars['Int']['input'];
 };
@@ -9773,10 +9915,11 @@ export type UserMealLocationWhereInput = {
   NOT?: InputMaybe<Array<UserMealLocationWhereInput>>;
   OR?: InputMaybe<Array<UserMealLocationWhereInput>>;
   id?: InputMaybe<IntFilter>;
-  name?: InputMaybe<EnumMealLocationFilter>;
+  mealLocation?: InputMaybe<EnumMealLocationFilter>;
   timeOfDay?: InputMaybe<EnumTimeOfDayFilter>;
   user?: InputMaybe<UserRelationFilter>;
   userId?: InputMaybe<IntFilter>;
+  userMeal?: InputMaybe<UserMealListRelationFilter>;
 };
 
 export type UserMealLocationWhereUniqueInput = {
@@ -9784,11 +9927,13 @@ export type UserMealLocationWhereUniqueInput = {
   NOT?: InputMaybe<Array<UserMealLocationWhereInput>>;
   OR?: InputMaybe<Array<UserMealLocationWhereInput>>;
   id?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<EnumMealLocationFilter>;
+  mealLocation?: InputMaybe<EnumMealLocationFilter>;
   timeOfDay?: InputMaybe<EnumTimeOfDayFilter>;
   user?: InputMaybe<UserRelationFilter>;
   userId?: InputMaybe<IntFilter>;
-  user_meal_location_userId_timeOfDay_name_unique?: InputMaybe<UserMealLocationUser_Meal_Location_UserId_TimeOfDay_Name_UniqueCompoundUniqueInput>;
+  userMeal?: InputMaybe<UserMealListRelationFilter>;
+  user_meal_location_userId_timeOfDay_mealLocation_unique?: InputMaybe<UserMealLocationUser_Meal_Location_UserId_TimeOfDay_MealLocation_UniqueCompoundUniqueInput>;
+  user_meal_location_userId_timeOfDay_unique?: InputMaybe<UserMealLocationUser_Meal_Location_UserId_TimeOfDay_UniqueCompoundUniqueInput>;
 };
 
 export type UserMealMaxAggregate = {
@@ -9798,6 +9943,7 @@ export type UserMealMaxAggregate = {
   id?: Maybe<Scalars['Int']['output']>;
   mealBoardPlanId?: Maybe<Scalars['Int']['output']>;
   mealId?: Maybe<Scalars['Int']['output']>;
+  timeOfDay?: Maybe<TimeOfDay>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   updatedBy?: Maybe<Scalars['Int']['output']>;
   userId?: Maybe<Scalars['Int']['output']>;
@@ -9809,6 +9955,7 @@ export type UserMealMaxAggregateInput = {
   id?: InputMaybe<Scalars['Boolean']['input']>;
   mealBoardPlanId?: InputMaybe<Scalars['Boolean']['input']>;
   mealId?: InputMaybe<Scalars['Boolean']['input']>;
+  timeOfDay?: InputMaybe<Scalars['Boolean']['input']>;
   userId?: InputMaybe<Scalars['Boolean']['input']>;
   weeklyMealGroupId?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -9818,6 +9965,7 @@ export type UserMealMaxOrderByAggregateInput = {
   id?: InputMaybe<SortOrder>;
   mealBoardPlanId?: InputMaybe<SortOrder>;
   mealId?: InputMaybe<SortOrder>;
+  timeOfDay?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
   weeklyMealGroupId?: InputMaybe<SortOrder>;
 };
@@ -9829,6 +9977,7 @@ export type UserMealMinAggregate = {
   id?: Maybe<Scalars['Int']['output']>;
   mealBoardPlanId?: Maybe<Scalars['Int']['output']>;
   mealId?: Maybe<Scalars['Int']['output']>;
+  timeOfDay?: Maybe<TimeOfDay>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   updatedBy?: Maybe<Scalars['Int']['output']>;
   userId?: Maybe<Scalars['Int']['output']>;
@@ -9840,6 +9989,7 @@ export type UserMealMinAggregateInput = {
   id?: InputMaybe<Scalars['Boolean']['input']>;
   mealBoardPlanId?: InputMaybe<Scalars['Boolean']['input']>;
   mealId?: InputMaybe<Scalars['Boolean']['input']>;
+  timeOfDay?: InputMaybe<Scalars['Boolean']['input']>;
   userId?: InputMaybe<Scalars['Boolean']['input']>;
   weeklyMealGroupId?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -9849,6 +9999,7 @@ export type UserMealMinOrderByAggregateInput = {
   id?: InputMaybe<SortOrder>;
   mealBoardPlanId?: InputMaybe<SortOrder>;
   mealId?: InputMaybe<SortOrder>;
+  timeOfDay?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
   weeklyMealGroupId?: InputMaybe<SortOrder>;
 };
@@ -9867,6 +10018,7 @@ export type UserMealOrderByWithAggregationInput = {
   id?: InputMaybe<SortOrder>;
   mealBoardPlanId?: InputMaybe<SortOrder>;
   mealId?: InputMaybe<SortOrder>;
+  timeOfDay?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
   weeklyMealGroupId?: InputMaybe<SortOrder>;
 };
@@ -9878,8 +10030,10 @@ export type UserMealOrderByWithRelationInput = {
   mealBoardPlan?: InputMaybe<MealBoardPlanOrderByWithRelationInput>;
   mealBoardPlanId?: InputMaybe<SortOrder>;
   mealId?: InputMaybe<SortOrder>;
+  timeOfDay?: InputMaybe<SortOrder>;
   user?: InputMaybe<UserOrderByWithRelationInput>;
   userId?: InputMaybe<SortOrder>;
+  userMealLocation?: InputMaybe<UserMealLocationOrderByWithRelationInput>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupOrderByWithRelationInput>;
   weeklyMealGroupId?: InputMaybe<SortOrder>;
 };
@@ -9891,6 +10045,7 @@ export enum UserMealScalarFieldEnum {
   Id = 'id',
   MealBoardPlanId = 'mealBoardPlanId',
   MealId = 'mealId',
+  TimeOfDay = 'timeOfDay',
   UpdatedAt = 'updatedAt',
   UpdatedBy = 'updatedBy',
   UserId = 'userId',
@@ -9905,6 +10060,7 @@ export type UserMealScalarWhereInput = {
   id?: InputMaybe<IntFilter>;
   mealBoardPlanId?: InputMaybe<IntFilter>;
   mealId?: InputMaybe<IntFilter>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFilter>;
   userId?: InputMaybe<IntFilter>;
   weeklyMealGroupId?: InputMaybe<IntFilter>;
 };
@@ -9917,6 +10073,7 @@ export type UserMealScalarWhereWithAggregatesInput = {
   id?: InputMaybe<IntWithAggregatesFilter>;
   mealBoardPlanId?: InputMaybe<IntWithAggregatesFilter>;
   mealId?: InputMaybe<IntWithAggregatesFilter>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayWithAggregatesFilter>;
   userId?: InputMaybe<IntWithAggregatesFilter>;
   weeklyMealGroupId?: InputMaybe<IntWithAggregatesFilter>;
 };
@@ -9952,8 +10109,16 @@ export type UserMealUncheckedCreateInput = {
   id?: InputMaybe<Scalars['Int']['input']>;
   mealBoardPlanId: Scalars['Int']['input'];
   mealId: Scalars['Int']['input'];
+  timeOfDay?: InputMaybe<TimeOfDay>;
   userId: Scalars['Int']['input'];
   weeklyMealGroupId: Scalars['Int']['input'];
+};
+
+export type UserMealUncheckedCreateNestedManyWithoutUserMealLocationInput = {
+  connect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<UserMealCreateOrConnectWithoutUserMealLocationInput>>;
+  create?: InputMaybe<Array<UserMealCreateWithoutUserMealLocationInput>>;
+  createMany?: InputMaybe<UserMealCreateManyUserMealLocationInputEnvelope>;
 };
 
 export type UserMealUncheckedCreateNestedManyWithoutWeeklyMealGroupInput = {
@@ -10020,6 +10185,11 @@ export type UserMealUpdateManyWithWhereWithoutUserInput = {
   where: UserMealScalarWhereInput;
 };
 
+export type UserMealUpdateManyWithWhereWithoutUserMealLocationInput = {
+  data: UserMealUpdateManyMutationInput;
+  where: UserMealScalarWhereInput;
+};
+
 export type UserMealUpdateManyWithWhereWithoutWeeklyMealGroupInput = {
   data: UserMealUpdateManyMutationInput;
   where: UserMealScalarWhereInput;
@@ -10081,6 +10251,20 @@ export type UserMealUpdateManyWithoutUpdatedByUserNestedInput = {
   upsert?: InputMaybe<Array<UserMealUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
 };
 
+export type UserMealUpdateManyWithoutUserMealLocationNestedInput = {
+  connect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<UserMealCreateOrConnectWithoutUserMealLocationInput>>;
+  create?: InputMaybe<Array<UserMealCreateWithoutUserMealLocationInput>>;
+  createMany?: InputMaybe<UserMealCreateManyUserMealLocationInputEnvelope>;
+  delete?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<UserMealScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  set?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  update?: InputMaybe<Array<UserMealUpdateWithWhereUniqueWithoutUserMealLocationInput>>;
+  updateMany?: InputMaybe<Array<UserMealUpdateManyWithWhereWithoutUserMealLocationInput>>;
+  upsert?: InputMaybe<Array<UserMealUpsertWithWhereUniqueWithoutUserMealLocationInput>>;
+};
+
 export type UserMealUpdateManyWithoutUserNestedInput = {
   connect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<UserMealCreateOrConnectWithoutUserInput>>;
@@ -10134,6 +10318,11 @@ export type UserMealUpdateWithWhereUniqueWithoutUserInput = {
   where: UserMealWhereUniqueInput;
 };
 
+export type UserMealUpdateWithWhereUniqueWithoutUserMealLocationInput = {
+  data: UserMealUpdateWithoutUserMealLocationInput;
+  where: UserMealWhereUniqueInput;
+};
+
 export type UserMealUpdateWithWhereUniqueWithoutWeeklyMealGroupInput = {
   data: UserMealUpdateWithoutWeeklyMealGroupInput;
   where: UserMealWhereUniqueInput;
@@ -10144,6 +10333,7 @@ export type UserMealUpdateWithoutCreatedByUserInput = {
   meal?: InputMaybe<MealUpdateOneRequiredWithoutUserMealNestedInput>;
   mealBoardPlan?: InputMaybe<MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealNestedInput>;
+  userMealLocation?: InputMaybe<UserMealLocationUpdateOneWithoutUserMealNestedInput>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput>;
 };
 
@@ -10151,6 +10341,7 @@ export type UserMealUpdateWithoutMealBoardPlanInput = {
   date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   meal?: InputMaybe<MealUpdateOneRequiredWithoutUserMealNestedInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealNestedInput>;
+  userMealLocation?: InputMaybe<UserMealLocationUpdateOneWithoutUserMealNestedInput>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput>;
 };
 
@@ -10158,6 +10349,7 @@ export type UserMealUpdateWithoutMealInput = {
   date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   mealBoardPlan?: InputMaybe<MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealNestedInput>;
+  userMealLocation?: InputMaybe<UserMealLocationUpdateOneWithoutUserMealNestedInput>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput>;
 };
 
@@ -10166,6 +10358,7 @@ export type UserMealUpdateWithoutUpdatedByUserInput = {
   meal?: InputMaybe<MealUpdateOneRequiredWithoutUserMealNestedInput>;
   mealBoardPlan?: InputMaybe<MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealNestedInput>;
+  userMealLocation?: InputMaybe<UserMealLocationUpdateOneWithoutUserMealNestedInput>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput>;
 };
 
@@ -10173,6 +10366,15 @@ export type UserMealUpdateWithoutUserInput = {
   date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   meal?: InputMaybe<MealUpdateOneRequiredWithoutUserMealNestedInput>;
   mealBoardPlan?: InputMaybe<MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput>;
+  userMealLocation?: InputMaybe<UserMealLocationUpdateOneWithoutUserMealNestedInput>;
+  weeklyMealGroup?: InputMaybe<WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput>;
+};
+
+export type UserMealUpdateWithoutUserMealLocationInput = {
+  date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  meal?: InputMaybe<MealUpdateOneRequiredWithoutUserMealNestedInput>;
+  mealBoardPlan?: InputMaybe<MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealNestedInput>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput>;
 };
 
@@ -10181,6 +10383,7 @@ export type UserMealUpdateWithoutWeeklyMealGroupInput = {
   meal?: InputMaybe<MealUpdateOneRequiredWithoutUserMealNestedInput>;
   mealBoardPlan?: InputMaybe<MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealNestedInput>;
+  userMealLocation?: InputMaybe<UserMealLocationUpdateOneWithoutUserMealNestedInput>;
 };
 
 export type UserMealUpsertWithWhereUniqueWithoutCreatedByUserInput = {
@@ -10213,6 +10416,12 @@ export type UserMealUpsertWithWhereUniqueWithoutUserInput = {
   where: UserMealWhereUniqueInput;
 };
 
+export type UserMealUpsertWithWhereUniqueWithoutUserMealLocationInput = {
+  create: UserMealCreateWithoutUserMealLocationInput;
+  update: UserMealUpdateWithoutUserMealLocationInput;
+  where: UserMealWhereUniqueInput;
+};
+
 export type UserMealUpsertWithWhereUniqueWithoutWeeklyMealGroupInput = {
   create: UserMealCreateWithoutWeeklyMealGroupInput;
   update: UserMealUpdateWithoutWeeklyMealGroupInput;
@@ -10236,8 +10445,10 @@ export type UserMealWhereInput = {
   mealBoardPlan?: InputMaybe<MealBoardPlanRelationFilter>;
   mealBoardPlanId?: InputMaybe<IntFilter>;
   mealId?: InputMaybe<IntFilter>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFilter>;
   user?: InputMaybe<UserRelationFilter>;
   userId?: InputMaybe<IntFilter>;
+  userMealLocation?: InputMaybe<UserMealLocationNullableRelationFilter>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupRelationFilter>;
   weeklyMealGroupId?: InputMaybe<IntFilter>;
 };
@@ -10252,8 +10463,10 @@ export type UserMealWhereUniqueInput = {
   mealBoardPlan?: InputMaybe<MealBoardPlanRelationFilter>;
   mealBoardPlanId?: InputMaybe<IntFilter>;
   mealId?: InputMaybe<IntFilter>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFilter>;
   user?: InputMaybe<UserRelationFilter>;
   userId?: InputMaybe<IntFilter>;
+  userMealLocation?: InputMaybe<UserMealLocationNullableRelationFilter>;
   user_meal_date_mealBoardPlanId_userId_mealId_unique?: InputMaybe<UserMealUser_Meal_Date_MealBoardPlanId_UserId_MealId_UniqueCompoundUniqueInput>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupRelationFilter>;
   weeklyMealGroupId?: InputMaybe<IntFilter>;
@@ -12720,19 +12933,19 @@ export type CreateUserMealLocationUserMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserMealLocationUserMutation = { createUserMealLocationUser?: { id: number, userId: number, timeOfDay: TimeOfDay, name: MealLocation, createdAt: any, updatedAt: any } | null };
+export type CreateUserMealLocationUserMutation = { createUserMealLocationUser?: { id: number, userId: number, timeOfDay: TimeOfDay, mealLocation: MealLocation, createdAt: any, updatedAt: any } | null };
 
 export type DeleteUserMealLocationUserMutationVariables = Exact<{
   where: UserMealLocationWhereUniqueInput;
 }>;
 
 
-export type DeleteUserMealLocationUserMutation = { deleteUserMealLocationUser?: { id: number, userId: number, timeOfDay: TimeOfDay, name: MealLocation, createdAt: any, updatedAt: any } | null };
+export type DeleteUserMealLocationUserMutation = { deleteUserMealLocationUser?: { id: number, userId: number, timeOfDay: TimeOfDay, mealLocation: MealLocation, createdAt: any, updatedAt: any } | null };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { me?: { id: number, username: string, email: string, userRole?: Array<{ id: number, name: UserRoleName }> | null, UserMealLocation?: Array<{ id: number, timeOfDay: TimeOfDay, name: MealLocation }> | null, allergens?: Array<{ id: number, name: string }> | null } | null };
+export type MeQuery = { me?: { id: number, username: string, email: string, userRole?: Array<{ id: number, name: UserRoleName }> | null, UserMealLocation?: Array<{ id: number, timeOfDay: TimeOfDay, mealLocation: MealLocation }> | null, allergens?: Array<{ id: number, name: string }> | null } | null };
 
 export type GetAllMealBoardPlansUserQueryVariables = Exact<{
   where?: InputMaybe<MealBoardPlanWhereInput>;
@@ -12866,9 +13079,9 @@ export const CreateUserMealUserDocument = {"kind":"Document","definitions":[{"ki
 export const DeleteUserMealUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteUserMealUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteUserMealUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"mealId"}},{"kind":"Field","name":{"kind":"Name","value":"mealBoardPlanId"}},{"kind":"Field","name":{"kind":"Name","value":"weeklyMealGroupId"}},{"kind":"Field","name":{"kind":"Name","value":"meal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<DeleteUserMealUserMutation, DeleteUserMealUserMutationVariables>;
 export const UpdateSettingsAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateSettingsAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SettingsUpdateInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SettingsWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateSettingsAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"maxEditOrderDays"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdByUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}}]}},{"kind":"Field","name":{"kind":"Name","value":"updatedByUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateSettingsAdminMutation, UpdateSettingsAdminMutationVariables>;
 export const UpdateUserAllergensUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserAllergensUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserUpdateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateUserAllergensUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}]}]}}]} as unknown as DocumentNode<UpdateUserAllergensUserMutation, UpdateUserAllergensUserMutationVariables>;
-export const CreateUserMealLocationUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateUserMealLocationUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealLocationUncheckedCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createUserMealLocationUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<CreateUserMealLocationUserMutation, CreateUserMealLocationUserMutationVariables>;
-export const DeleteUserMealLocationUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteUserMealLocationUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealLocationWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteUserMealLocationUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<DeleteUserMealLocationUserMutation, DeleteUserMealLocationUserMutationVariables>;
-export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"userRole"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UserMealLocation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"allergens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
+export const CreateUserMealLocationUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateUserMealLocationUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealLocationUncheckedCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createUserMealLocationUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"mealLocation"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<CreateUserMealLocationUserMutation, CreateUserMealLocationUserMutationVariables>;
+export const DeleteUserMealLocationUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteUserMealLocationUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealLocationWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteUserMealLocationUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"mealLocation"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<DeleteUserMealLocationUserMutation, DeleteUserMealLocationUserMutationVariables>;
+export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"userRole"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UserMealLocation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"mealLocation"}}]}},{"kind":"Field","name":{"kind":"Name","value":"allergens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
 export const GetAllMealBoardPlansUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllMealBoardPlansUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MealBoardPlanWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MealBoardPlanOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MealBoardPlanWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MealBoardPlanScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllMealBoardPlansUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"color"}}]}}]}}]} as unknown as DocumentNode<GetAllMealBoardPlansUserQuery, GetAllMealBoardPlansUserQueryVariables>;
 export const GetAllWeeklyMealGroupsUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllWeeklyMealGroupsUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroupWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroupOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroupWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroupScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllWeeklyMealGroupsUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"WeeklyMealGroupFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"WeeklyMealGroupFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroup"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"color"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"weekOfYear"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"orderIndex"}},{"kind":"Field","name":{"kind":"Name","value":"mondayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tuesdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"wednesdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"thursdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fridayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"saturdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sundayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}}]}}]} as unknown as DocumentNode<GetAllWeeklyMealGroupsUserQuery, GetAllWeeklyMealGroupsUserQueryVariables>;
 export const GetAllMealsUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllMealsUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MealWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MealOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MealWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MealScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllMealsUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetAllMealsUserQuery, GetAllMealsUserQueryVariables>;

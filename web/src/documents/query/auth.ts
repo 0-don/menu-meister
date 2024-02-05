@@ -13,7 +13,7 @@ export const ME = graphql(/* GraphQL */ `
       UserMealLocation {
         id
         timeOfDay
-        name
+        mealLocation
       }
       allergens {
         id

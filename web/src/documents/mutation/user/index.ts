@@ -14,7 +14,7 @@ export const CREATE_USER_MEAL_LOCATION_USER = graphql(/* GraphQL */ `
       id
       userId
       timeOfDay
-      name
+      mealLocation
       createdAt
       updatedAt
     }
@@ -29,7 +29,7 @@ export const DELETE_USER_MEAL_LOCATION_USER = graphql(/* GraphQL */ `
       id
       userId
       timeOfDay
-      name
+      mealLocation
       createdAt
       updatedAt
     }
