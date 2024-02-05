@@ -11,14 +11,14 @@ interface UserProfileProps {}
 
 export const UserProfile: React.FC<UserProfileProps> = ({}) => {
   const t = useTranslations<"User" | "Allergens" | "Enums">();
-  const { me, refetchMe } = useMeHook();
+  const { me, refetchMe, updateUserAllergens } = useMeHook();
   const { allergens } = useIngredientPropertiesHook();
   const [allergen, setAllergen] = useState<string>("");
   const [timeOfDay, setTimeOfDay] = useState<string>("");
   const [mealLocation, setMealLocation] = useState<string>("");
 
   return (
-    <form className="subpixel-antialiased">
+    <section className="subpixel-antialiased">
       <p className="text-large">{t("PROFILE_DETAILS")}</p>
       <p className="mb-3 text-small text-default-400">
         {t("PROFILE_DETAILS_DESCRIPTION")}
@@ -32,17 +32,24 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                 label={t("ALLERGENS")}
                 labelPlacement="outside"
                 placeholder=" "
+                aria-label="Allergens"
                 value={allergen}
                 size="sm"
-                onChange={async (e) => {
-                  setAllergen(e.target.value);
+                onSelectionChange={(key) => {
+                  if (key) {
+                    
+                    setAllergen(key as string);
+                  }
                 }}
                 items={(allergens || []).map(({ id, name }) => ({
                   id,
                   name: t(name as keyof Messages["Allergens"]),
                 }))}
               />
-              <Listbox emptyContent={t("NO_ALLERGIES")}>
+              <Listbox
+                emptyContent={t("NO_ALLERGIES")}
+                aria-label={t("ALLERGENS")}
+              >
                 {(me?.allergens || []).map(({ id, name }) => (
                   <ListboxItem
                     key={id}
@@ -88,7 +95,10 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                 }))}
               />
             </form>
-            <Listbox emptyContent={t("NO_USER_MEAL_LOCATION")}>
+            <Listbox
+              emptyContent={t("NO_USER_MEAL_LOCATION")}
+              aria-label={t("TIME_OF_DAY")}
+            >
               {(me?.userMealLocation || []).map(
                 ({ id, mealLocation, timeOfDay }) => (
                   <ListboxItem
@@ -109,6 +119,6 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
           </CardBody>
         </Card>
       </div>
-    </form>
+    </section>
   );
 };
