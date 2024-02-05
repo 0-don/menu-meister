@@ -90,7 +90,7 @@ export class MealAdminResolver {
   ) {
     const select = new PrismaSelect(info).value.select as Prisma.MealSelect;
     try {
-      return await this.prisma.meal.create({ ...args, select });
+      return await this.prisma.meal.create({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -149,7 +149,7 @@ export class MealAdminResolver {
   ) {
     const select = new PrismaSelect(info).value.select as Prisma.MealSelect;
     try {
-      return await this.prisma.meal.update({ ...args, select });
+      return await this.prisma.meal.update({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -191,7 +191,7 @@ export class MealAdminResolver {
   ) {
     const select = new PrismaSelect(info).value?.select as Prisma.MealSelect;
     try {
-      return await this.prisma.meal.upsert({ ...args, select });
+      return await this.prisma.meal.upsert({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;

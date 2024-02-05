@@ -62,7 +62,7 @@ export class UserAdminResolver {
   ) {
     const select = new PrismaSelect(info).value.select as Prisma.UserSelect;
     try {
-      return await this.prisma.user.create({ ...args, select });
+      return await this.prisma.user.create({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -127,7 +127,7 @@ export class UserAdminResolver {
   ) {
     const select = new PrismaSelect(info).value.select as Prisma.UserSelect;
     try {
-      return await this.prisma.user.update({ ...args, select });
+      return await this.prisma.user.update({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -164,7 +164,7 @@ export class UserAdminResolver {
   ) {
     const select = new PrismaSelect(info).value?.select as Prisma.UserSelect;
     try {
-      return await this.prisma.user.upsert({ ...args, select });
+      return await this.prisma.user.upsert({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;

@@ -72,7 +72,7 @@ export class UserMealLocationUserResolver {
     const select = new PrismaSelect(info).value
       .select as Prisma.UserMealLocationSelect;
     try {
-      return await this.prisma.userMealLocation.create({ data, select });
+      return await this.prisma.userMealLocation.create({ data: data as any, select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -139,7 +139,10 @@ export class UserMealLocationUserResolver {
     const select = new PrismaSelect(info).value
       .select as Prisma.UserMealLocationSelect;
     try {
-      return await this.prisma.userMealLocation.update({ ...args, select });
+      return await this.prisma.userMealLocation.update({
+        ...(args as any),
+        select,
+      });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -178,7 +181,10 @@ export class UserMealLocationUserResolver {
     const select = new PrismaSelect(info).value
       .select as Prisma.UserMealLocationSelect;
     try {
-      return await this.prisma.userMealLocation.upsert({ ...args, select });
+      return await this.prisma.userMealLocation.upsert({
+        ...(args as any),
+        select,
+      });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -194,7 +200,10 @@ export class UserMealLocationUserResolver {
     const select = new PrismaSelect(info).value
       .select as Prisma.UserMealLocationSelect;
     try {
-      return await this.prisma.userMealLocation.update({ ...args, select });
+      return await this.prisma.userMealLocation.update({
+        ...(args as any),
+        select,
+      });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -210,7 +219,10 @@ export class UserMealLocationUserResolver {
     const select = new PrismaSelect(info).value
       ?.select as Prisma.UserMealLocationSelect;
     try {
-      return await this.prisma.userMealLocation.upsert({ ...args, select });
+      return await this.prisma.userMealLocation.upsert({
+        ...(args as any),
+        select,
+      });
     } catch (e) {
       Logger.error(e);
       return null;

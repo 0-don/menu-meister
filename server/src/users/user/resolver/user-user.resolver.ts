@@ -23,7 +23,7 @@ export class UserUserResolver {
   ) {
     try {
       return await this.prisma.user.update({
-        data,
+        data: data as any,
         where: { id: me.sub },
       });
     } catch (e) {

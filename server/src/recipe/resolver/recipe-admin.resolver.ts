@@ -62,7 +62,7 @@ export class RecipeAdminResolver {
   ) {
     const select = new PrismaSelect(info).value.select as Prisma.RecipeSelect;
     try {
-      return await this.prisma.recipe.create({ ...args, select });
+      return await this.prisma.recipe.create({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -127,7 +127,7 @@ export class RecipeAdminResolver {
   ) {
     const select = new PrismaSelect(info).value?.select as Prisma.RecipeSelect;
     try {
-      return await this.prisma.recipe.update({ ...args, select });
+      return await this.prisma.recipe.update({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -167,7 +167,7 @@ export class RecipeAdminResolver {
   ) {
     const select = new PrismaSelect(info).value.select as Prisma.RecipeSelect;
     try {
-      return await this.prisma.recipe.upsert({ ...args, select });
+      return await this.prisma.recipe.upsert({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;

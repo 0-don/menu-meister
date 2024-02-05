@@ -65,7 +65,7 @@ export class IngredientAdminResolver {
     const select = new PrismaSelect(info).value
       .select as Prisma.IngredientSelect;
     try {
-      return await this.prisma.ingredient.create({ ...args, select });
+      return await this.prisma.ingredient.create({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -127,7 +127,7 @@ export class IngredientAdminResolver {
     const select = new PrismaSelect(info).value
       .select as Prisma.IngredientSelect;
     try {
-      return await this.prisma.ingredient.update({ ...args, select });
+      return await this.prisma.ingredient.update({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -171,7 +171,7 @@ export class IngredientAdminResolver {
     const select = new PrismaSelect(info).value
       ?.select as Prisma.IngredientSelect;
     try {
-      return await this.prisma.ingredient.upsert({ ...args, select });
+      return await this.prisma.ingredient.upsert({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;

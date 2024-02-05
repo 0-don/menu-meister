@@ -137,7 +137,7 @@ export class WeeklyMealGroupAdminResolver {
     try {
       return await this.prisma.weeklyMealGroup.create({
         select,
-        data,
+        data: data as any,
       });
     } catch (e) {
       Logger.error(e);
@@ -214,7 +214,7 @@ export class WeeklyMealGroupAdminResolver {
 
     try {
       return await this.prisma.weeklyMealGroup.update({
-        data,
+        data: data as any,
         where,
         select,
       });
@@ -256,7 +256,10 @@ export class WeeklyMealGroupAdminResolver {
     const select = new PrismaSelect(info).value
       ?.select as Prisma.WeeklyMealGroupSelect;
     try {
-      return await this.prisma.weeklyMealGroup.upsert({ ...args, select });
+      return await this.prisma.weeklyMealGroup.upsert({
+        ...(args as any),
+        select,
+      });
     } catch (e) {
       Logger.error(e);
       return null;

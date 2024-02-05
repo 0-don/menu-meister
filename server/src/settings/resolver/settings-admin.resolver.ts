@@ -62,7 +62,7 @@ export class SettingsAdminResolver {
   ) {
     const select = new PrismaSelect(info).value.select as Prisma.SettingsSelect;
     try {
-      return await this.prisma.settings.create({ ...args, select });
+      return await this.prisma.settings.create({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -127,7 +127,7 @@ export class SettingsAdminResolver {
   ) {
     const select = new PrismaSelect(info).value.select as Prisma.SettingsSelect;
     try {
-      return await this.prisma.settings.update({ ...args, select });
+      return await this.prisma.settings.update({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -162,9 +162,10 @@ export class SettingsAdminResolver {
     @Args() args: UpsertOneSettingsArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value?.select as Prisma.SettingsSelect;
+    const select = new PrismaSelect(info).value
+      ?.select as Prisma.SettingsSelect;
     try {
-      return await this.prisma.settings.upsert({ ...args, select });
+      return await this.prisma.settings.upsert({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;

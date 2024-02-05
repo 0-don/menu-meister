@@ -122,7 +122,7 @@ export class UserMealUserResolver {
   ) {
     const select = new PrismaSelect(info).value.select as Prisma.UserMealSelect;
     try {
-      return await this.prisma.userMeal.update({ ...args, select });
+      return await this.prisma.userMeal.update({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;
@@ -158,9 +158,10 @@ export class UserMealUserResolver {
     @Args() args: UpsertOneUserMealArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value?.select as Prisma.UserMealSelect;
+    const select = new PrismaSelect(info).value
+      ?.select as Prisma.UserMealSelect;
     try {
-      return await this.prisma.userMeal.upsert({ ...args, select });
+      return await this.prisma.userMeal.upsert({ ...(args as any), select });
     } catch (e) {
       Logger.error(e);
       return null;
