@@ -1,4 +1,3 @@
-
 import { MainTable } from "@/components/MainTable";
 import { MenuPagination } from "@/components/pages/dashboard/utils/MenuPagination";
 

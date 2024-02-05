@@ -110,7 +110,8 @@
     "ABOUT": "Über",
     "MENU": "Menü",
     "SETTINGS": "Einstellungen",
-    "ORDERS": "Bestellungen"
+    "ORDERS": "Bestellungen",
+    "USERS": "Gäste"
   },
   "Meal": {
     "ALLERGENS": "Allergene",
