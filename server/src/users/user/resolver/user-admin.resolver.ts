@@ -122,12 +122,16 @@ export class UserAdminResolver {
   @Mutation(() => User, { nullable: true })
   @Roles("ADMIN")
   async updateUserAdmin(
-    @Args() args: UpdateOneUserArgs,
+    @Args() { data, where }: UpdateOneUserArgs,
     @Info() info: GraphQLResolveInfo,
   ) {
     const select = new PrismaSelect(info).value.select as Prisma.UserSelect;
     try {
-      return await this.prisma.user.update({ ...(args as any), select });
+      return await this.prisma.user.update({
+        data: data as any,
+        where,
+        select,
+      });
     } catch (e) {
       Logger.error(e);
       return null;
