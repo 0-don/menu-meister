@@ -17,13 +17,44 @@ import React, { useState } from "react";
 
 interface UserProfileProps {}
 
+type TimeOfDayAndMealLocation = {
+  timeOfDay: string;
+  mealLocation: string;
+};
+
 export const UserProfile: React.FC<UserProfileProps> = ({}) => {
   const t = useTranslations<"User" | "Allergens" | "Enums">();
-  const { me, refetchMe, updateUserAllergens } = useMeHook();
+  const { me, refetchMe, updateUserAllergens, createUserMealLocation } =
+    useMeHook();
   const { allergens } = useIngredientPropertiesHook();
   const [allergen, setAllergen] = useState<string>("");
-  const [timeOfDay, setTimeOfDay] = useState<string>("");
-  const [mealLocation, setMealLocation] = useState<string>("");
+  const [timeOfDayAndMealLocation, setTimeOfDayAndMealLoction] =
+    useState<TimeOfDayAndMealLocation>({
+      timeOfDay: "",
+      mealLocation: "",
+    });
+
+  const submit = async (args?: TimeOfDayAndMealLocation) => {
+    const changedState = args || timeOfDayAndMealLocation;
+
+    if (changedState.timeOfDay && changedState.mealLocation) {
+      try {
+        await createUserMealLocation({
+          data: {
+            userId: Number(me?.id),
+            mealLocation: changedState.mealLocation as MealLocation,
+            timeOfDay: changedState.timeOfDay as TimeOfDay,
+          },
+        });
+        refetchMe();
+        setTimeOfDayAndMealLoction({ timeOfDay: "", mealLocation: "" });
+      } catch (error) {
+        catchErrorAlerts(error, t);
+      }
+    } else {
+      setTimeOfDayAndMealLoction(changedState);
+    }
+  };
 
   return (
     <section className="subpixel-antialiased">
@@ -35,109 +66,119 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>
           <CardBody>
-            <form>
-              <MyAutocomplete
-                label={t("ALLERGENS")}
-                labelPlacement="outside"
-                placeholder=" "
-                aria-label="Allergens"
-                value={allergen}
-                size="sm"
-                onSelectionChange={async (key) => {
-                  setAllergen(key as string);
-                  const allergy = allergens?.find(
-                    (allergen) => allergen.id === Number(key),
-                  );
-                  if (key && allergy) {
-                    await updateUserAllergens({
-                      data: {
-                        allergens: {
-                          connectOrCreate: [
-                            {
-                              create: { name: allergy.name },
-                              where: { id: allergy.id },
-                            },
-                          ],
-                        },
+            <MyAutocomplete
+              label={t("ALLERGENS")}
+              labelPlacement="outside"
+              placeholder=" "
+              aria-label="Allergens"
+              value={allergen}
+              size="sm"
+              onSelectionChange={async (key) => {
+                const allergy = allergens?.find(
+                  (allergen) => allergen.id === Number(key),
+                );
+                if (key && allergy) {
+                  await updateUserAllergens({
+                    data: {
+                      allergens: {
+                        connectOrCreate: [
+                          {
+                            create: { name: allergy.name },
+                            where: { id: allergy.id },
+                          },
+                        ],
                       },
-                    });
-                    await refetchMe();
+                    },
+                  });
+                  refetchMe();
+                  setAllergen("");
+                }
+              }}
+              items={(allergens || [])
+                .filter((a) => !me?.allergens?.find((b) => b.name === a.name))
+                .map(({ id, name }) => ({
+                  id,
+                  name: t(name as keyof Messages["Allergens"]),
+                }))}
+            />
+            <Listbox
+              emptyContent={t("NO_ALLERGIES")}
+              aria-label={t("ALLERGENS")}
+            >
+              {(me?.allergens || []).map(({ id, name }) => (
+                <ListboxItem
+                  key={id}
+                  endContent={
+                    <MyConfirmModal
+                      title={t("WARNING")}
+                      Footer={({ onOpen }) => (
+                        <div className="flex items-center justify-between">
+                          <Button
+                            color="danger"
+                            onClick={async () => {
+                              try {
+                                await updateUserAllergens({
+                                  data: { allergens: { delete: [{ id }] } },
+                                });
+                                onOpen();
+                                refetchMe();
+                              } catch (error) {
+                                catchErrorAlerts(error, t);
+                              }
+                            }}
+                          >
+                            {t("YES")}
+                          </Button>
+                        </div>
+                      )}
+                      Trigger={({ onOpen }) => (
+                        <FaRegTrashAlt
+                          onClick={() => onOpen()}
+                          className="m-2 cursor-pointer text-sm hover:text-red-600"
+                        />
+                      )}
+                    >
+                      <span>
+                        {t.rich("ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS", {
+                          item: t(name as keyof Messages["Allergens"]),
+                          placeholder: (chunks) => (
+                            <span className="font-bold">{chunks}</span>
+                          ),
+                        })}
+                      </span>
+                    </MyConfirmModal>
                   }
-                }}
-                items={(allergens || [])
-                  .filter((a) => !me?.allergens?.find((b) => b.name === a.name))
-                  .map(({ id, name }) => ({
-                    id,
-                    name: t(name as keyof Messages["Allergens"]),
-                  }))}
-              />
-              <Listbox
-                emptyContent={t("NO_ALLERGIES")}
-                aria-label={t("ALLERGENS")}
-              >
-                {(me?.allergens || []).map(({ id, name }) => (
-                  <ListboxItem
-                    key={id}
-                    endContent={
-                      <MyConfirmModal
-                        title={t("WARNING")}
-                        Footer={({ onOpen }) => (
-                          <div className="flex items-center justify-between">
-                            <Button
-                              color="danger"
-                              onClick={async () => {
-                                try {
-                                  await updateUserAllergens({
-                                    data: { allergens: { delete: [{ id }] } },
-                                  });
-                                  onOpen();
-                                  refetchMe();
-                                } catch (error) {
-                                  catchErrorAlerts(error, t);
-                                }
-                              }}
-                            >
-                              {t("YES")}
-                            </Button>
-                          </div>
-                        )}
-                        Trigger={({ onOpen }) => (
-                          <FaRegTrashAlt
-                            onClick={() => onOpen()}
-                            className="m-2 cursor-pointer text-sm hover:text-red-600"
-                          />
-                        )}
-                      >
-                        <span>
-                          {t.rich("ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS", {
-                            item: t(name as keyof Messages["Allergens"]),
-                            placeholder: (chunks) => (
-                              <span className="font-bold">{chunks}</span>
-                            ),
-                          })}
-                        </span>
-                      </MyConfirmModal>
-                    }
-                  >
-                    {t(name as keyof Messages["Allergens"])}
-                  </ListboxItem>
-                ))}
-              </Listbox>
-            </form>
+                >
+                  {t(name as keyof Messages["Allergens"])}
+                </ListboxItem>
+              ))}
+            </Listbox>
           </CardBody>
         </Card>
 
         <Card>
           <CardBody>
-            <form className="flex items-center space-x-3">
+            <form
+              className="flex items-center space-x-3"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                await submit();
+              }}
+            >
               <MyAutocomplete
                 label={t("TIME_OF_DAY")}
                 labelPlacement="outside"
                 placeholder=" "
-                value={timeOfDay}
+                value={timeOfDayAndMealLocation.timeOfDay}
                 required
                 size="sm"
-                onChange={(e) => setTimeOfDay(e.target.value)}
+                onSelectionChange={async (key) => {
+                  const changedState = {
+                    ...timeOfDayAndMealLocation,
+                    timeOfDay: key as string,
+                  };
+                  await submit(changedState);
+                }}
                 items={Object.values(TimeOfDay).map((time) => ({
                   id: time,
                   name: t(time as keyof Messages["Enums"]),
@@ -148,9 +189,15 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                 labelPlacement="outside"
                 placeholder=" "
                 required
-                value={mealLocation}
+                value={timeOfDayAndMealLocation.mealLocation}
                 size="sm"
-                onChange={(e) => setMealLocation(e.target.value)}
+                onSelectionChange={async (key) => {
+                  const changedState = {
+                    ...timeOfDayAndMealLocation,
+                    mealLocation: key as string,
+                  };
+                  await submit(changedState);
+                }}
                 items={Object.values(MealLocation).map((location) => ({
                   id: location,
                   name: t(location as keyof Messages["Enums"]),

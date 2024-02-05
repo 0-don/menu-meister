@@ -23,7 +23,7 @@ export const useMeHook = () => {
   const { mutateAsync: updateUserAllergens } = useGqlMutation(
     UPDATE_USER_ALLERGENS_USER,
   );
-  const { mutateAsync: updateUserMealLocation } = useGqlMutation(
+  const { mutateAsync: createUserMealLocation } = useGqlMutation(
     CREATE_USER_MEAL_LOCATION_USER,
   );
   const { mutateAsync: deleteUserMealLocation } = useGqlMutation(
@@ -43,7 +43,7 @@ export const useMeHook = () => {
     isHighRank,
     isOrderMenu,
     updateUserAllergens,
-    updateUserMealLocation,
+    createUserMealLocation,
     deleteUserMealLocation,
   };
 };
