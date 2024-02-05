@@ -163,13 +163,12 @@ model UserMeal {
   mealId            Int
   mealBoardPlanId   Int
   weeklyMealGroupId Int
-  timeOfDay         TimeOfDay? @default(Any)
+  timeOfDay         TimeOfDay @default(Any)
 
   user             User              @relation(fields: [userId], references: [id])
   meal             Meal              @relation(fields: [mealId], references: [id])
   mealBoardPlan    MealBoardPlan     @relation(fields: [mealBoardPlanId], references: [id])
   weeklyMealGroup  WeeklyMealGroup   @relation(fields: [weeklyMealGroupId], references: [id])
-  userMealLocation UserMealLocation? @relation(fields: [userId, timeOfDay], references: [userId, timeOfDay])
 
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
@@ -207,7 +206,6 @@ model UserMealLocation {
   updatedByUser User     @relation("UpdatedUserMealLocation", fields: [updatedBy], references: [id])
 
   user     User       @relation(fields: [userId], references: [id])
-  userMeal UserMeal[]
 
   @@unique([userId, timeOfDay, mealLocation], name: "user_meal_location_userId_timeOfDay_mealLocation_unique")
   @@unique([userId, timeOfDay], name: "user_meal_location_userId_timeOfDay_unique")
