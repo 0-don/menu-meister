@@ -87,7 +87,10 @@
     "TIME_OF_DAY": "Tageszeit",
     "NO_TIME_OF_DAY": "Keine Tageszeiten ausgewählt",
     "MEAL_LOCATION": "Mahlzeitstandort",
-    "NO_USER_MEAL_LOCATION": "Kein Mahlzeitstandort ausgewählt"
+    "NO_USER_MEAL_LOCATION": "Kein Mahlzeitstandort ausgewählt",
+    "YES": "Ja",
+    "WARNING": "Warnung",
+    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS": "Sind Sie sicher, dass Sie dies löschen möchten <placeholder>{item}</placeholder>?"
   },
   "Settings": {
     "SETTINGS": "Einstellungen",

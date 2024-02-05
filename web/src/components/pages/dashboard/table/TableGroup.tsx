@@ -2,9 +2,8 @@ import { MyConfirmModal } from "@/components/elements/MyConfirmModal";
 import { useMeHook } from "@/components/hooks/useMeHook";
 import { useUserMealHook } from "@/components/hooks/useUserMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
-import { TimeOfDay } from "@/gql/graphql";
 import { DashboardStore } from "@/store/DashboardStore";
-import TableStore from "@/store/TableStore";
+import { TIME_OF_DAY_CONFIGS, TableStore } from "@/store/TableStore";
 import { debounce } from "@/utils/constants";
 import { catchErrorAlerts, classNames } from "@/utils/helpers/clientUtils";
 import { UniqueIdentifier } from "@dnd-kit/core";
@@ -13,8 +12,6 @@ import { Button, Chip, useDisclosure } from "@nextui-org/react";
 import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
 import { useTranslations } from "next-intl";
 import React, { useCallback, useState } from "react";
-import { LuClock10, LuClock12, LuClock2, LuClock6 } from "react-icons/lu";
-import { TbCalendarTime } from "react-icons/tb";
 import { useSnapshot } from "valtio";
 
 interface TableGroupProps {
@@ -110,92 +107,19 @@ export const TableGroup: React.FC<TableGroupProps> = ({
               }}
             />
 
-            {group.timeOfDay === TimeOfDay.Any && (
+            {TIME_OF_DAY_CONFIGS.filter(
+              (config) => group.timeOfDay === config.time,
+            ).map(({ icon: Icon, translationKey }) => (
               <Chip
-                startContent={<TbCalendarTime />}
+                key={translationKey}
+                startContent={<Icon />}
                 variant="flat"
                 size="sm"
                 style={{ color }}
               >
-                {t(TimeOfDay.Any.toUpperCase() as keyof Messages["Dashboard"])}
+                {t(translationKey as keyof Messages["Dashboard"])}
               </Chip>
-            )}
-
-            {group.timeOfDay === TimeOfDay.Morning && (
-              <Chip
-                startContent={<LuClock6 />}
-                variant="flat"
-                size="sm"
-                style={{ color }}
-              >
-                {t(
-                  TimeOfDay.Morning.toUpperCase() as keyof Messages["Dashboard"],
-                )}
-              </Chip>
-            )}
-
-            {group.timeOfDay === TimeOfDay.Forenoon && (
-              <Chip
-                startContent={<LuClock10 />}
-                variant="flat"
-                size="sm"
-                style={{ color }}
-              >
-                {t(
-                  TimeOfDay.Forenoon.toUpperCase() as keyof Messages["Dashboard"],
-                )}
-              </Chip>
-            )}
-
-            {group.timeOfDay === TimeOfDay.Noon && (
-              <Chip
-                startContent={<LuClock12 />}
-                variant="flat"
-                size="sm"
-                style={{ color }}
-              >
-                {t(TimeOfDay.Noon.toUpperCase() as keyof Messages["Dashboard"])}
-              </Chip>
-            )}
-
-            {group.timeOfDay === TimeOfDay.Afternoon && (
-              <Chip
-                startContent={<LuClock2 />}
-                variant="flat"
-                size="sm"
-                style={{ color }}
-              >
-                {t(
-                  TimeOfDay.Afternoon.toUpperCase() as keyof Messages["Dashboard"],
-                )}
-              </Chip>
-            )}
-
-            {group.timeOfDay === TimeOfDay.Evening && (
-              <Chip
-                startContent={<LuClock6 />}
-                variant="flat"
-                size="sm"
-                style={{ color }}
-              >
-                {t(
-                  TimeOfDay.Evening.toUpperCase() as keyof Messages["Dashboard"],
-                )}
-              </Chip>
-            )}
-
-            {group.timeOfDay === TimeOfDay.Night && (
-              <Chip
-                startContent={<LuClock12 />}
-                variant="flat"
-                size="sm"
-                style={{ color }}
-              >
-                {t(
-                  TimeOfDay.Night.toUpperCase() as keyof Messages["Dashboard"],
-                )}
-              </Chip>
-            )}
+            ))}
           </div>
           <div className="flex h-full w-full items-end justify-end">
             <div
@@ -210,10 +134,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
             {enabled && (
               <MyConfirmModal
                 title={t("WARNING")}
-                isOpen={isOpen}
-                onOpen={onOpen}
-                onOpenChange={onOpenChange}
-                Footer={
+                Footer={({ onOpen }) => (
                   <div className="flex items-center justify-between">
                     <Button
                       color="danger"
@@ -234,13 +155,13 @@ export const TableGroup: React.FC<TableGroupProps> = ({
                       {t("YES")}
                     </Button>
                   </div>
-                }
-                Trigger={
+                )}
+                Trigger={({ onOpen }) => (
                   <FaRegTrashAlt
                     onClick={() => onOpen()}
                     className="m-2 cursor-pointer text-sm hover:text-red-600"
                   />
-                }
+                )}
               >
                 {t("ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_GROUP")}
               </MyConfirmModal>

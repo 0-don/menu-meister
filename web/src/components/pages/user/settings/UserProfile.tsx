@@ -1,8 +1,16 @@
 import { MyAutocomplete } from "@/components/elements/MyAutocomplete";
+import { MyConfirmModal } from "@/components/elements/MyConfirmModal";
 import { useIngredientPropertiesHook } from "@/components/hooks/useIngredientPropertiesHook";
 import { useMeHook } from "@/components/hooks/useMeHook";
 import { MealLocation, TimeOfDay } from "@/gql/graphql";
-import { Card, CardBody, Listbox, ListboxItem } from "@nextui-org/react";
+import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
+import {
+  Button,
+  Card,
+  CardBody,
+  Listbox,
+  ListboxItem,
+} from "@nextui-org/react";
 import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
 import { useTranslations } from "next-intl";
 import React, { useState } from "react";
@@ -71,15 +79,40 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                   <ListboxItem
                     key={id}
                     endContent={
-                      <FaRegTrashAlt
-                        className="cursor-pointer hover:text-red-600"
-                        onClick={async () => {
-                          await updateUserAllergens({
-                            data: { allergens: { delete: [{ name }] } },
-                          });
-                          await refetchMe();
-                        }}
-                      />
+                      <MyConfirmModal
+                        title={t("WARNING")}
+                        Footer={({ onOpen }) => (
+                          <div className="flex items-center justify-between">
+                            <Button
+                              color="danger"
+                              onClick={async () => {
+                                try {
+                                  onOpen();
+                                } catch (error) {
+                                  catchErrorAlerts(error, t);
+                                }
+                              }}
+                            >
+                              {t("YES")}
+                            </Button>
+                          </div>
+                        )}
+                        Trigger={({ onOpen }) => (
+                          <FaRegTrashAlt
+                            onClick={() => onOpen()}
+                            className="m-2 cursor-pointer text-sm hover:text-red-600"
+                          />
+                        )}
+                      >
+                        <span>
+                          {t.rich("ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS", {
+                            item: t(name as keyof Messages["Allergens"]),
+                            placeholder: (chunks) => (
+                              <span className="font-bold">{chunks}</span>
+                            ),
+                          })}
+                        </span>
+                      </MyConfirmModal>
                     }
                   >
                     {t(name as keyof Messages["Allergens"])}

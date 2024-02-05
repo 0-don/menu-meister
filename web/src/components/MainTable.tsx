@@ -4,7 +4,7 @@ import { GET_ALL_WEEKLY_MEAL_GROUPS_USER } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
 import { WeeklyMealGroupFragmentFragment } from "@/gql/graphql";
 import { DashboardStore } from "@/store/DashboardStore";
-import TableStore from "@/store/TableStore";
+import { TableStore } from "@/store/TableStore";
 import { useInitialDashboardStore } from "@/store/hooks/useInitialDashboardStore";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";

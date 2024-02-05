@@ -3,7 +3,7 @@ import { useMealHook } from "@/components/hooks/useMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { TimeOfDay, WeeklyMealGroupFragmentFragment } from "@/gql/graphql";
 import { DashboardStore } from "@/store/DashboardStore";
-import TableStore from "@/store/TableStore";
+import { TableStore } from "@/store/TableStore";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { Button, Card, Input } from "@nextui-org/react";
 import { FaRegPlusSquare } from "@react-icons/all-files/fa/FaRegPlusSquare";

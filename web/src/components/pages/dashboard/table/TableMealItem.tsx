@@ -6,13 +6,13 @@ import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHoo
 import { Meal } from "@/gql/graphql";
 import { DashboardStore } from "@/store/DashboardStore";
 import { GeneralStore } from "@/store/GeneralStore";
-import TableStore from "@/store/TableStore";
+import { TableStore } from "@/store/TableStore";
 import { catchErrorAlerts, classNames } from "@/utils/helpers/clientUtils";
 import { WeekDay } from "@/utils/types";
 import { UniqueIdentifier, useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { Link } from "@nextui-org/link";
-import { Button, useDisclosure } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import mealPlaceholder from "@public/images/meal-placeholder.png";
 import { FaEraser } from "@react-icons/all-files/fa/FaEraser";
 import { IoFastFoodSharp } from "@react-icons/all-files/io5/IoFastFoodSharp";
@@ -42,7 +42,6 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
   const dashboardStore = useSnapshot(DashboardStore);
   const { isHighRank, isOrderMenu, me } = useMeHook();
   const groupItem = TableStore.getGroup(props.group);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { updateWeeklyMealGroup, isPast } = useWeeklyMealGroupHook();
   const tableStore = useSnapshot(TableStore);
   const id = `${props.group}#${props.day}#${props.meal.id}`;
@@ -165,10 +164,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
           {enabled && (
             <MyConfirmModal
               title={t("WARNING")}
-              isOpen={isOpen}
-              onOpen={onOpen}
-              onOpenChange={onOpenChange}
-              Footer={
+              Footer={({ onOpen }) => (
                 <Button
                   color="danger"
                   onClick={() => {
@@ -186,7 +182,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
                           : g,
                       );
 
-                      onOpenChange();
+                      onOpen();
                     } catch (error) {
                       catchErrorAlerts(error, t);
                     }
@@ -194,14 +190,14 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
                 >
                   {t("YES")}
                 </Button>
-              }
-              Trigger={
+              )}
+              Trigger={({ onOpen }) => (
                 <FaEraser
                   onClick={onOpen}
                   title={t("DELETE_MEAL")}
                   className="invisible w-11 cursor-pointer text-lg hover:text-red-500 group-hover:visible"
                 />
-              }
+              )}
             >
               <p>
                 {t?.rich("ARE_YOU_SURE_DELETE_MEAL", {

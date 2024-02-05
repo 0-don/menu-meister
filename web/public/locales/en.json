@@ -86,7 +86,10 @@
     "NO_ALLERGIES": "No allergies",
     "TIME_OF_DAY": "Time of Day",
     "MEAL_LOCATION": "Meal Location",
-    "NO_USER_MEAL_LOCATION": "No user meal location selected"
+    "NO_USER_MEAL_LOCATION": "No user meal location selected",
+    "YES": "Yes",
+    "WARNING": "Warning",
+    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS": "Are you sure you want to delete this <placeholder>{item}</placeholder>?"
   },
   "Settings": {
     "SETTINGS": "Settings",
