@@ -62,6 +62,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
     }
   };
 
+  console.log(me);
+
   return (
     <section className="subpixel-antialiased">
       <p className="text-large">{t("PROFILE_DETAILS")}</p>
@@ -117,7 +119,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                   endContent={
                     <MyConfirmModal
                       title={t("WARNING")}
-                      Footer={({ onOpen }) => (
+                      Footer={({ onOpenChange }) => (
                         <div className="flex items-center justify-between">
                           <Button
                             color="danger"
@@ -126,7 +128,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                                 await updateUserAllergens({
                                   data: { allergens: { delete: [{ id }] } },
                                 });
-                                onOpen();
+                                onOpenChange();
                                 refetchMe();
                               } catch (error) {
                                 catchErrorAlerts(error, t);
@@ -220,9 +222,12 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                     (config) => config.time === timeOfDay,
                   )!;
 
+                  const text = `${t(timeOfDay.toString() as keyof Messages["Allergens"])} | ${t(mealLocation.toString() as keyof Messages["Allergens"])}`;
+
                   return (
                     <ListboxItem
                       key={id}
+                      startContent={<Icon />}
                       endContent={
                         <MyConfirmModal
                           title={t("WARNING")}
@@ -255,7 +260,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                         >
                           <span>
                             {t.rich("ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS", {
-                              item: `${t(timeOfDay.toString() as keyof Messages["Allergens"])} | ${t(mealLocation.toString() as keyof Messages["Allergens"])}`,
+                              item: text,
                               placeholder: (chunks) => (
                                 <span className="font-bold">{chunks}</span>
                               ),
@@ -264,12 +269,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                         </MyConfirmModal>
                       }
                     >
-                      <div className="flex items-center space-x-1">
-                        <Icon />
-                        <p>{t(timeOfDay as keyof Messages["Enums"])}</p>
-                        <div className="text-xl">{" | "}</div>
-                        <p>{t(mealLocation as keyof Messages["Enums"])}</p>
-                      </div>
+                      {text}
                     </ListboxItem>
                   );
                 },

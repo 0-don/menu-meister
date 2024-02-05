@@ -8,18 +8,25 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 
+type Args = {
+  isOpen: boolean;
+  onOpenChange: () => void;
+  onOpen: () => void;
+};
+
 interface MyConfirmModalProps {
   title: string;
   children: React.ReactNode;
-  Trigger: (args: { onOpen: () => void }) => JSX.Element;
-  Footer: (args: { onOpen: () => void }) => JSX.Element;
+  Trigger: (args: Args) => JSX.Element;
+  Footer: (args: Args) => JSX.Element;
 }
 
 export const MyConfirmModal: React.FC<MyConfirmModalProps> = (props) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   return (
     <>
-      {props.Trigger({ onOpen })}
+      {props.Trigger({ isOpen, onOpen, onOpenChange })}
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {() => (
@@ -28,7 +35,9 @@ export const MyConfirmModal: React.FC<MyConfirmModalProps> = (props) => {
                 {props.title}
               </ModalHeader>
               <ModalBody>{props.children}</ModalBody>
-              <ModalFooter>{props.Footer({ onOpen })}</ModalFooter>
+              <ModalFooter>
+                {props.Footer({ isOpen, onOpen, onOpenChange })}
+              </ModalFooter>
             </>
           )}
         </ModalContent>
