@@ -87,7 +87,11 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                               color="danger"
                               onClick={async () => {
                                 try {
+                                  await updateUserAllergens({
+                                    data: { allergens: { delete: [{ id }] } },
+                                  });
                                   onOpen();
+                                  refetchMe();
                                 } catch (error) {
                                   catchErrorAlerts(error, t);
                                 }
