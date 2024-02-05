@@ -25,8 +25,13 @@ type TimeOfDayAndMealLocation = {
 
 export const UserProfile: React.FC<UserProfileProps> = ({}) => {
   const t = useTranslations<"User" | "Allergens" | "Enums">();
-  const { me, refetchMe, updateUserAllergens, createUserMealLocation } =
-    useMeHook();
+  const {
+    me,
+    refetchMe,
+    updateUserAllergens,
+    createUserMealLocation,
+    deleteUserMealLocation,
+  } = useMeHook();
   const { allergens } = useIngredientPropertiesHook();
   const [allergen, setAllergen] = useState<string>("");
   const [timeOfDayAndMealLocation, setTimeOfDayAndMealLoction] =
@@ -219,7 +224,44 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                     <ListboxItem
                       key={id}
                       endContent={
-                        <FaRegTrashAlt className="cursor-pointer hover:text-red-600" />
+                        <MyConfirmModal
+                          title={t("WARNING")}
+                          Footer={({ onOpen }) => (
+                            <div className="flex items-center justify-between">
+                              <Button
+                                color="danger"
+                                onClick={async () => {
+                                  try {
+                                    await deleteUserMealLocation({
+                                      where: { id },
+                                    });
+                                    onOpen();
+                                    refetchMe();
+                                  } catch (error) {
+                                    catchErrorAlerts(error, t);
+                                  }
+                                }}
+                              >
+                                {t("YES")}
+                              </Button>
+                            </div>
+                          )}
+                          Trigger={({ onOpen }) => (
+                            <FaRegTrashAlt
+                              onClick={() => onOpen()}
+                              className="m-2 cursor-pointer text-sm hover:text-red-600"
+                            />
+                          )}
+                        >
+                          <span>
+                            {t.rich("ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS", {
+                              item: `${t(timeOfDay.toString() as keyof Messages["Allergens"])} | ${t(mealLocation.toString() as keyof Messages["Allergens"])}`,
+                              placeholder: (chunks) => (
+                                <span className="font-bold">{chunks}</span>
+                              ),
+                            })}
+                          </span>
+                        </MyConfirmModal>
                       }
                     >
                       <div className="flex items-center space-x-1">
