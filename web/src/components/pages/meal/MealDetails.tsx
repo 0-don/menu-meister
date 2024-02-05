@@ -5,7 +5,7 @@ import { useMeHook } from "@/components/hooks/useMeHook";
 import { UPLOAD_MEAL_IMAGE_ADMIN } from "@/documents/mutation/menu";
 import { GET_MEAL_ADMIN } from "@/documents/query/meal";
 import { useGqlMutation, useGqlQuery } from "@/fetcher";
-import TableStore from "@/store/TableStore";
+import { TableStore } from "@/store/TableStore";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { Listbox, ListboxItem } from "@nextui-org/react";
 import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
