@@ -129,7 +129,7 @@ model User {
 
   userRole         UserRole[]
   userMeal         UserMeal[]
-  UserMealLocation UserMealLocation[]
+  userMealLocation UserMealLocation[]
 }
 
 model UserRole {
@@ -163,7 +163,7 @@ model UserMeal {
   mealId            Int
   mealBoardPlanId   Int
   weeklyMealGroupId Int
-  timeOfDay         TimeOfDay @default(Any)
+  timeOfDay         TimeOfDay? @default(Any)
 
   user             User              @relation(fields: [userId], references: [id])
   meal             Meal              @relation(fields: [mealId], references: [id])

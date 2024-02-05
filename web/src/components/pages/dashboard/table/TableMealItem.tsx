@@ -125,6 +125,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
                       dashboardStore.activeMealBoardPlan?.id,
                     ),
                     weeklyMealGroupId: Number(props.group),
+                    timeOfDay: groupItem?.timeOfDay,
                     userId: Number(me?.id),
                     mealId: props.meal.id,
                     date: dayjs(props.date).add(1, "day").toISOString(),

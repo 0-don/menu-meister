@@ -60,10 +60,12 @@ export class UserMealUserResolver {
     @Args("data") data: UserMealUncheckedCreateInput,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value.select as Prisma.UserMealSelect;
+    console.log(data);
+    const select = new PrismaSelect(info).value?.select as Prisma.UserMealSelect;
     try {
       return await this.prisma.userMeal.create({ data, select });
     } catch (e) {
+      console.log(e);
       Logger.error(e);
       return null;
     }
