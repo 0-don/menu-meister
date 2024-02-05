@@ -24,208 +24,208 @@ export class UserMealLocationUserResolver {
     private userMealLocationService: UserMeaLocationService,
   ) {}
 
-  @Query(() => [UserMealLocation], { nullable: true })
-  @Roles("USER", "MOD")
-  async getAllUserMealLocationsUser(
-    @Args() args: FindManyUserMealLocationArgs,
-    @Info() info: GraphQLResolveInfo,
-  ) {
-    const select = new PrismaSelect(info).value
-      .select as Prisma.UserMealLocationSelect;
+  // @Query(() => [UserMealLocation], { nullable: true })
+  // @Roles("USER", "MOD")
+  // async getAllUserMealLocationsUser(
+  //   @Args() args: FindManyUserMealLocationArgs,
+  //   @Info() info: GraphQLResolveInfo,
+  // ) {
+  //   const select = new PrismaSelect(info).value
+  //     .select as Prisma.UserMealLocationSelect;
 
-    try {
-      return await this.prisma.userMealLocation.findMany({
-        select,
-        ...args,
-      });
-    } catch (e) {
-      Logger.error(e);
-      return null;
-    }
-  }
+  //   try {
+  //     return await this.prisma.userMealLocation.findMany({
+  //       select,
+  //       ...args,
+  //     });
+  //   } catch (e) {
+  //     Logger.error(e);
+  //     return null;
+  //   }
+  // }
 
-  @Query(() => UserMealLocation, { nullable: true })
-  @Roles("USER", "MOD")
-  async getUserMealLocationUser(
-    @Args() args: FindFirstUserMealLocationArgs,
-    @Info() info: GraphQLResolveInfo,
-  ) {
-    const select = new PrismaSelect(info).value
-      .select as Prisma.UserMealLocationSelect;
-    try {
-      return await this.prisma.userMealLocation.findFirst({
-        select,
-        ...args,
-      });
-    } catch (e) {
-      Logger.error(e);
-      return null;
-    }
-  }
+  // @Query(() => UserMealLocation, { nullable: true })
+  // @Roles("USER", "MOD")
+  // async getUserMealLocationUser(
+  //   @Args() args: FindFirstUserMealLocationArgs,
+  //   @Info() info: GraphQLResolveInfo,
+  // ) {
+  //   const select = new PrismaSelect(info).value
+  //     .select as Prisma.UserMealLocationSelect;
+  //   try {
+  //     return await this.prisma.userMealLocation.findFirst({
+  //       select,
+  //       ...args,
+  //     });
+  //   } catch (e) {
+  //     Logger.error(e);
+  //     return null;
+  //   }
+  // }
 
-  @Mutation(() => UserMealLocation, { nullable: true })
-  @Roles("USER", "MOD")
-  async createUserMealLocationUser(
-    @Args("data") data: UserMealLocationUncheckedCreateInput,
-    @Info() info: GraphQLResolveInfo,
-  ) {
-    const select = new PrismaSelect(info).value
-      .select as Prisma.UserMealLocationSelect;
-    try {
-      return await this.prisma.userMealLocation.create({ data: data as any, select });
-    } catch (e) {
-      Logger.error(e);
-      return null;
-    }
-  }
+  // @Mutation(() => UserMealLocation, { nullable: true })
+  // @Roles("USER", "MOD")
+  // async createUserMealLocationUser(
+  //   @Args("data") data: UserMealLocationUncheckedCreateInput,
+  //   @Info() info: GraphQLResolveInfo,
+  // ) {
+  //   const select = new PrismaSelect(info).value
+  //     .select as Prisma.UserMealLocationSelect;
+  //   try {
+  //     return await this.prisma.userMealLocation.create({ data: data as any, select });
+  //   } catch (e) {
+  //     Logger.error(e);
+  //     return null;
+  //   }
+  // }
 
-  @Mutation(() => [UserMealLocation], { nullable: true })
-  @Roles("USER", "MOD")
-  async createManyUserMealLocationsUser(
-    @Args() args: CreateManyUserMealLocationArgs,
-    @Info() info: GraphQLResolveInfo,
-  ) {
-    const select = new PrismaSelect(info).value
-      .select as Prisma.UserMealLocationSelect;
-    try {
-      const data = await Promise.all(
-        args.data.map((data) =>
-          this.prisma.userMealLocation.create({ data, select }),
-        ),
-      );
+  // @Mutation(() => [UserMealLocation], { nullable: true })
+  // @Roles("USER", "MOD")
+  // async createManyUserMealLocationsUser(
+  //   @Args() args: CreateManyUserMealLocationArgs,
+  //   @Info() info: GraphQLResolveInfo,
+  // ) {
+  //   const select = new PrismaSelect(info).value
+  //     .select as Prisma.UserMealLocationSelect;
+  //   try {
+  //     const data = await Promise.all(
+  //       args.data.map((data) =>
+  //         this.prisma.userMealLocation.create({ data, select }),
+  //       ),
+  //     );
 
-      return data;
-    } catch (e) {
-      Logger.error(e);
-      return null;
-    }
-  }
+  //     return data;
+  //   } catch (e) {
+  //     Logger.error(e);
+  //     return null;
+  //   }
+  // }
 
-  @Mutation(() => UserMealLocation, { nullable: true })
-  @Roles("USER", "MOD")
-  async deleteUserMealLocationUser(
-    @Args() args: DeleteOneUserMealLocationArgs,
-    @Info() info: GraphQLResolveInfo,
-  ) {
-    const select = new PrismaSelect(info).value
-      .select as Prisma.UserMealLocationSelect;
-    try {
-      return await this.prisma.userMealLocation.delete({ ...args, select });
-    } catch (e) {
-      Logger.error(e);
-      return null;
-    }
-  }
+  // @Mutation(() => UserMealLocation, { nullable: true })
+  // @Roles("USER", "MOD")
+  // async deleteUserMealLocationUser(
+  //   @Args() args: DeleteOneUserMealLocationArgs,
+  //   @Info() info: GraphQLResolveInfo,
+  // ) {
+  //   const select = new PrismaSelect(info).value
+  //     .select as Prisma.UserMealLocationSelect;
+  //   try {
+  //     return await this.prisma.userMealLocation.delete({ ...args, select });
+  //   } catch (e) {
+  //     Logger.error(e);
+  //     return null;
+  //   }
+  // }
 
-  @Mutation(() => Int, { nullable: true })
-  @Roles("USER", "MOD")
-  async deleteManyUserMealLocationsUser(
-    @Args() args: DeleteManyUserMealLocationArgs,
-  ) {
-    try {
-      return (await this.prisma.userMealLocation.deleteMany({ ...args })).count;
-    } catch (e) {
-      Logger.error(e);
-      return null;
-    }
-  }
+  // @Mutation(() => Int, { nullable: true })
+  // @Roles("USER", "MOD")
+  // async deleteManyUserMealLocationsUser(
+  //   @Args() args: DeleteManyUserMealLocationArgs,
+  // ) {
+  //   try {
+  //     return (await this.prisma.userMealLocation.deleteMany({ ...args })).count;
+  //   } catch (e) {
+  //     Logger.error(e);
+  //     return null;
+  //   }
+  // }
 
-  @Mutation(() => UserMealLocation, { nullable: true })
-  @Roles("USER", "MOD")
-  async updateUserMealLocationUser(
-    @Args() args: UpdateOneUserMealLocationArgs,
-    @Info() info: GraphQLResolveInfo,
-  ) {
-    const select = new PrismaSelect(info).value
-      .select as Prisma.UserMealLocationSelect;
-    try {
-      return await this.prisma.userMealLocation.update({
-        ...(args as any),
-        select,
-      });
-    } catch (e) {
-      Logger.error(e);
-      return null;
-    }
-  }
+  // @Mutation(() => UserMealLocation, { nullable: true })
+  // @Roles("USER", "MOD")
+  // async updateUserMealLocationUser(
+  //   @Args() args: UpdateOneUserMealLocationArgs,
+  //   @Info() info: GraphQLResolveInfo,
+  // ) {
+  //   const select = new PrismaSelect(info).value
+  //     .select as Prisma.UserMealLocationSelect;
+  //   try {
+  //     return await this.prisma.userMealLocation.update({
+  //       ...(args as any),
+  //       select,
+  //     });
+  //   } catch (e) {
+  //     Logger.error(e);
+  //     return null;
+  //   }
+  // }
 
-  @Mutation(() => [UserMealLocation], { nullable: true })
-  @Roles("USER", "MOD")
-  async updateManyUserMealLocationsUser(
-    @Args() args: UpdateManyUserMealLocationArgs,
-    @Info() info: GraphQLResolveInfo,
-  ) {
-    const select = new PrismaSelect(info).value
-      .select as Prisma.UserMealLocationSelect;
-    try {
-      const data = await this.prisma.userMealLocation.findMany({
-        where: args.where,
-        select,
-      });
+  // @Mutation(() => [UserMealLocation], { nullable: true })
+  // @Roles("USER", "MOD")
+  // async updateManyUserMealLocationsUser(
+  //   @Args() args: UpdateManyUserMealLocationArgs,
+  //   @Info() info: GraphQLResolveInfo,
+  // ) {
+  //   const select = new PrismaSelect(info).value
+  //     .select as Prisma.UserMealLocationSelect;
+  //   try {
+  //     const data = await this.prisma.userMealLocation.findMany({
+  //       where: args.where,
+  //       select,
+  //     });
 
-      await this.prisma.userMealLocation.updateMany({ ...args });
+  //     await this.prisma.userMealLocation.updateMany({ ...args });
 
-      return data.map((d) => ({ ...d, ...args.data }));
-    } catch (e) {
-      Logger.error(e);
-      return null;
-    }
-  }
+  //     return data.map((d) => ({ ...d, ...args.data }));
+  //   } catch (e) {
+  //     Logger.error(e);
+  //     return null;
+  //   }
+  // }
 
-  @Mutation(() => UserMealLocation, { nullable: true })
-  @Roles("USER", "MOD")
-  async upsertUserMealLocationUser(
-    @Args() args: UpsertOneUserMealLocationArgs,
-    @Info() info: GraphQLResolveInfo,
-  ) {
-    const select = new PrismaSelect(info).value
-      .select as Prisma.UserMealLocationSelect;
-    try {
-      return await this.prisma.userMealLocation.upsert({
-        ...(args as any),
-        select,
-      });
-    } catch (e) {
-      Logger.error(e);
-      return null;
-    }
-  }
+  // @Mutation(() => UserMealLocation, { nullable: true })
+  // @Roles("USER", "MOD")
+  // async upsertUserMealLocationUser(
+  //   @Args() args: UpsertOneUserMealLocationArgs,
+  //   @Info() info: GraphQLResolveInfo,
+  // ) {
+  //   const select = new PrismaSelect(info).value
+  //     .select as Prisma.UserMealLocationSelect;
+  //   try {
+  //     return await this.prisma.userMealLocation.upsert({
+  //       ...(args as any),
+  //       select,
+  //     });
+  //   } catch (e) {
+  //     Logger.error(e);
+  //     return null;
+  //   }
+  // }
 
-  @Mutation(() => UserMealLocation, { nullable: true })
-  @Roles("USER", "MOD")
-  async updateUserMealUser(
-    @Args() args: UpdateOneUserMealLocationArgs,
-    @Info() info: GraphQLResolveInfo,
-  ) {
-    const select = new PrismaSelect(info).value
-      .select as Prisma.UserMealLocationSelect;
-    try {
-      return await this.prisma.userMealLocation.update({
-        ...(args as any),
-        select,
-      });
-    } catch (e) {
-      Logger.error(e);
-      return null;
-    }
-  }
+  // @Mutation(() => UserMealLocation, { nullable: true })
+  // @Roles("USER", "MOD")
+  // async updateUserMealUser(
+  //   @Args() args: UpdateOneUserMealLocationArgs,
+  //   @Info() info: GraphQLResolveInfo,
+  // ) {
+  //   const select = new PrismaSelect(info).value
+  //     .select as Prisma.UserMealLocationSelect;
+  //   try {
+  //     return await this.prisma.userMealLocation.update({
+  //       ...(args as any),
+  //       select,
+  //     });
+  //   } catch (e) {
+  //     Logger.error(e);
+  //     return null;
+  //   }
+  // }
 
-  @Mutation(() => UserMealLocation, { nullable: true })
-  @Roles("USER", "MOD")
-  async upsertUserMealUser(
-    @Args() args: UpsertOneUserMealLocationArgs,
-    @Info() info: GraphQLResolveInfo,
-  ) {
-    const select = new PrismaSelect(info).value
-      ?.select as Prisma.UserMealLocationSelect;
-    try {
-      return await this.prisma.userMealLocation.upsert({
-        ...(args as any),
-        select,
-      });
-    } catch (e) {
-      Logger.error(e);
-      return null;
-    }
-  }
+  // @Mutation(() => UserMealLocation, { nullable: true })
+  // @Roles("USER", "MOD")
+  // async upsertUserMealUser(
+  //   @Args() args: UpsertOneUserMealLocationArgs,
+  //   @Info() info: GraphQLResolveInfo,
+  // ) {
+  //   const select = new PrismaSelect(info).value
+  //     ?.select as Prisma.UserMealLocationSelect;
+  //   try {
+  //     return await this.prisma.userMealLocation.upsert({
+  //       ...(args as any),
+  //       select,
+  //     });
+  //   } catch (e) {
+  //     Logger.error(e);
+  //     return null;
+  //   }
+  // }
 }

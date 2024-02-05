@@ -1,3 +1,4 @@
+
 import { CreateManyUserArgs } from "@/app_modules/@generated/user/create-many-user.args";
 import { CreateOneUserArgs } from "@/app_modules/@generated/user/create-one-user.args";
 import { DeleteManyUserArgs } from "@/app_modules/@generated/user/delete-many-user.args";
@@ -8,6 +9,8 @@ import { UpdateManyUserArgs } from "@/app_modules/@generated/user/update-many-us
 import { UpdateOneUserArgs } from "@/app_modules/@generated/user/update-one-user.args";
 import { UpsertOneUserArgs } from "@/app_modules/@generated/user/upsert-one-user.args";
 import { User } from "@/app_modules/@generated/user/user.model";
+import { JwtUser } from "@/app_modules/@types/types";
+import { CurrentUser } from "@/app_modules/decorators/currentUser.decorator";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
@@ -16,6 +19,7 @@ import { PrismaSelect } from "@paljs/plugins";
 import { Prisma } from "@prisma/client";
 import { GraphQLResolveInfo } from "graphql";
 import { UserService } from "../user.service";
+import { UserUncheckedUpdateInput } from "@/app_modules/@generated/user/user-unchecked-update.input";
 
 @Resolver(() => User)
 export class UserAdminResolver {
@@ -23,6 +27,24 @@ export class UserAdminResolver {
     private prisma: PrismaService,
     private userService: UserService,
   ) {}
+
+  @Mutation(() => Boolean, { nullable: true })
+  @Roles("ADMIN")
+  async updateUserAllergensAdmin(
+    @Args("data") data: UserUncheckedUpdateInput,
+    @CurrentUser() me?: JwtUser,
+  ) {
+    try {
+      await this.prisma.user.update({
+        data: data as any,
+        where: { id: me.sub },
+      });
+      return true;
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
+  }
 
   @Query(() => [User], { nullable: true })
   @Roles("ADMIN")
