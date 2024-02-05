@@ -2264,7 +2264,7 @@ type Mutation {
   updateUserAdmin(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsersAdmin(data: UserUpdateManyMutationInput!, where: UserWhereInput): [User!]
   upsertUserAdmin(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User
-  updateUserAllergensUser(data: UserUpdateInput!): Boolean
+  updateUserAllergensUser(data: UserUncheckedUpdateInput!): Boolean
   createUserMealUser(data: UserMealUncheckedCreateInput!): UserMeal
   createManyUserMealsUser(data: [UserMealCreateManyInput!]!, skipDuplicates: Boolean): [UserMeal!]
   deleteUserMealUser(where: UserMealWhereUniqueInput!): UserMeal
@@ -11629,6 +11629,674 @@ input AllergensUpdateWithWhereUniqueWithoutUsersInput {
 input AllergensUpdateManyWithWhereWithoutUsersInput {
   where: AllergensScalarWhereInput!
   data: AllergensUpdateManyMutationInput!
+}
+
+input UserUncheckedUpdateInput {
+  id: IntFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  username: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  lastOnline: DateTimeFieldUpdateOperationsInput
+  status: BoolFieldUpdateOperationsInput
+  allergens: AllergensUncheckedUpdateManyWithoutUsersNestedInput
+  createdToken: TokenUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedToken: TokenUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdUser: UserUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedUser: UserUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserRoles: UserRoleUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserRoles: UserRoleUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserMeals: UserMealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserMeals: UserMealUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdSettings: SettingsUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedSettings: SettingsUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdIngredients: IngredientUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedIngredients: IngredientUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdRecipes: RecipeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedRecipes: RecipeUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdRecipeIngredients: RecipeIngredientUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedRecipeIngredients: RecipeIngredientUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdMeals: MealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedMeals: MealUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdMealRecipes: MealRecipeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedMealRecipes: MealRecipeUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdWeeklyMealGroups: WeeklyMealGroupUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedWeeklyMealGroups: WeeklyMealGroupUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdMealBoardPlans: MealBoardPlanUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedMealBoardPlans: MealBoardPlanUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdAllergens: AllergensUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedAllergens: AllergensUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdAdditives: AdditivesUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedAdditives: AdditivesUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdProperties: PropertiesUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedProperties: PropertiesUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdCategories: CategoriesUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedCategories: CategoriesUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdSeasons: SeasonsUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedSeasons: SeasonsUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdFoodForms: FoodFormsUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedFoodForms: FoodFormsUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdKitchens: KitchensUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedKitchens: KitchensUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserMealLocations: UserMealLocationUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserMealLocations: UserMealLocationUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  userRole: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  userMeal: UserMealUncheckedUpdateManyWithoutUserNestedInput
+  userMealLocation: UserMealLocationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+input AllergensUncheckedUpdateManyWithoutUsersNestedInput {
+  create: [AllergensCreateWithoutUsersInput!]
+  connectOrCreate: [AllergensCreateOrConnectWithoutUsersInput!]
+  upsert: [AllergensUpsertWithWhereUniqueWithoutUsersInput!]
+  set: [AllergensWhereUniqueInput!]
+  disconnect: [AllergensWhereUniqueInput!]
+  delete: [AllergensWhereUniqueInput!]
+  connect: [AllergensWhereUniqueInput!]
+  update: [AllergensUpdateWithWhereUniqueWithoutUsersInput!]
+  updateMany: [AllergensUpdateManyWithWhereWithoutUsersInput!]
+  deleteMany: [AllergensScalarWhereInput!]
+}
+
+input TokenUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [TokenCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [TokenCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [TokenUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: TokenCreateManyCreatedByUserInputEnvelope
+  set: [TokenWhereUniqueInput!]
+  disconnect: [TokenWhereUniqueInput!]
+  delete: [TokenWhereUniqueInput!]
+  connect: [TokenWhereUniqueInput!]
+  update: [TokenUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [TokenUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [TokenScalarWhereInput!]
+}
+
+input TokenUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [TokenCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [TokenCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [TokenUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: TokenCreateManyUpdatedByUserInputEnvelope
+  set: [TokenWhereUniqueInput!]
+  disconnect: [TokenWhereUniqueInput!]
+  delete: [TokenWhereUniqueInput!]
+  connect: [TokenWhereUniqueInput!]
+  update: [TokenUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [TokenUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [TokenScalarWhereInput!]
+}
+
+input UserUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [UserCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: UserCreateManyCreatedByUserInputEnvelope
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [UserUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [UserScalarWhereInput!]
+}
+
+input UserUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [UserCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: UserCreateManyUpdatedByUserInputEnvelope
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [UserUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [UserScalarWhereInput!]
+}
+
+input UserRoleUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [UserRoleCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [UserRoleCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [UserRoleUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: UserRoleCreateManyCreatedByUserInputEnvelope
+  set: [UserRoleWhereUniqueInput!]
+  disconnect: [UserRoleWhereUniqueInput!]
+  delete: [UserRoleWhereUniqueInput!]
+  connect: [UserRoleWhereUniqueInput!]
+  update: [UserRoleUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [UserRoleUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [UserRoleScalarWhereInput!]
+}
+
+input UserRoleUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [UserRoleCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [UserRoleCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [UserRoleUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: UserRoleCreateManyUpdatedByUserInputEnvelope
+  set: [UserRoleWhereUniqueInput!]
+  disconnect: [UserRoleWhereUniqueInput!]
+  delete: [UserRoleWhereUniqueInput!]
+  connect: [UserRoleWhereUniqueInput!]
+  update: [UserRoleUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [UserRoleUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [UserRoleScalarWhereInput!]
+}
+
+input UserMealUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [UserMealCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [UserMealCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [UserMealUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: UserMealCreateManyCreatedByUserInputEnvelope
+  set: [UserMealWhereUniqueInput!]
+  disconnect: [UserMealWhereUniqueInput!]
+  delete: [UserMealWhereUniqueInput!]
+  connect: [UserMealWhereUniqueInput!]
+  update: [UserMealUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [UserMealUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [UserMealScalarWhereInput!]
+}
+
+input UserMealUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [UserMealCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [UserMealCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [UserMealUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: UserMealCreateManyUpdatedByUserInputEnvelope
+  set: [UserMealWhereUniqueInput!]
+  disconnect: [UserMealWhereUniqueInput!]
+  delete: [UserMealWhereUniqueInput!]
+  connect: [UserMealWhereUniqueInput!]
+  update: [UserMealUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [UserMealUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [UserMealScalarWhereInput!]
+}
+
+input SettingsUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [SettingsCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [SettingsCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [SettingsUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: SettingsCreateManyCreatedByUserInputEnvelope
+  set: [SettingsWhereUniqueInput!]
+  disconnect: [SettingsWhereUniqueInput!]
+  delete: [SettingsWhereUniqueInput!]
+  connect: [SettingsWhereUniqueInput!]
+  update: [SettingsUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [SettingsUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [SettingsScalarWhereInput!]
+}
+
+input SettingsUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [SettingsCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [SettingsCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [SettingsUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: SettingsCreateManyUpdatedByUserInputEnvelope
+  set: [SettingsWhereUniqueInput!]
+  disconnect: [SettingsWhereUniqueInput!]
+  delete: [SettingsWhereUniqueInput!]
+  connect: [SettingsWhereUniqueInput!]
+  update: [SettingsUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [SettingsUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [SettingsScalarWhereInput!]
+}
+
+input IngredientUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [IngredientCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [IngredientCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [IngredientUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: IngredientCreateManyCreatedByUserInputEnvelope
+  set: [IngredientWhereUniqueInput!]
+  disconnect: [IngredientWhereUniqueInput!]
+  delete: [IngredientWhereUniqueInput!]
+  connect: [IngredientWhereUniqueInput!]
+  update: [IngredientUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [IngredientUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [IngredientScalarWhereInput!]
+}
+
+input IngredientUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [IngredientCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [IngredientCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [IngredientUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: IngredientCreateManyUpdatedByUserInputEnvelope
+  set: [IngredientWhereUniqueInput!]
+  disconnect: [IngredientWhereUniqueInput!]
+  delete: [IngredientWhereUniqueInput!]
+  connect: [IngredientWhereUniqueInput!]
+  update: [IngredientUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [IngredientUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [IngredientScalarWhereInput!]
+}
+
+input RecipeUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [RecipeCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [RecipeCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [RecipeUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: RecipeCreateManyCreatedByUserInputEnvelope
+  set: [RecipeWhereUniqueInput!]
+  disconnect: [RecipeWhereUniqueInput!]
+  delete: [RecipeWhereUniqueInput!]
+  connect: [RecipeWhereUniqueInput!]
+  update: [RecipeUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [RecipeUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [RecipeScalarWhereInput!]
+}
+
+input RecipeUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [RecipeCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [RecipeCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [RecipeUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: RecipeCreateManyUpdatedByUserInputEnvelope
+  set: [RecipeWhereUniqueInput!]
+  disconnect: [RecipeWhereUniqueInput!]
+  delete: [RecipeWhereUniqueInput!]
+  connect: [RecipeWhereUniqueInput!]
+  update: [RecipeUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [RecipeUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [RecipeScalarWhereInput!]
+}
+
+input RecipeIngredientUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [RecipeIngredientCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [RecipeIngredientCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [RecipeIngredientUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: RecipeIngredientCreateManyCreatedByUserInputEnvelope
+  set: [RecipeIngredientWhereUniqueInput!]
+  disconnect: [RecipeIngredientWhereUniqueInput!]
+  delete: [RecipeIngredientWhereUniqueInput!]
+  connect: [RecipeIngredientWhereUniqueInput!]
+  update: [RecipeIngredientUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [RecipeIngredientUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [RecipeIngredientScalarWhereInput!]
+}
+
+input RecipeIngredientUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [RecipeIngredientCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [RecipeIngredientCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [RecipeIngredientUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: RecipeIngredientCreateManyUpdatedByUserInputEnvelope
+  set: [RecipeIngredientWhereUniqueInput!]
+  disconnect: [RecipeIngredientWhereUniqueInput!]
+  delete: [RecipeIngredientWhereUniqueInput!]
+  connect: [RecipeIngredientWhereUniqueInput!]
+  update: [RecipeIngredientUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [RecipeIngredientUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [RecipeIngredientScalarWhereInput!]
+}
+
+input MealUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [MealCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [MealCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [MealUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: MealCreateManyCreatedByUserInputEnvelope
+  set: [MealWhereUniqueInput!]
+  disconnect: [MealWhereUniqueInput!]
+  delete: [MealWhereUniqueInput!]
+  connect: [MealWhereUniqueInput!]
+  update: [MealUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [MealUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [MealScalarWhereInput!]
+}
+
+input MealUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [MealCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [MealCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [MealUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: MealCreateManyUpdatedByUserInputEnvelope
+  set: [MealWhereUniqueInput!]
+  disconnect: [MealWhereUniqueInput!]
+  delete: [MealWhereUniqueInput!]
+  connect: [MealWhereUniqueInput!]
+  update: [MealUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [MealUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [MealScalarWhereInput!]
+}
+
+input MealRecipeUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [MealRecipeCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [MealRecipeCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [MealRecipeUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: MealRecipeCreateManyCreatedByUserInputEnvelope
+  set: [MealRecipeWhereUniqueInput!]
+  disconnect: [MealRecipeWhereUniqueInput!]
+  delete: [MealRecipeWhereUniqueInput!]
+  connect: [MealRecipeWhereUniqueInput!]
+  update: [MealRecipeUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [MealRecipeUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [MealRecipeScalarWhereInput!]
+}
+
+input MealRecipeUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [MealRecipeCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [MealRecipeCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [MealRecipeUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: MealRecipeCreateManyUpdatedByUserInputEnvelope
+  set: [MealRecipeWhereUniqueInput!]
+  disconnect: [MealRecipeWhereUniqueInput!]
+  delete: [MealRecipeWhereUniqueInput!]
+  connect: [MealRecipeWhereUniqueInput!]
+  update: [MealRecipeUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [MealRecipeUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [MealRecipeScalarWhereInput!]
+}
+
+input WeeklyMealGroupUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [WeeklyMealGroupCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [WeeklyMealGroupCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [WeeklyMealGroupUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: WeeklyMealGroupCreateManyCreatedByUserInputEnvelope
+  set: [WeeklyMealGroupWhereUniqueInput!]
+  disconnect: [WeeklyMealGroupWhereUniqueInput!]
+  delete: [WeeklyMealGroupWhereUniqueInput!]
+  connect: [WeeklyMealGroupWhereUniqueInput!]
+  update: [WeeklyMealGroupUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [WeeklyMealGroupUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [WeeklyMealGroupScalarWhereInput!]
+}
+
+input WeeklyMealGroupUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [WeeklyMealGroupCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [WeeklyMealGroupCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [WeeklyMealGroupUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: WeeklyMealGroupCreateManyUpdatedByUserInputEnvelope
+  set: [WeeklyMealGroupWhereUniqueInput!]
+  disconnect: [WeeklyMealGroupWhereUniqueInput!]
+  delete: [WeeklyMealGroupWhereUniqueInput!]
+  connect: [WeeklyMealGroupWhereUniqueInput!]
+  update: [WeeklyMealGroupUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [WeeklyMealGroupUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [WeeklyMealGroupScalarWhereInput!]
+}
+
+input MealBoardPlanUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [MealBoardPlanCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [MealBoardPlanCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [MealBoardPlanUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: MealBoardPlanCreateManyCreatedByUserInputEnvelope
+  set: [MealBoardPlanWhereUniqueInput!]
+  disconnect: [MealBoardPlanWhereUniqueInput!]
+  delete: [MealBoardPlanWhereUniqueInput!]
+  connect: [MealBoardPlanWhereUniqueInput!]
+  update: [MealBoardPlanUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [MealBoardPlanUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [MealBoardPlanScalarWhereInput!]
+}
+
+input MealBoardPlanUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [MealBoardPlanCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [MealBoardPlanCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [MealBoardPlanUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: MealBoardPlanCreateManyUpdatedByUserInputEnvelope
+  set: [MealBoardPlanWhereUniqueInput!]
+  disconnect: [MealBoardPlanWhereUniqueInput!]
+  delete: [MealBoardPlanWhereUniqueInput!]
+  connect: [MealBoardPlanWhereUniqueInput!]
+  update: [MealBoardPlanUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [MealBoardPlanUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [MealBoardPlanScalarWhereInput!]
+}
+
+input AllergensUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [AllergensCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [AllergensCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [AllergensUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: AllergensCreateManyCreatedByUserInputEnvelope
+  set: [AllergensWhereUniqueInput!]
+  disconnect: [AllergensWhereUniqueInput!]
+  delete: [AllergensWhereUniqueInput!]
+  connect: [AllergensWhereUniqueInput!]
+  update: [AllergensUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [AllergensUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [AllergensScalarWhereInput!]
+}
+
+input AllergensUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [AllergensCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [AllergensCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [AllergensUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: AllergensCreateManyUpdatedByUserInputEnvelope
+  set: [AllergensWhereUniqueInput!]
+  disconnect: [AllergensWhereUniqueInput!]
+  delete: [AllergensWhereUniqueInput!]
+  connect: [AllergensWhereUniqueInput!]
+  update: [AllergensUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [AllergensUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [AllergensScalarWhereInput!]
+}
+
+input AdditivesUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [AdditivesCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [AdditivesCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [AdditivesUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: AdditivesCreateManyCreatedByUserInputEnvelope
+  set: [AdditivesWhereUniqueInput!]
+  disconnect: [AdditivesWhereUniqueInput!]
+  delete: [AdditivesWhereUniqueInput!]
+  connect: [AdditivesWhereUniqueInput!]
+  update: [AdditivesUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [AdditivesUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [AdditivesScalarWhereInput!]
+}
+
+input AdditivesUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [AdditivesCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [AdditivesCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [AdditivesUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: AdditivesCreateManyUpdatedByUserInputEnvelope
+  set: [AdditivesWhereUniqueInput!]
+  disconnect: [AdditivesWhereUniqueInput!]
+  delete: [AdditivesWhereUniqueInput!]
+  connect: [AdditivesWhereUniqueInput!]
+  update: [AdditivesUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [AdditivesUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [AdditivesScalarWhereInput!]
+}
+
+input PropertiesUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [PropertiesCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [PropertiesCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [PropertiesUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: PropertiesCreateManyCreatedByUserInputEnvelope
+  set: [PropertiesWhereUniqueInput!]
+  disconnect: [PropertiesWhereUniqueInput!]
+  delete: [PropertiesWhereUniqueInput!]
+  connect: [PropertiesWhereUniqueInput!]
+  update: [PropertiesUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [PropertiesUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [PropertiesScalarWhereInput!]
+}
+
+input PropertiesUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [PropertiesCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [PropertiesCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [PropertiesUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: PropertiesCreateManyUpdatedByUserInputEnvelope
+  set: [PropertiesWhereUniqueInput!]
+  disconnect: [PropertiesWhereUniqueInput!]
+  delete: [PropertiesWhereUniqueInput!]
+  connect: [PropertiesWhereUniqueInput!]
+  update: [PropertiesUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [PropertiesUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [PropertiesScalarWhereInput!]
+}
+
+input CategoriesUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [CategoriesCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [CategoriesCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [CategoriesUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: CategoriesCreateManyCreatedByUserInputEnvelope
+  set: [CategoriesWhereUniqueInput!]
+  disconnect: [CategoriesWhereUniqueInput!]
+  delete: [CategoriesWhereUniqueInput!]
+  connect: [CategoriesWhereUniqueInput!]
+  update: [CategoriesUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [CategoriesUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [CategoriesScalarWhereInput!]
+}
+
+input CategoriesUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [CategoriesCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [CategoriesCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [CategoriesUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: CategoriesCreateManyUpdatedByUserInputEnvelope
+  set: [CategoriesWhereUniqueInput!]
+  disconnect: [CategoriesWhereUniqueInput!]
+  delete: [CategoriesWhereUniqueInput!]
+  connect: [CategoriesWhereUniqueInput!]
+  update: [CategoriesUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [CategoriesUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [CategoriesScalarWhereInput!]
+}
+
+input SeasonsUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [SeasonsCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [SeasonsCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [SeasonsUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: SeasonsCreateManyCreatedByUserInputEnvelope
+  set: [SeasonsWhereUniqueInput!]
+  disconnect: [SeasonsWhereUniqueInput!]
+  delete: [SeasonsWhereUniqueInput!]
+  connect: [SeasonsWhereUniqueInput!]
+  update: [SeasonsUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [SeasonsUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [SeasonsScalarWhereInput!]
+}
+
+input SeasonsUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [SeasonsCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [SeasonsCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [SeasonsUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: SeasonsCreateManyUpdatedByUserInputEnvelope
+  set: [SeasonsWhereUniqueInput!]
+  disconnect: [SeasonsWhereUniqueInput!]
+  delete: [SeasonsWhereUniqueInput!]
+  connect: [SeasonsWhereUniqueInput!]
+  update: [SeasonsUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [SeasonsUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [SeasonsScalarWhereInput!]
+}
+
+input FoodFormsUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [FoodFormsCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [FoodFormsCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [FoodFormsUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: FoodFormsCreateManyCreatedByUserInputEnvelope
+  set: [FoodFormsWhereUniqueInput!]
+  disconnect: [FoodFormsWhereUniqueInput!]
+  delete: [FoodFormsWhereUniqueInput!]
+  connect: [FoodFormsWhereUniqueInput!]
+  update: [FoodFormsUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [FoodFormsUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [FoodFormsScalarWhereInput!]
+}
+
+input FoodFormsUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [FoodFormsCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [FoodFormsCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [FoodFormsUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: FoodFormsCreateManyUpdatedByUserInputEnvelope
+  set: [FoodFormsWhereUniqueInput!]
+  disconnect: [FoodFormsWhereUniqueInput!]
+  delete: [FoodFormsWhereUniqueInput!]
+  connect: [FoodFormsWhereUniqueInput!]
+  update: [FoodFormsUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [FoodFormsUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [FoodFormsScalarWhereInput!]
+}
+
+input KitchensUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [KitchensCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [KitchensCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [KitchensUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: KitchensCreateManyCreatedByUserInputEnvelope
+  set: [KitchensWhereUniqueInput!]
+  disconnect: [KitchensWhereUniqueInput!]
+  delete: [KitchensWhereUniqueInput!]
+  connect: [KitchensWhereUniqueInput!]
+  update: [KitchensUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [KitchensUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [KitchensScalarWhereInput!]
+}
+
+input KitchensUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [KitchensCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [KitchensCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [KitchensUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: KitchensCreateManyUpdatedByUserInputEnvelope
+  set: [KitchensWhereUniqueInput!]
+  disconnect: [KitchensWhereUniqueInput!]
+  delete: [KitchensWhereUniqueInput!]
+  connect: [KitchensWhereUniqueInput!]
+  update: [KitchensUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [KitchensUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [KitchensScalarWhereInput!]
+}
+
+input UserMealLocationUncheckedUpdateManyWithoutCreatedByUserNestedInput {
+  create: [UserMealLocationCreateWithoutCreatedByUserInput!]
+  connectOrCreate: [UserMealLocationCreateOrConnectWithoutCreatedByUserInput!]
+  upsert: [UserMealLocationUpsertWithWhereUniqueWithoutCreatedByUserInput!]
+  createMany: UserMealLocationCreateManyCreatedByUserInputEnvelope
+  set: [UserMealLocationWhereUniqueInput!]
+  disconnect: [UserMealLocationWhereUniqueInput!]
+  delete: [UserMealLocationWhereUniqueInput!]
+  connect: [UserMealLocationWhereUniqueInput!]
+  update: [UserMealLocationUpdateWithWhereUniqueWithoutCreatedByUserInput!]
+  updateMany: [UserMealLocationUpdateManyWithWhereWithoutCreatedByUserInput!]
+  deleteMany: [UserMealLocationScalarWhereInput!]
+}
+
+input UserMealLocationUncheckedUpdateManyWithoutUpdatedByUserNestedInput {
+  create: [UserMealLocationCreateWithoutUpdatedByUserInput!]
+  connectOrCreate: [UserMealLocationCreateOrConnectWithoutUpdatedByUserInput!]
+  upsert: [UserMealLocationUpsertWithWhereUniqueWithoutUpdatedByUserInput!]
+  createMany: UserMealLocationCreateManyUpdatedByUserInputEnvelope
+  set: [UserMealLocationWhereUniqueInput!]
+  disconnect: [UserMealLocationWhereUniqueInput!]
+  delete: [UserMealLocationWhereUniqueInput!]
+  connect: [UserMealLocationWhereUniqueInput!]
+  update: [UserMealLocationUpdateWithWhereUniqueWithoutUpdatedByUserInput!]
+  updateMany: [UserMealLocationUpdateManyWithWhereWithoutUpdatedByUserInput!]
+  deleteMany: [UserMealLocationScalarWhereInput!]
+}
+
+input UserRoleUncheckedUpdateManyWithoutUserNestedInput {
+  create: [UserRoleCreateWithoutUserInput!]
+  connectOrCreate: [UserRoleCreateOrConnectWithoutUserInput!]
+  upsert: [UserRoleUpsertWithWhereUniqueWithoutUserInput!]
+  createMany: UserRoleCreateManyUserInputEnvelope
+  set: [UserRoleWhereUniqueInput!]
+  disconnect: [UserRoleWhereUniqueInput!]
+  delete: [UserRoleWhereUniqueInput!]
+  connect: [UserRoleWhereUniqueInput!]
+  update: [UserRoleUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [UserRoleUpdateManyWithWhereWithoutUserInput!]
+  deleteMany: [UserRoleScalarWhereInput!]
+}
+
+input UserMealUncheckedUpdateManyWithoutUserNestedInput {
+  create: [UserMealCreateWithoutUserInput!]
+  connectOrCreate: [UserMealCreateOrConnectWithoutUserInput!]
+  upsert: [UserMealUpsertWithWhereUniqueWithoutUserInput!]
+  createMany: UserMealCreateManyUserInputEnvelope
+  set: [UserMealWhereUniqueInput!]
+  disconnect: [UserMealWhereUniqueInput!]
+  delete: [UserMealWhereUniqueInput!]
+  connect: [UserMealWhereUniqueInput!]
+  update: [UserMealUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [UserMealUpdateManyWithWhereWithoutUserInput!]
+  deleteMany: [UserMealScalarWhereInput!]
+}
+
+input UserMealLocationUncheckedUpdateManyWithoutUserNestedInput {
+  create: [UserMealLocationCreateWithoutUserInput!]
+  connectOrCreate: [UserMealLocationCreateOrConnectWithoutUserInput!]
+  upsert: [UserMealLocationUpsertWithWhereUniqueWithoutUserInput!]
+  createMany: UserMealLocationCreateManyUserInputEnvelope
+  set: [UserMealLocationWhereUniqueInput!]
+  disconnect: [UserMealLocationWhereUniqueInput!]
+  delete: [UserMealLocationWhereUniqueInput!]
+  connect: [UserMealLocationWhereUniqueInput!]
+  update: [UserMealLocationUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [UserMealLocationUpdateManyWithWhereWithoutUserInput!]
+  deleteMany: [UserMealLocationScalarWhereInput!]
 }
 
 input UserMealUncheckedCreateInput {

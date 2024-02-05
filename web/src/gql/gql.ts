@@ -26,7 +26,7 @@ const documents = {
     "\n  mutation CreateUserMealUser($data: UserMealUncheckedCreateInput!) {\n    createUserMealUser(data: $data) {\n      id\n      date\n      mealId\n      mealBoardPlanId\n      weeklyMealGroupId\n      meal {\n        id\n        name\n      }\n    }\n  }\n": types.CreateUserMealUserDocument,
     "\n  mutation DeleteUserMealUser($where: UserMealWhereUniqueInput!) {\n    deleteUserMealUser(where: $where) {\n      id\n      date\n      mealId\n      mealBoardPlanId\n      weeklyMealGroupId\n      meal {\n        id\n        name\n      }\n    }\n  }\n": types.DeleteUserMealUserDocument,
     "\n  mutation UpdateSettingsAdmin(\n    $data: SettingsUpdateInput!\n    $where: SettingsWhereUniqueInput!\n  ) {\n    updateSettingsAdmin(data: $data, where: $where) {\n      id\n      maxEditOrderDays\n      createdAt\n      updatedAt\n      createdByUser {\n        username\n      }\n      updatedByUser {\n        username\n      }\n    }\n  }\n": types.UpdateSettingsAdminDocument,
-    "\n  mutation UpdateUserAllergensUser($data: UserUpdateInput!) {\n    updateUserAllergensUser(data: $data)\n  }\n": types.UpdateUserAllergensUserDocument,
+    "\n  mutation UpdateUserAllergensUser($data: UserUncheckedUpdateInput!) {\n    updateUserAllergensUser(data: $data)\n  }\n": types.UpdateUserAllergensUserDocument,
     "\n  mutation CreateUserMealLocationUser(\n    $data: UserMealLocationUncheckedCreateInput!\n  ) {\n    createUserMealLocationUser(data: $data) {\n      id\n      userId\n      timeOfDay\n      mealLocation\n      createdAt\n      updatedAt\n    }\n  }\n": types.CreateUserMealLocationUserDocument,
     "\n  mutation DeleteUserMealLocationUser(\n    $where: UserMealLocationWhereUniqueInput!\n  ) {\n    deleteUserMealLocationUser(where: $where) {\n      id\n      userId\n      timeOfDay\n      mealLocation\n      createdAt\n      updatedAt\n    }\n  }\n": types.DeleteUserMealLocationUserDocument,
     "\n  query Me {\n    me {\n      id\n      username\n      email\n      userRole {\n        id\n        name\n      }\n      userMealLocation {\n        id\n        timeOfDay\n        mealLocation\n      }\n      allergens {\n        id\n        name\n      }\n    }\n  }\n": types.MeDocument,
@@ -111,7 +111,7 @@ export function graphql(source: "\n  mutation UpdateSettingsAdmin(\n    $data: S
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation UpdateUserAllergensUser($data: UserUpdateInput!) {\n    updateUserAllergensUser(data: $data)\n  }\n"): (typeof documents)["\n  mutation UpdateUserAllergensUser($data: UserUpdateInput!) {\n    updateUserAllergensUser(data: $data)\n  }\n"];
+export function graphql(source: "\n  mutation UpdateUserAllergensUser($data: UserUncheckedUpdateInput!) {\n    updateUserAllergensUser(data: $data)\n  }\n"): (typeof documents)["\n  mutation UpdateUserAllergensUser($data: UserUncheckedUpdateInput!) {\n    updateUserAllergensUser(data: $data)\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

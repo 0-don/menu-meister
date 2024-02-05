@@ -170,6 +170,34 @@ export type AdditivesScalarWhereInput = {
   name?: InputMaybe<StringFilter>;
 };
 
+export type AdditivesUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<AdditivesWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<AdditivesCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<AdditivesCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<AdditivesCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<AdditivesWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<AdditivesScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<AdditivesWhereUniqueInput>>;
+  set?: InputMaybe<Array<AdditivesWhereUniqueInput>>;
+  update?: InputMaybe<Array<AdditivesUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<AdditivesUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<AdditivesUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type AdditivesUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<AdditivesWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<AdditivesCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<AdditivesCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<AdditivesCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<AdditivesWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<AdditivesScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<AdditivesWhereUniqueInput>>;
+  set?: InputMaybe<Array<AdditivesWhereUniqueInput>>;
+  update?: InputMaybe<Array<AdditivesUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<AdditivesUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<AdditivesUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
+};
+
 export type AdditivesUpdateManyMutationInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
 };
@@ -564,6 +592,47 @@ export type AllergensScalarWhereInput = {
   OR?: InputMaybe<Array<AllergensScalarWhereInput>>;
   id?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
+};
+
+export type AllergensUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<AllergensWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<AllergensCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<AllergensCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<AllergensCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<AllergensWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<AllergensScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<AllergensWhereUniqueInput>>;
+  set?: InputMaybe<Array<AllergensWhereUniqueInput>>;
+  update?: InputMaybe<Array<AllergensUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<AllergensUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<AllergensUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type AllergensUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<AllergensWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<AllergensCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<AllergensCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<AllergensCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<AllergensWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<AllergensScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<AllergensWhereUniqueInput>>;
+  set?: InputMaybe<Array<AllergensWhereUniqueInput>>;
+  update?: InputMaybe<Array<AllergensUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<AllergensUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<AllergensUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
+};
+
+export type AllergensUncheckedUpdateManyWithoutUsersNestedInput = {
+  connect?: InputMaybe<Array<AllergensWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<AllergensCreateOrConnectWithoutUsersInput>>;
+  create?: InputMaybe<Array<AllergensCreateWithoutUsersInput>>;
+  delete?: InputMaybe<Array<AllergensWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<AllergensScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<AllergensWhereUniqueInput>>;
+  set?: InputMaybe<Array<AllergensWhereUniqueInput>>;
+  update?: InputMaybe<Array<AllergensUpdateWithWhereUniqueWithoutUsersInput>>;
+  updateMany?: InputMaybe<Array<AllergensUpdateManyWithWhereWithoutUsersInput>>;
+  upsert?: InputMaybe<Array<AllergensUpsertWithWhereUniqueWithoutUsersInput>>;
 };
 
 export type AllergensUpdateManyMutationInput = {
@@ -971,6 +1040,34 @@ export type CategoriesScalarWhereInput = {
   name?: InputMaybe<StringFilter>;
 };
 
+export type CategoriesUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<CategoriesWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<CategoriesCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<CategoriesCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<CategoriesCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<CategoriesWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<CategoriesScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<CategoriesWhereUniqueInput>>;
+  set?: InputMaybe<Array<CategoriesWhereUniqueInput>>;
+  update?: InputMaybe<Array<CategoriesUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<CategoriesUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<CategoriesUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type CategoriesUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<CategoriesWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<CategoriesCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<CategoriesCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<CategoriesCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<CategoriesWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<CategoriesScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<CategoriesWhereUniqueInput>>;
+  set?: InputMaybe<Array<CategoriesWhereUniqueInput>>;
+  update?: InputMaybe<Array<CategoriesUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<CategoriesUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<CategoriesUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
+};
+
 export type CategoriesUpdateManyMutationInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
 };
@@ -1246,20 +1343,13 @@ export type EnumTimeOfDayFilter = {
   notIn?: InputMaybe<Array<TimeOfDay>>;
 };
 
-export type EnumTimeOfDayNullableFilter = {
+export type EnumTimeOfDayWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedEnumTimeOfDayFilter>;
+  _min?: InputMaybe<NestedEnumTimeOfDayFilter>;
   equals?: InputMaybe<TimeOfDay>;
   in?: InputMaybe<Array<TimeOfDay>>;
-  not?: InputMaybe<NestedEnumTimeOfDayNullableFilter>;
-  notIn?: InputMaybe<Array<TimeOfDay>>;
-};
-
-export type EnumTimeOfDayNullableWithAggregatesFilter = {
-  _count?: InputMaybe<NestedIntNullableFilter>;
-  _max?: InputMaybe<NestedEnumTimeOfDayNullableFilter>;
-  _min?: InputMaybe<NestedEnumTimeOfDayNullableFilter>;
-  equals?: InputMaybe<TimeOfDay>;
-  in?: InputMaybe<Array<TimeOfDay>>;
-  not?: InputMaybe<NestedEnumTimeOfDayNullableWithAggregatesFilter>;
+  not?: InputMaybe<NestedEnumTimeOfDayWithAggregatesFilter>;
   notIn?: InputMaybe<Array<TimeOfDay>>;
 };
 
@@ -1431,6 +1521,34 @@ export type FoodFormsScalarWhereInput = {
   OR?: InputMaybe<Array<FoodFormsScalarWhereInput>>;
   id?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
+};
+
+export type FoodFormsUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<FoodFormsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<FoodFormsCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<FoodFormsCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<FoodFormsCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<FoodFormsWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<FoodFormsScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<FoodFormsWhereUniqueInput>>;
+  set?: InputMaybe<Array<FoodFormsWhereUniqueInput>>;
+  update?: InputMaybe<Array<FoodFormsUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<FoodFormsUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<FoodFormsUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type FoodFormsUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<FoodFormsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<FoodFormsCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<FoodFormsCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<FoodFormsCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<FoodFormsWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<FoodFormsScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<FoodFormsWhereUniqueInput>>;
+  set?: InputMaybe<Array<FoodFormsWhereUniqueInput>>;
+  update?: InputMaybe<Array<FoodFormsUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<FoodFormsUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<FoodFormsUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
 };
 
 export type FoodFormsUpdateManyMutationInput = {
@@ -2171,6 +2289,34 @@ export type IngredientScalarWhereInput = {
   saturatedFats?: InputMaybe<DecimalFilter>;
   sugars?: InputMaybe<DecimalFilter>;
   unsaturatedFats?: InputMaybe<DecimalFilter>;
+};
+
+export type IngredientUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<IngredientWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<IngredientCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<IngredientCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<IngredientCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<IngredientWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<IngredientScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<IngredientWhereUniqueInput>>;
+  set?: InputMaybe<Array<IngredientWhereUniqueInput>>;
+  update?: InputMaybe<Array<IngredientUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<IngredientUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<IngredientUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type IngredientUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<IngredientWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<IngredientCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<IngredientCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<IngredientCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<IngredientWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<IngredientScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<IngredientWhereUniqueInput>>;
+  set?: InputMaybe<Array<IngredientWhereUniqueInput>>;
+  update?: InputMaybe<Array<IngredientUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<IngredientUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<IngredientUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
 };
 
 export type IngredientUpdateInput = {
@@ -2940,6 +3086,34 @@ export type KitchensScalarWhereInput = {
   name?: InputMaybe<StringFilter>;
 };
 
+export type KitchensUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<KitchensWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<KitchensCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<KitchensCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<KitchensCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<KitchensWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<KitchensScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<KitchensWhereUniqueInput>>;
+  set?: InputMaybe<Array<KitchensWhereUniqueInput>>;
+  update?: InputMaybe<Array<KitchensUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<KitchensUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<KitchensUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type KitchensUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<KitchensWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<KitchensCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<KitchensCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<KitchensCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<KitchensWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<KitchensScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<KitchensWhereUniqueInput>>;
+  set?: InputMaybe<Array<KitchensWhereUniqueInput>>;
+  update?: InputMaybe<Array<KitchensUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<KitchensUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<KitchensUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
+};
+
 export type KitchensUpdateManyMutationInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
 };
@@ -3313,6 +3487,34 @@ export type MealBoardPlanUncheckedUpdateInput = {
   color?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   id?: InputMaybe<IntFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type MealBoardPlanUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<MealBoardPlanWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<MealBoardPlanCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<MealBoardPlanCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<MealBoardPlanCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<MealBoardPlanWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<MealBoardPlanScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<MealBoardPlanWhereUniqueInput>>;
+  set?: InputMaybe<Array<MealBoardPlanWhereUniqueInput>>;
+  update?: InputMaybe<Array<MealBoardPlanUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<MealBoardPlanUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<MealBoardPlanUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type MealBoardPlanUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<MealBoardPlanWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<MealBoardPlanCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<MealBoardPlanCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<MealBoardPlanCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<MealBoardPlanWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<MealBoardPlanScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<MealBoardPlanWhereUniqueInput>>;
+  set?: InputMaybe<Array<MealBoardPlanWhereUniqueInput>>;
+  update?: InputMaybe<Array<MealBoardPlanUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<MealBoardPlanUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<MealBoardPlanUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
 };
 
 export type MealBoardPlanUpdateInput = {
@@ -4280,6 +4482,34 @@ export type MealRecipeScalarWhereInput = {
   recipeId?: InputMaybe<IntFilter>;
 };
 
+export type MealRecipeUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<MealRecipeWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<MealRecipeCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<MealRecipeCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<MealRecipeCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<MealRecipeWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<MealRecipeScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<MealRecipeWhereUniqueInput>>;
+  set?: InputMaybe<Array<MealRecipeWhereUniqueInput>>;
+  update?: InputMaybe<Array<MealRecipeUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<MealRecipeUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<MealRecipeUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type MealRecipeUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<MealRecipeWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<MealRecipeCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<MealRecipeCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<MealRecipeCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<MealRecipeWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<MealRecipeScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<MealRecipeWhereUniqueInput>>;
+  set?: InputMaybe<Array<MealRecipeWhereUniqueInput>>;
+  update?: InputMaybe<Array<MealRecipeUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<MealRecipeUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<MealRecipeUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
+};
+
 export type MealRecipeUpdateManyMutationInput = {
   note?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
 };
@@ -4474,6 +4704,34 @@ export type MealScalarWhereInput = {
   id?: InputMaybe<IntFilter>;
   image?: InputMaybe<StringNullableFilter>;
   name?: InputMaybe<StringFilter>;
+};
+
+export type MealUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<MealWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<MealCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<MealCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<MealCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<MealWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<MealScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<MealWhereUniqueInput>>;
+  set?: InputMaybe<Array<MealWhereUniqueInput>>;
+  update?: InputMaybe<Array<MealUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<MealUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<MealUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type MealUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<MealWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<MealCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<MealCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<MealCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<MealWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<MealScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<MealWhereUniqueInput>>;
+  set?: InputMaybe<Array<MealWhereUniqueInput>>;
+  update?: InputMaybe<Array<MealUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<MealUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<MealUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
 };
 
 export type MealUpdateInput = {
@@ -5697,7 +5955,7 @@ export type MutationUpdateUserAdminArgs = {
 
 
 export type MutationUpdateUserAllergensUserArgs = {
-  data: UserUpdateInput;
+  data: UserUncheckedUpdateInput;
 };
 
 
@@ -5842,20 +6100,13 @@ export type NestedEnumTimeOfDayFilter = {
   notIn?: InputMaybe<Array<TimeOfDay>>;
 };
 
-export type NestedEnumTimeOfDayNullableFilter = {
+export type NestedEnumTimeOfDayWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedEnumTimeOfDayFilter>;
+  _min?: InputMaybe<NestedEnumTimeOfDayFilter>;
   equals?: InputMaybe<TimeOfDay>;
   in?: InputMaybe<Array<TimeOfDay>>;
-  not?: InputMaybe<NestedEnumTimeOfDayNullableFilter>;
-  notIn?: InputMaybe<Array<TimeOfDay>>;
-};
-
-export type NestedEnumTimeOfDayNullableWithAggregatesFilter = {
-  _count?: InputMaybe<NestedIntNullableFilter>;
-  _max?: InputMaybe<NestedEnumTimeOfDayNullableFilter>;
-  _min?: InputMaybe<NestedEnumTimeOfDayNullableFilter>;
-  equals?: InputMaybe<TimeOfDay>;
-  in?: InputMaybe<Array<TimeOfDay>>;
-  not?: InputMaybe<NestedEnumTimeOfDayNullableWithAggregatesFilter>;
+  not?: InputMaybe<NestedEnumTimeOfDayWithAggregatesFilter>;
   notIn?: InputMaybe<Array<TimeOfDay>>;
 };
 
@@ -6113,6 +6364,34 @@ export type PropertiesScalarWhereInput = {
   OR?: InputMaybe<Array<PropertiesScalarWhereInput>>;
   id?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
+};
+
+export type PropertiesUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<PropertiesWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<PropertiesCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<PropertiesCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<PropertiesCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<PropertiesWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<PropertiesScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<PropertiesWhereUniqueInput>>;
+  set?: InputMaybe<Array<PropertiesWhereUniqueInput>>;
+  update?: InputMaybe<Array<PropertiesUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<PropertiesUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<PropertiesUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type PropertiesUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<PropertiesWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<PropertiesCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<PropertiesCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<PropertiesCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<PropertiesWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<PropertiesScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<PropertiesWhereUniqueInput>>;
+  set?: InputMaybe<Array<PropertiesWhereUniqueInput>>;
+  update?: InputMaybe<Array<PropertiesUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<PropertiesUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<PropertiesUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
 };
 
 export type PropertiesUpdateManyMutationInput = {
@@ -7099,6 +7378,34 @@ export type RecipeIngredientScalarWhereInput = {
   unit?: InputMaybe<EnumUnitFilter>;
 };
 
+export type RecipeIngredientUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<RecipeIngredientWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<RecipeIngredientCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<RecipeIngredientCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<RecipeIngredientCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<RecipeIngredientWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<RecipeIngredientScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<RecipeIngredientWhereUniqueInput>>;
+  set?: InputMaybe<Array<RecipeIngredientWhereUniqueInput>>;
+  update?: InputMaybe<Array<RecipeIngredientUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<RecipeIngredientUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<RecipeIngredientUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type RecipeIngredientUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<RecipeIngredientWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<RecipeIngredientCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<RecipeIngredientCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<RecipeIngredientCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<RecipeIngredientWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<RecipeIngredientScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<RecipeIngredientWhereUniqueInput>>;
+  set?: InputMaybe<Array<RecipeIngredientWhereUniqueInput>>;
+  update?: InputMaybe<Array<RecipeIngredientUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<RecipeIngredientUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<RecipeIngredientUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
+};
+
 export type RecipeIngredientUpdateManyMutationInput = {
   amount?: InputMaybe<DecimalFieldUpdateOperationsInput>;
   unit?: InputMaybe<EnumUnitFieldUpdateOperationsInput>;
@@ -7323,6 +7630,34 @@ export type RecipeScalarWhereInput = {
   description?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
+};
+
+export type RecipeUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<RecipeWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<RecipeCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<RecipeCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<RecipeCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<RecipeWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<RecipeScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<RecipeWhereUniqueInput>>;
+  set?: InputMaybe<Array<RecipeWhereUniqueInput>>;
+  update?: InputMaybe<Array<RecipeUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<RecipeUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<RecipeUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type RecipeUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<RecipeWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<RecipeCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<RecipeCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<RecipeCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<RecipeWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<RecipeScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<RecipeWhereUniqueInput>>;
+  set?: InputMaybe<Array<RecipeWhereUniqueInput>>;
+  update?: InputMaybe<Array<RecipeUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<RecipeUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<RecipeUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
 };
 
 export type RecipeUpdateInput = {
@@ -7979,6 +8314,34 @@ export type SeasonsScalarWhereInput = {
   name?: InputMaybe<StringFilter>;
 };
 
+export type SeasonsUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SeasonsCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<SeasonsCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<SeasonsCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<SeasonsScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  set?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  update?: InputMaybe<Array<SeasonsUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<SeasonsUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<SeasonsUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type SeasonsUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SeasonsCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<SeasonsCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<SeasonsCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<SeasonsScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  set?: InputMaybe<Array<SeasonsWhereUniqueInput>>;
+  update?: InputMaybe<Array<SeasonsUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<SeasonsUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<SeasonsUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
+};
+
 export type SeasonsUpdateManyMutationInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
 };
@@ -8288,6 +8651,34 @@ export type SettingsScalarWhereInput = {
   maxEditOrderDays?: InputMaybe<IntFilter>;
 };
 
+export type SettingsUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SettingsCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<SettingsCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<SettingsCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<SettingsScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  set?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  update?: InputMaybe<Array<SettingsUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<SettingsUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<SettingsUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type SettingsUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SettingsCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<SettingsCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<SettingsCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<SettingsScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  set?: InputMaybe<Array<SettingsWhereUniqueInput>>;
+  update?: InputMaybe<Array<SettingsUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<SettingsUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<SettingsUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
+};
+
 export type SettingsUpdateInput = {
   maxEditOrderDays?: InputMaybe<IntFieldUpdateOperationsInput>;
 };
@@ -8530,6 +8921,34 @@ export type TokenScalarWhereInput = {
   expiresIn?: InputMaybe<DateTimeFilter>;
   id?: InputMaybe<IntFilter>;
   token?: InputMaybe<StringFilter>;
+};
+
+export type TokenUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<TokenWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TokenCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<TokenCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<TokenCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<TokenWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<TokenScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<TokenWhereUniqueInput>>;
+  set?: InputMaybe<Array<TokenWhereUniqueInput>>;
+  update?: InputMaybe<Array<TokenUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<TokenUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<TokenUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type TokenUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<TokenWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TokenCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<TokenCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<TokenCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<TokenWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<TokenScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<TokenWhereUniqueInput>>;
+  set?: InputMaybe<Array<TokenWhereUniqueInput>>;
+  update?: InputMaybe<Array<TokenUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<TokenUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<TokenUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
 };
 
 export type TokenUpdateManyMutationInput = {
@@ -9220,13 +9639,12 @@ export type UserMeal = {
   mealBoardPlan: MealBoardPlan;
   mealBoardPlanId: Scalars['Int']['output'];
   mealId: Scalars['Int']['output'];
-  timeOfDay?: Maybe<TimeOfDay>;
+  timeOfDay: TimeOfDay;
   updatedAt: Scalars['DateTime']['output'];
   updatedBy: Scalars['Int']['output'];
   updatedByUser: User;
   user: User;
   userId: Scalars['Int']['output'];
-  userMealLocation?: Maybe<UserMealLocation>;
   weeklyMealGroup: WeeklyMealGroup;
   weeklyMealGroupId: Scalars['Int']['output'];
 };
@@ -9375,19 +9793,6 @@ export type UserMealCreateManyUserInputEnvelope = {
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type UserMealCreateManyUserMealLocationInput = {
-  date: Scalars['DateTime']['input'];
-  id?: InputMaybe<Scalars['Int']['input']>;
-  mealBoardPlanId: Scalars['Int']['input'];
-  mealId: Scalars['Int']['input'];
-  weeklyMealGroupId: Scalars['Int']['input'];
-};
-
-export type UserMealCreateManyUserMealLocationInputEnvelope = {
-  data: Array<UserMealCreateManyUserMealLocationInput>;
-  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
 export type UserMealCreateManyWeeklyMealGroupInput = {
   date: Scalars['DateTime']['input'];
   id?: InputMaybe<Scalars['Int']['input']>;
@@ -9437,13 +9842,6 @@ export type UserMealCreateNestedManyWithoutUserInput = {
   createMany?: InputMaybe<UserMealCreateManyUserInputEnvelope>;
 };
 
-export type UserMealCreateNestedManyWithoutUserMealLocationInput = {
-  connect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<UserMealCreateOrConnectWithoutUserMealLocationInput>>;
-  create?: InputMaybe<Array<UserMealCreateWithoutUserMealLocationInput>>;
-  createMany?: InputMaybe<UserMealCreateManyUserMealLocationInputEnvelope>;
-};
-
 export type UserMealCreateNestedManyWithoutWeeklyMealGroupInput = {
   connect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<UserMealCreateOrConnectWithoutWeeklyMealGroupInput>>;
@@ -9476,11 +9874,6 @@ export type UserMealCreateOrConnectWithoutUserInput = {
   where: UserMealWhereUniqueInput;
 };
 
-export type UserMealCreateOrConnectWithoutUserMealLocationInput = {
-  create: UserMealCreateWithoutUserMealLocationInput;
-  where: UserMealWhereUniqueInput;
-};
-
 export type UserMealCreateOrConnectWithoutWeeklyMealGroupInput = {
   create: UserMealCreateWithoutWeeklyMealGroupInput;
   where: UserMealWhereUniqueInput;
@@ -9490,24 +9883,24 @@ export type UserMealCreateWithoutCreatedByUserInput = {
   date: Scalars['DateTime']['input'];
   meal: MealCreateNestedOneWithoutUserMealInput;
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
+  timeOfDay?: InputMaybe<TimeOfDay>;
   user: UserCreateNestedOneWithoutUserMealInput;
-  userMealLocation?: InputMaybe<UserMealLocationCreateNestedOneWithoutUserMealInput>;
   weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput;
 };
 
 export type UserMealCreateWithoutMealBoardPlanInput = {
   date: Scalars['DateTime']['input'];
   meal: MealCreateNestedOneWithoutUserMealInput;
+  timeOfDay?: InputMaybe<TimeOfDay>;
   user: UserCreateNestedOneWithoutUserMealInput;
-  userMealLocation?: InputMaybe<UserMealLocationCreateNestedOneWithoutUserMealInput>;
   weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput;
 };
 
 export type UserMealCreateWithoutMealInput = {
   date: Scalars['DateTime']['input'];
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
+  timeOfDay?: InputMaybe<TimeOfDay>;
   user: UserCreateNestedOneWithoutUserMealInput;
-  userMealLocation?: InputMaybe<UserMealLocationCreateNestedOneWithoutUserMealInput>;
   weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput;
 };
 
@@ -9515,8 +9908,8 @@ export type UserMealCreateWithoutUpdatedByUserInput = {
   date: Scalars['DateTime']['input'];
   meal: MealCreateNestedOneWithoutUserMealInput;
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
+  timeOfDay?: InputMaybe<TimeOfDay>;
   user: UserCreateNestedOneWithoutUserMealInput;
-  userMealLocation?: InputMaybe<UserMealLocationCreateNestedOneWithoutUserMealInput>;
   weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput;
 };
 
@@ -9524,15 +9917,7 @@ export type UserMealCreateWithoutUserInput = {
   date: Scalars['DateTime']['input'];
   meal: MealCreateNestedOneWithoutUserMealInput;
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
-  userMealLocation?: InputMaybe<UserMealLocationCreateNestedOneWithoutUserMealInput>;
-  weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput;
-};
-
-export type UserMealCreateWithoutUserMealLocationInput = {
-  date: Scalars['DateTime']['input'];
-  meal: MealCreateNestedOneWithoutUserMealInput;
-  mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
-  user: UserCreateNestedOneWithoutUserMealInput;
+  timeOfDay?: InputMaybe<TimeOfDay>;
   weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput;
 };
 
@@ -9540,8 +9925,8 @@ export type UserMealCreateWithoutWeeklyMealGroupInput = {
   date: Scalars['DateTime']['input'];
   meal: MealCreateNestedOneWithoutUserMealInput;
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
+  timeOfDay?: InputMaybe<TimeOfDay>;
   user: UserCreateNestedOneWithoutUserMealInput;
-  userMealLocation?: InputMaybe<UserMealLocationCreateNestedOneWithoutUserMealInput>;
 };
 
 export type UserMealGroupBy = {
@@ -9556,7 +9941,7 @@ export type UserMealGroupBy = {
   id: Scalars['Int']['output'];
   mealBoardPlanId: Scalars['Int']['output'];
   mealId: Scalars['Int']['output'];
-  timeOfDay?: Maybe<TimeOfDay>;
+  timeOfDay: TimeOfDay;
   updatedAt: Scalars['DateTime']['output'];
   updatedBy: Scalars['Int']['output'];
   userId: Scalars['Int']['output'];
@@ -9570,7 +9955,6 @@ export type UserMealListRelationFilter = {
 };
 
 export type UserMealLocation = {
-  _count: UserMealLocationCount;
   createdAt: Scalars['DateTime']['output'];
   createdBy: Scalars['Int']['output'];
   createdByUser: User;
@@ -9582,18 +9966,12 @@ export type UserMealLocation = {
   updatedByUser: User;
   user: User;
   userId: Scalars['Int']['output'];
-  userMeal?: Maybe<Array<UserMeal>>;
-};
-
-export type UserMealLocationCount = {
-  userMeal: Scalars['Int']['output'];
 };
 
 export type UserMealLocationCreateInput = {
   mealLocation?: InputMaybe<MealLocation>;
   timeOfDay?: InputMaybe<TimeOfDay>;
   user: UserCreateNestedOneWithoutUserMealLocationInput;
-  userMeal?: InputMaybe<UserMealCreateNestedManyWithoutUserMealLocationInput>;
 };
 
 export type UserMealLocationCreateManyCreatedByUserInput = {
@@ -9659,12 +10037,6 @@ export type UserMealLocationCreateNestedManyWithoutUserInput = {
   createMany?: InputMaybe<UserMealLocationCreateManyUserInputEnvelope>;
 };
 
-export type UserMealLocationCreateNestedOneWithoutUserMealInput = {
-  connect?: InputMaybe<UserMealLocationWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<UserMealLocationCreateOrConnectWithoutUserMealInput>;
-  create?: InputMaybe<UserMealLocationCreateWithoutUserMealInput>;
-};
-
 export type UserMealLocationCreateOrConnectWithoutCreatedByUserInput = {
   create: UserMealLocationCreateWithoutCreatedByUserInput;
   where: UserMealLocationWhereUniqueInput;
@@ -9680,46 +10052,27 @@ export type UserMealLocationCreateOrConnectWithoutUserInput = {
   where: UserMealLocationWhereUniqueInput;
 };
 
-export type UserMealLocationCreateOrConnectWithoutUserMealInput = {
-  create: UserMealLocationCreateWithoutUserMealInput;
-  where: UserMealLocationWhereUniqueInput;
-};
-
 export type UserMealLocationCreateWithoutCreatedByUserInput = {
   mealLocation?: InputMaybe<MealLocation>;
   timeOfDay?: InputMaybe<TimeOfDay>;
   user: UserCreateNestedOneWithoutUserMealLocationInput;
-  userMeal?: InputMaybe<UserMealCreateNestedManyWithoutUserMealLocationInput>;
 };
 
 export type UserMealLocationCreateWithoutUpdatedByUserInput = {
   mealLocation?: InputMaybe<MealLocation>;
   timeOfDay?: InputMaybe<TimeOfDay>;
   user: UserCreateNestedOneWithoutUserMealLocationInput;
-  userMeal?: InputMaybe<UserMealCreateNestedManyWithoutUserMealLocationInput>;
 };
 
 export type UserMealLocationCreateWithoutUserInput = {
   mealLocation?: InputMaybe<MealLocation>;
   timeOfDay?: InputMaybe<TimeOfDay>;
-  userMeal?: InputMaybe<UserMealCreateNestedManyWithoutUserMealLocationInput>;
-};
-
-export type UserMealLocationCreateWithoutUserMealInput = {
-  mealLocation?: InputMaybe<MealLocation>;
-  timeOfDay?: InputMaybe<TimeOfDay>;
-  user: UserCreateNestedOneWithoutUserMealLocationInput;
 };
 
 export type UserMealLocationListRelationFilter = {
   every?: InputMaybe<UserMealLocationWhereInput>;
   none?: InputMaybe<UserMealLocationWhereInput>;
   some?: InputMaybe<UserMealLocationWhereInput>;
-};
-
-export type UserMealLocationNullableRelationFilter = {
-  is?: InputMaybe<UserMealLocationWhereInput>;
-  isNot?: InputMaybe<UserMealLocationWhereInput>;
 };
 
 export type UserMealLocationOrderByRelationAggregateInput = {
@@ -9732,7 +10085,6 @@ export type UserMealLocationOrderByWithRelationInput = {
   timeOfDay?: InputMaybe<SortOrder>;
   user?: InputMaybe<UserOrderByWithRelationInput>;
   userId?: InputMaybe<SortOrder>;
-  userMeal?: InputMaybe<UserMealOrderByRelationAggregateInput>;
 };
 
 export enum UserMealLocationScalarFieldEnum {
@@ -9761,14 +10113,54 @@ export type UserMealLocationUncheckedCreateInput = {
   mealLocation?: InputMaybe<MealLocation>;
   timeOfDay?: InputMaybe<TimeOfDay>;
   userId: Scalars['Int']['input'];
-  userMeal?: InputMaybe<UserMealUncheckedCreateNestedManyWithoutUserMealLocationInput>;
+};
+
+export type UserMealLocationUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<UserMealLocationWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<UserMealLocationCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<UserMealLocationCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<UserMealLocationCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<UserMealLocationWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<UserMealLocationScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<UserMealLocationWhereUniqueInput>>;
+  set?: InputMaybe<Array<UserMealLocationWhereUniqueInput>>;
+  update?: InputMaybe<Array<UserMealLocationUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<UserMealLocationUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<UserMealLocationUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type UserMealLocationUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<UserMealLocationWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<UserMealLocationCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<UserMealLocationCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<UserMealLocationCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<UserMealLocationWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<UserMealLocationScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<UserMealLocationWhereUniqueInput>>;
+  set?: InputMaybe<Array<UserMealLocationWhereUniqueInput>>;
+  update?: InputMaybe<Array<UserMealLocationUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<UserMealLocationUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<UserMealLocationUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
+};
+
+export type UserMealLocationUncheckedUpdateManyWithoutUserNestedInput = {
+  connect?: InputMaybe<Array<UserMealLocationWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<UserMealLocationCreateOrConnectWithoutUserInput>>;
+  create?: InputMaybe<Array<UserMealLocationCreateWithoutUserInput>>;
+  createMany?: InputMaybe<UserMealLocationCreateManyUserInputEnvelope>;
+  delete?: InputMaybe<Array<UserMealLocationWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<UserMealLocationScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<UserMealLocationWhereUniqueInput>>;
+  set?: InputMaybe<Array<UserMealLocationWhereUniqueInput>>;
+  update?: InputMaybe<Array<UserMealLocationUpdateWithWhereUniqueWithoutUserInput>>;
+  updateMany?: InputMaybe<Array<UserMealLocationUpdateManyWithWhereWithoutUserInput>>;
+  upsert?: InputMaybe<Array<UserMealLocationUpsertWithWhereUniqueWithoutUserInput>>;
 };
 
 export type UserMealLocationUpdateInput = {
   mealLocation?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
   timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealLocationNestedInput>;
-  userMeal?: InputMaybe<UserMealUpdateManyWithoutUserMealLocationNestedInput>;
 };
 
 export type UserMealLocationUpdateManyMutationInput = {
@@ -9833,21 +10225,6 @@ export type UserMealLocationUpdateManyWithoutUserNestedInput = {
   upsert?: InputMaybe<Array<UserMealLocationUpsertWithWhereUniqueWithoutUserInput>>;
 };
 
-export type UserMealLocationUpdateOneWithoutUserMealNestedInput = {
-  connect?: InputMaybe<UserMealLocationWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<UserMealLocationCreateOrConnectWithoutUserMealInput>;
-  create?: InputMaybe<UserMealLocationCreateWithoutUserMealInput>;
-  delete?: InputMaybe<UserMealLocationWhereInput>;
-  disconnect?: InputMaybe<UserMealLocationWhereInput>;
-  update?: InputMaybe<UserMealLocationUpdateToOneWithWhereWithoutUserMealInput>;
-  upsert?: InputMaybe<UserMealLocationUpsertWithoutUserMealInput>;
-};
-
-export type UserMealLocationUpdateToOneWithWhereWithoutUserMealInput = {
-  data: UserMealLocationUpdateWithoutUserMealInput;
-  where?: InputMaybe<UserMealLocationWhereInput>;
-};
-
 export type UserMealLocationUpdateWithWhereUniqueWithoutCreatedByUserInput = {
   data: UserMealLocationUpdateWithoutCreatedByUserInput;
   where: UserMealLocationWhereUniqueInput;
@@ -9867,26 +10244,17 @@ export type UserMealLocationUpdateWithoutCreatedByUserInput = {
   mealLocation?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
   timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealLocationNestedInput>;
-  userMeal?: InputMaybe<UserMealUpdateManyWithoutUserMealLocationNestedInput>;
 };
 
 export type UserMealLocationUpdateWithoutUpdatedByUserInput = {
   mealLocation?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
   timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealLocationNestedInput>;
-  userMeal?: InputMaybe<UserMealUpdateManyWithoutUserMealLocationNestedInput>;
 };
 
 export type UserMealLocationUpdateWithoutUserInput = {
   mealLocation?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
   timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
-  userMeal?: InputMaybe<UserMealUpdateManyWithoutUserMealLocationNestedInput>;
-};
-
-export type UserMealLocationUpdateWithoutUserMealInput = {
-  mealLocation?: InputMaybe<EnumMealLocationFieldUpdateOperationsInput>;
-  timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealLocationNestedInput>;
 };
 
 export type UserMealLocationUpsertWithWhereUniqueWithoutCreatedByUserInput = {
@@ -9905,12 +10273,6 @@ export type UserMealLocationUpsertWithWhereUniqueWithoutUserInput = {
   create: UserMealLocationCreateWithoutUserInput;
   update: UserMealLocationUpdateWithoutUserInput;
   where: UserMealLocationWhereUniqueInput;
-};
-
-export type UserMealLocationUpsertWithoutUserMealInput = {
-  create: UserMealLocationCreateWithoutUserMealInput;
-  update: UserMealLocationUpdateWithoutUserMealInput;
-  where?: InputMaybe<UserMealLocationWhereInput>;
 };
 
 export type UserMealLocationUser_Meal_Location_UserId_TimeOfDay_MealLocation_UniqueCompoundUniqueInput = {
@@ -9933,7 +10295,6 @@ export type UserMealLocationWhereInput = {
   timeOfDay?: InputMaybe<EnumTimeOfDayFilter>;
   user?: InputMaybe<UserRelationFilter>;
   userId?: InputMaybe<IntFilter>;
-  userMeal?: InputMaybe<UserMealListRelationFilter>;
 };
 
 export type UserMealLocationWhereUniqueInput = {
@@ -9945,7 +10306,6 @@ export type UserMealLocationWhereUniqueInput = {
   timeOfDay?: InputMaybe<EnumTimeOfDayFilter>;
   user?: InputMaybe<UserRelationFilter>;
   userId?: InputMaybe<IntFilter>;
-  userMeal?: InputMaybe<UserMealListRelationFilter>;
   user_meal_location_userId_timeOfDay_mealLocation_unique?: InputMaybe<UserMealLocationUser_Meal_Location_UserId_TimeOfDay_MealLocation_UniqueCompoundUniqueInput>;
   user_meal_location_userId_timeOfDay_unique?: InputMaybe<UserMealLocationUser_Meal_Location_UserId_TimeOfDay_UniqueCompoundUniqueInput>;
 };
@@ -10032,7 +10392,7 @@ export type UserMealOrderByWithAggregationInput = {
   id?: InputMaybe<SortOrder>;
   mealBoardPlanId?: InputMaybe<SortOrder>;
   mealId?: InputMaybe<SortOrder>;
-  timeOfDay?: InputMaybe<SortOrderInput>;
+  timeOfDay?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
   weeklyMealGroupId?: InputMaybe<SortOrder>;
 };
@@ -10044,10 +10404,9 @@ export type UserMealOrderByWithRelationInput = {
   mealBoardPlan?: InputMaybe<MealBoardPlanOrderByWithRelationInput>;
   mealBoardPlanId?: InputMaybe<SortOrder>;
   mealId?: InputMaybe<SortOrder>;
-  timeOfDay?: InputMaybe<SortOrderInput>;
+  timeOfDay?: InputMaybe<SortOrder>;
   user?: InputMaybe<UserOrderByWithRelationInput>;
   userId?: InputMaybe<SortOrder>;
-  userMealLocation?: InputMaybe<UserMealLocationOrderByWithRelationInput>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupOrderByWithRelationInput>;
   weeklyMealGroupId?: InputMaybe<SortOrder>;
 };
@@ -10074,7 +10433,7 @@ export type UserMealScalarWhereInput = {
   id?: InputMaybe<IntFilter>;
   mealBoardPlanId?: InputMaybe<IntFilter>;
   mealId?: InputMaybe<IntFilter>;
-  timeOfDay?: InputMaybe<EnumTimeOfDayNullableFilter>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFilter>;
   userId?: InputMaybe<IntFilter>;
   weeklyMealGroupId?: InputMaybe<IntFilter>;
 };
@@ -10087,7 +10446,7 @@ export type UserMealScalarWhereWithAggregatesInput = {
   id?: InputMaybe<IntWithAggregatesFilter>;
   mealBoardPlanId?: InputMaybe<IntWithAggregatesFilter>;
   mealId?: InputMaybe<IntWithAggregatesFilter>;
-  timeOfDay?: InputMaybe<EnumTimeOfDayNullableWithAggregatesFilter>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayWithAggregatesFilter>;
   userId?: InputMaybe<IntWithAggregatesFilter>;
   weeklyMealGroupId?: InputMaybe<IntWithAggregatesFilter>;
 };
@@ -10128,18 +10487,25 @@ export type UserMealUncheckedCreateInput = {
   weeklyMealGroupId: Scalars['Int']['input'];
 };
 
-export type UserMealUncheckedCreateNestedManyWithoutUserMealLocationInput = {
-  connect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<UserMealCreateOrConnectWithoutUserMealLocationInput>>;
-  create?: InputMaybe<Array<UserMealCreateWithoutUserMealLocationInput>>;
-  createMany?: InputMaybe<UserMealCreateManyUserMealLocationInputEnvelope>;
-};
-
 export type UserMealUncheckedCreateNestedManyWithoutWeeklyMealGroupInput = {
   connect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<UserMealCreateOrConnectWithoutWeeklyMealGroupInput>>;
   create?: InputMaybe<Array<UserMealCreateWithoutWeeklyMealGroupInput>>;
   createMany?: InputMaybe<UserMealCreateManyWeeklyMealGroupInputEnvelope>;
+};
+
+export type UserMealUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<UserMealCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<UserMealCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<UserMealCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<UserMealScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  set?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  update?: InputMaybe<Array<UserMealUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<UserMealUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<UserMealUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
 };
 
 export type UserMealUncheckedUpdateManyWithoutMealBoardPlanNestedInput = {
@@ -10154,6 +10520,34 @@ export type UserMealUncheckedUpdateManyWithoutMealBoardPlanNestedInput = {
   update?: InputMaybe<Array<UserMealUpdateWithWhereUniqueWithoutMealBoardPlanInput>>;
   updateMany?: InputMaybe<Array<UserMealUpdateManyWithWhereWithoutMealBoardPlanInput>>;
   upsert?: InputMaybe<Array<UserMealUpsertWithWhereUniqueWithoutMealBoardPlanInput>>;
+};
+
+export type UserMealUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<UserMealCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<UserMealCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<UserMealCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<UserMealScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  set?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  update?: InputMaybe<Array<UserMealUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<UserMealUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<UserMealUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
+};
+
+export type UserMealUncheckedUpdateManyWithoutUserNestedInput = {
+  connect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<UserMealCreateOrConnectWithoutUserInput>>;
+  create?: InputMaybe<Array<UserMealCreateWithoutUserInput>>;
+  createMany?: InputMaybe<UserMealCreateManyUserInputEnvelope>;
+  delete?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<UserMealScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  set?: InputMaybe<Array<UserMealWhereUniqueInput>>;
+  update?: InputMaybe<Array<UserMealUpdateWithWhereUniqueWithoutUserInput>>;
+  updateMany?: InputMaybe<Array<UserMealUpdateManyWithWhereWithoutUserInput>>;
+  upsert?: InputMaybe<Array<UserMealUpsertWithWhereUniqueWithoutUserInput>>;
 };
 
 export type UserMealUncheckedUpdateManyWithoutWeeklyMealGroupNestedInput = {
@@ -10172,6 +10566,7 @@ export type UserMealUncheckedUpdateManyWithoutWeeklyMealGroupNestedInput = {
 
 export type UserMealUpdateManyMutationInput = {
   date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
 };
 
 export type UserMealUpdateManyWithWhereWithoutCreatedByUserInput = {
@@ -10195,11 +10590,6 @@ export type UserMealUpdateManyWithWhereWithoutUpdatedByUserInput = {
 };
 
 export type UserMealUpdateManyWithWhereWithoutUserInput = {
-  data: UserMealUpdateManyMutationInput;
-  where: UserMealScalarWhereInput;
-};
-
-export type UserMealUpdateManyWithWhereWithoutUserMealLocationInput = {
   data: UserMealUpdateManyMutationInput;
   where: UserMealScalarWhereInput;
 };
@@ -10265,20 +10655,6 @@ export type UserMealUpdateManyWithoutUpdatedByUserNestedInput = {
   upsert?: InputMaybe<Array<UserMealUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
 };
 
-export type UserMealUpdateManyWithoutUserMealLocationNestedInput = {
-  connect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<UserMealCreateOrConnectWithoutUserMealLocationInput>>;
-  create?: InputMaybe<Array<UserMealCreateWithoutUserMealLocationInput>>;
-  createMany?: InputMaybe<UserMealCreateManyUserMealLocationInputEnvelope>;
-  delete?: InputMaybe<Array<UserMealWhereUniqueInput>>;
-  deleteMany?: InputMaybe<Array<UserMealScalarWhereInput>>;
-  disconnect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
-  set?: InputMaybe<Array<UserMealWhereUniqueInput>>;
-  update?: InputMaybe<Array<UserMealUpdateWithWhereUniqueWithoutUserMealLocationInput>>;
-  updateMany?: InputMaybe<Array<UserMealUpdateManyWithWhereWithoutUserMealLocationInput>>;
-  upsert?: InputMaybe<Array<UserMealUpsertWithWhereUniqueWithoutUserMealLocationInput>>;
-};
-
 export type UserMealUpdateManyWithoutUserNestedInput = {
   connect?: InputMaybe<Array<UserMealWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<UserMealCreateOrConnectWithoutUserInput>>;
@@ -10332,11 +10708,6 @@ export type UserMealUpdateWithWhereUniqueWithoutUserInput = {
   where: UserMealWhereUniqueInput;
 };
 
-export type UserMealUpdateWithWhereUniqueWithoutUserMealLocationInput = {
-  data: UserMealUpdateWithoutUserMealLocationInput;
-  where: UserMealWhereUniqueInput;
-};
-
 export type UserMealUpdateWithWhereUniqueWithoutWeeklyMealGroupInput = {
   data: UserMealUpdateWithoutWeeklyMealGroupInput;
   where: UserMealWhereUniqueInput;
@@ -10346,24 +10717,24 @@ export type UserMealUpdateWithoutCreatedByUserInput = {
   date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   meal?: InputMaybe<MealUpdateOneRequiredWithoutUserMealNestedInput>;
   mealBoardPlan?: InputMaybe<MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealNestedInput>;
-  userMealLocation?: InputMaybe<UserMealLocationUpdateOneWithoutUserMealNestedInput>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput>;
 };
 
 export type UserMealUpdateWithoutMealBoardPlanInput = {
   date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   meal?: InputMaybe<MealUpdateOneRequiredWithoutUserMealNestedInput>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealNestedInput>;
-  userMealLocation?: InputMaybe<UserMealLocationUpdateOneWithoutUserMealNestedInput>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput>;
 };
 
 export type UserMealUpdateWithoutMealInput = {
   date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   mealBoardPlan?: InputMaybe<MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealNestedInput>;
-  userMealLocation?: InputMaybe<UserMealLocationUpdateOneWithoutUserMealNestedInput>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput>;
 };
 
@@ -10371,8 +10742,8 @@ export type UserMealUpdateWithoutUpdatedByUserInput = {
   date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   meal?: InputMaybe<MealUpdateOneRequiredWithoutUserMealNestedInput>;
   mealBoardPlan?: InputMaybe<MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealNestedInput>;
-  userMealLocation?: InputMaybe<UserMealLocationUpdateOneWithoutUserMealNestedInput>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput>;
 };
 
@@ -10380,15 +10751,7 @@ export type UserMealUpdateWithoutUserInput = {
   date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   meal?: InputMaybe<MealUpdateOneRequiredWithoutUserMealNestedInput>;
   mealBoardPlan?: InputMaybe<MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput>;
-  userMealLocation?: InputMaybe<UserMealLocationUpdateOneWithoutUserMealNestedInput>;
-  weeklyMealGroup?: InputMaybe<WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput>;
-};
-
-export type UserMealUpdateWithoutUserMealLocationInput = {
-  date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  meal?: InputMaybe<MealUpdateOneRequiredWithoutUserMealNestedInput>;
-  mealBoardPlan?: InputMaybe<MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealNestedInput>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput>;
 };
 
@@ -10396,8 +10759,8 @@ export type UserMealUpdateWithoutWeeklyMealGroupInput = {
   date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   meal?: InputMaybe<MealUpdateOneRequiredWithoutUserMealNestedInput>;
   mealBoardPlan?: InputMaybe<MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealNestedInput>;
-  userMealLocation?: InputMaybe<UserMealLocationUpdateOneWithoutUserMealNestedInput>;
 };
 
 export type UserMealUpsertWithWhereUniqueWithoutCreatedByUserInput = {
@@ -10430,12 +10793,6 @@ export type UserMealUpsertWithWhereUniqueWithoutUserInput = {
   where: UserMealWhereUniqueInput;
 };
 
-export type UserMealUpsertWithWhereUniqueWithoutUserMealLocationInput = {
-  create: UserMealCreateWithoutUserMealLocationInput;
-  update: UserMealUpdateWithoutUserMealLocationInput;
-  where: UserMealWhereUniqueInput;
-};
-
 export type UserMealUpsertWithWhereUniqueWithoutWeeklyMealGroupInput = {
   create: UserMealCreateWithoutWeeklyMealGroupInput;
   update: UserMealUpdateWithoutWeeklyMealGroupInput;
@@ -10459,10 +10816,9 @@ export type UserMealWhereInput = {
   mealBoardPlan?: InputMaybe<MealBoardPlanRelationFilter>;
   mealBoardPlanId?: InputMaybe<IntFilter>;
   mealId?: InputMaybe<IntFilter>;
-  timeOfDay?: InputMaybe<EnumTimeOfDayNullableFilter>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFilter>;
   user?: InputMaybe<UserRelationFilter>;
   userId?: InputMaybe<IntFilter>;
-  userMealLocation?: InputMaybe<UserMealLocationNullableRelationFilter>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupRelationFilter>;
   weeklyMealGroupId?: InputMaybe<IntFilter>;
 };
@@ -10477,10 +10833,9 @@ export type UserMealWhereUniqueInput = {
   mealBoardPlan?: InputMaybe<MealBoardPlanRelationFilter>;
   mealBoardPlanId?: InputMaybe<IntFilter>;
   mealId?: InputMaybe<IntFilter>;
-  timeOfDay?: InputMaybe<EnumTimeOfDayNullableFilter>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFilter>;
   user?: InputMaybe<UserRelationFilter>;
   userId?: InputMaybe<IntFilter>;
-  userMealLocation?: InputMaybe<UserMealLocationNullableRelationFilter>;
   user_meal_date_mealBoardPlanId_userId_mealId_unique?: InputMaybe<UserMealUser_Meal_Date_MealBoardPlanId_UserId_MealId_UniqueCompoundUniqueInput>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupRelationFilter>;
   weeklyMealGroupId?: InputMaybe<IntFilter>;
@@ -10669,6 +11024,48 @@ export type UserRoleScalarWhereInput = {
   userId?: InputMaybe<IntFilter>;
 };
 
+export type UserRoleUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<UserRoleWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<UserRoleCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<UserRoleCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<UserRoleCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<UserRoleWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<UserRoleScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<UserRoleWhereUniqueInput>>;
+  set?: InputMaybe<Array<UserRoleWhereUniqueInput>>;
+  update?: InputMaybe<Array<UserRoleUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<UserRoleUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<UserRoleUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type UserRoleUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<UserRoleWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<UserRoleCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<UserRoleCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<UserRoleCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<UserRoleWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<UserRoleScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<UserRoleWhereUniqueInput>>;
+  set?: InputMaybe<Array<UserRoleWhereUniqueInput>>;
+  update?: InputMaybe<Array<UserRoleUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<UserRoleUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<UserRoleUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
+};
+
+export type UserRoleUncheckedUpdateManyWithoutUserNestedInput = {
+  connect?: InputMaybe<Array<UserRoleWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<UserRoleCreateOrConnectWithoutUserInput>>;
+  create?: InputMaybe<Array<UserRoleCreateWithoutUserInput>>;
+  createMany?: InputMaybe<UserRoleCreateManyUserInputEnvelope>;
+  delete?: InputMaybe<Array<UserRoleWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<UserRoleScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<UserRoleWhereUniqueInput>>;
+  set?: InputMaybe<Array<UserRoleWhereUniqueInput>>;
+  update?: InputMaybe<Array<UserRoleUpdateWithWhereUniqueWithoutUserInput>>;
+  updateMany?: InputMaybe<Array<UserRoleUpdateManyWithWhereWithoutUserInput>>;
+  upsert?: InputMaybe<Array<UserRoleUpsertWithWhereUniqueWithoutUserInput>>;
+};
+
 export type UserRoleUpdateManyMutationInput = {
   name?: InputMaybe<EnumUserRoleNameFieldUpdateOperationsInput>;
 };
@@ -10827,6 +11224,87 @@ export type UserScalarWhereInput = {
   lastOnline?: InputMaybe<DateTimeFilter>;
   status?: InputMaybe<BoolFilter>;
   username?: InputMaybe<StringFilter>;
+};
+
+export type UserUncheckedUpdateInput = {
+  allergens?: InputMaybe<AllergensUncheckedUpdateManyWithoutUsersNestedInput>;
+  createdAdditives?: InputMaybe<AdditivesUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdAllergens?: InputMaybe<AllergensUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdCategories?: InputMaybe<CategoriesUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdFoodForms?: InputMaybe<FoodFormsUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdIngredients?: InputMaybe<IngredientUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdKitchens?: InputMaybe<KitchensUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdMealBoardPlans?: InputMaybe<MealBoardPlanUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdMealRecipes?: InputMaybe<MealRecipeUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdMeals?: InputMaybe<MealUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdProperties?: InputMaybe<PropertiesUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdRecipeIngredients?: InputMaybe<RecipeIngredientUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdRecipes?: InputMaybe<RecipeUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdSeasons?: InputMaybe<SeasonsUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdSettings?: InputMaybe<SettingsUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdToken?: InputMaybe<TokenUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdUser?: InputMaybe<UserUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdUserMealLocations?: InputMaybe<UserMealLocationUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdUserMeals?: InputMaybe<UserMealUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdUserRoles?: InputMaybe<UserRoleUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
+  email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  id?: InputMaybe<IntFieldUpdateOperationsInput>;
+  image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  status?: InputMaybe<BoolFieldUpdateOperationsInput>;
+  updatedAdditives?: InputMaybe<AdditivesUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedAllergens?: InputMaybe<AllergensUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedCategories?: InputMaybe<CategoriesUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedFoodForms?: InputMaybe<FoodFormsUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedIngredients?: InputMaybe<IngredientUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedKitchens?: InputMaybe<KitchensUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedMealBoardPlans?: InputMaybe<MealBoardPlanUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedMealRecipes?: InputMaybe<MealRecipeUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedMeals?: InputMaybe<MealUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedProperties?: InputMaybe<PropertiesUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedRecipeIngredients?: InputMaybe<RecipeIngredientUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedRecipes?: InputMaybe<RecipeUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedSeasons?: InputMaybe<SeasonsUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedSettings?: InputMaybe<SettingsUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedToken?: InputMaybe<TokenUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedUser?: InputMaybe<UserUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedUserMealLocations?: InputMaybe<UserMealLocationUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedUserMeals?: InputMaybe<UserMealUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedUserRoles?: InputMaybe<UserRoleUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  updatedWeeklyMealGroups?: InputMaybe<WeeklyMealGroupUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
+  userMeal?: InputMaybe<UserMealUncheckedUpdateManyWithoutUserNestedInput>;
+  userMealLocation?: InputMaybe<UserMealLocationUncheckedUpdateManyWithoutUserNestedInput>;
+  userRole?: InputMaybe<UserRoleUncheckedUpdateManyWithoutUserNestedInput>;
+  username?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type UserUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<UserWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<UserCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<UserCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<UserCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<UserWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<UserScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<UserWhereUniqueInput>>;
+  set?: InputMaybe<Array<UserWhereUniqueInput>>;
+  update?: InputMaybe<Array<UserUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<UserUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<UserUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
+export type UserUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<UserWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<UserCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<UserCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<UserCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<UserWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<UserScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<UserWhereUniqueInput>>;
+  set?: InputMaybe<Array<UserWhereUniqueInput>>;
+  update?: InputMaybe<Array<UserUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<UserUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<UserUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
 };
 
 export type UserUpdateInput = {
@@ -12223,6 +12701,20 @@ export type WeeklyMealGroupUncheckedUpdateInput = {
   year?: InputMaybe<IntFieldUpdateOperationsInput>;
 };
 
+export type WeeklyMealGroupUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+  connect?: InputMaybe<Array<WeeklyMealGroupWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<WeeklyMealGroupCreateOrConnectWithoutCreatedByUserInput>>;
+  create?: InputMaybe<Array<WeeklyMealGroupCreateWithoutCreatedByUserInput>>;
+  createMany?: InputMaybe<WeeklyMealGroupCreateManyCreatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<WeeklyMealGroupWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<WeeklyMealGroupScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<WeeklyMealGroupWhereUniqueInput>>;
+  set?: InputMaybe<Array<WeeklyMealGroupWhereUniqueInput>>;
+  update?: InputMaybe<Array<WeeklyMealGroupUpdateWithWhereUniqueWithoutCreatedByUserInput>>;
+  updateMany?: InputMaybe<Array<WeeklyMealGroupUpdateManyWithWhereWithoutCreatedByUserInput>>;
+  upsert?: InputMaybe<Array<WeeklyMealGroupUpsertWithWhereUniqueWithoutCreatedByUserInput>>;
+};
+
 export type WeeklyMealGroupUncheckedUpdateManyWithoutMealBoardPlanNestedInput = {
   connect?: InputMaybe<Array<WeeklyMealGroupWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<WeeklyMealGroupCreateOrConnectWithoutMealBoardPlanInput>>;
@@ -12235,6 +12727,20 @@ export type WeeklyMealGroupUncheckedUpdateManyWithoutMealBoardPlanNestedInput = 
   update?: InputMaybe<Array<WeeklyMealGroupUpdateWithWhereUniqueWithoutMealBoardPlanInput>>;
   updateMany?: InputMaybe<Array<WeeklyMealGroupUpdateManyWithWhereWithoutMealBoardPlanInput>>;
   upsert?: InputMaybe<Array<WeeklyMealGroupUpsertWithWhereUniqueWithoutMealBoardPlanInput>>;
+};
+
+export type WeeklyMealGroupUncheckedUpdateManyWithoutUpdatedByUserNestedInput = {
+  connect?: InputMaybe<Array<WeeklyMealGroupWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<WeeklyMealGroupCreateOrConnectWithoutUpdatedByUserInput>>;
+  create?: InputMaybe<Array<WeeklyMealGroupCreateWithoutUpdatedByUserInput>>;
+  createMany?: InputMaybe<WeeklyMealGroupCreateManyUpdatedByUserInputEnvelope>;
+  delete?: InputMaybe<Array<WeeklyMealGroupWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<WeeklyMealGroupScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<WeeklyMealGroupWhereUniqueInput>>;
+  set?: InputMaybe<Array<WeeklyMealGroupWhereUniqueInput>>;
+  update?: InputMaybe<Array<WeeklyMealGroupUpdateWithWhereUniqueWithoutUpdatedByUserInput>>;
+  updateMany?: InputMaybe<Array<WeeklyMealGroupUpdateManyWithWhereWithoutUpdatedByUserInput>>;
+  upsert?: InputMaybe<Array<WeeklyMealGroupUpsertWithWhereUniqueWithoutUpdatedByUserInput>>;
 };
 
 export type WeeklyMealGroupUpdateInput = {
@@ -12936,7 +13442,7 @@ export type UpdateSettingsAdminMutationVariables = Exact<{
 export type UpdateSettingsAdminMutation = { updateSettingsAdmin?: { id: number, maxEditOrderDays: number, createdAt: any, updatedAt: any, createdByUser: { username: string }, updatedByUser: { username: string } } | null };
 
 export type UpdateUserAllergensUserMutationVariables = Exact<{
-  data: UserUpdateInput;
+  data: UserUncheckedUpdateInput;
 }>;
 
 
@@ -13092,7 +13598,7 @@ export const UploadMealImageAdminDocument = {"kind":"Document","definitions":[{"
 export const CreateUserMealUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateUserMealUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealUncheckedCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createUserMealUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"mealId"}},{"kind":"Field","name":{"kind":"Name","value":"mealBoardPlanId"}},{"kind":"Field","name":{"kind":"Name","value":"weeklyMealGroupId"}},{"kind":"Field","name":{"kind":"Name","value":"meal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<CreateUserMealUserMutation, CreateUserMealUserMutationVariables>;
 export const DeleteUserMealUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteUserMealUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteUserMealUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"mealId"}},{"kind":"Field","name":{"kind":"Name","value":"mealBoardPlanId"}},{"kind":"Field","name":{"kind":"Name","value":"weeklyMealGroupId"}},{"kind":"Field","name":{"kind":"Name","value":"meal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<DeleteUserMealUserMutation, DeleteUserMealUserMutationVariables>;
 export const UpdateSettingsAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateSettingsAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SettingsUpdateInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SettingsWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateSettingsAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"maxEditOrderDays"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdByUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}}]}},{"kind":"Field","name":{"kind":"Name","value":"updatedByUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateSettingsAdminMutation, UpdateSettingsAdminMutationVariables>;
-export const UpdateUserAllergensUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserAllergensUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserUpdateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateUserAllergensUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}]}]}}]} as unknown as DocumentNode<UpdateUserAllergensUserMutation, UpdateUserAllergensUserMutationVariables>;
+export const UpdateUserAllergensUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserAllergensUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserUncheckedUpdateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateUserAllergensUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}]}]}}]} as unknown as DocumentNode<UpdateUserAllergensUserMutation, UpdateUserAllergensUserMutationVariables>;
 export const CreateUserMealLocationUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateUserMealLocationUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealLocationUncheckedCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createUserMealLocationUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"mealLocation"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<CreateUserMealLocationUserMutation, CreateUserMealLocationUserMutationVariables>;
 export const DeleteUserMealLocationUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteUserMealLocationUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealLocationWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteUserMealLocationUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"mealLocation"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<DeleteUserMealLocationUserMutation, DeleteUserMealLocationUserMutationVariables>;
 export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"userRole"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"userMealLocation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"mealLocation"}}]}},{"kind":"Field","name":{"kind":"Name","value":"allergens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;

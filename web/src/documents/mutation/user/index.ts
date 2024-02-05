@@ -1,7 +1,7 @@
 import { graphql } from "@/gql";
 
 export const UPDATE_USER_ALLERGENS_USER = graphql(/* GraphQL */ `
-  mutation UpdateUserAllergensUser($data: UserUpdateInput!) {
+  mutation UpdateUserAllergensUser($data: UserUncheckedUpdateInput!) {
     updateUserAllergensUser(data: $data)
   }
 `);
