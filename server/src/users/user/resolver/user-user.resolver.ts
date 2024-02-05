@@ -4,6 +4,7 @@ import { JwtUser } from "@/app_modules/@types/types";
 import { CurrentUser } from "@/app_modules/decorators/currentUser.decorator";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
+import { Logger } from "@nestjs/common";
 import { Args, Mutation, Resolver } from "@nestjs/graphql";
 import { UserService } from "../user.service";
 
@@ -27,8 +28,7 @@ export class UserUserResolver {
       });
       return true;
     } catch (e) {
-      console.error(e);
-      // Logger.error(e);
+      Logger.error(e);
       return null;
     }
   }

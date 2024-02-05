@@ -41,8 +41,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                     (allergen) => allergen.id === Number(key),
                   );
                   if (key && allergy) {
-                    // console.log(allergy);
-                    const user = await updateUserAllergens({
+                    await updateUserAllergens({
                       data: {
                         allergens: {
                           connectOrCreate: [
@@ -54,13 +53,15 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                         },
                       },
                     });
-                    console.log(user);
+                    await refetchMe();
                   }
                 }}
-                items={(allergens || []).map(({ id, name }) => ({
-                  id,
-                  name: t(name as keyof Messages["Allergens"]),
-                }))}
+                items={(allergens || [])
+                  .filter((a) => !me?.allergens?.find((b) => b.name === a.name))
+                  .map(({ id, name }) => ({
+                    id,
+                    name: t(name as keyof Messages["Allergens"]),
+                  }))}
               />
               <Listbox
                 emptyContent={t("NO_ALLERGIES")}
@@ -70,7 +71,15 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                   <ListboxItem
                     key={id}
                     endContent={
-                      <FaRegTrashAlt className="cursor-pointer hover:text-red-600" />
+                      <FaRegTrashAlt
+                        className="cursor-pointer hover:text-red-600"
+                        onClick={async () => {
+                          await updateUserAllergens({
+                            data: { allergens: { delete: [{ name }] } },
+                          });
+                          await refetchMe();
+                        }}
+                      />
                     }
                   >
                     {t(name as keyof Messages["Allergens"])}

@@ -1,7 +1,6 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { Prisma, PrismaClient } from "@prisma/client";
-import { writeFileSync } from "fs";
 import { IncomingMessage } from "http";
 import { RequestContext } from "nestjs-request-context";
 import { JwtUser } from "../@types/types";
@@ -44,7 +43,6 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
         }
       } catch (_) {}
 
-      writeFileSync("prisma.json", JSON.stringify(params, null, 2));
       return next(params);
     });
     await this.$connect();
