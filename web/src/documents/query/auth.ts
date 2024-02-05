@@ -10,11 +10,11 @@ export const ME = graphql(/* GraphQL */ `
         id
         name
       }
-      # UserMealLocation {
-      #   id
-      #   timeOfDay
-      #   mealLocation
-      # }
+      userMealLocation {
+        id
+        timeOfDay
+        mealLocation
+      }
       allergens {
         id
         name

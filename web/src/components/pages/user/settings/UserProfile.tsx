@@ -89,7 +89,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
               />
             </form>
             <Listbox emptyContent={t("NO_USER_MEAL_LOCATION")}>
-              {(me?.UserMealLocation || []).map(
+              {(me?.userMealLocation || []).map(
                 ({ id, mealLocation, timeOfDay }) => (
                   <ListboxItem
                     key={id}
