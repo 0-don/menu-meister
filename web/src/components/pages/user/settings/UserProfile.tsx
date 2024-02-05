@@ -3,6 +3,7 @@ import { MyConfirmModal } from "@/components/elements/MyConfirmModal";
 import { useIngredientPropertiesHook } from "@/components/hooks/useIngredientPropertiesHook";
 import { useMeHook } from "@/components/hooks/useMeHook";
 import { MealLocation, TimeOfDay } from "@/gql/graphql";
+import { TIME_OF_DAY_CONFIGS } from "@/utils/constants";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import {
   Button,
@@ -179,7 +180,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                   };
                   await submit(changedState);
                 }}
-                items={Object.values(TimeOfDay).map((time) => ({
+                items={TIME_OF_DAY_CONFIGS.map(({ time }) => ({
                   id: time,
                   name: t(time as keyof Messages["Enums"]),
                 }))}
@@ -209,20 +210,27 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
               aria-label={t("TIME_OF_DAY")}
             >
               {(me?.userMealLocation || []).map(
-                ({ id, mealLocation, timeOfDay }) => (
-                  <ListboxItem
-                    key={id}
-                    endContent={
-                      <FaRegTrashAlt className="cursor-pointer hover:text-red-600" />
-                    }
-                  >
-                    <div className="flex items-center justify-between space-x-2">
-                      <p>{t(timeOfDay as keyof Messages["Enums"])}</p>
-                      <div className="text-xl">|</div>
-                      <p>{t(mealLocation as keyof Messages["Enums"])}</p>
-                    </div>
-                  </ListboxItem>
-                ),
+                ({ id, mealLocation, timeOfDay }) => {
+                  const { icon: Icon } = TIME_OF_DAY_CONFIGS.find(
+                    (config) => config.time === timeOfDay,
+                  )!;
+
+                  return (
+                    <ListboxItem
+                      key={id}
+                      endContent={
+                        <FaRegTrashAlt className="cursor-pointer hover:text-red-600" />
+                      }
+                    >
+                      <div className="flex items-center space-x-1">
+                        <Icon />
+                        <p>{t(timeOfDay as keyof Messages["Enums"])}</p>
+                        <div className="text-xl">{" | "}</div>
+                        <p>{t(mealLocation as keyof Messages["Enums"])}</p>
+                      </div>
+                    </ListboxItem>
+                  );
+                },
               )}
             </Listbox>
           </CardBody>

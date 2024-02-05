@@ -1,3 +1,7 @@
+import { TimeOfDay } from "@/gql/graphql";
+import { LuClock10, LuClock12, LuClock2, LuClock6 } from "react-icons/lu";
+import { TbCalendarTime } from "react-icons/tb";
+
 export const X_URL = "x-url";
 export const BACKEND_INTERNAL_URL = "http://menu-meister-server:4000/graphql";
 export const TOKEN = "token";
@@ -17,6 +21,37 @@ export function debounce(fn: (...args: any) => any, ms: number) {
     }, ms);
   };
 }
+
+export const TIME_OF_DAY_CONFIGS = [
+  {
+    time: TimeOfDay.Any,
+    icon: TbCalendarTime,
+  },
+  {
+    time: TimeOfDay.Morning,
+    icon: LuClock6,
+  },
+  {
+    time: TimeOfDay.Forenoon,
+    icon: LuClock10,
+  },
+  {
+    time: TimeOfDay.Noon,
+    icon: LuClock12,
+  },
+  {
+    time: TimeOfDay.Afternoon,
+    icon: LuClock2,
+  },
+  {
+    time: TimeOfDay.Evening,
+    icon: LuClock6,
+  },
+  {
+    time: TimeOfDay.Night,
+    icon: LuClock12,
+  },
+];
 
 export const WEEK_DAYS = [
   "monday",

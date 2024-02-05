@@ -3,8 +3,8 @@ import { useMeHook } from "@/components/hooks/useMeHook";
 import { useUserMealHook } from "@/components/hooks/useUserMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { DashboardStore } from "@/store/DashboardStore";
-import { TIME_OF_DAY_CONFIGS, TableStore } from "@/store/TableStore";
-import { debounce } from "@/utils/constants";
+import { TableStore } from "@/store/TableStore";
+import { TIME_OF_DAY_CONFIGS, debounce } from "@/utils/constants";
 import { catchErrorAlerts, classNames } from "@/utils/helpers/clientUtils";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
@@ -109,15 +109,15 @@ export const TableGroup: React.FC<TableGroupProps> = ({
 
             {TIME_OF_DAY_CONFIGS.filter(
               (config) => group.timeOfDay === config.time,
-            ).map(({ icon: Icon, translationKey }) => (
+            ).map(({ time, icon: Icon }) => (
               <Chip
-                key={translationKey}
+                key={time}
                 startContent={<Icon />}
                 variant="flat"
                 size="sm"
                 style={{ color }}
               >
-                {t(translationKey as keyof Messages["Dashboard"])}
+                {t(time.toUpperCase() as keyof Messages["Dashboard"])}
               </Chip>
             ))}
           </div>
