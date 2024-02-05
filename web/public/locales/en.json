@@ -70,6 +70,8 @@
     "NIGHT": "Night"
   },
   "User": {
+    "FIRSTNAME": "Firstname",
+    "LASTNAME": "Lastname",
     "PROFILE": "Profile",
     "PROFILE_DESCRIPTION": "Your personal and account settings.",
     "PROFILE_DETAILS": "Profile Details",

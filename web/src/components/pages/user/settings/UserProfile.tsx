@@ -1,5 +1,6 @@
 import { MyAutocomplete } from "@/components/elements/MyAutocomplete";
 import { MyConfirmModal } from "@/components/elements/MyConfirmModal";
+import { MyInput } from "@/components/elements/MyInput";
 import { useIngredientPropertiesHook } from "@/components/hooks/useIngredientPropertiesHook";
 import { useMeHook } from "@/components/hooks/useMeHook";
 import { MealLocation, TimeOfDay } from "@/gql/graphql";
@@ -33,6 +34,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
     deleteUserMealLocation,
   } = useMeHook();
   const { allergens } = useIngredientPropertiesHook();
+
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
   const [allergen, setAllergen] = useState<string>("");
   const [timeOfDayAndMealLocation, setTimeOfDayAndMealLoction] =
     useState<TimeOfDayAndMealLocation>({
@@ -62,14 +66,27 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
     }
   };
 
-  console.log(me);
-
   return (
     <section className="subpixel-antialiased">
       <p className="text-large">{t("PROFILE_DETAILS")}</p>
       <p className="mb-3 text-small text-default-400">
         {t("PROFILE_DETAILS_DESCRIPTION")}
       </p>
+
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <MyInput
+          label={t("FIRSTNAME")}
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          size="sm"
+        />
+        <MyInput
+          label={t("LASTNAME")}
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          size="sm"
+        />
+      </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>

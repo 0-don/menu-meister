@@ -27,6 +27,8 @@ CREATE TABLE `Settings` (
 -- CreateTable
 CREATE TABLE `User` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `firstName` VARCHAR(191) NULL,
+    `lastName` VARCHAR(191) NULL,
     `image` TEXT NULL,
     `password` VARCHAR(191) NOT NULL,
     `username` VARCHAR(191) NOT NULL,
@@ -65,7 +67,7 @@ CREATE TABLE `UserMeal` (
     `mealId` INTEGER NOT NULL,
     `mealBoardPlanId` INTEGER NOT NULL,
     `weeklyMealGroupId` INTEGER NOT NULL,
-    `timeOfDay` ENUM('Any', 'Morning', 'Forenoon', 'Noon', 'Afternoon', 'Evening', 'Night') NULL DEFAULT 'Any',
+    `timeOfDay` ENUM('Any', 'Morning', 'Forenoon', 'Noon', 'Afternoon', 'Evening', 'Night') NOT NULL DEFAULT 'Any',
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `createdBy` INTEGER NOT NULL,
@@ -528,9 +530,6 @@ ALTER TABLE `UserMeal` ADD CONSTRAINT `UserMeal_mealBoardPlanId_fkey` FOREIGN KE
 
 -- AddForeignKey
 ALTER TABLE `UserMeal` ADD CONSTRAINT `UserMeal_weeklyMealGroupId_fkey` FOREIGN KEY (`weeklyMealGroupId`) REFERENCES `WeeklyMealGroup`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `UserMeal` ADD CONSTRAINT `UserMeal_userId_timeOfDay_fkey` FOREIGN KEY (`userId`, `timeOfDay`) REFERENCES `UserMealLocation`(`userId`, `timeOfDay`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `UserMeal` ADD CONSTRAINT `UserMeal_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

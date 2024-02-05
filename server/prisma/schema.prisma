@@ -58,6 +58,9 @@ model Settings {
 model User {
   id Int @id @default(autoincrement())
 
+  firstName String?
+  lastName  String?
+
   image    String? @db.Text
   /// @HideField({ output: true, input: true })
   password String
@@ -165,10 +168,10 @@ model UserMeal {
   weeklyMealGroupId Int
   timeOfDay         TimeOfDay @default(Any)
 
-  user             User              @relation(fields: [userId], references: [id])
-  meal             Meal              @relation(fields: [mealId], references: [id])
-  mealBoardPlan    MealBoardPlan     @relation(fields: [mealBoardPlanId], references: [id])
-  weeklyMealGroup  WeeklyMealGroup   @relation(fields: [weeklyMealGroupId], references: [id])
+  user            User            @relation(fields: [userId], references: [id])
+  meal            Meal            @relation(fields: [mealId], references: [id])
+  mealBoardPlan   MealBoardPlan   @relation(fields: [mealBoardPlanId], references: [id])
+  weeklyMealGroup WeeklyMealGroup @relation(fields: [weeklyMealGroupId], references: [id])
 
   /// @HideField({ output: false, input: true })
   createdAt     DateTime @default(now())
@@ -205,7 +208,7 @@ model UserMealLocation {
   /// @HideField({ output: false, input: true })
   updatedByUser User     @relation("UpdatedUserMealLocation", fields: [updatedBy], references: [id])
 
-  user     User       @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 
   @@unique([userId, timeOfDay, mealLocation], name: "user_meal_location_userId_timeOfDay_mealLocation_unique")
   @@unique([userId, timeOfDay], name: "user_meal_location_userId_timeOfDay_unique")
