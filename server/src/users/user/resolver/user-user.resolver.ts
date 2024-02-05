@@ -27,6 +27,7 @@ export class UserUserResolver {
         where: { id: me.sub },
       });
     } catch (e) {
+      console.error(e);
       Logger.error(e);
       return null;
     }

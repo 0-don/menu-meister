@@ -29,10 +29,20 @@ export class AuthResolver {
           id: true,
           username: true,
           email: true,
-          lastOnline: true,
-          createdAt: true,
-          updatedAt: true,
           userRole: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          userMealLocation: {
+            select: {
+              id: true,
+              timeOfDay: true,
+              mealLocation: true,
+            },
+          },
+          allergens: {
             select: {
               id: true,
               name: true,

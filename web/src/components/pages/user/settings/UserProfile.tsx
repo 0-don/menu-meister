@@ -35,10 +35,26 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                 aria-label="Allergens"
                 value={allergen}
                 size="sm"
-                onSelectionChange={(key) => {
-                  if (key) {
-                    
-                    setAllergen(key as string);
+                onSelectionChange={async (key) => {
+                  setAllergen(key as string);
+                  const allergy = allergens?.find(
+                    (allergen) => allergen.id === Number(key),
+                  );
+                  if (key && allergy) {
+                    // console.log(allergy);
+                    const user = await updateUserAllergens({
+                      data: {
+                        allergens: {
+                          connectOrCreate: [
+                            {
+                              create: { name: allergy.name },
+                              where: { id: allergy.id },
+                            },
+                          ],
+                        },
+                      },
+                    });
+                    console.log(user);
                   }
                 }}
                 items={(allergens || []).map(({ id, name }) => ({
