@@ -97,9 +97,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                       <FaRegTrashAlt className="cursor-pointer hover:text-red-600" />
                     }
                   >
-                    <div className="flex justify-between space-x-2">
+                    <div className="flex items-center justify-between space-x-2">
                       <p>{t(timeOfDay as keyof Messages["Enums"])}</p>
-                      <div className="" />
+                      <div className="text-xl">|</div>
                       <p>{t(mealLocation as keyof Messages["Enums"])}</p>
                     </div>
                   </ListboxItem>
