@@ -78,38 +78,38 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
         {t("PROFILE_DETAILS_DESCRIPTION")}
       </p>
 
-      <div className="mb-5 grid grid-cols-1 gap-4 md:grid-cols-2">
-        <MyInput
-          label={t("FIRSTNAME")}
-          size="sm"
-          labelPlacement="outside"
-          placeholder=" "
-          value={firstname}
-          onChange={(e) => {
-            if (!isHighRank) return;
-            setFirstname(e.target.value);
-            updateUser({
-              where: { id: user.id },
-              data: { firstname: { set: e.target.value } },
-            });
-          }}
-        />
-        <MyInput
-          label={t("LASTNAME")}
-          size="sm"
-          labelPlacement="outside"
-          placeholder=" "
-          value={lastname}
-          onChange={(e) => {
-            if (!isHighRank) return;
-            setLastname(e.target.value);
-            updateUser({
-              where: { id: user.id },
-              data: { lastname: { set: e.target.value } },
-            });
-          }}
-        />
-      </div>
+      <Card className="mb-5">
+        <CardBody className="mb-5 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <MyInput
+            label={t("FIRSTNAME")}
+            labelPlacement="outside"
+            placeholder=" "
+            value={firstname}
+            onChange={(e) => {
+              if (!isHighRank) return;
+              setFirstname(e.target.value);
+              updateUser({
+                where: { id: user.id },
+                data: { firstname: { set: e.target.value } },
+              });
+            }}
+          />
+          <MyInput
+            label={t("LASTNAME")}
+            labelPlacement="outside"
+            placeholder=" "
+            value={lastname}
+            onChange={(e) => {
+              if (!isHighRank) return;
+              setLastname(e.target.value);
+              updateUser({
+                where: { id: user.id },
+                data: { lastname: { set: e.target.value } },
+              });
+            }}
+          />
+        </CardBody>
+      </Card>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>
@@ -120,7 +120,6 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
               placeholder=" "
               aria-label="Allergens"
               value={allergen}
-              size="sm"
               onSelectionChange={async (key) => {
                 if (!isHighRank) return;
                 const allergy = allergens?.find(
@@ -224,7 +223,6 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
                 placeholder=" "
                 value={timeOfDayAndMealLocation.timeOfDay}
                 required
-                size="sm"
                 onSelectionChange={async (key) => {
                   if (!isHighRank) return;
                   const changedState = {
@@ -244,7 +242,6 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
                 placeholder=" "
                 required
                 value={timeOfDayAndMealLocation.mealLocation}
-                size="sm"
                 onSelectionChange={async (key) => {
                   if (!isHighRank) return;
                   const changedState = {
