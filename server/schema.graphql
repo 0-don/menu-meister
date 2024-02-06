@@ -527,8 +527,8 @@ type UserCount {
 
 type User {
   id: Int!
-  firstName: String
-  lastName: String
+  firstname: String
+  lastname: String
   image: String
   username: String!
   email: String!
@@ -707,8 +707,8 @@ input UserWhereInput {
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
   id: IntFilter
-  firstName: StringNullableFilter
-  lastName: StringNullableFilter
+  firstname: StringNullableFilter
+  lastname: StringNullableFilter
   image: StringNullableFilter
   username: StringFilter
   email: StringFilter
@@ -1396,8 +1396,8 @@ input NestedEnumMealLocationFilter {
 
 input UserOrderByWithRelationInput {
   id: SortOrder
-  firstName: SortOrderInput
-  lastName: SortOrderInput
+  firstname: SortOrderInput
+  lastname: SortOrderInput
   image: SortOrderInput
   username: SortOrder
   email: SortOrder
@@ -1551,8 +1551,8 @@ input UserWhereUniqueInput {
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
-  firstName: StringNullableFilter
-  lastName: StringNullableFilter
+  firstname: StringNullableFilter
+  lastname: StringNullableFilter
   image: StringNullableFilter
   lastOnline: DateTimeFilter
   status: BoolFilter
@@ -1604,8 +1604,8 @@ input UserWhereUniqueInput {
 
 enum UserScalarFieldEnum {
   id
-  firstName
-  lastName
+  firstname
+  lastname
   image
   password
   username
@@ -2349,8 +2349,8 @@ input LoginUserInput {
 }
 
 input UserCreateInput {
-  firstName: String
-  lastName: String
+  firstname: String
+  lastname: String
   image: String
   username: String!
   email: String!
@@ -2643,8 +2643,8 @@ input UserCreateNestedManyWithoutAllergensInput {
 }
 
 input UserCreateWithoutAllergensInput {
-  firstName: String
-  lastName: String
+  firstname: String
+  lastname: String
   image: String
   username: String!
   email: String!
@@ -2768,8 +2768,8 @@ input UserCreateNestedManyWithoutCreatedByUserInput {
 }
 
 input UserCreateWithoutCreatedByUserInput {
-  firstName: String
-  lastName: String
+  firstname: String
+  lastname: String
   image: String
   username: String!
   email: String!
@@ -2829,8 +2829,8 @@ input UserCreateNestedManyWithoutUpdatedByUserInput {
 }
 
 input UserCreateWithoutUpdatedByUserInput {
-  firstName: String
-  lastName: String
+  firstname: String
+  lastname: String
   image: String
   username: String!
   email: String!
@@ -2901,8 +2901,8 @@ input UserCreateNestedOneWithoutUserRoleInput {
 }
 
 input UserCreateWithoutUserRoleInput {
-  firstName: String
-  lastName: String
+  firstname: String
+  lastname: String
   image: String
   username: String!
   email: String!
@@ -3020,8 +3020,8 @@ input UserCreateNestedOneWithoutUserMealInput {
 }
 
 input UserCreateWithoutUserMealInput {
-  firstName: String
-  lastName: String
+  firstname: String
+  lastname: String
   image: String
   username: String!
   email: String!
@@ -5956,8 +5956,8 @@ input UserCreateNestedOneWithoutUserMealLocationInput {
 }
 
 input UserCreateWithoutUserMealLocationInput {
-  firstName: String
-  lastName: String
+  firstname: String
+  lastname: String
   image: String
   username: String!
   email: String!
@@ -6206,8 +6206,8 @@ input UserCreateManyUpdatedByUserInputEnvelope {
 
 input UserCreateManyUpdatedByUserInput {
   id: Int
-  firstName: String
-  lastName: String
+  firstname: String
+  lastname: String
   image: String
   username: String!
   email: String!
@@ -6227,8 +6227,8 @@ input UserCreateManyCreatedByUserInputEnvelope {
 
 input UserCreateManyCreatedByUserInput {
   id: Int
-  firstName: String
-  lastName: String
+  firstname: String
+  lastname: String
   image: String
   username: String!
   email: String!
@@ -6308,8 +6308,8 @@ input AllergensCreateOrConnectWithoutUsersInput {
 
 input UserCreateManyInput {
   id: Int
-  firstName: String
-  lastName: String
+  firstname: String
+  lastname: String
   image: String
   username: String!
   email: String!
@@ -6318,8 +6318,8 @@ input UserCreateManyInput {
 }
 
 input UserUpdateInput {
-  firstName: NullableStringFieldUpdateOperationsInput
-  lastName: NullableStringFieldUpdateOperationsInput
+  firstname: NullableStringFieldUpdateOperationsInput
+  lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
   username: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
@@ -6818,8 +6818,8 @@ input UserUpsertWithWhereUniqueWithoutAllergensInput {
 }
 
 input UserUpdateWithoutAllergensInput {
-  firstName: NullableStringFieldUpdateOperationsInput
-  lastName: NullableStringFieldUpdateOperationsInput
+  firstname: NullableStringFieldUpdateOperationsInput
+  lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
   username: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
@@ -6975,8 +6975,8 @@ input UserUpsertWithWhereUniqueWithoutCreatedByUserInput {
 }
 
 input UserUpdateWithoutCreatedByUserInput {
-  firstName: NullableStringFieldUpdateOperationsInput
-  lastName: NullableStringFieldUpdateOperationsInput
+  firstname: NullableStringFieldUpdateOperationsInput
+  lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
   username: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
@@ -7049,8 +7049,8 @@ input UserUpsertWithWhereUniqueWithoutUpdatedByUserInput {
 }
 
 input UserUpdateWithoutUpdatedByUserInput {
-  firstName: NullableStringFieldUpdateOperationsInput
-  lastName: NullableStringFieldUpdateOperationsInput
+  firstname: NullableStringFieldUpdateOperationsInput
+  lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
   username: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
@@ -7146,8 +7146,8 @@ input UserUpsertWithoutUserRoleInput {
 }
 
 input UserUpdateWithoutUserRoleInput {
-  firstName: NullableStringFieldUpdateOperationsInput
-  lastName: NullableStringFieldUpdateOperationsInput
+  firstname: NullableStringFieldUpdateOperationsInput
+  lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
   username: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
@@ -7294,8 +7294,8 @@ input UserUpsertWithoutUserMealInput {
 }
 
 input UserUpdateWithoutUserMealInput {
-  firstName: NullableStringFieldUpdateOperationsInput
-  lastName: NullableStringFieldUpdateOperationsInput
+  firstname: NullableStringFieldUpdateOperationsInput
+  lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
   username: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
@@ -11242,8 +11242,8 @@ input UserUpsertWithoutUserMealLocationInput {
 }
 
 input UserUpdateWithoutUserMealLocationInput {
-  firstName: NullableStringFieldUpdateOperationsInput
-  lastName: NullableStringFieldUpdateOperationsInput
+  firstname: NullableStringFieldUpdateOperationsInput
+  lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
   username: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
@@ -11512,8 +11512,8 @@ input UserScalarWhereInput {
   OR: [UserScalarWhereInput!]
   NOT: [UserScalarWhereInput!]
   id: IntFilter
-  firstName: StringNullableFilter
-  lastName: StringNullableFilter
+  firstname: StringNullableFilter
+  lastname: StringNullableFilter
   image: StringNullableFilter
   username: StringFilter
   email: StringFilter
@@ -11522,8 +11522,8 @@ input UserScalarWhereInput {
 }
 
 input UserUpdateManyMutationInput {
-  firstName: NullableStringFieldUpdateOperationsInput
-  lastName: NullableStringFieldUpdateOperationsInput
+  firstname: NullableStringFieldUpdateOperationsInput
+  lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
   username: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
@@ -11683,8 +11683,8 @@ input AllergensUpdateManyWithWhereWithoutUsersInput {
 
 input UserUncheckedUpdateInput {
   id: IntFieldUpdateOperationsInput
-  firstName: NullableStringFieldUpdateOperationsInput
-  lastName: NullableStringFieldUpdateOperationsInput
+  firstname: NullableStringFieldUpdateOperationsInput
+  lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
   username: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput

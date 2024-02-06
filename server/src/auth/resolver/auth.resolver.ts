@@ -27,6 +27,8 @@ export class AuthResolver {
         data: { lastOnline: new Date() },
         select: {
           id: true,
+          firstname: true,
+          lastname: true,
           username: true,
           email: true,
           userRole: {

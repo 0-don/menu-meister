@@ -4,8 +4,8 @@ export const ME = graphql(/* GraphQL */ `
   query Me {
     me {
       id
-      firstName
-      lastName
+      firstname
+      lastname
       username
       email
       userRole {

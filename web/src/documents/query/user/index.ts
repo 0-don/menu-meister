@@ -18,8 +18,8 @@ export const GET_USER_ADMIN = graphql(/* GraphQL */ `
       distinct: $distinct
     ) {
       id
-      firstName
-      lastName
+      firstname
+      lastname
       username
       email
       userRole {
@@ -57,8 +57,8 @@ export const GET_ALL_USERS_ADMIN = graphql(/* GraphQL */ `
       distinct: $distinct
     ) {
       id
-      firstName
-      lastName
+      firstname
+      lastname
       email
       createdAt
     }

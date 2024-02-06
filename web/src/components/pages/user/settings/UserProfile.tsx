@@ -35,8 +35,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
     deleteUserMealLocation,
   } = useMeHook();
   const { allergens } = useIngredientPropertiesHook();
-  const [firstName, setFirstName] = useState<string>(user?.firstName || "");
-  const [lastName, setLastName] = useState<string>(user?.lastName || "");
+  const [firstname, setFirstname] = useState<string>(user?.firstname || "");
+  const [lastname, setLastname] = useState<string>(user?.lastname || "");
   const [allergen, setAllergen] = useState<string>("");
   const [timeOfDayAndMealLocation, setTimeOfDayAndMealLoction] =
     useState<TimeOfDayAndMealLocation>({
@@ -45,9 +45,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
     });
 
   useEffect(() => {
-    setFirstName(user?.firstName || "");
-    setLastName(user?.lastName || "");
-  }, [user?.firstName, user?.lastName]);
+    setFirstname(user?.firstname || "");
+    setLastname(user?.lastname || "");
+  }, [user?.firstname, user?.lastname]);
 
   const submit = async (args?: TimeOfDayAndMealLocation) => {
     const changedState = args || timeOfDayAndMealLocation;
@@ -81,26 +81,26 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <MyInput
           label={t("FIRSTNAME")}
-          value={firstName}
+          value={firstname}
           onChange={(e) => {
             if (!isHighRank) return;
-            setFirstName(e.target.value);
+            setFirstname(e.target.value);
             updateUser({
               where: { id: user.id },
-              data: { firstName: { set: e.target.value } },
+              data: { firstname: { set: e.target.value } },
             });
           }}
           size="sm"
         />
         <MyInput
           label={t("LASTNAME")}
-          value={lastName}
+          value={lastname}
           onChange={(e) => {
             if (!isHighRank) return;
-            setLastName(e.target.value);
+            setLastname(e.target.value);
             updateUser({
               where: { id: user.id },
-              data: { lastName: { set: e.target.value } },
+              data: { lastname: { set: e.target.value } },
             });
           }}
           size="sm"

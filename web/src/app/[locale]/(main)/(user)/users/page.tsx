@@ -37,8 +37,8 @@ export default function UsersPage({}: UsersPageProps) {
               <TableRow key={user.id}>
                 <TableCell>{user.id}</TableCell>
                 <TableCell>{user.email}</TableCell>
-                <TableCell>{user.firstName}</TableCell>
-                <TableCell>{user.lastName}</TableCell>
+                <TableCell>{user.firstname}</TableCell>
+                <TableCell>{user.lastname}</TableCell>
                 <TableCell>
                   {dayjs(user.createdAt).format("DD.MM.YYYY")}
                 </TableCell>
