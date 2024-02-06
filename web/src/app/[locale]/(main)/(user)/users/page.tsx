@@ -2,6 +2,7 @@
 
 import { GET_ALL_USERS_ADMIN } from "@/documents/query/user";
 import { useGqlQuery } from "@/fetcher";
+import { Link } from "@/navigation";
 import {
   Table,
   TableBody,
@@ -30,7 +31,9 @@ export default function UsersPage({}: UsersPageProps) {
             <TableColumn>{t("FIRSTNAME")}</TableColumn>
             <TableColumn>{t("LASTNAME")}</TableColumn>
             <TableColumn>{t("CREATED_AT")}</TableColumn>
-            <TableColumn className="flex justify-center items-center">{t("ACTION")}</TableColumn>
+            <TableColumn className="flex items-center justify-center">
+              {t("ACTION")}
+            </TableColumn>
           </TableHeader>
           <TableBody>
             {(getAllUsersAdmin || []).map((user) => (
@@ -43,7 +46,9 @@ export default function UsersPage({}: UsersPageProps) {
                   {dayjs(user.createdAt).format("DD.MM.YYYY")}
                 </TableCell>
                 <TableCell className="flex justify-center">
-                  <MdEdit />
+                  <Link href={`/user/${user.id}`}>
+                    <MdEdit className="hover:text-primary-500" />
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}

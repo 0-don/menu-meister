@@ -14,8 +14,10 @@ export default function IdPage({ params }: UserDetailsModalProps) {
     where: { id: { equals: params.id } },
   });
   return (
-    <MyModal>
-      <UserProfile user={getUserAdmin as User} refetch={refetch} />
+    <MyModal className="md:w-2/5">
+      <main className="mt-5 w-full rounded-lg bg-default-50 p-5">
+        <UserProfile user={getUserAdmin as User} refetch={refetch} />
+      </main>
     </MyModal>
   );
 }
