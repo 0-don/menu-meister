@@ -78,9 +78,10 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
         {t("PROFILE_DETAILS_DESCRIPTION")}
       </p>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="mb-5 grid grid-cols-1 gap-4 md:grid-cols-2">
         <MyInput
           label={t("FIRSTNAME")}
+          size="sm"
           value={firstname}
           onChange={(e) => {
             if (!isHighRank) return;
@@ -90,9 +91,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
               data: { firstname: { set: e.target.value } },
             });
           }}
-          size="sm"
         />
         <MyInput
+          size="sm"
           label={t("LASTNAME")}
           value={lastname}
           onChange={(e) => {
@@ -103,7 +104,6 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
               data: { lastname: { set: e.target.value } },
             });
           }}
-          size="sm"
         />
       </div>
 

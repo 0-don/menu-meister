@@ -23,7 +23,6 @@ export const MyInput: React.FC<MyInputProps> = (props) => {
       {...props}
       label={uppercaseLabel}
       isClearable={props.isClearable}
-      radius="lg"
       value={props.value}
       fullWidth
       onChange={(e) => props.onChange && props.onChange(e)}
