@@ -11,7 +11,7 @@ interface UserDetailsModalProps {
 
 export default function IdPage({ params }: UserDetailsModalProps) {
   const { data: { getUserAdmin } = {}, refetch } = useGqlQuery(GET_USER_ADMIN, {
-    where: { id: { equals: params.id } },
+    where: { id: { equals: Number(params.id) } },
   });
   return (
     <MyModal className="md:w-2/5">

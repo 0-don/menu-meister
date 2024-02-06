@@ -82,6 +82,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
         <MyInput
           label={t("FIRSTNAME")}
           size="sm"
+          labelPlacement="outside"
+          placeholder=" "
           value={firstname}
           onChange={(e) => {
             if (!isHighRank) return;
@@ -93,8 +95,10 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
           }}
         />
         <MyInput
-          size="sm"
           label={t("LASTNAME")}
+          size="sm"
+          labelPlacement="outside"
+          placeholder=" "
           value={lastname}
           onChange={(e) => {
             if (!isHighRank) return;
