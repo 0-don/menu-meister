@@ -16,7 +16,7 @@ import { COLORS, ColorPalette } from "../utils/ColorPalette";
 interface AddNewTableRowProps {}
 
 export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
-  const t = useTranslations<"Dashboard">();
+  const t = useTranslations<"Meals">();
   const { meals } = useMealHook();
   const { createWeeklyMealGroup } = useWeeklyMealGroupHook();
   const dashboardStore = useSnapshot(DashboardStore);

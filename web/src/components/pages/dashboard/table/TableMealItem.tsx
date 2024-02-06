@@ -30,7 +30,7 @@ interface TableMealItemProps {
 }
 
 export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
-  const t = useTranslations<"Dashboard">();
+  const t = useTranslations<"Meals">();
   const {
     userMealsUser,
     userMealsAdmin,

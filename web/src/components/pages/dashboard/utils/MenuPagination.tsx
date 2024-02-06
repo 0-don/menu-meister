@@ -13,7 +13,7 @@ import { useSnapshot } from "valtio";
 
 export const MenuPagination: React.FC = () => {
   const dateRef = useRef<HTMLInputElement>(null);
-  const t = useTranslations<"Dashboard">();
+  const t = useTranslations<"Meals">();
   const { calendar, weeksThatYear, daysThatWeek } = useSnapshot(DashboardStore);
 
   return (

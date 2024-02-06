@@ -28,7 +28,7 @@ interface RenderDayColumnProps {
 
 const RenderDayColumn: React.FC<RenderDayColumnProps> = (props) => {
   const locale = useLocale();
-  const t = useTranslations<"Dashboard">();
+  const t = useTranslations<"Meals">();
   const [dayName, setDayName] = useState<string>(
     t(props.dayKey.toUpperCase() as keyof Messages["Dashboard"]),
   );
@@ -50,7 +50,7 @@ const RenderDayColumn: React.FC<RenderDayColumnProps> = (props) => {
 };
 
 export function TableContext() {
-  const t = useTranslations<"Dashboard">();
+  const t = useTranslations<"Meals">();
   const { updateWeeklyMealGroup, switchWeeklyMealGroup, isPast } =
     useWeeklyMealGroupHook();
   const { userMealsAdmin } = useUserMealHook();

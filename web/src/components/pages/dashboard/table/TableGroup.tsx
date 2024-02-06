@@ -25,7 +25,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
   listeners,
   activatorRef,
 }) => {
-  const t = useTranslations<"Dashboard">();
+  const t = useTranslations<"Meals">();
   const dashboardStore = useSnapshot(DashboardStore);
   const tableStore = useSnapshot(TableStore);
   const group = tableStore.getGroup(id);

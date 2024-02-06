@@ -14,7 +14,7 @@ import { useSnapshot } from "valtio";
 interface CopyTableWeekProps {}
 
 export const CopyTableWeek: React.FC<CopyTableWeekProps> = ({}) => {
-  const t = useTranslations<"Dashboard">();
+  const t = useTranslations<"Meals">();
   const router = useRouter();
   const dashboardStore = useSnapshot(DashboardStore);
   const [date, setDate] = useState<string>(dashboardStore.daysThatWeek[0]);

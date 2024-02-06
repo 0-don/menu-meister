@@ -18,7 +18,7 @@ interface DroppableProps {
 }
 
 export const Droppable: React.FC<DroppableProps> = ({ day, groupId, date }) => {
-  const t = useTranslations<"Dashboard">();
+  const t = useTranslations<"Meals">();
   const { updateWeeklyMealGroup, isPast } = useWeeklyMealGroupHook();
   const [value, setValue] = useState<UniqueIdentifier>("");
   const { isHighRank, isOrderMenu } = useMeHook();

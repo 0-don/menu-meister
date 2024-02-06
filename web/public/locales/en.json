@@ -32,7 +32,7 @@
     "HEADER": "Empowering Your Kitchen with Smart Technology",
     "SUBHEADER": "Transform your culinary journey with {brand}, where technology meets nutrition."
   },
-  "Dashboard": {
+  "Meals": {
     "FROM_TO": "<weektag>Week{week}</weektag> from <fromtag>{from}</fromtag> to <totag>{to}</totag>",
     "MONDAY": "Monday",
     "TUESDAY": "Tuesday",
@@ -68,6 +68,12 @@
     "AFTERNOON": "Afternoon",
     "EVENING": "Evening",
     "NIGHT": "Night"
+  },
+  "Orders": {
+    "FROM_TO": "<weektag>KW{week}</weektag> vom <fromtag>{from}</fromtag> bis zum <totag>{to}</totag>",
+    "DATE": "Date",
+    "MEAL": "Meal",
+    "COUNT": "Count"
   },
   "User": {
     "FIRSTNAME": "Firstname",

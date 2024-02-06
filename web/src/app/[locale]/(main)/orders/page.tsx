@@ -23,7 +23,7 @@ interface OrdersPageProps {}
 
 export default function OrdersPage({}: OrdersPageProps) {
   useInitialDashboardStore();
-  const t = useTranslations<"Dashboard">();
+  const t = useTranslations<"Orders">();
   const dashboardStore = useSnapshot(DashboardStore);
   const { meals } = useMealHook();
 
