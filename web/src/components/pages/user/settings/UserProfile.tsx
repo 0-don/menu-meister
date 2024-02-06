@@ -3,7 +3,7 @@ import { MyConfirmModal } from "@/components/elements/MyConfirmModal";
 import { MyInput } from "@/components/elements/MyInput";
 import { useIngredientPropertiesHook } from "@/components/hooks/useIngredientPropertiesHook";
 import { useMeHook } from "@/components/hooks/useMeHook";
-import { MealLocation, TimeOfDay } from "@/gql/graphql";
+import { MealLocation, TimeOfDay, User } from "@/gql/graphql";
 import { TIME_OF_DAY_CONFIGS } from "@/utils/constants";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import {
@@ -15,34 +15,39 @@ import {
 } from "@nextui-org/react";
 import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
 import { useTranslations } from "next-intl";
-import React, { useState } from "react";
-
-interface UserProfileProps {}
-
+import React, { useEffect, useState } from "react";
 type TimeOfDayAndMealLocation = {
   timeOfDay: string;
   mealLocation: string;
 };
 
-export const UserProfile: React.FC<UserProfileProps> = ({}) => {
+interface UserProfileProps {
+  user: Partial<User>;
+  refetch: () => Promise<void>;
+}
+
+export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
   const t = useTranslations<"User" | "Allergens" | "Enums">();
   const {
-    me,
-    refetchMe,
-    updateUserAllergens,
+    isHighRank,
+    updateUser,
     createUserMealLocation,
     deleteUserMealLocation,
   } = useMeHook();
   const { allergens } = useIngredientPropertiesHook();
-
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>(user?.firstName || "");
+  const [lastName, setLastName] = useState<string>(user?.lastName || "");
   const [allergen, setAllergen] = useState<string>("");
   const [timeOfDayAndMealLocation, setTimeOfDayAndMealLoction] =
     useState<TimeOfDayAndMealLocation>({
       timeOfDay: "",
       mealLocation: "",
     });
+
+  useEffect(() => {
+    setFirstName(user?.firstName || "");
+    setLastName(user?.lastName || "");
+  }, [user?.firstName, user?.lastName]);
 
   const submit = async (args?: TimeOfDayAndMealLocation) => {
     const changedState = args || timeOfDayAndMealLocation;
@@ -51,12 +56,12 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
       try {
         await createUserMealLocation({
           data: {
-            userId: Number(me?.id),
+            userId: Number(user.id),
             mealLocation: changedState.mealLocation as MealLocation,
             timeOfDay: changedState.timeOfDay as TimeOfDay,
           },
         });
-        refetchMe();
+        refetch();
         setTimeOfDayAndMealLoction({ timeOfDay: "", mealLocation: "" });
       } catch (error) {
         catchErrorAlerts(error, t);
@@ -77,13 +82,27 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
         <MyInput
           label={t("FIRSTNAME")}
           value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          onChange={(e) => {
+            if (!isHighRank) return;
+            setFirstName(e.target.value);
+            updateUser({
+              where: { id: user.id },
+              data: { firstName: { set: e.target.value } },
+            });
+          }}
           size="sm"
         />
         <MyInput
           label={t("LASTNAME")}
           value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          onChange={(e) => {
+            if (!isHighRank) return;
+            setLastName(e.target.value);
+            updateUser({
+              where: { id: user.id },
+              data: { lastName: { set: e.target.value } },
+            });
+          }}
           size="sm"
         />
       </div>
@@ -99,11 +118,13 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
               value={allergen}
               size="sm"
               onSelectionChange={async (key) => {
+                if (!isHighRank) return;
                 const allergy = allergens?.find(
                   (allergen) => allergen.id === Number(key),
                 );
                 if (key && allergy) {
-                  await updateUserAllergens({
+                  await updateUser({
+                    where: { id: user.id },
                     data: {
                       allergens: {
                         connectOrCreate: [
@@ -115,12 +136,12 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                       },
                     },
                   });
-                  refetchMe();
+                  refetch();
                   setAllergen("");
                 }
               }}
               items={(allergens || [])
-                .filter((a) => !me?.allergens?.find((b) => b.name === a.name))
+                .filter((a) => !user?.allergens?.find((b) => b.name === a.name))
                 .map(({ id, name }) => ({
                   id,
                   name: t(name as keyof Messages["Allergens"]),
@@ -130,7 +151,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
               emptyContent={t("NO_ALLERGIES")}
               aria-label={t("ALLERGENS")}
             >
-              {(me?.allergens || []).map(({ id, name }) => (
+              {(user?.allergens || []).map(({ id, name }) => (
                 <ListboxItem
                   key={id}
                   endContent={
@@ -141,12 +162,14 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                           <Button
                             color="danger"
                             onClick={async () => {
+                              if (!isHighRank) return;
                               try {
-                                await updateUserAllergens({
+                                await updateUser({
+                                  where: { id: user.id },
                                   data: { allergens: { delete: [{ id }] } },
                                 });
                                 onOpenChange();
-                                refetchMe();
+                                refetch();
                               } catch (error) {
                                 catchErrorAlerts(error, t);
                               }
@@ -158,7 +181,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                       )}
                       Trigger={({ onOpen }) => (
                         <FaRegTrashAlt
-                          onClick={() => onOpen()}
+                          onClick={onOpen}
                           className="m-2 cursor-pointer text-sm hover:text-red-600"
                         />
                       )}
@@ -187,6 +210,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
               className="flex items-center space-x-3"
               onSubmit={async (e) => {
                 e.preventDefault();
+                if (!isHighRank) return;
                 await submit();
               }}
             >
@@ -198,6 +222,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                 required
                 size="sm"
                 onSelectionChange={async (key) => {
+                  if (!isHighRank) return;
                   const changedState = {
                     ...timeOfDayAndMealLocation,
                     timeOfDay: key as string,
@@ -217,6 +242,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                 value={timeOfDayAndMealLocation.mealLocation}
                 size="sm"
                 onSelectionChange={async (key) => {
+                  if (!isHighRank) return;
                   const changedState = {
                     ...timeOfDayAndMealLocation,
                     mealLocation: key as string,
@@ -233,7 +259,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
               emptyContent={t("NO_USER_MEAL_LOCATION")}
               aria-label={t("TIME_OF_DAY")}
             >
-              {(me?.userMealLocation || []).map(
+              {(user?.userMealLocation || []).map(
                 ({ id, mealLocation, timeOfDay }) => {
                   const { icon: Icon } = TIME_OF_DAY_CONFIGS.find(
                     (config) => config.time === timeOfDay,
@@ -253,12 +279,16 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                               <Button
                                 color="danger"
                                 onClick={async () => {
+                                  if (!isHighRank) return;
                                   try {
                                     await deleteUserMealLocation({
-                                      where: { id },
+                                      where: {
+                                        id,
+                                        userId: { equals: Number(user.id) },
+                                      },
                                     });
                                     onOpen();
-                                    refetchMe();
+                                    refetch();
                                   } catch (error) {
                                     catchErrorAlerts(error, t);
                                   }
@@ -270,7 +300,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({}) => {
                           )}
                           Trigger={({ onOpen }) => (
                             <FaRegTrashAlt
-                              onClick={() => onOpen()}
+                              onClick={onOpen}
                               className="m-2 cursor-pointer text-sm hover:text-red-600"
                             />
                           )}

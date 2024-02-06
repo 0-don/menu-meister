@@ -2267,7 +2267,6 @@ type Mutation {
   logout: Boolean
   changePasswordUser(password: String!, newPassword: String!): Boolean
   deleteAccountTokensUser: Boolean!
-  updateUserAllergensAdmin(data: UserUncheckedUpdateInput!): Boolean
   createUserAdmin(data: UserCreateInput!): User
   createManyUsersAdmin(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): [User!]
   deleteUserAdmin(where: UserWhereUniqueInput!): User
@@ -2275,6 +2274,7 @@ type Mutation {
   updateUserAdmin(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsersAdmin(data: UserUpdateManyMutationInput!, where: UserWhereInput): [User!]
   upsertUserAdmin(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User
+  updateUserAllergensUser(data: UserUncheckedUpdateInput!): Boolean
   createUserMealUser(data: UserMealUncheckedCreateInput!): UserMeal
   createManyUserMealsUser(data: [UserMealCreateManyInput!]!, skipDuplicates: Boolean): [UserMeal!]
   deleteUserMealUser(where: UserMealWhereUniqueInput!): UserMeal
@@ -2348,96 +2348,64 @@ input LoginUserInput {
   password: String!
 }
 
-input UserUncheckedUpdateInput {
-  id: IntFieldUpdateOperationsInput
-  firstName: NullableStringFieldUpdateOperationsInput
-  lastName: NullableStringFieldUpdateOperationsInput
-  image: NullableStringFieldUpdateOperationsInput
-  username: StringFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  lastOnline: DateTimeFieldUpdateOperationsInput
-  status: BoolFieldUpdateOperationsInput
-  allergens: AllergensUncheckedUpdateManyWithoutUsersNestedInput
-  createdToken: TokenUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedToken: TokenUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdUser: UserUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedUser: UserUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdUserRoles: UserRoleUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedUserRoles: UserRoleUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdUserMeals: UserMealUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedUserMeals: UserMealUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdSettings: SettingsUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedSettings: SettingsUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdIngredients: IngredientUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedIngredients: IngredientUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdRecipes: RecipeUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedRecipes: RecipeUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdRecipeIngredients: RecipeIngredientUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedRecipeIngredients: RecipeIngredientUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdMeals: MealUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedMeals: MealUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdMealRecipes: MealRecipeUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedMealRecipes: MealRecipeUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdWeeklyMealGroups: WeeklyMealGroupUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedWeeklyMealGroups: WeeklyMealGroupUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdMealBoardPlans: MealBoardPlanUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedMealBoardPlans: MealBoardPlanUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdAllergens: AllergensUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedAllergens: AllergensUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdAdditives: AdditivesUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedAdditives: AdditivesUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdProperties: PropertiesUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedProperties: PropertiesUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdCategories: CategoriesUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedCategories: CategoriesUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdSeasons: SeasonsUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedSeasons: SeasonsUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdFoodForms: FoodFormsUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedFoodForms: FoodFormsUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdKitchens: KitchensUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedKitchens: KitchensUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  createdUserMealLocations: UserMealLocationUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  updatedUserMealLocations: UserMealLocationUncheckedUpdateManyWithoutUpdatedByUserNestedInput
-  userRole: UserRoleUncheckedUpdateManyWithoutUserNestedInput
-  userMeal: UserMealUncheckedUpdateManyWithoutUserNestedInput
-  userMealLocation: UserMealLocationUncheckedUpdateManyWithoutUserNestedInput
+input UserCreateInput {
+  firstName: String
+  lastName: String
+  image: String
+  username: String!
+  email: String!
+  lastOnline: DateTime
+  status: Boolean
+  allergens: AllergensCreateNestedManyWithoutUsersInput
+  createdToken: TokenCreateNestedManyWithoutCreatedByUserInput
+  updatedToken: TokenCreateNestedManyWithoutUpdatedByUserInput
+  createdUser: UserCreateNestedManyWithoutCreatedByUserInput
+  updatedUser: UserCreateNestedManyWithoutUpdatedByUserInput
+  createdUserRoles: UserRoleCreateNestedManyWithoutCreatedByUserInput
+  updatedUserRoles: UserRoleCreateNestedManyWithoutUpdatedByUserInput
+  createdUserMeals: UserMealCreateNestedManyWithoutCreatedByUserInput
+  updatedUserMeals: UserMealCreateNestedManyWithoutUpdatedByUserInput
+  createdSettings: SettingsCreateNestedManyWithoutCreatedByUserInput
+  updatedSettings: SettingsCreateNestedManyWithoutUpdatedByUserInput
+  createdIngredients: IngredientCreateNestedManyWithoutCreatedByUserInput
+  updatedIngredients: IngredientCreateNestedManyWithoutUpdatedByUserInput
+  createdRecipes: RecipeCreateNestedManyWithoutCreatedByUserInput
+  updatedRecipes: RecipeCreateNestedManyWithoutUpdatedByUserInput
+  createdRecipeIngredients: RecipeIngredientCreateNestedManyWithoutCreatedByUserInput
+  updatedRecipeIngredients: RecipeIngredientCreateNestedManyWithoutUpdatedByUserInput
+  createdMeals: MealCreateNestedManyWithoutCreatedByUserInput
+  updatedMeals: MealCreateNestedManyWithoutUpdatedByUserInput
+  createdMealRecipes: MealRecipeCreateNestedManyWithoutCreatedByUserInput
+  updatedMealRecipes: MealRecipeCreateNestedManyWithoutUpdatedByUserInput
+  createdWeeklyMealGroups: WeeklyMealGroupCreateNestedManyWithoutCreatedByUserInput
+  updatedWeeklyMealGroups: WeeklyMealGroupCreateNestedManyWithoutUpdatedByUserInput
+  createdMealBoardPlans: MealBoardPlanCreateNestedManyWithoutCreatedByUserInput
+  updatedMealBoardPlans: MealBoardPlanCreateNestedManyWithoutUpdatedByUserInput
+  createdAllergens: AllergensCreateNestedManyWithoutCreatedByUserInput
+  updatedAllergens: AllergensCreateNestedManyWithoutUpdatedByUserInput
+  createdAdditives: AdditivesCreateNestedManyWithoutCreatedByUserInput
+  updatedAdditives: AdditivesCreateNestedManyWithoutUpdatedByUserInput
+  createdProperties: PropertiesCreateNestedManyWithoutCreatedByUserInput
+  updatedProperties: PropertiesCreateNestedManyWithoutUpdatedByUserInput
+  createdCategories: CategoriesCreateNestedManyWithoutCreatedByUserInput
+  updatedCategories: CategoriesCreateNestedManyWithoutUpdatedByUserInput
+  createdSeasons: SeasonsCreateNestedManyWithoutCreatedByUserInput
+  updatedSeasons: SeasonsCreateNestedManyWithoutUpdatedByUserInput
+  createdFoodForms: FoodFormsCreateNestedManyWithoutCreatedByUserInput
+  updatedFoodForms: FoodFormsCreateNestedManyWithoutUpdatedByUserInput
+  createdKitchens: KitchensCreateNestedManyWithoutCreatedByUserInput
+  updatedKitchens: KitchensCreateNestedManyWithoutUpdatedByUserInput
+  createdUserMealLocations: UserMealLocationCreateNestedManyWithoutCreatedByUserInput
+  updatedUserMealLocations: UserMealLocationCreateNestedManyWithoutUpdatedByUserInput
+  userRole: UserRoleCreateNestedManyWithoutUserInput
+  userMeal: UserMealCreateNestedManyWithoutUserInput
+  userMealLocation: UserMealLocationCreateNestedManyWithoutUserInput
 }
 
-input IntFieldUpdateOperationsInput {
-  set: Int
-  increment: Int
-  decrement: Int
-  multiply: Int
-  divide: Int
-}
-
-input NullableStringFieldUpdateOperationsInput {
-  set: String
-}
-
-input StringFieldUpdateOperationsInput {
-  set: String
-}
-
-input DateTimeFieldUpdateOperationsInput {
-  set: DateTime
-}
-
-input BoolFieldUpdateOperationsInput {
-  set: Boolean
-}
-
-input AllergensUncheckedUpdateManyWithoutUsersNestedInput {
+input AllergensCreateNestedManyWithoutUsersInput {
   create: [AllergensCreateWithoutUsersInput!]
   connectOrCreate: [AllergensCreateOrConnectWithoutUsersInput!]
-  upsert: [AllergensUpsertWithWhereUniqueWithoutUsersInput!]
-  set: [AllergensWhereUniqueInput!]
-  disconnect: [AllergensWhereUniqueInput!]
-  delete: [AllergensWhereUniqueInput!]
   connect: [AllergensWhereUniqueInput!]
-  update: [AllergensUpdateWithWhereUniqueWithoutUsersInput!]
-  updateMany: [AllergensUpdateManyWithWhereWithoutUsersInput!]
-  deleteMany: [AllergensScalarWhereInput!]
 }
 
 input AllergensCreateWithoutUsersInput {
@@ -2851,17 +2819,6 @@ input UserCreateWithoutCreatedByUserInput {
   userRole: UserRoleCreateNestedManyWithoutUserInput
   userMeal: UserMealCreateNestedManyWithoutUserInput
   userMealLocation: UserMealLocationCreateNestedManyWithoutUserInput
-}
-
-input AllergensCreateNestedManyWithoutUsersInput {
-  create: [AllergensCreateWithoutUsersInput!]
-  connectOrCreate: [AllergensCreateOrConnectWithoutUsersInput!]
-  connect: [AllergensWhereUniqueInput!]
-}
-
-input AllergensCreateOrConnectWithoutUsersInput {
-  where: AllergensWhereUniqueInput!
-  create: AllergensCreateWithoutUsersInput!
 }
 
 input UserCreateNestedManyWithoutUpdatedByUserInput {
@@ -6344,6 +6301,105 @@ input IngredientCreateOrConnectWithoutAllergensInput {
   create: IngredientCreateWithoutAllergensInput!
 }
 
+input AllergensCreateOrConnectWithoutUsersInput {
+  where: AllergensWhereUniqueInput!
+  create: AllergensCreateWithoutUsersInput!
+}
+
+input UserCreateManyInput {
+  id: Int
+  firstName: String
+  lastName: String
+  image: String
+  username: String!
+  email: String!
+  lastOnline: DateTime
+  status: Boolean
+}
+
+input UserUpdateInput {
+  firstName: NullableStringFieldUpdateOperationsInput
+  lastName: NullableStringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  username: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  lastOnline: DateTimeFieldUpdateOperationsInput
+  status: BoolFieldUpdateOperationsInput
+  allergens: AllergensUpdateManyWithoutUsersNestedInput
+  createdToken: TokenUpdateManyWithoutCreatedByUserNestedInput
+  updatedToken: TokenUpdateManyWithoutUpdatedByUserNestedInput
+  createdUser: UserUpdateManyWithoutCreatedByUserNestedInput
+  updatedUser: UserUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserRoles: UserRoleUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserRoles: UserRoleUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserMeals: UserMealUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserMeals: UserMealUpdateManyWithoutUpdatedByUserNestedInput
+  createdSettings: SettingsUpdateManyWithoutCreatedByUserNestedInput
+  updatedSettings: SettingsUpdateManyWithoutUpdatedByUserNestedInput
+  createdIngredients: IngredientUpdateManyWithoutCreatedByUserNestedInput
+  updatedIngredients: IngredientUpdateManyWithoutUpdatedByUserNestedInput
+  createdRecipes: RecipeUpdateManyWithoutCreatedByUserNestedInput
+  updatedRecipes: RecipeUpdateManyWithoutUpdatedByUserNestedInput
+  createdRecipeIngredients: RecipeIngredientUpdateManyWithoutCreatedByUserNestedInput
+  updatedRecipeIngredients: RecipeIngredientUpdateManyWithoutUpdatedByUserNestedInput
+  createdMeals: MealUpdateManyWithoutCreatedByUserNestedInput
+  updatedMeals: MealUpdateManyWithoutUpdatedByUserNestedInput
+  createdMealRecipes: MealRecipeUpdateManyWithoutCreatedByUserNestedInput
+  updatedMealRecipes: MealRecipeUpdateManyWithoutUpdatedByUserNestedInput
+  createdWeeklyMealGroups: WeeklyMealGroupUpdateManyWithoutCreatedByUserNestedInput
+  updatedWeeklyMealGroups: WeeklyMealGroupUpdateManyWithoutUpdatedByUserNestedInput
+  createdMealBoardPlans: MealBoardPlanUpdateManyWithoutCreatedByUserNestedInput
+  updatedMealBoardPlans: MealBoardPlanUpdateManyWithoutUpdatedByUserNestedInput
+  createdAllergens: AllergensUpdateManyWithoutCreatedByUserNestedInput
+  updatedAllergens: AllergensUpdateManyWithoutUpdatedByUserNestedInput
+  createdAdditives: AdditivesUpdateManyWithoutCreatedByUserNestedInput
+  updatedAdditives: AdditivesUpdateManyWithoutUpdatedByUserNestedInput
+  createdProperties: PropertiesUpdateManyWithoutCreatedByUserNestedInput
+  updatedProperties: PropertiesUpdateManyWithoutUpdatedByUserNestedInput
+  createdCategories: CategoriesUpdateManyWithoutCreatedByUserNestedInput
+  updatedCategories: CategoriesUpdateManyWithoutUpdatedByUserNestedInput
+  createdSeasons: SeasonsUpdateManyWithoutCreatedByUserNestedInput
+  updatedSeasons: SeasonsUpdateManyWithoutUpdatedByUserNestedInput
+  createdFoodForms: FoodFormsUpdateManyWithoutCreatedByUserNestedInput
+  updatedFoodForms: FoodFormsUpdateManyWithoutUpdatedByUserNestedInput
+  createdKitchens: KitchensUpdateManyWithoutCreatedByUserNestedInput
+  updatedKitchens: KitchensUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserMealLocations: UserMealLocationUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserMealLocations: UserMealLocationUpdateManyWithoutUpdatedByUserNestedInput
+  userRole: UserRoleUpdateManyWithoutUserNestedInput
+  userMeal: UserMealUpdateManyWithoutUserNestedInput
+  userMealLocation: UserMealLocationUpdateManyWithoutUserNestedInput
+}
+
+input NullableStringFieldUpdateOperationsInput {
+  set: String
+}
+
+input StringFieldUpdateOperationsInput {
+  set: String
+}
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input BoolFieldUpdateOperationsInput {
+  set: Boolean
+}
+
+input AllergensUpdateManyWithoutUsersNestedInput {
+  create: [AllergensCreateWithoutUsersInput!]
+  connectOrCreate: [AllergensCreateOrConnectWithoutUsersInput!]
+  upsert: [AllergensUpsertWithWhereUniqueWithoutUsersInput!]
+  set: [AllergensWhereUniqueInput!]
+  disconnect: [AllergensWhereUniqueInput!]
+  delete: [AllergensWhereUniqueInput!]
+  connect: [AllergensWhereUniqueInput!]
+  update: [AllergensUpdateWithWhereUniqueWithoutUsersInput!]
+  updateMany: [AllergensUpdateManyWithWhereWithoutUsersInput!]
+  deleteMany: [AllergensScalarWhereInput!]
+}
+
 input AllergensUpsertWithWhereUniqueWithoutUsersInput {
   where: AllergensWhereUniqueInput!
   update: AllergensUpdateWithoutUsersInput!
@@ -6970,41 +7026,6 @@ input UserUpdateWithoutCreatedByUserInput {
   userRole: UserRoleUpdateManyWithoutUserNestedInput
   userMeal: UserMealUpdateManyWithoutUserNestedInput
   userMealLocation: UserMealLocationUpdateManyWithoutUserNestedInput
-}
-
-input AllergensUpdateManyWithoutUsersNestedInput {
-  create: [AllergensCreateWithoutUsersInput!]
-  connectOrCreate: [AllergensCreateOrConnectWithoutUsersInput!]
-  upsert: [AllergensUpsertWithWhereUniqueWithoutUsersInput!]
-  set: [AllergensWhereUniqueInput!]
-  disconnect: [AllergensWhereUniqueInput!]
-  delete: [AllergensWhereUniqueInput!]
-  connect: [AllergensWhereUniqueInput!]
-  update: [AllergensUpdateWithWhereUniqueWithoutUsersInput!]
-  updateMany: [AllergensUpdateManyWithWhereWithoutUsersInput!]
-  deleteMany: [AllergensScalarWhereInput!]
-}
-
-input AllergensUpdateWithWhereUniqueWithoutUsersInput {
-  where: AllergensWhereUniqueInput!
-  data: AllergensUpdateWithoutUsersInput!
-}
-
-input AllergensUpdateManyWithWhereWithoutUsersInput {
-  where: AllergensScalarWhereInput!
-  data: AllergensUpdateManyMutationInput!
-}
-
-input AllergensScalarWhereInput {
-  AND: [AllergensScalarWhereInput!]
-  OR: [AllergensScalarWhereInput!]
-  NOT: [AllergensScalarWhereInput!]
-  id: IntFilter
-  name: StringFilter
-}
-
-input AllergensUpdateManyMutationInput {
-  name: StringFieldUpdateOperationsInput
 }
 
 input UserUpdateManyWithoutUpdatedByUserNestedInput {
@@ -8172,6 +8193,14 @@ input WeeklyMealGroupUpdateWithoutMondayMealInput {
   saturdayMeal: MealUpdateOneWithoutSaturdayMealGroupsNestedInput
   sundayMeal: MealUpdateOneWithoutSundayMealGroupsNestedInput
   userMeal: UserMealUpdateManyWithoutWeeklyMealGroupNestedInput
+}
+
+input IntFieldUpdateOperationsInput {
+  set: Int
+  increment: Int
+  decrement: Int
+  multiply: Int
+  divide: Int
 }
 
 input MealBoardPlanUpdateOneRequiredWithoutWeeklyMealGroupNestedInput {
@@ -10664,6 +10693,18 @@ input AllergensUpdateManyWithWhereWithoutCreatedByUserInput {
   data: AllergensUpdateManyMutationInput!
 }
 
+input AllergensScalarWhereInput {
+  AND: [AllergensScalarWhereInput!]
+  OR: [AllergensScalarWhereInput!]
+  NOT: [AllergensScalarWhereInput!]
+  id: IntFilter
+  name: StringFilter
+}
+
+input AllergensUpdateManyMutationInput {
+  name: StringFieldUpdateOperationsInput
+}
+
 input AllergensUpdateManyWithoutUpdatedByUserNestedInput {
   create: [AllergensCreateWithoutUpdatedByUserInput!]
   connectOrCreate: [AllergensCreateOrConnectWithoutUpdatedByUserInput!]
@@ -11630,6 +11671,84 @@ input IngredientUpdateManyWithWhereWithoutAllergensInput {
   data: IngredientUpdateManyMutationInput!
 }
 
+input AllergensUpdateWithWhereUniqueWithoutUsersInput {
+  where: AllergensWhereUniqueInput!
+  data: AllergensUpdateWithoutUsersInput!
+}
+
+input AllergensUpdateManyWithWhereWithoutUsersInput {
+  where: AllergensScalarWhereInput!
+  data: AllergensUpdateManyMutationInput!
+}
+
+input UserUncheckedUpdateInput {
+  id: IntFieldUpdateOperationsInput
+  firstName: NullableStringFieldUpdateOperationsInput
+  lastName: NullableStringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  username: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  lastOnline: DateTimeFieldUpdateOperationsInput
+  status: BoolFieldUpdateOperationsInput
+  allergens: AllergensUncheckedUpdateManyWithoutUsersNestedInput
+  createdToken: TokenUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedToken: TokenUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdUser: UserUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedUser: UserUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserRoles: UserRoleUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserRoles: UserRoleUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserMeals: UserMealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserMeals: UserMealUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdSettings: SettingsUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedSettings: SettingsUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdIngredients: IngredientUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedIngredients: IngredientUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdRecipes: RecipeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedRecipes: RecipeUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdRecipeIngredients: RecipeIngredientUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedRecipeIngredients: RecipeIngredientUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdMeals: MealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedMeals: MealUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdMealRecipes: MealRecipeUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedMealRecipes: MealRecipeUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdWeeklyMealGroups: WeeklyMealGroupUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedWeeklyMealGroups: WeeklyMealGroupUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdMealBoardPlans: MealBoardPlanUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedMealBoardPlans: MealBoardPlanUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdAllergens: AllergensUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedAllergens: AllergensUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdAdditives: AdditivesUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedAdditives: AdditivesUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdProperties: PropertiesUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedProperties: PropertiesUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdCategories: CategoriesUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedCategories: CategoriesUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdSeasons: SeasonsUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedSeasons: SeasonsUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdFoodForms: FoodFormsUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedFoodForms: FoodFormsUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdKitchens: KitchensUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedKitchens: KitchensUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  createdUserMealLocations: UserMealLocationUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  updatedUserMealLocations: UserMealLocationUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+  userRole: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  userMeal: UserMealUncheckedUpdateManyWithoutUserNestedInput
+  userMealLocation: UserMealLocationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+input AllergensUncheckedUpdateManyWithoutUsersNestedInput {
+  create: [AllergensCreateWithoutUsersInput!]
+  connectOrCreate: [AllergensCreateOrConnectWithoutUsersInput!]
+  upsert: [AllergensUpsertWithWhereUniqueWithoutUsersInput!]
+  set: [AllergensWhereUniqueInput!]
+  disconnect: [AllergensWhereUniqueInput!]
+  delete: [AllergensWhereUniqueInput!]
+  connect: [AllergensWhereUniqueInput!]
+  update: [AllergensUpdateWithWhereUniqueWithoutUsersInput!]
+  updateMany: [AllergensUpdateManyWithWhereWithoutUsersInput!]
+  deleteMany: [AllergensScalarWhereInput!]
+}
+
 input TokenUncheckedUpdateManyWithoutCreatedByUserNestedInput {
   create: [TokenCreateWithoutCreatedByUserInput!]
   connectOrCreate: [TokenCreateOrConnectWithoutCreatedByUserInput!]
@@ -12230,125 +12349,6 @@ input UserMealLocationUncheckedUpdateManyWithoutUserNestedInput {
   update: [UserMealLocationUpdateWithWhereUniqueWithoutUserInput!]
   updateMany: [UserMealLocationUpdateManyWithWhereWithoutUserInput!]
   deleteMany: [UserMealLocationScalarWhereInput!]
-}
-
-input UserCreateInput {
-  firstName: String
-  lastName: String
-  image: String
-  username: String!
-  email: String!
-  lastOnline: DateTime
-  status: Boolean
-  allergens: AllergensCreateNestedManyWithoutUsersInput
-  createdToken: TokenCreateNestedManyWithoutCreatedByUserInput
-  updatedToken: TokenCreateNestedManyWithoutUpdatedByUserInput
-  createdUser: UserCreateNestedManyWithoutCreatedByUserInput
-  updatedUser: UserCreateNestedManyWithoutUpdatedByUserInput
-  createdUserRoles: UserRoleCreateNestedManyWithoutCreatedByUserInput
-  updatedUserRoles: UserRoleCreateNestedManyWithoutUpdatedByUserInput
-  createdUserMeals: UserMealCreateNestedManyWithoutCreatedByUserInput
-  updatedUserMeals: UserMealCreateNestedManyWithoutUpdatedByUserInput
-  createdSettings: SettingsCreateNestedManyWithoutCreatedByUserInput
-  updatedSettings: SettingsCreateNestedManyWithoutUpdatedByUserInput
-  createdIngredients: IngredientCreateNestedManyWithoutCreatedByUserInput
-  updatedIngredients: IngredientCreateNestedManyWithoutUpdatedByUserInput
-  createdRecipes: RecipeCreateNestedManyWithoutCreatedByUserInput
-  updatedRecipes: RecipeCreateNestedManyWithoutUpdatedByUserInput
-  createdRecipeIngredients: RecipeIngredientCreateNestedManyWithoutCreatedByUserInput
-  updatedRecipeIngredients: RecipeIngredientCreateNestedManyWithoutUpdatedByUserInput
-  createdMeals: MealCreateNestedManyWithoutCreatedByUserInput
-  updatedMeals: MealCreateNestedManyWithoutUpdatedByUserInput
-  createdMealRecipes: MealRecipeCreateNestedManyWithoutCreatedByUserInput
-  updatedMealRecipes: MealRecipeCreateNestedManyWithoutUpdatedByUserInput
-  createdWeeklyMealGroups: WeeklyMealGroupCreateNestedManyWithoutCreatedByUserInput
-  updatedWeeklyMealGroups: WeeklyMealGroupCreateNestedManyWithoutUpdatedByUserInput
-  createdMealBoardPlans: MealBoardPlanCreateNestedManyWithoutCreatedByUserInput
-  updatedMealBoardPlans: MealBoardPlanCreateNestedManyWithoutUpdatedByUserInput
-  createdAllergens: AllergensCreateNestedManyWithoutCreatedByUserInput
-  updatedAllergens: AllergensCreateNestedManyWithoutUpdatedByUserInput
-  createdAdditives: AdditivesCreateNestedManyWithoutCreatedByUserInput
-  updatedAdditives: AdditivesCreateNestedManyWithoutUpdatedByUserInput
-  createdProperties: PropertiesCreateNestedManyWithoutCreatedByUserInput
-  updatedProperties: PropertiesCreateNestedManyWithoutUpdatedByUserInput
-  createdCategories: CategoriesCreateNestedManyWithoutCreatedByUserInput
-  updatedCategories: CategoriesCreateNestedManyWithoutUpdatedByUserInput
-  createdSeasons: SeasonsCreateNestedManyWithoutCreatedByUserInput
-  updatedSeasons: SeasonsCreateNestedManyWithoutUpdatedByUserInput
-  createdFoodForms: FoodFormsCreateNestedManyWithoutCreatedByUserInput
-  updatedFoodForms: FoodFormsCreateNestedManyWithoutUpdatedByUserInput
-  createdKitchens: KitchensCreateNestedManyWithoutCreatedByUserInput
-  updatedKitchens: KitchensCreateNestedManyWithoutUpdatedByUserInput
-  createdUserMealLocations: UserMealLocationCreateNestedManyWithoutCreatedByUserInput
-  updatedUserMealLocations: UserMealLocationCreateNestedManyWithoutUpdatedByUserInput
-  userRole: UserRoleCreateNestedManyWithoutUserInput
-  userMeal: UserMealCreateNestedManyWithoutUserInput
-  userMealLocation: UserMealLocationCreateNestedManyWithoutUserInput
-}
-
-input UserCreateManyInput {
-  id: Int
-  firstName: String
-  lastName: String
-  image: String
-  username: String!
-  email: String!
-  lastOnline: DateTime
-  status: Boolean
-}
-
-input UserUpdateInput {
-  firstName: NullableStringFieldUpdateOperationsInput
-  lastName: NullableStringFieldUpdateOperationsInput
-  image: NullableStringFieldUpdateOperationsInput
-  username: StringFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  lastOnline: DateTimeFieldUpdateOperationsInput
-  status: BoolFieldUpdateOperationsInput
-  allergens: AllergensUpdateManyWithoutUsersNestedInput
-  createdToken: TokenUpdateManyWithoutCreatedByUserNestedInput
-  updatedToken: TokenUpdateManyWithoutUpdatedByUserNestedInput
-  createdUser: UserUpdateManyWithoutCreatedByUserNestedInput
-  updatedUser: UserUpdateManyWithoutUpdatedByUserNestedInput
-  createdUserRoles: UserRoleUpdateManyWithoutCreatedByUserNestedInput
-  updatedUserRoles: UserRoleUpdateManyWithoutUpdatedByUserNestedInput
-  createdUserMeals: UserMealUpdateManyWithoutCreatedByUserNestedInput
-  updatedUserMeals: UserMealUpdateManyWithoutUpdatedByUserNestedInput
-  createdSettings: SettingsUpdateManyWithoutCreatedByUserNestedInput
-  updatedSettings: SettingsUpdateManyWithoutUpdatedByUserNestedInput
-  createdIngredients: IngredientUpdateManyWithoutCreatedByUserNestedInput
-  updatedIngredients: IngredientUpdateManyWithoutUpdatedByUserNestedInput
-  createdRecipes: RecipeUpdateManyWithoutCreatedByUserNestedInput
-  updatedRecipes: RecipeUpdateManyWithoutUpdatedByUserNestedInput
-  createdRecipeIngredients: RecipeIngredientUpdateManyWithoutCreatedByUserNestedInput
-  updatedRecipeIngredients: RecipeIngredientUpdateManyWithoutUpdatedByUserNestedInput
-  createdMeals: MealUpdateManyWithoutCreatedByUserNestedInput
-  updatedMeals: MealUpdateManyWithoutUpdatedByUserNestedInput
-  createdMealRecipes: MealRecipeUpdateManyWithoutCreatedByUserNestedInput
-  updatedMealRecipes: MealRecipeUpdateManyWithoutUpdatedByUserNestedInput
-  createdWeeklyMealGroups: WeeklyMealGroupUpdateManyWithoutCreatedByUserNestedInput
-  updatedWeeklyMealGroups: WeeklyMealGroupUpdateManyWithoutUpdatedByUserNestedInput
-  createdMealBoardPlans: MealBoardPlanUpdateManyWithoutCreatedByUserNestedInput
-  updatedMealBoardPlans: MealBoardPlanUpdateManyWithoutUpdatedByUserNestedInput
-  createdAllergens: AllergensUpdateManyWithoutCreatedByUserNestedInput
-  updatedAllergens: AllergensUpdateManyWithoutUpdatedByUserNestedInput
-  createdAdditives: AdditivesUpdateManyWithoutCreatedByUserNestedInput
-  updatedAdditives: AdditivesUpdateManyWithoutUpdatedByUserNestedInput
-  createdProperties: PropertiesUpdateManyWithoutCreatedByUserNestedInput
-  updatedProperties: PropertiesUpdateManyWithoutUpdatedByUserNestedInput
-  createdCategories: CategoriesUpdateManyWithoutCreatedByUserNestedInput
-  updatedCategories: CategoriesUpdateManyWithoutUpdatedByUserNestedInput
-  createdSeasons: SeasonsUpdateManyWithoutCreatedByUserNestedInput
-  updatedSeasons: SeasonsUpdateManyWithoutUpdatedByUserNestedInput
-  createdFoodForms: FoodFormsUpdateManyWithoutCreatedByUserNestedInput
-  updatedFoodForms: FoodFormsUpdateManyWithoutUpdatedByUserNestedInput
-  createdKitchens: KitchensUpdateManyWithoutCreatedByUserNestedInput
-  updatedKitchens: KitchensUpdateManyWithoutUpdatedByUserNestedInput
-  createdUserMealLocations: UserMealLocationUpdateManyWithoutCreatedByUserNestedInput
-  updatedUserMealLocations: UserMealLocationUpdateManyWithoutUpdatedByUserNestedInput
-  userRole: UserRoleUpdateManyWithoutUserNestedInput
-  userMeal: UserMealUpdateManyWithoutUserNestedInput
-  userMealLocation: UserMealLocationUpdateManyWithoutUserNestedInput
 }
 
 input UserMealUncheckedCreateInput {

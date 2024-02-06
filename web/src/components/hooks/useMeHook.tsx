@@ -1,8 +1,9 @@
 "use client";
+
 import {
-  CREATE_USER_MEAL_LOCATION_USER,
-  DELETE_USER_MEAL_LOCATION_USER,
-  UPDATE_USER_ALLERGENS_USER,
+  CREATE_USER_MEAL_LOCATION_ADMIN,
+  DELETE_USER_MEAL_LOCATION_ADMIN,
+  UPDATE_USER_ADMIN,
 } from "@/documents/mutation/user";
 import { ME } from "@/documents/query/auth";
 import { customFetcher, useGqlMutation } from "@/fetcher";
@@ -20,14 +21,12 @@ export const useMeHook = () => {
     queryFn: customFetcher(ME),
   });
 
-  const { mutateAsync: updateUserAllergens } = useGqlMutation(
-    UPDATE_USER_ALLERGENS_USER,
-  );
+  const { mutateAsync: updateUser } = useGqlMutation(UPDATE_USER_ADMIN);
   const { mutateAsync: createUserMealLocation } = useGqlMutation(
-    CREATE_USER_MEAL_LOCATION_USER,
+    CREATE_USER_MEAL_LOCATION_ADMIN,
   );
   const { mutateAsync: deleteUserMealLocation } = useGqlMutation(
-    DELETE_USER_MEAL_LOCATION_USER,
+    DELETE_USER_MEAL_LOCATION_ADMIN,
   );
 
   const isHighRank = me?.userRole?.some(
@@ -42,7 +41,7 @@ export const useMeHook = () => {
     refetchMe: refetch,
     isHighRank,
     isOrderMenu,
-    updateUserAllergens,
+    updateUser,
     createUserMealLocation,
     deleteUserMealLocation,
   };

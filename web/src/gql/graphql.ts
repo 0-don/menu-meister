@@ -5580,7 +5580,7 @@ export type Mutation = {
   createManyMealsAdmin?: Maybe<Array<Meal>>;
   createManyRecipesAdmin?: Maybe<Array<Recipe>>;
   createManySettingsAdmin?: Maybe<Array<Settings>>;
-  createManyUserMealLocationsUser?: Maybe<Array<UserMealLocation>>;
+  createManyUserMealLocationsAdmin?: Maybe<Array<UserMealLocation>>;
   createManyUserMealsUser?: Maybe<Array<UserMeal>>;
   createManyUsersAdmin?: Maybe<Array<User>>;
   createManyWeeklyMealGroupsAdmin?: Maybe<Array<WeeklyMealGroup>>;
@@ -5589,7 +5589,7 @@ export type Mutation = {
   createRecipeAdmin?: Maybe<Recipe>;
   createSettingsAdmin?: Maybe<Settings>;
   createUserAdmin?: Maybe<User>;
-  createUserMealLocationUser?: Maybe<UserMealLocation>;
+  createUserMealLocationAdmin?: Maybe<UserMealLocation>;
   createUserMealUser?: Maybe<UserMeal>;
   createWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
   deleteAccountTokensUser: Scalars['Boolean']['output'];
@@ -5599,7 +5599,7 @@ export type Mutation = {
   deleteManyMealsAdmin?: Maybe<Scalars['Int']['output']>;
   deleteManyRecipesAdmin?: Maybe<Scalars['Int']['output']>;
   deleteManySettingsAdmin?: Maybe<Scalars['Int']['output']>;
-  deleteManyUserMealLocationsUser?: Maybe<Scalars['Int']['output']>;
+  deleteManyUserMealLocationsAdmin?: Maybe<Scalars['Int']['output']>;
   deleteManyUserMealsUser?: Maybe<Scalars['Int']['output']>;
   deleteManyUsersAdmin?: Maybe<Scalars['Int']['output']>;
   deleteManyWeeklyMealGroupsAdmin?: Maybe<Scalars['Int']['output']>;
@@ -5608,7 +5608,7 @@ export type Mutation = {
   deleteRecipeAdmin?: Maybe<Recipe>;
   deleteSettingsAdmin?: Maybe<Settings>;
   deleteUserAdmin?: Maybe<User>;
-  deleteUserMealLocationUser?: Maybe<UserMealLocation>;
+  deleteUserMealLocationAdmin?: Maybe<UserMealLocation>;
   deleteUserMealUser?: Maybe<UserMeal>;
   deleteWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
   loginUser?: Maybe<User>;
@@ -5622,7 +5622,7 @@ export type Mutation = {
   updateManyMealsAdmin?: Maybe<Array<Meal>>;
   updateManyRecipesAdmin?: Maybe<Array<Recipe>>;
   updateManySettingsAdmin?: Maybe<Array<Settings>>;
-  updateManyUserMealLocationsUser?: Maybe<Array<UserMealLocation>>;
+  updateManyUserMealLocationsAdmin?: Maybe<Array<UserMealLocation>>;
   updateManyUserMealsUser?: Maybe<Array<UserMeal>>;
   updateManyUsersAdmin?: Maybe<Array<User>>;
   updateManyWeeklyMealGroupsAdmin?: Maybe<Array<WeeklyMealGroup>>;
@@ -5632,8 +5632,9 @@ export type Mutation = {
   updateSettingsAdmin?: Maybe<Settings>;
   updateUserAdmin?: Maybe<User>;
   updateUserAllergensUser?: Maybe<Scalars['Boolean']['output']>;
-  updateUserMealLocationUser?: Maybe<UserMealLocation>;
-  updateUserMealUser?: Maybe<UserMealLocation>;
+  updateUserMealAdmin?: Maybe<UserMealLocation>;
+  updateUserMealLocationAdmin?: Maybe<UserMealLocation>;
+  updateUserMealUser?: Maybe<UserMeal>;
   updateWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
   uploadMealImageAdmin?: Maybe<Scalars['Boolean']['output']>;
   upsertIngredientAdmin?: Maybe<Ingredient>;
@@ -5642,8 +5643,9 @@ export type Mutation = {
   upsertRecipeAdmin?: Maybe<Recipe>;
   upsertSettingsAdmin?: Maybe<Settings>;
   upsertUserAdmin?: Maybe<User>;
-  upsertUserMealLocationUser?: Maybe<UserMealLocation>;
-  upsertUserMealUser?: Maybe<UserMealLocation>;
+  upsertUserMealAdmin?: Maybe<UserMealLocation>;
+  upsertUserMealLocationAdmin?: Maybe<UserMealLocation>;
+  upsertUserMealUser?: Maybe<UserMeal>;
   upsertWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
 };
 
@@ -5689,7 +5691,7 @@ export type MutationCreateManySettingsAdminArgs = {
 };
 
 
-export type MutationCreateManyUserMealLocationsUserArgs = {
+export type MutationCreateManyUserMealLocationsAdminArgs = {
   data: Array<UserMealLocationCreateManyInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -5738,7 +5740,7 @@ export type MutationCreateUserAdminArgs = {
 };
 
 
-export type MutationCreateUserMealLocationUserArgs = {
+export type MutationCreateUserMealLocationAdminArgs = {
   data: UserMealLocationUncheckedCreateInput;
 };
 
@@ -5783,7 +5785,7 @@ export type MutationDeleteManySettingsAdminArgs = {
 };
 
 
-export type MutationDeleteManyUserMealLocationsUserArgs = {
+export type MutationDeleteManyUserMealLocationsAdminArgs = {
   where?: InputMaybe<UserMealLocationWhereInput>;
 };
 
@@ -5828,7 +5830,7 @@ export type MutationDeleteUserAdminArgs = {
 };
 
 
-export type MutationDeleteUserMealLocationUserArgs = {
+export type MutationDeleteUserMealLocationAdminArgs = {
   where: UserMealLocationWhereUniqueInput;
 };
 
@@ -5900,7 +5902,7 @@ export type MutationUpdateManySettingsAdminArgs = {
 };
 
 
-export type MutationUpdateManyUserMealLocationsUserArgs = {
+export type MutationUpdateManyUserMealLocationsAdminArgs = {
   data: UserMealLocationUpdateManyMutationInput;
   where?: InputMaybe<UserMealLocationWhereInput>;
 };
@@ -5959,15 +5961,21 @@ export type MutationUpdateUserAllergensUserArgs = {
 };
 
 
-export type MutationUpdateUserMealLocationUserArgs = {
+export type MutationUpdateUserMealAdminArgs = {
+  data: UserMealLocationUpdateInput;
+  where: UserMealLocationWhereUniqueInput;
+};
+
+
+export type MutationUpdateUserMealLocationAdminArgs = {
   data: UserMealLocationUpdateInput;
   where: UserMealLocationWhereUniqueInput;
 };
 
 
 export type MutationUpdateUserMealUserArgs = {
-  data: UserMealLocationUpdateInput;
-  where: UserMealLocationWhereUniqueInput;
+  data: UserMealUpdateInput;
+  where: UserMealWhereUniqueInput;
 };
 
 
@@ -6025,7 +6033,14 @@ export type MutationUpsertUserAdminArgs = {
 };
 
 
-export type MutationUpsertUserMealLocationUserArgs = {
+export type MutationUpsertUserMealAdminArgs = {
+  create: UserMealLocationCreateInput;
+  update: UserMealLocationUpdateInput;
+  where: UserMealLocationWhereUniqueInput;
+};
+
+
+export type MutationUpsertUserMealLocationAdminArgs = {
   create: UserMealLocationCreateInput;
   update: UserMealLocationUpdateInput;
   where: UserMealLocationWhereUniqueInput;
@@ -6033,9 +6048,9 @@ export type MutationUpsertUserMealLocationUserArgs = {
 
 
 export type MutationUpsertUserMealUserArgs = {
-  create: UserMealLocationCreateInput;
-  update: UserMealLocationUpdateInput;
-  where: UserMealLocationWhereUniqueInput;
+  create: UserMealCreateInput;
+  update: UserMealUpdateInput;
+  where: UserMealWhereUniqueInput;
 };
 
 
@@ -6608,7 +6623,7 @@ export type Query = {
   getAllMealsUser?: Maybe<Array<Meal>>;
   getAllRecipesAdmin?: Maybe<Array<Recipe>>;
   getAllSettingsAdmin?: Maybe<Array<Settings>>;
-  getAllUserMealLocationsUser?: Maybe<Array<UserMealLocation>>;
+  getAllUserMealLocationsAdmin?: Maybe<Array<UserMealLocation>>;
   getAllUserMealsAdmin?: Maybe<Array<UserMeal>>;
   getAllUserMealsUser?: Maybe<Array<UserMeal>>;
   getAllUsersAdmin?: Maybe<Array<User>>;
@@ -6621,7 +6636,7 @@ export type Query = {
   getSettingsAdmin?: Maybe<Settings>;
   getSettingsUser?: Maybe<SettingsUserOutput>;
   getUserAdmin?: Maybe<User>;
-  getUserMealLocationUser?: Maybe<UserMealLocation>;
+  getUserMealLocationAdmin?: Maybe<UserMealLocation>;
   getUserMealUser?: Maybe<UserMeal>;
   getUserMealsGroupedAdmin?: Maybe<Array<UserMealGroupBy>>;
   getWeeklyMealGroupAdmin?: Maybe<WeeklyMealGroup>;
@@ -6709,7 +6724,7 @@ export type QueryGetAllSettingsAdminArgs = {
 };
 
 
-export type QueryGetAllUserMealLocationsUserArgs = {
+export type QueryGetAllUserMealLocationsAdminArgs = {
   cursor?: InputMaybe<UserMealLocationWhereUniqueInput>;
   distinct?: InputMaybe<Array<UserMealLocationScalarFieldEnum>>;
   orderBy?: InputMaybe<Array<UserMealLocationOrderByWithRelationInput>>;
@@ -6829,7 +6844,7 @@ export type QueryGetUserAdminArgs = {
 };
 
 
-export type QueryGetUserMealLocationUserArgs = {
+export type QueryGetUserMealLocationAdminArgs = {
   cursor?: InputMaybe<UserMealLocationWhereUniqueInput>;
   distinct?: InputMaybe<Array<UserMealLocationScalarFieldEnum>>;
   orderBy?: InputMaybe<Array<UserMealLocationOrderByWithRelationInput>>;
@@ -9078,8 +9093,10 @@ export type User = {
   createdUserRoles?: Maybe<Array<UserRole>>;
   createdWeeklyMealGroups?: Maybe<Array<WeeklyMealGroup>>;
   email: Scalars['String']['output'];
+  firstName?: Maybe<Scalars['String']['output']>;
   id: Scalars['Int']['output'];
   image?: Maybe<Scalars['String']['output']>;
+  lastName?: Maybe<Scalars['String']['output']>;
   lastOnline: Scalars['DateTime']['output'];
   status: Scalars['Boolean']['output'];
   updatedAdditives?: Maybe<Array<Additives>>;
@@ -9181,7 +9198,9 @@ export type UserCreateInput = {
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  firstName?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAdditives?: InputMaybe<AdditivesCreateNestedManyWithoutUpdatedByUserInput>;
@@ -9212,8 +9231,10 @@ export type UserCreateInput = {
 
 export type UserCreateManyCreatedByUserInput = {
   email: Scalars['String']['input'];
+  firstName?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   username: Scalars['String']['input'];
@@ -9226,8 +9247,10 @@ export type UserCreateManyCreatedByUserInputEnvelope = {
 
 export type UserCreateManyInput = {
   email: Scalars['String']['input'];
+  firstName?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   username: Scalars['String']['input'];
@@ -9235,8 +9258,10 @@ export type UserCreateManyInput = {
 
 export type UserCreateManyUpdatedByUserInput = {
   email: Scalars['String']['input'];
+  firstName?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   username: Scalars['String']['input'];
@@ -9337,7 +9362,9 @@ export type UserCreateWithoutAllergensInput = {
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  firstName?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAdditives?: InputMaybe<AdditivesCreateNestedManyWithoutUpdatedByUserInput>;
@@ -9389,7 +9416,9 @@ export type UserCreateWithoutCreatedByUserInput = {
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  firstName?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAdditives?: InputMaybe<AdditivesCreateNestedManyWithoutUpdatedByUserInput>;
@@ -9441,7 +9470,9 @@ export type UserCreateWithoutUpdatedByUserInput = {
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  firstName?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAdditives?: InputMaybe<AdditivesCreateNestedManyWithoutUpdatedByUserInput>;
@@ -9493,7 +9524,9 @@ export type UserCreateWithoutUserMealInput = {
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  firstName?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAdditives?: InputMaybe<AdditivesCreateNestedManyWithoutUpdatedByUserInput>;
@@ -9544,7 +9577,9 @@ export type UserCreateWithoutUserMealLocationInput = {
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  firstName?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAdditives?: InputMaybe<AdditivesCreateNestedManyWithoutUpdatedByUserInput>;
@@ -9595,7 +9630,9 @@ export type UserCreateWithoutUserRoleInput = {
   createdUserRoles?: InputMaybe<UserRoleCreateNestedManyWithoutCreatedByUserInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupCreateNestedManyWithoutCreatedByUserInput>;
   email: Scalars['String']['input'];
+  firstName?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
   lastOnline?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   updatedAdditives?: InputMaybe<AdditivesCreateNestedManyWithoutUpdatedByUserInput>;
@@ -9709,6 +9746,15 @@ export type UserMealCountOrderByAggregateInput = {
   timeOfDay?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
   weeklyMealGroupId?: InputMaybe<SortOrder>;
+};
+
+export type UserMealCreateInput = {
+  date: Scalars['DateTime']['input'];
+  meal: MealCreateNestedOneWithoutUserMealInput;
+  mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
+  timeOfDay?: InputMaybe<TimeOfDay>;
+  user: UserCreateNestedOneWithoutUserMealInput;
+  weeklyMealGroup: WeeklyMealGroupCreateNestedOneWithoutUserMealInput;
 };
 
 export type UserMealCreateManyCreatedByUserInput = {
@@ -10564,6 +10610,15 @@ export type UserMealUncheckedUpdateManyWithoutWeeklyMealGroupNestedInput = {
   upsert?: InputMaybe<Array<UserMealUpsertWithWhereUniqueWithoutWeeklyMealGroupInput>>;
 };
 
+export type UserMealUpdateInput = {
+  date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  meal?: InputMaybe<MealUpdateOneRequiredWithoutUserMealNestedInput>;
+  mealBoardPlan?: InputMaybe<MealBoardPlanUpdateOneRequiredWithoutUserMealNestedInput>;
+  timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutUserMealNestedInput>;
+  weeklyMealGroup?: InputMaybe<WeeklyMealGroupUpdateOneRequiredWithoutUserMealNestedInput>;
+};
+
 export type UserMealUpdateManyMutationInput = {
   date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   timeOfDay?: InputMaybe<EnumTimeOfDayFieldUpdateOperationsInput>;
@@ -10868,8 +10923,10 @@ export type UserOrderByWithRelationInput = {
   createdUserRoles?: InputMaybe<UserRoleOrderByRelationAggregateInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupOrderByRelationAggregateInput>;
   email?: InputMaybe<SortOrder>;
+  firstName?: InputMaybe<SortOrderInput>;
   id?: InputMaybe<SortOrder>;
   image?: InputMaybe<SortOrderInput>;
+  lastName?: InputMaybe<SortOrderInput>;
   lastOnline?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
   updatedAdditives?: InputMaybe<AdditivesOrderByRelationAggregateInput>;
@@ -11204,8 +11261,10 @@ export enum UserScalarFieldEnum {
   CreatedAt = 'createdAt',
   CreatedBy = 'createdBy',
   Email = 'email',
+  FirstName = 'firstName',
   Id = 'id',
   Image = 'image',
+  LastName = 'lastName',
   LastOnline = 'lastOnline',
   Password = 'password',
   Status = 'status',
@@ -11219,8 +11278,10 @@ export type UserScalarWhereInput = {
   NOT?: InputMaybe<Array<UserScalarWhereInput>>;
   OR?: InputMaybe<Array<UserScalarWhereInput>>;
   email?: InputMaybe<StringFilter>;
+  firstName?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<IntFilter>;
   image?: InputMaybe<StringNullableFilter>;
+  lastName?: InputMaybe<StringNullableFilter>;
   lastOnline?: InputMaybe<DateTimeFilter>;
   status?: InputMaybe<BoolFilter>;
   username?: InputMaybe<StringFilter>;
@@ -11249,8 +11310,10 @@ export type UserUncheckedUpdateInput = {
   createdUserRoles?: InputMaybe<UserRoleUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupUncheckedUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   id?: InputMaybe<IntFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAdditives?: InputMaybe<AdditivesUncheckedUpdateManyWithoutUpdatedByUserNestedInput>;
@@ -11330,7 +11393,9 @@ export type UserUpdateInput = {
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAdditives?: InputMaybe<AdditivesUpdateManyWithoutUpdatedByUserNestedInput>;
@@ -11361,7 +11426,9 @@ export type UserUpdateInput = {
 
 export type UserUpdateManyMutationInput = {
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   username?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -11499,7 +11566,9 @@ export type UserUpdateWithoutAllergensInput = {
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAdditives?: InputMaybe<AdditivesUpdateManyWithoutUpdatedByUserNestedInput>;
@@ -11551,7 +11620,9 @@ export type UserUpdateWithoutCreatedByUserInput = {
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAdditives?: InputMaybe<AdditivesUpdateManyWithoutUpdatedByUserNestedInput>;
@@ -11603,7 +11674,9 @@ export type UserUpdateWithoutUpdatedByUserInput = {
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAdditives?: InputMaybe<AdditivesUpdateManyWithoutUpdatedByUserNestedInput>;
@@ -11655,7 +11728,9 @@ export type UserUpdateWithoutUserMealInput = {
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAdditives?: InputMaybe<AdditivesUpdateManyWithoutUpdatedByUserNestedInput>;
@@ -11706,7 +11781,9 @@ export type UserUpdateWithoutUserMealLocationInput = {
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAdditives?: InputMaybe<AdditivesUpdateManyWithoutUpdatedByUserNestedInput>;
@@ -11757,7 +11834,9 @@ export type UserUpdateWithoutUserRoleInput = {
   createdUserRoles?: InputMaybe<UserRoleUpdateManyWithoutCreatedByUserNestedInput>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupUpdateManyWithoutCreatedByUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   lastOnline?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   status?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAdditives?: InputMaybe<AdditivesUpdateManyWithoutUpdatedByUserNestedInput>;
@@ -11847,8 +11926,10 @@ export type UserWhereInput = {
   createdUserRoles?: InputMaybe<UserRoleListRelationFilter>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupListRelationFilter>;
   email?: InputMaybe<StringFilter>;
+  firstName?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<IntFilter>;
   image?: InputMaybe<StringNullableFilter>;
+  lastName?: InputMaybe<StringNullableFilter>;
   lastOnline?: InputMaybe<DateTimeFilter>;
   status?: InputMaybe<BoolFilter>;
   updatedAdditives?: InputMaybe<AdditivesListRelationFilter>;
@@ -11903,8 +11984,10 @@ export type UserWhereUniqueInput = {
   createdUserRoles?: InputMaybe<UserRoleListRelationFilter>;
   createdWeeklyMealGroups?: InputMaybe<WeeklyMealGroupListRelationFilter>;
   email?: InputMaybe<Scalars['String']['input']>;
+  firstName?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<Scalars['Int']['input']>;
   image?: InputMaybe<StringNullableFilter>;
+  lastName?: InputMaybe<StringNullableFilter>;
   lastOnline?: InputMaybe<DateTimeFilter>;
   status?: InputMaybe<BoolFilter>;
   updatedAdditives?: InputMaybe<AdditivesListRelationFilter>;
@@ -13441,26 +13524,27 @@ export type UpdateSettingsAdminMutationVariables = Exact<{
 
 export type UpdateSettingsAdminMutation = { updateSettingsAdmin?: { id: number, maxEditOrderDays: number, createdAt: any, updatedAt: any, createdByUser: { username: string }, updatedByUser: { username: string } } | null };
 
-export type UpdateUserAllergensUserMutationVariables = Exact<{
-  data: UserUncheckedUpdateInput;
+export type UpdateUserAdminMutationVariables = Exact<{
+  data: UserUpdateInput;
+  where: UserWhereUniqueInput;
 }>;
 
 
-export type UpdateUserAllergensUserMutation = { updateUserAllergensUser?: boolean | null };
+export type UpdateUserAdminMutation = { updateUserAdmin?: { id: number } | null };
 
-export type CreateUserMealLocationUserMutationVariables = Exact<{
+export type CreateUserMealLocationAdminMutationVariables = Exact<{
   data: UserMealLocationUncheckedCreateInput;
 }>;
 
 
-export type CreateUserMealLocationUserMutation = { createUserMealLocationUser?: { id: number, userId: number, timeOfDay: TimeOfDay, mealLocation: MealLocation, createdAt: any, updatedAt: any } | null };
+export type CreateUserMealLocationAdminMutation = { createUserMealLocationAdmin?: { id: number, userId: number, timeOfDay: TimeOfDay, mealLocation: MealLocation, createdAt: any, updatedAt: any } | null };
 
-export type DeleteUserMealLocationUserMutationVariables = Exact<{
+export type DeleteUserMealLocationAdminMutationVariables = Exact<{
   where: UserMealLocationWhereUniqueInput;
 }>;
 
 
-export type DeleteUserMealLocationUserMutation = { deleteUserMealLocationUser?: { id: number, userId: number, timeOfDay: TimeOfDay, mealLocation: MealLocation, createdAt: any, updatedAt: any } | null };
+export type DeleteUserMealLocationAdminMutation = { deleteUserMealLocationAdmin?: { id: number, userId: number, timeOfDay: TimeOfDay, mealLocation: MealLocation, createdAt: any, updatedAt: any } | null };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -13585,6 +13669,30 @@ export type GetSettingsUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetSettingsUserQuery = { getSettingsUser?: { maxEditOrderDays: number } | null };
 
+export type GetAllUsersAdminQueryVariables = Exact<{
+  where?: InputMaybe<UserWhereInput>;
+  orderBy?: InputMaybe<Array<UserOrderByWithRelationInput> | UserOrderByWithRelationInput>;
+  cursor?: InputMaybe<UserWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  distinct?: InputMaybe<Array<UserScalarFieldEnum> | UserScalarFieldEnum>;
+}>;
+
+
+export type GetAllUsersAdminQuery = { getAllUsersAdmin?: Array<{ id: number, firstName?: string | null, lastName?: string | null, email: string, createdAt: any }> | null };
+
+export type GetUserAdminQueryVariables = Exact<{
+  where?: InputMaybe<UserWhereInput>;
+  orderBy?: InputMaybe<Array<UserOrderByWithRelationInput> | UserOrderByWithRelationInput>;
+  cursor?: InputMaybe<UserWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  distinct?: InputMaybe<Array<UserScalarFieldEnum> | UserScalarFieldEnum>;
+}>;
+
+
+export type GetUserAdminQuery = { getUserAdmin?: { id: number, firstName?: string | null, lastName?: string | null, email: string, createdAt: any } | null };
+
 export const WeeklyMealGroupFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"WeeklyMealGroupFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroup"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"color"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"weekOfYear"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"orderIndex"}},{"kind":"Field","name":{"kind":"Name","value":"mondayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tuesdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"wednesdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"thursdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fridayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"saturdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sundayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}}]}}]} as unknown as DocumentNode<WeeklyMealGroupFragmentFragment, unknown>;
 export const RegisterUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RegisterUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RegisterUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"registerUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastOnline"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"userRole"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<RegisterUserMutation, RegisterUserMutationVariables>;
 export const LoginUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"LoginUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"LoginUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loginUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastOnline"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"userRole"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<LoginUserMutation, LoginUserMutationVariables>;
@@ -13598,9 +13706,9 @@ export const UploadMealImageAdminDocument = {"kind":"Document","definitions":[{"
 export const CreateUserMealUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateUserMealUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealUncheckedCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createUserMealUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"mealId"}},{"kind":"Field","name":{"kind":"Name","value":"mealBoardPlanId"}},{"kind":"Field","name":{"kind":"Name","value":"weeklyMealGroupId"}},{"kind":"Field","name":{"kind":"Name","value":"meal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<CreateUserMealUserMutation, CreateUserMealUserMutationVariables>;
 export const DeleteUserMealUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteUserMealUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteUserMealUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"mealId"}},{"kind":"Field","name":{"kind":"Name","value":"mealBoardPlanId"}},{"kind":"Field","name":{"kind":"Name","value":"weeklyMealGroupId"}},{"kind":"Field","name":{"kind":"Name","value":"meal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<DeleteUserMealUserMutation, DeleteUserMealUserMutationVariables>;
 export const UpdateSettingsAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateSettingsAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SettingsUpdateInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SettingsWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateSettingsAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"maxEditOrderDays"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdByUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}}]}},{"kind":"Field","name":{"kind":"Name","value":"updatedByUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateSettingsAdminMutation, UpdateSettingsAdminMutationVariables>;
-export const UpdateUserAllergensUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserAllergensUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserUncheckedUpdateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateUserAllergensUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}]}]}}]} as unknown as DocumentNode<UpdateUserAllergensUserMutation, UpdateUserAllergensUserMutationVariables>;
-export const CreateUserMealLocationUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateUserMealLocationUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealLocationUncheckedCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createUserMealLocationUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"mealLocation"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<CreateUserMealLocationUserMutation, CreateUserMealLocationUserMutationVariables>;
-export const DeleteUserMealLocationUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteUserMealLocationUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealLocationWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteUserMealLocationUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"mealLocation"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<DeleteUserMealLocationUserMutation, DeleteUserMealLocationUserMutationVariables>;
+export const UpdateUserAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserUpdateInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateUserAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateUserAdminMutation, UpdateUserAdminMutationVariables>;
+export const CreateUserMealLocationAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateUserMealLocationAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealLocationUncheckedCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createUserMealLocationAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"mealLocation"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<CreateUserMealLocationAdminMutation, CreateUserMealLocationAdminMutationVariables>;
+export const DeleteUserMealLocationAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteUserMealLocationAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealLocationWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteUserMealLocationAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"mealLocation"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<DeleteUserMealLocationAdminMutation, DeleteUserMealLocationAdminMutationVariables>;
 export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"userRole"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"userMealLocation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"mealLocation"}}]}},{"kind":"Field","name":{"kind":"Name","value":"allergens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
 export const GetAllMealBoardPlansUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllMealBoardPlansUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MealBoardPlanWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MealBoardPlanOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MealBoardPlanWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MealBoardPlanScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllMealBoardPlansUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"color"}}]}}]}}]} as unknown as DocumentNode<GetAllMealBoardPlansUserQuery, GetAllMealBoardPlansUserQueryVariables>;
 export const GetAllWeeklyMealGroupsUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllWeeklyMealGroupsUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroupWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroupOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroupWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroupScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllWeeklyMealGroupsUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"WeeklyMealGroupFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"WeeklyMealGroupFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WeeklyMealGroup"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"color"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"weekOfYear"}},{"kind":"Field","name":{"kind":"Name","value":"timeOfDay"}},{"kind":"Field","name":{"kind":"Name","value":"orderIndex"}},{"kind":"Field","name":{"kind":"Name","value":"mondayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tuesdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"wednesdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"thursdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fridayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"saturdayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sundayMeal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}}]}}]} as unknown as DocumentNode<GetAllWeeklyMealGroupsUserQuery, GetAllWeeklyMealGroupsUserQueryVariables>;
@@ -13612,3 +13720,5 @@ export const GetAllUserMealsUserDocument = {"kind":"Document","definitions":[{"k
 export const GetUserMealsGroupedAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserMealsGroupedAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealOrderByWithAggregationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"having"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealScalarWhereWithAggregatesInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"count"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealCountAggregateInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"avg"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealAvgAggregateInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sum"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealSumAggregateInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"min"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealMinAggregateInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"max"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealMaxAggregateInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"by"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserMealScalarFieldEnum"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getUserMealsGroupedAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"having"},"value":{"kind":"Variable","name":{"kind":"Name","value":"having"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"_count"},"value":{"kind":"Variable","name":{"kind":"Name","value":"count"}}},{"kind":"Argument","name":{"kind":"Name","value":"_avg"},"value":{"kind":"Variable","name":{"kind":"Name","value":"avg"}}},{"kind":"Argument","name":{"kind":"Name","value":"_sum"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sum"}}},{"kind":"Argument","name":{"kind":"Name","value":"_min"},"value":{"kind":"Variable","name":{"kind":"Name","value":"min"}}},{"kind":"Argument","name":{"kind":"Name","value":"_max"},"value":{"kind":"Variable","name":{"kind":"Name","value":"max"}}},{"kind":"Argument","name":{"kind":"Name","value":"by"},"value":{"kind":"Variable","name":{"kind":"Name","value":"by"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mealId"}},{"kind":"Field","name":{"kind":"Name","value":"_count"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mealId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]} as unknown as DocumentNode<GetUserMealsGroupedAdminQuery, GetUserMealsGroupedAdminQueryVariables>;
 export const GetSettingsAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSettingsAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"SettingsWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SettingsOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"SettingsWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SettingsScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getSettingsAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"maxEditOrderDays"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdByUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}}]}},{"kind":"Field","name":{"kind":"Name","value":"updatedByUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<GetSettingsAdminQuery, GetSettingsAdminQueryVariables>;
 export const GetSettingsUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSettingsUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getSettingsUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"maxEditOrderDays"}}]}}]}}]} as unknown as DocumentNode<GetSettingsUserQuery, GetSettingsUserQueryVariables>;
+export const GetAllUsersAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllUsersAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllUsersAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<GetAllUsersAdminQuery, GetAllUsersAdminQueryVariables>;
+export const GetUserAdminDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserAdmin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserWhereInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserOrderByWithRelationInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UserWhereUniqueInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserScalarFieldEnum"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getUserAdmin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"cursor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cursor"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"distinct"},"value":{"kind":"Variable","name":{"kind":"Name","value":"distinct"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<GetUserAdminQuery, GetUserAdminQueryVariables>;
