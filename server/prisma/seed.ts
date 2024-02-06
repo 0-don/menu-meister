@@ -42,10 +42,11 @@ const seed = async () => {
 
   await createUser({
     email: EMAIL,
-    password: "!admin",
-    roles: ["ADMIN"],
+    password: await argon2.hash("!admin"),
+    roles: ["USER", "ADMIN"],
   });
 
+  await seedUsers();
   await seedSettings();
   await seedAllProperties();
   await seedIngredients();
@@ -53,6 +54,16 @@ const seed = async () => {
   await seedMeals();
   await seedMealBoardPlan();
   await seedWeeklyMealGroups();
+};
+
+const seedUsers = async () => {
+  for (const _ of Array(100).keys()) {
+    await createUser({
+      email: faker.internet.email(),
+      password: "!user",
+      roles: ["USER"],
+    });
+  }
 };
 
 const seedSettings = async () => {
@@ -595,8 +606,10 @@ const createUser = async ({
   const user = await prisma.user.create({
     data: {
       email,
+      firstname: faker.person.firstName(),
+      lastname: faker.person.lastName(),
       username: faker.internet.userName(),
-      password: await argon2.hash(password),
+      password,
       lastOnline: faker.date.past(),
     },
   });
