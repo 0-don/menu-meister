@@ -23,7 +23,7 @@ type TimeOfDayAndMealLocation = {
 
 interface UserProfileProps {
   user: Partial<User>;
-  refetch: () => Promise<void>;
+  refetch: (args?: any) => Promise<any>;
 }
 
 export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
