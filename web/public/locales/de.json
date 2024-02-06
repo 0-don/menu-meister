@@ -92,7 +92,11 @@
     "NO_USER_MEAL_LOCATION": "Kein Mahlzeitstandort ausgewählt",
     "YES": "Ja",
     "WARNING": "Warnung",
-    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS": "Sind Sie sicher, dass Sie dies löschen möchten <placeholder>{item}</placeholder>?"
+    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS": "Sind Sie sicher, dass Sie dies löschen möchten <placeholder>{item}</placeholder>?",
+    "USERS": "Gäste",
+    "CREATED_AT": "Erstellt am",
+    "EMAIL": "E-Mail",
+    "ACTION": "Aktion"
   },
   "Settings": {
     "SETTINGS": "Einstellungen",

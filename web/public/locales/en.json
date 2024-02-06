@@ -91,7 +91,11 @@
     "NO_USER_MEAL_LOCATION": "No user meal location selected",
     "YES": "Yes",
     "WARNING": "Warning",
-    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS": "Are you sure you want to delete this <placeholder>{item}</placeholder>?"
+    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS": "Are you sure you want to delete this <placeholder>{item}</placeholder>?",
+    "USERS": "Users",
+    "CREATED_AT": "Created At",
+    "EMAIL": "Email",
+    "ACTION": "Action"
   },
   "Settings": {
     "SETTINGS": "Settings",
