@@ -27,8 +27,8 @@ CREATE TABLE `Settings` (
 -- CreateTable
 CREATE TABLE `User` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `firstName` VARCHAR(191) NULL,
-    `lastName` VARCHAR(191) NULL,
+    `firstname` VARCHAR(191) NULL,
+    `lastname` VARCHAR(191) NULL,
     `image` TEXT NULL,
     `password` VARCHAR(191) NOT NULL,
     `username` VARCHAR(191) NOT NULL,

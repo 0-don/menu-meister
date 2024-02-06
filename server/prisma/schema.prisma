@@ -58,8 +58,8 @@ model Settings {
 model User {
   id Int @id @default(autoincrement())
 
-  firstName String?
-  lastName  String?
+  firstname String?
+  lastname  String?
 
   image    String? @db.Text
   /// @HideField({ output: true, input: true })
