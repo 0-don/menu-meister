@@ -73,7 +73,6 @@ CREATE TABLE `UserMeal` (
     `createdBy` INTEGER NOT NULL,
     `updatedBy` INTEGER NOT NULL,
 
-    UNIQUE INDEX `UserMeal_date_mealBoardPlanId_userId_mealId_key`(`date`, `mealBoardPlanId`, `userId`, `mealId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

@@ -1692,7 +1692,6 @@ input WeeklyMealGroupOrderByWithRelationInput {
 
 input UserMealWhereUniqueInput {
   id: Int
-  user_meal_date_mealBoardPlanId_userId_mealId_unique: UserMealUser_meal_date_mealBoardPlanId_userId_mealId_uniqueCompoundUniqueInput
   AND: [UserMealWhereInput!]
   OR: [UserMealWhereInput!]
   NOT: [UserMealWhereInput!]
@@ -1706,13 +1705,6 @@ input UserMealWhereUniqueInput {
   meal: MealRelationFilter
   mealBoardPlan: MealBoardPlanRelationFilter
   weeklyMealGroup: WeeklyMealGroupRelationFilter
-}
-
-input UserMealUser_meal_date_mealBoardPlanId_userId_mealId_uniqueCompoundUniqueInput {
-  date: DateTime!
-  mealBoardPlanId: Int!
-  userId: Int!
-  mealId: Int!
 }
 
 enum UserMealScalarFieldEnum {

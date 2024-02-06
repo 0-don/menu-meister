@@ -185,8 +185,6 @@ model UserMeal {
   createdByUser User     @relation("CreatedUserMeal", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
   updatedByUser User     @relation("UpdatedUserMeal", fields: [updatedBy], references: [id])
-
-  @@unique([date, mealBoardPlanId, userId, mealId], name: "user_meal_date_mealBoardPlanId_userId_mealId_unique")
 }
 
 model UserMealLocation {

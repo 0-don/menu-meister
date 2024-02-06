@@ -24,7 +24,7 @@ export default function UsersPage({}: UsersPageProps) {
   return (
     <>
       <main className="mt-5 w-full max-w-6xl rounded-lg bg-default-50 p-5">
-        <Table aria-label={t("USERS")}>
+        <Table aria-label={t("USERS")} isStriped>
           <TableHeader>
             <TableColumn>ID</TableColumn>
             <TableColumn>{t("EMAIL")}</TableColumn>
@@ -47,7 +47,7 @@ export default function UsersPage({}: UsersPageProps) {
                 </TableCell>
                 <TableCell className="flex justify-center">
                   <Link href={`/user/${user.id}`}>
-                    <MdEdit className="hover:text-primary-500" />
+                    <MdEdit className="hover:text-primary-500 text-xl" />
                   </Link>
                 </TableCell>
               </TableRow>
