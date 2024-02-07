@@ -94,7 +94,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
             value={timeOfDay}
             items={items.map((key) => ({
               id: key,
-              name: t(key.toUpperCase() as keyof Messages["Dashboard"]),
+              name: t(key.toUpperCase() as keyof Messages["Meals"]),
             }))}
             clearButtonProps={{ className: "invisible" }}
             onSelectionChange={(key) => setTimeOfDay(key as TimeOfDay)}

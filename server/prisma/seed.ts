@@ -125,7 +125,7 @@ const seedUsers = async () => {
   for (const _ of Array(100).keys()) {
     const user = await createUser({
       email: faker.internet.email(),
-      password: "!user",
+      password: await argon2.hash("test"),
       roles: ["USER"],
     });
     await mealLocationsAndAllergens(user.id);

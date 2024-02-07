@@ -117,7 +117,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
                 size="sm"
                 style={{ color }}
               >
-                {t(time.toUpperCase() as keyof Messages["Dashboard"])}
+                {t(time.toUpperCase() as keyof Messages["Meals"])}
               </Chip>
             ))}
           </div>

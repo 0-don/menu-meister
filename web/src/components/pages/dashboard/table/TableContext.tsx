@@ -30,14 +30,14 @@ const RenderDayColumn: React.FC<RenderDayColumnProps> = (props) => {
   const locale = useLocale();
   const t = useTranslations<"Meals">();
   const [dayName, setDayName] = useState<string>(
-    t(props.dayKey.toUpperCase() as keyof Messages["Dashboard"]),
+    t(props.dayKey.toUpperCase() as keyof Messages["Meals"]),
   );
   const date = dayjs(DashboardStore.daysThatWeek.at(props.index)).format(
     "DD.MM",
   );
 
   useEffect(() => {
-    setDayName(t(props.dayKey.toUpperCase() as keyof Messages["Dashboard"]));
+    setDayName(t(props.dayKey.toUpperCase() as keyof Messages["Meals"]));
   }, [locale]);
 
   const dateToday = dayName.substring(0, 2);
