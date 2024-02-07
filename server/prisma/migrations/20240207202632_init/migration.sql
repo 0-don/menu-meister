@@ -88,7 +88,6 @@ CREATE TABLE `UserMealLocation` (
     `updatedBy` INTEGER NOT NULL,
 
     UNIQUE INDEX `UserMealLocation_userId_timeOfDay_mealLocation_key`(`userId`, `timeOfDay`, `mealLocation`),
-    UNIQUE INDEX `UserMealLocation_userId_timeOfDay_key`(`userId`, `timeOfDay`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -203,6 +202,7 @@ CREATE TABLE `Ingredient` (
     `createdBy` INTEGER NOT NULL,
     `updatedBy` INTEGER NOT NULL,
 
+    UNIQUE INDEX `Ingredient_blsIdentifier_key`(`blsIdentifier`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

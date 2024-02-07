@@ -152,6 +152,8 @@ const seedUserMeals = async () => {
     where: { name: MEAL_BOARD_PLAN_NAME },
   });
 
+  const transactions: any[] = [];
+
   for (const user of users) {
     for (const _ of Array(randomInt(100, 200))) {
       const weeklyMealGroup =
@@ -171,20 +173,24 @@ const seedUserMeals = async () => {
       if (!mealId) continue;
       const date = days[index];
 
-      await prisma.userMeal.create({
-        data: {
-          date,
-          mealId,
-          userId: user.id,
-          mealBoardPlanId: mealBoardPlan.id,
-          timeOfDay: weeklyMealGroup.timeOfDay,
-          weeklyMealGroupId: weeklyMealGroup.id,
-          createdBy: user.id,
-          updatedBy: user.id,
-        },
-      });
+      transactions.push(
+        prisma.userMeal.create({
+          data: {
+            date,
+            mealId,
+            userId: user.id,
+            mealBoardPlanId: mealBoardPlan.id,
+            timeOfDay: weeklyMealGroup.timeOfDay,
+            weeklyMealGroupId: weeklyMealGroup.id,
+            createdBy: user.id,
+            updatedBy: user.id,
+          },
+        }),
+      );
     }
   }
+
+  await prisma.$transaction(transactions);
 };
 
 const seedSettings = async () => {
@@ -280,112 +286,115 @@ const seedIngredients = async () => {
   });
 
   const operations = ingredients.map((ingredient) => {
-    return prisma.ingredient.create({
-      data: {
-        name: ingredient.name,
-        blsIdentifier: ingredient.bls_identifier,
-        energyKcal: ingredient.energyKcal,
-        energyKj: ingredient.energyKj,
-        breadUnits: ingredient.breadUnits,
-        carbohydrates: ingredient.carbohydrates,
-        sugars: ingredient.sugars,
-        salt: ingredient.salt,
-        fats: ingredient.fats,
-        saturatedFats: ingredient.saturatedFats,
-        createdBy: user.id,
-        updatedBy: user.id,
-        allergens: {
-          connectOrCreate: ingredient.allergens.map((name) => {
-            const item = ALLERGENS.find((allergen) => allergen.value === name);
-            return {
-              where: { name: item?.key },
-              create: {
-                name: item?.key,
-                createdBy: user.id,
-                updatedBy: user.id,
-              },
-            };
-          }),
-        },
-        additives: {
-          connectOrCreate: ingredient.additives.map((name) => {
-            const item = ADDITIVES.find((additive) => additive.value === name);
-            return {
-              where: { name: item?.key },
-              create: {
-                name: item?.key,
-                createdBy: user.id,
-                updatedBy: user.id,
-              },
-            };
-          }),
-        },
-        properties: {
-          connectOrCreate: ingredient.properties.map((name) => {
-            const item = PROPERTIES.find((property) => property.value === name);
-            return {
-              where: { name: item?.key },
-              create: {
-                name: item?.key,
-                createdBy: user.id,
-                updatedBy: user.id,
-              },
-            };
-          }),
-        },
-        categories: {
-          connectOrCreate: ingredient.categories.map((name) => {
-            const item = CATEGORIES.find((category) => category.value === name);
-            return {
-              where: { name: item?.key },
-              create: {
-                name: item?.key,
-                createdBy: user.id,
-                updatedBy: user.id,
-              },
-            };
-          }),
-        },
-        seasons: {
-          connectOrCreate: ingredient.seasons.map((name) => {
-            const item = SEASONS.find((season) => season.value === name);
-            return {
-              where: { name: item?.key },
-              create: {
-                name: item?.key,
-                createdBy: user.id,
-                updatedBy: user.id,
-              },
-            };
-          }),
-        },
-        foodForms: {
-          connectOrCreate: ingredient.food_forms.map((name) => {
-            const item = FOOD_FORMS.find((foodForm) => foodForm.value === name);
-            return {
-              where: { name: item?.key },
-              create: {
-                name: item?.key,
-                createdBy: user.id,
-                updatedBy: user.id,
-              },
-            };
-          }),
-        },
-        kitchens: {
-          connectOrCreate: ingredient.kitchens.map((name) => {
-            const item = KITCHENS.find((kitchen) => kitchen.value === name);
-            return {
-              where: { name: item?.key },
-              create: {
-                name: item?.key,
-                createdBy: user.id,
-                updatedBy: user.id,
-              },
-            };
-          }),
-        },
+    const data = {
+      name: ingredient.name,
+      blsIdentifier: ingredient.bls_identifier,
+      energyKcal: ingredient.energyKcal,
+      energyKj: ingredient.energyKj,
+      breadUnits: ingredient.breadUnits,
+      carbohydrates: ingredient.carbohydrates,
+      sugars: ingredient.sugars,
+      salt: ingredient.salt,
+      fats: ingredient.fats,
+      saturatedFats: ingredient.saturatedFats,
+      createdBy: user.id,
+      updatedBy: user.id,
+      allergens: {
+        connectOrCreate: ingredient.allergens.map((name) => {
+          const item = ALLERGENS.find((allergen) => allergen.value === name);
+          return {
+            where: { name: item?.key },
+            create: {
+              name: item?.key,
+              createdBy: user.id,
+              updatedBy: user.id,
+            },
+          };
+        }),
       },
+      additives: {
+        connectOrCreate: ingredient.additives.map((name) => {
+          const item = ADDITIVES.find((additive) => additive.value === name);
+          return {
+            where: { name: item?.key },
+            create: {
+              name: item?.key,
+              createdBy: user.id,
+              updatedBy: user.id,
+            },
+          };
+        }),
+      },
+      properties: {
+        connectOrCreate: ingredient.properties.map((name) => {
+          const item = PROPERTIES.find((property) => property.value === name);
+          return {
+            where: { name: item?.key },
+            create: {
+              name: item?.key,
+              createdBy: user.id,
+              updatedBy: user.id,
+            },
+          };
+        }),
+      },
+      categories: {
+        connectOrCreate: ingredient.categories.map((name) => {
+          const item = CATEGORIES.find((category) => category.value === name);
+          return {
+            where: { name: item?.key },
+            create: {
+              name: item?.key,
+              createdBy: user.id,
+              updatedBy: user.id,
+            },
+          };
+        }),
+      },
+      seasons: {
+        connectOrCreate: ingredient.seasons.map((name) => {
+          const item = SEASONS.find((season) => season.value === name);
+          return {
+            where: { name: item?.key },
+            create: {
+              name: item?.key,
+              createdBy: user.id,
+              updatedBy: user.id,
+            },
+          };
+        }),
+      },
+      foodForms: {
+        connectOrCreate: ingredient.food_forms.map((name) => {
+          const item = FOOD_FORMS.find((foodForm) => foodForm.value === name);
+          return {
+            where: { name: item?.key },
+            create: {
+              name: item?.key,
+              createdBy: user.id,
+              updatedBy: user.id,
+            },
+          };
+        }),
+      },
+      kitchens: {
+        connectOrCreate: ingredient.kitchens.map((name) => {
+          const item = KITCHENS.find((kitchen) => kitchen.value === name);
+          return {
+            where: { name: item?.key },
+            create: {
+              name: item?.key,
+              createdBy: user.id,
+              updatedBy: user.id,
+            },
+          };
+        }),
+      },
+    };
+    return prisma.ingredient.upsert({
+      where: { blsIdentifier: ingredient.bls_identifier },
+      update: data,
+      create: data,
     });
   });
 
@@ -691,10 +700,12 @@ const seedMealBoardPlan = async () => {
 
 const seedWeeklyMealGroups = async () => {
   const user = await prisma.user.findUnique({ where: { email: EMAIL } });
-
   const meals = await prisma.meal.findMany();
   const mealBoardPlans = await prisma.mealBoardPlan.findMany();
   const timeOfDays = Object.values(TimeOfDay);
+
+  const weeklyMealGroupsToCreate = [];
+
   for (const mealBoardPlan of mealBoardPlans) {
     const currentYear = new Date().getFullYear();
     const startYear = currentYear - 2;
@@ -705,41 +716,50 @@ const seedWeeklyMealGroups = async () => {
       for (let week = 1; week <= 52; week++) {
         for (let groupIndex = 0; groupIndex < groupsPerWeek; groupIndex++) {
           if (coinFlip(0.25)) continue;
-          const weeklyMealGroup = await prisma.weeklyMealGroup.create({
-            data: {
-              name: faker.commerce.productName(),
-              description: faker.lorem.sentence(),
-              mealBoardPlanId: mealBoardPlan.id,
-              timeOfDay: timeOfDays[randomInt(0, timeOfDays.length - 1)],
-              color: faker.internet.color({
-                redBase: 100,
-                greenBase: 100,
-                blueBase: 100,
-              }),
-              weekOfYear: week,
-              orderIndex: groupIndex,
-              year,
-              createdBy: user.id,
-              updatedBy: user.id,
-            },
-          });
-
-          for (const dayField of DAYFIELDS) {
-            const randomMeal = meals[randomInt(0, meals.length - 1)];
-
-            if (coinFlip(0.75)) {
-              await prisma.weeklyMealGroup.update({
-                where: { id: weeklyMealGroup.id },
-                data: {
-                  [dayField]: randomMeal.id,
-                },
-              });
-            }
-          }
+          const weeklyMealGroupData = {
+            name: faker.commerce.productName(),
+            description: faker.lorem.sentence(),
+            mealBoardPlanId: mealBoardPlan.id,
+            timeOfDay: timeOfDays[randomInt(0, timeOfDays.length - 1)],
+            color: faker.internet.color({
+              redBase: 100,
+              greenBase: 100,
+              blueBase: 100,
+            }),
+            weekOfYear: week,
+            orderIndex: groupIndex,
+            year,
+            createdBy: user.id,
+            updatedBy: user.id,
+          };
+          weeklyMealGroupsToCreate.push(weeklyMealGroupData);
         }
       }
     }
   }
+
+  // Batch create weeklyMealGroups
+  await prisma.weeklyMealGroup.createMany({
+    data: weeklyMealGroupsToCreate,
+  });
+
+  // Fetch all weeklyMealGroups created
+  const allWeeklyMealGroups = await prisma.weeklyMealGroup.findMany();
+
+  const updates = allWeeklyMealGroups.flatMap((weeklyMealGroup) =>
+    DAYFIELDS.map((dayField) => {
+      if (coinFlip(0.75)) {
+        const randomMeal = meals[randomInt(0, meals.length - 1)];
+        return prisma.weeklyMealGroup.update({
+          where: { id: weeklyMealGroup.id },
+          data: { [dayField]: randomMeal.id },
+        });
+      }
+      return null;
+    }).filter((update) => update !== null),
+  );
+
+  await prisma.$transaction(updates);
 };
 
 const createUser = async ({

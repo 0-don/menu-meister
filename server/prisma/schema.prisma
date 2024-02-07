@@ -208,8 +208,7 @@ model UserMealLocation {
 
   user User @relation(fields: [userId], references: [id])
 
-  @@unique([userId, timeOfDay, mealLocation], name: "user_meal_location_userId_timeOfDay_mealLocation_unique")
-  @@unique([userId, timeOfDay], name: "user_meal_location_userId_timeOfDay_unique")
+  @@unique([userId, timeOfDay, mealLocation], name: "userId_timeOfDay_mealLocation_unique")
 }
 
 model Allergens {
@@ -370,7 +369,7 @@ model Ingredient {
   id Int @id @default(autoincrement())
 
   name          String @db.VarChar(255)
-  blsIdentifier String @db.VarChar(50)
+  blsIdentifier String @unique @db.VarChar(50)
 
   energyKcal      Decimal @default(0) @db.Decimal(10, 2)
   energyKj        Decimal @default(0) @db.Decimal(10, 2)
