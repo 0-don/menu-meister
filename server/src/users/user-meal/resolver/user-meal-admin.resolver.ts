@@ -24,7 +24,7 @@ export class UserMealAdminResolver {
   @Query(() => [UserMealUserOutput], { nullable: true })
   @Roles("ADMIN")
   async getUserMealsGroupedCountAdmin(
-    @Args() data: UserMealUserInput,
+    @Args("data") data: UserMealUserInput,
   ): Promise<UserMealUserOutput[]> {
     try {
       const mealsGrouped = await this.prisma.userMeal.groupBy({
@@ -45,14 +45,16 @@ export class UserMealAdminResolver {
         select: { id: true, name: true },
       });
 
-      return mealsGrouped.map((meal) => {
-        const mealData = meals.find((m) => m.id === meal.mealId);
-        return {
-          count: meal._count?.mealId,
-          date: meal.date.toISOString(),
-          meal: mealData.name,
-        };
-      });
+      return mealsGrouped
+        .map((meal) => {
+          const mealData = meals.find((m) => m.id === meal.mealId);
+          return {
+            count: meal._count?.mealId,
+            date: meal.date.toISOString(),
+            meal: mealData.name,
+          };
+        })
+        .sort((a, b) => (a.date > b.date ? 1 : a.date < b.date ? -1 : 0));
     } catch (e) {
       Logger.error(e);
       return null;

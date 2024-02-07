@@ -673,12 +673,19 @@ type UserMealGroupBy {
   _max: UserMealMaxAggregate
 }
 
+type UserMealUserOutput {
+  date: String!
+  meal: String!
+  count: Int!
+}
+
 type Query {
   me: User
   getAllUsersAdmin(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]
   getUserAdmin(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): User
   getAllUserMealsUser(where: UserMealWhereInput, orderBy: [UserMealOrderByWithRelationInput!], cursor: UserMealWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealScalarFieldEnum!]): [UserMeal!]
   getUserMealUser(where: UserMealWhereInput, orderBy: [UserMealOrderByWithRelationInput!], cursor: UserMealWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealScalarFieldEnum!]): UserMeal
+  getUserMealsGroupedCountAdmin(data: UserMealUserInput!): [UserMealUserOutput!]
   getUserMealsGroupedAdmin(where: UserMealWhereInput, orderBy: [UserMealOrderByWithAggregationInput!], by: [UserMealScalarFieldEnum!]!, having: UserMealScalarWhereWithAggregatesInput, take: Int, skip: Int, _count: UserMealCountAggregateInput, _avg: UserMealAvgAggregateInput, _sum: UserMealSumAggregateInput, _min: UserMealMinAggregateInput, _max: UserMealMaxAggregateInput): [UserMealGroupBy!]
   getAllUserMealsAdmin(where: UserMealWhereInput, orderBy: [UserMealOrderByWithRelationInput!], cursor: UserMealWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealScalarFieldEnum!]): [UserMeal!]
   getAllUserMealLocationsAdmin(where: UserMealLocationWhereInput, orderBy: [UserMealLocationOrderByWithRelationInput!], cursor: UserMealLocationWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealLocationScalarFieldEnum!]): [UserMealLocation!]
@@ -1719,6 +1726,12 @@ enum UserMealScalarFieldEnum {
   updatedAt
   createdBy
   updatedBy
+}
+
+input UserMealUserInput {
+  mealBoardPlanId: Int!
+  dateFrom: String!
+  dateTo: String!
 }
 
 input UserMealOrderByWithAggregationInput {
