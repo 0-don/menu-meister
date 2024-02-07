@@ -1,16 +1,16 @@
 import { UserMealScalarFieldEnum } from "@/app_modules/@generated/user-meal/user-meal-scalar-field.enum";
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../../app_modules/prisma/prisma.service";
-import { UserMealAdminInput } from "./model/input/user-meal-admin.input";
-import { UserMealAdminOutput } from "./model/output/user-meal-admin.output";
+import { UserMealGroupedCountAdminInput } from "./model/input/user-meal-grouped-count-admin.input";
+import { UserMealGroupedCountAdminOutput } from "./model/output/user-meal-grouped-count-admin.output";
 
 @Injectable()
 export class UserMealService {
   constructor(private prisma: PrismaService) {}
 
   async getUserMealsGroupedCount(
-    data: UserMealAdminInput,
-  ): Promise<UserMealAdminOutput[]> {
+    data: UserMealGroupedCountAdminInput,
+  ): Promise<UserMealGroupedCountAdminOutput[]> {
     const mealsGrouped = await this.prisma.userMeal.groupBy({
       where: {
         mealBoardPlanId: { equals: data.mealBoardPlanId },

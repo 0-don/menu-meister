@@ -1,7 +1,7 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
 
 @InputType()
-export class UserMealAdminInput {
+export class UserMealGroupedCountAdminInput {
   @Field(() => Int)
   mealBoardPlanId: number;
 

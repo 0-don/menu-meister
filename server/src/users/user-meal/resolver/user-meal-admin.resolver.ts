@@ -9,8 +9,8 @@ import { Args, Info, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import { Prisma } from "@prisma/client";
 import { GraphQLResolveInfo } from "graphql";
-import { UserMealAdminInput } from "../model/input/user-meal-admin.input";
-import { UserMealAdminOutput } from "../model/output/user-meal-admin.output";
+import { UserMealGroupedCountAdminInput } from "../model/input/user-meal-grouped-count-admin.input";
+import { UserMealGroupedCountAdminOutput } from "../model/output/user-meal-grouped-count-admin.output";
 import { UserMealService } from "../user-meal.service";
 
 @Resolver(() => UserMeal)
@@ -20,11 +20,11 @@ export class UserMealAdminResolver {
     private userMealService: UserMealService,
   ) {}
 
-  @Query(() => [UserMealAdminOutput], { nullable: true })
+  @Query(() => [UserMealGroupedCountAdminOutput], { nullable: true })
   @Roles("ADMIN")
   async getUserMealsGroupedCountAdmin(
-    @Args("data") data: UserMealAdminInput,
-  ): Promise<UserMealAdminOutput[]> {
+    @Args("data") data: UserMealGroupedCountAdminInput,
+  ): Promise<UserMealGroupedCountAdminOutput[]> {
     try {
       return await this.userMealService.getUserMealsGroupedCount(data);
     } catch (e) {
