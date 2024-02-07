@@ -1956,8 +1956,7 @@ input UserMealLocationOrderByWithRelationInput {
 
 input UserMealLocationWhereUniqueInput {
   id: Int
-  user_meal_location_userId_timeOfDay_mealLocation_unique: UserMealLocationUser_meal_location_userId_timeOfDay_mealLocation_uniqueCompoundUniqueInput
-  user_meal_location_userId_timeOfDay_unique: UserMealLocationUser_meal_location_userId_timeOfDay_uniqueCompoundUniqueInput
+  userId_timeOfDay_mealLocation_unique: UserMealLocationUserId_timeOfDay_mealLocation_uniqueCompoundUniqueInput
   AND: [UserMealLocationWhereInput!]
   OR: [UserMealLocationWhereInput!]
   NOT: [UserMealLocationWhereInput!]
@@ -1967,15 +1966,10 @@ input UserMealLocationWhereUniqueInput {
   user: UserRelationFilter
 }
 
-input UserMealLocationUser_meal_location_userId_timeOfDay_mealLocation_uniqueCompoundUniqueInput {
+input UserMealLocationUserId_timeOfDay_mealLocation_uniqueCompoundUniqueInput {
   userId: Int!
   timeOfDay: TimeOfDay!
   mealLocation: MealLocation!
-}
-
-input UserMealLocationUser_meal_location_userId_timeOfDay_uniqueCompoundUniqueInput {
-  userId: Int!
-  timeOfDay: TimeOfDay!
 }
 
 enum UserMealLocationScalarFieldEnum {
