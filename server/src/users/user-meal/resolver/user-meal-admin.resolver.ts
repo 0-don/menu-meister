@@ -8,13 +8,13 @@ import { Logger } from "@nestjs/common";
 import { Args, Info, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import { MealLocation, Prisma } from "@prisma/client";
+import dayjs from "dayjs";
 import { GraphQLResolveInfo } from "graphql";
 import { UserMealGroupedCountAdminInput } from "../model/input/user-meal-grouped-count-admin.input";
 import { UserMealGroupedUsersAdminInput } from "../model/input/user-meal-grouped-users-admin.input";
 import { UserMealGroupedCountAdminOutput } from "../model/output/user-meal-grouped-count-admin.output";
 import { UserMealGroupedUsersAdminOutput } from "../model/output/user-meal-grouped-users-admin.output";
 import { UserMealService } from "../user-meal.service";
-import dayjs from "dayjs";
 
 @Resolver(() => UserMeal)
 export class UserMealAdminResolver {
@@ -29,14 +29,10 @@ export class UserMealAdminResolver {
     @Args("data") data: UserMealGroupedUsersAdminInput,
   ): Promise<UserMealGroupedUsersAdminOutput[]> {
     try {
-      const gteDate = dayjs(data.date).toDate();
-      const lteDate = dayjs(data.date).add(1, "day").toDate();
-      console.log(gteDate, lteDate);
       const meals = await this.prisma.userMeal.findMany({
         where: {
-          // date: { gte: gteDate, lte: lteDate },
-          date: lteDate,
-          // mealBoardPlanId: { equals: data.mealBoardPlanId },
+          date: dayjs(data.date).toDate(),
+          mealBoardPlanId: data.mealBoardPlanId,
         },
         select: {
           date: true,
@@ -64,47 +60,32 @@ export class UserMealAdminResolver {
         },
       });
 
-      // console.log(meals);
-      const groupedMeals: UserMealGroupedUsersAdminOutput[] = [];
+      const groupedMeals = meals.reduce((acc, meal) => {
+        const userMealLocation =
+          meal.user.userMealLocation.find(
+            (location) => location.timeOfDay === meal.timeOfDay,
+          )?.mealLocation || MealLocation.InRoom;
 
-      for (const meal of meals) {
-        const groupedMeal = groupedMeals.find(
-          (groupedMeal) => groupedMeal.userId === meal.user.id,
-        );
-
-        if (!groupedMeal) {
-          const group: UserMealGroupedUsersAdminOutput = {
+        if (!acc[meal.user.id]) {
+          acc[meal.user.id] = {
             userId: meal.user.id,
             firstname: meal.user.firstname,
             lastname: meal.user.lastname,
-            meals: [
-              {
-                meal: meal.meal.name,
-                mealId: meal.meal.id,
-                timeOfDay: meal.timeOfDay,
-                mealLocation:
-                  meal.user.userMealLocation.find(
-                    (location) => location.timeOfDay === meal.timeOfDay,
-                  )?.mealLocation || MealLocation.InRoom,
-              },
-            ],
+            meals: [],
           };
-
-          groupedMeals.push(group);
-        } else {
-          groupedMeal.meals.push({
-            meal: meal.meal.name,
-            mealId: meal.meal.id,
-            timeOfDay: meal.timeOfDay,
-            mealLocation:
-              meal.user.userMealLocation.find(
-                (location) => location.timeOfDay === meal.timeOfDay,
-              )?.mealLocation || MealLocation.InRoom,
-          });
         }
-      }
 
-      return groupedMeals;
+        acc[meal.user.id].meals.push({
+          meal: meal.meal.name,
+          mealId: meal.meal.id,
+          timeOfDay: meal.timeOfDay,
+          mealLocation: userMealLocation,
+        });
+
+        return acc;
+      }, {});
+
+      return Object.values(groupedMeals);
     } catch (e) {
       Logger.error(e);
       return null;

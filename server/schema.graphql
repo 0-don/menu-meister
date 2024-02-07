@@ -815,7 +815,13 @@ input StringNullableFilter {
   contains: String
   startsWith: String
   endsWith: String
+  mode: QueryMode
   not: NestedStringNullableFilter
+}
+
+enum QueryMode {
+  default
+  insensitive
 }
 
 input NestedStringNullableFilter {
@@ -843,6 +849,7 @@ input StringFilter {
   contains: String
   startsWith: String
   endsWith: String
+  mode: QueryMode
   not: NestedStringFilter
 }
 
