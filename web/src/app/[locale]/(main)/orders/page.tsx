@@ -44,31 +44,30 @@ export default function OrdersPage({}: OrdersPageProps) {
   );
 
   return (
-    <>
+    <main className="mt-5 w-full max-w-3xl rounded-lg bg-default-50 p-5">
       <MenuPagination />
-      <div className="container mx-auto">
-        <Table className="mt-5">
-          <TableHeader>
-            <TableColumn>{t("DATE")}</TableColumn>
-            <TableColumn>{t("MEAL")}</TableColumn>
-            <TableColumn>{t("COUNT")}</TableColumn>
-          </TableHeader>
-          <TableBody>
-            {(getUserMealsGroupedAdmin || []).map((userMeal) => {
-              const meal = meals?.find((meal) => meal.id === userMeal.mealId);
-              return (
-                <TableRow key={userMeal.mealId + userMeal.date}>
-                  <TableCell>
-                    {dayjs(userMeal.date).format("DD/MM/YYYY")}
-                  </TableCell>
-                  <TableCell>{meal?.name}</TableCell>
-                  <TableCell>{userMeal._count?.mealId}</TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </div>
-    </>
+
+      <Table className="mt-5" isStriped>
+        <TableHeader>
+          <TableColumn>{t("DATE")}</TableColumn>
+          <TableColumn>{t("MEAL")}</TableColumn>
+          <TableColumn>{t("COUNT")}</TableColumn>
+        </TableHeader>
+        <TableBody>
+          {(getUserMealsGroupedAdmin || []).map((userMeal) => {
+            const meal = meals?.find((meal) => meal.id === userMeal.mealId);
+            return (
+              <TableRow key={userMeal.mealId + userMeal.date}>
+                <TableCell>
+                  {dayjs(userMeal.date).format("DD/MM/YYYY")}
+                </TableCell>
+                <TableCell>{meal?.name}</TableCell>
+                <TableCell>{userMeal._count?.mealId}</TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </main>
   );
 }
