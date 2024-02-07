@@ -370,7 +370,7 @@ model Ingredient {
   id Int @id @default(autoincrement())
 
   name          String @db.VarChar(255)
-  blsIdentifier String @unique @db.VarChar(50)
+  blsIdentifier String @db.VarChar(50)
 
   energyKcal      Decimal @default(0) @db.Decimal(10, 2)
   energyKj        Decimal @default(0) @db.Decimal(10, 2)
