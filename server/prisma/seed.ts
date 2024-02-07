@@ -67,7 +67,7 @@ const seed = async () => {
 
   await seedSettings();
   await seedAllProperties();
-  // await seedIngredients();
+  await seedIngredients();
   await seedRecipes();
   await seedMeals();
   await seedMealBoardPlan();
@@ -142,8 +142,10 @@ const seedUserMeals = async () => {
   const users = await prisma.user.findMany();
   const pastWeeklyMealGroups = await prisma.weeklyMealGroup.findMany({
     where: {
-      weekOfYear: { lt: dayjs().week() },
-      year: { lte: dayjs().year() },
+      OR: [
+        { year: { lt: dayjs().year() } },
+        { year: dayjs().year(), weekOfYear: { lt: dayjs().week() } },
+      ],
     },
   });
   const mealBoardPlan = await prisma.mealBoardPlan.findFirst({
@@ -162,7 +164,7 @@ const seedUserMeals = async () => {
         .startOf("week");
 
       const days = Array.from({ length: 7 }, (_, i) =>
-        startOfWeek.add(i, "day").toISOString(),
+        startOfWeek.add(i + 1, "day").toISOString(),
       );
       const weekDay = DAYFIELDS[index];
       const mealId = weeklyMealGroup[weekDay];

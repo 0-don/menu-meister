@@ -54,12 +54,13 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
       m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id,
   );
 
-  const selectedMealAdmins =
-    userMealsAdmin?.filter(
-      (m) =>
-        m.mealId === props.meal.id &&
-        dayjs(m.date).date() === dayjs(props.date).date(),
-    ) || [];
+  const selectedMealAdmins = (userMealsAdmin || []).filter(
+    (m) =>
+      m.mealId === props.meal.id &&
+      dayjs(m.date).format("DD/MM/YYYY") ===
+        dayjs(props.date).format("DD/MM/YYYY") &&
+      m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id,
+  );
 
   const disabled =
     !isHighRank ||
