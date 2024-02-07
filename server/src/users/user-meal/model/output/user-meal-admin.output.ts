@@ -1,7 +1,7 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 
 @ObjectType()
-export class UserMealUserOutput {
+export class UserMealAdminOutput {
   @Field(() => String)
   date: string;
 
