@@ -4,6 +4,7 @@ import {
   Prisma,
   PrismaClient,
   TimeOfDay,
+  Unit,
   UserRoleName,
 } from "@prisma/client";
 import argon2 from "argon2";
@@ -503,16 +504,16 @@ const seedRecipes = async () => {
         (ingredient) => ingredient.blsIdentifier === ingredient.blsIdentifier,
       )?.id;
 
-      // await prisma.recipeIngredient.create({
-      //   data: {
-      //     recipeId: recipeDB.id,
-      //     ingredientId,
-      //     amount: ingredient.amount / ingredient.factor,
-      //     unit: ingredient.unit.toUpperCase() as Unit,
-      //     createdBy: user.id,
-      //     updatedBy: user.id,
-      //   },
-      // });
+      await prisma.recipeIngredient.create({
+        data: {
+          recipeId: recipeDB.id,
+          ingredientId,
+          amount: ingredient.amount / ingredient.factor,
+          unit: ingredient.unit.toUpperCase() as Unit,
+          createdBy: user.id,
+          updatedBy: user.id,
+        },
+      });
     }
   }
 };
