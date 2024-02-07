@@ -679,12 +679,27 @@ type UserMealGroupedCountAdminOutput {
   count: Int!
 }
 
+type UserMealGroupedUsersMealsAdminOutput {
+  mealId: Int!
+  meal: String!
+  timeOfDay: TimeOfDay!
+  mealLocation: MealLocation!
+}
+
+type UserMealGroupedUsersAdminOutput {
+  userId: Int!
+  firstname: String
+  lastname: String
+  meals: [UserMealGroupedUsersMealsAdminOutput!]!
+}
+
 type Query {
   me: User
   getAllUsersAdmin(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]
   getUserAdmin(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): User
   getAllUserMealsUser(where: UserMealWhereInput, orderBy: [UserMealOrderByWithRelationInput!], cursor: UserMealWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealScalarFieldEnum!]): [UserMeal!]
   getUserMealUser(where: UserMealWhereInput, orderBy: [UserMealOrderByWithRelationInput!], cursor: UserMealWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealScalarFieldEnum!]): UserMeal
+  getUserMealsGroupedUsersAdmin(data: UserMealGroupedUsersAdminInput!): [UserMealGroupedUsersAdminOutput!]
   getUserMealsGroupedCountAdmin(data: UserMealGroupedCountAdminInput!): [UserMealGroupedCountAdminOutput!]
   getUserMealsGroupedAdmin(where: UserMealWhereInput, orderBy: [UserMealOrderByWithAggregationInput!], by: [UserMealScalarFieldEnum!]!, having: UserMealScalarWhereWithAggregatesInput, take: Int, skip: Int, _count: UserMealCountAggregateInput, _avg: UserMealAvgAggregateInput, _sum: UserMealSumAggregateInput, _min: UserMealMinAggregateInput, _max: UserMealMaxAggregateInput): [UserMealGroupBy!]
   getAllUserMealsAdmin(where: UserMealWhereInput, orderBy: [UserMealOrderByWithRelationInput!], cursor: UserMealWhereUniqueInput, take: Int, skip: Int, distinct: [UserMealScalarFieldEnum!]): [UserMeal!]
@@ -1726,6 +1741,11 @@ enum UserMealScalarFieldEnum {
   updatedAt
   createdBy
   updatedBy
+}
+
+input UserMealGroupedUsersAdminInput {
+  mealBoardPlanId: Int!
+  date: String!
 }
 
 input UserMealGroupedCountAdminInput {

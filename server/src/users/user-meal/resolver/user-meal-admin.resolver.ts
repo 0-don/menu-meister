@@ -7,10 +7,13 @@ import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";
 import { Args, Info, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
-import { Prisma } from "@prisma/client";
+import { MealLocation, Prisma } from "@prisma/client";
+import dayjs from "dayjs";
 import { GraphQLResolveInfo } from "graphql";
 import { UserMealGroupedCountAdminInput } from "../model/input/user-meal-grouped-count-admin.input";
+import { UserMealGroupedUsersAdminInput } from "../model/input/user-meal-grouped-users-admin.input";
 import { UserMealGroupedCountAdminOutput } from "../model/output/user-meal-grouped-count-admin.output";
+import { UserMealGroupedUsersAdminOutput } from "../model/output/user-meal-grouped-users-admin.output";
 import { UserMealService } from "../user-meal.service";
 
 @Resolver(() => UserMeal)
@@ -19,6 +22,88 @@ export class UserMealAdminResolver {
     private prisma: PrismaService,
     private userMealService: UserMealService,
   ) {}
+
+  @Query(() => [UserMealGroupedUsersAdminOutput], { nullable: true })
+  @Roles("ADMIN")
+  async getUserMealsGroupedUsersAdmin(
+    @Args("data") data: UserMealGroupedUsersAdminInput,
+  ): Promise<UserMealGroupedUsersAdminOutput[]> {
+    try {
+      const meals = await this.prisma.userMeal.findMany({
+        where: {
+          date: { equals: dayjs(data.date).toISOString() },
+          mealBoardPlanId: { equals: data.mealBoardPlanId },
+        },
+        select: {
+          timeOfDay: true,
+          meal: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          user: {
+            select: {
+              id: true,
+              firstname: true,
+              lastname: true,
+              userMealLocation: {
+                select: {
+                  id: true,
+                  mealLocation: true,
+                  timeOfDay: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      const groupedMeals: UserMealGroupedUsersAdminOutput[] = [];
+
+      for (const meal of meals) {
+        const groupedMeal = groupedMeals.find(
+          (groupedMeal) => groupedMeal.userId === meal.user.id,
+        );
+
+        if (!groupedMeal) {
+          const group: UserMealGroupedUsersAdminOutput = {
+            userId: meal.user.id,
+            firstname: meal.user.firstname,
+            lastname: meal.user.lastname,
+            meals: [
+              {
+                meal: meal.meal.name,
+                mealId: meal.meal.id,
+                timeOfDay: meal.timeOfDay,
+                mealLocation:
+                  meal.user.userMealLocation.find(
+                    (location) => location.timeOfDay === meal.timeOfDay,
+                  )?.mealLocation || MealLocation.InRoom,
+              },
+            ],
+          };
+
+          groupedMeals.push(group);
+        } else {
+          groupedMeal.meals.push({
+            meal: meal.meal.name,
+            mealId: meal.meal.id,
+            timeOfDay: meal.timeOfDay,
+            mealLocation:
+              meal.user.userMealLocation.find(
+                (location) => location.timeOfDay === meal.timeOfDay,
+              )?.mealLocation || MealLocation.InRoom,
+          });
+        }
+      }
+
+      return groupedMeals;
+    } catch (e) {
+      Logger.error(e);
+      return null;
+    }
+  }
 
   @Query(() => [UserMealGroupedCountAdminOutput], { nullable: true })
   @Roles("ADMIN")
