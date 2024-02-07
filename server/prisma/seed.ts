@@ -155,14 +155,19 @@ const seedUserMeals = async () => {
       const weeklyMealGroup =
         pastWeeklyMealGroups[randomInt(0, pastWeeklyMealGroups.length - 1)];
       const index = randomInt(0, DAYFIELDS.length - 1);
+
+      const startOfWeek = dayjs()
+        .year(weeklyMealGroup.year)
+        .isoWeek(weeklyMealGroup.weekOfYear)
+        .startOf("week");
+
+      const days = Array.from({ length: 7 }, (_, i) =>
+        startOfWeek.add(i, "day").toISOString(),
+      );
       const weekDay = DAYFIELDS[index];
       const mealId = weeklyMealGroup[weekDay];
       if (!mealId) continue;
-      const date = dayjs()
-        .year(weeklyMealGroup.year)
-        .week(weeklyMealGroup.weekOfYear)
-        .day(index + 1)
-        .toISOString();
+      const date = days[index];
 
       await prisma.userMeal.create({
         data: {

@@ -38,8 +38,8 @@
     "valtio": "^1.13.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.0",
-    "@graphql-codegen/client-preset": "^4.1.0",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "^4.2.2",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@parcel/watcher": "^2.4.0",
     "@tanstack/react-query-devtools": "^5.18.1",

@@ -10854,13 +10854,6 @@ export type UserMealUpsertWithWhereUniqueWithoutWeeklyMealGroupInput = {
   where: UserMealWhereUniqueInput;
 };
 
-export type UserMealUser_Meal_Date_MealBoardPlanId_UserId_MealId_UniqueCompoundUniqueInput = {
-  date: Scalars['DateTime']['input'];
-  mealBoardPlanId: Scalars['Int']['input'];
-  mealId: Scalars['Int']['input'];
-  userId: Scalars['Int']['input'];
-};
-
 export type UserMealWhereInput = {
   AND?: InputMaybe<Array<UserMealWhereInput>>;
   NOT?: InputMaybe<Array<UserMealWhereInput>>;
@@ -10891,7 +10884,6 @@ export type UserMealWhereUniqueInput = {
   timeOfDay?: InputMaybe<EnumTimeOfDayFilter>;
   user?: InputMaybe<UserRelationFilter>;
   userId?: InputMaybe<IntFilter>;
-  user_meal_date_mealBoardPlanId_userId_mealId_unique?: InputMaybe<UserMealUser_Meal_Date_MealBoardPlanId_UserId_MealId_UniqueCompoundUniqueInput>;
   weeklyMealGroup?: InputMaybe<WeeklyMealGroupRelationFilter>;
   weeklyMealGroupId?: InputMaybe<IntFilter>;
 };
