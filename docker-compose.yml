@@ -27,7 +27,7 @@ services:
       target: prod
     restart: always
     environment:
-      - DATABASE_URL=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}/${MYSQL_DB}
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}?schema=public
       - SECRET=${SECRET}
       - PORT=${PORT}
       - CORS_ORIGIN=${CORS_ORIGIN}
@@ -43,13 +43,14 @@ services:
       - 'traefik.http.services.menu-meister-server.loadbalancer.server.port=4000'
   menu-meister-db:
     container_name: menu-meister-db
-    image: mysql:latest
+    image: postgres:latest
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DB}
     networks:
       - proxy
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
       
 networks:

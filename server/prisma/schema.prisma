@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -427,9 +427,9 @@ model Recipe {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int      @db.Int
+  createdBy     Int
   /// @HideField({ output: false, input: true })
-  updatedBy     Int      @db.Int
+  updatedBy     Int
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedRecipe", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -452,9 +452,9 @@ model RecipeIngredient {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int      @db.Int
+  createdBy     Int
   /// @HideField({ output: false, input: true })
-  updatedBy     Int      @db.Int
+  updatedBy     Int
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedRecipeIngredient", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -465,7 +465,7 @@ model Meal {
   id          Int     @id @default(autoincrement())
   name        String  @db.VarChar(255)
   description String? @db.Text
-  image       String? @db.LongText
+  image       String? @db.Text
 
   allergens  Allergens[]  @relation("MealAllergens")
   additives  Additives[]  @relation("MealAdditives")
@@ -490,9 +490,9 @@ model Meal {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int      @db.Int
+  createdBy     Int
   /// @HideField({ output: false, input: true })
-  updatedBy     Int      @db.Int
+  updatedBy     Int
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedMeal", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -514,9 +514,9 @@ model MealRecipe {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int      @db.Int
+  createdBy     Int
   /// @HideField({ output: false, input: true })
-  updatedBy     Int      @db.Int
+  updatedBy     Int
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedMealRecipe", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -536,9 +536,9 @@ model MealBoardPlan {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int      @db.Int
+  createdBy     Int
   /// @HideField({ output: false, input: true })
-  updatedBy     Int      @db.Int
+  updatedBy     Int
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedMealBoardPlan", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -581,9 +581,9 @@ model WeeklyMealGroup {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int      @db.Int
+  createdBy     Int
   /// @HideField({ output: false, input: true })
-  updatedBy     Int      @db.Int
+  updatedBy     Int
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedWeeklyMealGroup", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })

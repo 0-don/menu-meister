@@ -24,6 +24,8 @@ export default function OrdersPage({}: OrdersPageProps) {
   const t = useTranslations<"Orders">();
   const dashboardStore = useSnapshot(DashboardStore);
 
+
+  console.log(dashboardStore.daysThatWeek)
   const { data: { getUserMealsGroupedCountAdmin } = {} } = useGqlQuery(
     GET_USER_MEALS_GROUPED_COUNT_ADMIN,
     {

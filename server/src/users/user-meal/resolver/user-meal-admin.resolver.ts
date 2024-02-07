@@ -8,13 +8,13 @@ import { Logger } from "@nestjs/common";
 import { Args, Info, Query, Resolver } from "@nestjs/graphql";
 import { PrismaSelect } from "@paljs/plugins";
 import { MealLocation, Prisma } from "@prisma/client";
-import dayjs from "dayjs";
 import { GraphQLResolveInfo } from "graphql";
 import { UserMealGroupedCountAdminInput } from "../model/input/user-meal-grouped-count-admin.input";
 import { UserMealGroupedUsersAdminInput } from "../model/input/user-meal-grouped-users-admin.input";
 import { UserMealGroupedCountAdminOutput } from "../model/output/user-meal-grouped-count-admin.output";
 import { UserMealGroupedUsersAdminOutput } from "../model/output/user-meal-grouped-users-admin.output";
 import { UserMealService } from "../user-meal.service";
+import dayjs from "dayjs";
 
 @Resolver(() => UserMeal)
 export class UserMealAdminResolver {
@@ -29,12 +29,17 @@ export class UserMealAdminResolver {
     @Args("data") data: UserMealGroupedUsersAdminInput,
   ): Promise<UserMealGroupedUsersAdminOutput[]> {
     try {
+      const gteDate = dayjs(data.date).toDate();
+      const lteDate = dayjs(data.date).add(1, "day").toDate();
+      console.log(gteDate, lteDate);
       const meals = await this.prisma.userMeal.findMany({
         where: {
-          date: { equals: dayjs(data.date).toISOString() },
-          mealBoardPlanId: { equals: data.mealBoardPlanId },
+          // date: { gte: gteDate, lte: lteDate },
+          date: lteDate,
+          // mealBoardPlanId: { equals: data.mealBoardPlanId },
         },
         select: {
+          date: true,
           timeOfDay: true,
           meal: {
             select: {
@@ -59,6 +64,7 @@ export class UserMealAdminResolver {
         },
       });
 
+      // console.log(meals);
       const groupedMeals: UserMealGroupedUsersAdminOutput[] = [];
 
       for (const meal of meals) {
