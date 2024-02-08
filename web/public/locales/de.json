@@ -34,13 +34,6 @@
   },
   "Meals": {
     "FROM_TO": "<weektag>KW{week}</weektag> vom <fromtag>{from}</fromtag> bis zum <totag>{to}</totag>",
-    "MONDAY": "Montag",
-    "TUESDAY": "Dienstag",
-    "WEDNESDAY": "Mittwoch",
-    "THURSDAY": "Donnerstag",
-    "FRIDAY": "Freitag",
-    "SATURDAY": "Samstag",
-    "SUNDAY": "Sonntag",
     "GROUPNAME": "Gruppenname",
     "ADD_NEW_GROUP": "Neue Gruppe hinzufügen",
     "SAVE_GROUP": "Gruppe speichern",
@@ -60,14 +53,7 @@
     "COPY": "Kopieren",
     "SUCCESS_ADD_MEAL": "Mahlzeit ({meal}) erfolgreich hinzugefügt",
     "REMOVED_MEAL": "Mahlzeit ({meal}) erfolgreich entfernt",
-    "TIME_OF_DAY": "Tageszeit",
-    "ANY": "Jeder",
-    "MORNING": "Morgen",
-    "FORENOON": "Vormittag",
-    "NOON": "Mittag",
-    "AFTERNOON": "Nachmittag",
-    "EVENING": "Abend",
-    "NIGHT": "Nacht"
+    "TIME_OF_DAY": "Tageszeit"
   },
   "Orders": {
     "FROM_TO": "<weektag>KW{week}</weektag> vom <fromtag>{from}</fromtag> bis zum <totag>{to}</totag>",
@@ -139,6 +125,13 @@
     "UPLOAD_TYPE_AND_LIMIT": "PNG, JPG, GIF bis zu 10 MB"
   },
   "Enums": {
+    "MONDAY": "Montag",
+    "TUESDAY": "Dienstag",
+    "WEDNESDAY": "Mittwoch",
+    "THURSDAY": "Donnerstag",
+    "FRIDAY": "Freitag",
+    "SATURDAY": "Samstag",
+    "SUNDAY": "Sonntag",
     "Any": "Jeder",
     "Morning": "Morgen",
     "Forenoon": "Vormittag",

@@ -15,8 +15,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import dayjs from "dayjs";
-import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useSnapshot } from "valtio";
 import { CopyTableWeek } from "./CopyTableWeek";
 import { TableGroupRow } from "./TableGroupRow";
@@ -27,24 +26,18 @@ interface RenderDayColumnProps {
 }
 
 const RenderDayColumn: React.FC<RenderDayColumnProps> = (props) => {
-  const locale = useLocale();
   const t = useTranslations<"Meals">();
-  const [dayName, setDayName] = useState<string>(
-    t(props.dayKey.toUpperCase() as keyof Messages["Meals"]),
-  );
-  const date = dayjs(DashboardStore.daysThatWeek.at(props.index)).format(
+  const dashboardStore = useSnapshot(DashboardStore);
+
+  const title = t(props.dayKey.toUpperCase() as keyof Messages["Meals"]);
+  const date = dayjs(dashboardStore.daysThatWeek.at(props.index)).format(
     "DD.MM",
   );
-
-  useEffect(() => {
-    setDayName(t(props.dayKey.toUpperCase() as keyof Messages["Meals"]));
-  }, [locale]);
-
-  const dateToday = dayName.substring(0, 2);
+  const text = `${title.at(0)?.toUpperCase()}${title.at(1)}. ${date}`;
 
   return (
-    <div key={props.dayKey} title={dayName}>
-      {`${dateToday.at(0)?.toUpperCase()}${dateToday.at(1)}. ${date}`}
+    <div key={props.dayKey} title={title}>
+      {text}
     </div>
   );
 };

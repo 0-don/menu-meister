@@ -97,8 +97,6 @@ export class UserMealAdminResolver {
   async getUserMealsGroupedCountAdmin(
     @Args("data") data: UserMealGroupedCountAdminInput,
   ): Promise<UserMealGroupedCountAdminOutput[]> {
-
-    console.log(data);
     try {
       return await this.userMealService.getUserMealsGroupedCount(data);
     } catch (e) {
