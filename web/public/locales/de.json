@@ -60,8 +60,8 @@
     "DATE": "Datum",
     "MEAL": "Mahlzeit",
     "COUNT": "Anzahl",
-    "ALL_ORDERED_MEALS": "Alle bestellten Mahlzeiten",
-    "ALL_ORDERED_MEALS_BY_USERS": "Alle bestellten Mahlzeiten von Benutzern"
+    "ORDERED_MEALS_FOR_THE_WEEK": "Alle bestellten Mahlzeiten für die Woche",
+    "ORDERED_MEALS_FOR_THE_WEEK_BY_USERS": "Alle bestellten Mahlzeiten für die Woche von Benutzern"
   },
   "User": {
     "FIRSTNAME": "Vorname",

@@ -40,7 +40,7 @@ export const OrdersGroupedCount: React.FC<OrdersGroupedCountProps> = ({}) => {
 
   return (
     <>
-      <h2 className="text-xl font-bold">{t("ALL_ORDERED_MEALS")}</h2>
+      <h2 className="text-xl font-bold">{t("ORDERED_MEALS_FOR_THE_WEEK")}</h2>
       <Table className="mt-2" isStriped>
         <TableHeader>
           <TableColumn>{t("DATE")}</TableColumn>

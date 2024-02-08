@@ -42,7 +42,7 @@ export const OrdersGroupedUsers: React.FC<OrdersGroupedUsersProps> = ({}) => {
   return (
     <>
       <h2 className="my-2 text-xl font-bold">
-        {t("ALL_ORDERED_MEALS_BY_USERS")}
+        {t("ORDERED_MEALS_FOR_THE_WEEK_BY_USERS")}
       </h2>
       <div className="flex w-full flex-col">
         <Tabs

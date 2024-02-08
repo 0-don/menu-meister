@@ -60,8 +60,8 @@
     "DATE": "Date",
     "MEAL": "Meal",
     "COUNT": "Count",
-    "ALL_ORDERED_MEALS": "All ordered meals",
-    "ALL_ORDERED_MEALS_BY_USERS": "All ordered meals by users"
+    "ORDERED_MEALS_FOR_THE_WEEK": "Ordered meals for the week",
+    "ORDERED_MEALS_FOR_THE_WEEK_BY_USERS": "Ordered meals for the week by users"
   },
   "User": {
     "FIRSTNAME": "Firstname",
