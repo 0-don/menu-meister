@@ -20,6 +20,7 @@ dayjs.Ls["en"].weekStart = 1;
 export const DASHBOARD_STORE_KEY = "DashboardStore";
 
 export const DashboardStore = proxy({
+  init: false,
   activeMealBoardPlan: undefined as
     | NonNullable<GetAllMealBoardPlansUserQuery["getAllMealBoardPlansUser"]>[0]
     | undefined,

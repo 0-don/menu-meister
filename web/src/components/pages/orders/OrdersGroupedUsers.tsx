@@ -25,7 +25,9 @@ export const OrdersGroupedUsers: React.FC<OrdersGroupedUsersProps> = ({}) => {
     GET_USER_MEALS_GROUPED_USERS_ADMIN,
     {
       data: {
-        date: dayjs(dashboardStore.daysThatWeek.at(0)).toISOString(),
+        date: dayjs(dashboardStore.daysThatWeek.at(0))
+          .add(1, "day")
+          .toISOString(),
         mealBoardPlanId: Number(dashboardStore.activeMealBoardPlan?.id),
       },
     },

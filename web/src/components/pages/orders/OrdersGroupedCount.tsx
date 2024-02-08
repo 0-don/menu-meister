@@ -24,12 +24,18 @@ export const OrdersGroupedCount: React.FC<OrdersGroupedCountProps> = ({}) => {
     GET_USER_MEALS_GROUPED_COUNT_ADMIN,
     {
       data: {
-        dateFrom: dayjs(dashboardStore.daysThatWeek.at(0)).toISOString(),
-        dateTo: dayjs(dashboardStore.daysThatWeek.at(-1)).toISOString(),
+        dateFrom: dayjs(dashboardStore.daysThatWeek.at(0))
+          .add(1, "day")
+          .toISOString(),
+        dateTo: dayjs(dashboardStore.daysThatWeek.at(-1))
+          .add(1, "day")
+          .toISOString(),
         mealBoardPlanId: Number(dashboardStore.activeMealBoardPlan?.id),
       },
     },
-    { enabled: !!dashboardStore.activeMealBoardPlan?.id },
+    {
+      enabled: !!dashboardStore.activeMealBoardPlan?.id && dashboardStore.init,
+    },
   );
 
   return (

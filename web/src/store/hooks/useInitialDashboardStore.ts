@@ -15,6 +15,7 @@ export const useInitialDashboardStore = () => {
       ? JSON.parse(localStorage.getItem(DASHBOARD_STORE_KEY)!)
       : null;
     if (store) Object.assign(DashboardStore, store);
+    DashboardStore.init = true;
   }, []);
 
   useEffect(() => {

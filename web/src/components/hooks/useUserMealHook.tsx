@@ -7,6 +7,7 @@ import { GET_ALL_USER_MEALS_ADMIN } from "@/documents/query/dashboard";
 import { GET_ALL_USER_MEALS_USER } from "@/documents/query/menu";
 import { useGqlMutation, useGqlQuery } from "@/fetcher";
 import { DashboardStore } from "@/store/DashboardStore";
+import dayjs from "dayjs";
 import { useSnapshot } from "valtio";
 import { useMeHook } from "./useMeHook";
 
@@ -23,7 +24,7 @@ export const useUserMealHook = () => {
           mealBoardPlanId: { equals: dashboardStore.activeMealBoardPlan?.id },
           date: {
             gte: dashboardStore.daysThatWeek.at(0),
-            lte: dashboardStore.daysThatWeek.at(-1),
+            lte: dayjs(dashboardStore.daysThatWeek.at(-1)).add(1, "day"),
           },
         },
       },
@@ -40,7 +41,7 @@ export const useUserMealHook = () => {
         mealBoardPlanId: { equals: dashboardStore.activeMealBoardPlan?.id },
         date: {
           gte: dashboardStore.daysThatWeek.at(0),
-          lte: dashboardStore.daysThatWeek.at(-1),
+          lte: dayjs(dashboardStore.daysThatWeek.at(-1)).add(1, "day"),
         },
       },
     },
