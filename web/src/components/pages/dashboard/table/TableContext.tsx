@@ -16,6 +16,7 @@ import {
 } from "@dnd-kit/sortable";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
+import { title } from "process";
 import { useSnapshot } from "valtio";
 import { CopyTableWeek } from "./CopyTableWeek";
 import { TableGroupRow } from "./TableGroupRow";
@@ -26,14 +27,11 @@ interface RenderDayColumnProps {
 }
 
 const RenderDayColumn: React.FC<RenderDayColumnProps> = (props) => {
-  const t = useTranslations<"Meals">();
   const dashboardStore = useSnapshot(DashboardStore);
-
-  const title = t(props.dayKey as keyof Messages["Meals"]);
   const date = dayjs(dashboardStore.daysThatWeek.at(props.index)).format(
     "DD.MM",
   );
-  const text = `${title.at(0)?.toUpperCase()}${title.at(1)}. ${date}`;
+  const text = `${props.dayKey.at(0)?.toUpperCase()}${props.dayKey.at(1)}. ${date}`;
 
   return (
     <div key={props.dayKey} title={title}>
@@ -76,9 +74,11 @@ export function TableContext() {
           />
           <CopyTableWeek />
         </div>
-        {WEEK_DAYS.map((day, index) => (
-          <RenderDayColumn key={day} dayKey={day} index={index} />
-        ))}
+        {WEEK_DAYS.map((day, index) => {
+          const title = t(day.toUpperCase() as keyof Messages["Meals"]);
+
+          return <RenderDayColumn key={title} dayKey={title} index={index} />;
+        })}
       </div>
 
       <DndContext

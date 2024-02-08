@@ -35,7 +35,7 @@ export function MainTable({}: DashboardPageProps) {
         weekOfYear: { equals: dashboardStore.calendar.week },
       },
     },
-    { enabled: !!dashboardStore.activeMealBoardPlan },
+    { enabled: !!dashboardStore.activeMealBoardPlan?.id },
   );
 
   useEffect(() => {
