@@ -29,7 +29,7 @@ const RenderDayColumn: React.FC<RenderDayColumnProps> = (props) => {
   const t = useTranslations<"Meals">();
   const dashboardStore = useSnapshot(DashboardStore);
 
-  const title = t(props.dayKey.toUpperCase() as keyof Messages["Meals"]);
+  const title = t(props.dayKey as keyof Messages["Meals"]);
   const date = dayjs(dashboardStore.daysThatWeek.at(props.index)).format(
     "DD.MM",
   );
