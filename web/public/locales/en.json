@@ -73,7 +73,9 @@
     "FROM_TO": "<weektag>KW{week}</weektag> vom <fromtag>{from}</fromtag> bis zum <totag>{to}</totag>",
     "DATE": "Date",
     "MEAL": "Meal",
-    "COUNT": "Count"
+    "COUNT": "Count",
+    "ALL_ORDERED_MEALS": "All ordered meals",
+    "ALL_ORDERED_MEALS_BY_USERS": "All ordered meals by users"
   },
   "User": {
     "FIRSTNAME": "Firstname",
