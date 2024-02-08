@@ -25,7 +25,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
   listeners,
   activatorRef,
 }) => {
-  const t = useTranslations<"Meals">();
+  const t = useTranslations<"Meals" | "Enums">();
   const dashboardStore = useSnapshot(DashboardStore);
   const tableStore = useSnapshot(TableStore);
   const group = tableStore.getGroup(id);
@@ -117,7 +117,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
                 size="sm"
                 style={{ color }}
               >
-                {t(time.toUpperCase() as keyof Messages["Meals"])}
+                {t(time as keyof Messages["Enums"])}
               </Chip>
             ))}
           </div>
