@@ -45,57 +45,52 @@ export const OrdersGroupedUsers: React.FC<OrdersGroupedUsersProps> = ({}) => {
         {t("ALL_ORDERED_MEALS_BY_USERS")}
       </h2>
       <div className="flex w-full flex-col">
-        <Tabs aria-label="Options">
+        <Tabs
+          aria-label="Options"
+          className="mb-2"
+          selectedKey={date}
+          onSelectionChange={(key) => setDate(key as string)}
+        >
           {WEEK_DAYS.map((day, index) => {
             const title = t(day.toUpperCase() as keyof Messages["Enums"]);
-            const date = dayjs(dashboardStore.daysThatWeek.at(index));
-            const text = `${title.at(0)?.toUpperCase()}${title.at(1)}. ${date.format(
-              "DD.MM",
-            )}`;
-
-            return (
-              <Tab key={title} title={text}>
-                <div className="grid gap-2 md:grid-cols-2">
-                  {getUserMealsGroupedUsersAdmin?.map((user) => (
-                    <Card className="mb-5 md:min-w-[500px]" key={user.userId}>
-                      <CardHeader className="flex gap-3">
-                        <p className="text-md font-bold">
-                          {user.firstname} {user.lastname}
-                        </p>
-                      </CardHeader>
-                      <Divider />
-                      <CardBody>
-                        {user.meals.map(
-                          ({ meal, mealId, mealLocation, timeOfDay }) => {
-                            const Icon = TIME_OF_DAY_CONFIGS.find(
-                              (config) => config.time === timeOfDay,
-                            )!.icon;
-                            return (
-                              <div
-                                key={mealId}
-                                className="flex space-x-2 text-sm"
-                              >
-                                <div className="flex items-center space-x-1 text-secondary-500">
-                                  <Icon />
-                                  <p>{t(timeOfDay)}</p>
-                                </div>
-                                <p className="text-default-500">{meal}</p>
-                                <p className="text-primary">
-                                  {t(mealLocation)}
-                                </p>
-                              </div>
-                            );
-                          },
-                        )}
-                      </CardBody>
-                      <Divider />
-                    </Card>
-                  ))}
-                </div>
-              </Tab>
-            );
+            const date = dashboardStore.daysThatWeek.at(index);
+            const text = `${title.at(0)?.toUpperCase()}${title.at(1)}. ${dayjs(
+              date,
+            ).format("DD.MM")}`;
+            return <Tab key={date} title={text}></Tab>;
           })}
         </Tabs>
+
+        <div className="grid gap-2 md:grid-cols-2">
+          {getUserMealsGroupedUsersAdmin?.map((user) => (
+            <Card className="mb-5 md:min-w-[500px]" key={user.userId}>
+              <CardHeader className="flex gap-3">
+                <p className="text-md font-bold">
+                  {user.firstname} {user.lastname}
+                </p>
+              </CardHeader>
+              <Divider />
+              <CardBody>
+                {user.meals.map(({ meal, mealId, mealLocation, timeOfDay }) => {
+                  const Icon = TIME_OF_DAY_CONFIGS.find(
+                    (config) => config.time === timeOfDay,
+                  )!.icon;
+                  return (
+                    <div key={mealId} className="flex space-x-2 text-sm">
+                      <div className="flex items-center space-x-1 text-secondary-500">
+                        <Icon />
+                        <p>{t(timeOfDay)}</p>
+                      </div>
+                      <p className="text-default-500">{meal}</p>
+                      <p className="text-primary">{t(mealLocation)}</p>
+                    </div>
+                  );
+                })}
+              </CardBody>
+              <Divider />
+            </Card>
+          ))}
+        </div>
       </div>
     </>
   );
