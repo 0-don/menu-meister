@@ -2,7 +2,14 @@ import { GET_USER_MEALS_GROUPED_USERS_ADMIN } from "@/documents/query/orders";
 import { useGqlQuery } from "@/fetcher";
 import { DashboardStore } from "@/store/DashboardStore";
 import { TIME_OF_DAY_CONFIGS } from "@/utils/constants";
-import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Divider,
+  Tab,
+  Tabs,
+} from "@nextui-org/react";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import React from "react";
@@ -30,10 +37,41 @@ export const OrdersGroupedUsers: React.FC<OrdersGroupedUsersProps> = ({}) => {
       <h2 className="my-2 text-xl font-bold">
         {t("ALL_ORDERED_MEALS_BY_USERS")}
       </h2>
-
-      <div className="grid grid-cols-2 gap-2">
+      <div className="flex w-full flex-col">
+        <Tabs aria-label="Options">
+          <Tab key="photos" title="Photos">
+            <Card>
+              <CardBody>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="music" title="Music">
+            <Card>
+              <CardBody>
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur.
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="videos" title="Videos">
+            <Card>
+              <CardBody>
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                qui officia deserunt mollit anim id est laborum.
+              </CardBody>
+            </Card>
+          </Tab>
+        </Tabs>
+      </div>
+      <div className="grid gap-2 md:grid-cols-2">
         {getUserMealsGroupedUsersAdmin?.map((user) => (
-          <Card className="mb-5 min-w-[500px]" key={user.userId}>
+          <Card className="mb-5 md:min-w-[500px]" key={user.userId}>
             <CardHeader className="flex gap-3">
               <p className="text-md font-bold">
                 {user.firstname} {user.lastname}

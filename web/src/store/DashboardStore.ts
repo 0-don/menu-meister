@@ -65,7 +65,7 @@ export const dashboardWatch = () =>
     const startOfWeek = dayjs().year(year).isoWeek(week).startOf("week");
 
     DashboardStore.daysThatWeek = Array.from({ length: 7 }, (_, i) =>
-      startOfWeek.add(i, "day").format("YYYY-MM-DD"),
+      startOfWeek.add(i, "day").toISOString(),
     );
     DashboardStore.weeksThatYear = dayjs().year(year).isoWeeksInYear();
   });

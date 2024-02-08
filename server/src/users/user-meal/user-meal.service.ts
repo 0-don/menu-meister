@@ -14,7 +14,7 @@ export class UserMealService {
     const mealsGrouped = await this.prisma.userMeal.groupBy({
       where: {
         mealBoardPlanId: { equals: data.mealBoardPlanId },
-        date: { gte: data.dateFrom, lte: data.dateTo },
+        date: { gte: new Date(data.dateFrom), lte: new Date(data.dateTo) },
       },
       by: [UserMealScalarFieldEnum.date, UserMealScalarFieldEnum.mealId],
       _count: { mealId: true },
