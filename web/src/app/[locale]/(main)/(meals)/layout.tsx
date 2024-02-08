@@ -22,7 +22,7 @@ export default async function MealsLayout({
     { document: GET_SETTINGS_USER },
   ]);
   return (
-    <NextIntlProvider tree={["Meals"]}>
+    <NextIntlProvider tree={["Meals", "Enums"]}>
       <HydrationBoundary state={state}>
         {children}
         {mealModal}
