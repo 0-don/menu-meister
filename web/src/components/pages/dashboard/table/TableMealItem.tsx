@@ -49,16 +49,14 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
   const isSelectedMealUser = userMealsUser?.find(
     (m) =>
       m.mealId === props.meal.id &&
-      dayjs(m.date).format("DD/MM/YYYY") ===
-        dayjs(props.date).format("DD/MM/YYYY") &&
+      dayjs(m.date).date() === dayjs(props.date).date() &&
       m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id,
   );
 
   const selectedMealAdmins = (userMealsAdmin || []).filter(
     (m) =>
       m.mealId === props.meal.id &&
-      dayjs(m.date).format("DD/MM/YYYY") ===
-        dayjs(props.date).format("DD/MM/YYYY") &&
+      dayjs(m.date).date() === dayjs(props.date).date() &&
       m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id,
   );
 
