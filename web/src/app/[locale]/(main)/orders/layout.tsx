@@ -5,5 +5,5 @@ interface OrdersLayoutProps {
 }
 
 export default function OrdersLayout({ children }: OrdersLayoutProps) {
-  return <NextIntlProvider tree={["Orders"]}>{children}</NextIntlProvider>;
+  return <NextIntlProvider tree={["Orders", "Enums"]}>{children}</NextIntlProvider>;
 }

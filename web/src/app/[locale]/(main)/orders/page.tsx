@@ -13,7 +13,7 @@ export default function OrdersPage({}: OrdersPageProps) {
   return (
     <>
       <MenuPagination />
-      <main className="mt-5 w-full max-w-3xl rounded-lg bg-default-50 p-5">
+      <main className="mt-5 w-full max-w-6xl rounded-lg bg-default-50 p-5">
         <OrdersGroupedCount />
         <OrdersGroupedUsers />
       </main>
