@@ -2,6 +2,7 @@
 
 import { GET_ALL_USERS_ADMIN } from "@/documents/query/user";
 import { useGqlQuery } from "@/fetcher";
+import { SortOrder } from "@/gql/graphql";
 import { Link } from "@/navigation";
 import {
   Table,
@@ -19,7 +20,9 @@ interface UsersPageProps {}
 
 export default function UsersPage({}: UsersPageProps) {
   const t = useTranslations<"User">();
-  const { data: { getAllUsersAdmin } = {} } = useGqlQuery(GET_ALL_USERS_ADMIN);
+  const { data: { getAllUsersAdmin } = {} } = useGqlQuery(GET_ALL_USERS_ADMIN, {
+    orderBy: { id: SortOrder.Asc },
+  });
 
   return (
     <>
@@ -47,7 +50,7 @@ export default function UsersPage({}: UsersPageProps) {
                 </TableCell>
                 <TableCell className="flex justify-center">
                   <Link href={`/user/${user.id}`}>
-                    <MdEdit className="hover:text-primary-500 text-xl" />
+                    <MdEdit className="text-xl hover:text-primary-500" />
                   </Link>
                 </TableCell>
               </TableRow>
