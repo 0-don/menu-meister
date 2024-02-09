@@ -61,7 +61,8 @@
     "MEAL": "Mahlzeit",
     "COUNT": "Anzahl",
     "ORDERED_MEALS_FOR_THE_WEEK": "Alle bestellten Mahlzeiten für die Woche",
-    "ORDERED_MEALS_FOR_THE_WEEK_BY_USERS": "Alle bestellten Mahlzeiten für die Woche von Benutzern"
+    "ORDERED_MEALS_FOR_THE_WEEK_BY_USERS": "Alle bestellten Mahlzeiten für die Woche von Benutzern",
+    "NO_ODERS": "Keine Bestellungen"
   },
   "User": {
     "FIRSTNAME": "Vorname",
@@ -90,7 +91,8 @@
     "USERS": "Gäste",
     "CREATED_AT": "Erstellt am",
     "EMAIL": "E-Mail",
-    "ACTION": "Aktion"
+    "ACTION": "Aktion",
+    "NO_USERS": "Keine Benutzer"
   },
   "Settings": {
     "SETTINGS": "Einstellungen",

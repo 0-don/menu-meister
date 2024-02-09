@@ -47,7 +47,7 @@ export const OrdersGroupedCount: React.FC<OrdersGroupedCountProps> = ({}) => {
           <TableColumn>{t("MEAL")}</TableColumn>
           <TableColumn>{t("COUNT")}</TableColumn>
         </TableHeader>
-        <TableBody>
+        <TableBody emptyContent={t("NO_ODERS")}>
           {(getUserMealsGroupedCountAdmin || []).map((userMeal) => {
             return (
               <TableRow key={userMeal.meal + userMeal.date}>

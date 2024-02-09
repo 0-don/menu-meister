@@ -61,7 +61,8 @@
     "MEAL": "Meal",
     "COUNT": "Count",
     "ORDERED_MEALS_FOR_THE_WEEK": "Ordered meals for the week",
-    "ORDERED_MEALS_FOR_THE_WEEK_BY_USERS": "Ordered meals for the week by users"
+    "ORDERED_MEALS_FOR_THE_WEEK_BY_USERS": "Ordered meals for the week by users",
+    "NO_ODERS": "No orders"
   },
   "User": {
     "FIRSTNAME": "Firstname",
@@ -89,7 +90,8 @@
     "USERS": "Users",
     "CREATED_AT": "Created At",
     "EMAIL": "Email",
-    "ACTION": "Action"
+    "ACTION": "Action",
+    "NO_USER": "No user"
   },
   "Settings": {
     "SETTINGS": "Settings",

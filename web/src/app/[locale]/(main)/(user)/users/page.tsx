@@ -38,7 +38,7 @@ export default function UsersPage({}: UsersPageProps) {
               {t("ACTION")}
             </TableColumn>
           </TableHeader>
-          <TableBody>
+          <TableBody emptyContent={t("NO_USER")}>
             {(getAllUsersAdmin || []).map((user) => (
               <TableRow key={user.id}>
                 <TableCell>{user.id}</TableCell>
