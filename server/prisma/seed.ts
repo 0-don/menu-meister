@@ -14,6 +14,7 @@ import isoWeek from "dayjs/plugin/isoWeek";
 import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear";
 import utc from "dayjs/plugin/utc";
 import weekOfYear from "dayjs/plugin/weekOfYear";
+import "dotenv/config";
 import { readFileSync } from "fs";
 import { join, resolve } from "path";
 import {
@@ -166,7 +167,9 @@ const seedUserMeals = async () => {
         .startOf("week");
 
       const days = Array.from({ length: 7 }, (_, i) =>
-        startOfWeek.add(i, "day").toISOString(),
+        startOfWeek
+          .add(i + process.env.NODE_ENV === "production" ? 0 : 1, "day")
+          .toISOString(),
       );
       const weekDay = DAYFIELDS[index];
       const mealId = weeklyMealGroup[weekDay];
