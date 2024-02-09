@@ -54,7 +54,9 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
   );
 
   const selectedMealAdmins = (userMealsAdmin || []).filter(
-    (m) => m.mealId === props.meal.id,
+    (m) =>
+      m.mealId === props.meal.id &&
+      m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id,
   );
 
   const disabled =
