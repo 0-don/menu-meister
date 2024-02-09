@@ -166,7 +166,7 @@ const seedUserMeals = async () => {
         .startOf("week");
 
       const days = Array.from({ length: 7 }, (_, i) =>
-        startOfWeek.add(i + 1, "day").toISOString(),
+        startOfWeek.add(i, "day").toISOString(),
       );
       const weekDay = DAYFIELDS[index];
       const mealId = weeklyMealGroup[weekDay];
