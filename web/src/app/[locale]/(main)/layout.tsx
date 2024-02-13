@@ -20,6 +20,7 @@ export default async function MainLayout({ children }: MainLayoutProps) {
       <div className="relative flex min-h-[calc(100svh-4rem)] flex-col items-center px-6">
         {children}
       </div>
+      
     </HydrationBoundary>
   );
 }
