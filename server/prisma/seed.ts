@@ -703,32 +703,37 @@ const seedMealBoardPlan = async () => {
 
 const seedWeeklyMealGroups = async () => {
   const user = await prisma.user.findUnique({ where: { email: EMAIL } });
+  if (!user) {
+    console.error("User not found");
+    return;
+  }
+
   const meals = await prisma.meal.findMany();
   const mealBoardPlans = await prisma.mealBoardPlan.findMany();
   const timeOfDays = Object.values(TimeOfDay);
 
+  const currentYear = new Date().getFullYear();
+  const currentDate = new Date();
+  const currentWeekNumber = dayjs(currentDate).isoWeek();
+  const startYear = currentYear - 2; // Seed starting from two years ago
   const weeklyMealGroupsToCreate = [];
 
   for (const mealBoardPlan of mealBoardPlans) {
-    const currentYear = new Date().getFullYear();
-    const startYear = currentYear - 2;
-    const endYear = currentYear + 2;
-    const groupsPerWeek = 3;
+    for (let year = startYear; year <= currentYear; year++) {
+      // For past years use all weeks, for the current year only up to the current week
+      let lastWeek = year < currentYear ? 52 : currentWeekNumber;
 
-    for (let year = startYear; year <= endYear; year++) {
-      for (let week = 1; week <= 52; week++) {
-        for (let groupIndex = 0; groupIndex < groupsPerWeek; groupIndex++) {
-          if (coinFlip(0.25)) continue;
+      for (let week = 1; week <= lastWeek; week++) {
+        for (let groupIndex = 0; groupIndex < 3; groupIndex++) {
+          // Assume 3 groups per week
+          if (coinFlip(0.25)) continue; // Random chance to skip creation
+
           const weeklyMealGroupData = {
             name: faker.commerce.productName(),
             description: faker.lorem.sentence(),
             mealBoardPlanId: mealBoardPlan.id,
             timeOfDay: timeOfDays[randomInt(0, timeOfDays.length - 1)],
-            color: faker.internet.color({
-              redBase: 100,
-              greenBase: 100,
-              blueBase: 100,
-            }),
+            color: faker.internet.color(),
             weekOfYear: week,
             orderIndex: groupIndex,
             year,
