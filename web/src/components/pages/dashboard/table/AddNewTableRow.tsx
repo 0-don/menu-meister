@@ -16,7 +16,7 @@ import { COLORS, ColorPalette } from "../utils/ColorPalette";
 interface AddNewTableRowProps {}
 
 export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
-  const t = useTranslations<"Meals">();
+  const t = useTranslations<"Meals" | "Enums">();
   const { meals } = useMealHook();
   const { createWeeklyMealGroup } = useWeeklyMealGroupHook();
   const dashboardStore = useSnapshot(DashboardStore);
@@ -94,7 +94,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
             value={timeOfDay}
             items={items.map((key) => ({
               id: key,
-              name: t(key.toUpperCase() as keyof Messages["Meals"]),
+              name: t(key),
             }))}
             clearButtonProps={{ className: "invisible" }}
             onSelectionChange={(key) => setTimeOfDay(key as TimeOfDay)}
