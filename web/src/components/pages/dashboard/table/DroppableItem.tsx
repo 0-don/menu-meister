@@ -11,13 +11,17 @@ import { useSnapshot } from "valtio";
 import { MyAutocomplete } from "../../../elements/MyAutocomplete";
 import { TableMealItem } from "./TableMealItem";
 
-interface DroppableProps {
+interface DroppableItemProps {
   day: WeekDay;
   groupId: UniqueIdentifier;
   date?: string;
 }
 
-export const Droppable: React.FC<DroppableProps> = ({ day, groupId, date }) => {
+export const DroppableItem: React.FC<DroppableItemProps> = ({
+  day,
+  groupId,
+  date,
+}) => {
   const t = useTranslations<"Meals">();
   const { updateWeeklyMealGroup, isPast } = useWeeklyMealGroupHook();
   const [value, setValue] = useState<UniqueIdentifier>("");

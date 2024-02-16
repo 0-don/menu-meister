@@ -8,7 +8,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import React from "react";
 import { useSnapshot } from "valtio";
-import { Droppable } from "./Droppable";
+import { DroppableItem } from "./DroppableItem";
 import { TableGroup } from "./TableGroup";
 
 interface TableGroupRowProps {
@@ -64,13 +64,41 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
         listeners={listeners}
         activatorRef={setActivatorNodeRef}
       />
-      <Droppable day="monday" groupId={group.id} date={daysThatWeek.at(0)} />
-      <Droppable day="tuesday" groupId={group.id} date={daysThatWeek.at(1)} />
-      <Droppable day="wednesday" groupId={group.id} date={daysThatWeek.at(2)} />
-      <Droppable day="thursday" groupId={group.id} date={daysThatWeek.at(3)} />
-      <Droppable day="friday" groupId={group.id} date={daysThatWeek.at(4)} />
-      <Droppable day="saturday" groupId={group.id} date={daysThatWeek.at(5)} />
-      <Droppable day="sunday" groupId={group.id} date={daysThatWeek.at(6)} />
+      <DroppableItem
+        day="monday"
+        groupId={group.id}
+        date={daysThatWeek.at(0)}
+      />
+      <DroppableItem
+        day="tuesday"
+        groupId={group.id}
+        date={daysThatWeek.at(1)}
+      />
+      <DroppableItem
+        day="wednesday"
+        groupId={group.id}
+        date={daysThatWeek.at(2)}
+      />
+      <DroppableItem
+        day="thursday"
+        groupId={group.id}
+        date={daysThatWeek.at(3)}
+      />
+      <DroppableItem
+        day="friday"
+        groupId={group.id}
+        date={daysThatWeek.at(4)}
+      />
+      <DroppableItem
+        day="saturday"
+        groupId={group.id}
+        date={daysThatWeek.at(5)}
+      />
+      <DroppableItem
+        day="sunday"
+        groupId={group.id}
+        date={daysThatWeek.at(6)}
+      />
     </section>
   );
 };
