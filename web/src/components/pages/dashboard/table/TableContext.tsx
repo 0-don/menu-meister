@@ -16,7 +16,6 @@ import {
 } from "@dnd-kit/sortable";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
-import { title } from "process";
 import { useSnapshot } from "valtio";
 import { CopyTableWeek } from "./CopyTableWeek";
 import { TableGroupRow } from "./TableGroupRow";
@@ -33,11 +32,7 @@ const RenderDayColumn: React.FC<RenderDayColumnProps> = (props) => {
   );
   const text = `${props.dayKey.at(0)?.toUpperCase()}${props.dayKey.at(1)}. ${date}`;
 
-  return (
-    <div key={props.dayKey} title={title}>
-      {text}
-    </div>
-  );
+  return <div key={props.dayKey}>{text}</div>;
 };
 
 export function TableContext() {

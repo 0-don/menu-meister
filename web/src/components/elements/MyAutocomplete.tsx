@@ -8,12 +8,15 @@ type MyAutocompleteProps = Omit<AutocompleteProps, "children"> & {
   items: { id: UniqueIdentifier | number; name: string }[];
 };
 
-export const MyAutocomplete: React.FC<MyAutocompleteProps> = (props) => {
+export const MyAutocomplete: React.FC<MyAutocompleteProps> = ({
+  items,
+  ...props
+}) => {
   return (
     <Autocomplete
       {...props}
       name={props.label}
-      defaultItems={props.items}
+      defaultItems={items}
       // selectedKey={`${props.value}`}
       aria-labelledby={props.label}
       onSelectionChange={props.onSelectionChange} // key

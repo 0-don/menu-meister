@@ -1,3 +1,4 @@
+import { MyAutocomplete } from "@/components/elements/MyAutocomplete";
 import { useMeHook } from "@/components/hooks/useMeHook";
 import { useMealHook } from "@/components/hooks/useMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
@@ -8,7 +9,6 @@ import { UniqueIdentifier, useDroppable } from "@dnd-kit/core";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useSnapshot } from "valtio";
-import { MyAutocomplete } from "../../../elements/MyAutocomplete";
 import { TableMealItem } from "./TableMealItem";
 
 interface DroppableItemProps {
@@ -54,15 +54,9 @@ export const DroppableItem: React.FC<DroppableItemProps> = ({
         >
           {isHighRank && !isOrderMenu && !isPast(date) && (
             <MyAutocomplete
-              id={id}
               size="sm"
               label={t("SELECT_MEAL")}
-              isClearable={false}
               items={meals || []}
-              value={value}
-              onInputChange={(value) => {
-                setValue(value);
-              }}
               onSelectionChange={async (key) => {
                 console.log(key);
                 try {
