@@ -14,7 +14,7 @@ export const MyAutocomplete: React.FC<MyAutocompleteProps> = (props) => {
       {...props}
       name={props.label}
       defaultItems={props.items}
-      selectedKey={`${props.value}`}
+      // selectedKey={`${props.value}`}
       aria-labelledby={props.label}
       onSelectionChange={props.onSelectionChange} // key
       onInputChange={props.onInputChange} // value

@@ -703,10 +703,6 @@ const seedMealBoardPlan = async () => {
 
 const seedWeeklyMealGroups = async () => {
   const user = await prisma.user.findUnique({ where: { email: EMAIL } });
-  if (!user) {
-    console.error("User not found");
-    return;
-  }
 
   const meals = await prisma.meal.findMany();
   const mealBoardPlans = await prisma.mealBoardPlan.findMany();

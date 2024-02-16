@@ -56,7 +56,11 @@ export const Droppable: React.FC<DroppableProps> = ({ day, groupId, date }) => {
               isClearable={false}
               items={meals || []}
               value={value}
+              onInputChange={(value) => {
+                setValue(value);
+              }}
               onSelectionChange={async (key) => {
+                console.log(key);
                 try {
                   await updateWeeklyMealGroup({
                     where: { id: Number(groupId) },
