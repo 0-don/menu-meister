@@ -57,6 +57,7 @@ export const DroppableItem: React.FC<DroppableItemProps> = ({
               size="sm"
               label={t("SELECT_MEAL")}
               items={meals || []}
+              isClearable={false}
               onSelectionChange={async (key) => {
                 console.log(key);
                 try {

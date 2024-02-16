@@ -17,6 +17,7 @@ export const MyAutocomplete: React.FC<MyAutocompleteProps> = ({
       {...props}
       name={props.label}
       defaultItems={items}
+      onKeyDown={(e: any) => e.continuePropagation()}
       // selectedKey={`${props.value}`}
       aria-labelledby={props.label}
       onSelectionChange={props.onSelectionChange} // key
