@@ -4,6 +4,7 @@ import { useSettingsHook } from "@/components/hooks/useSettinsHook";
 import { useUserMealHook } from "@/components/hooks/useUserMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { Meal } from "@/gql/graphql";
+import { Link } from "@/navigation";
 import { DashboardStore } from "@/store/DashboardStore";
 import { GeneralStore } from "@/store/GeneralStore";
 import { TableStore } from "@/store/TableStore";
@@ -11,14 +12,15 @@ import { catchErrorAlerts, classNames } from "@/utils/helpers/clientUtils";
 import { WeekDay } from "@/utils/types";
 import { UniqueIdentifier, useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
-import { Link } from "@nextui-org/link";
 import { Button } from "@nextui-org/react";
 import mealPlaceholder from "@public/images/meal-placeholder.png";
 import { FaEraser } from "@react-icons/all-files/fa/FaEraser";
+import { FaInfo } from "@react-icons/all-files/fa/FaInfo";
 import { IoFastFoodSharp } from "@react-icons/all-files/io5/IoFastFoodSharp";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+
 import { useSnapshot } from "valtio";
 
 interface TableMealItemProps {
@@ -155,64 +157,71 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
         role="item"
       >
         <div className="flex items-center justify-between">
-          <Link href={`/meal/${props.meal.id}`} color="foreground" size="sm">
+          <p className="w-full truncate text-sm" title={props.meal.name}>
             {props.meal.name}
-          </Link>
-          {enabled && (
-            <MyConfirmModal
-              title={t("WARNING")}
-              Footer={({ onOpen }) => (
-                <Button
-                  color="danger"
-                  onClick={() => {
-                    try {
-                      updateWeeklyMealGroup({
-                        where: { id: Number(props.group) },
-                        data: {
-                          [`${props.day}MealId`]: { set: null },
-                        },
-                      });
+          </p>
+          <div className="item-center flex">
+            <Link href={`/meals/${props.meal.id}`}>
+              <FaInfo className="hover:text-primary-500" />
+            </Link>
+            {enabled ? (
+              <MyConfirmModal
+                title={t("WARNING")}
+                Footer={({ onOpen }) => (
+                  <Button
+                    color="danger"
+                    onClick={() => {
+                      try {
+                        updateWeeklyMealGroup({
+                          where: { id: Number(props.group) },
+                          data: {
+                            [`${props.day}MealId`]: { set: null },
+                          },
+                        });
 
-                      TableStore.data = TableStore.data.map((g) =>
-                        g.id === Number(props.group)
-                          ? { ...g, [`${props.day}Meal`]: null }
-                          : g,
-                      );
+                        TableStore.data = TableStore.data.map((g) =>
+                          g.id === Number(props.group)
+                            ? { ...g, [`${props.day}Meal`]: null }
+                            : g,
+                        );
 
-                      onOpen();
-                    } catch (error) {
-                      catchErrorAlerts(error, t);
-                    }
-                  }}
-                >
-                  {t("YES")}
-                </Button>
-              )}
-              Trigger={({ onOpen }) => (
-                <FaEraser
-                  onClick={onOpen}
-                  title={t("DELETE_MEAL")}
-                  className="invisible w-11 cursor-pointer text-lg hover:text-red-500 group-hover:visible"
-                />
-              )}
-            >
-              <p>
-                {t?.rich("ARE_YOU_SURE_DELETE_MEAL", {
-                  mealName: props.meal.name,
-                  groupName: groupItem?.name,
-                  meal: (chunks) => <span className="font-bold">{chunks}</span>,
-                  group: (chunks) => (
-                    <span
-                      className="font-bold"
-                      style={{ color: groupItem?.color || undefined }}
-                    >
-                      {chunks}
-                    </span>
-                  ),
-                })}
-              </p>
-            </MyConfirmModal>
-          )}
+                        onOpen();
+                      } catch (error) {
+                        catchErrorAlerts(error, t);
+                      }
+                    }}
+                  >
+                    {t("YES")}
+                  </Button>
+                )}
+                Trigger={({ onOpen }) => (
+                  <FaEraser
+                    onClick={onOpen}
+                    title={t("DELETE_MEAL")}
+                    className="cursor-pointer text-lg hover:text-red-500 group-hover:visible"
+                  />
+                )}
+              >
+                <p>
+                  {t?.rich("ARE_YOU_SURE_DELETE_MEAL", {
+                    mealName: props.meal.name,
+                    groupName: groupItem?.name,
+                    meal: (chunks) => (
+                      <span className="font-bold">{chunks}</span>
+                    ),
+                    group: (chunks) => (
+                      <span
+                        className="font-bold"
+                        style={{ color: groupItem?.color || undefined }}
+                      >
+                        {chunks}
+                      </span>
+                    ),
+                  })}
+                </p>
+              </MyConfirmModal>
+            ) : null}
+          </div>
         </div>
 
         <div className="relative">
