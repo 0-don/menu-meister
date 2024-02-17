@@ -1,5 +1,4 @@
 import { MyAutocomplete } from "@/components/elements/MyAutocomplete";
-import { useMealHook } from "@/components/hooks/useMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { TimeOfDay, WeeklyMealGroupFragmentFragment } from "@/gql/graphql";
 import { DashboardStore } from "@/store/DashboardStore";
@@ -17,7 +16,6 @@ interface AddNewTableRowProps {}
 
 export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
   const t = useTranslations<"Meals" | "Enums">();
-  const { meals } = useMealHook();
   const { createWeeklyMealGroup } = useWeeklyMealGroupHook();
   const dashboardStore = useSnapshot(DashboardStore);
   const tableStore = useSnapshot(TableStore);
