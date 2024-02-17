@@ -98,7 +98,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
               disabled={disabled}
               value={groupName}
               onChange={(e) => {
-                if (enabled) return;
+                if (disabled) return;
                 setGroupName(e.target.value);
                 updateWeeklyMealGroup({
                   where: { id: group.id },

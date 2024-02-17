@@ -35,7 +35,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
       const res = await createWeeklyMealGroup({
         data: {
           mealBoardPlanId: Number(dashboardStore.activeMealBoardPlan?.id),
-          timeOfDay,
+          timeOfDay: timeOfDay as TimeOfDay,
           name,
           color,
           orderIndex: (meals || []).length,
@@ -91,7 +91,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
 
           <MyAutocomplete
             label={t("TIME_OF_DAY")}
-            value={timeOfDay}
+            value={t(timeOfDay)}
             items={items.map((key) => ({
               id: key,
               name: t(key),
