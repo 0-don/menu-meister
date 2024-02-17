@@ -2,10 +2,12 @@ import { UserRoleName } from "@/gql/graphql";
 import { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import { DehydratedState, QueryClient, dehydrate } from "@tanstack/react-query";
 import { cookies, headers } from "next/headers";
-import { ROLES, TOKEN, X_URL } from "../constants";
+import { ROLES, TOKEN } from "../constants";
 import getQueryClient from "../getQueryClient";
 import { getKey } from "./clientUtils";
 import { customFetcherServer } from "./serverUtils";
+
+export const X_URL = "x-url";
 
 export const ssrUrl = (): URL =>
   new URL(headers().get(X_URL) || process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT);
