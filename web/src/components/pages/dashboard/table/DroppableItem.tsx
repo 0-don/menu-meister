@@ -7,7 +7,6 @@ import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { WeekDay } from "@/utils/types";
 import { UniqueIdentifier, useDroppable } from "@dnd-kit/core";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 import { useSnapshot } from "valtio";
 import { TableMealItem } from "./TableMealItem";
 
@@ -24,7 +23,7 @@ export const DroppableItem: React.FC<DroppableItemProps> = ({
 }) => {
   const t = useTranslations<"Meals">();
   const { updateWeeklyMealGroup, isPast } = useWeeklyMealGroupHook();
-  const [value, setValue] = useState<UniqueIdentifier>("");
+
   const { isHighRank, isOrderMenu } = useMeHook();
   const { meals } = useMealHook();
   const { data, getGroupMeal, refetchWeeklyMealGroups } =
@@ -59,14 +58,12 @@ export const DroppableItem: React.FC<DroppableItemProps> = ({
               items={meals || []}
               isClearable={false}
               onSelectionChange={async (key) => {
-                console.log(key);
                 try {
                   await updateWeeklyMealGroup({
                     where: { id: Number(groupId) },
                     data: { [`${day}MealId`]: { set: Number(key) } },
                   });
                   refetchWeeklyMealGroups();
-                  setValue("");
                 } catch (error) {
                   catchErrorAlerts(error, t);
                 }
