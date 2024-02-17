@@ -2,7 +2,7 @@ import { TimeOfDay } from "@/gql/graphql";
 import { LuClock10, LuClock12, LuClock2, LuClock6 } from "react-icons/lu";
 import { TbCalendarTime } from "react-icons/tb";
 
-export const X_URL = "x-url";
+
 export const BACKEND_INTERNAL_URL = "http://menu-meister-server:4000/graphql";
 export const TOKEN = "token";
 export const ROLES = "roles";
