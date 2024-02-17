@@ -161,7 +161,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
             {props.meal.name}
           </p>
           <div className="item-center flex">
-            <Link href={`/meals/${props.meal.id}`}>
+            <Link href={`/meal/${props.meal.id}`}>
               <FaInfo className="hover:text-primary-500" />
             </Link>
             {enabled ? (
