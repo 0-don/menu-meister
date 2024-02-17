@@ -38,7 +38,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
           timeOfDay: timeOfDay as TimeOfDay,
           name,
           color,
-          orderIndex: (meals || []).length,
+          orderIndex: tableStore.dataSorted.length,
           weekOfYear: dashboardStore.calendar.week,
           year: dashboardStore.calendar.year,
         },

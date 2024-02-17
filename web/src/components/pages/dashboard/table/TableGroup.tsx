@@ -8,7 +8,7 @@ import { TIME_OF_DAY_CONFIGS, debounce } from "@/utils/constants";
 import { catchErrorAlerts, classNames } from "@/utils/helpers/clientUtils";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
-import { Button, Chip, useDisclosure } from "@nextui-org/react";
+import { Button, Chip } from "@nextui-org/react";
 import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
 import { useTranslations } from "next-intl";
 import React, { useCallback, useState } from "react";
@@ -31,9 +31,7 @@ export const TableGroup: React.FC<TableGroupProps> = ({
   const group = tableStore.getGroup(id);
   const [color, setColor] = useState<string>(group?.color ?? "");
   const [groupName, setGroupName] = useState<string>(group?.name ?? "");
-
   const { isHighRank, isOrderMenu } = useMeHook();
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { userMealsAdmin } = useUserMealHook();
   const { updateWeeklyMealGroup, deleteWeeklyMealgRoup, isPast } =
     useWeeklyMealGroupHook();
