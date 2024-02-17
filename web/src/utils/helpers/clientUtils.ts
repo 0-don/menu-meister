@@ -70,9 +70,7 @@ export const getMenu = (roles: UserRoleName[]) =>
       link: "/users",
       name: "USERS",
       display:
-        roles.includes(UserRoleName.Admin) ||
-        roles.includes(UserRoleName.Mod) ||
-        roles.includes(UserRoleName.User),
+        roles.includes(UserRoleName.Admin) || roles.includes(UserRoleName.Mod),
     },
   ].filter((link) => link.display);
 

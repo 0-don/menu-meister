@@ -20,7 +20,6 @@ import { IoFastFoodSharp } from "@react-icons/all-files/io5/IoFastFoodSharp";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-
 import { useSnapshot } from "valtio";
 
 interface TableMealItemProps {
@@ -33,6 +32,9 @@ interface TableMealItemProps {
 
 export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
   const t = useTranslations<"Meals">();
+  const dashboardStore = useSnapshot(DashboardStore);
+  const tableStore = useSnapshot(TableStore);
+
   const {
     userMealsUser,
     userMealsAdmin,
@@ -41,11 +43,10 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
     refetchUserMealsUser,
   } = useUserMealHook();
   const { settings } = useSettingsHook();
-  const dashboardStore = useSnapshot(DashboardStore);
   const { isHighRank, isOrderMenu, me } = useMeHook();
-  const groupItem = TableStore.getGroup(props.group);
   const { updateWeeklyMealGroup, isPast } = useWeeklyMealGroupHook();
-  const tableStore = useSnapshot(TableStore);
+
+  const groupItem = TableStore.getGroup(props.group);
   const id = `${props.group}#${props.day}#${props.meal.id}`;
 
   const isSelectedMealUser = userMealsUser?.find(
