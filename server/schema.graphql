@@ -3031,7 +3031,7 @@ input UserMealCreateNestedManyWithoutCreatedByUserInput {
 }
 
 input UserMealCreateWithoutCreatedByUserInput {
-  date: DateTime!
+  date: DateTime
   timeOfDay: TimeOfDay
   user: UserCreateNestedOneWithoutUserMealInput!
   meal: MealCreateNestedOneWithoutUserMealInput!
@@ -3106,7 +3106,7 @@ input UserMealCreateNestedManyWithoutUpdatedByUserInput {
 }
 
 input UserMealCreateWithoutUpdatedByUserInput {
-  date: DateTime!
+  date: DateTime
   timeOfDay: TimeOfDay
   user: UserCreateNestedOneWithoutUserMealInput!
   meal: MealCreateNestedOneWithoutUserMealInput!
@@ -3621,7 +3621,7 @@ input UserMealCreateNestedManyWithoutMealBoardPlanInput {
 }
 
 input UserMealCreateWithoutMealBoardPlanInput {
-  date: DateTime!
+  date: DateTime
   timeOfDay: TimeOfDay
   user: UserCreateNestedOneWithoutUserMealInput!
   meal: MealCreateNestedOneWithoutUserMealInput!
@@ -4132,7 +4132,7 @@ input UserMealCreateNestedManyWithoutMealInput {
 }
 
 input UserMealCreateWithoutMealInput {
-  date: DateTime!
+  date: DateTime
   timeOfDay: TimeOfDay
   user: UserCreateNestedOneWithoutUserMealInput!
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput!
@@ -4184,7 +4184,7 @@ input UserMealCreateNestedManyWithoutWeeklyMealGroupInput {
 }
 
 input UserMealCreateWithoutWeeklyMealGroupInput {
-  date: DateTime!
+  date: DateTime
   timeOfDay: TimeOfDay
   user: UserCreateNestedOneWithoutUserMealInput!
   meal: MealCreateNestedOneWithoutUserMealInput!
@@ -4203,7 +4203,7 @@ input UserMealCreateManyWeeklyMealGroupInputEnvelope {
 
 input UserMealCreateManyWeeklyMealGroupInput {
   id: Int
-  date: DateTime!
+  date: DateTime
   userId: Int!
   mealId: Int!
   mealBoardPlanId: Int!
@@ -4255,7 +4255,7 @@ input UserMealCreateManyMealInputEnvelope {
 
 input UserMealCreateManyMealInput {
   id: Int
-  date: DateTime!
+  date: DateTime
   userId: Int!
   mealBoardPlanId: Int!
   weeklyMealGroupId: Int!
@@ -4694,7 +4694,7 @@ input UserMealCreateManyMealBoardPlanInputEnvelope {
 
 input UserMealCreateManyMealBoardPlanInput {
   id: Int
-  date: DateTime!
+  date: DateTime
   userId: Int!
   mealId: Int!
   weeklyMealGroupId: Int!
@@ -4915,7 +4915,7 @@ input UserMealCreateManyUpdatedByUserInputEnvelope {
 
 input UserMealCreateManyUpdatedByUserInput {
   id: Int
-  date: DateTime!
+  date: DateTime
   userId: Int!
   mealId: Int!
   mealBoardPlanId: Int!
@@ -6098,7 +6098,7 @@ input UserMealCreateNestedManyWithoutUserInput {
 }
 
 input UserMealCreateWithoutUserInput {
-  date: DateTime!
+  date: DateTime
   timeOfDay: TimeOfDay
   meal: MealCreateNestedOneWithoutUserMealInput!
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput!
@@ -6117,7 +6117,7 @@ input UserMealCreateManyUserInputEnvelope {
 
 input UserMealCreateManyUserInput {
   id: Int
-  date: DateTime!
+  date: DateTime
   mealId: Int!
   mealBoardPlanId: Int!
   weeklyMealGroupId: Int!
@@ -6191,7 +6191,7 @@ input UserMealCreateManyCreatedByUserInputEnvelope {
 
 input UserMealCreateManyCreatedByUserInput {
   id: Int
-  date: DateTime!
+  date: DateTime
   userId: Int!
   mealId: Int!
   mealBoardPlanId: Int!
@@ -12379,7 +12379,7 @@ input UserMealLocationUncheckedUpdateManyWithoutUserNestedInput {
 
 input UserMealUncheckedCreateInput {
   id: Int
-  date: DateTime!
+  date: DateTime
   userId: Int!
   mealId: Int!
   mealBoardPlanId: Int!
@@ -12389,7 +12389,7 @@ input UserMealUncheckedCreateInput {
 
 input UserMealCreateManyInput {
   id: Int
-  date: DateTime!
+  date: DateTime
   userId: Int!
   mealId: Int!
   mealBoardPlanId: Int!
@@ -12407,7 +12407,7 @@ input UserMealUpdateInput {
 }
 
 input UserMealCreateInput {
-  date: DateTime!
+  date: DateTime
   timeOfDay: TimeOfDay
   user: UserCreateNestedOneWithoutUserMealInput!
   meal: MealCreateNestedOneWithoutUserMealInput!
