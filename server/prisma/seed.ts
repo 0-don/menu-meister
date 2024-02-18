@@ -727,7 +727,11 @@ const seedWeeklyMealGroups = async () => {
             description: faker.lorem.sentence(),
             mealBoardPlanId: mealBoardPlan.id,
             timeOfDay: timeOfDays[randomInt(0, timeOfDays.length - 1)],
-            color: faker.internet.color(),
+            color: faker.internet.color({
+              redBase: 100,
+              greenBase: 100,
+              blueBase: 100,
+            }),
             weekOfYear: week,
             orderIndex: groupIndex,
             year,
