@@ -27,6 +27,13 @@ FROM node:20-alpine AS prod
 
 WORKDIR /app
 
+# Installv tzdata package
+RUN apk add --no-cache tzdata
+
+# Set the timezone
+ENV TZ=Europe/Berlin
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
