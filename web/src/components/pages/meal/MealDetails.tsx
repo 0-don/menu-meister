@@ -66,7 +66,7 @@ export const MealDetails: React.FC<MealDetailsProps> = ({ id, modal }) => {
             height={200}
           />
         )}
-        {isDisabled && (
+        {isDisabled && isHighRank && (
           <MyFileInput
             files={files}
             setFiles={async (e) => {
