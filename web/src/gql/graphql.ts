@@ -9768,7 +9768,7 @@ export type UserMealCountOrderByAggregateInput = {
 };
 
 export type UserMealCreateInput = {
-  date: Scalars['DateTime']['input'];
+  date?: InputMaybe<Scalars['DateTime']['input']>;
   meal: MealCreateNestedOneWithoutUserMealInput;
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
   timeOfDay?: InputMaybe<TimeOfDay>;
@@ -9777,7 +9777,7 @@ export type UserMealCreateInput = {
 };
 
 export type UserMealCreateManyCreatedByUserInput = {
-  date: Scalars['DateTime']['input'];
+  date?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   mealBoardPlanId: Scalars['Int']['input'];
   mealId: Scalars['Int']['input'];
@@ -9792,7 +9792,7 @@ export type UserMealCreateManyCreatedByUserInputEnvelope = {
 };
 
 export type UserMealCreateManyInput = {
-  date: Scalars['DateTime']['input'];
+  date?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   mealBoardPlanId: Scalars['Int']['input'];
   mealId: Scalars['Int']['input'];
@@ -9802,7 +9802,7 @@ export type UserMealCreateManyInput = {
 };
 
 export type UserMealCreateManyMealBoardPlanInput = {
-  date: Scalars['DateTime']['input'];
+  date?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   mealId: Scalars['Int']['input'];
   timeOfDay?: InputMaybe<TimeOfDay>;
@@ -9816,7 +9816,7 @@ export type UserMealCreateManyMealBoardPlanInputEnvelope = {
 };
 
 export type UserMealCreateManyMealInput = {
-  date: Scalars['DateTime']['input'];
+  date?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   mealBoardPlanId: Scalars['Int']['input'];
   timeOfDay?: InputMaybe<TimeOfDay>;
@@ -9830,7 +9830,7 @@ export type UserMealCreateManyMealInputEnvelope = {
 };
 
 export type UserMealCreateManyUpdatedByUserInput = {
-  date: Scalars['DateTime']['input'];
+  date?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   mealBoardPlanId: Scalars['Int']['input'];
   mealId: Scalars['Int']['input'];
@@ -9845,7 +9845,7 @@ export type UserMealCreateManyUpdatedByUserInputEnvelope = {
 };
 
 export type UserMealCreateManyUserInput = {
-  date: Scalars['DateTime']['input'];
+  date?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   mealBoardPlanId: Scalars['Int']['input'];
   mealId: Scalars['Int']['input'];
@@ -9859,7 +9859,7 @@ export type UserMealCreateManyUserInputEnvelope = {
 };
 
 export type UserMealCreateManyWeeklyMealGroupInput = {
-  date: Scalars['DateTime']['input'];
+  date?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   mealBoardPlanId: Scalars['Int']['input'];
   mealId: Scalars['Int']['input'];
@@ -9945,7 +9945,7 @@ export type UserMealCreateOrConnectWithoutWeeklyMealGroupInput = {
 };
 
 export type UserMealCreateWithoutCreatedByUserInput = {
-  date: Scalars['DateTime']['input'];
+  date?: InputMaybe<Scalars['DateTime']['input']>;
   meal: MealCreateNestedOneWithoutUserMealInput;
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
   timeOfDay?: InputMaybe<TimeOfDay>;
@@ -9954,7 +9954,7 @@ export type UserMealCreateWithoutCreatedByUserInput = {
 };
 
 export type UserMealCreateWithoutMealBoardPlanInput = {
-  date: Scalars['DateTime']['input'];
+  date?: InputMaybe<Scalars['DateTime']['input']>;
   meal: MealCreateNestedOneWithoutUserMealInput;
   timeOfDay?: InputMaybe<TimeOfDay>;
   user: UserCreateNestedOneWithoutUserMealInput;
@@ -9962,7 +9962,7 @@ export type UserMealCreateWithoutMealBoardPlanInput = {
 };
 
 export type UserMealCreateWithoutMealInput = {
-  date: Scalars['DateTime']['input'];
+  date?: InputMaybe<Scalars['DateTime']['input']>;
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
   timeOfDay?: InputMaybe<TimeOfDay>;
   user: UserCreateNestedOneWithoutUserMealInput;
@@ -9970,7 +9970,7 @@ export type UserMealCreateWithoutMealInput = {
 };
 
 export type UserMealCreateWithoutUpdatedByUserInput = {
-  date: Scalars['DateTime']['input'];
+  date?: InputMaybe<Scalars['DateTime']['input']>;
   meal: MealCreateNestedOneWithoutUserMealInput;
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
   timeOfDay?: InputMaybe<TimeOfDay>;
@@ -9979,7 +9979,7 @@ export type UserMealCreateWithoutUpdatedByUserInput = {
 };
 
 export type UserMealCreateWithoutUserInput = {
-  date: Scalars['DateTime']['input'];
+  date?: InputMaybe<Scalars['DateTime']['input']>;
   meal: MealCreateNestedOneWithoutUserMealInput;
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
   timeOfDay?: InputMaybe<TimeOfDay>;
@@ -9987,7 +9987,7 @@ export type UserMealCreateWithoutUserInput = {
 };
 
 export type UserMealCreateWithoutWeeklyMealGroupInput = {
-  date: Scalars['DateTime']['input'];
+  date?: InputMaybe<Scalars['DateTime']['input']>;
   meal: MealCreateNestedOneWithoutUserMealInput;
   mealBoardPlan: MealBoardPlanCreateNestedOneWithoutUserMealInput;
   timeOfDay?: InputMaybe<TimeOfDay>;
@@ -10568,7 +10568,7 @@ export type UserMealSumOrderByAggregateInput = {
 };
 
 export type UserMealUncheckedCreateInput = {
-  date: Scalars['DateTime']['input'];
+  date?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   mealBoardPlanId: Scalars['Int']['input'];
   mealId: Scalars['Int']['input'];

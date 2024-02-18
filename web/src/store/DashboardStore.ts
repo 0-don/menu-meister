@@ -70,5 +70,5 @@ export const dashboardWatch = () =>
     );
     DashboardStore.weeksThatYear = dayjs().year(year).isoWeeksInYear();
   });
-  
+
 dashboardWatch();

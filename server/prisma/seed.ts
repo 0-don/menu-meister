@@ -34,7 +34,6 @@ dayjs.extend(weekOfYear);
 dayjs.extend(isoWeek);
 dayjs.extend(isoWeeksInYear);
 dayjs.extend(isLeapYear);
-dayjs.Ls["en"].weekStart = 1;
 
 const prisma = new PrismaClient();
 

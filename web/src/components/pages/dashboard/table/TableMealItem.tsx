@@ -49,6 +49,8 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
   const groupItem = TableStore.getGroup(props.group);
   const id = `${props.group}#${props.day}#${props.meal.id}`;
 
+  console.log(props.date, props.day);
+
   const isSelectedMealUser = userMealsUser?.find(
     (m) =>
       m.mealId === props.meal.id &&
