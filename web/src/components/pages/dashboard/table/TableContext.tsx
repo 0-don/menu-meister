@@ -1,6 +1,7 @@
 "use client";
 
 import { MyAutocomplete } from "@/components/elements/MyAutocomplete";
+import { useMeHook } from "@/components/hooks/useMeHook";
 import { useUserMealHook } from "@/components/hooks/useUserMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { Meal } from "@/gql/graphql";
@@ -37,12 +38,12 @@ const RenderDayColumn: React.FC<RenderDayColumnProps> = (props) => {
 
 export function TableContext() {
   const t = useTranslations<"Meals">();
+  const { isHighRank } = useMeHook();
   const { updateWeeklyMealGroup, switchWeeklyMealGroup, isPast } =
     useWeeklyMealGroupHook();
   const { userMealsAdmin } = useUserMealHook();
   const dashboardStore = useSnapshot(DashboardStore);
   const { dataSorted } = useSnapshot(TableStore);
-
 
   return (
     <main className="relative z-0 mt-5 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small">
@@ -68,7 +69,7 @@ export function TableContext() {
               }),
             )}
           />
-          <CopyTableWeek />
+          {isHighRank && <CopyTableWeek />}
         </div>
         {WEEK_DAYS.map((day, index) => {
           const title = t(day.toUpperCase() as keyof Messages["Meals"]);
