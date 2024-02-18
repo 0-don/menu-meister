@@ -4,7 +4,7 @@ import { useSettingsHook } from "@/components/hooks/useSettinsHook";
 import { useUserMealHook } from "@/components/hooks/useUserMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { Meal } from "@/gql/graphql";
-import { Link } from "@/navigation";
+import { useRouter } from "@/navigation";
 import { DashboardStore } from "@/store/DashboardStore";
 import { GeneralStore } from "@/store/GeneralStore";
 import { TableStore } from "@/store/TableStore";
@@ -44,6 +44,7 @@ interface TableMealItemProps {
 
 export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
   const t = useTranslations<"Meals">();
+  const router = useRouter();
   const dashboardStore = useSnapshot(DashboardStore);
   const tableStore = useSnapshot(TableStore);
 
@@ -176,9 +177,14 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
             {props.meal.name}
           </p>
           <div className="item-center flex">
-            <Link href={`/meal/${props.meal.id}`}>
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push(`/meal/${props.meal.id}`);
+              }}
+            >
               <FaInfo className="hover:text-primary-500" />
-            </Link>
+            </div>
             {enabled ? (
               <MyConfirmModal
                 title={t("WARNING")}

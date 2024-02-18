@@ -714,6 +714,7 @@ type Query {
   getAllMealsAdmin(where: MealWhereInput, orderBy: [MealOrderByWithRelationInput!], cursor: MealWhereUniqueInput, take: Int, skip: Int, distinct: [MealScalarFieldEnum!]): [Meal!]
   getMealAdmin(where: MealWhereInput, orderBy: [MealOrderByWithRelationInput!], cursor: MealWhereUniqueInput, take: Int, skip: Int, distinct: [MealScalarFieldEnum!]): Meal
   getAllMealsUser(where: MealWhereInput, orderBy: [MealOrderByWithRelationInput!], cursor: MealWhereUniqueInput, take: Int, skip: Int, distinct: [MealScalarFieldEnum!]): [Meal!]
+  getMealUser(where: MealWhereInput, orderBy: [MealOrderByWithRelationInput!], cursor: MealWhereUniqueInput, take: Int, skip: Int, distinct: [MealScalarFieldEnum!]): Meal
   getAllWeeklyMealGroupsAdmin(where: WeeklyMealGroupWhereInput, orderBy: [WeeklyMealGroupOrderByWithRelationInput!], cursor: WeeklyMealGroupWhereUniqueInput, take: Int, skip: Int, distinct: [WeeklyMealGroupScalarFieldEnum!]): [WeeklyMealGroup!]
   getWeeklyMealGroupAdmin(where: WeeklyMealGroupWhereInput, orderBy: [WeeklyMealGroupOrderByWithRelationInput!], cursor: WeeklyMealGroupWhereUniqueInput, take: Int, skip: Int, distinct: [WeeklyMealGroupScalarFieldEnum!]): WeeklyMealGroup
   getAllWeeklyMealGroupsUser(where: WeeklyMealGroupWhereInput, orderBy: [WeeklyMealGroupOrderByWithRelationInput!], cursor: WeeklyMealGroupWhereUniqueInput, take: Int, skip: Int, distinct: [WeeklyMealGroupScalarFieldEnum!]): [WeeklyMealGroup!]

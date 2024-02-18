@@ -1,7 +1,7 @@
 import { graphql } from "@/gql";
 
-export const GET_MEAL_ADMIN = graphql(/* GraphQL */ `
-  query GetMealAdmin(
+export const GET_MEAL_USER = graphql(/* GraphQL */ `
+  query GetMealUser(
     $where: MealWhereInput
     $orderBy: [MealOrderByWithRelationInput!]
     $cursor: MealWhereUniqueInput
@@ -9,7 +9,7 @@ export const GET_MEAL_ADMIN = graphql(/* GraphQL */ `
     $skip: Int
     $distinct: [MealScalarFieldEnum!]
   ) {
-    getMealAdmin(
+    getMealUser(
       where: $where
       orderBy: $orderBy
       cursor: $cursor
