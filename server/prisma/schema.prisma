@@ -20,12 +20,12 @@ model Token {
   id Int @id @default(autoincrement())
 
   token     String   @unique @db.VarChar(255)
-  expiresIn DateTime @db.Timestamptz(3)
+  expiresIn DateTime
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -42,9 +42,9 @@ model Settings {
   maxEditOrderDays Int
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -67,15 +67,15 @@ model User {
   username String  @unique
   email    String  @unique
 
-  lastOnline DateTime @default(now()) @db.Timestamptz(3)
+  lastOnline DateTime @default(now())
   status     Boolean  @default(true)
 
   allergens Allergens[] @relation("UserAllergens")
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int?
   /// @HideField({ output: false, input: true })
@@ -141,9 +141,9 @@ model UserRole {
   name   UserRoleName
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -158,23 +158,9 @@ model UserRole {
   @@unique([userId, name], name: "user_role_userId_name_unique")
 }
 
-// create table public."Recipe" (
-//   id integer primary key not null default nextval('"Recipe_id_seq"'::regclass),
-//   name character varying(255) not null,
-//   description text,
-//   "createdAt" timestamp(3) without time zone not null default CURRENT_TIMESTAMP,
-//   "updatedAt" timestamp(3) without time zone not null,
-//   "createdBy" integer not null,
-//   "updatedBy" integer not null,
-//   foreign key ("createdBy") references public."User" (id)
-//   match simple on update cascade on delete restrict,
-//   foreign key ("updatedBy") references public."User" (id)
-//   match simple on update cascade on delete restrict
-// );
-
 model UserMeal {
   id   Int      @id @default(autoincrement())
-  date DateTime @default(now()) @db.Timestamptz(3)
+  date DateTime @db.Date
 
   userId            Int
   mealId            Int
@@ -188,9 +174,9 @@ model UserMeal {
   weeklyMealGroup WeeklyMealGroup @relation(fields: [weeklyMealGroupId], references: [id])
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -208,9 +194,9 @@ model UserMealLocation {
   mealLocation MealLocation @default(InRoom)
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -235,9 +221,9 @@ model Allergens {
   users       User[]       @relation("UserAllergens")
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -257,9 +243,9 @@ model Additives {
   meals       Meal[]       @relation("MealAdditives")
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -279,9 +265,9 @@ model Properties {
   meals       Meal[]       @relation("MealProperties")
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -301,9 +287,9 @@ model Categories {
   meals       Meal[]       @relation("MealCategories")
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -323,9 +309,9 @@ model Seasons {
   meals       Meal[]       @relation("MealSeasons")
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -345,9 +331,9 @@ model FoodForms {
   meals       Meal[]       @relation("MealFoodForms")
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -366,9 +352,9 @@ model Kitchens {
   recipes     Recipe[]     @relation("RecipeKitchens")
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -407,9 +393,9 @@ model Ingredient {
   recipeIngredient RecipeIngredient[]
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -437,9 +423,9 @@ model Recipe {
   mealRecipe       MealRecipe[]
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -462,9 +448,9 @@ model RecipeIngredient {
   ingredient Ingredient @relation(fields: [ingredientId], references: [id])
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -500,9 +486,9 @@ model Meal {
   userMeal   UserMeal[]
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -524,9 +510,9 @@ model MealRecipe {
   recipe Recipe @relation(fields: [recipeId], references: [id])
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -546,9 +532,9 @@ model MealBoardPlan {
   UserMeal        UserMeal[]
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })
@@ -591,9 +577,9 @@ model WeeklyMealGroup {
   userMeal UserMeal[]
 
   /// @HideField({ output: false, input: true })
-  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  createdAt     DateTime @default(now())
   /// @HideField({ output: false, input: true })
-  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
   createdBy     Int
   /// @HideField({ output: false, input: true })

@@ -29,6 +29,12 @@ RUN yarn build
 FROM node:20-alpine AS prod
 WORKDIR /app
 
+# Install tzdata package
+RUN apk add --no-cache tzdata
+
+# Set the timezone
+ENV TZ=Europe/Berlin
+
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/i18n.ts ./i18n.ts
 COPY --from=builder /app/public ./public

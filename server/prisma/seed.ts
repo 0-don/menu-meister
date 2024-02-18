@@ -34,6 +34,7 @@ dayjs.extend(weekOfYear);
 dayjs.extend(isoWeek);
 dayjs.extend(isoWeeksInYear);
 dayjs.extend(isLeapYear);
+dayjs.Ls["en"].weekStart = 1;
 
 const prisma = new PrismaClient();
 
@@ -166,9 +167,7 @@ const seedUserMeals = async () => {
         .startOf("week");
 
       const days = Array.from({ length: 7 }, (_, i) =>
-        startOfWeek
-          .add(i + process.env.NODE_ENV === "production" ? 0 : 1, "day")
-          .toISOString(),
+        startOfWeek.add(i + 1, "day").toISOString(),
       );
       const weekDay = DAYFIELDS[index];
       const mealId = weeklyMealGroup[weekDay];

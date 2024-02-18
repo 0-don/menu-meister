@@ -14,9 +14,9 @@ CREATE TYPE "MealLocation" AS ENUM ('InRoom', 'CommunalDining', 'OutdoorPatio', 
 CREATE TABLE "Token" (
     "id" SERIAL NOT NULL,
     "token" VARCHAR(255) NOT NULL,
-    "expiresIn" TIMESTAMPTZ(3) NOT NULL,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "expiresIn" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -27,8 +27,8 @@ CREATE TABLE "Token" (
 CREATE TABLE "Settings" (
     "id" SERIAL NOT NULL,
     "maxEditOrderDays" INTEGER NOT NULL,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -44,10 +44,10 @@ CREATE TABLE "User" (
     "password" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "lastOnline" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "lastOnline" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "status" BOOLEAN NOT NULL DEFAULT true,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER,
     "updatedBy" INTEGER,
 
@@ -59,8 +59,8 @@ CREATE TABLE "UserRole" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
     "name" "UserRoleName" NOT NULL,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -70,14 +70,14 @@ CREATE TABLE "UserRole" (
 -- CreateTable
 CREATE TABLE "UserMeal" (
     "id" SERIAL NOT NULL,
-    "date" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "date" DATE NOT NULL,
     "userId" INTEGER NOT NULL,
     "mealId" INTEGER NOT NULL,
     "mealBoardPlanId" INTEGER NOT NULL,
     "weeklyMealGroupId" INTEGER NOT NULL,
     "timeOfDay" "TimeOfDay" NOT NULL DEFAULT 'Any',
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -90,8 +90,8 @@ CREATE TABLE "UserMealLocation" (
     "userId" INTEGER NOT NULL,
     "timeOfDay" "TimeOfDay" NOT NULL DEFAULT 'Any',
     "mealLocation" "MealLocation" NOT NULL DEFAULT 'InRoom',
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -102,8 +102,8 @@ CREATE TABLE "UserMealLocation" (
 CREATE TABLE "Allergens" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -114,8 +114,8 @@ CREATE TABLE "Allergens" (
 CREATE TABLE "Additives" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -126,8 +126,8 @@ CREATE TABLE "Additives" (
 CREATE TABLE "Properties" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -138,8 +138,8 @@ CREATE TABLE "Properties" (
 CREATE TABLE "Categories" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -150,8 +150,8 @@ CREATE TABLE "Categories" (
 CREATE TABLE "Seasons" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -162,8 +162,8 @@ CREATE TABLE "Seasons" (
 CREATE TABLE "FoodForms" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -174,8 +174,8 @@ CREATE TABLE "FoodForms" (
 CREATE TABLE "Kitchens" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -197,8 +197,8 @@ CREATE TABLE "Ingredient" (
     "saturatedFats" DECIMAL(10,2) NOT NULL DEFAULT 0,
     "unsaturatedFats" DECIMAL(10,2) NOT NULL DEFAULT 0,
     "protein" DECIMAL(10,2) NOT NULL DEFAULT 0,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -210,8 +210,8 @@ CREATE TABLE "Recipe" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
     "description" TEXT,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -225,8 +225,8 @@ CREATE TABLE "RecipeIngredient" (
     "ingredientId" INTEGER NOT NULL,
     "amount" DECIMAL(10,2) NOT NULL,
     "unit" "Unit" NOT NULL,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -239,8 +239,8 @@ CREATE TABLE "Meal" (
     "name" VARCHAR(255) NOT NULL,
     "description" TEXT,
     "image" TEXT,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -253,8 +253,8 @@ CREATE TABLE "MealRecipe" (
     "mealId" INTEGER NOT NULL,
     "recipeId" INTEGER NOT NULL,
     "note" TEXT,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -266,8 +266,8 @@ CREATE TABLE "MealBoardPlan" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
     "color" VARCHAR(7),
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
@@ -292,8 +292,8 @@ CREATE TABLE "WeeklyMealGroup" (
     "fridayMealId" INTEGER,
     "saturdayMealId" INTEGER,
     "sundayMealId" INTEGER,
-    "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "createdBy" INTEGER NOT NULL,
     "updatedBy" INTEGER NOT NULL,
 
