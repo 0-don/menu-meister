@@ -115,13 +115,13 @@
     "USERS": "Users"
   },
   "Meal": {
-    "ALLERGENS": "Allergene",
-    "ADDITIVES": "Zusatzstoffe",
-    "PROPERTIES": "Eigenschaften",
-    "CATEGORIES": "Kategorien",
-    "SEASONS": "Saisonen",
-    "FOOD_FORMS": "Ernährungsformen",
-    "KITCHENS": "Küchen",
+    "ALLERGENS":  "Allergens",
+    "ADDITIVES": "Additives", 
+    "PROPERTIES": "Properties",
+    "CATEGORIES": "Categories",
+    "SEASONS": "Seasons",
+    "FOOD_FORMS": "Food Forms",
+    "KITCHENS": "Kitchens",
     "UPLOAD_OR_DRAG_DROP": "Upload a file or drag and drop",
     "UPLOAD_TYPE_AND_LIMIT": "PNG, JPG, GIF up to 10MB"
   },

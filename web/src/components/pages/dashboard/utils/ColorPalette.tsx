@@ -1,4 +1,4 @@
-import { Chip, colors } from "@nextui-org/react";
+import { Chip } from "@nextui-org/react";
 import React from "react";
 
 interface ColorPaletteProps {
