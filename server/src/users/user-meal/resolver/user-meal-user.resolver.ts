@@ -60,8 +60,20 @@ export class UserMealUserResolver {
     @Args("data") data: UserMealUncheckedCreateInput,
     @Info() info: GraphQLResolveInfo,
   ) {
-    const select = new PrismaSelect(info).value?.select as Prisma.UserMealSelect;
+    const select = new PrismaSelect(info).value.select as Prisma.UserMealSelect;
     try {
+      const userMealAlreadyExist = await this.prisma.userMeal.findFirst({
+        where: {
+          date: data.date,
+          timeOfDay: data.timeOfDay,
+        },
+      });
+
+      if (userMealAlreadyExist)
+        await this.prisma.userMeal.delete({
+          where: { id: userMealAlreadyExist.id },
+        });
+
       return await this.prisma.userMeal.create({ data, select });
     } catch (e) {
       Logger.error(e);
