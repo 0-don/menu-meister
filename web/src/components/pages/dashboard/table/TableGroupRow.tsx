@@ -21,48 +21,39 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
   const { isPast } = useWeeklyMealGroupHook();
   const tableStore = useSnapshot(TableStore);
   const { daysThatWeek, activeMealBoardPlan } = useSnapshot(DashboardStore);
-  const group = tableStore.getGroup(id)!;
+  const group = tableStore.getGroup(id);
+
   const seletecMealsAdmin = userMealsAdmin?.filter(
     (m) =>
-      m.weeklyMealGroupId === group.id &&
+      m.weeklyMealGroupId === group?.id &&
       m.mealBoardPlanId === activeMealBoardPlan?.id,
   );
+  
   const disabled =
     !isHighRank ||
     isOrderMenu ||
     !!seletecMealsAdmin.length ||
     isPast(daysThatWeek.at(-1));
 
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    setActivatorNodeRef,
-    isDragging,
-  } = useSortable({
-    id,
-    disabled: disabled,
-  });
+  const sortable = useSortable({ id, disabled });
 
   if (!group) return null;
 
   return (
     <section
-      className={`${isDragging ? "relative z-[9999]" : ""} grid grid-cols-8 gap-2 rounded-lg bg-default-300/10 p-2 focus:outline-none`}
+      className={`${sortable.isDragging ? "relative z-[9999]" : ""} grid grid-cols-8 gap-2 rounded-lg bg-default-300/10 p-2 focus:outline-none`}
       style={{
-        transform: CSS.Translate.toString(transform),
-        transition,
+        transform: CSS.Translate.toString(sortable.transform),
+        transition: sortable.transition,
       }}
-      {...attributes}
+      {...sortable.attributes}
       role="row"
-      ref={setNodeRef}
+      ref={sortable.setNodeRef}
     >
       <TableGroup
         id={id}
-        listeners={listeners}
-        activatorRef={setActivatorNodeRef}
+        listeners={sortable.listeners}
+        activatorRef={sortable.setActivatorNodeRef}
       />
       <DroppableItem
         day="monday"
