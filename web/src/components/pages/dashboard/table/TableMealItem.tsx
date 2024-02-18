@@ -18,43 +18,28 @@ import { FaEraser } from "@react-icons/all-files/fa/FaEraser";
 import { FaInfo } from "@react-icons/all-files/fa/FaInfo";
 import { IoFastFoodSharp } from "@react-icons/all-files/io5/IoFastFoodSharp";
 import dayjs from "dayjs";
-import isLeapYear from "dayjs/plugin/isLeapYear";
-import isoWeek from "dayjs/plugin/isoWeek";
-import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear";
-import utc from "dayjs/plugin/utc";
-import weekOfYear from "dayjs/plugin/weekOfYear";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { listeners } from "process";
 import { useSnapshot } from "valtio";
-
-dayjs.extend(utc);
-dayjs.extend(weekOfYear);
-dayjs.extend(isoWeek);
-dayjs.extend(isoWeeksInYear);
-dayjs.extend(isLeapYear);
-dayjs.Ls["en"].weekStart = 1;
 
 interface TableMealItemProps {
   meal: Meal;
   day: WeekDay;
   group: UniqueIdentifier;
-  isOver?: boolean;
   date?: string;
+  isOver?: boolean;
 }
 
-export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
+export const TableMealItem: React.FC<TableMealItemProps> = ({
+  isOver,
+  ...props
+}) => {
   const t = useTranslations<"Meals">();
   const router = useRouter();
   const dashboardStore = useSnapshot(DashboardStore);
   const tableStore = useSnapshot(TableStore);
-
-  const {
-    userMealsUser,
-    userMealsAdmin,
-    createUserMeal,
-    deleteUserMeal,
-    refetchUserMealsUser,
-  } = useUserMealHook();
+  const useMealHook = useUserMealHook();
   const { settings } = useSettingsHook();
   const { isHighRank, isOrderMenu, me } = useMeHook();
   const { updateWeeklyMealGroup, isPast } = useWeeklyMealGroupHook();
@@ -62,7 +47,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
   const groupItem = TableStore.getGroup(props.group);
   const id = `${props.group}#${props.day}#${props.meal.id}`;
 
-  const isSelectedMealUser = userMealsUser?.find(
+  const isSelectedMealUser = useMealHook.userMealsUser?.find(
     (m) =>
       m.mealId === props.meal.id &&
       dayjs(m.date).date() === dayjs(props.date).date() &&
@@ -70,7 +55,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
       m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id,
   );
 
-  const selectedMealAdmins = (userMealsAdmin || []).filter(
+  const selectedMealAdmins = (useMealHook.userMealsAdmin || []).filter(
     (m) =>
       m.mealId === props.meal.id &&
       dayjs(m.date).date() === dayjs(props.date).date() &&
@@ -90,17 +75,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
     !selectedMealAdmins.length &&
     !isPast(props.date);
 
-  const { attributes, listeners, setNodeRef, transform, setActivatorNodeRef } =
-    useDraggable({
-      id,
-      data: {
-        day: props.day,
-        group: props.group,
-        meal: props.meal,
-        date: props.date,
-      },
-      disabled,
-    });
+  const draggable = useDraggable({ id, data: props, disabled });
 
   const isActive = tableStore.active?.id === id;
 
@@ -108,8 +83,8 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
     <>
       <div
         style={{
-          transform: CSS.Translate.toString(transform),
-          opacity: !isActive && props.isOver ? 0.5 : 1,
+          transform: CSS.Translate.toString(draggable.transform),
+          opacity: !isActive && isOver ? 0.5 : 1,
         }}
         className={classNames(
           isActive && "relative z-50",
@@ -121,7 +96,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
             "border-3 !border-success-500 hover:!border-danger",
           "group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2",
         )}
-        ref={setNodeRef}
+        ref={draggable.setNodeRef}
         onClick={async () => {
           if (
             (!isHighRank || isOrderMenu) &&
@@ -133,7 +108,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
           ) {
             if (!isSelectedMealUser) {
               try {
-                await createUserMeal({
+                await useMealHook.createUserMeal({
                   data: {
                     mealBoardPlanId: Number(
                       dashboardStore.activeMealBoardPlan?.id,
@@ -145,7 +120,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
                     date: dayjs(props.date).add(1, "day").toISOString(),
                   },
                 });
-                refetchUserMealsUser();
+                useMealHook.refetchUserMealsUser();
                 GeneralStore.addAlert({
                   msg: t("SUCCESS_ADD_MEAL", { meal: props.meal.name }),
                   type: "success",
@@ -155,10 +130,10 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
               }
             } else {
               try {
-                await deleteUserMeal({
+                await useMealHook.deleteUserMeal({
                   where: { id: Number(isSelectedMealUser.id) },
                 });
-                refetchUserMealsUser();
+                useMealHook.refetchUserMealsUser();
                 GeneralStore.addAlert({
                   msg: t("REMOVED_MEAL", { meal: props.meal.name }),
                   type: "warning",
@@ -169,7 +144,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
             }
           }
         }}
-        {...attributes}
+        {...draggable.attributes}
         role="item"
       >
         <div className="flex items-center justify-between">
@@ -177,14 +152,14 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
             {props.meal.name}
           </p>
           <div className="item-center flex">
-            <div
+            <FaInfo
               onClick={(e) => {
                 e.stopPropagation();
                 router.push(`/meal/${props.meal.id}`);
               }}
-            >
-              <FaInfo className="hover:text-primary-500" />
-            </div>
+              className="cursor-pointer hover:text-primary-500"
+            />
+
             {enabled ? (
               <MyConfirmModal
                 title={t("WARNING")}
@@ -253,7 +228,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
               enabled && tableStore.active?.id !== id && "cursor-grab",
               enabled && tableStore.active?.id === id && "cursor-grabbing",
             )}
-            ref={setActivatorNodeRef}
+            ref={draggable.setActivatorNodeRef}
             {...listeners}
             src={
               props.meal.image
