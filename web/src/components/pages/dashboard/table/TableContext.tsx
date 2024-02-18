@@ -55,7 +55,6 @@ export function TableContext() {
             size="sm"
             label={t("MEAL_BOARD_PLAN")}
             labelPlacement="inside"
-            value={dashboardStore.activeMealBoardPlan?.id || 1}
             onSelectionChange={(id) => {
               DashboardStore.activeMealBoardPlan =
                 dashboardStore.mealBoardPlans?.find(
