@@ -65,6 +65,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
     (m) =>
       m.mealId === props.meal.id &&
       dayjs(m.date).date() === dayjs(props.date).date() &&
+      groupItem?.id === m.weeklyMealGroupId &&
       m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id,
   );
 
@@ -72,6 +73,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
     (m) =>
       m.mealId === props.meal.id &&
       dayjs(m.date).date() === dayjs(props.date).date() &&
+      groupItem?.id === m.weeklyMealGroupId &&
       m.mealBoardPlanId === dashboardStore.activeMealBoardPlan?.id,
   );
 
