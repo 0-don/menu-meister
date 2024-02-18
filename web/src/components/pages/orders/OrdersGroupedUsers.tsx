@@ -61,7 +61,7 @@ export const OrdersGroupedUsers: React.FC<OrdersGroupedUsersProps> = ({}) => {
           })}
         </Tabs>
 
-        <div className="grid gap-2 md:grid-cols-2">
+        <div className="grid gap-2 md:grid-cols-1">
           {getUserMealsGroupedUsersAdmin?.map((user) => (
             <Card className="mb-5 md:min-w-[500px]" key={user.userId}>
               <CardHeader className="flex gap-3">
