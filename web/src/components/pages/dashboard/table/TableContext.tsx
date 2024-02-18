@@ -43,7 +43,6 @@ export function TableContext() {
   const dashboardStore = useSnapshot(DashboardStore);
   const { dataSorted } = useSnapshot(TableStore);
 
-  console.log(JSON.parse(JSON.stringify(dataSorted)));
 
   return (
     <main className="relative z-0 mt-5 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small">

@@ -18,9 +18,21 @@ import { FaEraser } from "@react-icons/all-files/fa/FaEraser";
 import { FaInfo } from "@react-icons/all-files/fa/FaInfo";
 import { IoFastFoodSharp } from "@react-icons/all-files/io5/IoFastFoodSharp";
 import dayjs from "dayjs";
+import isLeapYear from "dayjs/plugin/isLeapYear";
+import isoWeek from "dayjs/plugin/isoWeek";
+import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear";
+import utc from "dayjs/plugin/utc";
+import weekOfYear from "dayjs/plugin/weekOfYear";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useSnapshot } from "valtio";
+
+dayjs.extend(utc);
+dayjs.extend(weekOfYear);
+dayjs.extend(isoWeek);
+dayjs.extend(isoWeeksInYear);
+dayjs.extend(isLeapYear);
+dayjs.Ls["en"].weekStart = 1;
 
 interface TableMealItemProps {
   meal: Meal;
@@ -48,8 +60,6 @@ export const TableMealItem: React.FC<TableMealItemProps> = (props) => {
 
   const groupItem = TableStore.getGroup(props.group);
   const id = `${props.group}#${props.day}#${props.meal.id}`;
-
-  console.log(props.date, props.day);
 
   const isSelectedMealUser = userMealsUser?.find(
     (m) =>
