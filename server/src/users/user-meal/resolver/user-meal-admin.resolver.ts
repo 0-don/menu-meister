@@ -1,6 +1,4 @@
 import { FindManyUserMealArgs } from "@/app_modules/@generated/user-meal/find-many-user-meal.args";
-import { UserMealGroupByArgs } from "@/app_modules/@generated/user-meal/user-meal-group-by.args";
-import { UserMealGroupBy } from "@/app_modules/@generated/user-meal/user-meal-group-by.output";
 import { UserMeal } from "@/app_modules/@generated/user-meal/user-meal.model";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
@@ -99,22 +97,6 @@ export class UserMealAdminResolver {
   ): Promise<UserMealGroupedCountAdminOutput[]> {
     try {
       return await this.userMealService.getUserMealsGroupedCount(data);
-    } catch (e) {
-      Logger.error(e);
-      return null;
-    }
-  }
-
-  @Query(() => [UserMealGroupBy], { nullable: true })
-  @Roles("ADMIN")
-  async getUserMealsGroupedAdmin(@Args() args: UserMealGroupByArgs) {
-    try {
-      // @ts-ignore
-      const result = await this.prisma.userMeal.groupBy({
-        ...args,
-      });
-
-      return result;
     } catch (e) {
       Logger.error(e);
       return null;

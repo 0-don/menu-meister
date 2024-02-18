@@ -4,7 +4,6 @@ import {
   GetAllUserMealsAdminQuery,
   GetAllWeeklyMealGroupsUserQuery,
   Meal,
-  TimeOfDay,
   WeeklyMealGroupFragmentFragment,
 } from "@/gql/graphql";
 import { WeekDay } from "@/utils/types";
@@ -30,4 +29,3 @@ export const TableStore = proxy({
     options?: RefetchOptions | undefined,
   ) => Promise<QueryObserverResult<GetAllWeeklyMealGroupsUserQuery, unknown>>,
 });
-

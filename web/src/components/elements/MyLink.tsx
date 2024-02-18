@@ -8,7 +8,12 @@ type MyLinkProps = {
   children?: React.ReactNode;
 } & LinkProps;
 
-export const MyLink: React.FC<MyLinkProps> = ({ href, children, className, ...rest }) => {
+export const MyLink: React.FC<MyLinkProps> = ({
+  href,
+  children,
+  className,
+  ...rest
+}) => {
   const currentPath = usePathname();
   const isActive = href === currentPath;
 

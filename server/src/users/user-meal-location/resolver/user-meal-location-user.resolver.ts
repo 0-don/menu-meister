@@ -1,20 +1,6 @@
-import { CreateManyUserMealLocationArgs } from "@/app_modules/@generated/user-meal-location/create-many-user-meal-location.args";
-import { DeleteManyUserMealLocationArgs } from "@/app_modules/@generated/user-meal-location/delete-many-user-meal-location.args";
-import { DeleteOneUserMealLocationArgs } from "@/app_modules/@generated/user-meal-location/delete-one-user-meal-location.args";
-import { FindFirstUserMealLocationArgs } from "@/app_modules/@generated/user-meal-location/find-first-user-meal-location.args";
-import { FindManyUserMealLocationArgs } from "@/app_modules/@generated/user-meal-location/find-many-user-meal-location.args";
-import { UpdateManyUserMealLocationArgs } from "@/app_modules/@generated/user-meal-location/update-many-user-meal-location.args";
-import { UpdateOneUserMealLocationArgs } from "@/app_modules/@generated/user-meal-location/update-one-user-meal-location.args";
-import { UpsertOneUserMealLocationArgs } from "@/app_modules/@generated/user-meal-location/upsert-one-user-meal-location.args";
-import { UserMealLocationUncheckedCreateInput } from "@/app_modules/@generated/user-meal-location/user-meal-location-unchecked-create.input";
 import { UserMealLocation } from "@/app_modules/@generated/user-meal-location/user-meal-location.model";
-import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
-import { Logger } from "@nestjs/common";
-import { Args, Info, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
-import { PrismaSelect } from "@paljs/plugins";
-import { Prisma } from "@prisma/client";
-import { GraphQLResolveInfo } from "graphql";
+import { Resolver } from "@nestjs/graphql";
 import { UserMeaLocationService } from "../user-meal-location.service";
 
 @Resolver(() => UserMealLocation)

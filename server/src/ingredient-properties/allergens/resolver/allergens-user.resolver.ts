@@ -1,6 +1,5 @@
 import { Allergens } from "@/app_modules/@generated/allergens/allergens.model";
 import { FindManyAllergensArgs } from "@/app_modules/@generated/allergens/find-many-allergens.args";
-import { Meal } from "@/app_modules/@generated/meal/meal.model";
 import { Roles } from "@/app_modules/decorators/roles.decorator";
 import { PrismaService } from "@/app_modules/prisma/prisma.service";
 import { Logger } from "@nestjs/common";

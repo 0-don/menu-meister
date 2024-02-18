@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { GET_ALL_MEAL_BOARD_PLANS_USER } from "@/documents/query/dashboard";
 import { customFetcher } from "@/fetcher";
 import { GetAllMealBoardPlansUserQuery } from "@/gql/graphql";

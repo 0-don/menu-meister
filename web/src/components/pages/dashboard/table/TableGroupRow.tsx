@@ -28,7 +28,7 @@ export const TableGroupRow: React.FC<TableGroupRowProps> = ({ id }) => {
       m.weeklyMealGroupId === group?.id &&
       m.mealBoardPlanId === activeMealBoardPlan?.id,
   );
-  
+
   const disabled =
     !isHighRank ||
     isOrderMenu ||
