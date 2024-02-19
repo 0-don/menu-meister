@@ -20,7 +20,6 @@ import { IoFastFoodSharp } from "@react-icons/all-files/io5/IoFastFoodSharp";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { listeners } from "process";
 import { useSnapshot } from "valtio";
 
 interface TableMealItemProps {
@@ -229,7 +228,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
               enabled && tableStore.active?.id === id && "cursor-grabbing",
             )}
             ref={draggable.setActivatorNodeRef}
-            {...listeners}
+            {...draggable.listeners}
             src={
               props.meal.image
                 ? `data:image/jpeg;base64,${props.meal.image}`
