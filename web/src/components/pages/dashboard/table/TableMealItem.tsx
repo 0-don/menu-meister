@@ -40,7 +40,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
   const tableStore = useSnapshot(TableStore);
   const useMealHook = useUserMealHook();
   const { settings } = useSettingsHook();
-  const { isHighRank, isOrderMenu, me } = useMeHook();
+  const { isHighRank, isOrderMenu, me, meAllergens } = useMeHook();
   const { updateWeeklyMealGroup, isPast } = useWeeklyMealGroupHook();
 
   const groupItem = TableStore.getGroup(props.group);
@@ -78,6 +78,10 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
 
   const isActive = tableStore.active?.id === id;
 
+  const hasAllergens = props.meal.allergens?.some((a) =>
+    meAllergens.includes(a.name),
+  );
+
   return (
     <>
       <div
@@ -89,11 +93,14 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
           isActive && "relative z-50",
           (!isHighRank || isOrderMenu) &&
             !isPast(props.date) &&
+            !hasAllergens &&
             "cursor-pointer border-3 border-transparent hover:border-primary",
           isOrderMenu &&
             isSelectedMealUser &&
             "border-3 !border-success-500 hover:!border-danger",
           "group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2",
+          hasAllergens &&
+            "relative bg-danger after:absolute after:inset-0 after:rounded-lg after:bg-danger after:bg-opacity-10 after:content-['']",
         )}
         ref={draggable.setNodeRef}
         onClick={async () => {
@@ -103,7 +110,8 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
             !dayjs(props.date).isBefore(
               dayjs().add(settings?.maxEditOrderDays || 0, "day"),
               "day",
-            )
+            ) &&
+            !hasAllergens
           ) {
             if (!isSelectedMealUser) {
               try {

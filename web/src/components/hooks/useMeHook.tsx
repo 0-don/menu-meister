@@ -36,6 +36,8 @@ export const useMeHook = () => {
 
   const isOrderMenu = pathname.includes("menu");
 
+  const meAllergens = me?.allergens?.map((a) => a.name) || [];
+
   return {
     me,
     refetchMe: refetch,
@@ -44,5 +46,6 @@ export const useMeHook = () => {
     updateUser,
     createUserMealLocation,
     deleteUserMealLocation,
+    meAllergens,
   };
 };
