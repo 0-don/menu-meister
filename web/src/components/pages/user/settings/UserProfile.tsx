@@ -169,7 +169,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
                               try {
                                 await updateUser({
                                   where: { id: user.id },
-                                  data: { allergens: { delete: [{ id }] } },
+                                  data: { allergens: { disconnect: [{ id }] } },
                                 });
                                 onOpenChange();
                                 refetch();
