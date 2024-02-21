@@ -94,13 +94,15 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
           (!isHighRank || isOrderMenu) &&
             !isPast(props.date) &&
             !hasAllergens &&
+            !dayjs(props.date).isBefore(
+              dayjs().add(settings?.maxEditOrderDays || 0, "day"),
+              "day",
+            ) &&
             "cursor-pointer border-3 border-transparent hover:border-primary",
           isOrderMenu &&
             isSelectedMealUser &&
             "border-3 !border-success-500 hover:!border-danger",
           "group flex h-full flex-col justify-between rounded-lg bg-default-100 p-2",
-          hasAllergens &&
-            "relative bg-danger after:absolute after:inset-0 after:rounded-lg after:bg-danger after:bg-opacity-10 after:content-['']",
         )}
         ref={draggable.setNodeRef}
         onClick={async () => {
