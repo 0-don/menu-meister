@@ -32,7 +32,7 @@ export class AuthService {
     try {
       if (
         user &&
-        (await argon2.verify(user.password, data.password, { hashLength: 100 }))
+        (await argon2.verify(user.password, data.password))
       ) {
         const { password, ...result } = user;
         return result as User & {
