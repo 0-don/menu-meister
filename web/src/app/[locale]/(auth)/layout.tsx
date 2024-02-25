@@ -1,11 +1,11 @@
 import NextIntlProvider from "@/components/NextIntlProvider";
 import { ME } from "@/documents/query/auth";
-import { UserRoleName } from "@/gql/graphql";
-import { ResultOf } from "@/graphql";
 import { redirect } from "@/navigation";
 import { ssrHeaders, ssrUrl } from "@/utils/helpers/serverComponentsUtil";
 import { customFetcherServer } from "@/utils/helpers/serverUtils";
+import { UserRoleName } from "@/utils/types/enum";
 import { Card } from "@nextui-org/card";
+import { ResultOf } from "gql.tada";
 
 interface AuthLayoutProps {
   children: React.ReactNode;

@@ -1,17 +1,13 @@
 "use client";
 
-import {
-  LoginUserMutation,
-  LoginUserMutationVariables,
-  RegisterUserMutation,
-  RegisterUserMutationVariables,
-  UserRoleName,
-} from "@/gql/graphql";
+import { LOGIN_USER, REGISTER_USER } from "@/documents/mutation/auth";
 import { useRouter } from "@/navigation";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
+import { UserRoleName } from "@/utils/types/enum";
 import { FaRegEye } from "@react-icons/all-files/fa/FaRegEye";
 import { FaRegEyeSlash } from "@react-icons/all-files/fa/FaRegEyeSlash";
 import { UseMutateAsyncFunction } from "@tanstack/react-query";
+import { ResultOf, VariablesOf } from "gql.tada";
 import { useTranslations } from "next-intl";
 import { FormEvent, HTMLInputTypeAttribute, useEffect } from "react";
 import { proxy, useSnapshot } from "valtio";
@@ -32,9 +28,9 @@ export const AuthStore = proxy({
   register: async (
     e: FormEvent,
     mutateAsync: UseMutateAsyncFunction<
-      RegisterUserMutation,
+      ResultOf<typeof REGISTER_USER>,
       any,
-      RegisterUserMutationVariables
+      VariablesOf<typeof REGISTER_USER>
     >,
     t: ReturnType<typeof useTranslations<"Alerts">>,
     router: ReturnType<typeof useRouter>,
@@ -76,9 +72,9 @@ export const AuthStore = proxy({
   login: async (
     e: FormEvent,
     mutateAsync: UseMutateAsyncFunction<
-      LoginUserMutation,
+      ResultOf<typeof LOGIN_USER>,
       any,
-      LoginUserMutationVariables
+      VariablesOf<typeof LOGIN_USER>
     >,
     t: ReturnType<typeof useTranslations<"Alerts">>,
     router: ReturnType<typeof useRouter>,

@@ -1,6 +1,7 @@
-import { graphql } from "@/gql";
+import { gql } from "@/fetcher";
+import { WEEKLY_MEAL_GROUP_FRAGMENT } from "../../fragments/dashboard";
 
-export const GET_ALL_MEAL_BOARD_PLANS_USER = graphql(/* GraphQL */ `
+export const GET_ALL_MEAL_BOARD_PLANS_USER = gql(`
   query GetAllMealBoardPlansUser(
     $where: MealBoardPlanWhereInput
     $orderBy: [MealBoardPlanOrderByWithRelationInput!]
@@ -24,29 +25,32 @@ export const GET_ALL_MEAL_BOARD_PLANS_USER = graphql(/* GraphQL */ `
   }
 `);
 
-export const GET_ALL_WEEKLY_MEAL_GROUPS_USER = graphql(/* GraphQL */ `
-  query GetAllWeeklyMealGroupsUser(
-    $where: WeeklyMealGroupWhereInput
-    $orderBy: [WeeklyMealGroupOrderByWithRelationInput!]
-    $cursor: WeeklyMealGroupWhereUniqueInput
-    $take: Int
-    $skip: Int
-    $distinct: [WeeklyMealGroupScalarFieldEnum!]
-  ) {
-    getAllWeeklyMealGroupsUser(
-      where: $where
-      orderBy: $orderBy
-      cursor: $cursor
-      take: $take
-      skip: $skip
-      distinct: $distinct
+export const GET_ALL_WEEKLY_MEAL_GROUPS_USER = gql(
+  /* GraphQL */ `
+    query GetAllWeeklyMealGroupsUser(
+      $where: WeeklyMealGroupWhereInput
+      $orderBy: [WeeklyMealGroupOrderByWithRelationInput!]
+      $cursor: WeeklyMealGroupWhereUniqueInput
+      $take: Int
+      $skip: Int
+      $distinct: [WeeklyMealGroupScalarFieldEnum!]
     ) {
-      ...WeeklyMealGroupFragment
+      getAllWeeklyMealGroupsUser(
+        where: $where
+        orderBy: $orderBy
+        cursor: $cursor
+        take: $take
+        skip: $skip
+        distinct: $distinct
+      ) {
+        ...WeeklyMealGroupFragment
+      }
     }
-  }
-`);
+  `,
+  [WEEKLY_MEAL_GROUP_FRAGMENT],
+);
 
-export const GET_ALL_MEALS_USER = graphql(/* GraphQL */ `
+export const GET_ALL_MEALS_USER = gql(`
   query GetAllMealsUser(
     $where: MealWhereInput
     $orderBy: [MealOrderByWithRelationInput!]
@@ -69,7 +73,7 @@ export const GET_ALL_MEALS_USER = graphql(/* GraphQL */ `
   }
 `);
 
-export const GET_ALL_USER_MEALS_ADMIN = graphql(/* GraphQL */ `
+export const GET_ALL_USER_MEALS_ADMIN = gql(`
   query GetAllUserMealsAdmin(
     $where: UserMealWhereInput
     $orderBy: [UserMealOrderByWithRelationInput!]

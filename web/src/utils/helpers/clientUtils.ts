@@ -1,16 +1,17 @@
-import { UserRoleName } from "@/gql/graphql";
-import { graphql } from "@/graphql";
 import { GeneralStore } from "@/store/GeneralStore";
-import { TypedDocumentNode } from "@graphql-typed-document-node/core";
-import { DirectiveDefinitionNode } from "graphql";
+import { TadaDocumentNode, graphql } from "gql.tada";
+import { ExecutableDefinitionNode } from "graphql";
 import { useTranslations } from "next-intl";
+import { UserRoleName } from "../types/enum";
 
 export const uid = () =>
   Math.random().toString(36).substring(2).replace(/[0-9]/g, "");
 
 export const getKey = <TData = any, TVariables = unknown>(
-  document: TypedDocumentNode<TData, TVariables>,
-) => [(document?.definitions?.[0] as DirectiveDefinitionNode)?.name?.value];
+  document: TadaDocumentNode<TData, TVariables>,
+) => [
+  (document?.definitions?.[0] as ExecutableDefinitionNode)?.name?.value || "",
+];
 
 export function classNames(
   ...classes: (string | undefined | null | false | { [key: string]: any })[]

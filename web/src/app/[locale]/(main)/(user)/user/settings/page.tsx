@@ -4,7 +4,6 @@ import { useMeHook } from "@/components/hooks/useMeHook";
 import { UserNotifications } from "@/components/pages/user/settings/UserNotifications";
 import { UserProfile } from "@/components/pages/user/settings/UserProfile";
 import { UserSecurity } from "@/components/pages/user/settings/UserSecurity";
-import { User } from "@/gql/graphql";
 import { Tab, Tabs } from "@nextui-org/react";
 import { FaAddressCard } from "@react-icons/all-files/fa/FaAddressCard";
 import { FaBell } from "@react-icons/all-files/fa/FaBell";
@@ -30,7 +29,7 @@ export default function UserProfilePage({}: UserProfilePageProps) {
             </div>
           }
         >
-          <UserProfile user={me as User} refetch={refetchMe} />
+          <UserProfile user={me} refetch={refetchMe} />
         </Tab>
         <Tab
           title={

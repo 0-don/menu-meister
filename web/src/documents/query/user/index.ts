@@ -1,6 +1,6 @@
-import { graphql } from "@/gql";
+import { gql } from "@/fetcher";
 
-export const GET_USER_ADMIN = graphql(/* GraphQL */ `
+export const GET_USER_ADMIN = gql(`
   query GetUserAdmin(
     $where: UserWhereInput
     $orderBy: [UserOrderByWithRelationInput!]
@@ -39,7 +39,7 @@ export const GET_USER_ADMIN = graphql(/* GraphQL */ `
   }
 `);
 
-export const GET_ALL_USERS_ADMIN = graphql(/* GraphQL */ `
+export const GET_ALL_USERS_ADMIN = gql(`
   query GetAllUsersAdmin(
     $where: UserWhereInput
     $orderBy: [UserOrderByWithRelationInput!]

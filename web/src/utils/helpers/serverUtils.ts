@@ -1,14 +1,14 @@
-import { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import fs from "fs";
 import { print } from "graphql";
 import { BACKEND_INTERNAL_URL } from "../constants";
+import { TadaDocumentNode } from "gql.tada";
 
 export const customFetcherServer = async <
   TData,
   TVariables,
   T extends boolean = false,
 >(
-  document: TypedDocumentNode<TData, TVariables>,
+  document: TadaDocumentNode<TData, TVariables>,
   variables?: TVariables,
   options?: RequestInit["headers"],
   withHeaders: T = false as T,

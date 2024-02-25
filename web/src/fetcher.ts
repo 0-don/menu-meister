@@ -1,4 +1,3 @@
-import { type TypedDocumentNode } from "@graphql-typed-document-node/core";
 import {
   UseInfiniteQueryOptions,
   UseMutationOptions,
@@ -7,15 +6,25 @@ import {
   useMutation,
   useQuery,
 } from "@tanstack/react-query";
+import { TadaDocumentNode, initGraphQLTada } from "gql.tada";
 import { print } from "graphql";
+import type { introspection } from "./graphql-env.d.ts";
 import { getKey } from "./utils/helpers/clientUtils";
+
+export const gql = initGraphQLTada<{
+  introspection: introspection;
+  scalars: {
+    DateTime: string;
+    JSON: any;
+  };
+}>();
 
 export const useGqlQuery = <
   TData = any,
   TVariables = unknown,
   TError = unknown,
 >(
-  document: TypedDocumentNode<TData, TVariables>,
+  document: TadaDocumentNode<TData, TVariables>,
   variables?: TVariables,
   options?: Omit<UseQueryOptions<TData, TError, TData>, "queryKey">,
 ) =>
@@ -31,7 +40,7 @@ export const useGqlMutation = <
   TError = unknown,
   TContext = unknown,
 >(
-  document: TypedDocumentNode<TData, TVariables>,
+  document: TadaDocumentNode<TData, TVariables>,
   options?: Omit<
     UseMutationOptions<TData, TError, TVariables, TContext>,
     "mutationKey"
@@ -48,7 +57,7 @@ export const useGqlInfinite = <
   TVariables = unknown,
   TError = unknown,
 >(
-  document: TypedDocumentNode<TData, TVariables>,
+  document: TadaDocumentNode<TData, TVariables>,
   variables: TVariables,
   options?: Omit<
     UseInfiniteQueryOptions<TData, TError, TData>,
@@ -67,7 +76,7 @@ export const useGqlInfinite = <
   });
 
 export const customFetcher = <TData, TVariables, T extends boolean = false>(
-  document: TypedDocumentNode<TData, TVariables>,
+  document: TadaDocumentNode<TData, TVariables>,
   variables?: TVariables,
   options?: RequestInit["headers"],
   withHeaders: T = false as T,

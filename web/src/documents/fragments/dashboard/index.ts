@@ -1,6 +1,6 @@
-import { graphql } from "@/gql";
+import { gql } from "@/fetcher";
 
-export const WEEKLY_MEAL_GROUP_FRAGMENT = graphql(/* GraphQL */ `
+export const WEEKLY_MEAL_GROUP_FRAGMENT = gql(`
   fragment WeeklyMealGroupFragment on WeeklyMealGroup {
     id
     name

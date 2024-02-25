@@ -1,6 +1,6 @@
-import { graphql } from "@/gql";
+import { gql } from "@/fetcher";
 
-export const UPDATE_USER_ADMIN = graphql(/* GraphQL */ `
+export const UPDATE_USER_ADMIN = gql(`
   mutation UpdateUserAdmin(
     $data: UserUpdateInput!
     $where: UserWhereUniqueInput!
@@ -11,7 +11,7 @@ export const UPDATE_USER_ADMIN = graphql(/* GraphQL */ `
   }
 `);
 
-export const CREATE_USER_MEAL_LOCATION_ADMIN = graphql(/* GraphQL */ `
+export const CREATE_USER_MEAL_LOCATION_ADMIN = gql(`
   mutation CreateUserMealLocationAdmin(
     $data: UserMealLocationUncheckedCreateInput!
   ) {
@@ -26,7 +26,7 @@ export const CREATE_USER_MEAL_LOCATION_ADMIN = graphql(/* GraphQL */ `
   }
 `);
 
-export const DELETE_USER_MEAL_LOCATION_ADMIN = graphql(/* GraphQL */ `
+export const DELETE_USER_MEAL_LOCATION_ADMIN = gql(`
   mutation DeleteUserMealLocationAdmin(
     $where: UserMealLocationWhereUniqueInput!
   ) {

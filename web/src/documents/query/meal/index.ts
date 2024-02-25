@@ -1,6 +1,6 @@
-import { graphql } from "@/gql";
+import { gql } from "@/fetcher";
 
-export const GET_MEAL_USER = graphql(/* GraphQL */ `
+export const GET_MEAL_USER = gql(`
   query GetMealUser(
     $where: MealWhereInput
     $orderBy: [MealOrderByWithRelationInput!]

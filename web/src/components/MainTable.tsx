@@ -1,11 +1,12 @@
 "use client";
 
+import { WEEKLY_MEAL_GROUP_FRAGMENT } from "@/documents/fragments/dashboard";
 import { GET_ALL_WEEKLY_MEAL_GROUPS_USER } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
-import { WeeklyMealGroupFragmentFragment } from "@/gql/graphql";
 import { DashboardStore } from "@/store/DashboardStore";
 import { TableStore } from "@/store/TableStore";
 import { useInitialDashboardStore } from "@/store/hooks/useInitialDashboardStore";
+import { FragmentOf } from "gql.tada";
 import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import { useMeHook } from "./hooks/useMeHook";
@@ -39,8 +40,9 @@ export function MainTable({}: DashboardPageProps) {
   );
 
   useEffect(() => {
-    TableStore.data =
-      getAllWeeklyMealGroupsUser as WeeklyMealGroupFragmentFragment[];
+    TableStore.data = getAllWeeklyMealGroupsUser as FragmentOf<
+      typeof WEEKLY_MEAL_GROUP_FRAGMENT
+    >[];
     TableStore.refetchWeeklyMealGroups = refetchWeeklyMealGroups;
   }, [getAllWeeklyMealGroupsUser, dashboardStore.activeMealBoardPlan]);
 

@@ -1,7 +1,8 @@
 import { ME } from "@/documents/query/auth";
-import { MeQuery, UserRoleName } from "@/gql/graphql";
 import { getKey } from "@/utils/helpers/clientUtils";
 import { prefetchQuery } from "@/utils/helpers/serverComponentsUtil";
+import { UserRoleName } from "@/utils/types/enum";
+import { ResultOf } from "gql.tada";
 import { redirect } from "next/navigation";
 
 interface DashboardLayoutProps {
@@ -12,7 +13,7 @@ export default async function DashboardLayout({
   children,
 }: DashboardLayoutProps) {
   const { queryClient } = await prefetchQuery([{ document: ME }]);
-  const data = queryClient.getQueryData<MeQuery>(getKey(ME));
+  const data = queryClient.getQueryData<ResultOf<typeof ME>>(getKey(ME));
 
   if (
     !data?.me?.userRole?.map(

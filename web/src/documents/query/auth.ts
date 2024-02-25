@@ -1,6 +1,6 @@
-import { graphql } from "@/graphql";
+import { gql } from "@/fetcher";
 
-export const ME = graphql(/* GraphQL */ `
+export const ME = gql(`
   query Me {
     me {
       id

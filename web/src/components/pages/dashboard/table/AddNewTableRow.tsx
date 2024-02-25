@@ -1,11 +1,13 @@
 import { MyAutocomplete } from "@/components/elements/MyAutocomplete";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
-import { TimeOfDay, WeeklyMealGroupFragmentFragment } from "@/gql/graphql";
+import { type WEEKLY_MEAL_GROUP_FRAGMENT } from "@/documents/fragments/dashboard";
 import { DashboardStore } from "@/store/DashboardStore";
 import { TableStore } from "@/store/TableStore";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
+import { TimeOfDay } from "@/utils/types/enum";
 import { Button, Card, Input } from "@nextui-org/react";
 import { FaRegPlusSquare } from "@react-icons/all-files/fa/FaRegPlusSquare";
+import { FragmentOf } from "gql.tada";
 import { useTranslations } from "next-intl";
 import React, { FormEvent, useState } from "react";
 import { useSnapshot } from "valtio";
@@ -44,7 +46,9 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
 
       if (res.createWeeklyMealGroupAdmin) {
         TableStore.data.push(
-          res.createWeeklyMealGroupAdmin as WeeklyMealGroupFragmentFragment,
+          res.createWeeklyMealGroupAdmin as FragmentOf<
+            typeof WEEKLY_MEAL_GROUP_FRAGMENT
+          >,
         );
       }
 

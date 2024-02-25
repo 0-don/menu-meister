@@ -7,9 +7,9 @@ import {
 } from "@/documents/mutation/user";
 import { ME } from "@/documents/query/auth";
 import { customFetcher, useGqlMutation } from "@/fetcher";
-import { UserRoleName } from "@/gql/graphql";
 import { usePathname } from "@/navigation";
 import { getKey } from "@/utils/helpers/clientUtils";
+import { UserRoleName } from "@/utils/types/enum";
 import { useQuery } from "@tanstack/react-query";
 import { ResultOf } from "gql.tada";
 

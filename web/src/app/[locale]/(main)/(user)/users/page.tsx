@@ -2,7 +2,7 @@
 
 import { GET_ALL_USERS_ADMIN } from "@/documents/query/user";
 import { useGqlQuery } from "@/fetcher";
-import { SortOrder } from "@/gql/graphql";
+
 import { Link } from "@/navigation";
 import {
   Table,
@@ -20,9 +20,10 @@ interface UsersPageProps {}
 
 export default function UsersPage({}: UsersPageProps) {
   const t = useTranslations<"User">();
-  const { data: { getAllUsersAdmin } = {} } = useGqlQuery(GET_ALL_USERS_ADMIN, {
-    orderBy: { id: SortOrder.Asc },
-  });
+  const { data: { getAllUsersAdmin } = {} } = useGqlQuery(
+    GET_ALL_USERS_ADMIN,
+    {},
+  );
 
   return (
     <>

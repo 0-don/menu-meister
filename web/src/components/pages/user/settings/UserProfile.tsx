@@ -3,9 +3,11 @@ import { MyConfirmModal } from "@/components/elements/MyConfirmModal";
 import { MyInput } from "@/components/elements/MyInput";
 import { useIngredientPropertiesHook } from "@/components/hooks/useIngredientPropertiesHook";
 import { useMeHook } from "@/components/hooks/useMeHook";
-import { MealLocation, TimeOfDay, User } from "@/gql/graphql";
+import { ME } from "@/documents/query/auth";
+import { type GET_USER_ADMIN } from "@/documents/query/user";
 import { TIME_OF_DAY_CONFIGS } from "@/utils/constants";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
+import { MealLocation, TimeOfDay } from "@/utils/types/enum";
 import {
   Button,
   Card,
@@ -14,15 +16,19 @@ import {
   ListboxItem,
 } from "@nextui-org/react";
 import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
+import { ResultOf } from "gql.tada";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
+
 type TimeOfDayAndMealLocation = {
   timeOfDay: string;
   mealLocation: string;
 };
 
 interface UserProfileProps {
-  user: Partial<User>;
+  user:
+    | ResultOf<typeof GET_USER_ADMIN>["getUserAdmin"]
+    | ResultOf<typeof ME>["me"];
   refetch: (args?: any) => Promise<any>;
 }
 
@@ -56,7 +62,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
       try {
         await createUserMealLocation({
           data: {
-            userId: Number(user.id),
+            userId: Number(user?.id),
             mealLocation: changedState.mealLocation as MealLocation,
             timeOfDay: changedState.timeOfDay as TimeOfDay,
           },
@@ -89,7 +95,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
               if (!isHighRank) return;
               setFirstname(e.target.value);
               updateUser({
-                where: { id: user.id },
+                where: { id: user?.id },
                 data: { firstname: { set: e.target.value } },
               });
             }}
@@ -103,7 +109,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
               if (!isHighRank) return;
               setLastname(e.target.value);
               updateUser({
-                where: { id: user.id },
+                where: { id: user?.id },
                 data: { lastname: { set: e.target.value } },
               });
             }}
@@ -127,7 +133,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
                 );
                 if (key && allergy) {
                   await updateUser({
-                    where: { id: user.id },
+                    where: { id: user?.id },
                     data: {
                       allergens: {
                         connectOrCreate: [
@@ -168,7 +174,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
                               if (!isHighRank) return;
                               try {
                                 await updateUser({
-                                  where: { id: user.id },
+                                  where: { id: user?.id },
                                   data: { allergens: { disconnect: [{ id }] } },
                                 });
                                 onOpenChange();
@@ -262,7 +268,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
             >
               {(user?.userMealLocation || []).map(
                 ({ id, mealLocation, timeOfDay }) => {
-                  const { icon: Icon } = TIME_OF_DAY_CONFIGS.find(
+                  const { icon: Icon } = TIME_OF_DAY_CONFIGS?.find(
                     (config) => config.time === timeOfDay,
                   )!;
 
@@ -285,7 +291,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
                                     await deleteUserMealLocation({
                                       where: {
                                         id,
-                                        userId: { equals: Number(user.id) },
+                                        userId: { equals: Number(user?.id) },
                                       },
                                     });
                                     onOpen();
