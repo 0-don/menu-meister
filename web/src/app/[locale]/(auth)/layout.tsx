@@ -1,6 +1,7 @@
 import NextIntlProvider from "@/components/NextIntlProvider";
 import { ME } from "@/documents/query/auth";
-import { MeQuery, UserRoleName } from "@/gql/graphql";
+import { UserRoleName } from "@/gql/graphql";
+import { ResultOf } from "@/graphql";
 import { redirect } from "@/navigation";
 import { ssrHeaders, ssrUrl } from "@/utils/helpers/serverComponentsUtil";
 import { customFetcherServer } from "@/utils/helpers/serverUtils";
@@ -12,7 +13,7 @@ interface AuthLayoutProps {
 
 export default async function AuthLayout({ children }: AuthLayoutProps) {
   const url = ssrUrl();
-  let user: MeQuery["me"] | undefined;
+  let user: ResultOf<typeof ME>["me"] | undefined;
 
   try {
     user = (await customFetcherServer(ME, undefined, ssrHeaders()))?.me;

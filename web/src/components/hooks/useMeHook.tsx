@@ -7,15 +7,16 @@ import {
 } from "@/documents/mutation/user";
 import { ME } from "@/documents/query/auth";
 import { customFetcher, useGqlMutation } from "@/fetcher";
-import { MeQuery, UserRoleName } from "@/gql/graphql";
+import { UserRoleName } from "@/gql/graphql";
 import { usePathname } from "@/navigation";
 import { getKey } from "@/utils/helpers/clientUtils";
 import { useQuery } from "@tanstack/react-query";
+import { ResultOf } from "gql.tada";
 
 export const useMeHook = () => {
   const pathname = usePathname();
 
-  const { data: { me } = {}, refetch } = useQuery<MeQuery>({
+  const { data: { me } = {}, refetch } = useQuery<ResultOf<typeof ME>>({
     queryKey: getKey(ME),
     enabled: false,
     queryFn: customFetcher(ME),

@@ -1,4 +1,4 @@
-import { graphql } from "@/gql";
+import { graphql } from "@/graphql";
 
 export const ME = graphql(/* GraphQL */ `
   query Me {

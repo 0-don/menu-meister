@@ -1,4 +1,5 @@
 import { UserRoleName } from "@/gql/graphql";
+import { graphql } from "@/graphql";
 import { GeneralStore } from "@/store/GeneralStore";
 import { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import { DirectiveDefinitionNode } from "graphql";
@@ -28,7 +29,9 @@ export function classNames(
     .join(" ");
 }
 
-export const getMenu = (roles: UserRoleName[]) =>
+export const getMenu = (
+  roles: ReturnType<typeof graphql.scalar<"UserRoleName">>[],
+) =>
   [
     {
       link: "/",
