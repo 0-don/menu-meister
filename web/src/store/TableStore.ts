@@ -1,21 +1,20 @@
 "use client";
-
-import {
-  GetAllUserMealsAdminQuery,
-  GetAllWeeklyMealGroupsUserQuery,
-  Meal,
-  WeeklyMealGroupFragmentFragment,
-} from "@/gql/graphql";
-import { WeekDay } from "@/utils/types";
+import { type WEEKLY_MEAL_GROUP_FRAGMENT } from "@/documents/fragments/dashboard";
+import { GET_ALL_WEEKLY_MEAL_GROUPS_USER } from "@/documents/query/dashboard";
+import { GET_ALL_USER_MEALS_USER } from "@/documents/query/menu";
+import { Meal, WeekDay } from "@/utils/types";
 import { Active, UniqueIdentifier } from "@dnd-kit/core";
 import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
+import { FragmentOf, ResultOf } from "gql.tada";
 
 import { proxy } from "valtio";
 
 export const TableStore = proxy({
-  orderedMeals: [] as GetAllUserMealsAdminQuery["getAllUserMealsAdmin"],
+  orderedMeals: [] as ResultOf<
+    typeof GET_ALL_USER_MEALS_USER
+  >["getAllUserMealsUser"],
   active: undefined as Active | undefined,
-  data: [] as WeeklyMealGroupFragmentFragment[],
+  data: [] as FragmentOf<typeof WEEKLY_MEAL_GROUP_FRAGMENT>[],
   get dataSorted() {
     return (TableStore.data || []).sort((a, b) => a.orderIndex - b.orderIndex);
   },
@@ -27,5 +26,10 @@ export const TableStore = proxy({
 
   refetchWeeklyMealGroups: (() => {}) as (
     options?: RefetchOptions | undefined,
-  ) => Promise<QueryObserverResult<GetAllWeeklyMealGroupsUserQuery, unknown>>,
+  ) => Promise<
+    QueryObserverResult<
+      ResultOf<typeof GET_ALL_WEEKLY_MEAL_GROUPS_USER>,
+      unknown
+    >
+  >,
 });

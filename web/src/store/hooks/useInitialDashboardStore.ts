@@ -29,7 +29,7 @@ export const useInitialDashboardStore = () => {
   }, []);
 
   useEffect(() => {
-    DashboardStore.mealBoardPlans = mealBoardPlans;
+    DashboardStore.mealBoardPlans = mealBoardPlans || [];
     if (!DashboardStore.activeMealBoardPlan)
       DashboardStore.activeMealBoardPlan = mealBoardPlans?.at(0);
   }, [mealBoardPlans]);

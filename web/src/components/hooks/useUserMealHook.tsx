@@ -24,7 +24,9 @@ export const useUserMealHook = () => {
           mealBoardPlanId: { equals: dashboardStore.activeMealBoardPlan?.id },
           date: {
             gte: dashboardStore.daysThatWeek.at(0),
-            lte: dayjs(dashboardStore.daysThatWeek.at(-1)).add(1, "day"),
+            lte: dayjs(dashboardStore.daysThatWeek.at(-1))
+              .add(1, "day")
+              .toISOString(),
           },
         },
       },
@@ -41,7 +43,9 @@ export const useUserMealHook = () => {
         mealBoardPlanId: { equals: dashboardStore.activeMealBoardPlan?.id },
         date: {
           gte: dashboardStore.daysThatWeek.at(0),
-          lte: dayjs(dashboardStore.daysThatWeek.at(-1)).add(1, "day"),
+          lte: dayjs(dashboardStore.daysThatWeek.at(-1))
+            .add(1, "day")
+            .toISOString(),
         },
       },
     },

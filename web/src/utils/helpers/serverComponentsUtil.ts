@@ -1,11 +1,11 @@
-import { UserRoleName } from "@/gql/graphql";
-import { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import { DehydratedState, QueryClient, dehydrate } from "@tanstack/react-query";
 import { cookies, headers } from "next/headers";
 import { ROLES, TOKEN } from "../constants";
 import getQueryClient from "../getQueryClient";
 import { getKey } from "./clientUtils";
 import { customFetcherServer } from "./serverUtils";
+import { UserRoleName } from "../types/enum";
+import { TadaDocumentNode } from "gql.tada";
 
 export const X_URL = "x-url";
 
@@ -28,7 +28,7 @@ export const ssrHeaders = (): HeadersInit => {
 };
 
 type PrefetchItem<TData, TVariables> = {
-  document: TypedDocumentNode<TData, TVariables>;
+  document: TadaDocumentNode<TData, TVariables>;
   variables?: TVariables;
 };
 

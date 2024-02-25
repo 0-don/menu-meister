@@ -26,9 +26,9 @@ type TimeOfDayAndMealLocation = {
 };
 
 interface UserProfileProps {
-  user:
-    | ResultOf<typeof GET_USER_ADMIN>["getUserAdmin"]
-    | ResultOf<typeof ME>["me"];
+  user: Partial<
+    ResultOf<typeof GET_USER_ADMIN>["getUserAdmin"] | ResultOf<typeof ME>["me"]
+  >;
   refetch: (args?: any) => Promise<any>;
 }
 

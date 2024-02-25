@@ -1,7 +1,6 @@
-import { graphql } from "gql.tada";
+import { gql } from "@/fetcher";
 
-
-export const UPDATE_SETTINGS_ADMIN = graphql(`
+export const UPDATE_SETTINGS_ADMIN = gql(`
   mutation UpdateSettingsAdmin(
     $data: SettingsUpdateInput!
     $where: SettingsWhereUniqueInput!

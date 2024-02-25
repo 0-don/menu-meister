@@ -1,12 +1,13 @@
 "use client";
 
-import { GetAllMealBoardPlansUserQuery } from "@/gql/graphql";
+import { GET_ALL_MEAL_BOARD_PLANS_USER } from "@/documents/query/dashboard";
 import dayjs from "dayjs";
 import isLeapYear from "dayjs/plugin/isLeapYear";
 import isoWeek from "dayjs/plugin/isoWeek";
 import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear";
 import utc from "dayjs/plugin/utc";
 import weekOfYear from "dayjs/plugin/weekOfYear";
+import { ResultOf } from "gql.tada";
 import { proxy } from "valtio";
 import { watch } from "valtio/utils";
 
@@ -22,10 +23,15 @@ export const DASHBOARD_STORE_KEY = "DashboardStore";
 export const DashboardStore = proxy({
   init: false,
   activeMealBoardPlan: undefined as
-    | NonNullable<GetAllMealBoardPlansUserQuery["getAllMealBoardPlansUser"]>[0]
+    | NonNullable<
+        ResultOf<
+          typeof GET_ALL_MEAL_BOARD_PLANS_USER
+        >["getAllMealBoardPlansUser"]
+      >[number]
     | undefined,
-  mealBoardPlans:
-    [] as GetAllMealBoardPlansUserQuery["getAllMealBoardPlansUser"],
+  mealBoardPlans: [] as ResultOf<
+    typeof GET_ALL_MEAL_BOARD_PLANS_USER
+  >["getAllMealBoardPlansUser"],
   calendar: {
     year: dayjs().year(),
     week: dayjs().isoWeek(),

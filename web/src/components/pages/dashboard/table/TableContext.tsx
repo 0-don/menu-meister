@@ -4,11 +4,10 @@ import { MyAutocomplete } from "@/components/elements/MyAutocomplete";
 import { useMeHook } from "@/components/hooks/useMeHook";
 import { useUserMealHook } from "@/components/hooks/useUserMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
-import { Meal } from "@/gql/graphql";
 import { DashboardStore } from "@/store/DashboardStore";
 import { TableStore } from "@/store/TableStore";
 import { WEEK_DAYS } from "@/utils/constants";
-import { DayMeals } from "@/utils/types";
+import { DayMeals, Meal } from "@/utils/types";
 import { DndContext } from "@dnd-kit/core";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import {

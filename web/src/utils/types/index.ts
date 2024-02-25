@@ -1,6 +1,12 @@
+import { type WEEKLY_MEAL_GROUP_FRAGMENT } from "@/documents/fragments/dashboard";
+import { FragmentOf } from "gql.tada";
 import { WEEK_DAYS } from "../constants";
 
 export type WeekDay = (typeof WEEK_DAYS)[number];
+
+export type Meal = NonNullable<
+  FragmentOf<typeof WEEKLY_MEAL_GROUP_FRAGMENT>["mondayMeal"]
+>;
 
 export type DayMeals =
   | "mondayMeal"

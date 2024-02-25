@@ -1,9 +1,9 @@
 import { ME } from "@/documents/query/auth";
-import { MeQuery } from "@/gql/graphql";
 import { redirect } from "@/navigation";
 import { getKey } from "@/utils/helpers/clientUtils";
 import { prefetchQuery } from "@/utils/helpers/serverComponentsUtil";
 import { HydrationBoundary } from "@tanstack/react-query";
+import { ResultOf } from "gql.tada";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ interface MainLayoutProps {
 
 export default async function MainLayout({ children }: MainLayoutProps) {
   const { state, queryClient } = await prefetchQuery([{ document: ME }]);
-  const data = queryClient.getQueryData<MeQuery>(getKey(ME));
+  const data = queryClient.getQueryData<ResultOf<typeof ME>>(getKey(ME));
 
   if (!data?.me) redirect("/login");
 

@@ -1,7 +1,7 @@
 import { gql } from "@/fetcher";
 
 export const WEEKLY_MEAL_GROUP_FRAGMENT = gql(`
-  fragment WeeklyMealGroupFragment on WeeklyMealGroup {
+  fragment WeeklyMealGroupFragment on WeeklyMealGroup @_unmask {
     id
     name
     color
