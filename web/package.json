@@ -3,16 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev\" \"npx graphql-code-generator --watch \"src/documents/**/*.ts\"\"",
-    "dev2": "next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --ignore-path .gitignore -w ./src",
     "prettier": "prettier -c ./src",
     "typecheck": "tsc --noEmit --incremental false",
-    "fix": "npm run typecheck && npm run lint && npm run format && npm run gen",
-    "gen": "npx graphql-code-generator"
+    "fix": "npm run typecheck && npm run lint && npm run format"
   },
   "dependencies": {
     "@dnd-kit/core": "next",
