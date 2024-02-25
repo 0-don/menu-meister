@@ -1,6 +1,6 @@
 "use client";
 
-import { WEEKLY_MEAL_GROUP_FRAGMENT } from "@/documents/fragments/dashboard";
+import { type WEEKLY_MEAL_GROUP_FRAGMENT } from "@/documents/fragments/dashboard";
 import { GET_ALL_WEEKLY_MEAL_GROUPS_USER } from "@/documents/query/dashboard";
 import { useGqlQuery } from "@/fetcher";
 import { DashboardStore } from "@/store/DashboardStore";

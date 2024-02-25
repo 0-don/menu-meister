@@ -9,7 +9,7 @@ import { catchErrorAlerts, classNames } from "@/utils/helpers/clientUtils";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 import { Button, Chip } from "@nextui-org/react";
-import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
+import { FaRegTrashAlt } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 import React, { useCallback, useState } from "react";
 import { useSnapshot } from "valtio";

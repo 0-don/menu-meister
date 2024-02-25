@@ -13,12 +13,11 @@ import { UniqueIdentifier, useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { Button } from "@nextui-org/react";
 import mealPlaceholder from "@public/images/meal-placeholder.png";
-import { FaEraser } from "@react-icons/all-files/fa/FaEraser";
-import { FaInfo } from "@react-icons/all-files/fa/FaInfo";
-import { IoFastFoodSharp } from "@react-icons/all-files/io5/IoFastFoodSharp";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { FaEraser, FaInfo } from "react-icons/fa";
+import { IoFastFoodSharp } from "react-icons/io5";
 import { useSnapshot } from "valtio";
 
 interface TableMealItemProps {

@@ -5,9 +5,9 @@ import { UserNotifications } from "@/components/pages/user/settings/UserNotifica
 import { UserProfile } from "@/components/pages/user/settings/UserProfile";
 import { UserSecurity } from "@/components/pages/user/settings/UserSecurity";
 import { Tab, Tabs } from "@nextui-org/react";
-import { FaAddressCard } from "@react-icons/all-files/fa/FaAddressCard";
-import { FaBell } from "@react-icons/all-files/fa/FaBell";
+import { FaBell } from "react-icons/fa";
 import { useTranslations } from "next-intl";
+import { FaAddressCard } from "react-icons/fa";
 import { MdOutlineLockPerson } from "react-icons/md";
 
 interface UserProfilePageProps {}

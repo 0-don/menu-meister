@@ -8,9 +8,9 @@ import { useRouter } from "@/navigation";
 import { AuthStore, DisplayPassword } from "@/store/AuthStore";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/divider";
-import { BiLogIn } from "@react-icons/all-files/bi/BiLogIn";
-import { CgPassword } from "@react-icons/all-files/cg/CgPassword";
 import { useTranslations } from "next-intl";
+import { BiLogIn } from "react-icons/bi";
+import { CgPassword } from "react-icons/cg";
 import { useSnapshot } from "valtio";
 
 interface RegisterPageProps {}

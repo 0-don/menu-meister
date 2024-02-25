@@ -15,7 +15,7 @@ import {
   Listbox,
   ListboxItem,
 } from "@nextui-org/react";
-import { FaRegTrashAlt } from "@react-icons/all-files/fa/FaRegTrashAlt";
+import { FaRegTrashAlt } from "react-icons/fa";
 import { ResultOf } from "gql.tada";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";

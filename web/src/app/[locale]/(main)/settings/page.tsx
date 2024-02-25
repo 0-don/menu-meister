@@ -2,8 +2,8 @@
 
 import { Settings } from "@/components/pages/settings/Settings";
 import { Tab, Tabs } from "@nextui-org/react";
-import { FaAddressCard } from "@react-icons/all-files/fa/FaAddressCard";
 import { useTranslations } from "next-intl";
+import { FaAddressCard } from "react-icons/fa";
 
 interface SettingsPageProps {}
 

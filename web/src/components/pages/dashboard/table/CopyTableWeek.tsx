@@ -5,7 +5,7 @@ import { DashboardStore } from "@/store/DashboardStore";
 import { TableStore } from "@/store/TableStore";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { Button, Card, Input } from "@nextui-org/react";
-import { AiTwotoneCopy } from "@react-icons/all-files/ai/AiTwotoneCopy";
+import { AiTwotoneCopy } from "react-icons/ai";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import React, { FormEvent, useEffect, useState } from "react";

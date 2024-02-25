@@ -1,5 +1,3 @@
-import { BiImageAdd } from "@react-icons/all-files/bi/BiImageAdd";
-import { GiCancel } from "@react-icons/all-files/gi/GiCancel";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React, {
@@ -10,6 +8,8 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { BiImageAdd } from "react-icons/bi";
+import { GiCancel } from "react-icons/gi";
 
 interface MyFileInputProps {
   className?: string;

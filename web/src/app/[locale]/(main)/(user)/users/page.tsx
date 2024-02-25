@@ -2,7 +2,6 @@
 
 import { GET_ALL_USERS_ADMIN } from "@/documents/query/user";
 import { useGqlQuery } from "@/fetcher";
-
 import { Link } from "@/navigation";
 import {
   Table,
@@ -12,9 +11,9 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
-import { MdEdit } from "@react-icons/all-files/md/MdEdit";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
+import { MdEdit } from "react-icons/md";
 
 interface UsersPageProps {}
 

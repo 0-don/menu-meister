@@ -4,12 +4,11 @@ import { LOGIN_USER, REGISTER_USER } from "@/documents/mutation/auth";
 import { useRouter } from "@/navigation";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { UserRoleName } from "@/utils/types/enum";
-import { FaRegEye } from "@react-icons/all-files/fa/FaRegEye";
-import { FaRegEyeSlash } from "@react-icons/all-files/fa/FaRegEyeSlash";
 import { UseMutateAsyncFunction } from "@tanstack/react-query";
 import { ResultOf, VariablesOf } from "gql.tada";
 import { useTranslations } from "next-intl";
 import { FormEvent, HTMLInputTypeAttribute, useEffect } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { proxy, useSnapshot } from "valtio";
 import { GeneralStore } from "./GeneralStore";
 

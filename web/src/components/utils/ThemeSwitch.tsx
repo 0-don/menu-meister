@@ -1,10 +1,10 @@
 "use client";
+import { useIsSSR } from "@/utils/helpers/clientUtils";
 import { Button } from "@nextui-org/button";
-import { useIsSSR } from "@react-aria/ssr";
-import { IoIosMoon } from "@react-icons/all-files/io/IoIosMoon";
-import { RiSunFill } from "@react-icons/all-files/ri/RiSunFill";
 import { useTheme } from "next-themes";
 import { FC } from "react";
+import { IoIosMoon } from "react-icons/io";
+import { RiSunFill } from "react-icons/ri";
 
 export interface ThemeSwitchProps {
   className?: string;

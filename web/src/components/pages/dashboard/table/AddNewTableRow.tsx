@@ -6,7 +6,7 @@ import { TableStore } from "@/store/TableStore";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { TimeOfDay } from "@/utils/types/enum";
 import { Button, Card, Input } from "@nextui-org/react";
-import { FaRegPlusSquare } from "@react-icons/all-files/fa/FaRegPlusSquare";
+import { FaRegPlusSquare } from "react-icons/fa";
 import { FragmentOf } from "gql.tada";
 import { useTranslations } from "next-intl";
 import React, { FormEvent, useState } from "react";

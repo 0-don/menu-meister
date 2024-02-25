@@ -1,7 +1,7 @@
 "use client";
+import { useIsSSR } from "@/utils/helpers/clientUtils";
 import logo_dark from "@public/images/logo_dark.svg";
 import logo_white from "@public/images/logo_white.svg";
-import { useIsSSR } from "@react-aria/ssr";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import React from "react";

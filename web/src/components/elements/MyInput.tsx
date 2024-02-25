@@ -1,7 +1,7 @@
 import { Input as InputNext } from "@nextui-org/input";
 import { InputProps } from "@nextui-org/react";
-import { IconType } from "@react-icons/all-files";
 import React, { HTMLInputTypeAttribute } from "react";
+import { IconType } from "react-icons";
 
 type MyInputProps = InputProps & {
   label?: string;

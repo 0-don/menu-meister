@@ -6,8 +6,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@nextui-org/react";
-import { IconType } from "@react-icons/all-files";
 import React from "react";
+import { IconType } from "react-icons";
 
 interface MyPopoverProps {
   children: React.ReactNode;

@@ -2,6 +2,7 @@ import { GeneralStore } from "@/store/GeneralStore";
 import { TadaDocumentNode, graphql } from "gql.tada";
 import { ExecutableDefinitionNode } from "graphql";
 import { useTranslations } from "next-intl";
+import React, { useContext } from "react";
 import { UserRoleName } from "../types/enum";
 
 export const uid = () =>
@@ -12,6 +13,34 @@ export const getKey = <TData = any, TVariables = unknown>(
 ) => [
   (document?.definitions?.[0] as ExecutableDefinitionNode)?.name?.value || "",
 ];
+
+
+export function useIsSSR(): boolean {
+  const IsSSRContext = React.createContext(false);
+
+  function subscribe(onStoreChange: () => void): () => void {
+    // noop
+    return () => {};
+  }
+
+  function getSnapshot() {
+    return false;
+  }
+
+  function getServerSnapshot() {
+    return true;
+  }
+  if (typeof React["useSyncExternalStore"] === "function") {
+    return React["useSyncExternalStore"](
+      subscribe,
+      getSnapshot,
+      getServerSnapshot,
+    );
+  }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return useContext(IsSSRContext);
+}
 
 export function classNames(
   ...classes: (string | undefined | null | false | { [key: string]: any })[]
