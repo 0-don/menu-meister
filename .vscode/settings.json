@@ -1,0 +1,5 @@
+{
+  "i18n-ally.localesPaths": ["web/public/locales"],
+  "typescript.tsdk": "web/node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}
