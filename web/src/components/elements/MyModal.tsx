@@ -1,14 +1,24 @@
 "use client";
+import { useRouter } from "@/navigation";
 import { AnimatePresence, Variants, motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 
 interface MyModalProps {
+  pageModal?: boolean;
   children?: React.ReactNode;
   className?: string;
 }
-export const MyModal: React.FC<MyModalProps> = ({ children, className }) => {
+export const MyModal: React.FC<MyModalProps> = ({
+  pageModal,
+  children,
+  className,
+}) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(true);
-  const closeModal = () => setIsOpen(false);
+  const closeModal = () => {
+    setIsOpen(false);
+    pageModal && router.back();
+  };
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {

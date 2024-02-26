@@ -9,7 +9,7 @@ export default function MealDetailsModalPage({
   params,
 }: MealDetailsModalPageProps) {
   return (
-    <MyModal className="max-w-6xl">
+    <MyModal pageModal className="max-w-6xl">
       <MealDetails id={params.id} />
     </MyModal>
   );
