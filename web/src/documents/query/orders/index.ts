@@ -1,16 +1,16 @@
-import { gql } from "@/fetcher";
+import { graphql } from "gql.tada";
 
-export const GET_USER_MEALS_GROUPED_COUNT_ADMIN = gql(`
+export const GET_USER_MEALS_GROUPED_COUNT_ADMIN = graphql(`
   query GetUserMealsGroupedCountAdmin($data: UserMealGroupedCountAdminInput!) {
     getUserMealsGroupedCountAdmin(data: $data) {
       date
-      meal
       count
+      meal
     }
   }
 `);
 
-export const GET_USER_MEALS_GROUPED_USERS_ADMIN = gql(`
+export const GET_USER_MEALS_GROUPED_USERS_ADMIN = graphql(`
   query GetUserMealsGroupedUsersAdmin($data: UserMealGroupedUsersAdminInput!) {
     getUserMealsGroupedUsersAdmin(data: $data) {
       userId

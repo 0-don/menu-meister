@@ -38,7 +38,7 @@ async function bootstrap() {
   if (process.env.NODE_ENV !== "production") {
     await app.init();
     const { schema } = app.get(GraphQLSchemaHost);
-    writeFileSync("./schema.graphql", printSchema(schema));
+    writeFileSync("../web/schema.graphql", printSchema(schema));
   }
 
   fastify
