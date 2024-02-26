@@ -10,7 +10,7 @@ export type GraphQLContext = {
 
 export type JwtUser = {
   username: string;
-  sub: number;
+  sub: string;
   roles: UserRoleName[];
   iat?: number;
   exp?: number;
