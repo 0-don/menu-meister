@@ -48,7 +48,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     await this.$connect();
   }
 
-  enrichObjectAudit(obj: any, userSub: number): void {
+  enrichObjectAudit(obj: any, userSub: string): void {
     // Base case: if obj is not an object or is null, do nothing
     if (obj === null || typeof obj !== "object") return;
 

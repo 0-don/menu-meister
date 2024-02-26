@@ -9,8 +9,8 @@ type Categories {
   name: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   ingredients: [Ingredient!]
   recipes: [Recipe!]
   meals: [Meal!]
@@ -35,8 +35,8 @@ type Seasons {
   name: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   ingredients: [Ingredient!]
   recipes: [Recipe!]
   meals: [Meal!]
@@ -56,8 +56,8 @@ type FoodForms {
   name: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   ingredients: [Ingredient!]
   recipes: [Recipe!]
   meals: [Meal!]
@@ -69,15 +69,15 @@ type FoodForms {
 type UserMeal {
   id: Int!
   date: DateTime!
-  userId: Int!
+  userId: String!
   mealId: Int!
   mealBoardPlanId: Int!
   weeklyMealGroupId: Int!
   timeOfDay: TimeOfDay!
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   user: User!
   meal: Meal!
   mealBoardPlan: MealBoardPlan!
@@ -107,8 +107,8 @@ type MealBoardPlan {
   color: String
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   WeeklyMealGroup: [WeeklyMealGroup!]
   UserMeal: [UserMeal!]
   createdByUser: User!
@@ -139,8 +139,8 @@ type WeeklyMealGroup {
   sundayMealId: Int
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   mealBoardPlan: MealBoardPlan!
   mondayMeal: Meal
   tuesdayMeal: Meal
@@ -162,8 +162,8 @@ type MealRecipe {
   note: String
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   meal: Meal!
   recipe: Recipe!
   createdByUser: User!
@@ -195,8 +195,8 @@ type Meal {
   image: String
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   allergens: [Allergens!]
   additives: [Additives!]
   properties: [Properties!]
@@ -228,8 +228,8 @@ type Properties {
   name: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   ingredients: [Ingredient!]
   recipes: [Recipe!]
   meals: [Meal!]
@@ -248,8 +248,8 @@ type Kitchens {
   name: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   ingredients: [Ingredient!]
   recipes: [Recipe!]
   createdByUser: User!
@@ -265,8 +265,8 @@ type RecipeIngredient {
   unit: Unit!
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   recipe: Recipe!
   ingredient: Ingredient!
   createdByUser: User!
@@ -301,8 +301,8 @@ type Recipe {
   description: String
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   allergens: [Allergens!]
   additives: [Additives!]
   properties: [Properties!]
@@ -328,8 +328,8 @@ type Additives {
   name: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   ingredients: [Ingredient!]
   recipes: [Recipe!]
   meals: [Meal!]
@@ -365,8 +365,8 @@ type Ingredient {
   protein: Decimal!
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   allergens: [Allergens!]
   additives: [Additives!]
   properties: [Properties!]
@@ -392,8 +392,8 @@ type Allergens {
   name: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   ingredients: [Ingredient!]
   recipes: [Recipe!]
   meals: [Meal!]
@@ -409,20 +409,20 @@ type Token {
   expiresIn: DateTime!
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   createdByUser: User!
   updatedByUser: User!
 }
 
 type UserRole {
   id: Int!
-  userId: Int!
+  userId: String!
   name: UserRoleName!
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   createdByUser: User!
   updatedByUser: User!
   user: User!
@@ -440,21 +440,21 @@ type Settings {
   maxEditOrderDays: Int!
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   createdByUser: User!
   updatedByUser: User!
 }
 
 type UserMealLocation {
   id: Int!
-  userId: Int!
+  userId: String!
   timeOfDay: TimeOfDay!
   mealLocation: MealLocation!
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int!
-  updatedBy: Int!
+  createdBy: String!
+  updatedBy: String!
   createdByUser: User!
   updatedByUser: User!
   user: User!
@@ -526,7 +526,7 @@ type UserCount {
 }
 
 type User {
-  id: Int!
+  id: String!
   firstname: String
   lastname: String
   image: String
@@ -536,8 +536,8 @@ type User {
   status: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
-  createdBy: Int
-  updatedBy: Int
+  createdBy: String
+  updatedBy: String
   allergens: [Allergens!]
   createdByUser: User
   updatedByUser: User
@@ -646,7 +646,7 @@ input UserWhereInput {
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
-  id: IntFilter
+  id: StringFilter
   firstname: StringNullableFilter
   lastname: StringNullableFilter
   image: StringNullableFilter
@@ -700,26 +700,38 @@ input UserWhereInput {
   userMealLocation: UserMealLocationListRelationFilter
 }
 
-input IntFilter {
-  equals: Int
-  in: [Int!]
-  notIn: [Int!]
-  lt: Int
-  lte: Int
-  gt: Int
-  gte: Int
-  not: NestedIntFilter
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringFilter
 }
 
-input NestedIntFilter {
-  equals: Int
-  in: [Int!]
-  notIn: [Int!]
-  lt: Int
-  lte: Int
-  gt: Int
-  gte: Int
-  not: NestedIntFilter
+enum QueryMode {
+  default
+  insensitive
+}
+
+input NestedStringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
 }
 
 input StringNullableFilter {
@@ -737,11 +749,6 @@ input StringNullableFilter {
   not: NestedStringNullableFilter
 }
 
-enum QueryMode {
-  default
-  insensitive
-}
-
 input NestedStringNullableFilter {
   equals: String
   in: [String!]
@@ -754,35 +761,6 @@ input NestedStringNullableFilter {
   startsWith: String
   endsWith: String
   not: NestedStringNullableFilter
-}
-
-input StringFilter {
-  equals: String
-  in: [String!]
-  notIn: [String!]
-  lt: String
-  lte: String
-  gt: String
-  gte: String
-  contains: String
-  startsWith: String
-  endsWith: String
-  mode: QueryMode
-  not: NestedStringFilter
-}
-
-input NestedStringFilter {
-  equals: String
-  in: [String!]
-  notIn: [String!]
-  lt: String
-  lte: String
-  gt: String
-  gte: String
-  contains: String
-  startsWith: String
-  endsWith: String
-  not: NestedStringFilter
 }
 
 input DateTimeFilter {
@@ -833,6 +811,28 @@ input AllergensWhereInput {
   recipes: RecipeListRelationFilter
   meals: MealListRelationFilter
   users: UserListRelationFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input NestedIntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
 }
 
 input IngredientListRelationFilter {
@@ -1131,7 +1131,7 @@ input UserMealWhereInput {
   NOT: [UserMealWhereInput!]
   id: IntFilter
   date: DateTimeFilter
-  userId: IntFilter
+  userId: StringFilter
   mealId: IntFilter
   mealBoardPlanId: IntFilter
   weeklyMealGroupId: IntFilter
@@ -1271,7 +1271,7 @@ input UserRoleWhereInput {
   OR: [UserRoleWhereInput!]
   NOT: [UserRoleWhereInput!]
   id: IntFilter
-  userId: IntFilter
+  userId: StringFilter
   name: EnumUserRoleNameFilter
   user: UserRelationFilter
 }
@@ -1321,7 +1321,7 @@ input UserMealLocationWhereInput {
   OR: [UserMealLocationWhereInput!]
   NOT: [UserMealLocationWhereInput!]
   id: IntFilter
-  userId: IntFilter
+  userId: StringFilter
   timeOfDay: EnumTimeOfDayFilter
   mealLocation: EnumMealLocationFilter
   user: UserRelationFilter
@@ -1492,7 +1492,7 @@ input UserMealLocationOrderByRelationAggregateInput {
 }
 
 input UserWhereUniqueInput {
-  id: Int
+  id: String
   username: String
   email: String
   AND: [UserWhereInput!]
@@ -1643,7 +1643,7 @@ input UserMealWhereUniqueInput {
   OR: [UserMealWhereInput!]
   NOT: [UserMealWhereInput!]
   date: DateTimeFilter
-  userId: IntFilter
+  userId: StringFilter
   mealId: IntFilter
   mealBoardPlanId: IntFilter
   weeklyMealGroupId: IntFilter
@@ -1693,14 +1693,14 @@ input UserMealLocationWhereUniqueInput {
   AND: [UserMealLocationWhereInput!]
   OR: [UserMealLocationWhereInput!]
   NOT: [UserMealLocationWhereInput!]
-  userId: IntFilter
+  userId: StringFilter
   timeOfDay: EnumTimeOfDayFilter
   mealLocation: EnumMealLocationFilter
   user: UserRelationFilter
 }
 
 input UserMealLocationUserId_timeOfDay_mealLocation_uniqueCompoundUniqueInput {
-  userId: Int!
+  userId: String!
   timeOfDay: TimeOfDay!
   mealLocation: MealLocation!
 }
@@ -2081,6 +2081,7 @@ input LoginUserInput {
 }
 
 input UserCreateInput {
+  id: String
   firstname: String
   lastname: String
   image: String
@@ -2375,6 +2376,7 @@ input UserCreateNestedManyWithoutAllergensInput {
 }
 
 input UserCreateWithoutAllergensInput {
+  id: String
   firstname: String
   lastname: String
   image: String
@@ -2500,6 +2502,7 @@ input UserCreateNestedManyWithoutCreatedByUserInput {
 }
 
 input UserCreateWithoutCreatedByUserInput {
+  id: String
   firstname: String
   lastname: String
   image: String
@@ -2561,6 +2564,7 @@ input UserCreateNestedManyWithoutUpdatedByUserInput {
 }
 
 input UserCreateWithoutUpdatedByUserInput {
+  id: String
   firstname: String
   lastname: String
   image: String
@@ -2633,6 +2637,7 @@ input UserCreateNestedOneWithoutUserRoleInput {
 }
 
 input UserCreateWithoutUserRoleInput {
+  id: String
   firstname: String
   lastname: String
   image: String
@@ -2708,13 +2713,13 @@ input UserRoleWhereUniqueInput {
   AND: [UserRoleWhereInput!]
   OR: [UserRoleWhereInput!]
   NOT: [UserRoleWhereInput!]
-  userId: IntFilter
+  userId: StringFilter
   name: EnumUserRoleNameFilter
   user: UserRelationFilter
 }
 
 input UserRoleUser_role_userId_name_uniqueCompoundUniqueInput {
-  userId: Int!
+  userId: String!
   name: UserRoleName!
 }
 
@@ -2725,7 +2730,7 @@ input UserRoleCreateManyUpdatedByUserInputEnvelope {
 
 input UserRoleCreateManyUpdatedByUserInput {
   id: Int
-  userId: Int!
+  userId: String!
   name: UserRoleName!
 }
 
@@ -2752,6 +2757,7 @@ input UserCreateNestedOneWithoutUserMealInput {
 }
 
 input UserCreateWithoutUserMealInput {
+  id: String
   firstname: String
   lastname: String
   image: String
@@ -3910,7 +3916,7 @@ input UserMealCreateManyWeeklyMealGroupInputEnvelope {
 input UserMealCreateManyWeeklyMealGroupInput {
   id: Int
   date: DateTime!
-  userId: Int!
+  userId: String!
   mealId: Int!
   mealBoardPlanId: Int!
   timeOfDay: TimeOfDay
@@ -3962,7 +3968,7 @@ input UserMealCreateManyMealInputEnvelope {
 input UserMealCreateManyMealInput {
   id: Int
   date: DateTime!
-  userId: Int!
+  userId: String!
   mealBoardPlanId: Int!
   weeklyMealGroupId: Int!
   timeOfDay: TimeOfDay
@@ -4401,7 +4407,7 @@ input UserMealCreateManyMealBoardPlanInputEnvelope {
 input UserMealCreateManyMealBoardPlanInput {
   id: Int
   date: DateTime!
-  userId: Int!
+  userId: String!
   mealId: Int!
   weeklyMealGroupId: Int!
   timeOfDay: TimeOfDay
@@ -4622,7 +4628,7 @@ input UserMealCreateManyUpdatedByUserInputEnvelope {
 input UserMealCreateManyUpdatedByUserInput {
   id: Int
   date: DateTime!
-  userId: Int!
+  userId: String!
   mealId: Int!
   mealBoardPlanId: Int!
   weeklyMealGroupId: Int!
@@ -5688,6 +5694,7 @@ input UserCreateNestedOneWithoutUserMealLocationInput {
 }
 
 input UserCreateWithoutUserMealLocationInput {
+  id: String
   firstname: String
   lastname: String
   image: String
@@ -5765,7 +5772,7 @@ input UserMealLocationCreateManyUpdatedByUserInputEnvelope {
 
 input UserMealLocationCreateManyUpdatedByUserInput {
   id: Int
-  userId: Int!
+  userId: String!
   timeOfDay: TimeOfDay
   mealLocation: MealLocation
 }
@@ -5847,7 +5854,7 @@ input UserMealLocationCreateManyCreatedByUserInputEnvelope {
 
 input UserMealLocationCreateManyCreatedByUserInput {
   id: Int
-  userId: Int!
+  userId: String!
   timeOfDay: TimeOfDay
   mealLocation: MealLocation
 }
@@ -5898,7 +5905,7 @@ input UserMealCreateManyCreatedByUserInputEnvelope {
 input UserMealCreateManyCreatedByUserInput {
   id: Int
   date: DateTime!
-  userId: Int!
+  userId: String!
   mealId: Int!
   mealBoardPlanId: Int!
   weeklyMealGroupId: Int!
@@ -5922,7 +5929,7 @@ input UserRoleCreateManyCreatedByUserInputEnvelope {
 
 input UserRoleCreateManyCreatedByUserInput {
   id: Int
-  userId: Int!
+  userId: String!
   name: UserRoleName!
 }
 
@@ -5937,7 +5944,7 @@ input UserCreateManyUpdatedByUserInputEnvelope {
 }
 
 input UserCreateManyUpdatedByUserInput {
-  id: Int
+  id: String
   firstname: String
   lastname: String
   image: String
@@ -5958,7 +5965,7 @@ input UserCreateManyCreatedByUserInputEnvelope {
 }
 
 input UserCreateManyCreatedByUserInput {
-  id: Int
+  id: String
   firstname: String
   lastname: String
   image: String
@@ -6039,7 +6046,7 @@ input AllergensCreateOrConnectWithoutUsersInput {
 }
 
 input UserCreateManyInput {
-  id: Int
+  id: String
   firstname: String
   lastname: String
   image: String
@@ -6050,6 +6057,7 @@ input UserCreateManyInput {
 }
 
 input UserUpdateInput {
+  id: StringFieldUpdateOperationsInput
   firstname: NullableStringFieldUpdateOperationsInput
   lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
@@ -6103,11 +6111,11 @@ input UserUpdateInput {
   userMealLocation: UserMealLocationUpdateManyWithoutUserNestedInput
 }
 
-input NullableStringFieldUpdateOperationsInput {
+input StringFieldUpdateOperationsInput {
   set: String
 }
 
-input StringFieldUpdateOperationsInput {
+input NullableStringFieldUpdateOperationsInput {
   set: String
 }
 
@@ -6550,6 +6558,7 @@ input UserUpsertWithWhereUniqueWithoutAllergensInput {
 }
 
 input UserUpdateWithoutAllergensInput {
+  id: StringFieldUpdateOperationsInput
   firstname: NullableStringFieldUpdateOperationsInput
   lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
@@ -6707,6 +6716,7 @@ input UserUpsertWithWhereUniqueWithoutCreatedByUserInput {
 }
 
 input UserUpdateWithoutCreatedByUserInput {
+  id: StringFieldUpdateOperationsInput
   firstname: NullableStringFieldUpdateOperationsInput
   lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
@@ -6781,6 +6791,7 @@ input UserUpsertWithWhereUniqueWithoutUpdatedByUserInput {
 }
 
 input UserUpdateWithoutUpdatedByUserInput {
+  id: StringFieldUpdateOperationsInput
   firstname: NullableStringFieldUpdateOperationsInput
   lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
@@ -6878,6 +6889,7 @@ input UserUpsertWithoutUserRoleInput {
 }
 
 input UserUpdateWithoutUserRoleInput {
+  id: StringFieldUpdateOperationsInput
   firstname: NullableStringFieldUpdateOperationsInput
   lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
@@ -6970,7 +6982,7 @@ input UserRoleScalarWhereInput {
   OR: [UserRoleScalarWhereInput!]
   NOT: [UserRoleScalarWhereInput!]
   id: IntFilter
-  userId: IntFilter
+  userId: StringFilter
   name: EnumUserRoleNameFilter
 }
 
@@ -7026,6 +7038,7 @@ input UserUpsertWithoutUserMealInput {
 }
 
 input UserUpdateWithoutUserMealInput {
+  id: StringFieldUpdateOperationsInput
   firstname: NullableStringFieldUpdateOperationsInput
   lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
@@ -8858,7 +8871,7 @@ input UserMealScalarWhereInput {
   NOT: [UserMealScalarWhereInput!]
   id: IntFilter
   date: DateTimeFilter
-  userId: IntFilter
+  userId: StringFilter
   mealId: IntFilter
   mealBoardPlanId: IntFilter
   weeklyMealGroupId: IntFilter
@@ -10974,6 +10987,7 @@ input UserUpsertWithoutUserMealLocationInput {
 }
 
 input UserUpdateWithoutUserMealLocationInput {
+  id: StringFieldUpdateOperationsInput
   firstname: NullableStringFieldUpdateOperationsInput
   lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
@@ -11067,7 +11081,7 @@ input UserMealLocationScalarWhereInput {
   OR: [UserMealLocationScalarWhereInput!]
   NOT: [UserMealLocationScalarWhereInput!]
   id: IntFilter
-  userId: IntFilter
+  userId: StringFilter
   timeOfDay: EnumTimeOfDayFilter
   mealLocation: EnumMealLocationFilter
 }
@@ -11243,7 +11257,7 @@ input UserScalarWhereInput {
   AND: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
   NOT: [UserScalarWhereInput!]
-  id: IntFilter
+  id: StringFilter
   firstname: StringNullableFilter
   lastname: StringNullableFilter
   image: StringNullableFilter
@@ -11254,6 +11268,7 @@ input UserScalarWhereInput {
 }
 
 input UserUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
   firstname: NullableStringFieldUpdateOperationsInput
   lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
@@ -11414,7 +11429,7 @@ input AllergensUpdateManyWithWhereWithoutUsersInput {
 }
 
 input UserUncheckedUpdateInput {
-  id: IntFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
   firstname: NullableStringFieldUpdateOperationsInput
   lastname: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
@@ -12086,7 +12101,7 @@ input UserMealLocationUncheckedUpdateManyWithoutUserNestedInput {
 input UserMealUncheckedCreateInput {
   id: Int
   date: DateTime!
-  userId: Int!
+  userId: String!
   mealId: Int!
   mealBoardPlanId: Int!
   weeklyMealGroupId: Int!
@@ -12096,7 +12111,7 @@ input UserMealUncheckedCreateInput {
 input UserMealCreateManyInput {
   id: Int
   date: DateTime!
-  userId: Int!
+  userId: String!
   mealId: Int!
   mealBoardPlanId: Int!
   weeklyMealGroupId: Int!
@@ -12123,14 +12138,14 @@ input UserMealCreateInput {
 
 input UserMealLocationUncheckedCreateInput {
   id: Int
-  userId: Int!
+  userId: String!
   timeOfDay: TimeOfDay
   mealLocation: MealLocation
 }
 
 input UserMealLocationCreateManyInput {
   id: Int
-  userId: Int!
+  userId: String!
   timeOfDay: TimeOfDay
   mealLocation: MealLocation
 }
