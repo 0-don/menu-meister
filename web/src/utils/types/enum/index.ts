@@ -6,12 +6,12 @@ type UnionToIntersection<U> = (
   ? I
   : never;
 
-type UnionToTuple<T, A extends any[] = []> =
+type UnionToTuple<T> =
   UnionToIntersection<T extends never ? never : (t: T) => T> extends (
     _: never,
   ) => infer W
-    ? UnionToTuple<Exclude<T, W>, [...A, W]>
-    : A;
+    ? [...UnionToTuple<Exclude<T, W>>, W]
+    : [];
 
 const createEnum = <T extends string>(keys: UnionToTuple<T>): { [K in T]: K } =>
   (keys as T[]).reduce(
@@ -21,32 +21,32 @@ const createEnum = <T extends string>(keys: UnionToTuple<T>): { [K in T]: K } =>
 
 export const TimeOfDay = createEnum<
   ReturnType<typeof graphql.scalar<"TimeOfDay">>
->(["Night", "Evening", "Afternoon", "Noon", "Forenoon", "Morning", "Any"]);
+>(["Any", "Morning", "Forenoon", "Noon", "Afternoon", "Evening", "Night"]);
 
 export const UserRoleName = createEnum<
   ReturnType<typeof graphql.scalar<"UserRoleName">>
->(["Guest", "Mod", "Admin", "User"]);
+>(["User", "Admin", "Mod", "Guest"]);
 
 export const MealLocation = createEnum<
   ReturnType<typeof graphql.scalar<"MealLocation">>
 >([
-  "OnTheGo",
-  "HealingGarden",
-  "FamilyDining",
-  "Poolside",
-  "NutritionCenter",
-  "QuietRoom",
-  "GroupActivityRoom",
-  "RehabilitationGym",
-  "VisitorCafe",
-  "StaffCafeteria",
-  "SpecialDietary",
-  "TherapyGarden",
-  "OutdoorPatio",
-  "CommunalDining",
   "InRoom",
+  "CommunalDining",
+  "OutdoorPatio",
+  "TherapyGarden",
+  "SpecialDietary",
+  "StaffCafeteria",
+  "VisitorCafe",
+  "RehabilitationGym",
+  "GroupActivityRoom",
+  "QuietRoom",
+  "NutritionCenter",
+  "Poolside",
+  "FamilyDining",
+  "HealingGarden",
+  "OnTheGo",
 ]);
 
 export const MealType = createEnum<
   ReturnType<typeof graphql.scalar<"SortOrder">>
->(["desc", "asc"]);
+>(["asc", "desc"]);
