@@ -26,9 +26,9 @@ type TimeOfDayAndMealLocation = {
 };
 
 interface UserProfileProps {
-  user: Partial<
+  user?: Partial<
     ResultOf<typeof GET_USER_ADMIN>["getUserAdmin"] | ResultOf<typeof ME>["me"]
-  >;
+  > | null;
   refetch: (args?: any) => Promise<any>;
 }
 
@@ -62,7 +62,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
       try {
         await createUserMealLocation({
           data: {
-            userId: Number(user?.id),
+            userId: String(user?.id),
             mealLocation:
               changedState.mealLocation as keyof typeof MealLocation,
             timeOfDay: changedState.timeOfDay as keyof typeof TimeOfDay,
@@ -292,7 +292,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
                                     await deleteUserMealLocation({
                                       where: {
                                         id,
-                                        userId: { equals: Number(user?.id) },
+                                        userId: { equals: String(user?.id) },
                                       },
                                     });
                                     onOpen();

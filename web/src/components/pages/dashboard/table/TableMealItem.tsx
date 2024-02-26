@@ -122,7 +122,7 @@ export const TableMealItem: React.FC<TableMealItemProps> = ({
                     ),
                     weeklyMealGroupId: Number(props.group),
                     timeOfDay: groupItem?.timeOfDay,
-                    userId: Number(me?.id),
+                    userId: me?.id || "",
                     mealId: props.meal.id,
                     date: dayjs(props.date).add(1, "day").toISOString(),
                   },

@@ -6,12 +6,12 @@ import { useGqlQuery } from "@/fetcher";
 import { ResultOf } from "gql.tada";
 
 interface UserDetailsPageProps {
-  params: { id: number };
+  params: { id: string };
 }
 
 export default function UserDetailsPage({ params }: UserDetailsPageProps) {
   const { data: { getUserAdmin } = {}, refetch } = useGqlQuery(GET_USER_ADMIN, {
-    where: { id: { equals: Number(params.id) } },
+    where: { id: { equals: params.id } },
   });
   return (
     <main className="mt-5 w-full max-w-3xl rounded-lg bg-default-50 p-5">

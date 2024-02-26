@@ -6,18 +6,18 @@ import { useGqlQuery } from "@/fetcher";
 import { ResultOf } from "gql.tada";
 
 interface UserDetailsModalProps {
-  params: { id: number };
+  params: { id: string };
 }
 
 export default function IdPage({ params }: UserDetailsModalProps) {
   const { data: { getUserAdmin } = {}, refetch } = useGqlQuery(GET_USER_ADMIN, {
-    where: { id: { equals: Number(params.id) } },
+    where: { id: { equals: params.id } },
   });
   return (
     <MyModal className="md:w-2/5">
       <main className="mt-5 w-full rounded-lg bg-default-50 p-5">
         <UserProfile
-          user={getUserAdmin as ResultOf<typeof GET_USER_ADMIN>["getUserAdmin"]}
+          user={getUserAdmin}
           refetch={refetch}
         />
       </main>
