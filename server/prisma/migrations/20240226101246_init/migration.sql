@@ -17,8 +17,8 @@ CREATE TABLE "Token" (
     "expiresIn" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "Token_pkey" PRIMARY KEY ("id")
 );
@@ -29,15 +29,15 @@ CREATE TABLE "Settings" (
     "maxEditOrderDays" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "Settings_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "firstname" TEXT,
     "lastname" TEXT,
     "image" TEXT,
@@ -48,8 +48,8 @@ CREATE TABLE "User" (
     "status" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER,
-    "updatedBy" INTEGER,
+    "createdBy" TEXT,
+    "updatedBy" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -57,12 +57,12 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "UserRole" (
     "id" SERIAL NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
     "name" "UserRoleName" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "UserRole_pkey" PRIMARY KEY ("id")
 );
@@ -71,15 +71,15 @@ CREATE TABLE "UserRole" (
 CREATE TABLE "UserMeal" (
     "id" SERIAL NOT NULL,
     "date" DATE NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
     "mealId" INTEGER NOT NULL,
     "mealBoardPlanId" INTEGER NOT NULL,
     "weeklyMealGroupId" INTEGER NOT NULL,
     "timeOfDay" "TimeOfDay" NOT NULL DEFAULT 'Any',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "UserMeal_pkey" PRIMARY KEY ("id")
 );
@@ -87,13 +87,13 @@ CREATE TABLE "UserMeal" (
 -- CreateTable
 CREATE TABLE "UserMealLocation" (
     "id" SERIAL NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
     "timeOfDay" "TimeOfDay" NOT NULL DEFAULT 'Any',
     "mealLocation" "MealLocation" NOT NULL DEFAULT 'InRoom',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "UserMealLocation_pkey" PRIMARY KEY ("id")
 );
@@ -104,8 +104,8 @@ CREATE TABLE "Allergens" (
     "name" VARCHAR(255) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "Allergens_pkey" PRIMARY KEY ("id")
 );
@@ -116,8 +116,8 @@ CREATE TABLE "Additives" (
     "name" VARCHAR(255) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "Additives_pkey" PRIMARY KEY ("id")
 );
@@ -128,8 +128,8 @@ CREATE TABLE "Properties" (
     "name" VARCHAR(255) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "Properties_pkey" PRIMARY KEY ("id")
 );
@@ -140,8 +140,8 @@ CREATE TABLE "Categories" (
     "name" VARCHAR(255) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "Categories_pkey" PRIMARY KEY ("id")
 );
@@ -152,8 +152,8 @@ CREATE TABLE "Seasons" (
     "name" VARCHAR(255) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "Seasons_pkey" PRIMARY KEY ("id")
 );
@@ -164,8 +164,8 @@ CREATE TABLE "FoodForms" (
     "name" VARCHAR(255) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "FoodForms_pkey" PRIMARY KEY ("id")
 );
@@ -176,8 +176,8 @@ CREATE TABLE "Kitchens" (
     "name" VARCHAR(255) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "Kitchens_pkey" PRIMARY KEY ("id")
 );
@@ -199,8 +199,8 @@ CREATE TABLE "Ingredient" (
     "protein" DECIMAL(10,2) NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "Ingredient_pkey" PRIMARY KEY ("id")
 );
@@ -212,8 +212,8 @@ CREATE TABLE "Recipe" (
     "description" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "Recipe_pkey" PRIMARY KEY ("id")
 );
@@ -227,8 +227,8 @@ CREATE TABLE "RecipeIngredient" (
     "unit" "Unit" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "RecipeIngredient_pkey" PRIMARY KEY ("id")
 );
@@ -241,8 +241,8 @@ CREATE TABLE "Meal" (
     "image" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "Meal_pkey" PRIMARY KEY ("id")
 );
@@ -255,8 +255,8 @@ CREATE TABLE "MealRecipe" (
     "note" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "MealRecipe_pkey" PRIMARY KEY ("id")
 );
@@ -268,8 +268,8 @@ CREATE TABLE "MealBoardPlan" (
     "color" VARCHAR(7),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "MealBoardPlan_pkey" PRIMARY KEY ("id")
 );
@@ -294,8 +294,8 @@ CREATE TABLE "WeeklyMealGroup" (
     "sundayMealId" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdBy" INTEGER NOT NULL,
-    "updatedBy" INTEGER NOT NULL,
+    "createdBy" TEXT NOT NULL,
+    "updatedBy" TEXT NOT NULL,
 
     CONSTRAINT "WeeklyMealGroup_pkey" PRIMARY KEY ("id")
 );
@@ -321,7 +321,7 @@ CREATE TABLE "_MealAllergens" (
 -- CreateTable
 CREATE TABLE "_UserAllergens" (
     "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL
+    "B" TEXT NOT NULL
 );
 
 -- CreateTable

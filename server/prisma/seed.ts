@@ -82,7 +82,7 @@ const seedUsers = async () => {
   const timeOfDays = Object.values(TimeOfDay);
   const mealLocations = Object.values(MealLocation);
 
-  const mealLocationsAndAllergens = async (userId: number) => {
+  const mealLocationsAndAllergens = async (userId: string) => {
     for (const _ of Array(randomInt(1, 5))) {
       const allergen = allergens[randomInt(0, allergens.length - 1)];
       await prisma.user.update({
