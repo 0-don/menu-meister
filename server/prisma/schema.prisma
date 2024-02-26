@@ -27,9 +27,9 @@ model Token {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedToken", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -46,9 +46,9 @@ model Settings {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedSettings", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -56,7 +56,7 @@ model Settings {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
 
   firstname String?
   lastname  String?
@@ -77,9 +77,9 @@ model User {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int?
+  createdBy     String?
   /// @HideField({ output: false, input: true })
-  updatedBy     Int?
+  updatedBy     String?
   /// @HideField({ output: false, input: true })
   createdByUser User?    @relation("CreatedUser", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -137,7 +137,7 @@ model User {
 
 model UserRole {
   id     Int          @id @default(autoincrement())
-  userId Int
+  userId String
   name   UserRoleName
 
   /// @HideField({ output: false, input: true })
@@ -145,9 +145,9 @@ model UserRole {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedUserRole", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -162,7 +162,7 @@ model UserMeal {
   id   Int      @id @default(autoincrement())
   date DateTime @db.Date
 
-  userId            Int
+  userId            String
   mealId            Int
   mealBoardPlanId   Int
   weeklyMealGroupId Int
@@ -178,9 +178,9 @@ model UserMeal {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedUserMeal", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -189,7 +189,7 @@ model UserMeal {
 
 model UserMealLocation {
   id           Int          @id @default(autoincrement())
-  userId       Int
+  userId       String
   timeOfDay    TimeOfDay    @default(Any)
   mealLocation MealLocation @default(InRoom)
 
@@ -198,9 +198,9 @@ model UserMealLocation {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedUserMealLocation", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -225,9 +225,9 @@ model Allergens {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedAllergens", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -247,9 +247,9 @@ model Additives {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedAdditives", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -269,9 +269,9 @@ model Properties {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedProperties", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -291,9 +291,9 @@ model Categories {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedCategories", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -313,9 +313,9 @@ model Seasons {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedSeasons", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -335,9 +335,9 @@ model FoodForms {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedFoodForms", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -356,9 +356,9 @@ model Kitchens {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedKitchens", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -397,9 +397,9 @@ model Ingredient {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedIngredient", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -427,9 +427,9 @@ model Recipe {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedRecipe", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -452,9 +452,9 @@ model RecipeIngredient {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedRecipeIngredient", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -490,9 +490,9 @@ model Meal {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedMeal", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -514,9 +514,9 @@ model MealRecipe {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedMealRecipe", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -536,9 +536,9 @@ model MealBoardPlan {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedMealBoardPlan", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
@@ -581,9 +581,9 @@ model WeeklyMealGroup {
   /// @HideField({ output: false, input: true })
   updatedAt     DateTime @updatedAt
   /// @HideField({ output: false, input: true })
-  createdBy     Int
+  createdBy     String
   /// @HideField({ output: false, input: true })
-  updatedBy     Int
+  updatedBy     String
   /// @HideField({ output: false, input: true })
   createdByUser User     @relation("CreatedWeeklyMealGroup", fields: [createdBy], references: [id])
   /// @HideField({ output: false, input: true })
