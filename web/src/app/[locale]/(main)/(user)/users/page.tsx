@@ -41,7 +41,9 @@ export default function UsersPage({}: UsersPageProps) {
           <TableBody emptyContent={t("NO_USER")}>
             {(getAllUsersAdmin || []).map((user) => (
               <TableRow key={user.id}>
-                <TableCell>{user.id}</TableCell>
+                <TableCell>
+                  <p className="w-12 truncate">{user.id}</p>
+                </TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.firstname}</TableCell>
                 <TableCell>{user.lastname}</TableCell>
