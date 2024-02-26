@@ -31,7 +31,7 @@ function createEnum<T extends string>(keys: UnionToTuple<T>): { [K in T]: K } {
   );
 }
 
-export const TimeOfDay = createEnum<TimeOfDayUnion>([
+const TimeOfDay = createEnum<TimeOfDayUnion>([
   "Night",
   "Evening",
   "Afternoon",
