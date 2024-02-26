@@ -13,7 +13,7 @@ CREATE TYPE "MealLocation" AS ENUM ('InRoom', 'CommunalDining', 'OutdoorPatio', 
 -- CreateTable
 CREATE TABLE "Token" (
     "id" SERIAL NOT NULL,
-    "token" VARCHAR(255) NOT NULL,
+    "token" VARCHAR(512) NOT NULL,
     "expiresIn" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
