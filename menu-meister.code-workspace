@@ -12,7 +12,6 @@
   ],
   "settings": {
     "typescript.tsdk": "web/node_modules/typescript/lib",
-    "typescript.enablePromptUseWorkspaceTsdk": true,
-    "i18n-ally.localesPaths": ["web/public/locales", "web", "public/locales"]
+    "typescript.enablePromptUseWorkspaceTsdk": true
   }
 }
