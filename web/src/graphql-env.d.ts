@@ -4209,13 +4209,13 @@ export type introspection = {
         "name": "UserRoleName",
         "enumValues": [
           {
-            "name": "ADMIN"
+            "name": "Admin"
           },
           {
-            "name": "MOD"
+            "name": "Mod"
           },
           {
-            "name": "USER"
+            "name": "User"
           },
           {
             "name": "Guest"
@@ -96812,10 +96812,10 @@ export type introspection = {
   }
 };
 
-import "gql.tada";
+import * as gqlTada from 'gql.tada';
 
-declare module "gql.tada" {
+declare module 'gql.tada' {
   interface setupSchema {
-    introspection: introspection;
+    introspection: introspection
   }
 }
