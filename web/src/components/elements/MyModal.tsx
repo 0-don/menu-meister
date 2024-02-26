@@ -21,11 +21,8 @@ export const MyModal: React.FC<MyModalProps> = ({
   };
 
   useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        closeModal();
-      }
-    };
+    const handleEscape = (event: KeyboardEvent) =>
+      event.key === "Escape" && closeModal();
 
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
