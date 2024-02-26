@@ -11,7 +11,7 @@ export class UserMealLocationUserResolver {
   ) {}
 
   // @Query(() => [UserMealLocation], { nullable: true })
-  // @Roles("USER", "MOD")
+  // @Roles("User", "Mod")
   // async getAllUserMealLocationsUser(
   //   @Args() args: FindManyUserMealLocationArgs,
   //   @Info() info: GraphQLResolveInfo,
@@ -31,7 +31,7 @@ export class UserMealLocationUserResolver {
   // }
 
   // @Query(() => UserMealLocation, { nullable: true })
-  // @Roles("USER", "MOD")
+  // @Roles("User", "Mod")
   // async getUserMealLocationUser(
   //   @Args() args: FindFirstUserMealLocationArgs,
   //   @Info() info: GraphQLResolveInfo,
@@ -50,7 +50,7 @@ export class UserMealLocationUserResolver {
   // }
 
   // @Mutation(() => UserMealLocation, { nullable: true })
-  // @Roles("USER", "MOD")
+  // @Roles("User", "Mod")
   // async createUserMealLocationUser(
   //   @Args("data") data: UserMealLocationUncheckedCreateInput,
   //   @Info() info: GraphQLResolveInfo,
@@ -66,7 +66,7 @@ export class UserMealLocationUserResolver {
   // }
 
   // @Mutation(() => [UserMealLocation], { nullable: true })
-  // @Roles("USER", "MOD")
+  // @Roles("User", "Mod")
   // async createManyUserMealLocationsUser(
   //   @Args() args: CreateManyUserMealLocationArgs,
   //   @Info() info: GraphQLResolveInfo,
@@ -88,7 +88,7 @@ export class UserMealLocationUserResolver {
   // }
 
   // @Mutation(() => UserMealLocation, { nullable: true })
-  // @Roles("USER", "MOD")
+  // @Roles("User", "Mod")
   // async deleteUserMealLocationUser(
   //   @Args() args: DeleteOneUserMealLocationArgs,
   //   @Info() info: GraphQLResolveInfo,
@@ -104,7 +104,7 @@ export class UserMealLocationUserResolver {
   // }
 
   // @Mutation(() => Int, { nullable: true })
-  // @Roles("USER", "MOD")
+  // @Roles("User", "Mod")
   // async deleteManyUserMealLocationsUser(
   //   @Args() args: DeleteManyUserMealLocationArgs,
   // ) {
@@ -117,7 +117,7 @@ export class UserMealLocationUserResolver {
   // }
 
   // @Mutation(() => UserMealLocation, { nullable: true })
-  // @Roles("USER", "MOD")
+  // @Roles("User", "Mod")
   // async updateUserMealLocationUser(
   //   @Args() args: UpdateOneUserMealLocationArgs,
   //   @Info() info: GraphQLResolveInfo,
@@ -136,7 +136,7 @@ export class UserMealLocationUserResolver {
   // }
 
   // @Mutation(() => [UserMealLocation], { nullable: true })
-  // @Roles("USER", "MOD")
+  // @Roles("User", "Mod")
   // async updateManyUserMealLocationsUser(
   //   @Args() args: UpdateManyUserMealLocationArgs,
   //   @Info() info: GraphQLResolveInfo,
@@ -159,7 +159,7 @@ export class UserMealLocationUserResolver {
   // }
 
   // @Mutation(() => UserMealLocation, { nullable: true })
-  // @Roles("USER", "MOD")
+  // @Roles("User", "Mod")
   // async upsertUserMealLocationUser(
   //   @Args() args: UpsertOneUserMealLocationArgs,
   //   @Info() info: GraphQLResolveInfo,
@@ -178,7 +178,7 @@ export class UserMealLocationUserResolver {
   // }
 
   // @Mutation(() => UserMealLocation, { nullable: true })
-  // @Roles("USER", "MOD")
+  // @Roles("User", "Mod")
   // async updateUserMealUser(
   //   @Args() args: UpdateOneUserMealLocationArgs,
   //   @Info() info: GraphQLResolveInfo,
@@ -197,7 +197,7 @@ export class UserMealLocationUserResolver {
   // }
 
   // @Mutation(() => UserMealLocation, { nullable: true })
-  // @Roles("USER", "MOD")
+  // @Roles("User", "Mod")
   // async upsertUserMealUser(
   //   @Args() args: UpsertOneUserMealLocationArgs,
   //   @Info() info: GraphQLResolveInfo,

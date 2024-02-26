@@ -591,10 +591,10 @@ model WeeklyMealGroup {
 }
 
 enum UserRoleName {
-  ADMIN
-  MOD
-  USER
-  GUEST
+  Admin
+  Mod
+  User
+  Guest
 }
 
 enum Unit {

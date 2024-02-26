@@ -27,7 +27,7 @@ export class MealAdminResolver {
   ) {}
 
   @Mutation(() => Boolean, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async uploadMealImageAdmin(
     @Args({ name: "mealId", type: () => Int }) mealId: number,
     @Args({ name: "file", type: () => FileScalar }) file: File,
@@ -52,7 +52,7 @@ export class MealAdminResolver {
   }
 
   @Query(() => [Meal], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getAllMealsAdmin(
     @Args() args: FindManyMealArgs,
     @Info() info: GraphQLResolveInfo,
@@ -68,7 +68,7 @@ export class MealAdminResolver {
   }
 
   @Query(() => Meal, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getMealAdmin(
     @Args() args: FindFirstMealArgs,
     @Info() info: GraphQLResolveInfo,
@@ -83,7 +83,7 @@ export class MealAdminResolver {
   }
 
   @Mutation(() => Meal, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createMealAdmin(
     @Args() args: CreateOneMealArgs,
     @Info() info: GraphQLResolveInfo,
@@ -98,7 +98,7 @@ export class MealAdminResolver {
   }
 
   @Mutation(() => [Meal], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createManyMealsAdmin(
     @Args() args: CreateManyMealArgs,
     @Info() info: GraphQLResolveInfo,
@@ -116,7 +116,7 @@ export class MealAdminResolver {
   }
 
   @Mutation(() => Meal, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteMealAdmin(
     @Args() args: DeleteOneMealArgs,
     @Info() info: GraphQLResolveInfo,
@@ -131,7 +131,7 @@ export class MealAdminResolver {
   }
 
   @Mutation(() => Int, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteManyMealsAdmin(@Args() args: DeleteManyMealArgs) {
     try {
       return (await this.prisma.meal.deleteMany({ ...args })).count;
@@ -142,7 +142,7 @@ export class MealAdminResolver {
   }
 
   @Mutation(() => Meal, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateMealAdmin(
     @Args() args: UpdateOneMealArgs,
     @Info() info: GraphQLResolveInfo,
@@ -157,7 +157,7 @@ export class MealAdminResolver {
   }
 
   @Mutation(() => [Meal], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateManyMealsAdmin(
     @Args() args: UpdateManyMealArgs,
     @Info() info: GraphQLResolveInfo,
@@ -184,7 +184,7 @@ export class MealAdminResolver {
   }
 
   @Mutation(() => Meal, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async upsertMealAdmin(
     @Args() args: UpsertOneMealArgs,
     @Info() info: GraphQLResolveInfo,

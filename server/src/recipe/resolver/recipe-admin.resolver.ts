@@ -25,7 +25,7 @@ export class RecipeAdminResolver {
   ) {}
 
   @Query(() => [Recipe], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getAllRecipesAdmin(
     @Args() args: FindManyRecipeArgs,
     @Info() info: GraphQLResolveInfo,
@@ -40,7 +40,7 @@ export class RecipeAdminResolver {
   }
 
   @Query(() => Recipe, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getRecipeAdmin(
     @Args() args: FindFirstRecipeArgs,
     @Info() info: GraphQLResolveInfo,
@@ -55,7 +55,7 @@ export class RecipeAdminResolver {
   }
 
   @Mutation(() => Recipe, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createRecipeAdmin(
     @Args() args: CreateOneRecipeArgs,
     @Info() info: GraphQLResolveInfo,
@@ -70,7 +70,7 @@ export class RecipeAdminResolver {
   }
 
   @Mutation(() => [Recipe], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createManyRecipesAdmin(
     @Args() args: CreateManyRecipeArgs,
     @Info() info: GraphQLResolveInfo,
@@ -94,7 +94,7 @@ export class RecipeAdminResolver {
   }
 
   @Mutation(() => Recipe, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteRecipeAdmin(
     @Args() args: DeleteOneRecipeArgs,
     @Info() info: GraphQLResolveInfo,
@@ -109,7 +109,7 @@ export class RecipeAdminResolver {
   }
 
   @Mutation(() => Int, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteManyRecipesAdmin(@Args() args: DeleteManyRecipeArgs) {
     try {
       return (await this.prisma.recipe.deleteMany({ ...args })).count;
@@ -120,7 +120,7 @@ export class RecipeAdminResolver {
   }
 
   @Mutation(() => Recipe, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateRecipeAdmin(
     @Args() args: UpdateOneRecipeArgs,
     @Info() info: GraphQLResolveInfo,
@@ -135,7 +135,7 @@ export class RecipeAdminResolver {
   }
 
   @Mutation(() => [Recipe], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateManyRecipesAdmin(
     @Args() args: UpdateManyRecipeArgs,
     @Info() info: GraphQLResolveInfo,
@@ -160,7 +160,7 @@ export class RecipeAdminResolver {
     }
   }
   @Mutation(() => Recipe, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async upsertRecipeAdmin(
     @Args() args: UpsertOneRecipeArgs,
     @Info() info: GraphQLResolveInfo,

@@ -26,7 +26,7 @@ export class MealBoardPlanAdminResolver {
   ) {}
 
   @Query(() => [MealBoardPlan], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getAllMealBoardPlansAdmin(
     @Args() args: FindManyMealBoardPlanArgs,
     @Info() info: GraphQLResolveInfo,
@@ -42,7 +42,7 @@ export class MealBoardPlanAdminResolver {
   }
 
   @Query(() => MealBoardPlan, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getMealBoardPlanAdmin(
     @Args() args: FindFirstMealBoardPlanArgs,
     @Info() info: GraphQLResolveInfo,
@@ -58,7 +58,7 @@ export class MealBoardPlanAdminResolver {
   }
 
   @Mutation(() => MealBoardPlan, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createMealBoardPlanAdmin(
     @Args() args: CreateOneMealBoardPlanArgs,
     @Info() info: GraphQLResolveInfo,
@@ -77,7 +77,7 @@ export class MealBoardPlanAdminResolver {
   }
 
   @Mutation(() => [MealBoardPlan], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createManyMealBoardPlansAdmin(
     @Args() args: CreateManyMealBoardPlanArgs,
     @Info() info: GraphQLResolveInfo,
@@ -101,7 +101,7 @@ export class MealBoardPlanAdminResolver {
   }
 
   @Mutation(() => MealBoardPlan, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteMealBoardPlanAdmin(
     @Args() args: DeleteOneMealBoardPlanArgs,
     @Info() info: GraphQLResolveInfo,
@@ -117,7 +117,7 @@ export class MealBoardPlanAdminResolver {
   }
 
   @Mutation(() => Int, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteManyMealBoardPlansAdmin(
     @Args() args: DeleteManyMealBoardPlanArgs,
   ) {
@@ -130,7 +130,7 @@ export class MealBoardPlanAdminResolver {
   }
 
   @Mutation(() => MealBoardPlan, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateMealBoardPlanAdmin(
     @Args("data") data: MealBoardPlanUncheckedUpdateInput,
     @Args({ name: "where", type: () => WeeklyMealGroupWhereUniqueInput })
@@ -152,7 +152,7 @@ export class MealBoardPlanAdminResolver {
   }
 
   @Mutation(() => [MealBoardPlan], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateManyMealBoardPlansAdmin(
     @Args() args: UpdateManyMealBoardPlanArgs,
     @Info() info: GraphQLResolveInfo,
@@ -182,7 +182,7 @@ export class MealBoardPlanAdminResolver {
   }
 
   @Mutation(() => MealBoardPlan, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async upsertMealBoardPlanAdmin(
     @Args() args: UpsertOneMealBoardPlanArgs,
     @Info() info: GraphQLResolveInfo,

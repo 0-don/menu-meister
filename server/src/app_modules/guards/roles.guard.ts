@@ -30,7 +30,7 @@ export class RolesGuard implements CanActivate {
 
     if (!rules.length) throw new UnauthorizedException(["enpoint has no role"]);
 
-    if (rules.includes("GUEST")) return true;
+    if (rules.includes("Guest")) return true;
 
     const ctx = GqlExecutionContext.create(context).getContext();
 
@@ -44,7 +44,7 @@ export class RolesGuard implements CanActivate {
       }) as JwtUser;
       await this.prisma.token.findFirstOrThrow({ where: { token } });
 
-      if (user.roles.includes("ADMIN")) return true;
+      if (user.roles.includes("Admin")) return true;
 
       return rules.some((rule) => user.roles.includes(rule));
     } catch (_) {

@@ -18,7 +18,7 @@ export class MealUserResolver {
   ) {}
 
   @Query(() => [Meal], { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async getAllMealsUser(
     @Args() args: FindManyMealArgs,
     @Info() info: GraphQLResolveInfo,
@@ -33,7 +33,7 @@ export class MealUserResolver {
   }
 
   @Query(() => Meal, { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async getMealUser(
     @Args() args: FindFirstMealArgs,
     @Info() info: GraphQLResolveInfo,

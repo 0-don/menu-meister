@@ -30,10 +30,7 @@ export class AuthService {
     });
 
     try {
-      if (
-        user &&
-        (await argon2.verify(user.password, data.password))
-      ) {
+      if (user && (await argon2.verify(user.password, data.password))) {
         const { password, ...result } = user;
         return result as User & {
           userRole: UserRole[];
@@ -66,7 +63,7 @@ export class AuthService {
     await this.prisma.userRole.create({
       data: {
         userId: user.id,
-        name: "USER",
+        name: "User",
         createdBy: user.id,
         updatedBy: user.id,
       },

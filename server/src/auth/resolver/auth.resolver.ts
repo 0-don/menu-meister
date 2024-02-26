@@ -17,7 +17,7 @@ export class AuthResolver {
   ) {}
 
   @Query(() => User, { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async me(@CurrentUser() me?: JwtUser) {
     if (!me) return null;
 
@@ -58,7 +58,7 @@ export class AuthResolver {
   }
 
   @Mutation(() => User, { nullable: true })
-  @Roles("GUEST")
+  @Roles("Guest")
   async registerUser(
     @Args("data") data: RegisterUserInput,
     @Context() ctx: GraphQLContext,
@@ -82,7 +82,7 @@ export class AuthResolver {
   }
 
   @Mutation(() => User, { nullable: true })
-  @Roles("GUEST")
+  @Roles("Guest")
   async loginUser(
     @Args("data") data: LoginUserInput,
     @Context() ctx: GraphQLContext,

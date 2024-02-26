@@ -25,7 +25,7 @@ export class UserAdminResolver {
   ) {}
 
   @Query(() => [User], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getAllUsersAdmin(
     @Args() args: FindManyUserArgs,
     @Info() info: GraphQLResolveInfo,
@@ -40,7 +40,7 @@ export class UserAdminResolver {
   }
 
   @Query(() => User, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getUserAdmin(
     @Args() args: FindFirstUserArgs,
     @Info() info: GraphQLResolveInfo,
@@ -55,7 +55,7 @@ export class UserAdminResolver {
   }
 
   @Mutation(() => User, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createUserAdmin(
     @Args() args: CreateOneUserArgs,
     @Info() info: GraphQLResolveInfo,
@@ -70,7 +70,7 @@ export class UserAdminResolver {
   }
 
   @Mutation(() => [User], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createManyUsersAdmin(
     @Args() args: CreateManyUserArgs,
     @Info() info: GraphQLResolveInfo,
@@ -94,7 +94,7 @@ export class UserAdminResolver {
   }
 
   @Mutation(() => User, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteUserAdmin(
     @Args() args: DeleteOneUserArgs,
     @Info() info: GraphQLResolveInfo,
@@ -109,7 +109,7 @@ export class UserAdminResolver {
   }
 
   @Mutation(() => Int, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteManyUsersAdmin(@Args() args: DeleteManyUserArgs) {
     try {
       return (await this.prisma.user.deleteMany({ ...args })).count;
@@ -120,7 +120,7 @@ export class UserAdminResolver {
   }
 
   @Mutation(() => User, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateUserAdmin(
     @Args() { data, where }: UpdateOneUserArgs,
     @Info() info: GraphQLResolveInfo,
@@ -139,7 +139,7 @@ export class UserAdminResolver {
   }
 
   @Mutation(() => [User], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateManyUsersAdmin(
     @Args() args: UpdateManyUserArgs,
     @Info() info: GraphQLResolveInfo,
@@ -161,7 +161,7 @@ export class UserAdminResolver {
   }
 
   @Mutation(() => User, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async upsertUserAdmin(
     @Args() args: UpsertOneUserArgs,
     @Info() info: GraphQLResolveInfo,

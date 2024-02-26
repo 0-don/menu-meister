@@ -40,7 +40,7 @@ export class WeeklyMealGroupAdminResolver {
   }
 
   @Mutation(() => Boolean)
-  @Roles("ADMIN")
+  @Roles("Admin")
   async switchDateWeeklyMealGroupAdmin(
     @Args("dateFrom") dateFrom: string,
     @Args("dateTo") dateTo: string,
@@ -69,7 +69,7 @@ export class WeeklyMealGroupAdminResolver {
   }
 
   @Mutation(() => Boolean)
-  @Roles("ADMIN")
+  @Roles("Admin")
   async switchWeeklyMealGroupAdmin(
     @Args("data") data: SwitchWeeklyMealGroupInput,
   ) {
@@ -91,7 +91,7 @@ export class WeeklyMealGroupAdminResolver {
   }
 
   @Query(() => [WeeklyMealGroup], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getAllWeeklyMealGroupsAdmin(
     @Args() args: FindManyWeeklyMealGroupArgs,
     @Info() info: GraphQLResolveInfo,
@@ -108,7 +108,7 @@ export class WeeklyMealGroupAdminResolver {
   }
 
   @Query(() => WeeklyMealGroup, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getWeeklyMealGroupAdmin(
     @Args() args: FindFirstWeeklyMealGroupArgs,
     @Info() info: GraphQLResolveInfo,
@@ -127,7 +127,7 @@ export class WeeklyMealGroupAdminResolver {
   }
 
   @Mutation(() => WeeklyMealGroup, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createWeeklyMealGroupAdmin(
     @Args("data") data: WeeklyMealGroupUncheckedCreateInput,
     @Info() info: GraphQLResolveInfo,
@@ -146,7 +146,7 @@ export class WeeklyMealGroupAdminResolver {
   }
 
   @Mutation(() => [WeeklyMealGroup], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createManyWeeklyMealGroupsAdmin(
     @Args() args: CreateManyWeeklyMealGroupArgs,
     @Info() info: GraphQLResolveInfo,
@@ -172,7 +172,7 @@ export class WeeklyMealGroupAdminResolver {
   }
 
   @Mutation(() => WeeklyMealGroup, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteWeeklyMealGroupAdmin(
     @Args() args: DeleteOneWeeklyMealGroupArgs,
     @Info() info: GraphQLResolveInfo,
@@ -188,7 +188,7 @@ export class WeeklyMealGroupAdminResolver {
   }
 
   @Mutation(() => Int, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteManyWeeklyMealGroupsAdmin(
     @Args() args: DeleteManyWeeklyMealGroupArgs,
   ) {
@@ -201,7 +201,7 @@ export class WeeklyMealGroupAdminResolver {
   }
 
   @Mutation(() => WeeklyMealGroup, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateWeeklyMealGroupAdmin(
     // @Args() args: UpdateOneWeeklyMealGroupArgs,
     @Args("data") data: WeeklyMealGroupUncheckedUpdateInput,
@@ -225,7 +225,7 @@ export class WeeklyMealGroupAdminResolver {
   }
 
   @Mutation(() => [WeeklyMealGroup], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateManyWeeklyMealGroupsAdmin(
     @Args() args: UpdateManyWeeklyMealGroupArgs,
     @Info() info: GraphQLResolveInfo,
@@ -248,7 +248,7 @@ export class WeeklyMealGroupAdminResolver {
   }
 
   @Mutation(() => WeeklyMealGroup, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async upsertWeeklyMealGroupAdmin(
     @Args() args: UpsertOneWeeklyMealGroupArgs,
     @Info() info: GraphQLResolveInfo,

@@ -4218,7 +4218,7 @@ export type introspection = {
             "name": "USER"
           },
           {
-            "name": "GUEST"
+            "name": "Guest"
           }
         ]
       },
@@ -96812,10 +96812,10 @@ export type introspection = {
   }
 };
 
-import * as gqlTada from 'gql.tada';
+import "gql.tada";
 
-declare module 'gql.tada' {
+declare module "gql.tada" {
   interface setupSchema {
-    introspection: introspection
+    introspection: introspection;
   }
 }

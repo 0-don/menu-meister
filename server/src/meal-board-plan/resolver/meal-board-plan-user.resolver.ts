@@ -17,7 +17,7 @@ export class MealBoardPlanUserResolver {
   ) {}
 
   @Query(() => [MealBoardPlan], { nullable: true })
-  @Roles("USER", "MOD", "ADMIN")
+  @Roles("User", "Mod", "Admin")
   async getAllMealBoardPlansUser(
     @Args() args: FindManyMealBoardPlanArgs,
     @Info() info: GraphQLResolveInfo,

@@ -22,7 +22,7 @@ export class UserMealAdminResolver {
   ) {}
 
   @Query(() => [UserMealGroupedUsersAdminOutput], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getUserMealsGroupedUsersAdmin(
     @Args("data") data: UserMealGroupedUsersAdminInput,
   ): Promise<UserMealGroupedUsersAdminOutput[]> {
@@ -91,7 +91,7 @@ export class UserMealAdminResolver {
   }
 
   @Query(() => [UserMealGroupedCountAdminOutput], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getUserMealsGroupedCountAdmin(
     @Args("data") data: UserMealGroupedCountAdminInput,
   ): Promise<UserMealGroupedCountAdminOutput[]> {
@@ -104,7 +104,7 @@ export class UserMealAdminResolver {
   }
 
   @Query(() => [UserMeal], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getAllUserMealsAdmin(
     @Args() args: FindManyUserMealArgs,
     @Info() info: GraphQLResolveInfo,

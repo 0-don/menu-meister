@@ -63,7 +63,7 @@ const seed = async () => {
   await createUser({
     email: EMAIL,
     password: await argon2.hash("!admin"),
-    roles: ["USER", "ADMIN"],
+    roles: ["User", "Admin"],
   });
 
   await seedSettings();
@@ -127,7 +127,7 @@ const seedUsers = async () => {
     const user = await createUser({
       email: faker.internet.email(),
       password: await argon2.hash("test"),
-      roles: ["USER"],
+      roles: ["User"],
     });
     await mealLocationsAndAllergens(user.id);
   }
@@ -715,7 +715,7 @@ const seedWeeklyMealGroups = async () => {
   for (const mealBoardPlan of mealBoardPlans) {
     for (let year = startYear; year <= currentYear; year++) {
       // For past years use all weeks, for the current year only up to the current week
-      let lastWeek = year < currentYear ? 52 : currentWeekNumber;
+      const lastWeek = year < currentYear ? 52 : currentWeekNumber;
 
       for (let week = 1; week <= lastWeek; week++) {
         for (let groupIndex = 0; groupIndex < 3; groupIndex++) {

@@ -25,7 +25,7 @@ export class UserMealUserResolver {
   ) {}
 
   @Query(() => [UserMeal], { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async getAllUserMealsUser(
     @Args() args: FindManyUserMealArgs,
     @Info() info: GraphQLResolveInfo,
@@ -40,7 +40,7 @@ export class UserMealUserResolver {
   }
 
   @Query(() => UserMeal, { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async getUserMealUser(
     @Args() args: FindFirstUserMealArgs,
     @Info() info: GraphQLResolveInfo,
@@ -55,7 +55,7 @@ export class UserMealUserResolver {
   }
 
   @Mutation(() => UserMeal, { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async createUserMealUser(
     @Args("data") data: UserMealUncheckedCreateInput,
     @Info() info: GraphQLResolveInfo,
@@ -82,7 +82,7 @@ export class UserMealUserResolver {
   }
 
   @Mutation(() => [UserMeal], { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async createManyUserMealsUser(
     @Args() args: CreateManyUserMealArgs,
     @Info() info: GraphQLResolveInfo,
@@ -101,7 +101,7 @@ export class UserMealUserResolver {
   }
 
   @Mutation(() => UserMeal, { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async deleteUserMealUser(
     @Args() args: DeleteOneUserMealArgs,
     @Info() info: GraphQLResolveInfo,
@@ -116,7 +116,7 @@ export class UserMealUserResolver {
   }
 
   @Mutation(() => Int, { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async deleteManyUserMealsUser(@Args() args: DeleteManyUserMealArgs) {
     try {
       return (await this.prisma.userMeal.deleteMany({ ...args })).count;
@@ -127,7 +127,7 @@ export class UserMealUserResolver {
   }
 
   @Mutation(() => UserMeal, { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async updateUserMealUser(
     @Args() args: UpdateOneUserMealArgs,
     @Info() info: GraphQLResolveInfo,
@@ -142,7 +142,7 @@ export class UserMealUserResolver {
   }
 
   @Mutation(() => [UserMeal], { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async updateManyUserMealsUser(
     @Args() args: UpdateManyUserMealArgs,
     @Info() info: GraphQLResolveInfo,
@@ -165,7 +165,7 @@ export class UserMealUserResolver {
   }
 
   @Mutation(() => UserMeal, { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async upsertUserMealUser(
     @Args() args: UpsertOneUserMealArgs,
     @Info() info: GraphQLResolveInfo,

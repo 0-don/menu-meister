@@ -25,7 +25,7 @@ export class UserMealLocationAdminResolver {
   ) {}
 
   @Query(() => [UserMealLocation], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getAllUserMealLocationsAdmin(
     @Args() args: FindManyUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
@@ -45,7 +45,7 @@ export class UserMealLocationAdminResolver {
   }
 
   @Query(() => UserMealLocation, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getUserMealLocationAdmin(
     @Args() args: FindFirstUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
@@ -64,7 +64,7 @@ export class UserMealLocationAdminResolver {
   }
 
   @Mutation(() => UserMealLocation, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createUserMealLocationAdmin(
     @Args("data") data: UserMealLocationUncheckedCreateInput,
     @Info() info: GraphQLResolveInfo,
@@ -83,7 +83,7 @@ export class UserMealLocationAdminResolver {
   }
 
   @Mutation(() => [UserMealLocation], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createManyUserMealLocationsAdmin(
     @Args() args: CreateManyUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
@@ -105,7 +105,7 @@ export class UserMealLocationAdminResolver {
   }
 
   @Mutation(() => UserMealLocation, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteUserMealLocationAdmin(
     @Args() args: DeleteOneUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
@@ -121,7 +121,7 @@ export class UserMealLocationAdminResolver {
   }
 
   @Mutation(() => Int, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteManyUserMealLocationsAdmin(
     @Args() args: DeleteManyUserMealLocationArgs,
   ) {
@@ -134,7 +134,7 @@ export class UserMealLocationAdminResolver {
   }
 
   @Mutation(() => UserMealLocation, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateUserMealLocationAdmin(
     @Args() args: UpdateOneUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
@@ -153,7 +153,7 @@ export class UserMealLocationAdminResolver {
   }
 
   @Mutation(() => [UserMealLocation], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateManyUserMealLocationsAdmin(
     @Args() args: UpdateManyUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
@@ -176,7 +176,7 @@ export class UserMealLocationAdminResolver {
   }
 
   @Mutation(() => UserMealLocation, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async upsertUserMealLocationAdmin(
     @Args() args: UpsertOneUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
@@ -195,7 +195,7 @@ export class UserMealLocationAdminResolver {
   }
 
   @Mutation(() => UserMealLocation, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateUserMealAdmin(
     @Args() args: UpdateOneUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,
@@ -214,7 +214,7 @@ export class UserMealLocationAdminResolver {
   }
 
   @Mutation(() => UserMealLocation, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async upsertUserMealAdmin(
     @Args() args: UpsertOneUserMealLocationArgs,
     @Info() info: GraphQLResolveInfo,

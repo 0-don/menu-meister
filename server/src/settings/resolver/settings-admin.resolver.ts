@@ -25,7 +25,7 @@ export class SettingsAdminResolver {
   ) {}
 
   @Query(() => [Settings], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getAllSettingsAdmin(
     @Args() args: FindManySettingsArgs,
     @Info() info: GraphQLResolveInfo,
@@ -40,7 +40,7 @@ export class SettingsAdminResolver {
   }
 
   @Query(() => Settings, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getSettingsAdmin(
     @Args() args: FindFirstSettingsArgs,
     @Info() info: GraphQLResolveInfo,
@@ -55,7 +55,7 @@ export class SettingsAdminResolver {
   }
 
   @Mutation(() => Settings, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createSettingsAdmin(
     @Args() args: CreateOneSettingsArgs,
     @Info() info: GraphQLResolveInfo,
@@ -70,7 +70,7 @@ export class SettingsAdminResolver {
   }
 
   @Mutation(() => [Settings], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createManySettingsAdmin(
     @Args() args: CreateManySettingsArgs,
     @Info() info: GraphQLResolveInfo,
@@ -94,7 +94,7 @@ export class SettingsAdminResolver {
   }
 
   @Mutation(() => Settings, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteSettingsAdmin(
     @Args() args: DeleteOneSettingsArgs,
     @Info() info: GraphQLResolveInfo,
@@ -109,7 +109,7 @@ export class SettingsAdminResolver {
   }
 
   @Mutation(() => Int, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteManySettingsAdmin(@Args() args: DeleteManySettingsArgs) {
     try {
       return (await this.prisma.settings.deleteMany({ ...args })).count;
@@ -120,7 +120,7 @@ export class SettingsAdminResolver {
   }
 
   @Mutation(() => Settings, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateSettingsAdmin(
     @Args() args: UpdateOneSettingsArgs,
     @Info() info: GraphQLResolveInfo,
@@ -135,7 +135,7 @@ export class SettingsAdminResolver {
   }
 
   @Mutation(() => [Settings], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateManySettingsAdmin(
     @Args() args: UpdateManySettingsArgs,
     @Info() info: GraphQLResolveInfo,
@@ -157,7 +157,7 @@ export class SettingsAdminResolver {
   }
 
   @Mutation(() => Settings, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async upsertSettingsAdmin(
     @Args() args: UpsertOneSettingsArgs,
     @Info() info: GraphQLResolveInfo,

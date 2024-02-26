@@ -17,7 +17,7 @@ export class AllergensUserResolver {
   ) {}
 
   @Query(() => [Allergens], { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async getAllAllergensUser(
     @Args() args: FindManyAllergensArgs,
     @Info() info: GraphQLResolveInfo,

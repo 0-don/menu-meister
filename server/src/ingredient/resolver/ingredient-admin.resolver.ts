@@ -25,7 +25,7 @@ export class IngredientAdminResolver {
   ) {}
 
   @Query(() => [Ingredient], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getAllIngredientsAdmin(
     @Args() args: FindManyIngredientArgs,
     @Info() info: GraphQLResolveInfo,
@@ -41,7 +41,7 @@ export class IngredientAdminResolver {
   }
 
   @Query(() => Ingredient, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async getIngredientAdmin(
     @Args() args: FindFirstIngredientArgs,
     @Info() info: GraphQLResolveInfo,
@@ -57,7 +57,7 @@ export class IngredientAdminResolver {
   }
 
   @Mutation(() => Ingredient, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createIngredientAdmin(
     @Args() args: CreateOneIngredientArgs,
     @Info() info: GraphQLResolveInfo,
@@ -73,7 +73,7 @@ export class IngredientAdminResolver {
   }
 
   @Mutation(() => [Ingredient], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async createManyIngredientsAdmin(
     @Args() args: CreateManyIngredientArgs,
     @Info() info: GraphQLResolveInfo,
@@ -92,7 +92,7 @@ export class IngredientAdminResolver {
   }
 
   @Mutation(() => Ingredient, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteIngredientAdmin(
     @Args() args: DeleteOneIngredientArgs,
     @Info() info: GraphQLResolveInfo,
@@ -108,7 +108,7 @@ export class IngredientAdminResolver {
   }
 
   @Mutation(() => Int, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async deleteManyIngredientsAdmin(@Args() args: DeleteManyIngredientArgs) {
     try {
       return (await this.prisma.ingredient.deleteMany({ ...args })).count;
@@ -119,7 +119,7 @@ export class IngredientAdminResolver {
   }
 
   @Mutation(() => Ingredient, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateIngredientAdmin(
     @Args() args: UpdateOneIngredientArgs,
     @Info() info: GraphQLResolveInfo,
@@ -135,7 +135,7 @@ export class IngredientAdminResolver {
   }
 
   @Mutation(() => [Ingredient], { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async updateManyIngredientsAdmin(
     @Args() args: UpdateManyIngredientArgs,
     @Info() info: GraphQLResolveInfo,
@@ -163,7 +163,7 @@ export class IngredientAdminResolver {
   }
 
   @Mutation(() => Ingredient, { nullable: true })
-  @Roles("ADMIN")
+  @Roles("Admin")
   async upsertIngredientAdmin(
     @Args() args: UpsertOneIngredientArgs,
     @Info() info: GraphQLResolveInfo,

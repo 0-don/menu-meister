@@ -429,10 +429,10 @@ type UserRole {
 }
 
 enum UserRoleName {
-  ADMIN
-  MOD
-  USER
-  GUEST
+  Admin
+  Mod
+  User
+  Guest
 }
 
 type Settings {

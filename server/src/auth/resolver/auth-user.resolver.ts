@@ -15,7 +15,7 @@ export class AuthUserResolver {
   ) {}
 
   @Mutation(() => Boolean, { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async logout(@Context() ctx: GraphQLContext, @CurrentUser() me?: JwtUser) {
     if (!me) return null;
 
@@ -23,7 +23,7 @@ export class AuthUserResolver {
   }
 
   @Mutation(() => Boolean, { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async changePasswordUser(
     @Args("password") password: string,
     @Args("newPassword") newPassword: string,
@@ -42,7 +42,7 @@ export class AuthUserResolver {
   }
 
   @Mutation(() => Boolean)
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async deleteAccountTokensUser(
     @Context() ctx: GraphQLContext,
     @CurrentUser() me?: JwtUser,

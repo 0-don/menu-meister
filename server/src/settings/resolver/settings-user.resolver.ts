@@ -14,7 +14,7 @@ export class SettingsUserResolver {
   ) {}
 
   @Query(() => SettingsUserOutput, { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async getSettingsUser() {
     try {
       return await this.prisma.settings.findFirst({

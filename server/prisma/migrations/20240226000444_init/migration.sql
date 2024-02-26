@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "UserRoleName" AS ENUM ('ADMIN', 'MOD', 'USER', 'GUEST');
+CREATE TYPE "UserRoleName" AS ENUM ('Admin', 'Mod', 'User', 'Guest');
 
 -- CreateEnum
 CREATE TYPE "Unit" AS ENUM ('G', 'L', 'ML', 'KG');

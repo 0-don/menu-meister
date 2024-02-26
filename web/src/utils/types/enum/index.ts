@@ -1,37 +1,43 @@
-export enum TimeOfDay {
-  Any = "Any",
-  Morning = "Morning",
-  Forenoon = "Forenoon",
-  Noon = "Noon",
-  Afternoon = "Afternoon",
-  Evening = "Evening",
-  Night = "Night",
-}
-export enum UserRoleName {
-  Admin = "ADMIN",
-  Mod = "MOD",
-  User = "USER",
-  Guest = "GUEST",
+import { graphql } from "gql.tada";
+
+function createEnum<T extends string>(keys: T[]): { [K in T]: K } {
+  return keys.reduce(
+    (acc, key) => {
+      acc[key] = key;
+      return acc;
+    },
+    {} as { [K in T]: K },
+  );
 }
 
-export enum MealLocation {
-  InRoom = "InRoom",
-  CommunalDining = "CommunalDining",
-  OutdoorPatio = "OutdoorPatio",
-  TherapyGarden = "TherapyGarden",
-  SpecialDietary = "SpecialDietary",
-  StaffCafeteria = "StaffCafeteria",
-  VisitorCafe = "VisitorCafe",
-  RehabilitationGym = "RehabilitationGym",
-  GroupActivityRoom = "GroupActivityRoom",
-  QuietRoom = "QuietRoom",
-  NutritionCenter = "NutritionCenter",
-  Poolside = "Poolside",
-  FamilyDining = "FamilyDining",
-  HealingGarden = "HealingGarden",
-  OnTheGo = "OnTheGo",
-}
-export enum SortOrder {
-  Asc = "Asc",
-  Desc = "Desc",
-}
+export const TimeOfDay = createEnum<
+  ReturnType<typeof graphql.scalar<"TimeOfDay">>
+>(["Any", "Morning", "Forenoon", "Noon", "Afternoon", "Evening", "Night"]);
+
+export const UserRoleName = createEnum<
+  ReturnType<typeof graphql.scalar<"UserRoleName">>
+>(["Admin", "Mod", "User", "Guest"]);
+
+export const MealLocation = createEnum<
+  ReturnType<typeof graphql.scalar<"MealLocation">>
+>([
+  "InRoom",
+  "CommunalDining",
+  "OutdoorPatio",
+  "TherapyGarden",
+  "SpecialDietary",
+  "StaffCafeteria",
+  "VisitorCafe",
+  "RehabilitationGym",
+  "GroupActivityRoom",
+  "QuietRoom",
+  "NutritionCenter",
+  "Poolside",
+  "FamilyDining",
+  "HealingGarden",
+  "OnTheGo",
+]);
+
+export const MealType = createEnum<
+  ReturnType<typeof graphql.scalar<"SortOrder">>
+>(["asc", "desc"]);

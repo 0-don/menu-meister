@@ -16,7 +16,7 @@ export class UserUserResolver {
   ) {}
 
   @Mutation(() => Boolean, { nullable: true })
-  @Roles("USER", "MOD")
+  @Roles("User", "Mod")
   async updateUserAllergensUser(
     @Args("data") data: UserUncheckedUpdateInput,
     @CurrentUser() me?: JwtUser,
