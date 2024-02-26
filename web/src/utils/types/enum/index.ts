@@ -1,9 +1,26 @@
 import { graphql } from "gql.tada";
 
-function createEnum<T extends string>(keys: T[]): { [K in T]: K } {
+type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
+  k: infer I,
+) => void
+  ? I
+  : never;
+type LastOf<T> =
+  UnionToIntersection<T extends any ? () => T : never> extends () => infer R
+    ? R
+    : never;
+
+type Push<T extends any[], V> = [...T, V];
+type TuplifyUnion<
+  T,
+  L = LastOf<T>,
+  N = [T] extends [never] ? true : false,
+> = true extends N ? [] : Push<TuplifyUnion<Exclude<T, L>>, L>;
+
+function createEnum<T extends string>(keys: TuplifyUnion<T>): { [K in T]: K } {
   return keys.reduce(
     (acc, key) => {
-      acc[key] = key;
+      (acc as any)[key] = key;
       return acc;
     },
     {} as { [K in T]: K },
@@ -16,7 +33,7 @@ export const TimeOfDay = createEnum<
 
 export const UserRoleName = createEnum<
   ReturnType<typeof graphql.scalar<"UserRoleName">>
->(["Admin", "Mod", "User", "Guest"]);
+>(["User", "Admin", "Mod", "Guest"]);
 
 export const MealLocation = createEnum<
   ReturnType<typeof graphql.scalar<"MealLocation">>
