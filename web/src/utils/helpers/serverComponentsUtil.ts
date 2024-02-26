@@ -1,19 +1,19 @@
 import { DehydratedState, QueryClient, dehydrate } from "@tanstack/react-query";
+import { TadaDocumentNode } from "gql.tada";
 import { cookies, headers } from "next/headers";
 import { ROLES, TOKEN } from "../constants";
 import getQueryClient from "../getQueryClient";
+import { UserRoleName } from "../types/enum";
 import { getKey } from "./clientUtils";
 import { customFetcherServer } from "./serverUtils";
-import { UserRoleName } from "../types/enum";
-import { TadaDocumentNode } from "gql.tada";
 
 export const X_URL = "x-url";
 
 export const ssrUrl = (): URL =>
   new URL(headers().get(X_URL) || process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT);
 
-export const ssrGetRoles = (): UserRoleName[] =>
-  (headers().get(ROLES)?.split(",") || []) as UserRoleName[];
+export const ssrGetRoles = (): (keyof typeof UserRoleName)[] =>
+  (headers().get(ROLES)?.split(",") || []) as (keyof typeof UserRoleName)[];
 
 export const ssrHeaders = (): HeadersInit => {
   const referer =

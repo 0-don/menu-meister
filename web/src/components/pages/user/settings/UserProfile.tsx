@@ -15,10 +15,10 @@ import {
   Listbox,
   ListboxItem,
 } from "@nextui-org/react";
-import { FaRegTrashAlt } from "react-icons/fa";
 import { ResultOf } from "gql.tada";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 type TimeOfDayAndMealLocation = {
   timeOfDay: string;
@@ -63,8 +63,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, refetch }) => {
         await createUserMealLocation({
           data: {
             userId: Number(user?.id),
-            mealLocation: changedState.mealLocation as MealLocation,
-            timeOfDay: changedState.timeOfDay as TimeOfDay,
+            mealLocation:
+              changedState.mealLocation as keyof typeof MealLocation,
+            timeOfDay: changedState.timeOfDay as keyof typeof TimeOfDay,
           },
         });
         refetch();

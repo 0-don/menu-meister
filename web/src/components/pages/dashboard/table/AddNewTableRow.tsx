@@ -6,10 +6,10 @@ import { TableStore } from "@/store/TableStore";
 import { catchErrorAlerts } from "@/utils/helpers/clientUtils";
 import { TimeOfDay } from "@/utils/types/enum";
 import { Button, Card, Input } from "@nextui-org/react";
-import { FaRegPlusSquare } from "react-icons/fa";
 import { FragmentOf } from "gql.tada";
 import { useTranslations } from "next-intl";
 import React, { FormEvent, useState } from "react";
+import { FaRegPlusSquare } from "react-icons/fa";
 import { useSnapshot } from "valtio";
 import { MyPopover } from "../../../elements/MyPopover";
 import { COLORS, ColorPalette } from "../utils/ColorPalette";
@@ -23,7 +23,9 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
   const tableStore = useSnapshot(TableStore);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
-  const [timeOfDay, setTimeOfDay] = useState<TimeOfDay>(TimeOfDay.Any);
+  const [timeOfDay, setTimeOfDay] = useState<keyof typeof TimeOfDay>(
+    TimeOfDay.Any,
+  );
   const [color, setColor] = useState<string>(COLORS[0].value);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -35,7 +37,7 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
       const res = await createWeeklyMealGroup({
         data: {
           mealBoardPlanId: Number(dashboardStore.activeMealBoardPlan?.id),
-          timeOfDay: timeOfDay as TimeOfDay,
+          timeOfDay: timeOfDay as keyof typeof TimeOfDay,
           name,
           color,
           orderIndex: tableStore.dataSorted.length,
@@ -99,7 +101,9 @@ export const AddNewTableRow: React.FC<AddNewTableRowProps> = ({}) => {
               name: t(key),
             }))}
             clearButtonProps={{ className: "invisible" }}
-            onSelectionChange={(key) => setTimeOfDay(key as TimeOfDay)}
+            onSelectionChange={(key) =>
+              setTimeOfDay(key as keyof typeof TimeOfDay)
+            }
           />
 
           <ColorPalette value={color} onChange={setColor} />
