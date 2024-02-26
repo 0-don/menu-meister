@@ -5,6 +5,7 @@ type UnionToIntersection<U> = (
 ) extends (arg: infer I) => void
   ? I
   : never;
+
 type UnionToTuple<T, A extends any[] = []> =
   UnionToIntersection<T extends never ? never : (t: T) => T> extends (
     _: never,
@@ -12,17 +13,11 @@ type UnionToTuple<T, A extends any[] = []> =
     ? UnionToTuple<Exclude<T, W>, [...A, W]>
     : A;
 
-function createEnum<T extends string>(keys: UnionToTuple<T>): { [K in T]: K } {
-  const tupleArray = keys as unknown as T[];
-
-  return tupleArray.reduce(
-    (acc, key) => {
-      acc[key] = key;
-      return acc;
-    },
+const createEnum = <T extends string>(keys: UnionToTuple<T>): { [K in T]: K } =>
+  (keys as T[]).reduce(
+    (acc, key) => ({ ...acc, [key]: key }),
     {} as { [K in T]: K },
   );
-}
 
 export const TimeOfDay = createEnum<
   ReturnType<typeof graphql.scalar<"TimeOfDay">>
