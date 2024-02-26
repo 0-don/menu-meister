@@ -1,56 +1,60 @@
 "use client";
-
-import { useRouter } from "@/navigation";
-import { Dialog, Transition } from "@headlessui/react";
-import React, { Fragment } from "react";
+import { AnimatePresence, Variants, motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
 
 interface MyModalProps {
   children?: React.ReactNode;
   className?: string;
 }
-
 export const MyModal: React.FC<MyModalProps> = ({ children, className }) => {
-  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(true);
+  const closeModal = () => setIsOpen(false);
+
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, []);
+
+  const backdropVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  };
+
+  const modalVariants: Variants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: { y: 0, opacity: 1 },
+  };
 
   return (
-    <Transition.Root show={true} as={Fragment}>
-      <Dialog
-        as="div"
-        className="relative z-[99]"
-        onClose={() => router.back()}
-      >
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity" />
-        </Transition.Child>
-
-        <div className="fixed inset-0 z-10 overflow-y-auto">
-          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              enterTo="opacity-100 translate-y-0 sm:scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            >
-              <Dialog.Panel
-                className={`bg-bodyBg relative mx-5 w-full overflow-hidden rounded-lg shadow-xl md:w-1/2 ${className}`}
-              >
-                {children}
-              </Dialog.Panel>
-            </Transition.Child>
-          </div>
-        </div>
-      </Dialog>
-    </Transition.Root>
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50"
+            variants={backdropVariants}
+            onClick={closeModal}
+          ></motion.div>
+          <motion.div
+            className={`relative z-10 mx-auto w-full rounded-lg p-6 shadow-lg ${className}`}
+            variants={modalVariants}
+            transition={{ duration: 0.5 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {children}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };

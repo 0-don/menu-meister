@@ -1,47 +1,35 @@
 "use client";
-
 import { GeneralStore } from "@/store/GeneralStore";
 import { AlertType } from "@/utils/types/store";
-import { animated, useTransition } from "@react-spring/web";
+import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import React, { useMemo } from "react";
+import React, { useEffect } from "react";
 import { VscChromeClose } from "react-icons/vsc";
 import { useSnapshot } from "valtio";
 
 interface AlertsProps {
-  config?: {
-    tension: number;
-    friction: number;
-    precision: number;
-  };
   timeout?: number;
 }
 
-export const Alerts: React.FC<AlertsProps> = ({
-  config = { tension: 125, friction: 20, precision: 0.1 },
-  timeout = 3000,
-}) => {
+export const Alerts: React.FC<AlertsProps> = ({ timeout = 3000 }) => {
   const t = useTranslations();
   const generalStore = useSnapshot(GeneralStore);
-  const refMap = useMemo(() => new WeakMap(), []);
-  const cancelMap = useMemo(() => new WeakMap(), []);
 
-  const transitions = useTransition(generalStore.alerts, {
-    from: { opacity: 0, height: 0, life: "100%" },
-    keys: (item) => item.id,
-    enter: (item) => async (next, cancel) => {
-      cancelMap.set(item, cancel);
-      await next({ opacity: 1, height: refMap.get(item).offsetHeight });
-      await next({ life: "0%" });
-    },
-    leave: [{ opacity: 0 }, { height: 0 }],
-    onRest: (_result: unknown, _ctrl: unknown, item: any) =>
-      GeneralStore.removeAlert(item.id),
-    config: (item, index, phase) => (key) =>
-      phase === "enter" && key === "life"
-        ? { duration: item?.duration || timeout }
-        : config,
-  });
+  useEffect(() => {
+    generalStore.alerts.forEach((alert) => {
+      const timer = setTimeout(
+        () => GeneralStore.removeAlert(alert.id),
+        alert.duration || timeout,
+      );
+      return () => clearTimeout(timer);
+    });
+  }, [generalStore.alerts, timeout]);
+
+  const variants = {
+    initial: { opacity: 0, y: 50, scale: 0.3 },
+    animate: { opacity: 1, y: 0, scale: 1 },
+    exit: { opacity: 0, y: -50, scale: 0.5 },
+  };
 
   const colors = (type: AlertType) => {
     if (type === "failure") {
@@ -85,40 +73,39 @@ export const Alerts: React.FC<AlertsProps> = ({
 
   return (
     <>
-      <div
-        className={`fixed bottom-auto right-10 top-7 z-50 m-auto flex flex-col items-end md:bottom-7 md:right-7 md:top-auto`}
-      >
-        {transitions(({ life, ...style }, item) => (
-          <animated.div
-            className="relative box-border w-[30ch] overflow-hidden md:w-[40ch]"
-            style={style}
-          >
-            <div
-              className={`mt-2 flex h-auto justify-between overflow-hidden p-3 pb-4 dark:opacity-90 ${
-                colors(item.type).background
-              }`}
-              ref={(ref: HTMLDivElement) => ref && refMap.set(item, ref)}
+      <div className="fixed bottom-auto right-10 top-7 z-50 m-auto flex flex-col items-end md:bottom-7 md:right-7 md:top-auto">
+        <AnimatePresence>
+          {generalStore.alerts.map((item) => (
+            <motion.div
+              key={item.id}
+              variants={variants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={{ duration: 0.5 }}
+              className="relative mt-2 box-border w-[30ch] overflow-hidden md:w-[40ch]"
             >
-              <animated.div
-                style={{ right: life }}
-                className={`absolute bottom-0 left-0 h-1 w-auto ${
-                  colors(item.type).life
-                }`}
-              />
-              <p>{t(item.msg as any)}</p>
-              <VscChromeClose
-                className={`cursor-pointer rounded-full ${
-                  colors(item.type).icon
-                }`}
-                onClick={(e: any) => {
-                  e.stopPropagation();
-                  if (cancelMap.has(item) && life.get() !== "0%")
-                    cancelMap.get(item)();
-                }}
-              />
-            </div>
-          </animated.div>
-        ))}
+              <div
+                className={`flex h-auto justify-between overflow-hidden p-3 pb-4 dark:opacity-90 ${colors(item.type).background}`}
+              >
+                <motion.div
+                  className={`absolute bottom-0 left-0 h-1 ${colors(item.type).life}`}
+                  initial={{ width: 0 }}
+                  animate={{
+                    width: "100%",
+                    transition: { duration: item.duration || timeout / 1000 },
+                  }}
+                  exit={{ width: 0 }}
+                />
+                <p>{t(item.msg as any)}</p>
+                <VscChromeClose
+                  className={`cursor-pointer rounded-full ${colors(item.type).icon}`}
+                  onClick={() => GeneralStore.removeAlert(item.id)}
+                />
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </>
   );

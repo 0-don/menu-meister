@@ -16,7 +16,6 @@
     "@dnd-kit/core": "next",
     "@dnd-kit/modifiers": "next",
     "@dnd-kit/sortable": "next",
-    "@headlessui/react": "^1.7.18",
     "@nextui-org/react": "^2.2.9",
     "@tanstack/react-query": "^5.24.1",
     "dayjs": "^1.11.10",
@@ -28,7 +27,6 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^5.0.1",
-    "react-spring": "^9.7.3",
     "sharp": "^0.33.2",
     "valtio": "^1.13.1"
   },
