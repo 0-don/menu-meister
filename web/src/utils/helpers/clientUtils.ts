@@ -14,7 +14,6 @@ export const getKey = <TData = any, TVariables = unknown>(
   (document?.definitions?.[0] as ExecutableDefinitionNode)?.name?.value || "",
 ];
 
-
 export function useIsSSR(): boolean {
   const IsSSRContext = React.createContext(false);
 
