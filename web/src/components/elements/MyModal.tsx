@@ -7,17 +7,20 @@ interface MyModalProps {
   pageModal?: boolean;
   children?: React.ReactNode;
   className?: string;
+  onClose?: (args?: any) => void;
 }
 export const MyModal: React.FC<MyModalProps> = ({
   pageModal,
   children,
   className,
+  onClose,
 }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(true);
   const closeModal = () => {
     setIsOpen(false);
     pageModal && router.back();
+    onClose && onClose();
   };
 
   useEffect(() => {

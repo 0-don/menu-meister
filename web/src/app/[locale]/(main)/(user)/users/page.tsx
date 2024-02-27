@@ -1,7 +1,6 @@
 "use client";
 
-import { GET_ALL_USERS_ADMIN } from "@/documents/query/user";
-import { useGqlQuery } from "@/fetcher";
+import { useUsersHook } from "@/components/hooks/useUsersHook";
 import { Link } from "@/navigation";
 import {
   Table,
@@ -19,10 +18,7 @@ interface UsersPageProps {}
 
 export default function UsersPage({}: UsersPageProps) {
   const t = useTranslations<"User">();
-  const { data: { getAllUsersAdmin } = {} } = useGqlQuery(
-    GET_ALL_USERS_ADMIN,
-    {},
-  );
+  const { allUsers } = useUsersHook();
 
   return (
     <>
@@ -39,7 +35,7 @@ export default function UsersPage({}: UsersPageProps) {
             </TableColumn>
           </TableHeader>
           <TableBody emptyContent={t("NO_USER")}>
-            {(getAllUsersAdmin || []).map((user) => (
+            {allUsers.map((user) => (
               <TableRow key={user.id}>
                 <TableCell>
                   <p className="w-12 truncate">{user.id}</p>
