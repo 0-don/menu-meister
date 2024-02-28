@@ -26,7 +26,7 @@ export const Navbar: React.FC<NavbarProps> = async ({}) => {
 
   const Items = (
     <>
-      <LanguageSwitch locale={locale} />
+      <LanguageSwitch locale={locale as "de" | "en"} />
       <ThemeSwitch />
       <Profile />
     </>
