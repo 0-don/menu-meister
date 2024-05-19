@@ -23,11 +23,8 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
             md:w-2/5 lg:w-2/5 xl:w-3/5 2xl:w-3/5`}
           />
 
-          <NextIntlProvider tree={["Alerts"]}>
+          <NextIntlProvider tree={["Alerts", "Navbar"]}>
             <Alerts />
-          </NextIntlProvider>
-
-          <NextIntlProvider tree={["Navbar"]}>
             <Navbar />
           </NextIntlProvider>
           {children}
