@@ -12,7 +12,7 @@ export default async function middleware(request: NextRequest) {
   });
   const response = handleI18nRouting(request);
 
-  response.headers.set("x-url", request.url);
+  response.headers.set(X_URL, request.url);
 
   return response;
 }
