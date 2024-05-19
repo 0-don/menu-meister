@@ -1,6 +1,7 @@
 import { LanguageSwitch } from "@/components/utils/LanguageSwitch";
 import { ThemeSwitch } from "@/components/utils/ThemeSwitch";
 import { ME } from "@/documents/query/auth";
+import { LOCALES } from "@/middleware";
 import { prefetchQuery, ssrUrl } from "@/utils/helpers/serverComponentsUtil";
 import { Link } from "@nextui-org/link";
 import {
@@ -11,7 +12,7 @@ import {
 } from "@nextui-org/navbar";
 import logo_mini from "@public/images/logo_mini.svg";
 import { HydrationBoundary } from "@tanstack/react-query";
-import { useLocale } from "next-intl";
+import { cookies } from "next/headers";
 import Image from "next/image";
 import React from "react";
 import { MainMenu } from "./MainMenu";
@@ -21,7 +22,7 @@ interface NavbarProps {}
 
 export const Navbar: React.FC<NavbarProps> = async ({}) => {
   const { state } = await prefetchQuery([{ document: ME }]);
-  const locale = useLocale();
+  const locale = cookies().get("NEXT_LOCALE")?.value || LOCALES[0];
   const pathname = ssrUrl().pathname;
 
   const Items = (
