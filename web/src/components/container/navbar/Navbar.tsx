@@ -2,7 +2,7 @@ import { LanguageSwitch } from "@/components/utils/LanguageSwitch";
 import { ThemeSwitch } from "@/components/utils/ThemeSwitch";
 import { ME } from "@/documents/query/auth";
 import { LOCALES } from "@/middleware";
-import { prefetchQuery } from "@/utils/helpers/serverComponentsUtil";
+import { prefetchQuery, ssrUrl } from "@/utils/helpers/serverComponentsUtil";
 import { Link } from "@nextui-org/link";
 import {
   NavbarBrand,
@@ -23,6 +23,7 @@ interface NavbarProps {}
 export const Navbar: React.FC<NavbarProps> = async ({}) => {
   const { state } = await prefetchQuery([{ document: ME }]);
   const locale = cookies().get("NEXT_LOCALE")?.value || LOCALES[0];
+  const pathname = ssrUrl().pathname;
 
   const Items = (
     <>
@@ -68,7 +69,7 @@ export const Navbar: React.FC<NavbarProps> = async ({}) => {
           </Link>
         </NavbarBrand>
 
-        <MainMenu />
+        <MainMenu pathname={pathname} />
 
         <NavbarContent
           className="hidden basis-1/5 sm:flex sm:basis-full"

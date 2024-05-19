@@ -1,12 +1,11 @@
 "use client";
-import { usePathname } from "@/navigation";
-import { LinkProps, Link as NextLink } from "@nextui-org/link";
-import React from "react";
+import { Link, usePathname } from "@/navigation";
+import React, { ComponentProps } from "react";
 
 type MyLinkProps = {
   href: string;
   children?: React.ReactNode;
-} & LinkProps;
+} & ComponentProps<typeof Link>;
 
 export const MyLink: React.FC<MyLinkProps> = ({
   href,
@@ -18,13 +17,13 @@ export const MyLink: React.FC<MyLinkProps> = ({
   const isActive = href === currentPath;
 
   return (
-    <NextLink
+    <Link
       className={`${isActive ? "font-bold" : ""} ${className || ""}`}
       href={href}
       color={isActive ? "primary" : "foreground"}
       {...rest}
     >
       {children}
-    </NextLink>
+    </Link>
   );
 };
