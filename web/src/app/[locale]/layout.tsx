@@ -30,7 +30,7 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
           <NextIntlProvider tree={["Navbar"]}>
             <Navbar />
           </NextIntlProvider>
-          <>{children}</>
+          {children}
         </Providers>
       </body>
     </html>
