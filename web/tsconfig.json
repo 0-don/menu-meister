@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -8,7 +7,7 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -16,11 +15,6 @@
     "plugins": [
       {
         "name": "next"
-      },
-      {
-        "name": "@0no-co/graphqlsp",
-        "schema": "./schema.graphql",
-        "tadaOutputLocation": "src/graphql-env.d.ts"
       }
     ],
     "paths": {
