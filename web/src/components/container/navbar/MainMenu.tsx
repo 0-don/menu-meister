@@ -4,7 +4,6 @@ import { MyLink } from "@/components/elements/MyLink";
 import { useMeHook } from "@/components/hooks/useMeHook";
 import { usePathname } from "@/navigation";
 import { getMenu } from "@/utils/helpers/clientUtils";
-import { MenuType } from "@/utils/types";
 import {
   NavbarContent,
   NavbarItem,
@@ -12,27 +11,20 @@ import {
   NavbarMenuItem,
 } from "@nextui-org/navbar";
 import { useTranslations } from "next-intl";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-interface MainMenuProps {
-  pathname: string;
-}
+interface MainMenuProps {}
 
-export const MainMenu: React.FC<MainMenuProps> = ({ pathname }) => {
+export const MainMenu: React.FC<MainMenuProps> = ({}) => {
   const t = useTranslations<"Navbar">();
   const { me } = useMeHook();
   const roles = me?.userRole?.map((role) => role.name) || [];
-  const p = usePathname();
-  const [path, setPath] = useState<string>(pathname || p);
-  const [links, setLinks] = useState<MenuType[]>(getMenu(roles));
-
-  useEffect(() => void setPath(p || pathname), [pathname, p]);
-  useEffect(() => void setLinks(getMenu(roles)), [me]);
+  const path = usePathname();
 
   return (
     <>
       <NavbarContent className="hidden gap-4 sm:flex">
-        {links.map(({ link, name }) => (
+        {getMenu(roles).map(({ link, name }) => (
           <NavbarItem
             key={link}
             isActive={path === link}
@@ -45,7 +37,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({ pathname }) => {
         ))}
       </NavbarContent>
       <NavbarMenu>
-        {links.map(({ link, name }) => (
+        {getMenu(roles).map(({ link, name }) => (
           <NavbarMenuItem key={link} isActive={path === link}>
             <MyLink href={link} size="lg" className="!font-bold">
               {t(name as keyof Messages["Navbar"])}
