@@ -1,16 +1,16 @@
 "use client";
 
 import { MyInput } from "@/components/elements/MyInput";
-import { BiLogIn } from "react-icons/bi";
 import { MyLink } from "@/components/elements/MyLink";
 import { LOGIN_USER } from "@/documents/mutation/auth";
-import { CgPassword } from "react-icons/cg";
 import { useGqlMutation } from "@/fetcher";
 import { useRouter } from "@/navigation";
 import { AuthStore, DisplayPassword } from "@/store/AuthStore";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/divider";
 import { useTranslations } from "next-intl";
+import { BiLogIn } from "react-icons/bi";
+import { CgPassword } from "react-icons/cg";
 import { useSnapshot } from "valtio";
 
 interface LoginPageProps {}
@@ -56,7 +56,7 @@ export default function LoginPage({}: LoginPageProps) {
         </p>
       </div>
       <div className="flex justify-center">
-        <MyLink href="/register" color="primary" size="sm">
+        <MyLink href="/register">
           {t("REGISTER_BUTTON")}
         </MyLink>
       </div>
