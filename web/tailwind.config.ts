@@ -18,9 +18,6 @@ const config: Config = {
       screens: {
         "3xl": "1921px",
       },
-      // screens: {
-      //   "3xl": "1921px",
-      // },
     },
   },
   darkMode: "class",
