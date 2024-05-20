@@ -1,10 +1,12 @@
 "use client";
 
+import { MyAutocomplete } from "@/components/elements/MyAutocomplete";
 import { useMeHook } from "@/components/hooks/useMeHook";
 import { useUserMealHook } from "@/components/hooks/useUserMealHook";
 import { useWeeklyMealGroupHook } from "@/components/hooks/useWeeklyMealGroupHook";
 import { DashboardStore } from "@/store/DashboardStore";
 import { TableStore } from "@/store/TableStore";
+import { WEEK_DAYS } from "@/utils/constants";
 import { DayMeals, Meal } from "@/utils/types";
 import { DndContext } from "@dnd-kit/core";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
@@ -15,6 +17,7 @@ import {
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import { useSnapshot } from "valtio";
+import { CopyTableWeek } from "./CopyTableWeek";
 import { TableGroupRow } from "./TableGroupRow";
 
 interface RenderDayColumnProps {
@@ -44,7 +47,34 @@ export function TableContext() {
   return (
     <main className="relative z-0 mt-5 flex w-full flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small">
       <div className="grid grid-cols-8 items-center gap-2 rounded-lg bg-default-100 font-semibold text-foreground-500">
+        <div className="flex items-center">
+          <MyAutocomplete
+            isClearable={false}
+            id="mealBoardPlan"
+            size="sm"
+            label={t("MEAL_BOARD_PLAN")}
+            labelPlacement="inside"
+            onSelectionChange={(id) => {
+              DashboardStore.activeMealBoardPlan =
+                dashboardStore.mealBoardPlans?.find(
+                  (plan) => plan.id === Number(id),
+                );
+            }}
+            items={(dashboardStore.mealBoardPlans || [])?.map(
+              ({ id, name }) => ({
+                id,
+                name,
+              }),
+            )}
+          />
+          {isHighRank && <CopyTableWeek />}
+        </div>
+        {WEEK_DAYS.map((day, index) => {
+          const title = t(day.toUpperCase() as keyof Messages["Meals"]);
 
+          return <RenderDayColumn key={title} dayKey={title} index={index} />;
+        })}
+      </div>
 
       <DndContext
         onDragStart={({ active }) => (TableStore.active = active)}
