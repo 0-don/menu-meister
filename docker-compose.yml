@@ -22,7 +22,7 @@ services:
     labels:
       - 'autoheal=true'
       - 'traefik.enable=true'
-      - 'traefik.http.routers.menu-meister-web.rule=Host(`menu-meister.coding.global`)'
+      - 'traefik.http.routers.menu-meister-web.rule=Host(`menu-meister.coding-global.com`)'
       - 'traefik.http.routers.menu-meister-web.entrypoints=websecure'
       - 'traefik.http.routers.menu-meister-web.tls.certresolver=letsencrypt'
       - 'traefik.http.services.menu-meister-web.loadbalancer.server.port=3000'
@@ -51,7 +51,7 @@ services:
     labels:
       - 'autoheal=true'
       - 'traefik.enable=true'
-      - 'traefik.http.routers.menu-meister-server.rule=Host(`menu-meister.coding.global`) && PathPrefix(`/graphql`)'
+      - 'traefik.http.routers.menu-meister-server.rule=Host(`menu-meister.coding-global.com`) && PathPrefix(`/graphql`)'
       - 'traefik.http.routers.menu-meister-server.entrypoints=websecure'
       - 'traefik.http.routers.menu-meister-server.tls.certresolver=letsencrypt'
       - 'traefik.http.services.menu-meister-server.loadbalancer.server.port=4000'
