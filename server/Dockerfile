@@ -14,6 +14,8 @@ RUN yarn add sharp --ignore-engines
 FROM node:22-alpine AS builder
 WORKDIR /app
 
+RUN apk add --no-cache openssl
+
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 RUN npx prisma generate
@@ -27,8 +29,9 @@ FROM node:22-alpine AS prod
 
 WORKDIR /app
 
-# Installv tzdata package
-RUN apk add --no-cache tzdata
+# openssl: prisma's schema engine dlopens libssl at runtime; without it the
+# engine fails to load and prisma reports the error as unparseable JSON.
+RUN apk add --no-cache tzdata openssl
 
 # Set the timezone
 ENV TZ=Europe/Berlin
