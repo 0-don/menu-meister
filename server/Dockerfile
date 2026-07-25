@@ -1,5 +1,5 @@
 # Stage 0
-FROM node:20-alpine3.17 AS deps
+FROM node:20-alpine AS deps
 WORKDIR /app
 
 COPY package.json ./
@@ -11,10 +11,10 @@ RUN yarn add sharp --ignore-engines
 
 
 # Stage 1
-FROM node:20-alpine3.17 AS builder
+FROM node:20-alpine AS builder
 WORKDIR /app
 
-RUN apk add --no-cache openssl openssl1.1-compat
+RUN apk add --no-cache openssl
 
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
@@ -25,14 +25,12 @@ RUN yarn build
 
 
 # Stage 2
-FROM node:20-alpine3.17 AS prod
+FROM node:20-alpine AS prod
 
 WORKDIR /app
 
-# prisma 5.14 ships schema-engine-linux-musl linked against openssl 1.1, which
-# alpine dropped after 3.17. Without libssl.so.1.1 the engine fails to relocate
-# and prisma surfaces the loader error as unparseable JSON.
-RUN apk add --no-cache tzdata openssl openssl1.1-compat
+# openssl is needed for prisma to resolve its engine at runtime.
+RUN apk add --no-cache tzdata openssl
 
 # Set the timezone
 ENV TZ=Europe/Berlin
