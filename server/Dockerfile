@@ -1,5 +1,5 @@
 # Stage 0
-FROM node:20-alpine AS deps
+FROM node:22-alpine AS deps
 WORKDIR /app
 
 COPY package.json ./
@@ -11,7 +11,7 @@ RUN yarn add sharp --ignore-engines
 
 
 # Stage 1
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 
 COPY . .
@@ -23,7 +23,7 @@ RUN yarn build
 
 
 # Stage 2
-FROM node:20-alpine AS prod
+FROM node:22-alpine AS prod
 
 WORKDIR /app
 

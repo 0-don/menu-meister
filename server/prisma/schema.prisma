@@ -1,5 +1,8 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  // Alpine ships musl + OpenSSL 3; without this Prisma guesses openssl-1.1.x and
+  // the schema engine fails to load, surfacing as "Could not parse schema engine response".
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
